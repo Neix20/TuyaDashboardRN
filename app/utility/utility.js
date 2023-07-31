@@ -88,10 +88,8 @@ function genRandomInt(min, max) {
 	return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-function roundDown(num, dec = 1) {
-	let res = 1;
-	res = Math.floor(num / dec) * dec;
-	return res;
+function roundDown(num, base = 1) {
+	return Math.floor(num - num % base)
 }
 
 function genTs() {
@@ -140,17 +138,19 @@ function formatWord(str) {
 
 // import * as langDict from "@config/lang";
 
-// function translate(key = "", lang = "en") {
-// 	let res = key;
+function translate(key = "", lang = "en") {
+	// let res = key;
 
-// 	const dict = langDict[lang] || {};
+	// const dict = langDict[lang] || {};
 
-// 	if (key in dict) {
-// 		res = dict[key];
-// 	}
+	// if (key in dict) {
+	// 	res = dict[key];
+	// }
 
-// 	return res;
-// }
+	// return res;
+
+	return key;
+}
 
 function splitItemsIntoTwo(arr) {
 	let fArr = [];
@@ -314,5 +314,6 @@ export {
 	cacheDownloadFile,
 	genBase64,
 	formatArrWithBase64,
-	roundDown
+	roundDown,
+	translate
 }
