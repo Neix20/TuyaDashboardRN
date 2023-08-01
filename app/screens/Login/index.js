@@ -12,7 +12,7 @@ import { info, error, Utility } from "@utility";
 
 import { Images, Animation } from "@config";
 
-import Lottie from 'lottie-react-native';
+import { BcSvgIcon } from "@components";
 
 function Index(props) {
     const toast = useToast();
@@ -27,7 +27,9 @@ function Index(props) {
 
     return (
         <SafeAreaView style={{ flex: 1 }}>
-            <View style={{ flex: 1 }}>
+            <View 
+                bgColor={"#FFF"}
+                style={{ flex: 1 }}>
 
                 {/* Header */}
                 <View style={{ height: 80 }} />
@@ -48,19 +50,17 @@ function Index(props) {
                             }}>
                             {/* Logo Header */}
                             <View alignItems={"center"}>
-                                <Lottie
-                                    source={Animation.Yuta}
-                                    style={{
-                                        width: width - 80,
-                                        height: 80
-                                    }} />
+                                <BcSvgIcon 
+                                    name={"AppLogo"} 
+                                    width={160} 
+                                    height={160} />
                             </View>
                             <VStack space={3}>
                                 {/* Login Header */}
                                 <View
                                     justifyContent={"center"}
                                     style={{
-                                        height: 80,
+                                        height: 40,
                                         width: width - 80,
                                     }}>
                                     <Text style={{
@@ -80,7 +80,7 @@ function Index(props) {
 
                                     <View bgColor={"#ddd"}>
                                         {/* Front Layer */}
-                                        <View style={{
+                                        {/* <View style={{
                                             position: "absolute",
                                             zIndex: 2,
                                             top: 5,
@@ -102,7 +102,8 @@ function Index(props) {
                                                     }]}>Request OTP</Text>
                                                 </View>
                                             </TouchableOpacity>
-                                        </View>
+                                        </View> */}
+                                        
                                         <TextInput
                                             keyboardType={"numeric"}
                                             style={{
@@ -123,7 +124,7 @@ function Index(props) {
                                         fontWeight: "bold"
                                     }}>Password</Text>
                                     <View bgColor={"#ddd"}>
-                                        
+
                                         <TextInput
                                             keyboardType={"visible-password"}
                                             style={{

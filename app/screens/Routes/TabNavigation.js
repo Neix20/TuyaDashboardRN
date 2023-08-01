@@ -6,6 +6,7 @@ import { View } from "native-base";
 
 import { BcTabNavigator } from "@components";
 
+import FontAwesome from "react-native-vector-icons/FontAwesome";
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 
 function TabIconFontAwesome(props) {
@@ -17,7 +18,7 @@ function TabIconFontAwesome(props) {
             style={{
                 height: 70,
             }}>
-            <FontAwesome5 name={icon} color={color} size={20} />
+            <FontAwesome name={icon} color={color} size={20} />
             <View>
                 <Text style={{
                     color: color,
@@ -39,6 +40,7 @@ function TabIconFontAwesome(props) {
 // Screens
 import Dashboard from "@screens/Dashboard";
 import Device from "@screens/Device";
+import Alert from "@screens/Alert";
 import Profile from "@screens/Profile";
 
 let TabScreens = {};
@@ -50,7 +52,7 @@ TabScreens = {
         title: "Dashboard",
         tabBarIcon: (props) => (
             <TabIconFontAwesome
-                icon={"chart-area"}
+                icon={"area-chart"}
                 title={"Dashboard"}
                 {...props} />
         )
@@ -62,6 +64,16 @@ TabScreens = {
             <TabIconFontAwesome
                 icon={"plug"}
                 title={"Device"}
+                {...props} />
+        )
+    },
+    Alert: {
+        component: Alert,
+        title: "Alert",
+        tabBarIcon: (props) => (
+            <TabIconFontAwesome
+                icon={"bell"}
+                title={"Alert"}
                 {...props} />
         )
     },

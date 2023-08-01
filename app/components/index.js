@@ -59,3 +59,9 @@ export {
     // BcReferralModal,
     BcLogoutModal,
 }
+
+import BcGradient from "./Gradient";
+
+export {
+    BcGradient
+}

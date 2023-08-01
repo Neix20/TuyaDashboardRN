@@ -4,7 +4,6 @@ import { View, VStack, HStack, Divider, useToast } from "native-base";
 
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 
-import Lottie from 'lottie-react-native';
 import { useNavigation, useIsFocused } from "@react-navigation/native";
 
 const screen = Dimensions.get("screen");
@@ -132,12 +131,7 @@ function Header(props) {
                 <HStack
                     style={{ width: width - 40 }}>
                     {/* Logo */}
-                    <Lottie
-                        source={Animation.Yuta}
-                        style={{
-                            width: 80,
-                            height: 40
-                        }} />
+                    <BcSvgIcon name={"Yuta"} width={80} height={40} />
                 </HStack>
             </View>
         </BcBoxShadow>
@@ -234,7 +228,7 @@ function Index(props) {
         <SafeAreaView style={{ flex: 1 }}>
             <View bgColor={"#FFF"} style={{ flex: 1 }}>
                 {/* Device */}
-                <Header>Merchant</Header>
+                <Header>Device</Header>
 
                 <View style={{ height: 5 }} />
 

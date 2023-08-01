@@ -174,12 +174,10 @@ function splitItemsIntoK(arr, col = 2) {
 
 		tArr.push(arr[ind]);
 
-		if (ind + 1 < arr.length) {
-			tArr.push(arr[ind + 1]);
-		}
-
-		if (ind + 2 < arr.length) {
-			tArr.push(arr[ind + 2]);
+		for(let jnd = 1; jnd < col; jnd += 1) {
+			if (ind + jnd < arr.length) {
+				tArr.push(arr[ind + jnd]);
+			}
 		}
 
 		fArr.push(tArr);
