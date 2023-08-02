@@ -19,6 +19,26 @@ function Index(props) {
     const navigation = useNavigation();
     const isFocused = useIsFocused();
 
+    // #region UseState
+    const [username, setUsername] = useState("");
+    const [password, setPassword] = useState("");
+    // #endregion
+
+    // #region Helper
+    const Login = () => {
+        if (username === "root" && password === "root") {
+            GoToHome();
+        } else {
+            setUsername("");
+            setPassword("");
+
+            toast.show({
+                description: "Account / Password is incorrect!"
+            })
+        }
+    }
+    // #endregion
+
     // #region Navigation
     const GoToHome = () => {
         navigation.navigate("TabNavigation", {
@@ -29,7 +49,7 @@ function Index(props) {
 
     return (
         <SafeAreaView style={{ flex: 1 }}>
-            <View 
+            <View
                 bgColor={"#FFF"}
                 style={{ flex: 1 }}>
 
@@ -52,26 +72,14 @@ function Index(props) {
                             }}>
                             {/* Logo Header */}
                             <View alignItems={"center"}>
-                                <BcSvgIcon 
-                                    name={"AppLogo"} 
-                                    width={160} 
+                                <BcSvgIcon
+                                    name={"AppLogo"}
+                                    width={160}
                                     height={160} />
                             </View>
                             <VStack space={3}>
-                                {/* Login Header */}
-                                <View
-                                    justifyContent={"center"}
-                                    style={{
-                                        height: 40,
-                                        width: width - 80,
-                                    }}>
-                                    <Text style={{
-                                        fontSize: 24,
-                                        fontFamily: "Roboto-Bold"
-                                    }}>Log In</Text>
-                                </View>
 
-                                {/* Mobile No */}
+                                {/* Username */}
                                 <View style={{
                                     width: width - 80
                                 }}>
@@ -105,14 +113,15 @@ function Index(props) {
                                                 </View>
                                             </TouchableOpacity>
                                         </View> */}
-                                        
+
                                         <TextInput
-                                            keyboardType={"default"}
+                                            defaultValue={username}
+                                            onChangeText={setUsername}
+                                            autoCapitalize={"none"}
                                             style={{
                                                 fontFamily: "Roboto-Medium",
                                                 fontSize: 20,
-                                                color: "#000",
-                                                maxWidth: 210
+                                                color: "#000"
                                             }} />
                                     </View>
                                 </View>
@@ -128,19 +137,20 @@ function Index(props) {
                                     <View bgColor={"#EEF3F6"}>
 
                                         <TextInput
-                                            keyboardType={"visible-password"}
+                                            secureTextEntry
+                                            defaultValue={password}
+                                            onChangeText={setPassword}
                                             style={{
                                                 fontFamily: "Roboto-Medium",
                                                 fontSize: 20,
                                                 color: "#000",
-                                                maxWidth: 210,
                                                 placeholder: "Enter OTP"
                                             }} />
                                     </View>
                                 </View>
 
                                 {/* Login Btn */}
-                                <TouchableOpacity onPress={GoToHome}>
+                                <TouchableOpacity onPress={Login}>
                                     <View backgroundColor={"#F00"}
                                         alignItems={"center"} justifyContent={"center"}
                                         style={{

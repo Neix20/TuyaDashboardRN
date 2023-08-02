@@ -46,7 +46,7 @@ function Index(props) {
         SplashScreen.hide();
     }, []);
 
-    const defaultScreen = "TabNavigation";
+    const defaultScreen = "Login";
 
     return (
         <BcStackNavigator

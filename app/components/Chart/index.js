@@ -151,6 +151,8 @@ function Index(props) {
             return null;
         }
 
+        console.log(ticks);
+
         return (
             <G x={x(positionX)} key="tooltip">
                 <G
@@ -166,13 +168,13 @@ function Index(props) {
                         fill="rgba(255, 255, 255, 0.8)"
                     />
 
-                    <SvgText x={apx(20)} fill="#617485" opacity={0.65} fontSize={apx(24)}>
+                    <SvgText x={apx(20)} fill="#617485" opacity={0.65} fontSize={20}>
                         {labels[positionX]}
                     </SvgText>
                     <SvgText
                         x={apx(20)}
                         y={apx(24 + 20)}
-                        fontSize={apx(24)}
+                        fontSize={18}
                         fontWeight="bold"
                         fill="rgba(224, 188, 136, 1)">
                         {data[positionX]}%
@@ -181,8 +183,8 @@ function Index(props) {
 
                 <G x={x}>
                     <Line
-                        y1={ticks[0]}
-                        y2={ticks[Number(ticks.length)]}
+                        y1={0}
+                        y2={600}
                         stroke="#FEBE18"
                         strokeWidth={apx(4)}
                         strokeDasharray={[6, 3]}
