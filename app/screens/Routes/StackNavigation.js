@@ -8,8 +8,11 @@ import Debug from "@screens/Debug";
 import TabNavigation from "./TabNavigation";
 
 import DeviceDetail from "@screens/DeviceDetail";
+import DeviceChart from "@screens/DeviceChart";
 
 import Login from "@screens/Login";
+
+
 
 let StackScreens = {};
 
@@ -30,6 +33,10 @@ StackScreens = {
     Login: {
         component: Login,
         title: "Login"
+    },
+    DeviceChart: {
+        component: DeviceChart,
+        title: "DeviceChart"
     }
 }
 
@@ -39,8 +46,7 @@ function Index(props) {
         SplashScreen.hide();
     }, []);
 
-    // const defaultScreen = (userId == -1) ? "Onboarding" : "TabNavigation";
-    const defaultScreen = "Debug";
+    const defaultScreen = "TabNavigation";
 
     return (
         <BcStackNavigator

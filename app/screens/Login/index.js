@@ -21,7 +21,9 @@ function Index(props) {
 
     // #region Navigation
     const GoToHome = () => {
-        navigation.navigate("TabNavigation");
+        navigation.navigate("TabNavigation", {
+            screen: "Dashboard",
+        });
     }
     // #endregion
 
@@ -78,7 +80,7 @@ function Index(props) {
                                         fontWeight: "bold"
                                     }}>Username</Text>
 
-                                    <View bgColor={"#ddd"}>
+                                    <View bgColor={"#EEF3F6"}>
                                         {/* Front Layer */}
                                         {/* <View style={{
                                             position: "absolute",
@@ -105,7 +107,7 @@ function Index(props) {
                                         </View> */}
                                         
                                         <TextInput
-                                            keyboardType={"numeric"}
+                                            keyboardType={"default"}
                                             style={{
                                                 fontFamily: "Roboto-Medium",
                                                 fontSize: 20,
@@ -123,7 +125,7 @@ function Index(props) {
                                         fontSize: 14,
                                         fontWeight: "bold"
                                     }}>Password</Text>
-                                    <View bgColor={"#ddd"}>
+                                    <View bgColor={"#EEF3F6"}>
 
                                         <TextInput
                                             keyboardType={"visible-password"}

@@ -49,15 +49,7 @@ function Header(props) {
 }
 
 function SvgLineChart(props) {
-    const { metaData, chart } = props;
-
-    let labels = [];
-
-    // Only Show 4
-    for (let ind = 0; ind <= 24; ind += 6) {
-        let key = ind.toString().padStart(2, "0");
-        labels.push(key);
-    }
+    const { metaData, chart, labels } = props;
 
     const Shadow = (props) => {
         const { lines } = props;
@@ -84,15 +76,13 @@ function SvgLineChart(props) {
                     fill: 'grey',
                     fontSize: 10,
                 }}
-                numberOfTicks={10}
             />
             <VStack>
                 <LineChartSvg
                     data={chart}
                     style={{ height: 300, width: width - 40 }}
                     svg={{
-                        stroke: 'rgb(134, 65, 244)',
-                        strokeWidth: 1,
+                        strokeWidth: 2,
                     }}
                     curve={shape.curveNatural}
                     contentInset={{ top: 20, bottom: 20 }}
@@ -438,6 +428,7 @@ function Index(props) {
 
     const [svgChart, setSvgChart] = useState(init.svgChart);
     const [svgLegend, setSvgLegend] = useState([init.legend]);
+    const [svgLabels, setSvgLabels] = useState(["00", "06", "12", "18", "24"]);
 
     const [svgMetaData, setSvgMetaData] = useState({})
     // #endregion
@@ -489,7 +480,7 @@ function Index(props) {
             setSvgMetaData({
                 min: minData,
                 max: maxData,
-            })
+            });
 
             // let key = legend[0];
             // let val = iRData[key];
@@ -501,6 +492,7 @@ function Index(props) {
         }
     }, [isFocused]);
 
+    // Update Legend
     useEffect(() => {
 
         let legend = [...svgLegend];
@@ -531,7 +523,77 @@ function Index(props) {
 
         setSvgChart(datasets);
 
-    }, [JSON.stringify(svgLegend.map(obj => obj.flag))])
+    }, [JSON.stringify(svgLegend.map(obj => obj.flag))]);
+
+    // Update Interval
+    useEffect(() => {
+
+        let interval = 0;
+        for(let ind in intervalPane) {
+            if(intervalPane[ind]) {
+                interval = +ind + 1;
+                break;
+            }
+        }
+
+        let label_interval = [
+            ["00", "01", "02", "03", "04"],
+            ["00", "03", "06", "09", "12"],
+            ["00", "05", "10", "14", "18"],
+            ["00", "06", "12", "18", "24"],
+        ];
+
+        let labels = label_interval[interval - 1];
+        setSvgLabels(labels);
+
+        interval *= 100;
+
+        let datasets = [];
+        let legend = [];
+
+        let minData = Number.MAX_VALUE;
+        let maxData = Number.MIN_VALUE;
+
+        let ind = 0;
+        for (let key in iRData) {
+            let val = iRData[key];
+
+            // Limit value
+            val = val.slice(0, interval);
+
+            val = val.map(obj => obj["Absolute_Humidity"]);
+
+            minData = Math.min(...val, minData);
+            maxData = Math.max(...val, maxData);
+
+            let obj = {
+                data: val,
+                svg: { stroke: init.colors[ind] },
+                strokeWidth: 2,
+            }
+
+            datasets.push(obj);
+
+            let legendObj = {
+                name: key,
+                flag: true,
+                color: init.colors[ind],
+            }
+
+            legend.push(legendObj);
+
+            ind += 1;
+        }
+
+        setSvgChart(datasets);
+        setSvgLegend(legend);
+
+        setSvgMetaData({
+            min: minData,
+            max: maxData,
+        });
+
+    }, [JSON.stringify(intervalPane)])
     // #endregion
 
     // #region Navigation
@@ -658,7 +720,8 @@ function Index(props) {
 
                                     <SvgLineChart
                                         metaData={svgMetaData}
-                                        chart={svgChart} />
+                                        chart={svgChart}
+                                        labels={svgLabels} />
 
                                     {/* Legend Checkbox */}
                                     <Legend data={svgLegend} onUpdateLegend={updateLegend} />

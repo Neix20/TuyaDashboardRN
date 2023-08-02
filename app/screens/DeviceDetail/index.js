@@ -73,7 +73,7 @@ function Details(props) {
 }
 
 function DevicePhoto(props) {
-    const {name, img} = props;
+    const { name, img } = props;
     return (
         <BcBoxShadow>
             <VStack
@@ -96,13 +96,13 @@ function DevicePhoto(props) {
                         }}>
                     </View>
                     <Image
-                            source={img}
-                            style={{
-                                width: 200,
-                                height: 200,
-                                borderRadius: 100,
-                            }}
-                            alt={"Model"} />
+                        source={img}
+                        style={{
+                            width: 200,
+                            height: 200,
+                            borderRadius: 100,
+                        }}
+                        alt={"Model"} />
                 </View>
 
                 {/* Name */}
@@ -113,6 +113,30 @@ function DevicePhoto(props) {
                 }}>{name}</Text>
             </VStack>
         </BcBoxShadow>
+    )
+}
+
+function ChartView(props) {
+    return (
+        <TouchableOpacity {...props}>
+            <BcBoxShadow>
+                <View
+                    py={3}
+                    bgColor={"#fff"}
+                    alignItems={"center"}
+                    style={{
+                        width: width,
+                    }}>
+                    <View style={{ width: width - 40 }}>
+                        <Text style={{
+                            fontSize: 16,
+                            color: "#F01421",
+                            fontFamily: "Roboto-Medium",
+                        }}>View Chart</Text>
+                    </View>
+                </View>
+            </BcBoxShadow>
+        </TouchableOpacity>
     )
 }
 
@@ -127,6 +151,12 @@ function Index(props) {
 
     const lang = "en";
 
+    // #region Navigation
+    const GoToChart = () => {
+        navigation.navigate("DeviceChart", device);
+    }
+    // #endregion
+
     return (
         <SafeAreaView style={{ flex: 1 }}>
             <View
@@ -138,10 +168,10 @@ function Index(props) {
 
                 <ScrollView
                     showsVerticalScrollIndicator={false}>
-
                     <VStack space={3}>
-                    <DevicePhoto {...device} />
-                    <Details {...device} />
+                        <DevicePhoto {...device} />
+                        <Details {...device} />
+                        <ChartView onPress={GoToChart} />
                     </VStack>
                 </ScrollView>
             </View>

@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useRef } from "react";
-import { Text, TouchableOpacity, Image, TextInput, Dimensions, SafeAreaView, ImageBackground, ScrollView, PanResponder } from "react-native";
+import React, { useState, useEffect } from "react";
+import { Text, TouchableOpacity, Image, TextInput, Dimensions, SafeAreaView, ImageBackground, ScrollView } from "react-native";
 import { View, VStack, HStack, useToast } from "native-base";
 
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
@@ -10,7 +10,7 @@ const { width, height } = screen;
 
 import { info, error, Utility } from "@utility";
 
-import { BcSvgChart } from "@components";
+import { BcHeader, BcBoxShadow, BcSvgChart } from "@components";
 
 import { iRData } from "@config";
 
@@ -19,33 +19,43 @@ function Index(props) {
     const navigation = useNavigation();
     const isFocused = useIsFocused();
 
-    const [chart, setChart] = useState([]);
-    const [label, setLabel] = useState([]);
+    // #region Props
+    const device = props.route.params;
+    const { name } = device;
+    // #endregion
 
-    const data = iRData["DCH-AHUX"]
+    // #region UseState
+    const [chartData, setChartData] = useState([]);
+    const [chartLabel, setChartLabel] = useState([]);
+    // #endregion
 
+    const data = iRData[name];
+
+    // #region UseEffect
     useEffect(() => {
         if (isFocused) {
+
             let val = data.slice(0, 100);
             val = val.map(obj => obj["Absolute_Humidity"]);
 
-            setChart(val);
+            setChartData(val);
 
             val = data.slice(0, 100);
             val = val.map(obj => obj["Timestamp"]);
             val = val.map(obj => obj.replace(" ", "T"));
             val = val.map(obj => Utility.formatDt(obj, "hh:mm"));
 
-            setLabel(val)
+            setChartLabel(val);
         }
     }, [isFocused]);
+    // #endregion
 
     return (
         <SafeAreaView style={{ flex: 1 }}>
             <View style={{ flex: 1 }}>
 
                 {/* Header */}
-                <View style={{ height: 80 }} />
+                <BcHeader>Device Chart</BcHeader>
 
                 <View style={{ height: 10 }} />
 
@@ -54,8 +64,8 @@ function Index(props) {
                     contentContainerStyle={{ flexGrow: 1 }}>
                     <View flexGrow={1} justifyContent={"center"}>
                         <BcSvgChart
-                            key={label.length}
-                            data={chart} labels={label} />
+                            key={chartLabel.length}
+                            data={chartData} labels={chartLabel} />
                     </View>
                 </ScrollView>
 

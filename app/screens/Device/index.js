@@ -80,17 +80,15 @@ function Search(props) {
 
 function Item(props) {
     const { lang } = props;
-    const { name, img, icon, product_name } = props;
+    const { name, img, icon, product_name, description } = props;
     const { onPress = () => { } } = props;
     const borderRadius = 8;
     return (
         <TouchableOpacity onPress={onPress}>
             <BcBoxShadow style={{ borderRadius: borderRadius }}>
-                <View
-                    py={2}
+                <VStack
+                    p={2} space={2}
                     bgColor={"#fff"}
-                    alignItems={"center"}
-                    justifyContent={"center"}
                     borderRadius={borderRadius}
                     style={{
                         width: (width - 60) / 2
@@ -98,18 +96,24 @@ function Item(props) {
                     <Image
                         source={img}
                         style={{
-                            height: 100,
-                            width: 100,
+                            height: 60,
+                            width: 60,
                         }}
                         resizeMode={"cover"}
                         alt={name} />
-                    <Text style={{
-                        fontSize: 18,
-                        textAlign: "center",
-                        fontFamily: 'Roboto-Medium',
-                        color: "#000",
-                    }}>{name}</Text>
-                </View>
+                    <VStack>
+                        <Text style={{
+                            fontSize: 14,
+                            fontFamily: 'Roboto-Bold',
+                            color: "#000",
+                        }}>{name}</Text>
+                        <Text style={{
+                            fontSize: 12,
+                            fontFamily: 'Roboto-Medium',
+                            color: "#c6c6c6"
+                        }}>{description}</Text>
+                    </VStack>
+                </VStack>
             </BcBoxShadow>
         </TouchableOpacity>
     )

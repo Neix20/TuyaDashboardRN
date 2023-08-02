@@ -65,3 +65,9 @@ import BcGradient from "./Gradient";
 export {
     BcGradient
 }
+
+import BcSvgChart from "./Chart";
+
+export {
+    BcSvgChart,
+}

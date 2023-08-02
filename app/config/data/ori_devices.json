@@ -1,0 +1,64 @@
+[
+  {
+    "name": "S8-Air-Detector",
+    "id": "eb152f18a5dc7238f93jup",
+    "product_name": "AIR_DETECTOR ",
+    "model": "",
+    "icon": "https://images.tuyaus.com/smart/icon/bay16345249392367NnR/c945428435e0f2cc5d8e17b8cdfbc47b.png"
+  },
+  {
+    "name": "S8-Plug",
+    "id": "ebe87da632d74e6ee4rljj",
+    "product_name": "Smart Plug",
+    "model": "wifi\u8ba1\u91cf\u63d2\u5ea7",
+    "icon": "https://images.tuyaus.com/smart/icon/ay15306906879543yc3O/d622e7793dbb9e628cc2e05d598d3c53.jpg"
+  },
+  {
+    "name": "DCH-STAG",
+    "id": "ebdf8984862ec18d85uqag",
+    "product_name": "Eva S1 Pro",
+    "model": "S1 PRO",
+    "icon": "https://images.tuyaus.com/smart/icon/bay1595482780734o3bJ/8db638ed23689b0041da7b6130f78c0c.png"
+  },
+  {
+    "name": "DCH-DEPA",
+    "id": "ebaa603f6178dd9013ejhx",
+    "product_name": "Eva S1 Pro",
+    "model": "S1 PRO",
+    "icon": "https://images.tuyaus.com/smart/icon/bay1595482780734o3bJ/8db638ed23689b0041da7b6130f78c0c.png"
+  },
+  {
+    "name": "DCH-FILL",
+    "id": "ebf5b46e1670277613oh7w",
+    "product_name": "Eva S1 Pro",
+    "model": "S1 PRO",
+    "icon": "https://images.tuyaus.com/smart/icon/bay1595482780734o3bJ/8db638ed23689b0041da7b6130f78c0c.png"
+  },
+  {
+    "name": "DCH-KETT",
+    "product_name": "Eva S1 Pro",
+    "model": "S1 PRO",
+    "icon": "https://images.tuyaus.com/smart/icon/bay1595482780734o3bJ/8db638ed23689b0041da7b6130f78c0c.png"
+  },
+  {
+    "name": "DCH-TIPP",
+    "id": "ebb555152e2cc6d786bbw5",
+    "product_name": "Eva S1 Pro",
+    "model": "S1 PRO",
+    "icon": "https://images.tuyaus.com/smart/icon/bay1595482780734o3bJ/8db638ed23689b0041da7b6130f78c0c.png"
+  },
+  {
+    "name": "DCH-AHUX",
+    "id": "eb30c798e4d7d65dd44fmg",
+    "product_name": "Eva S1 Pro",
+    "model": "S1 PRO",
+    "icon": "https://images.tuyaus.com/smart/icon/bay1595482780734o3bJ/8db638ed23689b0041da7b6130f78c0c.png"
+  },
+  {
+    "name": "DCH-CRYS",
+    "id": "eb0f025475f98f1b15vvkz",
+    "product_name": "Eva S1 Pro",
+    "model": "S1 PRO",
+    "icon": "https://images.tuyaus.com/smart/icon/bay1595482780734o3bJ/8db638ed23689b0041da7b6130f78c0c.png"
+  }
+]
