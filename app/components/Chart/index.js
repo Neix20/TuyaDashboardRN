@@ -151,8 +151,6 @@ function Index(props) {
             return null;
         }
 
-        console.log(ticks);
-
         return (
             <G x={x(positionX)} key="tooltip">
                 <G

@@ -117,7 +117,28 @@ android {
             keyAlias 'androiddebugkey'
             keyPassword 'android'
         }
+
+        release {
+            storeFile file('tuya.keystore')
+            storePassword 'vt8888'
+            keyAlias 'tuya'
+            keyPassword 'vt8888'
+        }
     }
+
+    flavorDimensions "version"
+    productFlavors {
+        tuya {
+            dimension "version"
+        }
+
+        tuyaDeveloper {
+            dimension "version"
+            applicationIdSuffix ".developer"
+            versionNameSuffix "-developer"
+        }
+    }
+
     buildTypes {
         debug {
             signingConfig signingConfigs.debug
