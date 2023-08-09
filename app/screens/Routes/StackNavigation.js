@@ -12,8 +12,6 @@ import DeviceChart from "@screens/DeviceChart";
 
 import Login from "@screens/Login";
 
-
-
 let StackScreens = {};
 
 StackScreens = {
