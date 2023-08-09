@@ -14,7 +14,14 @@ import { BcSvgChart } from "@components";
 
 import { iRData } from "@config";
 
-function Index(props) {
+import { Checkbox as PaperCheckbox, ToggleButton } from "react-native-paper";
+import { CheckBox as ElemCheckbox } from '@rneui/base';
+import { Checkbox as NativeCheckbox } from "native-base";
+
+
+
+
+function Chart(props) {
     const toast = useToast();
     const navigation = useNavigation();
     const isFocused = useIsFocused();
@@ -52,7 +59,7 @@ function Index(props) {
                 {/* Body */}
                 <ScrollView showsVerticalScrollIndicator={false}
                     contentContainerStyle={{ flexGrow: 1 }}>
-                    <View flexGrow={1} justifyContent={"center"}>
+                    <View flexGrow={1} justifyContent={"center"} alignItems={"center"}>
                         <BcSvgChart
                             key={label.length}
                             data={chart} labels={label} />
@@ -64,6 +71,69 @@ function Index(props) {
             </View>
         </SafeAreaView>
     );
+}
+
+function Index(props) {
+
+    const navigation = useNavigation();
+
+    // #region UseState
+    const [nativeFlag, setNativeFlag] = useState(false);
+    const [elemFlag, setElemFlag] = useState(false);
+    const [paperFlag, setPaperFlag] = useState(false);
+    // #endregion
+
+    // #region Toggle
+    const togglePaperFlag = () => setPaperFlag(paperFlag => !paperFlag);
+    const toggleNativeFlag = () => setNativeFlag(nativeFlag => !nativeFlag);
+    const toggleElemFlag = () => setElemFlag(elemFlag => !elemFlag);
+    // #endregion
+
+    return (
+        <SafeAreaView style={{ flex: 1 }}>
+            <View style={{ flex: 1 }}>
+
+                {/* Header */}
+                <View style={{ height: 80 }} />
+
+                <View style={{ height: 10 }} />
+
+                {/* Body */}
+                <ScrollView showsVerticalScrollIndicator={false}
+                    contentContainerStyle={{ flexGrow: 1 }}>
+                    <View flexGrow={1} justifyContent={"center"} alignItems={"center"}>
+                        <VStack space={1}>
+                            <HStack space={3} alignItems={"center"}>
+                                <NativeCheckbox colorScheme={"red"} />
+                                <Text>Native Checkbox</Text>
+                            </HStack>
+                            <HStack space={3} alignItems={"center"}>
+                                <NativeCheckbox defaultIsChecked />
+                                <Text>Native Checkbox: Checked</Text>
+                            </HStack>
+                        </VStack>
+                        <VStack space={1}>
+                            <HStack space={3} alignItems={"center"}>
+                                <PaperCheckbox status={paperFlag ? "checked" : "unchecked"} onPress={togglePaperFlag} />
+                                <Text>Paper Checkbox</Text>
+                            </HStack>
+                            <HStack space={3} alignItems={"center"}>
+                                <PaperCheckbox status={"checked"} />
+                                <Text>Paper Checkbox: Checked</Text>
+                            </HStack>
+                        </VStack>
+                        <VStack space={1}>
+                            <ElemCheckbox checked={elemFlag} onPress={toggleElemFlag} checkedColor="#F00" />
+                            <ElemCheckbox checked={true} />
+                        </VStack>
+                    </View>
+                </ScrollView>
+
+                {/* Footer */}
+                <View style={{ height: 80 }} />
+            </View>
+        </SafeAreaView>
+    )
 }
 
 export default Index;

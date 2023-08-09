@@ -155,6 +155,10 @@ function Index(props) {
     const GoToChart = () => {
         navigation.navigate("DeviceChart", device);
     }
+
+    const GoBack = () => {
+        navigation.goBack();
+    }
     // #endregion
 
     return (

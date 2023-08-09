@@ -50,6 +50,10 @@ function Index(props) {
     }, [isFocused]);
     // #endregion
 
+    const GoBack = () => {
+        navigation.goBack();
+    }
+
     return (
         <SafeAreaView style={{ flex: 1 }}>
             <View style={{ flex: 1 }}>

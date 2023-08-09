@@ -1,13 +1,11 @@
 import React from "react";
 
 import { Text, TouchableOpacity, Dimensions } from "react-native";
-import { View, HStack } from "native-base";
+import { View, HStack, useToast } from "native-base";
 
 const screen = Dimensions.get("screen");
 const { width, height } = screen;
 
-import AntDesign from "react-native-vector-icons/AntDesign";
-import FontAwesome from "react-native-vector-icons/FontAwesome";
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 
 import { useNavigation } from "@react-navigation/native";
@@ -18,6 +16,8 @@ function Index(props) {
     const { children, onBack = () => { } } = props;
 
     const navigation = useNavigation();
+
+    const toast = useToast();
 
     // #region Helper Functions
     const GoBack = () => {

@@ -1,6 +1,6 @@
 PODS:
   - boost (1.76.0)
-  - BVLinearGradient (2.8.1):
+  - BVLinearGradient (2.8.2):
     - React-Core
   - CocoaAsyncSocket (7.6.5)
   - DoubleConversion (1.1.6)
@@ -80,7 +80,7 @@ PODS:
   - hermes-engine/Pre-built (0.71.7)
   - libevent (2.1.12)
   - lottie-ios (4.2.0)
-  - lottie-react-native (6.0.1):
+  - lottie-react-native (6.1.2):
     - lottie-ios (~> 4.2.0)
     - React-Core
   - OpenSSL-Universal (1.1.1100)
@@ -341,7 +341,7 @@ PODS:
     - React-Core
   - react-native-splash-screen (3.3.0):
     - React-Core
-  - react-native-webview (13.3.0):
+  - react-native-webview (13.3.1):
     - React-Core
   - React-perflogger (0.71.7)
   - React-RCTActionSheet (0.71.7):
@@ -435,14 +435,13 @@ PODS:
     - React-Core
   - RNFS (2.20.0):
     - React-Core
-  - RNGestureHandler (2.12.0):
+  - RNGestureHandler (2.12.1):
     - React-Core
-  - RNReanimated (3.4.1):
+  - RNReanimated (2.14.4):
     - DoubleConversion
     - FBLazyVector
     - FBReactNativeSpec
     - glog
-    - hermes-engine
     - RCT-Folly
     - RCTRequired
     - RCTTypeSafety
@@ -452,7 +451,6 @@ PODS:
     - React-Core/RCTWebSocket
     - React-CoreModules
     - React-cxxreact
-    - React-hermes
     - React-jsi
     - React-jsiexecutor
     - React-jsinspector
@@ -466,12 +464,12 @@ PODS:
     - React-RCTText
     - ReactCommon/turbomodule/core
     - Yoga
-  - RNScreens (3.23.0):
+  - RNScreens (3.24.0):
     - React-Core
     - React-RCTImage
   - RNShare (9.2.3):
     - React-Core
-  - RNSVG (13.10.0):
+  - RNSVG (13.11.0):
     - React-Core
   - RNVectorIcons (10.0.0):
     - React-Core
@@ -680,7 +678,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   boost: 57d2868c099736d80fcd648bf211b4431e51a558
-  BVLinearGradient: 421743791a59d259aec53f4c58793aad031da2ca
+  BVLinearGradient: 916632041121a658c704df89d99f04acb038de0f
   CocoaAsyncSocket: 065fd1e645c7abab64f7a6a2007a48038fdc6a99
   DoubleConversion: 5189b271737e1565bdce30deb4a08d647e3f5f54
   FBLazyVector: a89a0525bc7ca174675045c2b492b5280d5a2470
@@ -699,7 +697,7 @@ SPEC CHECKSUMS:
   hermes-engine: 4438d2b8bf8bebaba1b1ac0451160bab59e491f8
   libevent: 4049cae6c81cdb3654a443be001fb9bdceff7913
   lottie-ios: 809ecf2d460ed650a6aed7aa88b2ec45fab4779c
-  lottie-react-native: 646955b3212c448d59cf1895a0cb485a0a7be3cf
+  lottie-react-native: 3d6f1b0db1fd9e18b92af1fbfbf67037611bae67
   OpenSSL-Universal: ebc357f1e6bc71fa463ccb2fe676756aff50e88c
   RCT-Folly: 424b8c9a7a0b9ab2886ffe9c3b041ef628fd4fb1
   RCTRequired: 5a4a30ac20c86eeadd6844a9328f78d4168cf9b2
@@ -718,7 +716,7 @@ SPEC CHECKSUMS:
   react-native-date-picker: 04e866ba4e7857f83abd504ad42e787f0f02ae00
   react-native-safe-area-context: 9697629f7b2cda43cf52169bb7e0767d330648c2
   react-native-splash-screen: 4312f786b13a81b5169ef346d76d33bc0c6dc457
-  react-native-webview: 8a4f68a75fc7efaedfdeba6d5aa2db4a4f74f281
+  react-native-webview: c2b70afb1d910cdd8810375aecc6c2894e2ba061
   React-perflogger: 2d505bbe298e3b7bacdd9e542b15535be07220f6
   React-RCTActionSheet: 0e96e4560bd733c9b37efbf68f5b1a47615892fb
   React-RCTAnimation: fd138e26f120371c87e406745a27535e2c8a04ef
@@ -736,11 +734,11 @@ SPEC CHECKSUMS:
   RNCAsyncStorage: f47fe18526970a69c34b548883e1aeceb115e3e1
   RNCClipboard: 3f0451a8100393908bea5c5c5b16f96d45f30bfc
   RNFS: 4ac0f0ea233904cb798630b3c077808c06931688
-  RNGestureHandler: dec4645026e7401a0899f2846d864403478ff6a5
-  RNReanimated: 6c5ec9e66b9d6a14e3f57c5f607f7c5169b6607e
-  RNScreens: 6a8a3c6b808aa48dca1780df7b73ea524f602c63
+  RNGestureHandler: c0d04458598fcb26052494ae23dda8f8f5162b13
+  RNReanimated: cc5e3aa479cb9170bcccf8204291a6950a3be128
+  RNScreens: b21dc57dfa2b710c30ec600786a3fc223b1b92e7
   RNShare: da6d90b6dc332f51f86498041d6e34211f96b630
-  RNSVG: 80584470ff1ffc7994923ea135a3e5ad825546b9
+  RNSVG: 03e4d258ca355d7836a0a5dd4d4dc63c1eb49cbb
   RNVectorIcons: 8b5bb0fa61d54cd2020af4f24a51841ce365c7e9
   SocketRocket: f32cd54efbe0f095c4d7594881e52619cfe80b17
   Yoga: d56980c8914db0b51692f55533409e844b66133c

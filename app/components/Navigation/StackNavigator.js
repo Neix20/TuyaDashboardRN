@@ -11,7 +11,8 @@ function Index(props) {
     const StackScreenArr = Object.values(StackScreens);
 
     return (
-        <Stack.Navigator initialRouteName={defaultScreen}
+        <Stack.Navigator 
+            initialRouteName={defaultScreen}
             screenOptions={{
                 headerShown: false,
                 swipeEdgeWidth: 0,
@@ -21,7 +22,8 @@ function Index(props) {
                 StackScreenArr.map((screen, ind) => {
                     const { title, component } = screen;
                     return (
-                        <Stack.Screen key={ind}
+                        <Stack.Screen 
+                            key={ind}
                             name={title}
                             component={component}
                             options={{ animation: 'slide_from_right' }}

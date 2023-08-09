@@ -21,7 +21,7 @@ import { iRData } from "@config";
 
 import * as shape from 'd3-shape';
 
-import { Checkbox } from "react-native-paper";
+import { CheckBox } from "@rneui/themed";
 
 // #region Components
 function Header(props) {
@@ -323,19 +323,18 @@ function CheckBoxLegend(props) {
     const { name, flag, color } = props;
     const { onPress = () => { } } = props;
     return (
-        <HStack alignItems={"center"} style={{
-            width: 100,
-        }}>
-            <Checkbox
-                status={flag ? 'checked' : 'unchecked'}
-                onPress={onPress}
-                color={color} />
-            <Text style={{
+        <View style={{width: 110}}>
+            <CheckBox
+            title={name}
+            titleProps={{
                 fontFamily: "Roboto-Medium",
                 fontSize: 16,
                 color: color,
-            }}>{name}</Text>
-        </HStack>
+            }}
+            checked={flag}
+            onPress={onPress}
+            checkedColor={color} />
+        </View>
     )
 }
 
@@ -529,8 +528,8 @@ function Index(props) {
     useEffect(() => {
 
         let interval = 0;
-        for(let ind in intervalPane) {
-            if(intervalPane[ind]) {
+        for (let ind in intervalPane) {
+            if (intervalPane[ind]) {
                 interval = +ind + 1;
                 break;
             }

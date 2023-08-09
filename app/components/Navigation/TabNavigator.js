@@ -95,6 +95,7 @@ const Index = (props) => {
     return (
         <Tab.Navigator
             initialRouteName={defaultScreen}
+            detachInactiveScreens={false}
             tabBar={MyTabBar}
             screenOptions={{
                 headerShown: false,
