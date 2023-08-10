@@ -33,7 +33,7 @@ function Header(props) {
                 <HStack
                     style={{ width: width - 40 }}>
                     {/* Logo */}
-                    <BcSvgIcon name={"Yuta"} width={80} height={40} />
+                    <BcSvgIcon name={"Yatu"} width={80} height={40} />
                 </HStack>
             </View>
         </BcBoxShadow>

@@ -18,7 +18,7 @@ import { Checkbox as PaperCheckbox, ToggleButton } from "react-native-paper";
 import { CheckBox as ElemCheckbox } from '@rneui/base';
 import { Checkbox as NativeCheckbox } from "native-base";
 
-
+import { Tab, TabView } from '@rneui/themed';
 
 
 function Chart(props) {
@@ -81,6 +81,8 @@ function Index(props) {
     const [nativeFlag, setNativeFlag] = useState(false);
     const [elemFlag, setElemFlag] = useState(false);
     const [paperFlag, setPaperFlag] = useState(false);
+
+    const [tabIndex, setTabIndex] = useState(0);
     // #endregion
 
     // #region Toggle
@@ -126,6 +128,16 @@ function Index(props) {
                             <ElemCheckbox checked={elemFlag} onPress={toggleElemFlag} checkedColor="#F00" />
                             <ElemCheckbox checked={true} />
                         </VStack>
+
+                        {/* Tab View */}
+                        <Tab
+                            value={tabIndex}
+                            onChange={(e) => setTabIndex(e)}
+                        >
+                            <Tab.Item title="Recent" />
+                            <Tab.Item title="favourite" />
+                            <Tab.Item title="cart" />
+                        </Tab>
                     </View>
                 </ScrollView>
 

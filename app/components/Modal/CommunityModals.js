@@ -14,22 +14,22 @@ const { width, height } = screen;
 import {BcSvgIcon} from "@components";
 
 function CloseBtn(props) {
-    // return (
-    //     <View
-    //         bgColor={"#c6c6c6"}
-    //         borderRadius={15}
-    //         alignItems={"center"}
-    //         justifyContent={"center"}
-    //         style={{
-    //             height: 24,
-    //             width: 24,
-    //         }}>
-    //         <FontAwesome name={"close"} size={15} color={"#fff"} />
-    //     </View>
-    // );
     return (
-        <BcSvgIcon name={"Cross"} width={24} height={24} fill={"#C6C6C6"} />
-    )
+        <View
+            bgColor={"#c6c6c6"}
+            borderRadius={15}
+            alignItems={"center"}
+            justifyContent={"center"}
+            style={{
+                height: 24,
+                width: 24,
+            }}>
+            <FontAwesome name={"close"} size={15} color={"#fff"} />
+        </View>
+    );
+    // return (
+    //     <BcSvgIcon name={"Cross"} width={24} height={24} fill={"#C6C6C6"} />
+    // )
 }
 
 function Index(props) {

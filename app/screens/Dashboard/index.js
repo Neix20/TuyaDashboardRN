@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { Text, TouchableOpacity, Image, TextInput, Dimensions, SafeAreaView, ImageBackground, ScrollView, FlatList } from "react-native";
-import { View, VStack, HStack, useToast } from "native-base";
+import { Text, TouchableOpacity, Image, Dimensions, SafeAreaView, ScrollView, FlatList } from "react-native";
+import { View, VStack, HStack, Divider, useToast } from "native-base";
 
+import AntDesign from "react-native-vector-icons/AntDesign";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 
@@ -10,7 +11,6 @@ import { useNavigation, useIsFocused } from "@react-navigation/native";
 const screen = Dimensions.get("screen");
 const { width, height } = screen;
 
-import { Animation } from "@config";
 import { info, error, Utility } from "@utility";
 
 import { BcSvgIcon, BcBoxShadow, BcHeader, BcGradient } from "@components";
@@ -21,7 +21,9 @@ import { iRData } from "@config";
 
 import * as shape from 'd3-shape';
 
-import { CheckBox } from "@rneui/themed";
+import { CheckBox, Tab, TabView, Text as ElemText } from "@rneui/themed";
+
+import { DateTime } from "luxon";
 
 // #region Components
 function Header(props) {
@@ -41,7 +43,7 @@ function Header(props) {
                 <HStack
                     style={{ width: width - 40 }}>
                     {/* Logo */}
-                    <BcSvgIcon name={"Yuta"} width={80} height={40} />
+                    <BcSvgIcon name={"Yatu"} width={80} height={40} />
                 </HStack>
             </View>
         </BcBoxShadow>
@@ -323,17 +325,17 @@ function CheckBoxLegend(props) {
     const { name, flag, color } = props;
     const { onPress = () => { } } = props;
     return (
-        <View style={{width: 110}}>
+        <View style={{ width: 110 }}>
             <CheckBox
-            title={name}
-            titleProps={{
-                fontFamily: "Roboto-Medium",
-                fontSize: 16,
-                color: color,
-            }}
-            checked={flag}
-            onPress={onPress}
-            checkedColor={color} />
+                title={name}
+                titleProps={{
+                    fontFamily: "Roboto-Medium",
+                    fontSize: 16,
+                    color: color,
+                }}
+                checked={flag}
+                onPress={onPress}
+                checkedColor={color} />
         </View>
     )
 }
@@ -380,6 +382,260 @@ function Legend(props) {
 }
 // #endregion
 
+// #region Modal
+import Modal from 'react-native-modal';
+
+import CustomToast from "@components/Modal/CustomToast";
+
+function DateModalParent(props) {
+
+    // #region Initial
+    const init = {
+        toast: {
+            msg: "Test",
+            flag: false
+        }
+    }
+    // #endregion
+
+    // #region Props
+    const { children } = props;
+    const { showModal, setShowModal } = props;
+    const { cusToast = init.toast } = props;
+    // #endregion
+
+    return (
+        <Modal
+            isVisible={showModal}
+            animationIn={'slideInUp'}
+            animationOut={'slideOutDown'}
+            onBackButtonPress={() => setShowModal(false)}
+            onBackdropPress={() => setShowModal(false)}
+            style={{ margin: 0 }}>
+            <SafeAreaView style={{ flex: 1 }}>
+                <View style={{ flex: 1 }}>
+
+                    {/* Front Layer */}
+                    <View style={{
+                        position: "absolute",
+                        zIndex: 20,
+                        bottom: 10,
+                        left: 0,
+                        right: 0,
+                        display: (cusToast.flag) ? "flex" : "none"
+                    }} alignItems={"center"}>
+                        <CustomToast>{cusToast.msg}</CustomToast>
+                    </View>
+
+                    {/* Content */}
+                    {children}
+                </View>
+            </SafeAreaView>
+        </Modal>
+    )
+}
+
+function DRangeItem(props) {
+    return (<></>);
+}
+
+function DateView(props) {
+
+    // #region Props
+    const { curDt, setCurDt } = props;
+    const { prevDt, setPrevDt } = props;
+    // #endregion
+
+    // #region Init
+    const selDateArr = [
+        {
+            "title": "Yesterday",
+            "date": "2023-08-09",
+        },
+        {
+            "title": "Today",
+            "date": "2023-08-10",
+        }
+    ];
+    const cmpDateArr = ["2023-08-08", "2023-08-02", "2022-08-09", "2022-08-10"];
+    // #endregion
+
+    // #region UseState
+    const [selPos, setSelPos] = useState(0);
+    // #endregion
+
+    // #region UseEffect
+    // #endregion
+
+    // #region Render
+    const renderSelectDate = ({ item, index }) => {
+        const { title, date } = item;
+        const flag = index === selPos;
+
+        const onSelect = () => togglePos(index);
+
+        return (
+            <>
+                <TouchableOpacity onPress={onSelect}>
+                    <View alignItems={"center"} py={3}>
+                        <HStack
+                            alignItems={"center"}
+                            justifyContent={"space-between"}
+                            style={{ width: 360 }}>
+
+                            <VStack space={1}>
+                                <Text style={{
+                                    fontFamily: "Roboto-Medium",
+                                    fontSize: 16,
+                                    color: flag ? "#F00" : "#000"
+                                }}>{title}</Text>
+                                <Text style={{
+                                    fontFamily: "Roboto-Medium",
+                                    fontSize: 16,
+                                    color: "#c6c6c6"
+                                }}>{Utility.formatDt(date, "EEEE, d MMMM")}</Text>
+                            </VStack>
+
+                            <View
+                                display={flag ? "flex" : "none"}
+                                alignItems={"center"} justifyContent={"center"}
+                                style={{ width: 40, height: 40 }}>
+                                <AntDesign name={"check"} size={25} color={"#F00"} />
+                            </View>
+                        </HStack>
+                    </View>
+                </TouchableOpacity>
+
+                <View alignItems={"center"}>
+                    <Divider my={2} width={width - 40} />
+                </View>
+            </>
+        );
+    }
+    // #endregion
+
+    // #region Helper
+    const togglePos = (index) => {
+        setSelPos(index);
+    }
+    // #endregion
+
+    return (
+        <TabView.Item style={{ width: '100%' }}>
+            <FlatList
+                data={selDateArr}
+                renderItem={renderSelectDate}
+            />
+        </TabView.Item>
+    )
+}
+
+function CustomView(props) {
+    return (
+        <TabView.Item style={{ width: '100%' }}>
+            <ElemText>Custom</ElemText>
+        </TabView.Item>
+    );
+}
+
+function DateModal(props) {
+
+    // #region Props
+    const { showModal, setShowModal } = props;
+    // #endregion
+
+    // #region Init
+    const init = {
+        activeColor: "#F00",
+        inActiveColor: "#000",
+    }
+    // #endregion
+
+    // #region UseState
+    const [datePaneInd, setDatePaneInd] = useState(0);
+    // #endregion
+
+    // #region Helper
+    const closeModal = () => setShowModal(false);
+    // #endregion
+
+    return (
+        <DateModalParent {...props}>
+            <View
+                bgColor={"#FFF"}
+                style={{
+                    flexGrow: 1,
+                }}>
+                <View alignItems={"center"}>
+                    <HStack py={3}
+                        alignItems={"center"} justifyContent={"space-between"}
+                        style={{
+                            width: width - 40
+                        }}>
+                        <TouchableOpacity onPress={closeModal}>
+                            <View alignItems={"center"} justifyContent={"center"}
+                                style={{ width: 40, height: 40 }}>
+                                <AntDesign name={"close"} size={25} />
+                            </View>
+                        </TouchableOpacity>
+
+                        <View
+                            style={{ width: width - 160 }}>
+                            <Text style={{
+                                fontFamily: "Roboto-medium",
+                                fontSize: 18
+                            }}>Date Range</Text>
+                        </View>
+
+                        <TouchableOpacity onPress={closeModal}>
+                            <View>
+                                <Text style={{
+                                    fontFamily: "Roboto-medium",
+                                    fontSize: 16,
+                                    color: "#00F"
+                                }}>Save</Text>
+                            </View>
+                        </TouchableOpacity>
+                    </HStack>
+                </View>
+
+                <View>
+                    <Tab
+                        dense
+                        value={datePaneInd}
+                        onChange={(e) => setDatePaneInd(e)}
+                        indicatorStyle={{
+                            backgroundColor: init.activeColor,
+                            height: 3,
+                        }}>
+                        <Tab.Item title={"Date"} titleStyle={(active) => ({ color: (active) ? init.activeColor : init.inActiveColor })} />
+                        <Tab.Item title={"Week"} titleStyle={(active) => ({ color: (active) ? init.activeColor : init.inActiveColor })} />
+                        <Tab.Item title={"Month"} titleStyle={(active) => ({ color: (active) ? init.activeColor : init.inActiveColor })} />
+                        <Tab.Item title={"Custom"} titleStyle={(active) => ({ color: (active) ? init.activeColor : init.inActiveColor })} />
+                    </Tab>
+                </View>
+
+                <View style={{ height: 10 }} />
+
+                {/* Body */}
+                <ScrollView
+                    showsVerticalScrollIndicator={false}
+                    contentContainerStyle={{ flexGrow: 1 }}>
+                    <TabView
+                        value={datePaneInd}
+                        onChange={(e) => setDatePaneInd(e)}>
+                        <DateView />
+                        <DateView />
+                        <DateView />
+                        <CustomView />
+                    </TabView>
+                </ScrollView>
+            </View>
+        </DateModalParent>
+    )
+}
+// #endregion
+
 function Index(props) {
     const toast = useToast();
     const navigation = useNavigation();
@@ -423,13 +679,18 @@ function Index(props) {
     // #region UseState
     const [tabPane, setTabPane] = useState([true, false]);
     const [intervalPane, setIntervalPane] = useState([false, false, false, true]);
-    const [devicePane, setDevicePane] = useState([true, false, false]);
+
+    const [devicePaneInd, setDevicePaneInd] = useState(0);
 
     const [svgChart, setSvgChart] = useState(init.svgChart);
     const [svgLegend, setSvgLegend] = useState([init.legend]);
     const [svgLabels, setSvgLabels] = useState(["00", "06", "12", "18", "24"]);
 
-    const [svgMetaData, setSvgMetaData] = useState({})
+    const [svgMetaData, setSvgMetaData] = useState({});
+
+    const [curDt, setCurDt] = useState("2023-08-09");
+    const [prevDt, setPrevDt] = useState("2023-08-10");
+    const [showDateModal, setShowDateModal] = useState(false);
     // #endregion
 
     // #region UseEffect
@@ -527,6 +788,7 @@ function Index(props) {
     // Update Interval
     useEffect(() => {
 
+        // Get Interval Index
         let interval = 0;
         for (let ind in intervalPane) {
             if (intervalPane[ind]) {
@@ -535,6 +797,7 @@ function Index(props) {
             }
         }
 
+        // Update Interval
         let label_interval = [
             ["00", "01", "02", "03", "04"],
             ["00", "03", "06", "09", "12"],
@@ -618,7 +881,6 @@ function Index(props) {
         }
 
         arr[pos] = true;
-
         setTabPane(arr);
     }
 
@@ -634,18 +896,6 @@ function Index(props) {
         setIntervalPane(arr);
     }
 
-    const updateDevice = (pos) => {
-        let arr = [...devicePane];
-
-        for (let ind in arr) {
-            arr[ind] = false;
-        }
-
-        arr[pos] = true;
-
-        setDevicePane(arr);
-    }
-
     const updateLegend = (pos) => {
 
         console.log(pos);
@@ -657,7 +907,79 @@ function Index(props) {
 
         setSvgLegend(arr);
     }
+
+    const toggleDateModal = () => {
+        setShowDateModal(showDateModal => !showDateModal);
+    }
     // #endregion
+
+    return (
+        <>
+            <DateModal showModal={showDateModal} setShowModal={setShowDateModal} />
+            <SafeAreaView style={{ flex: 1 }}>
+                <View style={{ flex: 1 }}>
+                    {/* Header */}
+                    <Header>Dashboard</Header>
+
+                    <TouchableOpacity onPress={toggleDateModal}>
+                        <View py={3}
+                            bgColor={"#fff"}
+                            alignItems={"center"}>
+                            <HStack
+                                alignItems={"center"}
+                                justifyContent={"space-between"}
+                                style={{ width: width - 40 }}>
+                                <HStack space={3} alignItems={"center"}>
+                                    <FontAwesome5 name={"calendar-alt"} size={27} color={"#606267"} />
+                                    <VStack space={1}>
+                                        <Text style={{
+                                            fontFamily: "Roboto-Bold",
+                                            fontSize: 16,
+                                        }}>{Utility.formatDt(curDt, "EEEE, d MMMM")}</Text>
+                                        <Text>vs {Utility.formatDt(prevDt, "EEEE, d MMMM")}</Text>
+                                    </VStack>
+                                </HStack>
+                                <HStack>
+                                    <TouchableOpacity>
+                                        <View
+                                            // bgColor={"#F00"}
+                                            justifyContent={"center"}
+                                            alignItems={"center"}
+                                            style={{ height: 40, width: 40 }}>
+                                            <FontAwesome name={"angle-left"} size={27} />
+                                        </View>
+                                    </TouchableOpacity>
+                                    <TouchableOpacity>
+                                        <View
+                                            // bgColor={"#F00"}
+                                            justifyContent={"center"}
+                                            alignItems={"center"}
+                                            style={{ height: 40, width: 40 }}>
+                                            <FontAwesome name={"angle-right"} size={27} />
+                                        </View>
+                                    </TouchableOpacity>
+                                </HStack>
+                            </HStack>
+                        </View>
+                    </TouchableOpacity>
+
+                    <View style={{ height: 10 }} />
+
+                    {/* Body */}
+                    <ScrollView
+                        nestedScrollEnabled={true}
+                        showsVerticalScrollIndicator={false}
+                        contentContainerStyle={{ flexGrow: 1 }}>
+
+
+                    </ScrollView>
+                </View>
+            </SafeAreaView>
+
+        </>
+    );
+
+    {/* Debug */ }
     return (
         <SafeAreaView style={{ flex: 1 }}>
             <View style={{ flex: 1 }}>
@@ -696,13 +1018,21 @@ function Index(props) {
                         </HStack>
 
                         {/* Device Pane */}
-                        <HStack
+                        {/* <HStack
                             space={3}
                             alignItems={"center"}>
                             <DeviceAtom onPress={() => updateDevice(0)} flag={devicePane[0]}>IR Temp</DeviceAtom>
                             <DeviceAtom onPress={() => updateDevice(1)} flag={devicePane[1]}>Air Quality</DeviceAtom>
                             <DeviceAtom onPress={() => updateDevice(2)} flag={devicePane[2]}>Smart Plug</DeviceAtom>
-                        </HStack>
+                        </HStack> */}
+
+                        <Tab
+                            value={devicePaneInd}
+                            onChange={(e) => setDevicePaneInd(e)}>
+                            <Tab.Item title={"IR Temperature"} />
+                            <Tab.Item title={"Air Quality"} />
+                            <Tab.Item title={"Smart Plug"} />
+                        </Tab>
 
                         {
                             (tabPane[0]) ? (
