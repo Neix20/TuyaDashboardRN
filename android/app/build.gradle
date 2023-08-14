@@ -128,11 +128,11 @@ android {
 
     flavorDimensions "version"
     productFlavors {
-        tuya {
+        yatu {
             dimension "version"
         }
 
-        tuyaDeveloper {
+        yatuDeveloper {
             dimension "version"
             applicationIdSuffix ".developer"
             versionNameSuffix "-developer"

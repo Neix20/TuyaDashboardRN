@@ -83,6 +83,7 @@ PODS:
   - lottie-react-native (6.1.2):
     - lottie-ios (~> 4.2.0)
     - React-Core
+  - NextLevelSessionExporter (0.4.6)
   - OpenSSL-Universal (1.1.1100)
   - RCT-Folly (2021.07.22.00):
     - boost
@@ -335,11 +336,16 @@ PODS:
   - React-jsinspector (0.71.7)
   - React-logger (0.71.7):
     - glog
+  - react-native-compressor (1.6.4):
+    - NextLevelSessionExporter
+    - React-Core
   - react-native-date-picker (4.2.13):
     - React-Core
   - react-native-safe-area-context (4.7.1):
     - React-Core
   - react-native-splash-screen (3.3.0):
+    - React-Core
+  - react-native-view-shot (3.7.0):
     - React-Core
   - react-native-webview (13.3.1):
     - React-Core
@@ -526,9 +532,11 @@ DEPENDENCIES:
   - React-jsiexecutor (from `../node_modules/react-native/ReactCommon/jsiexecutor`)
   - React-jsinspector (from `../node_modules/react-native/ReactCommon/jsinspector`)
   - React-logger (from `../node_modules/react-native/ReactCommon/logger`)
+  - react-native-compressor (from `../node_modules/react-native-compressor`)
   - react-native-date-picker (from `../node_modules/react-native-date-picker`)
   - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
   - react-native-splash-screen (from `../node_modules/react-native-splash-screen`)
+  - react-native-view-shot (from `../node_modules/react-native-view-shot`)
   - react-native-webview (from `../node_modules/react-native-webview`)
   - React-perflogger (from `../node_modules/react-native/ReactCommon/reactperflogger`)
   - React-RCTActionSheet (from `../node_modules/react-native/Libraries/ActionSheetIOS`)
@@ -570,6 +578,7 @@ SPEC REPOS:
     - fmt
     - libevent
     - lottie-ios
+    - NextLevelSessionExporter
     - OpenSSL-Universal
     - SocketRocket
     - YogaKit
@@ -619,12 +628,16 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/jsinspector"
   React-logger:
     :path: "../node_modules/react-native/ReactCommon/logger"
+  react-native-compressor:
+    :path: "../node_modules/react-native-compressor"
   react-native-date-picker:
     :path: "../node_modules/react-native-date-picker"
   react-native-safe-area-context:
     :path: "../node_modules/react-native-safe-area-context"
   react-native-splash-screen:
     :path: "../node_modules/react-native-splash-screen"
+  react-native-view-shot:
+    :path: "../node_modules/react-native-view-shot"
   react-native-webview:
     :path: "../node_modules/react-native-webview"
   React-perflogger:
@@ -698,6 +711,7 @@ SPEC CHECKSUMS:
   libevent: 4049cae6c81cdb3654a443be001fb9bdceff7913
   lottie-ios: 809ecf2d460ed650a6aed7aa88b2ec45fab4779c
   lottie-react-native: 3d6f1b0db1fd9e18b92af1fbfbf67037611bae67
+  NextLevelSessionExporter: 4d8aa5e617f1c709724f2453efe5d4628480f65a
   OpenSSL-Universal: ebc357f1e6bc71fa463ccb2fe676756aff50e88c
   RCT-Folly: 424b8c9a7a0b9ab2886ffe9c3b041ef628fd4fb1
   RCTRequired: 5a4a30ac20c86eeadd6844a9328f78d4168cf9b2
@@ -713,9 +727,11 @@ SPEC CHECKSUMS:
   React-jsiexecutor: eaa5f71eb8f6861cf0e57f1a0f52aeb020d9e18e
   React-jsinspector: 9885f6f94d231b95a739ef7bb50536fb87ce7539
   React-logger: 3f8ebad1be1bf3299d1ab6d7f971802d7395c7ef
+  react-native-compressor: 56e9584f08f8ea7ebd67ba1b047b0ac15cfad476
   react-native-date-picker: 04e866ba4e7857f83abd504ad42e787f0f02ae00
   react-native-safe-area-context: 9697629f7b2cda43cf52169bb7e0767d330648c2
   react-native-splash-screen: 4312f786b13a81b5169ef346d76d33bc0c6dc457
+  react-native-view-shot: f5507655f122e6b104888a11130f267a427f0d57
   react-native-webview: c2b70afb1d910cdd8810375aecc6c2894e2ba061
   React-perflogger: 2d505bbe298e3b7bacdd9e542b15535be07220f6
   React-RCTActionSheet: 0e96e4560bd733c9b37efbf68f5b1a47615892fb
@@ -744,6 +760,6 @@ SPEC CHECKSUMS:
   Yoga: d56980c8914db0b51692f55533409e844b66133c
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
 
-PODFILE CHECKSUM: 0a089fd878865ce59c5515f22f90aeb9ab182cab
+PODFILE CHECKSUM: 7e5e67de9993dc109574ef3facf9ef468afe3d13
 
 COCOAPODS: 1.12.1
