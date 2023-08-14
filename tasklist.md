@@ -18,11 +18,20 @@
   - [x] Split By Day, Month, Year and Custom
   - [x] Modify Tab-Elem to Custom Colors
   - [x] Make Checkbox
-- [ ] Custom Date Selector
-  - [ ] Add Calendar
-- [ ] Chart Controls
-  - [ ] Add ScreenShot of Chart
-  - [ ] React Native Share
+- [x] Chart Controls
+  - [x] Add ScreenShot of Chart
+  - [x] React Native Share
+  - [ ] Download Image to Gallery
+  - [x] Custom Date Selector
+    - [x] Add Calendar
+    - [ ] Customize Calendar
+- [ ] Components
+  - [x] BcDateRangeSelector
+  - [ ] BcViewShot
+  - [ ] BcCalendar
+- [ ] Fetch API
+  - [ ] Get Dashboard info
+- [ ] Refactor Code Base
 
 - [x] Tuya Platform
   - [x] Update Device Information
@@ -31,7 +40,4 @@
 - [x] ERD Diagram
   - [x] Add Reporting Logs
     `Used To Record Date of Program Executing`
-  - [ ] Add TReport Table
-
-- [ ] SQL
-  - [ ] Data Migration (For Mock Test)
+  - [x] Add TReport Table 

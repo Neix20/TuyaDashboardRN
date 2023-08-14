@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-import { TouchableOpacity, Dimensions } from "react-native";
+import { TouchableOpacity, Dimensions, SafeAreaView } from "react-native";
 import { View } from "native-base";
 import { GlobalColors } from "@config";
 
@@ -59,8 +59,8 @@ function Index(props) {
             <View
                 style={{
                     backgroundColor: 'white',
-                    borderTopLeftRadius: 30,
-                    borderTopEndRadius: 30,
+                    borderTopLeftRadius: 15,
+                    borderTopEndRadius: 15,
                 }}>
                 {/* Front Layer */}
                 {

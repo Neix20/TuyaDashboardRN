@@ -45,7 +45,7 @@ function Index(props) {
     }, []);
 
     // const defaultScreen = "Login";
-    const defaultScreen = "TabNavigation";
+    const defaultScreen = "Debug";
 
     return (
         <BcStackNavigator
