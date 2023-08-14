@@ -1,4 +1,4 @@
-package com.tuyadashboard;
+package com.yatudashboard;
 
 import android.os.Bundle;
 
@@ -17,7 +17,7 @@ public class MainActivity extends ReactActivity {
    */
   @Override
   protected String getMainComponentName() {
-    return "TuyaDashboard";
+    return "Yatu Dashboard";
   }
 
   @Override

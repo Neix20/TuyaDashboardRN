@@ -93,9 +93,9 @@ android {
 
     compileSdkVersion rootProject.ext.compileSdkVersion
 
-    namespace "com.tuyadashboard"
+    namespace "com.yatudashboard"
     defaultConfig {
-        applicationId "com.tuyadashboard"
+        applicationId "com.yatudashboard"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
