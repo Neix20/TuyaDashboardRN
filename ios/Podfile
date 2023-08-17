@@ -21,6 +21,10 @@ if linkage != nil
   use_frameworks! :linkage => linkage.to_sym
 end
 
+source 'https://github.com/CocoaPods/Specs'
+source 'https://github.com/tuya/TuyaPublicSpecs.git'
+source 'https://github.com/tuya/tuya-pod-specs.git'
+
 target 'YatuDashboard' do
   config = use_native_modules!
 
@@ -57,4 +61,10 @@ target 'YatuDashboard' do
     )
     __apply_Xcode_12_5_M1_post_install_workaround(installer)
   end
+
+  # pod "ThingSmartCryption", :path =>'./'
+  # pod "ThingSmartHomeKit"
+  pod 'ThingSmartHomeKit', '~> 5.1.0'
+
 end
+
