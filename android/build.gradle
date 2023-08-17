@@ -3,7 +3,7 @@
 buildscript {
     ext {
         buildToolsVersion = "33.0.0"
-        minSdkVersion = 21
+        minSdkVersion = 23
         compileSdkVersion = 33
         targetSdkVersion = 33
         kotlinVersion = '1.8.10'
@@ -12,7 +12,11 @@ buildscript {
         ndkVersion = "23.1.7779620"
     }
     repositories {
+        maven {
+            url 'https://maven.aliyun.com/nexus/content/groups/public/'
+        }
         google()
+        jcenter()
         mavenCentral()
     }
     dependencies {

@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef, useCallback } from "react";
 import { Text, TouchableOpacity, Image, Dimensions, SafeAreaView, ScrollView, FlatList, TouchableWithoutFeedback } from "react-native";
 import { View, VStack, HStack, Divider, useToast } from "native-base";
 
-import AntDesign from "react-native-vector-icons/AntDesign";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 
@@ -13,7 +12,7 @@ const { width, height } = screen;
 
 import { info, error, Utility } from "@utility";
 
-import { BcSvgIcon, BcBoxShadow, BcHeader, BcGradient } from "@components";
+import { BcSvgIcon, BcBoxShadow, BcHeader, BcGradient, BcDateRangeModal } from "@components";
 
 import { LineChart as LineChartSvg, YAxis, XAxis, Grid, Path } from 'react-native-svg-charts';
 
@@ -21,9 +20,8 @@ import { iRData } from "@config";
 
 import * as shape from 'd3-shape';
 
-import { CheckBox, Tab, TabView } from "@rneui/themed";
-
-import { Calendar } from 'react-native-calendars';
+import { CheckBox } from "@rneui/themed";
+import { DateTime } from "luxon";
 
 import ViewShot from "react-native-view-shot";
 import BottomModal from "@components/Modal/BottomModals";
@@ -391,364 +389,6 @@ function Legend(props) {
 }
 // #endregion
 
-// #region Modal
-import Modal from 'react-native-modal';
-
-import CustomToast from "@components/Modal/CustomToast";
-
-function DateModalParent(props) {
-
-    // #region Initial
-    const init = {
-        toast: {
-            msg: "Test",
-            flag: false
-        }
-    }
-    // #endregion
-
-    // #region Props
-    const { children } = props;
-    const { showModal, setShowModal } = props;
-    const { cusToast = init.toast } = props;
-    // #endregion
-
-    return (
-        <Modal
-            isVisible={showModal}
-            animationIn={'slideInUp'}
-            animationOut={'slideOutDown'}
-            onBackButtonPress={() => setShowModal(false)}
-            onBackdropPress={() => setShowModal(false)}
-            style={{ margin: 0 }}>
-            <SafeAreaView style={{ flex: 1 }}>
-                <View style={{ flex: 1 }}>
-
-                    {/* Front Layer */}
-                    <View style={{
-                        position: "absolute",
-                        zIndex: 20,
-                        bottom: 10,
-                        left: 0,
-                        right: 0,
-                        display: (cusToast.flag) ? "flex" : "none"
-                    }} alignItems={"center"}>
-                        <CustomToast>{cusToast.msg}</CustomToast>
-                    </View>
-
-                    {/* Content */}
-                    {children}
-                </View>
-            </SafeAreaView>
-        </Modal>
-    )
-}
-
-function DRangeItem(props) {
-    const { title, date, flag } = props;
-    const { onPress = () => { } } = props;
-    return (
-        <TouchableOpacity onPress={onPress}>
-            <View alignItems={"center"} py={1}>
-                <HStack
-                    alignItems={"center"}
-                    justifyContent={"space-between"}
-                    style={{ width: 360 }}>
-                    <VStack space={1}>
-                        <Text style={{
-                            fontFamily: "Roboto-Medium",
-                            fontSize: 16,
-                            color: flag ? "#F00" : "#000"
-                        }}>{title}</Text>
-                        <Text style={{
-                            fontFamily: "Roboto-Medium",
-                            fontSize: 16,
-                            color: "#c6c6c6"
-                        }}>{Utility.formatDt(date, "EEEE, d MMMM")}</Text>
-                    </VStack>
-
-                    <View
-                        display={flag ? "flex" : "none"}
-                        alignItems={"center"} justifyContent={"center"}
-                        style={{ width: 40, height: 40 }}>
-                        <AntDesign name={"check"} size={25} color={"#F00"} />
-                    </View>
-                </HStack>
-            </View>
-        </TouchableOpacity>
-    );
-}
-
-function DateView(props) {
-
-    // #region Props
-    const { curDt, setCurDt } = props;
-    // #endregion
-
-    // #region Init
-    const selDateArr = [
-        {
-            "title": "Yesterday",
-            "date": "2023-08-09",
-        },
-        {
-            "title": "Today",
-            "date": "2023-08-10",
-        }
-    ];
-    // #endregion
-
-    // #region UseState
-    const [selPos, setSelPos] = useState(0);
-    // #endregion
-
-    // #region Render
-    const renderSelectDate = ({ item, index }) => {
-        const flag = index === selPos;
-        const onSelect = () => togglePos(index);
-        return (
-            <>
-                <DRangeItem flag={flag} onPress={onSelect} {...item} />
-                <View alignItems={"center"}>
-                    <Divider my={2} width={width - 40} />
-                </View>
-            </>
-        );
-    }
-    // #endregion
-
-    // #region Helper
-    const togglePos = (index) => {
-        setSelPos(index);
-
-        const { date } = selDateArr[index];
-        setCurDt(date);
-
-    }
-    // #endregion
-
-    return (
-        <TabView.Item style={{ width: '100%' }}>
-            <FlatList
-                data={selDateArr}
-                renderItem={renderSelectDate}
-            />
-        </TabView.Item>
-    )
-}
-
-function CusCalendar(props) {
-
-    // #region Props
-    const { flag = false, setFlag = () => { } } = props;
-    // #endregion
-
-    const [selected, setSelected] = useState('');
-
-    // #region Helper
-    const closeCalendar = () => setFlag(false);
-    // #endregion
-
-    if (!flag) {
-        return (<></>);
-    }
-
-    return (
-        <>
-            <View
-                bgColor={"#000"}
-                opacity={.5}
-                style={{
-                    position: "absolute",
-                    zIndex: 4,
-                    top: 0,
-                    bottom: 0,
-                    left: 0,
-                    right: 0,
-                }}>
-            </View>
-            <TouchableWithoutFeedback onPress={closeCalendar}>
-                <View
-                    alignItems={"center"}
-                    justifyContent={"center"}
-                    style={{
-                        position: "absolute",
-                        zIndex: 5,
-                        top: 0,
-                        bottom: 0,
-                        left: 0,
-                        right: 0,
-                    }}>
-                    <TouchableOpacity>
-                        <Calendar
-                            onDayPress={day => {
-                                setSelected(day.dateString);
-                            }}
-                            markedDates={{
-                                [selected]: { selected: true, disableTouchEvent: true, selectedDotColor: 'orange' }
-                            }}
-                        />
-                    </TouchableOpacity>
-                </View>
-            </TouchableWithoutFeedback>
-
-        </>
-    );
-}
-
-function CustomView(props) {
-
-    // #region Props
-    const { calendarFlag = false, setCalendarFlag = () => { } } = props;
-    // #endregion
-
-    // #region Init
-    const selDateArr = [
-        {
-            "title": "Start Date",
-            "date": "2023-08-09",
-        },
-        {
-            "title": "End Date",
-            "date": "2023-08-10",
-        }
-    ];
-    // #endregion
-
-    // #region Helper
-    const toggleDate = (pos, date) => {
-
-    }
-
-    const toggleCalendar = () => {
-        setCalendarFlag(!calendarFlag);
-    };
-    // #endregion
-
-    // #region RenderItem
-    const renderItem = ({ item, index }) => {
-        const flag = false;
-        // const onSelect = () => togglePos(index);
-        return (
-            <>
-                <DRangeItem onPress={toggleCalendar} flag={flag} {...item} />
-                <View alignItems={"center"}>
-                    <Divider my={2} width={width - 40} />
-                </View>
-            </>
-        );
-    }
-    // #endregion
-
-    return (
-        <TabView.Item style={{ width: '100%' }}>
-            <FlatList
-                data={selDateArr}
-                renderItem={renderItem} />
-        </TabView.Item>
-    );
-}
-
-function DateModal(props) {
-
-    // #region Props
-    const { showModal, setShowModal } = props;
-    // #endregion
-
-    // #region Init
-    const init = {
-        activeColor: "#F00",
-        inActiveColor: "#000",
-    }
-    // #endregion
-
-    // #region UseState
-    const [datePaneInd, setDatePaneInd] = useState(0);
-    const [showCalendar, setShowCalendar] = useState(false);
-    // #endregion
-
-    // #region Helper
-    const closeModal = () => setShowModal(false);
-    // #endregion
-
-    return (
-        <DateModalParent {...props}>
-            <CusCalendar flag={showCalendar} setFlag={setShowCalendar} />
-            <View
-                bgColor={"#FFF"}
-                style={{
-                    flexGrow: 1,
-                }}>
-                <View alignItems={"center"}>
-                    <HStack py={3}
-                        alignItems={"center"} justifyContent={"space-between"}
-                        style={{
-                            width: width - 40
-                        }}>
-                        <TouchableOpacity onPress={closeModal}>
-                            <View alignItems={"center"} justifyContent={"center"}
-                                style={{ width: 40, height: 40 }}>
-                                <AntDesign name={"close"} size={25} />
-                            </View>
-                        </TouchableOpacity>
-
-                        <View
-                            style={{ width: width - 160 }}>
-                            <Text style={{
-                                fontFamily: "Roboto-medium",
-                                fontSize: 18
-                            }}>Date Range</Text>
-                        </View>
-
-                        <TouchableOpacity onPress={closeModal}>
-                            <View>
-                                <Text style={{
-                                    fontFamily: "Roboto-medium",
-                                    fontSize: 16,
-                                    color: "#00F"
-                                }}>Save</Text>
-                            </View>
-                        </TouchableOpacity>
-                    </HStack>
-                </View>
-
-                <View>
-                    <Tab
-                        dense
-                        value={datePaneInd}
-                        onChange={(e) => setDatePaneInd(e)}
-                        indicatorStyle={{
-                            backgroundColor: init.activeColor,
-                            height: 3,
-                        }}>
-                        <Tab.Item title={"Date"} titleStyle={(active) => ({ color: (active) ? init.activeColor : init.inActiveColor })} />
-                        <Tab.Item title={"Week"} titleStyle={(active) => ({ color: (active) ? init.activeColor : init.inActiveColor })} />
-                        <Tab.Item title={"Month"} titleStyle={(active) => ({ color: (active) ? init.activeColor : init.inActiveColor })} />
-                        <Tab.Item title={"Custom"} titleStyle={(active) => ({ color: (active) ? init.activeColor : init.inActiveColor })} />
-                    </Tab>
-                </View>
-
-                <View style={{ height: 10 }} />
-
-                {/* Body */}
-                <ScrollView
-                    showsVerticalScrollIndicator={false}
-                    contentContainerStyle={{ flexGrow: 1 }}>
-                    <TabView
-                        value={datePaneInd}
-                        onChange={(e) => setDatePaneInd(e)}>
-                        <DateView {...props} />
-                        <DateView {...props} />
-                        <DateView {...props} />
-                        <CustomView calendarFlag={showCalendar} setCalendarFlag={setShowCalendar} {...props} />
-                    </TabView>
-                </ScrollView>
-            </View>
-        </DateModalParent>
-    )
-}
-// #endregion
-
 // #region ViewShot
 function VSModal(props) {
 
@@ -854,7 +494,8 @@ function Index(props) {
             flag: false,
             color: "#000",
         },
-        colors: ["#DB7D86", "#E7E005", "#188B9A", "#DB2E54", "#A53202", "#82EB20", "#75368B", "#395DAD", "#EC259F", "#0FA1AF", "#ADAC72", "#7FD106", "#6AC237", "#C5F022", "#76862A"]
+        colors: ["#DB7D86", "#E7E005", "#188B9A", "#DB2E54", "#A53202", "#82EB20", "#75368B", "#395DAD", "#EC259F", "#0FA1AF", "#ADAC72", "#7FD106", "#6AC237", "#C5F022", "#76862A"],
+        dt: DateTime.now().toFormat("yyyy-MM-dd"),
     }
     // #endregion
 
@@ -874,10 +515,10 @@ function Index(props) {
 
     const [svgMetaData, setSvgMetaData] = useState({});
 
-    const [curDt, setCurDt] = useState("2023-08-09");
-    const [prevDt, setPrevDt] = useState("2023-08-10");
+    const [showDtModal, setShowDtModal] = useState(false);
+    const [startDt, setStartDt] = useState("2023-08-18");
+    const [endDt, setEndDt] = useState("2023-08-19");
 
-    const [showDateModal, setShowDateModal] = useState(false);
     const [viewShotModal, setShowViewShotModal] = useState(false);
     // #endregion
 
@@ -1061,33 +702,7 @@ function Index(props) {
     // #endregion
 
     // #region Helper
-    const updateTab = (pos) => {
-        let arr = [...tabPane];
-
-        for (let ind in arr) {
-            arr[ind] = false;
-        }
-
-        arr[pos] = true;
-        setTabPane(arr);
-    }
-
-    const updateInterval = (pos) => {
-        let arr = [...intervalPane];
-
-        for (let ind in arr) {
-            arr[ind] = false;
-        }
-
-        arr[pos] = true;
-
-        setIntervalPane(arr);
-    }
-
     const updateLegend = (pos) => {
-
-        console.log(pos);
-
         let arr = [...svgLegend];
 
         const { flag } = arr[pos];
@@ -1096,13 +711,8 @@ function Index(props) {
         setSvgLegend(arr);
     }
 
-    const toggleDateModal = () => {
-        setShowDateModal(showDateModal => !showDateModal);
-    }
-
-    const toggleViewShotModal = () => {
-        setShowViewShotModal(viewShotModal => !viewShotModal);
-    }
+    const toggleDateModal = () => setShowDtModal(!showDtModal);
+    const toggleViewShotModal = () => setShowViewShotModal(!viewShotModal);
 
     const captureImage = () => {
         if (lineChartRef.current !== null) {
@@ -1126,6 +736,30 @@ function Index(props) {
             });
         }
     }
+
+    const addDt = () => {
+        const tStartDt = DateTime.fromISO(startDt)
+                    .plus({days: 1})
+                    .toFormat("yyyy-MM-dd");
+        setStartDt(tStartDt);
+
+        const tEndDt = DateTime.fromISO(endDt)
+                    .plus({days: 1})
+                    .toFormat("yyyy-MM-dd");
+        setEndDt(tEndDt);
+
+    };
+    const minusDt = () => {
+        const tStartDt = DateTime.fromISO(startDt)
+                    .plus({days: -1})
+                    .toFormat("yyyy-MM-dd");
+        setStartDt(tStartDt);
+
+        const tEndDt = DateTime.fromISO(endDt)
+                    .plus({days: -1})
+                    .toFormat("yyyy-MM-dd");
+        setEndDt(tEndDt);
+    };
     // #endregion
 
     return (
@@ -1133,8 +767,11 @@ function Index(props) {
             <VSModal
                 onShare={captureImage}
                 showModal={viewShotModal} setShowModal={setShowViewShotModal} />
-            <DateModal curDt={curDt} setCurDt={setCurDt}
-                showModal={showDateModal} setShowModal={setShowDateModal} />
+            <BcDateRangeModal 
+                dt={init.dt}
+                startDt={startDt} setStartDt={setStartDt}
+                endDt={endDt} setEndDt={setEndDt}
+                showModal={showDtModal} setShowModal={setShowDtModal} />
             <SafeAreaView style={{ flex: 1 }}>
                 <View style={{ flex: 1 }}>
                     {/* Header */}
@@ -1156,12 +793,12 @@ function Index(props) {
                                         <Text style={{
                                             fontFamily: "Roboto-Bold",
                                             fontSize: 16,
-                                        }}>{Utility.formatDt(curDt, "EEEE, d MMMM")}</Text>
+                                        }}>{Utility.formatDt(startDt, "EEEE, d MMMM")}</Text>
                                         {/* <Text>vs {Utility.formatDt(prevDt, "EEEE, d MMMM")}</Text> */}
                                     </VStack>
                                 </HStack>
                                 <HStack>
-                                    <TouchableOpacity>
+                                    <TouchableOpacity onPress={minusDt}>
                                         <View
                                             // bgColor={"#F00"}
                                             justifyContent={"center"}
@@ -1170,7 +807,7 @@ function Index(props) {
                                             <FontAwesome name={"angle-left"} size={27} />
                                         </View>
                                     </TouchableOpacity>
-                                    <TouchableOpacity>
+                                    <TouchableOpacity onPress={addDt}>
                                         <View
                                             // bgColor={"#F00"}
                                             justifyContent={"center"}

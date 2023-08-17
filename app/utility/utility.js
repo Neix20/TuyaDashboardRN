@@ -2,7 +2,7 @@
 
 import { DateTime } from "luxon";
 
-import { Platform } from 'react-native';
+import { Platform, CameraRoll } from 'react-native';
 
 import { info, error } from "./logger";
 
@@ -185,11 +185,25 @@ function splitItemsIntoK(arr, col = 2) {
 	return fArr;
 }
 
+async function saveToGallery(uri) {
+	try {
+		if (Platform.OS === 'android') {
+			// For Android, use the ContentResolver to add the image to the gallery
+			await CameraRoll.save(uri, { type: 'photo' });
+		} else {
+			// For iOS, use the Photos framework to save the image to the gallery
+			await CameraRoll.saveToCameraRoll(uri, 'photo');
+		}
+	}
+	catch (err) {
+		console.log(`Error: ${err}`);
+	}
+}
+
 async function cacheDownloadFile(props) {
 	const { url = "", folder_path = "", to_replace = false } = props;
 
 	const file_name = basename(url);
-
 	try {
 
 		const cur_ts = genTs();
@@ -201,8 +215,6 @@ async function cacheDownloadFile(props) {
 
 		if (flag && to_replace) {
 			await RNFS.unlink(file_path);
-			// console.log(`${file_name} Successfully Deleted!`);
-
 			flag = false;
 		}
 
@@ -310,6 +322,7 @@ export {
 
 export {
 	cacheDownloadFile,
+	saveToGallery,
 	genBase64,
 	formatArrWithBase64,
 	roundDown,

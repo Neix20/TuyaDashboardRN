@@ -9,6 +9,7 @@ import com.facebook.react.defaults.DefaultReactActivityDelegate;
 
 import org.devio.rn.splashscreen.SplashScreen;
 
+
 public class MainActivity extends ReactActivity {
 
   /**
