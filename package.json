@@ -22,7 +22,6 @@
     "@rneui/themed": "^4.0.0-rc.8",
     "@shopify/react-native-skia": "^0.1.202",
     "@twotalltotems/react-native-otp-input": "^1.3.11",
-    "@volst/react-native-tuya": "https://github.com/parallax/react-native-tuya.git",
     "@wuba/react-native-echarts": "^1.2.3",
     "crypto-js": "^4.1.1",
     "echarts": "^5.4.3",

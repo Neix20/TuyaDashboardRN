@@ -64,7 +64,7 @@ target 'YatuDashboard' do
 
   # pod "ThingSmartCryption", :path =>'./'
   # pod "ThingSmartHomeKit"
-  pod 'ThingSmartHomeKit', '~> 5.1.0'
+  # pod 'ThingSmartHomeKit', '~> 5.1.0'
 
 end
 

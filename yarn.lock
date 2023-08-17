@@ -3128,10 +3128,6 @@
     "@typescript-eslint/types" "5.62.0"
     eslint-visitor-keys "^3.3.0"
 
-"@volst/react-native-tuya@https://github.com/parallax/react-native-tuya.git":
-  version "0.3.19"
-  resolved "https://github.com/parallax/react-native-tuya.git#c24c3fe332f4adf7ba36fe9f6d48983d874f9a00"
-
 "@wuba/react-native-echarts@^1.2.3":
   version "1.2.3"
   resolved "https://registry.yarnpkg.com/@wuba/react-native-echarts/-/react-native-echarts-1.2.3.tgz#cc06cedb63ba502dae129bec86b159a57967e229"
