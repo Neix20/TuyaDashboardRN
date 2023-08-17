@@ -7,6 +7,8 @@ import iRData from "./data/iRData";
 
 import Devices from "./data/devices";
 
+import * as clsConst from "./clsConst";
+
 export {
     Animation,
     Images,
@@ -17,3 +19,7 @@ export {
     iRData,
     Devices
 };
+
+export {
+    clsConst
+}

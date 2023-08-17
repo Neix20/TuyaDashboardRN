@@ -1,4 +1,4 @@
-// import { Const } from "@config";
+import { clsConst } from "@config";
 
 import { DateTime } from "luxon";
 
@@ -18,6 +18,12 @@ function genNgrokUrl(action) {
 function genLogUrl(action) {
 	// const { LOG_SERVER } = Const;
 	// return `${LOG_SERVER}${action}`;
+}
+
+function genServerUrl(action) {
+	const {SERVER_URL} = clsConst;
+	const res = `${SERVER_URL}/api/YatuApi/${action}`;
+	return res;
 }
 
 function genDt() {
@@ -313,6 +319,7 @@ export {
 export {
 	genNgrokUrl,
 	genLogUrl,
+	genServerUrl
 }
 
 export {

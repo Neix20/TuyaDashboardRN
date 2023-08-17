@@ -139,7 +139,7 @@ function TestCheckbox(props) {
 }
 // #endregion
 
-function DebugRange(props) {
+function DebugDateRange(props) {
 
     // #region Init
     const init = {
@@ -164,63 +164,33 @@ function DebugRange(props) {
                 endDt={endDt} setEndDt={setEndDt}
                 showModal={showDtModal} setShowModal={setShowDtModal} />
             <SafeAreaView style={{ flex: 1 }}>
-                <View style={{ flex: 1 }}>
+                <View flex={1} p={3}>
 
-                    <VStack space={3} p={3}>
-
-                        <Text style={{
-                            fontFamily: "Roboto-Bold",
-                            fontSize: 16
-                        }}>Start Date: {Utility.formatDt(startDt, "EEEE, d MMM")}</Text>
-
-                        <Text style={{
-                            fontFamily: "Roboto-Bold",
-                            fontSize: 16
-                        }}>End Date: {Utility.formatDt(endDt, "EEEE, d MMM")}</Text>
-
+                        {/* Date Range */}
                         <TouchableOpacity onPress={toggleDtModal}>
-                            <View backgroundColor={"#ff0000"}
-                                alignItems={"center"} justifyContent={"center"}
-                                style={{ width: 100, height: 40 }}>
-                                <Text style={[{
-                                    fontSize: 14,
-                                    fontWeight: "bold",
-                                    color: "white",
-                                }]}>Date Range</Text>
-                            </View>
+                            <VStack backgroundColor={"#ff0000"}
+                                p={3} space={3}
+                                style={{ width: 300 }}>
+                                <Text style={{
+                                    fontFamily: "Roboto-Bold",
+                                    fontSize: 16,
+                                    color: "#FFF",
+                                }}>Start Date: {Utility.formatDt(startDt, "EEEE, d MMM")}</Text>
+
+                                <Text style={{
+                                    fontFamily: "Roboto-Bold",
+                                    fontSize: 16,
+                                    color: "#FFF",
+                                }}>End Date: {Utility.formatDt(endDt, "EEEE, d MMM")}</Text>
+                            </VStack>
                         </TouchableOpacity>
-
-                        <BcViewShot>
-                            <View backgroundColor={"#F00"}
-                                alignItems={"center"} justifyContent={"center"}
-                                style={{ width: 100, height: 40 }}>
-                                <Text style={[{
-                                    fontSize: 14,
-                                    fontWeight: "bold",
-                                    color: "white",
-                                }]}>View Shot</Text>
-                            </View>
-                        </BcViewShot>
-
-                        <BcViewShot>
-                            <View backgroundColor={"#00F"}
-                                alignItems={"center"} justifyContent={"center"}
-                                style={{ width: 100, height: 40 }}>
-                                <Text style={[{
-                                    fontSize: 14,
-                                    fontWeight: "bold",
-                                    color: "white",
-                                }]}>View Shot</Text>
-                            </View>
-                        </BcViewShot>
-                    </VStack>
                 </View>
             </SafeAreaView>
         </>
     )
 }
  
-function Index() {
+function DebugChart() {
 
     return (
         <SafeAreaView style={{flex: 1}}>
@@ -230,5 +200,7 @@ function Index() {
         </SafeAreaView>
     )
 }
+
+const Index = DebugDateRange;
 
 export default Index;

@@ -12,19 +12,16 @@ const { width, height } = screen;
 
 import { info, error, Utility } from "@utility";
 
-import { BcSvgIcon, BcBoxShadow, BcHeader, BcGradient, BcDateRangeModal } from "@components";
+import { BcSvgIcon, BcBoxShadow, BcGradient, BcDateRangeModal, BcViewShot, BcLoading } from "@components";
 
 import { LineChart as LineChartSvg, YAxis, XAxis, Grid, Path } from 'react-native-svg-charts';
-
-import { iRData } from "@config";
 
 import * as shape from 'd3-shape';
 
 import { CheckBox } from "@rneui/themed";
 import { DateTime } from "luxon";
 
-import ViewShot from "react-native-view-shot";
-import BottomModal from "@components/Modal/BottomModals";
+import { fetchDashboardInfo } from "@api";
 
 // #region Components
 function Header(props) {
@@ -366,8 +363,12 @@ function Legend(props) {
     }
     // #endregion
 
+    if (data.length <= 0) {
+        return (<></>)
+    }
+
     return (
-        <BcBoxShadow style={{ borderRadius: 20, height: 200, }}>
+        <BcBoxShadow style={{ borderRadius: 20, height: 200 }}>
             <View bgColor={"#FFF"} borderRadius={20} style={{
                 maxHeight: 200,
             }}>
@@ -389,75 +390,6 @@ function Legend(props) {
 }
 // #endregion
 
-// #region ViewShot
-function VSModal(props) {
-
-    // #region Props
-    const { showModal, setShowModal } = props;
-    const { onShare = () => { } } = props;
-    // #endregion
-
-    return (
-        <BottomModal {...props} showCross={false}>
-            <TouchableOpacity onPress={onShare}>
-                <View alignItems={"center"} justifyContent={"center"} style={{
-                    height: 40
-                }}>
-                    <HStack alignItems={"center"}
-                        space={5}
-                        style={{
-                            width: width - 40
-                        }}>
-                        <FontAwesome5 name={"share-alt"} size={27} />
-                        <Text style={{
-                            fontFamily: "Roboto-Bold",
-                            fontSize: 18,
-                        }}>Share</Text>
-                    </HStack>
-                </View>
-            </TouchableOpacity>
-        </BottomModal>
-    );
-}
-// #endregion
-
-function BcViewShot(props) {
-    const { onPress = () => { } } = props;
-    const { children, lineChartRef } = props;
-    return (
-        <BcBoxShadow style={{ borderRadius: 20 }}>
-            <View
-                bgColor={"#FFF"}
-                borderRadius={20}
-                alignItems={"center"}
-                style={{
-                    width: width - 40
-                }}>
-                <HStack pt={2}
-                    alignItems={"center"}
-                    justifyContent={"space-between"}
-                    style={{ width: width - 80 }}>
-                    <Text style={{
-                        fontFamily: "Roboto-Bold",
-                        fontSize: 18,
-                    }}>Daily Devices</Text>
-                    <TouchableOpacity onPress={onPress}>
-                        <FontAwesome5 name={"ellipsis-v"} size={27} />
-                    </TouchableOpacity>
-                </HStack>
-
-                <ViewShot 
-                    ref={lineChartRef} 
-                    options={{ fileName: "test", format: "jpg", quality: 0.9 }}>
-                    {children}
-                </ViewShot>
-            </View>
-        </BcBoxShadow>
-    )
-}
-
-import Share from "react-native-share";
-
 function Index(props) {
     const toast = useToast();
     const navigation = useNavigation();
@@ -465,21 +397,6 @@ function Index(props) {
 
     // #region Initial
     const init = {
-        lChart: {
-            labels: ["January", "February", "March", "April", "May", "June"],
-            datasets: [
-                {
-                    data: [
-                        Math.random() * 100,
-                        Math.random() * 100,
-                        Math.random() * 100,
-                        Math.random() * 100,
-                        Math.random() * 100,
-                        Math.random() * 100
-                    ]
-                }
-            ]
-        },
         svgChart: [
             {
                 data: [50, 10, 40, 95, -4, -24, 85, 91, 35, 53, -53, 24, 50, -20, -80]
@@ -490,7 +407,7 @@ function Index(props) {
             max: Number.MAX_VALUE
         },
         legend: {
-            name: "Test",
+            name: "",
             flag: false,
             color: "#000",
         },
@@ -499,32 +416,133 @@ function Index(props) {
     }
     // #endregion
 
-    // #region UseRef
-    const lineChartRef = useRef(null);
-    // #endregion
-
     // #region UseState
-    const [tabPane, setTabPane] = useState([true, false]);
-    const [intervalPane, setIntervalPane] = useState([false, false, false, true]);
-
-    const [devicePaneInd, setDevicePaneInd] = useState(0);
-
     const [svgChart, setSvgChart] = useState(init.svgChart);
-    const [svgLegend, setSvgLegend] = useState([init.legend]);
+    const [svgLegend, setSvgLegend] = useState([]);
     const [svgLabels, setSvgLabels] = useState(["00", "06", "12", "18", "24"]);
 
     const [svgMetaData, setSvgMetaData] = useState({});
 
     const [showDtModal, setShowDtModal] = useState(false);
-    const [startDt, setStartDt] = useState("2023-08-18");
-    const [endDt, setEndDt] = useState("2023-08-19");
 
-    const [viewShotModal, setShowViewShotModal] = useState(false);
+    const [startDt, setStartDt] = useState("2023-07-01");
+    const [endDt, setEndDt] = useState("2023-07-01");
+
+    const [loading, setLoading] = useState(false);
+
+    const [chartData, setChartData] = useState({});
     // #endregion
 
     // #region UseEffect
+
+    // Update Data
     useEffect(() => {
         if (isFocused) {
+            getDashboard(startDt, endDt);
+        }
+    }, [JSON.stringify(startDt + endDt)]);
+
+    // Update Legend
+    useEffect(() => {
+
+        let legend = [...svgLegend];
+
+        let datasets = [];
+
+        let ind = 0;
+        for (let key in chartData) {
+            if (legend[ind] != null && legend[ind].flag) {
+                let val = chartData[key];
+
+                // Limit value
+                val = val.slice(0, 100);
+
+                val = val.map(obj => obj["absolute_humidity"]);
+
+                val = val.map((obj, ind) => obj * +ind);
+
+                let obj = {
+                    data: val,
+                    svg: { stroke: init.colors[ind] },
+                    strokeWidth: 2,
+                }
+
+                datasets.push(obj);
+            }
+
+            ind += 1;
+        }
+
+        setSvgChart(datasets);
+
+    }, [JSON.stringify(svgLegend.map(obj => obj.flag)), JSON.stringify(chartData)]);
+    // #endregion
+
+    // #region Navigation
+    const GoToDevice = () => {
+        navigation.navigate("TabNavigation", {
+            screen: "Device"
+        });
+    }
+
+    const GoToAlert = () => {
+        navigation.navigate("TabNavigation", {
+            screen: "Alert"
+        });
+    }
+    // #endregion
+
+    // #region Helper
+    const updateLegend = (pos) => {
+        let arr = [...svgLegend];
+
+        const { flag } = arr[pos];
+        arr[pos].flag = !flag;
+
+        setSvgLegend(arr);
+    }
+
+    const toggleDateModal = () => setShowDtModal(!showDtModal);
+
+    const addDt = () => {
+        const tStartDt = DateTime.fromISO(startDt)
+                    .plus({days: 1})
+                    .toFormat("yyyy-MM-dd");
+        setStartDt(tStartDt);
+
+        const tEndDt = DateTime.fromISO(endDt)
+                    .plus({days: 1})
+                    .toFormat("yyyy-MM-dd");
+        setEndDt(tEndDt);
+
+    };
+    const minusDt = () => {
+        const tStartDt = DateTime.fromISO(startDt)
+                    .plus({days: -1})
+                    .toFormat("yyyy-MM-dd");
+        setStartDt(tStartDt);
+
+        const tEndDt = DateTime.fromISO(endDt)
+                    .plus({days: -1})
+                    .toFormat("yyyy-MM-dd");
+        setEndDt(tEndDt);
+    };
+    // #endregion
+
+    // #region API
+    const getDashboard = (start_date = '2023-07-01', end_date = '2023-07-01') => {
+        setLoading(true);
+        fetchDashboardInfo({
+            param: {
+                UserId: 2,
+                StartDate: start_date,
+                EndDate: `${end_date} 23:59:59`
+            },
+            onSetLoading: setLoading,
+        })
+        .then(res => {
+            const {Data} = res;
+            setChartData(Data);
 
             let datasets = [];
             let legend = [];
@@ -533,13 +551,15 @@ function Index(props) {
             let maxData = Number.MIN_VALUE;
 
             let ind = 0;
-            for (let key in iRData) {
-                let val = iRData[key];
+            for (let key in Data) {
+                let val = Data[key];
 
                 // Limit value
                 val = val.slice(0, 100);
 
-                val = val.map(obj => obj["Absolute_Humidity"]);
+                val = val.map(obj => obj["absolute_humidity"]);
+
+                val = val.map((obj, ind) => obj * +ind);
 
                 minData = Math.min(...val, minData);
                 maxData = Math.max(...val, maxData);
@@ -570,203 +590,18 @@ function Index(props) {
                 min: minData,
                 max: maxData,
             });
-
-            // let key = legend[0];
-            // let val = iRData[key];
-
-            // val = val.slice(0, 1200);
-            // val = val.map(obj => obj["Temperature"]);
-
-            // setSvgChart(val);
-        }
-    }, [isFocused]);
-
-    // Update Legend
-    useEffect(() => {
-
-        let legend = [...svgLegend];
-
-        let datasets = [];
-
-        let ind = 0;
-        for (let key in iRData) {
-            if (legend[ind] != null && legend[ind].flag) {
-                let val = iRData[key];
-
-                // Limit value
-                val = val.slice(0, 100);
-
-                val = val.map(obj => obj["Absolute_Humidity"]);
-
-                let obj = {
-                    data: val,
-                    svg: { stroke: init.colors[ind] },
-                    strokeWidth: 2,
-                }
-
-                datasets.push(obj);
-            }
-
-            ind += 1;
-        }
-
-        setSvgChart(datasets);
-
-    }, [JSON.stringify(svgLegend.map(obj => obj.flag))]);
-
-    // Update Interval
-    useEffect(() => {
-
-        // Get Interval Index
-        let interval = 0;
-        for (let ind in intervalPane) {
-            if (intervalPane[ind]) {
-                interval = +ind + 1;
-                break;
-            }
-        }
-
-        // Update Interval
-        let label_interval = [
-            ["00", "01", "02", "03", "04"],
-            ["00", "03", "06", "09", "12"],
-            ["00", "05", "10", "14", "18"],
-            ["00", "06", "12", "18", "24"],
-        ];
-
-        let labels = label_interval[interval - 1];
-        setSvgLabels(labels);
-
-        interval *= 100;
-
-        let datasets = [];
-        let legend = [];
-
-        let minData = Number.MAX_VALUE;
-        let maxData = Number.MIN_VALUE;
-
-        let ind = 0;
-        for (let key in iRData) {
-            let val = iRData[key];
-
-            // Limit value
-            val = val.slice(0, interval);
-
-            val = val.map(obj => obj["Absolute_Humidity"]);
-
-            minData = Math.min(...val, minData);
-            maxData = Math.max(...val, maxData);
-
-            let obj = {
-                data: val,
-                svg: { stroke: init.colors[ind] },
-                strokeWidth: 2,
-            }
-
-            datasets.push(obj);
-
-            let legendObj = {
-                name: key,
-                flag: true,
-                color: init.colors[ind],
-            }
-
-            legend.push(legendObj);
-
-            ind += 1;
-        }
-
-        setSvgChart(datasets);
-        setSvgLegend(legend);
-
-        setSvgMetaData({
-            min: minData,
-            max: maxData,
-        });
-
-    }, [JSON.stringify(intervalPane)])
-    // #endregion
-
-    // #region Navigation
-    const GoToDevice = () => {
-        navigation.navigate("TabNavigation", {
-            screen: "Device"
-        });
+        })
+        .catch(err => {
+            setLoading(false);
+            console.log("Error! Help Me");
+            console.log(`Error: ${err}`);
+        })
     }
-
-    const GoToAlert = () => {
-        navigation.navigate("TabNavigation", {
-            screen: "Alert"
-        });
-    }
-    // #endregion
-
-    // #region Helper
-    const updateLegend = (pos) => {
-        let arr = [...svgLegend];
-
-        const { flag } = arr[pos];
-        arr[pos].flag = !flag;
-
-        setSvgLegend(arr);
-    }
-
-    const toggleDateModal = () => setShowDtModal(!showDtModal);
-    const toggleViewShotModal = () => setShowViewShotModal(!viewShotModal);
-
-    const captureImage = () => {
-        if (lineChartRef.current !== null) {
-            lineChartRef.current.capture()
-            .then(async (uri) => {
-                const shareOptions = {
-                    title: 'Yatu Devices Dashboard',
-                    url: uri,
-                    subject: 'Yatu Daily dashboard',
-                };
-    
-                Share.open(shareOptions)
-                    .then(res => {
-                        console.log('res:', res);
-                    }).catch(err => {
-                        throw new Error("An Error has occurred", err.message);
-                    });
-            })
-            .catch(err => {
-                console.log("Error ", err)
-            });
-        }
-    }
-
-    const addDt = () => {
-        const tStartDt = DateTime.fromISO(startDt)
-                    .plus({days: 1})
-                    .toFormat("yyyy-MM-dd");
-        setStartDt(tStartDt);
-
-        const tEndDt = DateTime.fromISO(endDt)
-                    .plus({days: 1})
-                    .toFormat("yyyy-MM-dd");
-        setEndDt(tEndDt);
-
-    };
-    const minusDt = () => {
-        const tStartDt = DateTime.fromISO(startDt)
-                    .plus({days: -1})
-                    .toFormat("yyyy-MM-dd");
-        setStartDt(tStartDt);
-
-        const tEndDt = DateTime.fromISO(endDt)
-                    .plus({days: -1})
-                    .toFormat("yyyy-MM-dd");
-        setEndDt(tEndDt);
-    };
     // #endregion
 
     return (
         <>
-            <VSModal
-                onShare={captureImage}
-                showModal={viewShotModal} setShowModal={setShowViewShotModal} />
+            <BcLoading showLoading={loading} />
             <BcDateRangeModal 
                 dt={init.dt}
                 startDt={startDt} setStartDt={setStartDt}
@@ -831,9 +666,7 @@ function Index(props) {
 
                         <VStack space={2}
                             alignItems={"center"}>
-                            <BcViewShot
-                                lineChartRef={lineChartRef}
-                                onPress={toggleViewShotModal}>
+                            <BcViewShot title="Daily Device Report">
                                 <SvgLineChart
                                     metaData={svgMetaData}
                                     chart={svgChart}

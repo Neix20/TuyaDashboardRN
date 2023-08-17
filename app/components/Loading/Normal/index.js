@@ -27,7 +27,7 @@ import { Utility } from "@utility";
 
 const Index = (props) => {
 
-    const lang = useSelector(Selectors.langSelect);
+    // const lang = useSelector(Selectors.langSelect);
 
     const { backgroundColor = "black", opacity = 0.3 } = props;
     const { showLoading = true } = props;
@@ -59,7 +59,8 @@ const Index = (props) => {
                     zIndex: 4
                 }]}
             >
-                <Text>{Utility.translate("Loading", lang)}</Text>
+                {/* <Text>{Utility.translate("Loading", lang)}</Text> */}
+                <Text>Loading ...</Text>
             </View>
         </>
     ) : (<></>)
