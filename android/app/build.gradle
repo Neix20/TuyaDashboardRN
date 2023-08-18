@@ -100,6 +100,17 @@ android {
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
         versionName "1.0"
+
+        ndk {
+            abiFilters "armeabi-v7a", "arm64-v8a"
+        }
+    }
+
+    packagingOptions {
+        pickFirst 'lib/*/libc++_shared.so'
+        pickFirst 'lib/*/libyuv.so'
+        pickFirst 'lib/*/libopenh264.so'
+        pickFirst 'lib/*/liblog.so'
     }
 
     splits {
@@ -169,6 +180,10 @@ android {
     }
 }
 
+configurations.all {
+    exclude group: "com.thingclips.smart" ,module: 'thingsmart-modularCampAnno'
+}
+
 dependencies {
     // The version of react-native is set by the React Native Gradle Plugin
     implementation("com.facebook.react:react-android")
@@ -189,6 +204,14 @@ dependencies {
 
     // For animated GIF support
     implementation 'com.facebook.fresco:animated-gif:2.5.0'
+
+//    implementation fileTree(dir: 'libs', include: ['*.aar'])
+//    implementation 'com.alibaba:fastjson:1.1.67.android'
+//    implementation 'com.squareup.okhttp3:okhttp-urlconnection:3.14.9'
+
+    // The latest stable App SDK for Android.
+//    implementation 'com.facebook.soloader:soloader:0.10.4+'
+//    implementation 'com.thingclips.smart:thingsmart:5.1.0'
 }
 
 repositories {
