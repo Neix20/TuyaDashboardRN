@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Text, TouchableOpacity, Image, TextInput, Dimensions, SafeAreaView, ImageBackground, ScrollView } from "react-native";
+import { Text, TouchableOpacity, Image, TextInput, Dimensions, SafeAreaView, ImageBackground, ScrollView, Alert } from "react-native";
 import { View, VStack, HStack, useToast } from "native-base";
 
 import FontAwesome from "react-native-vector-icons/FontAwesome";
@@ -16,6 +16,7 @@ import { Images, Svg } from "@config";
 
 import { BcBoxShadow, BcSvgIcon } from "@components";
 
+// #region Components
 function Header(props) {
     const { children } = props;
 
@@ -39,6 +40,25 @@ function Header(props) {
         </BcBoxShadow>
     )
 }
+
+function AlertSign(props) {
+    return (
+        <VStack space={2} 
+            alignItems={"center"} 
+            style={{ width: width - 40 }}>
+            <FontAwesome name={"bell"} color={"#e6e6e6"} size={80} />
+            <Text style={{
+                fontFamily: "Roboto-Medium",
+                fontSize: 18,
+                color: "#d3d3d3",
+                textAlign: "center",
+            }}>
+                Alerts help you to keep tracks of your devices.
+            </Text>
+        </VStack>
+    )
+}
+// #endregion
 
 function Index(props) {
     const toast = useToast();
@@ -71,26 +91,16 @@ function Index(props) {
                         bgColor={"#FFF"}
                         flexGrow={1}>
                         <VStack 
-                        alignItems={"center"}
+                            alignItems={"center"}
                             space={10}>
-                            <View alignItems={"center"} style={{ width: width - 40 }}>
-                                <FontAwesome name={"bell"} color={"#e6e6e6"} size={80} />
-                                <Text style={{
-                                    fontFamily: "Roboto-Medium",
-                                    fontSize: 18,
-                                    color: "#d3d3d3",
-                                    textAlign: "center",
-                                }}>
-                                    Alerts help you to keep tracks of your devices.
-                                </Text>
-                            </View>
+                            <AlertSign />
 
                             <TouchableOpacity onPress={createAlert}>
                                 <View
                                     borderRadius={15}
                                     alignItems={"center"}
                                     justifyContent={"center"}
-                                    bgColor={"#F01421"}
+                                    bgColor={"#2898FF"}
                                     style={{
                                         width: 180,
                                         height: 40,

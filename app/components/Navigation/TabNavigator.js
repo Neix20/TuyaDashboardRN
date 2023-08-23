@@ -100,7 +100,7 @@ const Index = (props) => {
             screenOptions={{
                 headerShown: false,
                 // tabBarStyle: styles.tabBarStyle,
-                tabBarActiveTintColor: "#F01421",
+                tabBarActiveTintColor: "#2898FF",
                 tabBarInactiveTintColor: "#98A0A8"
             }}
             tabBarOptions={{ showLabel: false }}

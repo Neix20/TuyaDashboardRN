@@ -21,16 +21,16 @@
 - [x] Chart Controls
   - [x] Add ScreenShot of Chart
   - [x] React Native Share
-  - [ ] Download Image to Gallery
+  - [x] Download Image to Gallery
   - [x] Custom Date Selector
     - [x] Add Calendar
-    - [ ] Customize Calendar
-- [ ] Components
+    - [x] Customize Calendar
+- [x] Components
   - [x] BcDateRangeSelector
-  - [ ] BcViewShot
-  - [ ] BcCalendar
-- [ ] Fetch API
-  - [ ] Get Dashboard info
+  - [x] BcViewShot
+  - [x] BcCalendar
+- [x] Fetch API
+  - [x] Get Dashboard info
 - [ ] Refactor Code Base
 
 - [x] Tuya Platform
@@ -40,4 +40,18 @@
 - [x] ERD Diagram
   - [x] Add Reporting Logs
     `Used To Record Date of Program Executing`
-  - [x] Add TReport Table 
+  - [x] Add TReport Table
+
+#### 20230823
+
+- [ ] Device
+  - [ ] Device List
+    - [x] Plus Icon
+    - [ ] Modal
+  - [x] Device Management
+    - [x] Tabs
+    - [x] Building, Room, Home
+- [x] Usage
+  - [x] Plan Management
+- [ ] New User Setup
+  - [ ] Welcome Question

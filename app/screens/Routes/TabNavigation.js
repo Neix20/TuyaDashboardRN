@@ -1,10 +1,9 @@
 import React from "react";
 
-
 import { Text } from "react-native";
-import { View } from "native-base";
+import { View, VStack } from "native-base";
 
-import { BcTabNavigator } from "@components";
+import { BcTabNavigator, BcSvgIcon } from "@components";
 
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
@@ -12,28 +11,25 @@ import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 function TabIconFontAwesome(props) {
     const { icon, title, color, focused } = props;
     return (
-        <View
+        <VStack
             alignItems={"center"}
             justifyContent={"center"}
-            style={{
-                height: 70,
-            }}>
+            style={{ height: 70 }}
+            space={.5}>
             <FontAwesome name={icon} color={color} size={20} />
-            <View>
-                <Text style={{
+            <Text style={{
                     color: color,
                     fontSize: 10,
                     fontFamily: "Roboto-Bold",
                 }}>{title}</Text>
-            </View>
             {
                 (focused) ? (
-                    <View pt={1} style={{ width: 5, height: 5 }} borderRadius={5} bgColor={"rgba(240,20,33,0.35)"} />
+                    <View pt={1} style={{ width: 5, height: 5 }} borderRadius={5} bgColor={"rgba(40, 152, 255, 0.35)"} />
                 ) : (
                     <View pt={1} style={{ width: 5, height: 5 }} />
                 )
             }
-        </View>
+        </VStack>
     )
 }
 
@@ -41,6 +37,7 @@ function TabIconFontAwesome(props) {
 import Dashboard from "@screens/Dashboard";
 import Device from "@screens/Device";
 import Alert from "@screens/Alert";
+import Usage from "@screens/Usage";
 import Profile from "@screens/Profile";
 
 let TabScreens = {};
@@ -74,6 +71,16 @@ TabScreens = {
             <TabIconFontAwesome
                 icon={"bell"}
                 title={"Alert"}
+                {...props} />
+        )
+    },
+    Usage: {
+        component: Usage,
+        title: "Usage",
+        tabBarIcon: (props) => (
+            <TabIconFontAwesome
+                icon={"bolt"}
+                title={"Usage"}
                 {...props} />
         )
     },

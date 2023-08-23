@@ -182,7 +182,7 @@
 //                     space={3}>
 
 //                     {/* Logo */}
-//                     <BcSvgIcon name={"ReferralPerson"} width={48} height={48} fill={"#F01421"} />
+//                     <BcSvgIcon name={"ReferralPerson"} width={48} height={48} fill={"#2898FF"} />
 
 
 //                     {/* Title */}

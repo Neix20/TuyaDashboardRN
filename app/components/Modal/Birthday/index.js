@@ -39,7 +39,7 @@ function DateText(props) {
                 <Svg.Calendar
                     width={21}
                     height={21}
-                    fill={"#f00"} />
+                    fill={"#2898FF"} />
             </View>
             <Text style={{
                 textAlign: "center",

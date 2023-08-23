@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Text, TouchableOpacity, Image, TextInput, Dimensions, SafeAreaView, ImageBackground, ScrollView, FlatList } from "react-native";
 import { View, VStack, HStack, Divider, useToast } from "native-base";
 
+import FontAwesome from "react-native-vector-icons/FontAwesome";
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 
 import { useNavigation, useIsFocused } from "@react-navigation/native";
@@ -15,6 +16,8 @@ import { info, error, Utility } from "@utility";
 import { BcSvgIcon, BcBoxShadow, BcHeader } from "@components";
 
 import { Devices } from "@config";
+
+import { Tab, TabView } from "@rneui/themed";
 
 // #region Components
 function EmptyList(props) {
@@ -133,9 +136,23 @@ function Header(props) {
                     backgroundColor: "#fff",
                 }}>
                 <HStack
+                    alignItems={"center"}
+                    justifyContent={"space-between"}
                     style={{ width: width - 40 }}>
                     {/* Logo */}
                     <BcSvgIcon name={"Yatu"} width={80} height={40} />
+
+                    {/* Button */}
+                    <TouchableOpacity>
+                        <View backgroundColor={"#2898FF"}
+                            alignItems={"center"} justifyContent={"center"}
+                            style={{
+                                width: 40, height: 40
+                            }}
+                            borderRadius={20}>
+                            <FontAwesome name={"plus"} size={18} color={"#FFF"} />
+                        </View>
+                    </TouchableOpacity>
                 </HStack>
             </View>
         </BcBoxShadow>
@@ -151,7 +168,13 @@ function Index(props) {
     const lang = "en";
 
     // #region Initial
-    const init = {}
+    const init = {
+        txtActive: "#2898FF",
+        txtInActive: "#6A7683",
+        bgActive: "#FFF",
+        bgInActive: "#EDEEEF",
+        roomLs: ["All Devices", "Living Room", "Office", "Kitchen", "Master Bedroom", "Dining Room"]
+    };
     // #endregion
 
     // #region UseState
@@ -160,6 +183,10 @@ function Index(props) {
     const [itemLs, setItemLs] = useState([]);
 
     const [refresh, setRefresh] = useState(false);
+
+    const [homePaneInd, setHomePaneInd] = useState(0);
+
+    const [roomLs, setRoomLs] = useState(init.roomLs);
     // #endregion
 
     // #region UseEffect
@@ -236,21 +263,67 @@ function Index(props) {
 
                 <View style={{ height: 5 }} />
 
+                <View alignItems={"center"} pt={2}>
+                    <Tab
+                        dense
+                        value={homePaneInd}
+                        onChange={(e) => setHomePaneInd(e)}
+                        scrollable={true}
+                        disableIndicator={true}
+                        style={{ width: width - 40 }}>
+                        {
+                            roomLs.map((room, ind) => (
+                                <Tab.Item
+                                    key={ind}
+                                    title={room}
+                                    titleStyle={(active) => ({
+                                        fontSize: 12,
+                                        color: active ? init.txtActive : init.txtInActive
+                                    })}
+                                    buttonStyle={(active) => ({
+                                        borderWidth: active ? 1 : 0,
+                                        backgroundColor: active ? init.bgActive : init.bgInActive,
+                                        borderRadius: 8,
+                                        marginRight: 5,
+                                        minWidth: 100,
+                                    })}
+                                />
+                            ))
+                        }
+                    </Tab>
+                </View>
+
                 {/* Search */}
                 <Search
                     lang={lang}
                     query={query} setQuery={setQuery} />
 
-                <FlatList
-                    data={itemLs}
-                    renderItem={renderItem}
-                    contentContainerStyle={{ flexGrow: 1 }}
-                    ListEmptyComponent={<EmptyList lang={lang} />}
-                />
+                <TabView 
+                    value={homePaneInd}
+                    onChange={(e) => setHomePaneInd(e)}>
+                    <TabView.Item style={{width: "100%"}}>
+                        <FlatList
+                            data={itemLs}
+                            renderItem={renderItem}
+                            contentContainerStyle={{ flexGrow: 1 }}
+                            ListEmptyComponent={<EmptyList lang={lang} />}
+                        />
+                    </TabView.Item>
+                    {
+                        roomLs.slice(1).map((room, ind) => (
+                            <TabView.Item style={{width: "100%"}}>
+                                <FlatList
+                                    data={itemLs.slice(ind, ind + 1)}
+                                    renderItem={renderItem}
+                                    contentContainerStyle={{ flexGrow: 1 }}
+                                    ListEmptyComponent={<EmptyList lang={lang} />}
+                                />
+                            </TabView.Item>
+                        ))
+                    }
+                </TabView>
 
-                <View style={{
-                    height: 80
-                }} />
+                <View style={{ height: 80 }} />
             </View>
         </SafeAreaView>
     );

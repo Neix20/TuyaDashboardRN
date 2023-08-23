@@ -49,7 +49,7 @@ const Index = (props) => {
                 style={[styles.loading, {
                     zIndex: 4
                 }]}>
-                <Spinner size={128} color={"#F01421"} />
+                <Spinner size={128} color={"#2898FF"} />
             </View>
             <View
                 alignItems={"center"}
@@ -60,7 +60,11 @@ const Index = (props) => {
                 }]}
             >
                 {/* <Text>{Utility.translate("Loading", lang)}</Text> */}
-                <Text>Loading ...</Text>
+                <Text style={{
+                    fontFamily: "Roboto-Bold",
+                    fontSize: 24,
+                    color: "#2898FF"
+                }}>Loading ...</Text>
             </View>
         </>
     ) : (<></>)

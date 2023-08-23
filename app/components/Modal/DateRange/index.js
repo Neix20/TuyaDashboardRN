@@ -13,7 +13,6 @@ import AntDesign from "react-native-vector-icons/AntDesign";
 
 import { DateTime } from "luxon";
 import { CheckBox, Tab, TabView } from "@rneui/themed";
-import { Switch } from "react-native-paper";
 
 import CustomToast from "./../CustomToast";
 
@@ -85,7 +84,7 @@ function DRangeItem(props) {
                         <Text style={{
                             fontFamily: "Roboto-Medium",
                             fontSize: 16,
-                            color: flag ? "#F00" : "#000"
+                            color: flag ? "#2898FF" : "#000"
                         }}>{title}</Text>
                         <Text style={{
                             fontFamily: "Roboto-Medium",
@@ -98,7 +97,7 @@ function DRangeItem(props) {
                         display={flag ? "flex" : "none"}
                         alignItems={"center"} justifyContent={"center"}
                         style={{ width: 40, height: 40 }}>
-                        <AntDesign name={"check"} size={25} color={"#F00"} />
+                        <AntDesign name={"check"} size={25} color={"#2898FF"} />
                     </View>
                 </HStack>
             </View>
@@ -159,6 +158,7 @@ function DateView(props) {
             <VStack 
                 space={3}
                 alignItems={"center"}>
+                
                 <FlatList
                     data={data}
                     renderItem={renderSelectDate}
@@ -230,7 +230,7 @@ function Index(props) {
 
     // #region Init
     const init = {
-        activeColor: "#F00",
+        activeColor: "#2898FF",
         inActiveColor: "#000",
         dateRange: {
             "Day": [],

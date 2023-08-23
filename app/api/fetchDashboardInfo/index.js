@@ -9,7 +9,10 @@ const Index = async (props) => {
     const url = Utility.genServerUrl(action);
 
     // Static Data
-    let obj = Utility.requestObj(param);
+    let obj = Utility.requestObj({
+        ...param,
+        url: url,
+    });
 
     const resp = await fetch(url, {
         method: "POST",
@@ -30,11 +33,7 @@ const Index = async (props) => {
         console.log(`Dashboard - GetDashboardInfo - Response - ${JSON.stringify(data)}`);
     }
 
-    let res_data = {};
-    res_data["Data"] = {};
-    res_data["Data"]["DCH-AHUX"] = data["Data"]["DCH-AHUX"];
-
-    return res_data;
+    return data;
 };
 
 export default Index;

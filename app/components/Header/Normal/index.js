@@ -47,7 +47,7 @@ function Index(props) {
                         top: -19,
                         zIndex: 1,
                     }}>
-                    <FontAwesome5 name={"chevron-left"} size={20} color={"#F00"} />
+                    <FontAwesome5 name={"chevron-left"} size={20} color={"#2898FF"} />
                 </TouchableOpacity>
 
                 <View style={{

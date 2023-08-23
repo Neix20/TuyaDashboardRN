@@ -125,7 +125,7 @@ function TestCheckbox(props) {
                             </HStack>
                         </VStack>
                         <VStack space={1}>
-                            <ElemCheckbox checked={elemFlag} onPress={toggleElemFlag} checkedColor="#F00" />
+                            <ElemCheckbox checked={elemFlag} onPress={toggleElemFlag} checkedColor="#2898FF" />
                             <ElemCheckbox checked={true} />
                         </VStack>
                     </View>
@@ -168,7 +168,7 @@ function DebugDateRange(props) {
 
                         {/* Date Range */}
                         <TouchableOpacity onPress={toggleDtModal}>
-                            <VStack backgroundColor={"#ff0000"}
+                            <VStack backgroundColor={"#2898FF"}
                                 p={3} space={3}
                                 style={{ width: 300 }}>
                                 <Text style={{

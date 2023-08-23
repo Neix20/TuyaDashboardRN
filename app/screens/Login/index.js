@@ -26,6 +26,7 @@ function Index(props) {
 
     // #region Helper
     const Login = () => {
+
         if (username === "root" && password === "root") {
             GoToHome();
         } else {
@@ -121,6 +122,7 @@ function Index(props) {
                                             style={{
                                                 fontFamily: "Roboto-Medium",
                                                 fontSize: 20,
+                                                height: 40,
                                                 color: "#000"
                                             }} />
                                     </View>
@@ -144,6 +146,7 @@ function Index(props) {
                                                 fontFamily: "Roboto-Medium",
                                                 fontSize: 20,
                                                 color: "#000",
+                                                height: 40,
                                                 placeholder: "Enter OTP"
                                             }} />
                                     </View>
@@ -151,7 +154,7 @@ function Index(props) {
 
                                 {/* Login Btn */}
                                 <TouchableOpacity onPress={Login}>
-                                    <View backgroundColor={"#F00"}
+                                    <View backgroundColor={"#2898FF"}
                                         alignItems={"center"} justifyContent={"center"}
                                         style={{
                                             width: width - 80,

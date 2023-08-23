@@ -143,7 +143,7 @@ function Index(props) {
                 <HStack space={3}>
                     <TouchableOpacity onPress={DeleteAcc}>
                         <HStack
-                            bgColor={"#F01421"}
+                            bgColor={"#2898FF"}
                             borderRadius={8}
                             alignItems={"center"}
                             justifyContent={"center"}

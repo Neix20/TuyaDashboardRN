@@ -126,7 +126,7 @@ function LogOut(props) {
                     <View style={{ width: width - 40 }}>
                         <Text style={[{
                             fontSize: 16,
-                            color: "#F01421",
+                            color: "#2898FF",
                             fontFamily: "Roboto-Medium",
                         }]}>{Utility.translate("Log Out", lang)}</Text>
                     </View>

@@ -143,7 +143,7 @@ function Dashboard(props) {
             style={{ width: width - 40 }}>
             <DashboardAtom
                 onPress={onDevice}
-                startColor={"#FF0000"} endColor={"#FF9900"}
+                startColor={"#2898FF"} endColor={"#FF9900"}
                 title={"Active Devices"}>
                 <Text style={{
                     fontFamily: "Roboto-Medium",
@@ -170,10 +170,6 @@ function Dashboard(props) {
     )
 }
 
-function TimeInterval(props) {
-    return (<></>)
-}
-
 function TimeIntervalAtom(props) {
     const { children, onPress = () => { }, flag = false } = props;
     return (
@@ -183,7 +179,7 @@ function TimeIntervalAtom(props) {
                 borderRadius={15}
                 style={{
                     width: 60,
-                    backgroundColor: flag ? "#F01421" : "#FFF"
+                    backgroundColor: flag ? "#2898FF" : "#FFF"
                 }}>
                 <Text style={{
                     fontFamily: "Roboto-Medium",
@@ -205,7 +201,7 @@ function DeviceAtom(props) {
                 borderRadius={15}
                 style={{
                     maxWidth: 120,
-                    backgroundColor: flag ? "#F01421" : "#FFF"
+                    backgroundColor: flag ? "#2898FF" : "#FFF"
                 }}>
                 <Text style={{
                     fontFamily: "Roboto-Medium",
@@ -444,22 +440,19 @@ function Index(props) {
 
     // Update Legend
     useEffect(() => {
-
         let legend = [...svgLegend];
 
         let datasets = [];
 
         let ind = 0;
+
         for (let key in chartData) {
             if (legend[ind] != null && legend[ind].flag) {
                 let val = chartData[key];
 
-                // Limit value
-                val = val.slice(0, 100);
+                val = val.map(obj => +obj["absolute_humidity"]);
 
-                val = val.map(obj => obj["absolute_humidity"]);
-
-                val = val.map((obj, ind) => obj * +ind);
+                val = (val.length > 0) ? val : [0];
 
                 let obj = {
                     data: val,
@@ -541,7 +534,8 @@ function Index(props) {
             onSetLoading: setLoading,
         })
         .then(res => {
-            const {Data} = res;
+            const Data = res["Data"]["IR Temperature"];
+            
             setChartData(Data);
 
             let datasets = [];
@@ -554,12 +548,10 @@ function Index(props) {
             for (let key in Data) {
                 let val = Data[key];
 
-                // Limit value
                 val = val.slice(0, 100);
 
-                val = val.map(obj => obj["absolute_humidity"]);
-
-                val = val.map((obj, ind) => obj * +ind);
+                val = val.map(obj => +obj["absolute_humidity"]);
+                val = (val.length > 0) ? val : [0];
 
                 minData = Math.min(...val, minData);
                 maxData = Math.max(...val, maxData);
@@ -593,7 +585,6 @@ function Index(props) {
         })
         .catch(err => {
             setLoading(false);
-            console.log("Error! Help Me");
             console.log(`Error: ${err}`);
         })
     }
@@ -635,7 +626,7 @@ function Index(props) {
                                 <HStack>
                                     <TouchableOpacity onPress={minusDt}>
                                         <View
-                                            // bgColor={"#F00"}
+                                            // bgColor={"#2898FF"}
                                             justifyContent={"center"}
                                             alignItems={"center"}
                                             style={{ height: 40, width: 40 }}>
@@ -644,7 +635,7 @@ function Index(props) {
                                     </TouchableOpacity>
                                     <TouchableOpacity onPress={addDt}>
                                         <View
-                                            // bgColor={"#F00"}
+                                            // bgColor={"#2898FF"}
                                             justifyContent={"center"}
                                             alignItems={"center"}
                                             style={{ height: 40, width: 40 }}>
@@ -675,6 +666,8 @@ function Index(props) {
 
                             {/* Legend Checkbox */}
                             <Legend data={svgLegend} onUpdateLegend={updateLegend} />
+
+                            <View style={{height: 10}} />
                         </VStack>
 
                     </ScrollView>
