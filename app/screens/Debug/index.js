@@ -10,7 +10,7 @@ const { width, height } = screen;
 
 import { info, error, Utility } from "@utility";
 
-import { BcSvgChart, BcDateRangeModal, BcViewShot } from "@components";
+import { BcSvgChart, BcDateRangeModal, BcViewShot, BcDropdown } from "@components";
 
 import { iRData } from "@config";
 
@@ -19,6 +19,8 @@ import { CheckBox as ElemCheckbox } from '@rneui/base';
 import { Checkbox as NativeCheckbox } from "native-base";
 
 import WChart from "./WChart";
+
+import DropDownPicker from "react-native-dropdown-picker";
 
 // #region Trash
 function Chart(props) {
@@ -143,7 +145,11 @@ function DebugDateRange(props) {
 
     // #region Init
     const init = {
-        dt: "2023-09-04"
+        dt: "2023-09-04",
+        homeLs: [
+            { label: 'Apple', value: 'test' },
+            { label: 'Banana', value: 'test_banana' }
+        ]
     }
     // #endregion
 
@@ -151,6 +157,9 @@ function DebugDateRange(props) {
     const [showDtModal, setShowDtModal] = useState(false);
     const [startDt, setStartDt] = useState("2023-08-18");
     const [endDt, setEndDt] = useState("2023-08-19");
+
+    const [val, setVal] = useState(null);
+    const [homeLs, setHomeLs] = useState(init.homeLs);
     // #endregion
 
     // #region Helper
@@ -164,36 +173,43 @@ function DebugDateRange(props) {
                 endDt={endDt} setEndDt={setEndDt}
                 showModal={showDtModal} setShowModal={setShowDtModal} />
             <SafeAreaView style={{ flex: 1 }}>
-                <View flex={1} p={3}>
+                <View flex={1} alignItems={"center"}>
+                    {/* Date Range */}
+                    <TouchableOpacity onPress={toggleDtModal}>
+                        <VStack backgroundColor={"#2898FF"}
+                            p={3} space={3}
+                            style={{ width: width - 100 }}>
+                            <Text style={{
+                                fontFamily: "Roboto-Bold",
+                                fontSize: 16,
+                                color: "#FFF",
+                            }}>Start Date: {Utility.formatDt(startDt, "EEEE, d MMM")}</Text>
+                            <Text style={{
+                                fontFamily: "Roboto-Bold",
+                                fontSize: 16,
+                                color: "#FFF",
+                            }}>End Date: {Utility.formatDt(endDt, "EEEE, d MMM")}</Text>
+                        </VStack>
+                    </TouchableOpacity>
 
-                        {/* Date Range */}
-                        <TouchableOpacity onPress={toggleDtModal}>
-                            <VStack backgroundColor={"#2898FF"}
-                                p={3} space={3}
-                                style={{ width: 300 }}>
-                                <Text style={{
-                                    fontFamily: "Roboto-Bold",
-                                    fontSize: 16,
-                                    color: "#FFF",
-                                }}>Start Date: {Utility.formatDt(startDt, "EEEE, d MMM")}</Text>
+                    {/* Dropdown Picker */}
+                    <BcDropdown items={homeLs}
+                        value={val} setValue={setVal}
+                        width={200}
+                        placeholder={"Home"}
+                    />
 
-                                <Text style={{
-                                    fontFamily: "Roboto-Bold",
-                                    fontSize: 16,
-                                    color: "#FFF",
-                                }}>End Date: {Utility.formatDt(endDt, "EEEE, d MMM")}</Text>
-                            </VStack>
-                        </TouchableOpacity>
+                    <Text>{val}</Text>
                 </View>
             </SafeAreaView>
         </>
     )
 }
- 
+
 function DebugChart() {
 
     return (
-        <SafeAreaView style={{flex: 1}}>
+        <SafeAreaView style={{ flex: 1 }}>
             <View flex={1} alignItems={"center"} justifyContent={"center"}>
                 <WChart />
             </View>

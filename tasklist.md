@@ -44,14 +44,28 @@
 
 #### 20230823
 
-- [ ] Device
-  - [ ] Device List
+- [x] Device
+  - [x] Device List
     - [x] Plus Icon
-    - [ ] Modal
+    - [x] Modal
   - [x] Device Management
     - [x] Tabs
     - [x] Building, Room, Home
+    - [x] Empty List
+    - [x] Current Room
+  - [x] Logic
+    - [ ] Add Device, Append to List
+    - [x] Initially, Got Empty Device List
+  - [x] Home Management
+    - [x] Dropdown Picker
+    - [ ] Search Query should be unique to each Home
 - [x] Usage
   - [x] Plan Management
+  - [ ] Sample Plans
+    - [x] Look For Pictures
+    - [x] Plan Directory
+    - [ ] Plan Info
 - [ ] New User Setup
   - [ ] Welcome Question
+- [ ] Device Authentication
+  - [x] React Native Error :'(

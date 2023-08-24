@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { Text, TouchableOpacity, Image, TextInput, Dimensions, SafeAreaView, ImageBackground, ScrollView, FlatList } from "react-native";
-import { View, VStack, HStack, Divider, useToast } from "native-base";
+import { Text, TouchableOpacity, Image, TextInput, Dimensions, SafeAreaView, FlatList } from "react-native";
+import { View, VStack, HStack, useToast } from "native-base";
 
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
@@ -10,10 +10,9 @@ import { useNavigation, useIsFocused } from "@react-navigation/native";
 const screen = Dimensions.get("screen");
 const { width, height } = screen;
 
-import { Animation } from "@config";
 import { info, error, Utility } from "@utility";
 
-import { BcSvgIcon, BcBoxShadow, BcHeader } from "@components";
+import { BcSvgIcon, BcBoxShadow, BcDeviceConModal, BcDropdown } from "@components";
 
 import { Devices } from "@config";
 
@@ -27,11 +26,22 @@ function EmptyList(props) {
             style={{ flexGrow: 1 }}
             alignItems={"center"}
             justifyContent={"center"}>
-            <Text style={{
-                fontSize: 22,
-                fontWeight: '700',
-                fontFamily: 'Roboto-Medium',
-            }}>{Utility.translate("Empty List", lang)}</Text>
+
+            <VStack space={2}
+                alignItems={"center"}
+                style={{ width: width - 40 }}>
+
+                <FontAwesome name={"plug"}
+                    color={"#e6e6e6"}
+                    size={80} />
+
+                <Text style={{
+                    fontSize: 18,
+                    color: "#d3d3d3",
+                    fontFamily: 'Roboto-Medium',
+                    fontWeight: "700"
+                }}>{Utility.translate("Empty List", lang)}</Text>
+            </VStack>
         </View>
     )
 }
@@ -123,17 +133,32 @@ function Item(props) {
 }
 
 function Header(props) {
+
     const { children } = props;
+    const { onAddDevice = () => { } } = props;
+
+    const { homeLs, homeVal, setHomeVal } = props;
+
     return (
-        <BcBoxShadow>
+        <>
+            <BcBoxShadow>
+                <View
+                    style={{
+                        height: 60,
+                        width: width,
+                        backgroundColor: "#fff",
+                    }}>
+                </View>
+            </BcBoxShadow>
             <View
-                pb={2}
+                justifyContent={"center"}
                 alignItems={"center"}
-                justifyContent={"flex-end"}
                 style={{
+                    position: "absolute",
+                    zIndex: 100,
                     height: 60,
-                    width: width,
-                    backgroundColor: "#fff",
+                    left: 0,
+                    right: 0,
                 }}>
                 <HStack
                     alignItems={"center"}
@@ -142,22 +167,32 @@ function Header(props) {
                     {/* Logo */}
                     <BcSvgIcon name={"Yatu"} width={80} height={40} />
 
-                    {/* Button */}
-                    <TouchableOpacity>
-                        <View backgroundColor={"#2898FF"}
-                            alignItems={"center"} justifyContent={"center"}
-                            style={{
-                                width: 40, height: 40
-                            }}
-                            borderRadius={20}>
-                            <FontAwesome name={"plus"} size={18} color={"#FFF"} />
-                        </View>
-                    </TouchableOpacity>
+                    <HStack alignItems={"center"} space={3}>
+                        {/* Current Home */}
+                        <BcDropdown
+                            items={homeLs} placeholder={"Home"}
+                            value={homeVal} setValue={setHomeVal}
+                            width={120} height={40}
+                        />
+
+                        {/* Button */}
+                        <TouchableOpacity onPress={onAddDevice}>
+                            <View backgroundColor={"#2898FF"}
+                                alignItems={"center"} justifyContent={"center"}
+                                style={{
+                                    width: 40, height: 40
+                                }}
+                                borderRadius={20}>
+                                <FontAwesome name={"plus"} size={18} color={"#FFF"} />
+                            </View>
+                        </TouchableOpacity>
+                    </HStack>
                 </HStack>
             </View>
-        </BcBoxShadow>
+        </>
     )
 }
+
 // #endregion
 
 function Index(props) {
@@ -173,7 +208,11 @@ function Index(props) {
         txtInActive: "#6A7683",
         bgActive: "#FFF",
         bgInActive: "#EDEEEF",
-        roomLs: ["All Devices", "Living Room", "Office", "Kitchen", "Master Bedroom", "Dining Room"]
+        roomLs: ["All Devices", "Living Room", "Office", "Kitchen", "Master Bedroom", "Dining Room"],
+        homeLs: [
+            { label: "s8-office", value: "s8-office" },
+            { label: "s10-office", value: "s10-office" },
+        ]
     };
     // #endregion
 
@@ -185,8 +224,12 @@ function Index(props) {
     const [refresh, setRefresh] = useState(false);
 
     const [homePaneInd, setHomePaneInd] = useState(0);
-
     const [roomLs, setRoomLs] = useState(init.roomLs);
+
+    const [showDeviceConModal, setShowDeviceConModal] = useState(false);
+
+    const [homeVal, setHomeVal] = useState(null);
+
     // #endregion
 
     // #region UseEffect
@@ -250,82 +293,88 @@ function Index(props) {
     // #endregion
 
     // #region Helper
-    const GoToDetail = (item) => {
-        navigation.navigate("DeviceDetail", item);
-    }
+    const GoToDetail = (item) => navigation.navigate("DeviceDetail", item);
+
+    const toggleDeviceConModal = () => setShowDeviceConModal(!showDeviceConModal);
     // #endregion
 
     return (
-        <SafeAreaView style={{ flex: 1 }}>
-            <View bgColor={"#FFF"} style={{ flex: 1 }}>
-                {/* Device */}
-                <Header>Device</Header>
+        <>
+            <BcDeviceConModal key={showDeviceConModal} showModal={showDeviceConModal} setShowModal={setShowDeviceConModal} />
+            <SafeAreaView style={{ flex: 1 }}>
+                <View bgColor={"#FFF"} style={{ flex: 1 }}>
+                    {/* Device */}
+                    <Header
+                        homeLs={init.homeLs}
+                        homeVal={homeVal} setHomeVal={setHomeVal}
+                        onAddDevice={toggleDeviceConModal}>Device</Header>
 
-                <View style={{ height: 5 }} />
+                    <View style={{ height: 5 }} />
 
-                <View alignItems={"center"} pt={2}>
-                    <Tab
-                        dense
+                    <View alignItems={"center"} pt={2}>
+                        {/* <Tab
+                            dense
+                            value={homePaneInd}
+                            onChange={(e) => setHomePaneInd(e)}
+                            scrollable={true}
+                            disableIndicator={true}
+                            style={{ width: width - 40 }}>
+                            {
+                                roomLs.map((room, ind) => (
+                                    <Tab.Item
+                                        key={ind}
+                                        title={room}
+                                        titleStyle={(active) => ({
+                                            fontSize: 12,
+                                            color: active ? init.txtActive : init.txtInActive
+                                        })}
+                                        buttonStyle={(active) => ({
+                                            borderWidth: active ? 1 : 0,
+                                            backgroundColor: active ? init.bgActive : init.bgInActive,
+                                            borderRadius: 8,
+                                            marginRight: 5,
+                                            minWidth: 100,
+                                        })}
+                                    />
+                                ))
+                            }
+                        </Tab> */}
+                    </View>
+
+                    {/* Search */}
+                    <Search
+                        lang={lang}
+                        query={query} setQuery={setQuery} />
+
+                    <TabView
                         value={homePaneInd}
-                        onChange={(e) => setHomePaneInd(e)}
-                        scrollable={true}
-                        disableIndicator={true}
-                        style={{ width: width - 40 }}>
+                        onChange={(e) => setHomePaneInd(e)}>
+                        <TabView.Item style={{ width: "100%" }}>
+                            <FlatList
+                                data={itemLs}
+                                renderItem={renderItem}
+                                contentContainerStyle={{ flexGrow: 1 }}
+                                ListEmptyComponent={<EmptyList lang={lang} />}
+                            />
+                        </TabView.Item>
                         {
-                            roomLs.map((room, ind) => (
-                                <Tab.Item
-                                    key={ind}
-                                    title={room}
-                                    titleStyle={(active) => ({
-                                        fontSize: 12,
-                                        color: active ? init.txtActive : init.txtInActive
-                                    })}
-                                    buttonStyle={(active) => ({
-                                        borderWidth: active ? 1 : 0,
-                                        backgroundColor: active ? init.bgActive : init.bgInActive,
-                                        borderRadius: 8,
-                                        marginRight: 5,
-                                        minWidth: 100,
-                                    })}
-                                />
+                            roomLs.slice(1).map((room, ind) => (
+                                <TabView.Item style={{ width: "100%" }}>
+                                    <FlatList
+                                        data={itemLs.slice(ind, ind + 1)}
+                                        renderItem={renderItem}
+                                        contentContainerStyle={{ flexGrow: 1 }}
+                                        ListEmptyComponent={<EmptyList lang={lang} />}
+                                    />
+                                </TabView.Item>
                             ))
                         }
-                    </Tab>
+                    </TabView>
+
+                    <View style={{ height: 80 }} />
                 </View>
-
-                {/* Search */}
-                <Search
-                    lang={lang}
-                    query={query} setQuery={setQuery} />
-
-                <TabView 
-                    value={homePaneInd}
-                    onChange={(e) => setHomePaneInd(e)}>
-                    <TabView.Item style={{width: "100%"}}>
-                        <FlatList
-                            data={itemLs}
-                            renderItem={renderItem}
-                            contentContainerStyle={{ flexGrow: 1 }}
-                            ListEmptyComponent={<EmptyList lang={lang} />}
-                        />
-                    </TabView.Item>
-                    {
-                        roomLs.slice(1).map((room, ind) => (
-                            <TabView.Item style={{width: "100%"}}>
-                                <FlatList
-                                    data={itemLs.slice(ind, ind + 1)}
-                                    renderItem={renderItem}
-                                    contentContainerStyle={{ flexGrow: 1 }}
-                                    ListEmptyComponent={<EmptyList lang={lang} />}
-                                />
-                            </TabView.Item>
-                        ))
-                    }
-                </TabView>
-
-                <View style={{ height: 80 }} />
-            </View>
-        </SafeAreaView>
+            </SafeAreaView>
+        </>
     );
 }
 

@@ -18,7 +18,7 @@ function Index(props) {
         }
     }, [timer]);
 
-    return (hide || timer < 0) ? (
+    return (timer <= 0 || hide) ? (
         <></>
     ) : (
         <Text {...props}>

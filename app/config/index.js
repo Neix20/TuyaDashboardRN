@@ -7,6 +7,8 @@ import iRData from "./data/iRData";
 
 import Devices from "./data/devices";
 
+import OriDevices from "./data/ori_devices";
+
 import * as clsConst from "./clsConst";
 
 export {
@@ -17,7 +19,8 @@ export {
 
 export {
     iRData,
-    Devices
+    Devices,
+    OriDevices
 };
 
 export {

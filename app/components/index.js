@@ -23,6 +23,8 @@ import BcSvgIcon from "./SvgIcon";
 
 import BcViewShot from "./ViewShot";
 
+import BcDropdown from "./Dropdown";
+
 export {
     BcBoxShadow,
     BcDisable,
@@ -31,7 +33,8 @@ export {
     BcProgressBarLoading,
     BcTimer,
     BcDateTimer,
-    BcViewShot
+    BcViewShot,
+    BcDropdown
 }
 // #endregion
 
@@ -57,12 +60,15 @@ import BcLogoutModal from "./Modal/Logout";
 
 import BcDateRangeModal from "./Modal/DateRange";
 
+import BcDeviceConModal from "./Modal/DeviceCon";
+
 export {
     BaseModal,
     BcGenderModal,
     BcBirthdayModal,
     BcLogoutModal,
     BcDateRangeModal,
+    BcDeviceConModal,
 }
 
 import BcGradient from "./Gradient";

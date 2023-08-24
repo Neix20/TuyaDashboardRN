@@ -5,16 +5,11 @@ import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 import { useNavigation, useIsFocused } from "@react-navigation/native";
 
 const screen = Dimensions.get("screen");
-const { width: gWidth, height: gHeight } = screen;
-
-import { info, error, Utility } from "@utility";
-
-import {Images, GlobalStyles, GlobalColors} from "@config";
 
 import DropDownPicker from "react-native-dropdown-picker";
 
 const colors = {
-    lightGray: "#F1F6FC",
+    lightGray: "#FFF",
     darkGray: '#505B67',
     mgray: '#A0AAB6',
     gray: "#DAE1EA",
@@ -24,58 +19,57 @@ const styles = StyleSheet.create({
     container: {
         borderRadius: 8,
         backgroundColor: colors.lightGray,
-        borderColor: colors.lightGray,
+        borderColor: colors.gray,
+        minHeight: 0,
     },
     dropDownContainer: {
         borderColor: colors.gray,
-        backgroundColor: "white",
-        width: gWidth - 50,
+        backgroundColor: "#FFF",
         alignSelf: "center",
+        zIndex: 100,
     },
     placeHolder: {
-        textAlign: "center",
-        marginLeft: 20,
+        fontFamily: "Roboto-Medium",
         fontSize: 14,
-        fontWeight: '500',
+        textAlign: "center",
         color: colors.darkGray
     },
-    selectedLabel: {
-        textAlign: "center",
-        marginLeft: 20,
+    label: {
+        fontFamily: "Roboto-Medium",
         fontSize: 14,
-        fontWeight: '600',
+        textAlign: "center",
         color: colors.darkGray
     },
-    itemLabel: {
-        textAlign: "left",
+    text: {
+        fontFamily: "Roboto-Medium",
         fontSize: 14,
-        fontWeight: '500',
         color: colors.darkGray
     },
 });
 
 function Index(props) {
-    const toast = useToast();
-    const navigation = useNavigation();
-    const isFocused = useIsFocused();
 
-    const { ls = [], placeholder = "" } = props;
-    const { width = gWidth - 50, height = 200 } = props;
-    const { val, setVal } = props;
-    const { flag = false } = props;
+    // #region Prop
+    const { value, setValue } = props;
+    const { items, placeholder = "Select Item" } = props;
+    const { width, height} = props;
+    // #endregion
+
+    // #region UseState
     const [open, setOpen] = useState(false);
-    
+    // #endregion
+
     return (
-        <DropDownPicker items={ls}
-            disabled={flag}
-            placeholder={placeholder}
+        <DropDownPicker items={items}
             open={open} setOpen={setOpen}
-            value={val} setValue={setVal}
-            style={[styles.container, { width: width }]}
-            dropDownContainerStyle={[styles.dropDownContainer, { width: width, height: height }]}
-            placeholderStyle={styles.placeHolder}
-            labelStyle={styles.selectedLabel}
-            listParentLabelStyle={styles.itemLabel}
+            value={value} setValue={setValue}
+            placeholder={placeholder}
+            style={[styles.container, { width: width, height: height }]}
+            containerStyle={{ width: width, height: height }}
+            dropDownContainerStyle={[styles.dropDownContainer, { width: width }]}
+            placeholderStyle={[styles.placeHolder]}
+            labelStyle={[styles.label]}
+            textStyle={[styles.text]}
         />
     );
 

@@ -12,6 +12,8 @@ import DeviceChart from "@screens/DeviceChart";
 
 import Login from "@screens/Login";
 
+import UsageInfo from "@screens/UsageInfo";
+
 let StackScreens = {};
 
 StackScreens = {
@@ -35,6 +37,10 @@ StackScreens = {
     DeviceChart: {
         component: DeviceChart,
         title: "DeviceChart"
+    },
+    UsageInfo: {
+        component: UsageInfo,
+        title: "UsageInfo"
     }
 }
 

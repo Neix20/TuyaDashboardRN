@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Text, TouchableOpacity, Image, TextInput, Dimensions, SafeAreaView, ImageBackground, ScrollView } from "react-native";
+import { Text, TouchableOpacity, Image, TextInput, Dimensions, SafeAreaView, ScrollView, FlatList } from "react-native";
 import { View, VStack, HStack, useToast } from "native-base";
 
 import FontAwesome from "react-native-vector-icons/FontAwesome";
@@ -12,9 +12,9 @@ const { width, height } = screen;
 
 import { info, error, Utility } from "@utility";
 
-import { Images, Svg, GlobalStyles, GlobalColors } from "@config";
+import { Images, Svg } from "@config";
 
-import {BcBoxShadow, BcSvgIcon} from "@components";
+import { BcBoxShadow, BcSvgIcon } from "@components";
 
 // #region Components
 function Header(props) {
@@ -23,9 +23,8 @@ function Header(props) {
     return (
         <BcBoxShadow>
             <View
-                pb={2}
-                alignItems={"center"}
-                justifyContent={"flex-end"}
+            alignItems={"center"}
+                justifyContent={"center"}
                 style={{
                     height: 60,
                     width: width,
@@ -44,17 +43,10 @@ function Header(props) {
 }
 
 function EmptyList(props) {
-    const { lang } = props;
     return (
-        <View
-            style={{ flexGrow: 1 }}
-            alignItems={"center"}
-            justifyContent={"center"}>
-            <Text style={{
-                fontSize: 22,
-                fontWeight: '700',
-                fontFamily: 'Roboto-Medium',
-            }}>{Utility.translate("Empty List", lang)}</Text>
+        <View flexGrow={1}
+            alignItems={"center"} justifyContent={"center"}>
+            <UsageSign />
         </View>
     )
 }
@@ -80,6 +72,92 @@ function UsageSign(props) {
         </VStack>
     )
 }
+
+function Search(props) {
+    const { lang } = props;
+    const { query, setQuery } = props;
+    return (
+        <View
+            alignItems={"center"}
+            justifyContent={"center"}
+            style={{
+                height: 60,
+            }}>
+            <View
+                bgColor={"#EDEEEF"}
+                borderRadius={4}>
+                <TextInput
+                    style={{
+                        fontSize: 14,
+                        fontFamily: "Roboto-Medium",
+                        height: 40,
+                        width: 360,
+                        paddingHorizontal: 16,
+                        color: "#000",
+                    }}
+                    placeholder={Utility.translate("Search", lang)}
+                    placeholderTextColor={"#6A7683"}
+                    defaultValue={query}
+                    onChangeText={setQuery}
+                />
+
+                {/* Front Layer */}
+                <View
+                    justifyContent={"center"}
+                    style={{
+                        position: "absolute",
+                        top: 0,
+                        bottom: 0,
+                        right: 16,
+                        display: (query !== "") ? "none" : "flex"
+                    }}>
+                    <FontAwesome5 name={"search"} size={20} color={"#6A7683"} />
+                </View>
+            </View>
+        </View>
+    )
+}
+
+function Item(props) {
+    
+    const { name, uri} = props;
+    const { onSelect = () => { } } = props;
+
+    return (
+        <TouchableOpacity onPress={onSelect}>
+            <BcBoxShadow>
+                <VStack
+                    pb={3} space={2}
+                    bgColor={"#FFF"}
+                    alignItems={"center"}
+                    style={{ width: width }}>
+
+                    {/* Banner */}
+                    <View>
+                        <Image
+                            source={uri}
+                            style={{
+                                width: width - 40,
+                                height: 120,
+                            }}
+                            resizeMode={"cover"}
+                            alt={name} />
+
+                    </View>
+
+                    {/* Description */}
+                    <HStack alignItems={"center"} style={{width: width - 40}}>
+                        <Text style={{
+                            fontFamily: "Roboto-Bold",
+                            fontSize: 16,
+                            color: "#000",
+                        }}>{name}</Text>
+                    </HStack>
+                </VStack>
+            </BcBoxShadow>
+        </TouchableOpacity>
+    )
+}
 // #endregion
 
 function Index(props) {
@@ -89,25 +167,97 @@ function Index(props) {
 
     const lang = "en";
 
+    // #region Initial
+    const init = {
+        usageLs: [
+            {
+                name: "Energy Saving I",
+                uri: Images.esgBanner,
+            },
+            {
+                name: "Energy Saving II",
+                uri: Images.esgIIBanner,
+            },
+            {
+                name: "Energy Saving III",
+                uri: Images.esgIIIBanner,
+            },
+        ]
+    }
+    // #endregion
+
+    // #region UseState
+    const [refresh, setRefresh] = useState(false);
+
+    const [oriLs, setOriLs] = useState(init.usageLs);
+    const [filterLs, setFilterLs] = useState([]);
+    // #endregion
+
+    // #region UseEffect
+    useEffect(() => {
+        if (isFocused) {
+            setOriLs(init.usageLs);
+        }
+    }, [isFocused]);
+    // #endregion
+
+    // #region Filter Query
+    const [query, setQuery] = useState("");
+
+    useEffect(() => {
+        let arr = [...oriLs];
+        if (query !== "" && arr.length > 0) {
+            arr = arr.filter(x => x["name"].toLowerCase().includes(query.toLowerCase()));
+        }
+
+        setFilterLs(arr);
+    }, [query, refresh]);
+    // #endregion
+
+    // #region Render
+    const renderItem = ({item, index}) => {
+
+        const onSelectItem = () => toggleSelectItem(item);
+
+        return (
+            <>
+                 <Item
+                    key={index}
+                    onSelect={onSelectItem}
+                    {...item} />
+                <View style={{height: 10}} />
+            </>
+        )
+    }
+    // #endregion
+
+    // #region Helper
+    const toggleSelectItem = (item) => {
+        navigation.navigate("UsageInfo", item);
+    };
+    // #endregion
+
     return (
         <SafeAreaView style={{ flex: 1 }}>
-            <View style={{ flex: 1 }}>
+            <View bgColor={"#FFF"}  style={{ flex: 1 }}>
         
                 {/* Header */}
                 <Header />
         
                 <View style={{ height: 10 }} />
+
+                {/* Search */}
+                <Search
+                    lang={lang}
+                    query={query} setQuery={setQuery} />
         
                 {/* Body */}
-                <ScrollView showsVerticalScrollIndicator={false}
-                    contentContainerStyle={{ flexGrow: 1 }}>
-                    <View flexGrow={1}
-                        bgColor={"#FFF"} 
-                        justifyContent={"center"} 
-                        alignItems={"center"}>
-                        <UsageSign />
-                    </View>
-                </ScrollView>
+                <FlatList
+                    data={filterLs}
+                    renderItem={renderItem}
+                    contentContainerStyle={{ flexGrow: 1 }}
+                    ListEmptyComponent={<EmptyList />}
+                />
         
                 {/* Footer */}
                 <View style={{ height: 80 }} />

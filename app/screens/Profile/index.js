@@ -141,9 +141,8 @@ function Header(props) {
     return (
         <BcBoxShadow>
             <View
-                pb={2}
-                alignItems={"center"}
-                justifyContent={"flex-end"}
+           alignItems={"center"}
+                justifyContent={"center"}
                 style={{
                     height: 60,
                     width: width,

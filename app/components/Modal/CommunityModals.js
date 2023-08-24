@@ -47,17 +47,19 @@ function Index(props) {
     const { children } = props;
     const { showCross = true } = props;
     const { showModal, setShowModal } = props;
-    const { cusToast = init.toast } = props;
+    const { cusToast = init.toast, backdropOpacity = 0.7 } = props;
     // #endregion
 
     return (
-        <Modal isVisible={showModal}
+        <Modal 
+            isVisible={showModal}
             animationIn={'slideInUp'}
             animationOut={'slideOutDown'}
             onBackButtonPress={() => setShowModal(false)}
             onBackdropPress={() => setShowModal(false)}
             deviceHeight={height}
-            deviceWidth={width}>
+            deviceWidth={width}
+            backdropOpacity={backdropOpacity}>
             <View
                 style={{
                     backgroundColor: 'white',
