@@ -61,11 +61,14 @@
     - [ ] Search Query should be unique to each Home
 - [x] Usage
   - [x] Plan Management
-  - [ ] Sample Plans
+  - [x] Sample Plans
     - [x] Look For Pictures
     - [x] Plan Directory
-    - [ ] Plan Info
+    - [x] Plan Info
 - [ ] New User Setup
-  - [ ] Welcome Question
+  - [x] Welcome Question
+  - [x] Component That Dynamically add 1, 2, 3, 4
+  - [x] GrayScale: Not Selected
+  - [x] Color: Selected
 - [ ] Device Authentication
   - [x] React Native Error :'(

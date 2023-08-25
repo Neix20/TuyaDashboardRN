@@ -98,7 +98,7 @@ TabScreens = {
 
 function Index(props) {
 
-    const defaultScreen = "Usage";
+    const defaultScreen = "Dashboard";
 
     return (
         <BcTabNavigator

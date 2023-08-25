@@ -14,6 +14,8 @@ import Login from "@screens/Login";
 
 import UsageInfo from "@screens/UsageInfo";
 
+import WelcomeInfo from "@screens/WelcomeInfo";
+
 let StackScreens = {};
 
 StackScreens = {
@@ -41,6 +43,10 @@ StackScreens = {
     UsageInfo: {
         component: UsageInfo,
         title: "UsageInfo"
+    },
+    WelcomeInfo: {
+        component: WelcomeInfo,
+        title: "WelcomeInfo"
     }
 }
 
@@ -51,7 +57,7 @@ function Index(props) {
     }, []);
 
     // const defaultScreen = "Login";
-    const defaultScreen = "TabNavigation";
+    const defaultScreen = "WelcomeInfo";
 
     return (
         <BcStackNavigator

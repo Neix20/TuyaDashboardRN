@@ -28,7 +28,7 @@ function Index(props) {
     const Login = () => {
 
         if (username === "root" && password === "root") {
-            GoToHome();
+            GoToWelcomeInfo();
         } else {
             setUsername("");
             setPassword("");
@@ -45,6 +45,10 @@ function Index(props) {
         navigation.navigate("TabNavigation", {
             screen: "Dashboard",
         });
+    }
+
+    const GoToWelcomeInfo = () => {
+        navigation.navigate("WelcomeInfo");
     }
     // #endregion
 

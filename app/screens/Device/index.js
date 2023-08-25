@@ -155,7 +155,7 @@ function Header(props) {
                 alignItems={"center"}
                 style={{
                     position: "absolute",
-                    zIndex: 100,
+                    zIndex: 20,
                     height: 60,
                     left: 0,
                     right: 0,
@@ -312,7 +312,7 @@ function Index(props) {
                     <View style={{ height: 5 }} />
 
                     <View alignItems={"center"} pt={2}>
-                        {/* <Tab
+                        <Tab
                             dense
                             value={homePaneInd}
                             onChange={(e) => setHomePaneInd(e)}
@@ -338,7 +338,7 @@ function Index(props) {
                                     />
                                 ))
                             }
-                        </Tab> */}
+                        </Tab>
                     </View>
 
                     {/* Search */}
