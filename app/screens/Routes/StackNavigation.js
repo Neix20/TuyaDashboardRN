@@ -16,6 +16,8 @@ import UsageInfo from "@screens/UsageInfo";
 
 import WelcomeInfo from "@screens/WelcomeInfo";
 
+import TuyaPanel from "@screens/TuyaPanel";
+
 let StackScreens = {};
 
 StackScreens = {
@@ -47,6 +49,10 @@ StackScreens = {
     WelcomeInfo: {
         component: WelcomeInfo,
         title: "WelcomeInfo"
+    },
+    TuyaPanel: {
+        component: TuyaPanel,
+        title: "TuyaPanel"
     }
 }
 
@@ -57,7 +63,7 @@ function Index(props) {
     }, []);
 
     // const defaultScreen = "Login";
-    const defaultScreen = "WelcomeInfo";
+    const defaultScreen = "TuyaPanel";
 
     return (
         <BcStackNavigator

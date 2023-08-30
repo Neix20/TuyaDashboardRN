@@ -1,8 +1,8 @@
 import * as Utility from "./utility";
 
-import {info, error } from "./logger";
+import Logger from "./logger";
 
 export {
 	Utility,
-	info, error
+	Logger,
 }

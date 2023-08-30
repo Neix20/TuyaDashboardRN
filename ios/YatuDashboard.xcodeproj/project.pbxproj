@@ -52,6 +52,7 @@
 		5DCACB8F33CDC322A6C60F78 /* libPods-YatuDashboard.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-YatuDashboard.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = YatuDashboard/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		89C6BE57DB24E9ADA2F236DE /* Pods-YatuDashboard-YatuDashboardTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YatuDashboard-YatuDashboardTests.release.xcconfig"; path = "Target Support Files/Pods-YatuDashboard-YatuDashboardTests/Pods-YatuDashboard-YatuDashboardTests.release.xcconfig"; sourceTree = "<group>"; };
+		D06442892A9ED977001F139F /* PrefixHeader.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
 		EC9CBEA42F674938A737D1FA /* Montserrat-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Montserrat-Regular.ttf"; path = "../app/assets/fonts/Montserrat-Regular.ttf"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
@@ -138,6 +139,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				D06442892A9ED977001F139F /* PrefixHeader.pch */,
 				13B07FAE1A68108700A75B9A /* YatuDashboard */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* YatuDashboardTests */,
@@ -191,6 +193,7 @@
 				00E356F51AD99517003FC87E /* PBXTargetDependency */,
 			);
 			name = YatuDashboardTests;
+			productName = YatuDashboardTests;
 			productReference = 00E356EE1AD99517003FC87E /* YatuDashboardTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
@@ -514,6 +517,8 @@
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_BITCODE = NO;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = /Users/justin/Documents/ReactNative/TuyaDashboardRN/ios/PrefixHeader.pch;
 				INFOPLIST_FILE = YatuDashboard/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = YatuDashboard;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -541,6 +546,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = /Users/justin/Documents/ReactNative/TuyaDashboardRN/ios/PrefixHeader.pch;
 				INFOPLIST_FILE = YatuDashboard/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = YatuDashboard;
 				LD_RUNPATH_SEARCH_PATHS = (

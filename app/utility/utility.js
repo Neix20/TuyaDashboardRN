@@ -2,22 +2,15 @@ import { clsConst } from "@config";
 
 import { DateTime } from "luxon";
 
-import { Platform, CameraRoll } from 'react-native';
-
-import { info, error } from "./logger";
+import { Platform, CameraRoll } from 'react-native'; 
 
 import RNFS from "react-native-fs";
 
 import RNFetchBlob from "rn-fetch-blob";
 
-function genNgrokUrl(action) {
-	// const { TEST_SERVER } = Const;
-	// return `${TEST_SERVER}${action}`;
-}
-
 function genLogUrl(action) {
-	// const { LOG_SERVER } = Const;
-	// return `${LOG_SERVER}${action}`;
+	const { LOG_URL } = clsConst;
+	return `${LOG_URL}/${action}`;
 }
 
 function genServerUrl(action) {
@@ -317,7 +310,6 @@ export {
 }
 
 export {
-	genNgrokUrl,
 	genLogUrl,
 	genServerUrl
 }

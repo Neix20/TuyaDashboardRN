@@ -51,20 +51,29 @@ target 'YatuDashboard' do
     inherit! :complete
     # Pods for testing
   end
+  
+  pod "ThingSmartCryption", :path =>'./TuyaSDK'
+  pod 'ThingSmartHomeKit','~> 5.1.0'
 
   post_install do |installer|
     react_native_post_install(
-      installer,4
+      installer,
+      config[:reactNativePath],
       # Set `mac_catalyst_enabled` to `true` in order to apply patches
       # necessary for Mac Catalyst builds
       :mac_catalyst_enabled => false
     )
     __apply_Xcode_12_5_M1_post_install_workaround(installer)
+    
+    installer.pods_project.targets.each do |target|
+      target.build_configurations.each do |config|
+        # 消除文档警告
+        config.build_settings['CLANG_WARN_DOCUMENTATION_COMMENTS'] = 'NO'
+        # iOS 模拟器去除 arm64
+        config.build_settings["EXCLUDED_ARCHS[sdk=iphonesimulator*]"] = "arm64"
+      end
+    end
   end
-
-  # pod "ThingSmartCryption", :path =>'./'
-  # pod "ThingSmartHomeKit"
-  # pod 'ThingSmartHomeKit', '~> 5.1.0'
 
 end
 

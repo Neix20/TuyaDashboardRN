@@ -74,7 +74,7 @@ function Index(props) {
             msg: "",
             flag: false
         },
-        duration: 5,
+        duration: 0,
         deviceLs: []
     };
     // #endregion
@@ -107,14 +107,14 @@ function Index(props) {
     // #endregion
 
     // #region UseState
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(false);
     const [deviceLs, setDeviceLs] = useState(init.deviceLs);
     // #endregion
 
     // #region UseEffect
     useEffect(() => {
         if (showModal) {
-            setLoading(true);
+            setLoading(false);
         }
     }, [showModal]);
     // #endregion

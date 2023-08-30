@@ -8,9 +8,7 @@ import { useNavigation, useIsFocused } from "@react-navigation/native";
 const screen = Dimensions.get("screen");
 const { width, height } = screen;
 
-import { info, error, Utility } from "@utility";
-
-import { Images, Animation } from "@config";
+import { Logger, Utility } from "@utility";
 
 import { BcSvgIcon } from "@components";
 
@@ -27,12 +25,12 @@ function Index(props) {
     // #region Helper
     const Login = () => {
 
+        setUsername("");
+        setPassword("");
+
         if (username === "root" && password === "root") {
             GoToWelcomeInfo();
         } else {
-            setUsername("");
-            setPassword("");
-
             toast.show({
                 description: "Account / Password is incorrect!"
             })

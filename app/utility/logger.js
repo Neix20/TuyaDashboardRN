@@ -1,95 +1,105 @@
-const { genLogUrl } = require("./utility");
+import { genLogUrl } from "./utility";
+
+// #region API
+const fetchInfoLogData = async (param) => {
+    const action = "InfoLog";
+    const url = genLogUrl(action);
+
+    const { fileName = "" } = param;
+
+    // Static Data
+    let obj = {
+        content: {
+            ...param,
+            app: "Buah Cinta",
+        },
+        fileName: fileName,
+    };
+
+    const resp = await fetch(url, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(obj),
+    });
+
+    const data = await resp.json();
+
+    if (data["ResponseCode"] === "00") {
+        console.log("Info Logging!");
+    }
+
+    return data;
+};
+
+const fetchErrorLogData = async (param) => {
+    const action = "ErrorLog";
+    const url = genLogUrl(action);
+
+    const { fileName = "" } = param;
+
+    // Static Data
+    let obj = {
+        content: {
+            ...param,
+            app: "Buah Cinta",
+        },
+        fileName: fileName,
+    };
+
+    const resp = await fetch(url, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(obj),
+    });
+
+    const data = await resp.json();
+
+    if (data["ResponseCode"] === "00") {
+        console.log("Error Logging!");
+    }
+
+    return data;
+};
+// #endregion
 
 class Log {
-    info(page, content) {
-        console.log(JSON.stringify({
-            app: "Tuya Dashboard",
-            page: page,
-            content: content
-        }));
-        
-        const fetchData = async () => {
-            const action = "InfoLog";
-            const url = genLogUrl(action);
+    info(param) {
+        const obj = JSON.stringify({
+            ...param,
+            app: "Buah Cinta",
+        });
 
-            // Static Data
-            let obj = {
-                content: {
-                    app: "Tuya Dashboard",
-                    page: page,
-                    content: content
-                }
-            };
+        console.log(obj);
 
-            const resp = await fetch(url, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(obj),
-            });
-
-            const data = await resp.json();
-
-            if (data["ResponseCode"] === "00") {
-                // const { } = data;
-                console.log("Info Logging!");
-            }
-        };
-
-        fetchData().catch((err) => {
+        fetchInfoLogData(param)
+        .then(res => {
+            console.log(res);
+        })
+        .catch((err) => {
             console.log(`Error: ${err}`);
         });
     }
 
-    error(page, content) {
-
-        console.log(JSON.stringify({
-            app: "Tuya Dashboard",
-            page: page,
-            content: content
-        }));
-
-        const fetchData = async () => {
-            const action = "ErrorLog";
-            const url = genLogUrl(action);
-
-            // Static Data
-            let obj = {
-                content: {
-                    app: "Tuya Dashboard",
-                    page: page,
-                    content: content
-                }
-            };
-
-            const resp = await fetch(url, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(obj),
-            });
-
-            const data = await resp.json();
-
-            if (data["ResponseCode"] === "00") {
-                // const { } = data;
-                console.log("Error Logging!");
-            }
-        };
-
-        fetchData().catch((err) => {
-            console.log(`Error: ${err}`);
+    error(param) {
+        const obj = JSON.stringify({
+            ...param,
+            app: "Buah Cinta",
         });
 
+        console.log(obj);
+
+        fetchErrorLogData(param)
+        .then(res => {
+            console.log(res);
+        })
+        .catch((err) => {
+            console.log(`Error: ${err}`);
+        });
     }
 }
 
-const info = new Log();
-const error = new Log();
-
-module.exports = {
-    info,
-    error
-};
+module.exports = new Log();

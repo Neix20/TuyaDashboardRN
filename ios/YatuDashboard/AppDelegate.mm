@@ -2,10 +2,22 @@
 
 #import <React/RCTBundleURLProvider.h>
 #import "RNSplashScreen.h"  // here
+
+#define APP_KEY @"38qypjqnk8pfkxkahs8x"
+#define APP_SECRET_KEY @"rpyw7wjdtnmddhnmjx3ng8udg3qmreg5"
+
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+  // Initialize ThingSmartSDK
+  [[ThingSmartSDK sharedInstance] startWithAppKey:APP_KEY secretKey:APP_SECRET_KEY];
+  
+  #ifdef DEBUG
+      [[ThingSmartSDK sharedInstance] setDebugMode:YES];
+  #else
+  #endif
+  
   self.moduleName = @"YatuDashboard";
   // You can add your custom initial props in the dictionary below.
   // They will be passed down to the ViewController used by React Native.
