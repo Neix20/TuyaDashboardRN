@@ -65,10 +65,20 @@
     - [x] Look For Pictures
     - [x] Plan Directory
     - [x] Plan Info
-- [ ] New User Setup
+- [x] New User Setup
   - [x] Welcome Question
   - [x] Component That Dynamically add 1, 2, 3, 4
   - [x] GrayScale: Not Selected
   - [x] Color: Selected
-- [ ] Device Authentication
+- [x] Device Authentication
   - [x] React Native Error :'(
+
+#### 20230830
+
+- [ ] Add Home
+- [ ] Add New Device
+- [ ] Sign Up
+- [ ] Login
+- [ ] About Us
+- [ ] Terms & Conditions
+- [ ] Privacy Policy
