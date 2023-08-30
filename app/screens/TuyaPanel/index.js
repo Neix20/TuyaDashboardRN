@@ -294,7 +294,7 @@ function Index(props) {
                     </View>
 
                     <View style={{ flexDirection: "row", columnGap: 5, width: 360 }}>
-                        <Btn onPress={onRegisterDevice} bgColor={"#00F"}  title={"Register Device"} />
+                        <Btn onPress={onRegisterDevice} bgColor={"#00F"} title={"Register Device"} />
                         <Btn onPress={onRemoveDevice} bgColor={"#0FF"} title={"Remove Device"} />
                         <Btn onPress={onDeviceList} bgColor={"#00F"} title={"Device List"} />
                     </View>
