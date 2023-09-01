@@ -62,8 +62,8 @@ function Index(props) {
         SplashScreen.hide();
     }, []);
 
-    const defaultScreen = "Login";
-    // const defaultScreen = "TuyaPanel";
+    // const defaultScreen = "Login";
+    const defaultScreen = "TuyaPanel";
 
     return (
         <BcStackNavigator

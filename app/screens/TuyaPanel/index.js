@@ -106,10 +106,10 @@ function Index(props) {
 
                         setResOutput(_ => JSON.stringify(res));
                     })
-                        .catch(err => {
-                            console.log(`Error: ${err}`);
-                            setResOutput(_ => JSON.stringify(err));
-                        });
+                    .catch(err => {
+                        console.log(`Error: ${err}`);
+                        setResOutput(_ => JSON.stringify(err));
+                    });
                 }
             })
             .catch(err => {
