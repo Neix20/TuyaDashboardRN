@@ -64,3 +64,6 @@ yarn-error.log
 .metro-health-check*
 android/app/release/app-release.apk
 android/app/tuyaDeveloper/release/app-tuyaDeveloper-release.apk
+
+android/app/yatu/*
+android/app/yatuDeveloper/*

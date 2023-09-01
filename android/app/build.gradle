@@ -118,20 +118,19 @@ android {
             include (*reactNativeArchitectures())
         }
     }
+
     signingConfigs {
-        signingConfigs {
-            debug {
-                storeFile file('yatu.jks')
-                storePassword 'vt8888'
-                keyAlias 'yatu'
-                keyPassword 'vt8888'
-            }
-            release {
-                storeFile file('yatu.jks')
-                storePassword 'vt8888'
-                keyAlias 'yatu'
-                keyPassword 'vt8888'
-            }
+        debug {
+            storeFile file('yatu.jks')
+            storePassword 'vt8888'
+            keyAlias 'yatu'
+            keyPassword 'vt8888'
+        }
+        release {
+            storeFile file('yatu.jks')
+            storePassword 'vt8888'
+            keyAlias 'yatu'
+            keyPassword 'vt8888'
         }
     }
 
@@ -139,12 +138,14 @@ android {
     productFlavors {
         yatu {
             dimension "version"
+            signingConfig signingConfigs.release
         }
 
         yatuDeveloper {
             dimension "version"
             applicationIdSuffix ".developer"
             versionNameSuffix "-developer"
+            signingConfig signingConfigs.release
         }
     }
 

@@ -171,15 +171,15 @@ function Index(props) {
     const init = {
         usageLs: [
             {
-                name: "Energy Saving I",
+                name: "Energy Saving",
                 uri: Images.esgBanner,
             },
             {
-                name: "Energy Saving II",
+                name: "Industry Workflow Monitoring",
                 uri: Images.esgIIBanner,
             },
             {
-                name: "Energy Saving III",
+                name: "Fault Maintenance",
                 uri: Images.esgIIIBanner,
             },
         ]

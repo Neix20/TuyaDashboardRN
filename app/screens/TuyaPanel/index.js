@@ -8,6 +8,8 @@ import { loginWithEmail, initBluetoothDualModeActivator, queryHomeList, getHomeD
 
 import { Logger } from "@utility";
 
+import { BcHeader } from "@components";
+
 // #region Components
 function Btn(props) {
     const { onPress = () => { }, title = "" } = props;
@@ -87,7 +89,6 @@ function Index(props) {
 
     const onRegisterDevice = () => {
         console.log(initBluetoothDualModeActivator);
-
         requestPermission()
             .then(flag => {
                 if (flag) {
@@ -256,20 +257,6 @@ function Index(props) {
         }
 
         if (Platform.OS === "android") {
-            // const permArr = [
-            //     PermissionsAndroid.PERMISSIONS.ACCESS_COARSE_LOCATION,
-            //     PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION
-            // ];
-
-            // for (const perm of permArr) {
-
-            //     const flag = await PermissionsAndroid.request(perm);
-
-            //     if (!flag) {
-            //         return false;
-            //     }
-            // }
-
             const flagI = await PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.ACCESS_COARSE_LOCATION);
             const flagII = await PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION);
 
@@ -283,49 +270,55 @@ function Index(props) {
 
     return (
         <SafeAreaView style={{ flex: 1 }}>
-            <View style={{ flex: 1, alignItems: "center", justifyContent: "center", rowGap: 10 }}>
+            <View style={{ flex: 1 }}>
 
-                {/* Button */}
-                <View style={{ rowGap: 10 }}>
-                    <View style={{ flexDirection: "row", columnGap: 5, width: 360 }}>
-                        <Btn onPress={onRegister} bgColor={"#F0F"} title={"Register"} />
-                        <Btn onPress={onLogin} bgColor={"#F0F"} title={"Login"} />
-                        <Btn onPress={onLogout} title={"Logout"} />
+                <BcHeader>Tuya Panel</BcHeader>
+
+                <View style={{ height: 10 }} />
+
+                <View style={{ alignItems: "center", justifyContent: "center", rowGap: 10 }}>
+                    {/* Button */}
+                    <View style={{ rowGap: 10 }}>
+                        <View style={{ flexDirection: "row", columnGap: 5, width: 360 }}>
+                            <Btn onPress={onRegister} bgColor={"#F0F"} title={"Register"} />
+                            <Btn onPress={onLogin} bgColor={"#F0F"} title={"Login"} />
+                            <Btn onPress={onLogout} title={"Logout"} />
+                        </View>
+
+                        <View style={{ flexDirection: "row", columnGap: 5, width: 360 }}>
+                            <Btn onPress={onRegisterDevice} bgColor={"#00F"} title={"Register Device"} />
+                            <Btn onPress={onRemoveDevice} bgColor={"#0FF"} title={"Remove Device"} />
+                            <Btn onPress={onDeviceList} bgColor={"#00F"} title={"Device List"} />
+                        </View>
+
+                        <View style={{ flexDirection: "row", columnGap: 5, width: 360 }}>
+                            <Btn onPress={onCreateHome} bgColor={"#0F0"} title={"Create Home"} />
+                            <Btn onPress={onHomeList} title={"Home List"} />
+                        </View>
+
+                        <View style={{ flexDirection: "row", columnGap: 5, width: 360 }}>
+                            <Btn onPress={onBlueToothScan} bgColor={"#000"} title={"BlueTooth Scan"} />
+                            <Btn onPress={clearRes} title={"Clear Output"} />
+
+                        </View>
                     </View>
 
-                    <View style={{ flexDirection: "row", columnGap: 5, width: 360 }}>
-                        <Btn onPress={onRegisterDevice} bgColor={"#00F"} title={"Register Device"} />
-                        <Btn onPress={onRemoveDevice} bgColor={"#0FF"} title={"Remove Device"} />
-                        <Btn onPress={onDeviceList} bgColor={"#00F"} title={"Device List"} />
+                    <View style={{
+                        backgroundColor: "#d3d3d3",
+                        width: 360,
+                        height: 400,
+                        borderRadius: 8,
+                        paddingVertical: 5,
+                        paddingHorizontal: 10,
+                    }}>
+                        <ScrollView>
+                            <Text style={[{
+                                fontSize: 14,
+                                fontWeight: "bold",
+                                color: "#000",
+                            }]}>{resOutput}</Text>
+                        </ScrollView>
                     </View>
-
-                    <View style={{ flexDirection: "row", columnGap: 5, width: 360 }}>
-                        <Btn onPress={onCreateHome} bgColor={"#0F0"} title={"Create Home"} />
-                        <Btn onPress={onHomeList} title={"Home List"} />
-                    </View>
-
-                    <View style={{ flexDirection: "row", columnGap: 5, width: 360 }}>
-                        <Btn onPress={onBlueToothScan} bgColor={"#000"} title={"BlueTooth Scan"} />
-                        <Btn onPress={clearRes} title={"Clear Output"} />
-
-                    </View>
-                </View>
-
-                <View style={{
-                    backgroundColor: "#d3d3d3",
-                    width: 360,
-                    height: 400,
-                    borderRadius: 8,
-                    paddingVertical: 5,
-                    paddingHorizontal: 10,
-                }}>
-                    <ScrollView>
-                        <Text style={[{
-                            fontSize: 14,
-                            fontWeight: "bold",
-                            color: "#000",
-                        }]}>{resOutput}</Text>
-                    </ScrollView>
                 </View>
             </View>
         </SafeAreaView>

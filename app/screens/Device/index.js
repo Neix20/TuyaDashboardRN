@@ -10,15 +10,102 @@ import { useNavigation, useIsFocused } from "@react-navigation/native";
 const screen = Dimensions.get("screen");
 const { width, height } = screen;
 
-import { info, error, Utility } from "@utility";
+import { Logger, Utility } from "@utility";
 
-import { BcSvgIcon, BcBoxShadow, BcDeviceConModal, BcDropdown } from "@components";
+import { BcSvgIcon, BcBoxShadow, BcDeviceConModal, BcDropdown, BaseModal } from "@components";
 
 import { Devices } from "@config";
 
 import { Tab, TabView } from "@rneui/themed";
 
+import { removeDevice as TuyaRemoveDevice } from "@volst/react-native-tuya";
+
 // #region Components
+function DeviceRemoveModal(props) {
+
+    // #region Redux
+    const lang = "en";
+    // #endregion
+
+    // #region Props
+    const { onPress = () => { } } = props;
+    // #endregion
+
+    // #region Initial
+    const init = {
+        toast: {
+            msg: "",
+            flag: false
+        },
+    };
+    // #endregion
+
+    // #region Toast
+    const [cusToast, setCusToast] = useState(init.toast);
+
+    const setToastFlag = (val) => {
+        setCusToast({
+            ...cusToast,
+            flag: val
+        });
+    }
+
+    const showToastMsg = (val) => {
+        setCusToast({
+            ...cusToast,
+            msg: val,
+            flag: true
+        })
+    }
+
+    useEffect(() => {
+        if (cusToast.flag) {
+            setTimeout(() => {
+                setToastFlag(false);
+            }, 3 * 1000);
+        }
+    }, [cusToast.flag]);
+    // #endregion
+
+    return (
+        <BaseModal {...props} cusToast={cusToast}>
+            <VStack
+                py={5}
+                space={5}
+                alignItems={"center"}
+                style={{
+                    width: width - 100,
+                }}>
+                <View alignItems={"center"}>
+                    <Text style={{
+                        fontFamily: "Roboto-Bold",
+                        fontSize: 18,
+                        color: "#000",
+                        textAlign: "center",
+                    }}>Are you sure you want to remove this device?</Text>
+                </View>
+
+                <TouchableOpacity onPress={onPress}>
+                    <View backgroundColor={"#ff0000"}
+                        alignItems={"center"} justifyContent={"center"}
+                        style={{
+                            width: width - 120,
+                            height: 40,
+                            borderRadius: 8,
+                        }}
+                    >
+                        <Text style={[{
+                            fontSize: 14,
+                            fontWeight: "bold",
+                            color: "white",
+                        }]}>Remove Device</Text>
+                    </View>
+                </TouchableOpacity>
+            </VStack>
+        </BaseModal>
+    )
+}
+
 function EmptyList(props) {
     const { lang } = props;
     return (
@@ -94,47 +181,64 @@ function Search(props) {
 function Item(props) {
     const { lang } = props;
     const { name, img, icon, product_name, description } = props;
-    const { onPress = () => { } } = props;
+    const { onPress = () => { }, RemoveDevice = () => { } } = props;
     const borderRadius = 8;
+
+    const [showDevRemModal, setShowDevRemModal] = useState(false);
+    const toggleDeviceRemModal = () => setShowDevRemModal(val => !val);
+
+    const onLongPress = () => toggleDeviceRemModal();
+
+    const onRemoveDevice = () => {
+        RemoveDevice();
+        toggleDeviceRemModal();
+    }
+
     return (
-        <TouchableOpacity onPress={onPress}>
-            <BcBoxShadow style={{ borderRadius: borderRadius }}>
-                <VStack
-                    p={2} space={2}
-                    bgColor={"#fff"}
-                    borderRadius={borderRadius}
-                    style={{
-                        width: (width - 60) / 2
-                    }}>
-                    <Image
-                        source={img}
+        <>
+
+            <DeviceRemoveModal
+                onPress={onRemoveDevice}
+                showModal={showDevRemModal} setShowModal={setShowDevRemModal} />
+            <TouchableOpacity onPress={onPress} onLongPress={onLongPress}>
+                <BcBoxShadow style={{ borderRadius: borderRadius }}>
+                    <VStack
+                        p={2} space={2}
+                        bgColor={"#fff"}
+                        borderRadius={borderRadius}
                         style={{
-                            height: 60,
-                            width: 60,
-                        }}
-                        resizeMode={"cover"}
-                        alt={name} />
-                    <VStack>
-                        <Text style={{
-                            fontSize: 14,
-                            fontFamily: 'Roboto-Bold',
-                            color: "#000",
-                        }}>{name}</Text>
-                        <Text style={{
-                            fontSize: 12,
-                            fontFamily: 'Roboto-Medium',
-                            color: "#c6c6c6"
-                        }}>{description}</Text>
+                            width: (width - 60) / 2
+                        }}>
+                        <Image
+                            source={img}
+                            style={{
+                                height: 60,
+                                width: 60,
+                            }}
+                            resizeMode={"cover"}
+                            alt={name} />
+                        <VStack>
+                            <Text style={{
+                                fontSize: 14,
+                                fontFamily: 'Roboto-Bold',
+                                color: "#000",
+                            }}>{name}</Text>
+                            <Text style={{
+                                fontSize: 12,
+                                fontFamily: 'Roboto-Medium',
+                                color: "#c6c6c6"
+                            }}>{description}</Text>
+                        </VStack>
                     </VStack>
-                </VStack>
-            </BcBoxShadow>
-        </TouchableOpacity>
+                </BcBoxShadow>
+            </TouchableOpacity>
+
+        </>
     )
 }
 
 function Header(props) {
 
-    const { children } = props;
     const { onAddDevice = () => { } } = props;
 
     const { homeLs, homeVal, setHomeVal } = props;
@@ -170,7 +274,7 @@ function Header(props) {
                     <HStack alignItems={"center"} space={3}>
                         {/* Current Home */}
                         <BcDropdown
-                            items={homeLs} placeholder={"Home"}
+                            items={homeLs} placeholder={"s8-office"}
                             value={homeVal} setValue={setHomeVal}
                             width={120} height={40}
                         />
@@ -217,9 +321,11 @@ function Index(props) {
     // #endregion
 
     // #region UseState
+
+    const [tmpLs, setTmpLs] = useState([]);
+
     const [oriLs, setOriLs] = useState([]);
     const [filterLs, setFilterLs] = useState([]);
-    const [itemLs, setItemLs] = useState([]);
 
     const [refresh, setRefresh] = useState(false);
 
@@ -229,35 +335,38 @@ function Index(props) {
     const [showDeviceConModal, setShowDeviceConModal] = useState(false);
 
     const [homeVal, setHomeVal] = useState(null);
-
     // #endregion
 
     // #region UseEffect
+
     useEffect(() => {
         if (isFocused) {
-            let arr = Devices;
+            if (homeVal === "s10-office") {
+                // setOriLs([]);
+                let arr = [...tmpLs];
+                setOriLs(arr);
+                toggleRefresh();
+            } else {
+                let arr = Devices;
 
-            arr = arr.map((obj, ind) => (
-                {
-                    ...obj,
-                    img: { uri: obj.icon },
-                }
-            ));
+                arr = arr.map((obj, ind) => (
+                    {
+                        ...obj,
+                        img: { uri: obj.icon },
+                        pos: ind,
+                    }
+                ));
 
-            setOriLs(arr);
+                setOriLs(arr);
 
-            setFilterLs(arr);
-
-            let fArr = Utility.splitItemsIntoK(arr);
-            setItemLs(fArr);
-
-            setRefresh(val => !refresh);
+                toggleRefresh();
+            }
         }
-    }, [isFocused]);
+    }, [homeVal, isFocused])
     // #endregion
 
     // #region Render
-    const renderItem = ({ item, index }) => {
+    const renderDoubleItem = ({ item, index }) => {
         let [itemA, itemB = {}] = item
 
         const DetailA = () => GoToDetail(itemA);
@@ -274,6 +383,16 @@ function Index(props) {
             </View>
         )
     };
+
+    const renderItem = ({ item, index }) => {
+        const Detail = () => GoToDetail(item);
+        const RemoveDevice = () => removeDevice(item);
+        return (
+            <View m={1}>
+                <Item {...item} onPress={Detail} RemoveDevice={RemoveDevice} lang={lang} />
+            </View>
+        )
+    }
     // #endregion
 
     // #region Filter Query
@@ -285,8 +404,8 @@ function Index(props) {
             arr = arr.filter(x => x["name"].toLowerCase().includes(query.toLowerCase()));
         }
 
-        let fArr = Utility.splitItemsIntoK(arr);
-        setItemLs(fArr);
+        // let fArr = Utility.splitItemsIntoK(arr);
+        // setItemLs(fArr);
 
         setFilterLs(arr);
     }, [query, refresh]);
@@ -295,12 +414,70 @@ function Index(props) {
     // #region Helper
     const GoToDetail = (item) => navigation.navigate("DeviceDetail", item);
 
+    const AddDevice = (item) => {
+        let arr = [...tmpLs];
+
+        arr.push(item);
+
+        // Reset Position
+        for (let ind in arr) {
+            arr[ind].pos = ind;
+        }
+
+        setTmpLs(arr);
+
+        setOriLs(arr);
+
+        toggleRefresh();
+    }
+
+    const removeDevice = (item) => {
+        let arr = [...oriLs];
+
+        // Remove At Position
+        const { pos, id } = item;
+        arr.splice(+pos, 1);
+
+        // Reset Position
+        for (let ind in arr) {
+            arr[ind].pos = ind;
+        }
+
+        if (homeVal === "s10-office") {
+            setTmpLs(arr);
+
+            TuyaRemoveDevice({
+                devId: id
+            })
+                .then(res => {
+                    Logger.info({
+                        content: res,
+                        page: "App",
+                        fileName: "tuya_remove_device",
+                    });
+
+                    setOriLs(arr);
+                    toggleRefresh();
+
+                })
+                .catch(err => {
+                    console.log(`Error: ${err}`);
+                });
+        } else {
+            setOriLs(arr);
+            toggleRefresh();
+        }
+    }
+
     const toggleDeviceConModal = () => setShowDeviceConModal(!showDeviceConModal);
+    const toggleRefresh = () => setRefresh(val => !val);
     // #endregion
 
     return (
         <>
-            <BcDeviceConModal key={showDeviceConModal} showModal={showDeviceConModal} setShowModal={setShowDeviceConModal} />
+            <BcDeviceConModal key={showDeviceConModal}
+                AddDevice={AddDevice}
+                showModal={showDeviceConModal} setShowModal={setShowDeviceConModal} />
             <SafeAreaView style={{ flex: 1 }}>
                 <View bgColor={"#FFF"} style={{ flex: 1 }}>
                     {/* Device */}
@@ -349,26 +526,32 @@ function Index(props) {
                     <TabView
                         value={homePaneInd}
                         onChange={(e) => setHomePaneInd(e)}>
-                        <TabView.Item style={{ width: "100%" }}>
+                        <TabView.Item style={{ width: "100%", alignItems: "center" }}>
                             <FlatList
-                                data={itemLs}
+                                data={filterLs}
+                                numColumns={2}
                                 renderItem={renderItem}
                                 contentContainerStyle={{ flexGrow: 1 }}
                                 ListEmptyComponent={<EmptyList lang={lang} />}
+                                style={{ width: width - 40 }}
                             />
                         </TabView.Item>
+
                         {
                             roomLs.slice(1).map((room, ind) => (
-                                <TabView.Item style={{ width: "100%" }}>
+                                <TabView.Item style={{ width: "100%", alignItems: "center" }}>
                                     <FlatList
-                                        data={itemLs.slice(ind, ind + 1)}
+                                        numColumns={2}
+                                        data={filterLs.slice(ind, ind + 1)}
                                         renderItem={renderItem}
                                         contentContainerStyle={{ flexGrow: 1 }}
                                         ListEmptyComponent={<EmptyList lang={lang} />}
+                                        style={{ width: width - 40 }}
                                     />
                                 </TabView.Item>
                             ))
                         }
+
                     </TabView>
 
                     <View style={{ height: 80 }} />

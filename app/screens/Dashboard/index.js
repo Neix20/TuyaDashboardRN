@@ -12,7 +12,7 @@ const { width, height } = screen;
 
 import { info, error, Utility } from "@utility";
 
-import { BcSvgIcon, BcBoxShadow, BcGradient, BcDateRangeModal, BcViewShot, BcLoading } from "@components";
+import { BcSvgIcon, BcBoxShadow, BcGradient, BcDateRangeModal, BcViewShot, BcLoading, BaseModal, BcTimer } from "@components";
 
 import { LineChart as LineChartSvg, YAxis, XAxis, Grid, Path } from 'react-native-svg-charts';
 
@@ -24,6 +24,91 @@ import { DateTime } from "luxon";
 import { fetchDashboardInfo } from "@api";
 
 // #region Components
+function WelcomeInfoModal(props) {
+
+    // #region Redux
+    const lang = "en";
+    // #endregion
+
+    // #region Props
+    const { onPress = () => { } } = props;
+    // #endregion
+
+    // #region Initial
+    const init = {
+        toast: {
+            msg: "",
+            flag: false
+        },
+    };
+    // #endregion
+
+    // #region Toast
+    const [cusToast, setCusToast] = useState(init.toast);
+
+    const setToastFlag = (val) => {
+        setCusToast({
+            ...cusToast,
+            flag: val
+        });
+    }
+
+    const showToastMsg = (val) => {
+        setCusToast({
+            ...cusToast,
+            msg: val,
+            flag: true
+        })
+    }
+
+    useEffect(() => {
+        if (cusToast.flag) {
+            setTimeout(() => {
+                setToastFlag(false);
+            }, 3 * 1000);
+        }
+    }, [cusToast.flag]);
+    // #endregion
+
+    return (
+        <BaseModal {...props} cusToast={cusToast}>
+            <VStack
+                py={5}
+                space={5}
+                alignItems={"center"}
+                style={{
+                    width: width - 100,
+                }}>
+                <View alignItems={"center"}>
+                    <Text style={{
+                        fontFamily: "Roboto-Bold",
+                        fontSize: 18,
+                        color: "#000",
+                        textAlign: "center",
+                    }}>Would you like to setup your new Home?</Text>
+                </View>
+
+                <TouchableOpacity onPress={onPress}>
+                    <View backgroundColor={"#ff0000"}
+                        alignItems={"center"} justifyContent={"center"}
+                        style={{
+                            width: width - 120,
+                            height: 40,
+                            borderRadius: 8,
+                        }}
+                    >
+                        <Text style={[{
+                            fontSize: 14,
+                            fontWeight: "bold",
+                            color: "white",
+                        }]}>Setup Home</Text>
+                    </View>
+                </TouchableOpacity>
+            </VStack>
+        </BaseModal>
+    )
+}
+
 function Header(props) {
     const { children } = props;
 
@@ -426,10 +511,11 @@ function Index(props) {
     const [loading, setLoading] = useState(false);
 
     const [chartData, setChartData] = useState({});
+
+    const [showWelModal, setShowWelModal] = useState(false);
     // #endregion
 
     // #region UseEffect
-
     // Update Data
     useEffect(() => {
         if (isFocused) {
@@ -482,9 +568,16 @@ function Index(props) {
             screen: "Alert"
         });
     }
+
+    const GoToWelcome = () => {
+        navigation.navigate("WelcomeInfo");
+    }
     // #endregion
 
     // #region Helper
+    const timerEnded = () => {
+        setShowWelModal(val => !val);
+    }
     const updateLegend = (pos) => {
         let arr = [...svgLegend];
 
@@ -498,25 +591,25 @@ function Index(props) {
 
     const addDt = () => {
         const tStartDt = DateTime.fromISO(startDt)
-                    .plus({days: 1})
-                    .toFormat("yyyy-MM-dd");
+            .plus({ days: 1 })
+            .toFormat("yyyy-MM-dd");
         setStartDt(tStartDt);
 
         const tEndDt = DateTime.fromISO(endDt)
-                    .plus({days: 1})
-                    .toFormat("yyyy-MM-dd");
+            .plus({ days: 1 })
+            .toFormat("yyyy-MM-dd");
         setEndDt(tEndDt);
 
     };
     const minusDt = () => {
         const tStartDt = DateTime.fromISO(startDt)
-                    .plus({days: -1})
-                    .toFormat("yyyy-MM-dd");
+            .plus({ days: -1 })
+            .toFormat("yyyy-MM-dd");
         setStartDt(tStartDt);
 
         const tEndDt = DateTime.fromISO(endDt)
-                    .plus({days: -1})
-                    .toFormat("yyyy-MM-dd");
+            .plus({ days: -1 })
+            .toFormat("yyyy-MM-dd");
         setEndDt(tEndDt);
     };
     // #endregion
@@ -532,67 +625,68 @@ function Index(props) {
             },
             onSetLoading: setLoading,
         })
-        .then(res => {
-            const Data = res["Data"]["IR Temperature"];
-            
-            setChartData(Data);
+            .then(res => {
+                const Data = res["Data"]["IR Temperature"];
 
-            let datasets = [];
-            let legend = [];
+                setChartData(Data);
 
-            let minData = Number.MAX_VALUE;
-            let maxData = Number.MIN_VALUE;
+                let datasets = [];
+                let legend = [];
 
-            let ind = 0;
-            for (let key in Data) {
-                let val = Data[key];
+                let minData = Number.MAX_VALUE;
+                let maxData = Number.MIN_VALUE;
 
-                val = val.slice(0, 100);
+                let ind = 0;
+                for (let key in Data) {
+                    let val = Data[key];
 
-                val = val.map(obj => +obj["absolute_humidity"]);
-                val = (val.length > 0) ? val : [0];
+                    val = val.slice(0, 100);
 
-                minData = Math.min(...val, minData);
-                maxData = Math.max(...val, maxData);
+                    val = val.map(obj => +obj["absolute_humidity"]);
+                    val = (val.length > 0) ? val : [0];
 
-                let obj = {
-                    data: val,
-                    svg: { stroke: init.colors[ind] },
-                    strokeWidth: 2,
+                    minData = Math.min(...val, minData);
+                    maxData = Math.max(...val, maxData);
+
+                    let obj = {
+                        data: val,
+                        svg: { stroke: init.colors[ind] },
+                        strokeWidth: 2,
+                    }
+
+                    datasets.push(obj);
+
+                    let legendObj = {
+                        name: key,
+                        flag: true,
+                        color: init.colors[ind],
+                    }
+
+                    legend.push(legendObj);
+
+                    ind += 1;
                 }
 
-                datasets.push(obj);
+                setSvgChart(datasets);
+                setSvgLegend(legend);
 
-                let legendObj = {
-                    name: key,
-                    flag: true,
-                    color: init.colors[ind],
-                }
-
-                legend.push(legendObj);
-
-                ind += 1;
-            }
-
-            setSvgChart(datasets);
-            setSvgLegend(legend);
-
-            setSvgMetaData({
-                min: minData,
-                max: maxData,
-            });
-        })
-        .catch(err => {
-            setLoading(false);
-            console.log(`Error: ${err}`);
-        })
+                setSvgMetaData({
+                    min: minData,
+                    max: maxData,
+                });
+            })
+            .catch(err => {
+                setLoading(false);
+                console.log(`Error: ${err}`);
+            })
     }
     // #endregion
 
     return (
         <>
+            {/* <WelcomeInfoModal onPress={GoToWelcome} showModal={showWelModal} setShowModal={setShowWelModal} /> */}
             <BcLoading showLoading={loading} />
-            <BcDateRangeModal 
+            <BcDateRangeModal
                 dt={init.dt}
                 startDt={startDt} setStartDt={setStartDt}
                 endDt={endDt} setEndDt={setEndDt}
@@ -666,7 +760,7 @@ function Index(props) {
                             {/* Legend Checkbox */}
                             <Legend data={svgLegend} onUpdateLegend={updateLegend} />
 
-                            <View style={{height: 10}} />
+                            <View style={{ height: 10 }} />
                         </VStack>
 
                     </ScrollView>

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Text, TouchableOpacity, Image, TextInput, Dimensions, SafeAreaView, ImageBackground, ScrollView } from "react-native";
 import { View, VStack, HStack, Divider, useToast } from "native-base";
 
-import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
+import FontAwesome from "react-native-vector-icons/FontAwesome";
 
 import { useNavigation, useIsFocused } from "@react-navigation/native";
 
@@ -10,12 +10,15 @@ const screen = Dimensions.get("screen");
 const { width, height } = screen;
 
 import { Animation, Images } from "@config";
-import { info, error, Utility } from "@utility";
+import { Logger, Utility } from "@utility";
 
 import { BcSvgIcon, BcBoxShadow, BcHeader } from "@components";
 
+import { logout } from "@volst/react-native-tuya";
+
 // #region Components
 function ProfilePhoto(props) {
+    const { onPress = () => { } } = props;
     return (
         <BcBoxShadow>
             <VStack
@@ -25,27 +28,18 @@ function ProfilePhoto(props) {
                 alignItems={"center"}
                 style={{ width: width }}>
                 {/* Profile Picture */}
-                <View >
-
-                    {/* Front Layer */}
-                    <View
-                        style={{
-                            position: "absolute",
-                            display: "none",
-                            zIndex: 1,
-                            bottom: -5,
-                            right: -5,
-                        }}>
+                <TouchableOpacity onPress={onPress}>
+                    <View >
+                        <Image
+                            source={Images.Profile}
+                            style={{
+                                width: 200,
+                                height: 200,
+                                borderRadius: 100,
+                            }}
+                            alt={"Model"} />
                     </View>
-                    <Image
-                        source={Images.Profile}
-                        style={{
-                            width: 200,
-                            height: 200,
-                            borderRadius: 100,
-                        }}
-                        alt={"Model"} />
-                </View>
+                </TouchableOpacity>
             </VStack>
         </BcBoxShadow>
     )
@@ -110,6 +104,69 @@ function Details(props) {
     )
 }
 
+function PageTxt(props) {
+    const { children } = props;
+    const { onSelect } = props;
+
+    return (
+        <TouchableOpacity onPress={onSelect}>
+            <HStack
+                bgColor={"#fff"}
+                alignItems={"center"}
+                justifyContent={"space-between"}
+                style={{
+                    width: width - 40,
+                    // height: 30,
+                }}>
+                <Text style={[{
+                    fontSize: 16,
+                    color: "#1E1E1E",
+                    fontFamily: "Roboto-Medium",
+                }]}>{children}</Text>
+
+                <FontAwesome
+                    name={"angle-right"}
+                    size={30}
+                    color={"#2898FF"}
+                />
+            </HStack>
+        </TouchableOpacity>
+    )
+}
+
+function Pages(props) {
+    // const { name, product_name, id, model, icon } = props;
+    const lang = "en";
+    return (
+        <BcBoxShadow>
+            <View
+                py={3}
+                bgColor={"#fff"}
+                alignItems={"center"}
+                style={{
+                    width: width,
+                }}>
+
+                <View style={{ width: width - 40 }}>
+                    <Text style={{
+                        fontSize: 16,
+                        fontFamily: "Roboto-Bold",
+                        color: "#000"
+                    }}>Others</Text>
+
+                    <Divider bgColor={"#EBEBEB"} my={2} />
+                </View>
+                <VStack space={3}>
+                    <PageTxt>{Utility.translate("Frequently Asked Questions", lang)}</PageTxt>
+                    <PageTxt>{Utility.translate("Terms & Conditions", lang)}</PageTxt>
+                    <PageTxt>{Utility.translate("Privacy Policy", lang)}</PageTxt>
+                    <PageTxt>{Utility.translate("About Us", lang)}</PageTxt>
+                </VStack>
+            </View>
+        </BcBoxShadow>
+    )
+}
+
 function LogOut(props) {
     const { lang } = props;
     const { onLogOut = () => { } } = props;
@@ -136,12 +193,37 @@ function LogOut(props) {
     )
 }
 
+function WelcomeInfo(props) {
+    const { onPress = () => { } } = props;
+    return (
+        <TouchableOpacity onPress={onPress}>
+            <BcBoxShadow>
+                <View
+                    py={3}
+                    bgColor={"#fff"}
+                    alignItems={"center"}
+                    style={{
+                        width: width,
+                    }}>
+                    <View style={{ width: width - 40 }}>
+                        <Text style={[{
+                            fontSize: 16,
+                            color: "#2898FF",
+                            fontFamily: "Roboto-Medium",
+                        }]}>New User Setup</Text>
+                    </View>
+                </View>
+            </BcBoxShadow>
+        </TouchableOpacity>
+    )
+}
+
 function Header(props) {
     const { children } = props;
     return (
         <BcBoxShadow>
             <View
-           alignItems={"center"}
+                alignItems={"center"}
                 justifyContent={"center"}
                 style={{
                     height: 60,
@@ -166,9 +248,35 @@ function Index(props) {
 
     const lang = "en";
 
+    // #region Helper
+    const onLogout = () => {
+        logout()
+            .then(res => {
+                Logger.info({
+                    content: res,
+                    page: "App",
+                    fileName: "tuya_logout",
+                });
+            })
+            .catch(err => {
+                console.log(`Error: ${err}`);
+            });
+
+            GoToLogin();
+    }
+    // #endregion
+
     // #region Navigation
+    const GoToWelcomeInfo = () => {
+        navigation.navigate("WelcomeInfo");
+    }
+
     const GoToLogin = () => {
         navigation.navigate("Login");
+    }
+
+    const GoToTuyaPanel = () => {
+        navigation.navigate("TuyaPanel");
     }
     // #endregion
 
@@ -185,15 +293,22 @@ function Index(props) {
                 <ScrollView showsVerticalScrollIndicator={false}>
                     <VStack space={2}>
                         {/* Profile Photo */}
-                        <ProfilePhoto />
+                        <ProfilePhoto onPress={GoToTuyaPanel} />
 
                         {/* Details */}
                         <Details />
 
+                        {/* Pages */}
+                        <Pages />
+
+                        <WelcomeInfo onPress={GoToWelcomeInfo} />
+
                         {/* Log Out */}
-                        <LogOut lang={lang} onLogOut={GoToLogin} />
+                        <LogOut lang={lang} onLogOut={onLogout} />
 
                     </VStack>
+
+                    <View style={{height: 10}} />
                 </ScrollView>
 
                 {/* Footer */}

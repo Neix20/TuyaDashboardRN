@@ -17,13 +17,13 @@ import { BcHeader, BcBoxShadow } from "@components";
 // #region Components
 function Details(props) {
 
-    const {name, uri} = props;
+    const { name, uri } = props;
 
     return (
         <BcBoxShadow>
-            <VStack py={3} 
+            <VStack py={3} space={3}
                 bgColor={"#FFF"}
-                alignItems={"center"} 
+                alignItems={"center"}
                 style={{
                     width: width
                 }}>
@@ -41,17 +41,36 @@ function Details(props) {
                         alt={name} />
                 </View>
 
-                {/* Title */}
-                <HStack alignItems={"center"} 
-                style={{
-                    width: width - 40
-                }}>
+                <VStack space={3} style={{width: width - 40}}>
+                    <VStack space={2}>
+                        {/* Title */}
                     <Text style={{
-                        fontFamily: "Roboto-Bold",
-                        fontSize: 20,
-                        color: "#000",
-                    }}>{name}</Text>
-                </HStack>
+                            fontFamily: "Roboto-Bold",
+                            fontSize: 20,
+                            color: "#000",
+                        }}>{name}</Text>
+
+                    <Text style={{
+                        fontFamily: "Roboto-Medium",
+                        fontSize: 12,
+                    }}>
+                        This iot plan is used for improving overall efficiency in an industry workflow of automation. It aims to pinpoint areas that can be improved with speed via automation. It analyzes patterns where the workflow slow downs and provide recommendation for improvement. Furthermore, it check the status of machine to ensure minimal downtime. It provides data driven insight to improve overall efficiency.
+                    </Text>
+                    </VStack>
+
+                    <VStack space={2}>
+                    <Text style={{
+                            fontFamily: "Roboto-Bold",
+                            fontSize: 20,
+                            color: "#000",
+                        }}>Device</Text>
+
+                        <Text>{"\u25CF"} 3 Temperature Sensor</Text>
+                        <Text>{"\u25CF"} 3 Humidity Sensor</Text>
+                        <Text>{"\u25CF"} 3 Air Quality Sensor</Text>
+                        <Text>{"\u25CF"} 5 Proximity Sensor</Text>
+                    </VStack>
+                </VStack>
 
             </VStack>
         </BcBoxShadow>
@@ -71,12 +90,12 @@ function Index(props) {
     return (
         <SafeAreaView style={{ flex: 1 }}>
             <View style={{ flex: 1 }}>
-        
+
                 {/* Header */}
                 <BcHeader>Usage Info</BcHeader>
-        
+
                 <View style={{ height: 10 }} />
-        
+
                 {/* Body */}
                 <ScrollView showsVerticalScrollIndicator={false}
                     contentContainerStyle={{ flexGrow: 1 }}>
@@ -84,7 +103,7 @@ function Index(props) {
                         <Details {...item} />
                     </View>
                 </ScrollView>
-        
+
                 {/* Footer */}
                 <View style={{ height: 80 }} />
             </View>

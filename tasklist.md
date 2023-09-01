@@ -76,9 +76,13 @@
 #### 20230830
 
 - [ ] Add Home
-- [ ] Add New Device
-- [ ] Sign Up
-- [ ] Login
+- [x] Add New Device
+- [ ] ~~Sign Up~~
+- [ ] ~~Login~~
 - [ ] About Us
 - [ ] Terms & Conditions
 - [ ] Privacy Policy
+- [x] Usage Info
+- [x] Long Press to Remove Device
+- [x] First Time User Setup
+- [x] BlueTooth Connection to Add Device

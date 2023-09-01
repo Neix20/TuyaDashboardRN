@@ -5,6 +5,8 @@ import { View, VStack, HStack, useToast } from "native-base";
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 import { useNavigation, useIsFocused } from "@react-navigation/native";
 
+import { loginWithEmail } from "@volst/react-native-tuya";
+
 const screen = Dimensions.get("screen");
 const { width, height } = screen;
 
@@ -29,7 +31,24 @@ function Index(props) {
         setPassword("");
 
         if (username === "root" && password === "root") {
-            GoToWelcomeInfo();
+            // GoToWelcomeInfo();
+            loginWithEmail({
+                countryCode: 'MY',
+                email: 'txen2000@gmail.com',
+                password: 'arf11234'
+            })
+                .then(res => {
+                    Logger.info({
+                        content: res,
+                        page: "App",
+                        fileName: "tuya_login",
+                    });
+                })
+                .catch(err => {
+                    console.log(`Error: ${err}`);
+                });
+
+                GoToHome();
         } else {
             toast.show({
                 description: "Account / Password is incorrect!"
@@ -144,6 +163,7 @@ function Index(props) {
                                             secureTextEntry
                                             defaultValue={password}
                                             onChangeText={setPassword}
+                                            autoCapitalize={"none"}
                                             style={{
                                                 fontFamily: "Roboto-Medium",
                                                 fontSize: 20,

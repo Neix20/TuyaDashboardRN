@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Text, TouchableOpacity, Image, TextInput, Dimensions } from "react-native";
+import { Text, TouchableOpacity, Image, TextInput, Dimensions, Platform, PermissionsAndroid } from "react-native";
 import { View, VStack, HStack, Spinner, Divider, FlatList } from "native-base";
 
 const screen = Dimensions.get("screen");
@@ -7,23 +7,52 @@ const { width, height } = screen;
 
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 
-import { info, error, Utility } from "@utility";
+import { Logger, Utility } from "@utility";
 
 import { BaseModal, BcLoading, BcTimer } from "@components";
+
+import { initBluetoothDualModeActivator, queryHomeList } from '@volst/react-native-tuya';
 
 import { Devices } from "@config";
 
 // #region Components
+function EmptyList(props) {
+    const { lang } = props;
+    return (
+        <View
+            style={{ flexGrow: 1 }}
+            alignItems={"center"}
+            justifyContent={"center"}>
+
+            <VStack space={2}
+                alignItems={"center"}
+                style={{ width: width - 100 }}>
+
+                <FontAwesome name={"plug"}
+                    color={"#e6e6e6"}
+                    size={80} />
+
+                <Text style={{
+                    fontSize: 18,
+                    color: "#d3d3d3",
+                    fontFamily: 'Roboto-Medium',
+                    fontWeight: "700"
+                }}>{Utility.translate("Empty List", lang)}</Text>
+            </VStack>
+        </View>
+    )
+}
+
 function ItemElem(props) {
 
-    const {name, uri, flag} = props;
+    const { name, img, flag } = props;
 
     return (
-        <HStack style={{width: width - 120}} alignItems={"center"} justifyContent={"space-between"}>
+        <HStack style={{ width: width - 120 }} alignItems={"center"} justifyContent={"space-between"}>
 
             {/* Image */}
             <View>
-                <Image source={uri} style={{
+                <Image source={img} style={{
                     width: 40,
                     height: 40
                 }} alt={name} />
@@ -38,18 +67,18 @@ function ItemElem(props) {
 
             {
                 (flag) ? (
-                    <View 
-            backgroundColor={"#4ECB71"}
-            alignItems={"center"}
-            justifyContent={"center"}
-            borderRadius={16}
-            style={{
-                height: 32, width: 32
-            }}>
-                <FontAwesome name={"check"} size={16} color={"#FFF"} />
-            </View>
+                    <View
+                        backgroundColor={"#4ECB71"}
+                        alignItems={"center"}
+                        justifyContent={"center"}
+                        borderRadius={16}
+                        style={{
+                            height: 32, width: 32
+                        }}>
+                        <FontAwesome name={"check"} size={16} color={"#FFF"} />
+                    </View>
                 ) : (
-                    <View style={{width: 32, height: 32}} />
+                    <View style={{ width: 32, height: 32 }} />
                 )
             }
         </HStack>
@@ -65,7 +94,8 @@ function Index(props) {
     // #endregion
 
     // #region Props
-    const {showModal, setShowModal} = props;
+    const { AddDevice } = props;
+    const { showModal, setShowModal } = props;
     // #endregion
 
     // #region Initial
@@ -114,41 +144,104 @@ function Index(props) {
     // #region UseEffect
     useEffect(() => {
         if (showModal) {
-            setLoading(false);
+            setLoading(true);
+            onRegisterDevice();
         }
     }, [showModal]);
     // #endregion
 
     // #region Helper
+    const onRegisterDevice = () => {
+        queryHomeList().then(res => {
+            Logger.info({
+                content: res,
+                page: "App",
+                fileName: "tuya_query_home",
+            });
+
+            const { homeId } = res[0];
+
+            requestPermission()
+                .then(flag => {
+                    if (flag) {
+                        initBluetoothDualModeActivator({
+                            homeId: homeId,
+                            ssid: "ivd_office",
+                            password: "ivd#2456"
+                        }).then(res => {
+                            setLoading(false);
+                            
+                            Logger.info({
+                                content: res,
+                                page: "App",
+                                fileName: "tuya_blueTooth_scan",
+                            });
+
+                            const {name: product_name, devId: id, iconUrl: icon} = res;
+
+                            let obj = {
+                                name: "S8-HOME",
+                                model: "S1 PRO",
+                                description: "34.4°C 53%",
+                                product_name: product_name,
+                                id: id,
+                                icon: icon,
+                                img: {uri: icon},
+                                pos: 0,
+                                flag: false
+                            };
+
+                            let arr = [];
+                            arr.push(obj);
+
+                            setDeviceLs(arr);
+
+                        })
+                            .catch(err => {
+                                throw err;
+                            });
+                    }
+                })
+                .catch(err => {
+                    throw err;
+                });
+        })
+        .catch(err => {
+            setLoading(false);
+            console.log(`Error: ${err}`);
+        });
+
+    }
+
+    const requestPermission = async () => {
+        if (Platform.OS === "ios") {
+            return true;
+        }
+
+        if (Platform.OS === "android") {
+            const flagI = await PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.ACCESS_COARSE_LOCATION);
+            const flagII = await PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION);
+
+            res = flagI === PermissionsAndroid.RESULTS.GRANTED
+                && flagII === PermissionsAndroid.RESULTS.GRANTED;
+        }
+
+        return true;
+    }
+
     const hideLoading = () => setLoading(false);
 
     const timerEnded = () => {
-
-        let arr = [...Devices];
-
-            arr = arr.map((obj, ind) => {
-                const {icon} = obj;
-
-                return {
-                    ...obj,
-                    uri: {uri: icon},
-                    pos: ind,
-                    flag: false,
-                }
-            })
-
-            setDeviceLs(arr);
-
-            hideLoading();
+        hideLoading();
     }
 
     const toggleSelectItem = (item) => {
 
-        const {pos} = item;
+        const { pos } = item;
 
         let arr = [...deviceLs];
 
-        for(let ind in arr) {
+        for (let ind in arr) {
             arr[ind].flag = false;
         }
 
@@ -156,13 +249,14 @@ function Index(props) {
 
         setDeviceLs(arr);
 
+        AddDevice(item);
+
         setShowModal(false);
     }
     // #endregion
 
     // #region Render
     const renderItem = ({ item }) => {
-
         const onSelectItem = () => toggleSelectItem(item);
         return (
             <>
@@ -194,11 +288,13 @@ function Index(props) {
                     }}>Device List</Text>
                 </View>
 
-                <Divider my={2}  bgColor={"#EBEBEB"} style={{width: width - 100}} />
-                
-                <FlatList 
+                <Divider my={2} bgColor={"#EBEBEB"} style={{ width: width - 100 }} />
+
+                <FlatList
                     data={deviceLs}
                     renderItem={renderItem}
+                    contentContainerStyle={{ flexGrow: 1 }}
+                    ListEmptyComponent={<EmptyList lang={lang} />}
                 />
             </VStack>
         </BaseModal>
