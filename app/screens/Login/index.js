@@ -19,17 +19,23 @@ function Index(props) {
     const navigation = useNavigation();
     const isFocused = useIsFocused();
 
-    // #region UseState
-    const [username, setUsername] = useState("");
-    const [password, setPassword] = useState("");
+    // #region Initial
+    const init = {
+        form: {
+            username: "",
+            password: "",
+        }
+    }
     // #endregion
+
+    // #region UseState
+    const [form, setForm] = useState(init.form);
+    // #endregion
+
+    const { username, password } = form;
 
     // #region Helper
     const Login = () => {
-
-        setUsername("");
-        setPassword("");
-
         if (username === "root" && password === "root") {
             // GoToWelcomeInfo();
             loginWithEmail({
@@ -48,13 +54,23 @@ function Index(props) {
                     console.log(`Error: ${err}`);
                 });
 
-                GoToHome();
+            GoToHome();
         } else {
             toast.show({
                 description: "Account / Password is incorrect!"
             })
         }
     }
+
+    const onChangeForm = (name, val) => {
+        let obj = {...form};
+        obj[name] = val;
+
+        setForm(obj);
+    }
+
+    const setUsername = (val) => onChangeForm("username", val);
+    const setPassword = (val) => onChangeForm("password", val);
     // #endregion
 
     // #region Navigation

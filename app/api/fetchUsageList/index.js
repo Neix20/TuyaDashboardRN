@@ -5,15 +5,11 @@ const Index = async (props) => {
     const { param } = props;
     const { onSetLoading } = props;
 
-    const action = "GetDashboardInfo";
-    const url = Utility.genServerUrl(action);
+    const action = "GetUsageList";
+    const url = Utility.genLoyaltyServerUrl(action);
 
     // Static Data
-    let obj = Utility.requestObj({
-        ...param,
-        DataCount: 100,
-        url: url,
-    });
+    let obj = Utility.requestObj(param);
 
     const resp = await fetch(url, {
         method: "POST",
@@ -26,13 +22,12 @@ const Index = async (props) => {
     const data = await resp.json();
     onSetLoading(false);
 
-
     if (data["ResponseCode"] === "00") {
         // return data;
     }
     else {
-        console.log(`Dashboard - GetDashboardInfo - Request - ${JSON.stringify(obj)}`);
-        console.log(`Dashboard - GetDashboardInfo - Response - ${JSON.stringify(data)}`);
+        console.log(`Usage - GetUsageList - Request - ${JSON.stringify(obj)}`);
+        console.log(`Usage - GetUsageList - Response - ${JSON.stringify(data)}`);
     }
 
     return data;

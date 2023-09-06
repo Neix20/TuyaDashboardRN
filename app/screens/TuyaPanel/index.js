@@ -103,7 +103,6 @@ function Index(props) {
                             page: "App",
                             fileName: "tuya_blueTooth_scan",
                         });
-
                         setResOutput(_ => JSON.stringify(res));
                     })
                     .catch(err => {

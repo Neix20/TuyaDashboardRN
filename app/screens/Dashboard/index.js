@@ -19,6 +19,7 @@ import { LineChart as LineChartSvg, YAxis, XAxis, Grid, Path } from 'react-nativ
 import * as shape from 'd3-shape';
 
 import { CheckBox } from "@rneui/themed";
+
 import { DateTime } from "luxon";
 
 import { fetchDashboardInfo } from "@api";
@@ -164,7 +165,7 @@ function SvgLineChart(props) {
             <VStack>
                 <LineChartSvg
                     data={chart}
-                    style={{ height: 300, width: width - 80 }}
+                    style={{ height: 300, width: width - 60 }}
                     svg={{
                         strokeWidth: 2,
                     }}
@@ -173,7 +174,7 @@ function SvgLineChart(props) {
                 >
                 </LineChartSvg>
                 <XAxis
-                    style={{ width: width - 80 }}
+                    style={{ width: width - 60 }}
                     data={labels}
                     formatLabel={(_, index) => labels[index]}
                     contentInset={{ left: 10, right: 10 }}
@@ -403,36 +404,41 @@ function CheckBoxLegend(props) {
     const { name, flag, color } = props;
     const { onPress = () => { } } = props;
     return (
-        <View style={{ width: (width - 40) / 3 }}>
-            <CheckBox
-                title={name}
-                titleProps={{
-                    fontFamily: "Roboto-Medium",
-                    fontSize: 16,
-                    color: color,
-                }}
-                checked={flag}
-                onPress={onPress}
-                checkedColor={color} />
-        </View>
+        <CheckBox
+            title={name}
+            titleProps={{
+                fontFamily: "Roboto-Medium",
+                fontSize: 16,
+                color: color,
+            }}
+            containerStyle={{
+                flex: 1,
+            }}
+            iconType="material-community"
+            checkedIcon="checkbox-marked"
+            uncheckedIcon="checkbox-blank-outline"
+            checked={flag}
+            onPress={onPress}
+            checkedColor={color} />
     )
 }
 
 function Legend(props) {
     const { data, onUpdateLegend = () => { } } = props;
 
-    let arr = Utility.splitItemsIntoK(data, 3);
+    const col = 2;
+    let arr = Utility.splitItemsIntoK(data, col);
 
     // #region Render
     const renderItem = (item, ind) => {
-        const len = arr[0].length;
         return (
-            <HStack alignItems={"center"} justifyContent={"space-between"}>
+            <HStack key={ind} alignItems={"center"} space={3}>
                 {
                     item.map((obj, jnd) => {
-                        const onSelect = () => onUpdateLegend(len * ind + jnd);
+                        const onSelect = () => onUpdateLegend(col * ind + jnd);
                         return (
                             <CheckBoxLegend
+                                key={jnd}
                                 onPress={onSelect}
                                 {...obj} />
                         )
@@ -448,24 +454,24 @@ function Legend(props) {
     }
 
     return (
-        <BcBoxShadow style={{ borderRadius: 20, height: 200 }}>
-            <View bgColor={"#FFF"} borderRadius={20} style={{
-                maxHeight: 200,
-            }}>
-                <ScrollView
-                    horizontal={true}
-                    showsHorizontalScrollIndicator={false}
-                    style={{
-                        width: width - 40,
-                    }}>
-                    <VStack>
-                        {
-                            arr.map((obj, ind) => renderItem(obj, ind))
-                        }
-                    </VStack>
-                </ScrollView>
+        <VStack bgColor={"#FFF"} alignItems={"center"} space={1}>
+            <View w={width - 40}>
+                <Text style={{
+                    fontFamily: "Roboto-Bold",
+                    fontSize: 16,
+                }}>Legend</Text>
             </View>
-        </BcBoxShadow>
+            <VStack
+                borderWidth={1} borderRadius={8}
+                borderColor={"#000"}
+                style={{
+                    width: width - 40,
+                }}>
+                {
+                    arr.map((obj, ind) => renderItem(obj, ind))
+                }
+            </VStack>
+        </VStack>
     );
 }
 // #endregion
@@ -533,7 +539,7 @@ function Index(props) {
 
         for (let key in chartData) {
             if (legend[ind] != null && legend[ind].flag) {
-                let val = chartData[key];
+                let val = chartData[key]["Data"];
 
                 val = val.map(obj => +obj["absolute_humidity"]);
 
@@ -638,9 +644,8 @@ function Index(props) {
 
                 let ind = 0;
                 for (let key in Data) {
-                    let val = Data[key];
-
-                    val = val.slice(0, 100);
+                    // console.log(Data[key]["Data"]);
+                    let val = Data[key]["Data"];
 
                     val = val.map(obj => +obj["absolute_humidity"]);
                     val = (val.length > 0) ? val : [0];
@@ -755,10 +760,12 @@ function Index(props) {
                                     metaData={svgMetaData}
                                     chart={svgChart}
                                     labels={svgLabels} />
+
+                                <Legend data={svgLegend} onUpdateLegend={updateLegend} />
                             </BcViewShot>
 
                             {/* Legend Checkbox */}
-                            <Legend data={svgLegend} onUpdateLegend={updateLegend} />
+
 
                             <View style={{ height: 10 }} />
                         </VStack>

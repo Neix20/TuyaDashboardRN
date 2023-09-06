@@ -19,7 +19,7 @@ import Share from "react-native-share";
 function VSModal(props) {
 
     // #region Props
-    const { onDownload = () => {}, onShare = () => {} } = props;
+    const { onDownload = () => { }, onShare = () => { } } = props;
     // #endregion
 
     return (
@@ -87,57 +87,57 @@ function Index(props) {
 
     const shareFunc = () => {
         itemRef.current.capture()
-        .then(async (uri) => {
-            const shareOptions = {
-                title: 'Yatu Devices Dashboard',
-                url: uri,
-                subject: 'Yatu Daily dashboard',
-            };
-            Share.open(shareOptions)
-                .then(res => {
-                    console.log('res:', res);
-                    closeModal();
-                }).catch(err => {
-                    throw new Error("An Error has occurred", err.message);
-                });
-        })
-        .catch(err => {
-            console.log("Error ", err)
-        });
+            .then(async (uri) => {
+                const shareOptions = {
+                    title: 'Yatu Devices Dashboard',
+                    url: uri,
+                    subject: 'Yatu Daily dashboard',
+                };
+                Share.open(shareOptions)
+                    .then(res => {
+                        console.log('res:', res);
+                        closeModal();
+                    }).catch(err => {
+                        throw new Error("An Error has occurred", err.message);
+                    });
+            })
+            .catch(err => {
+                console.log("Error ", err)
+            });
     }
 
     const dlFunc = () => {
         itemRef.current.capture()
-        .then(async (uri) => {
-            await Utility.cacheDownloadFile(uri);
-            closeModal();
-        })
-        .catch(err => {
-            console.log("Error ", err)
-        });
+            .then(async (uri) => {
+                await Utility.cacheDownloadFile(uri);
+                closeModal();
+            })
+            .catch(err => {
+                console.log("Error ", err)
+            });
     }
     // #endregion
-    
+
     return (
         <>
-            <VSModal 
+            <VSModal
                 onDownload={dlFunc}
-                onShare={shareFunc} 
+                onShare={shareFunc}
                 showModal={showVsModal} setShowModal={setShowVsModal}
             />
-            <BcBoxShadow style={{ borderRadius: 20 }}>
+            <BcBoxShadow>
                 <View
                     py={3}
                     bgColor={"#FFF"}
-                    borderRadius={20}
+                    // borderRadius={20}
                     alignItems={"center"}
                     style={{
-                        width: width - 40
+                        width: width,
                     }}>
-                    <HStack pt={2}
+                    <HStack
                         alignItems={"center"}
                         justifyContent={"space-between"}
-                        style={{ width: width - 80 }}>
+                        style={{ width: width - 40 }}>
                         <Text style={{
                             fontFamily: "Roboto-Bold",
                             fontSize: 18,
@@ -147,13 +147,15 @@ function Index(props) {
                         </TouchableOpacity>
                     </HStack>
 
-                    <ViewShot 
-                        ref={itemRef} 
+                    <ViewShot
+                        ref={itemRef}
                         options={{ fileName: "test", format: "jpg", quality: 0.9 }}>
-                        {children}
+                        <View bgColor={"#FFF"}>
+                            {children}
+                        </View>
                     </ViewShot>
                 </View>
-        </BcBoxShadow>
+            </BcBoxShadow>
         </>
     );
 }

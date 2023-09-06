@@ -139,7 +139,6 @@ function TestCheckbox(props) {
         </SafeAreaView>
     )
 }
-// #endregion
 
 function DebugDateRange(props) {
 
@@ -216,7 +215,8 @@ function DebugChart() {
         </SafeAreaView>
     )
 }
+// #endregion
 
-const Index = DebugDateRange;
+const Index = WChart;
 
 export default Index;
