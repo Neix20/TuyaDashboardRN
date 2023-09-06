@@ -23,18 +23,16 @@ function MyTabBar(props) {
                 width: width,
             }}>
 
-            <BcBoxShadow
-                startColor="rgba(0, 0, 0, 0.1)"
-                style={{ borderRadius: borderRadius, }}>
+            <BcBoxShadow>
                 <HStack
-                    px={8}
+                    px={4}
                     justifyContent={"space-between"}
                     bgColor={"#fff"}
                     style={{
-                        height: 80,
+                        height: 60,
                         width: width,
-                        borderTopLeftRadius: borderRadius,
-                        borderTopRightRadius: borderRadius,
+                        // borderTopLeftRadius: borderRadius,
+                        // borderTopRightRadius: borderRadius,
                     }}>
                     {state.routes.map((route, ind) => {
                         const { options: screen } = descriptors[route.key];
@@ -62,7 +60,7 @@ function MyTabBar(props) {
                         // #endregion
 
                         return (
-                            <TouchableOpacity onPress={onPress} >
+                            <TouchableOpacity onPress={onPress} style={{ flex: 1 }}>
                                 <Btn color={color} focused={isFocused} />
                             </TouchableOpacity>
                         )

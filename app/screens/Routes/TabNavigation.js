@@ -12,9 +12,9 @@ function TabIconFontAwesome(props) {
     const { icon, title, color, focused } = props;
     return (
         <VStack
+            flex={1}
             alignItems={"center"}
             justifyContent={"center"}
-            style={{ height: 70 }}
             space={.5}>
             <FontAwesome name={icon} color={color} size={20} />
             <Text style={{
