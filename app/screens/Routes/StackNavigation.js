@@ -62,7 +62,7 @@ function Index(props) {
         SplashScreen.hide();
     }, []);
 
-    const defaultScreen = "TabNavigation";
+    const defaultScreen = "Debug";
     // const defaultScreen = "TuyaPanel";
 
     return (

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Text, TouchableOpacity, Dimensions, TouchableWithoutFeedback } from "react-native";
+import { Text, TouchableOpacity, Dimensions } from "react-native";
 import { View, VStack, HStack, useToast } from "native-base";
 
 const screen = Dimensions.get("screen");
@@ -7,69 +7,58 @@ const { width, height } = screen;
 
 import { Calendar } from 'react-native-calendars';
 
+import Modal from "react-native-modal";
+
 function Index(props) {
 
     // #region Props
-    const { flag = false, setFlag = () => { } } = props;
-    const { dt, setDt = () => {} } = props;
+    const { showModal = false, setShowModal = () => { } } = props;
+    const { dt, setDt = () => { } } = props;
     // #endregion
 
+    // #region UseState
     const [selected, setSelected] = useState(dt);
+    // #endregion
 
     // #region Helper
-    const closeCalendar = () => setFlag(false);
+    const closeModal = () => setShowModal(false);
+
     const updateDay = (day) => {
-        const {dateString} = day;
+        const { dateString } = day;
         setDt(dateString);
 
         setSelected(dateString);
-        closeCalendar();
+        closeModal();
     }
     // #endregion
 
-    if (!flag) {
+    if (!showModal) {
         return (<></>);
     }
 
     return (
-        <>
-            <View
-                bgColor={"#000"}
-                opacity={.5}
-                style={{
-                    position: "absolute",
-                    zIndex: 4,
-                    top: 0,
-                    bottom: 0,
-                    left: 0,
-                    right: 0,
-                }}>
+        <Modal
+            isVisible={showModal}
+            animationInTiming={1}
+            animationOutTiming={1}
+            onBackButtonPress={closeModal}
+            onBackdropPress={closeModal}
+            deviceHeight={height}
+            deviceWidth={width}
+            backdropOpacity={.5}>
+            <View 
+                alignItems={"center"} 
+                justifyContent={"center"}>
+                <Calendar
+                    current={dt}
+                    onDayPress={updateDay}
+                    markedDates={{
+                        [selected]: { selected: true, disableTouchEvent: true, selectedDotColor: 'orange' }
+                    }}
+                />
             </View>
-            <TouchableWithoutFeedback onPress={closeCalendar}>
-                <View
-                    alignItems={"center"}
-                    justifyContent={"center"}
-                    style={{
-                        position: "absolute",
-                        zIndex: 5,
-                        top: 0,
-                        bottom: 0,
-                        left: 0,
-                        right: 0,
-                    }}>
-                    <TouchableOpacity>
-                        <Calendar
-                            current={dt}
-                            onDayPress={updateDay}
-                            markedDates={{
-                                [selected]: { selected: true, disableTouchEvent: true, selectedDotColor: 'orange' }
-                            }}
-                        />
-                    </TouchableOpacity>
-                </View>
-            </TouchableWithoutFeedback>
-        </>
-    );
+        </Modal>
+    )
 }
 
 export default Index;

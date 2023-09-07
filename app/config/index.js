@@ -11,6 +11,10 @@ import OriDevices from "./data/ori_devices";
 
 import * as clsConst from "./clsConst";
 
+import DeviceInfoList from "./data/device_info_list.json";
+
+import AlertDataList from "./data/alert_data_v2.json";
+
 export {
     Animation,
     Images,
@@ -20,7 +24,9 @@ export {
 export {
     iRData,
     Devices,
-    OriDevices
+    OriDevices,
+    DeviceInfoList,
+    AlertDataList
 };
 
 export {

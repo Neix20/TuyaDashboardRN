@@ -1,0 +1,94 @@
+[
+  {
+    "Timestamp": "2023-02-13T22:20:28",
+    "Title": "Alert",
+    "Message": "Data Point absolute_humidity is Lower than threshold 25"
+  },
+  {
+    "Timestamp": "2023-02-13T14:11:51",
+    "Title": "Alert",
+    "Message": "Data Point absolute_humidity is Lower than threshold 15"
+  },
+  {
+    "Timestamp": "2023-02-13T00:18:16",
+    "Title": "Alert",
+    "Message": "Data Point temperature is Lower than threshold 26"
+  },
+  {
+    "Timestamp": "2023-04-10T20:39:54",
+    "Title": "Alert",
+    "Message": "Data Point absolute_humidity is Lower than threshold 20"
+  },
+  {
+    "Timestamp": "2023-04-10T11:13:29",
+    "Title": "Alert",
+    "Message": "Data Point relative_humidity is Lower than threshold 20"
+  },
+  {
+    "Timestamp": "2023-04-10T17:29:51",
+    "Title": "Alert",
+    "Message": "Data Point absolute_humidity is Lower than threshold 20"
+  },
+  {
+    "Timestamp": "2023-07-08T03:47:53",
+    "Title": "Alert",
+    "Message": "Data Point relative_humidity is Lower than threshold 13"
+  },
+  {
+    "Timestamp": "2023-07-08T16:37:45",
+    "Title": "Alert",
+    "Message": "Data Point temperature is Lower than threshold 10"
+  },
+  {
+    "Timestamp": "2023-07-08T13:44:17",
+    "Title": "Alert",
+    "Message": "Data Point temperature is Lower than threshold 15"
+  },
+
+  {
+    "Timestamp": "2023-08-03T04:21:05",
+    "Title": "Alert",
+    "Message": "Data Point relative_humidity is Lower than threshold 15"
+  },
+  {
+    "Timestamp": "2023-08-03T10:25:35",
+    "Title": "Alert",
+    "Message": "Data Point relative_humidity is Lower than threshold 14"
+  },
+  {
+    "Timestamp": "2023-08-03T04:14:17",
+    "Title": "Alert",
+    "Message": "Data Point relative_humidity is Lower than threshold 23"
+  },
+
+  {
+    "Timestamp": "2023-09-17T23:27:51",
+    "Title": "Alert",
+    "Message": "Data Point relative_humidity is Lower than threshold 19"
+  },
+  {
+    "Timestamp": "2023-09-17T05:32:58",
+    "Title": "Alert",
+    "Message": "Data Point relative_humidity is Lower than threshold 12"
+  },
+  {
+    "Timestamp": "2023-09-17T00:03:09",
+    "Title": "Alert",
+    "Message": "Data Point temperature is Lower than threshold 25"
+  },
+  {
+    "Timestamp": "2023-10-01T05:15:45",
+    "Title": "Alert",
+    "Message": "Data Point temperature is Lower than threshold 19"
+  },
+  {
+    "Timestamp": "2023-10-01T19:30:01",
+    "Title": "Alert",
+    "Message": "Data Point temperature is Lower than threshold 21"
+  },
+  {
+    "Timestamp": "2023-10-01T07:53:29",
+    "Title": "Alert",
+    "Message": "Data Point relative_humidity is Lower than threshold 10"
+  }
+]

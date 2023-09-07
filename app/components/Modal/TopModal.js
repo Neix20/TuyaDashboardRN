@@ -1,17 +1,15 @@
 import React, { useState, useEffect } from "react";
 
-import { TouchableOpacity, Dimensions } from "react-native";
+import { TouchableOpacity, Dimensions, SafeAreaView } from "react-native";
 import { View } from "native-base";
+import { GlobalColors } from "@config";
 
 import Modal from 'react-native-modal';
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 
 import CustomToast from "./CustomToast";
 
-const screen = Dimensions.get("screen");
-const { width, height } = screen;
-
-import { BcSvgIcon } from "@components";
+const { width, height } = Dimensions.get("screen");
 
 function CloseBtn(props) {
     return (
@@ -27,9 +25,6 @@ function CloseBtn(props) {
             <FontAwesome name={"close"} size={15} color={"#fff"} />
         </View>
     );
-    // return (
-    //     <BcSvgIcon name={"Cross"} width={24} height={24} fill={"#C6C6C6"} />
-    // )
 }
 
 function Index(props) {
@@ -47,23 +42,25 @@ function Index(props) {
     const { children } = props;
     const { showCross = true } = props;
     const { showModal, setShowModal } = props;
-    const { cusToast = init.toast, backdropOpacity = 0.7 } = props;
+    const { cusToast = init.toast } = props;
     // #endregion
 
     return (
-        <Modal
-            isVisible={showModal}
-            animationIn={'slideInUp'}
-            animationOut={'slideOutDown'}
+        <Modal isVisible={showModal}
+            style={{
+                justifyContent: "flex-start",
+                margin: 0,
+            }}
+            avoidKeyboard={true}
+            animationIn={'slideInDown'}
+            animationOut={'slideOutUp'}
             onBackButtonPress={() => setShowModal(false)}
-            onBackdropPress={() => setShowModal(false)}
-            deviceHeight={height}
-            deviceWidth={width}
-            backdropOpacity={backdropOpacity}>
+            onBackdropPress={() => setShowModal(false)}>
             <View
                 style={{
                     backgroundColor: 'white',
-                    borderRadius: 20,
+                    borderBottomLeftRadius: 15,
+                    borderBottomRightRadius: 15,
                 }}>
                 {/* Front Layer */}
                 {
@@ -74,6 +71,9 @@ function Index(props) {
                                 zIndex: 1,
                                 top: 20,
                                 right: 20,
+                                // height: 40,
+                                // width: width,
+
                             }}
                         >
                             <TouchableOpacity onPress={() => setShowModal(false)}>
@@ -96,6 +96,7 @@ function Index(props) {
                 </View>
 
                 {/* Content */}
+
                 <View alignItems={"center"} py={5}>
                     {children}
                 </View>

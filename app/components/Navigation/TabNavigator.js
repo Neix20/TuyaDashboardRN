@@ -23,50 +23,48 @@ function MyTabBar(props) {
                 width: width,
             }}>
 
-            <BcBoxShadow>
-                <HStack
-                    px={4}
-                    justifyContent={"space-between"}
-                    bgColor={"#fff"}
-                    style={{
-                        height: 60,
-                        width: width,
-                        // borderTopLeftRadius: borderRadius,
-                        // borderTopRightRadius: borderRadius,
-                    }}>
-                    {state.routes.map((route, ind) => {
-                        const { options: screen } = descriptors[route.key];
+            <HStack
+                px={4}
+                justifyContent={"space-between"}
+                bgColor={"#fff"}
+                style={{
+                    height: 60,
+                    width: width,
+                    // borderTopLeftRadius: borderRadius,
+                    // borderTopRightRadius: borderRadius,
+                }}>
+                {state.routes.map((route, ind) => {
+                    const { options: screen } = descriptors[route.key];
 
-                        const { tabBarIcon, tabBarActiveTintColor, tabBarInactiveTintColor } = screen;
+                    const { tabBarIcon, tabBarActiveTintColor, tabBarInactiveTintColor } = screen;
 
-                        // #region Helper
-                        const isFocused = state.index === ind;
+                    // #region Helper
+                    const isFocused = state.index === ind;
 
-                        const onPress = () => {
-                            const event = navigation.emit({
-                                type: 'tabPress',
-                                target: route.key,
-                                canPreventDefault: true,
-                            });
+                    const onPress = () => {
+                        const event = navigation.emit({
+                            type: 'tabPress',
+                            target: route.key,
+                            canPreventDefault: true,
+                        });
 
-                            if (!isFocused && !event.defaultPrevented) {
-                                // The `merge: true` option makes sure that the params inside the tab screen are preserved
-                                navigation.navigate({ name: route.name, merge: true });
-                            }
-                        };
+                        if (!isFocused && !event.defaultPrevented) {
+                            // The `merge: true` option makes sure that the params inside the tab screen are preserved
+                            navigation.navigate({ name: route.name, merge: true });
+                        }
+                    };
 
-                        const Btn = tabBarIcon;
-                        const color = isFocused ? tabBarActiveTintColor : tabBarInactiveTintColor;
-                        // #endregion
+                    const Btn = tabBarIcon;
+                    const color = isFocused ? tabBarActiveTintColor : tabBarInactiveTintColor;
+                    // #endregion
 
-                        return (
-                            <TouchableOpacity onPress={onPress} style={{ flex: 1 }}>
-                                <Btn color={color} focused={isFocused} />
-                            </TouchableOpacity>
-                        )
-                    })}
-                </HStack>
-            </BcBoxShadow>
+                    return (
+                        <TouchableOpacity onPress={onPress} style={{ flex: 1 }}>
+                            <Btn color={color} focused={isFocused} />
+                        </TouchableOpacity>
+                    )
+                })}
+            </HStack>
         </View>
     );
 }

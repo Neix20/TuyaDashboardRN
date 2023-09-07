@@ -196,7 +196,6 @@ function Item(props) {
 
     return (
         <>
-
             <DeviceRemoveModal
                 onPress={onRemoveDevice}
                 showModal={showDevRemModal} setShowModal={setShowDevRemModal} />
@@ -283,11 +282,9 @@ function Header(props) {
                         <TouchableOpacity onPress={onAddDevice}>
                             <View backgroundColor={"#2898FF"}
                                 alignItems={"center"} justifyContent={"center"}
-                                style={{
-                                    width: 40, height: 40
-                                }}
+                                style={{ width: 32, height: 32 }}
                                 borderRadius={20}>
-                                <FontAwesome name={"plus"} size={18} color={"#FFF"} />
+                                <FontAwesome name={"plus"} size={16} color={"#FFF"} />
                             </View>
                         </TouchableOpacity>
                     </HStack>
@@ -298,6 +295,40 @@ function Header(props) {
 }
 
 // #endregion
+
+import Modal from 'react-native-modal';
+
+function CustomDropdownModal(props) {
+    // #region Props
+    const { showModal = false, setShowModal = () => { } } = props;
+    const { cTop, cRight } = props;
+    // #endregion
+
+    // #region Helper
+    const closeModal = () => setShowModal(false);
+    // #endregion
+
+    if (!showModal) {
+        return (<></>)
+    }
+
+    return (
+        <Modal
+            isVisible={showModal}
+            animationInTiming={1} animationOutTiming={1}
+            onBackButtonPress={closeModal}
+            onBackdropPress={closeModal}
+            backdropOpacity={0}>
+            <View style={{
+                position: "absolute",
+                top: 40,
+                right: 0,
+            }}>
+                <View bgColor={"#0F0"} h={100} w={100} />
+            </View>
+        </Modal>
+    )
+}
 
 function Index(props) {
     const toast = useToast();
@@ -321,7 +352,6 @@ function Index(props) {
     // #endregion
 
     // #region UseState
-
     const [tmpLs, setTmpLs] = useState([]);
 
     const [oriLs, setOriLs] = useState([]);
@@ -463,7 +493,8 @@ function Index(props) {
                 .catch(err => {
                     console.log(`Error: ${err}`);
                 });
-        } else {
+        }
+        else {
             setOriLs(arr);
             toggleRefresh();
         }
@@ -475,9 +506,9 @@ function Index(props) {
 
     return (
         <>
-            <BcDeviceConModal key={showDeviceConModal}
-                AddDevice={AddDevice}
-                showModal={showDeviceConModal} setShowModal={setShowDeviceConModal} />
+            <BcDeviceConModal key={showDeviceConModal} AddDevice={AddDevice}
+                showModal={false} setShowModal={setShowDeviceConModal} />
+            <CustomDropdownModal showModal={showDeviceConModal} setShowModal={setShowDeviceConModal} />
             <SafeAreaView style={{ flex: 1 }}>
                 <View bgColor={"#FFF"} style={{ flex: 1 }}>
                     {/* Device */}

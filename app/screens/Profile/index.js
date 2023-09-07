@@ -1,242 +1,112 @@
 import React, { useState, useEffect } from "react";
 import { Text, TouchableOpacity, Image, TextInput, Dimensions, SafeAreaView, ImageBackground, ScrollView } from "react-native";
-import { View, VStack, HStack, Divider, useToast } from "native-base";
+import { View, VStack, HStack, useToast } from "native-base";
 
+import Ionicons from "react-native-vector-icons/Ionicons";
+import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+import SimpleLineIcons from "react-native-vector-icons/SimpleLineIcons";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
+import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 
 import { useNavigation, useIsFocused } from "@react-navigation/native";
 
 const screen = Dimensions.get("screen");
 const { width, height } = screen;
 
-import { Animation, Images } from "@config";
 import { Logger, Utility } from "@utility";
 
-import { BcSvgIcon, BcBoxShadow, BcHeader } from "@components";
-
-import { logout } from "@volst/react-native-tuya";
+import { Images, Svg, GlobalStyles, GlobalColors } from "@config";
 
 // #region Components
-function ProfilePhoto(props) {
-    const { onPress = () => { } } = props;
+function Header(props) {
     return (
-        <BcBoxShadow>
-            <VStack
-                py={2}
-                space={2}
-                bgColor={"#FFF"}
-                alignItems={"center"}
-                style={{ width: width }}>
-                {/* Profile Picture */}
-                <TouchableOpacity onPress={onPress}>
-                    <View >
-                        <Image
-                            source={Images.Profile}
-                            style={{
-                                width: 200,
-                                height: 200,
-                                borderRadius: 100,
-                            }}
-                            alt={"Model"} />
-                    </View>
-                </TouchableOpacity>
-            </VStack>
-        </BcBoxShadow>
-    )
-}
-
-function DetailsText(props) {
-    const { title, children, disabled = false } = props;
-
-    return (
-        <HStack
-            bgColor={"#fff"}
-            space={3}
-            alignItems={"center"}
-            justifyContent={"space-between"}
-            style={{
-                width: width - 40,
-            }}
-        >
-            <Text style={[{
-                fontSize: 16,
-                color: "#1E1E1E",
-                fontFamily: "Roboto-Medium",
-            }]}>{title}</Text>
-            <Text style={[{
-                fontSize: 16,
-                color: "#1E1E1E",
-                fontFamily: "Roboto-Medium",
-                textAlign: "right",
-            }]}>{children}</Text>
-        </HStack>
-    )
-}
-
-function Details(props) {
-    // const { name, product_name, id, model, icon } = props;
-    return (
-        <BcBoxShadow>
-            <View
-                py={3}
-                bgColor={"#fff"}
-                alignItems={"center"}
-                style={{
-                    width: width,
-                }}>
-
-                <View style={{ width: width - 40 }}>
-                    <Text style={{
-                        fontSize: 16,
-                        fontFamily: "Roboto-Bold",
-                        color: "#000"
-                    }}>Details</Text>
-
-                    <Divider bgColor={"#EBEBEB"} my={2} />
-                </View>
-                <VStack space={3}>
-                    <DetailsText title={"Name"}>Logan Thornton</DetailsText>
-                    <DetailsText title={"Nickname"}>Logan</DetailsText>
-                    <DetailsText title={"Gender"}>{"Male"}</DetailsText>
-                </VStack>
-            </View>
-        </BcBoxShadow>
-    )
-}
-
-function PageTxt(props) {
-    const { children } = props;
-    const { onSelect } = props;
-
-    return (
-        <TouchableOpacity onPress={onSelect}>
+        <View alignItems={"center"}>
             <HStack
-                bgColor={"#fff"}
+                alignItems={"center"}
+                justifyContent={"flex-end"}
+                style={{ width: width - 40, height: 60 }}>
+                {/* Btn */}
+                <HStack alignItems={"center"} space={3}>
+                    <TouchableOpacity>
+                        <Ionicons name={"scan"} color={"#000"} size={30} />
+                    </TouchableOpacity>
+                    <TouchableOpacity>
+                        <FontAwesome name={"gear"} color={"#000"} size={30} />
+                    </TouchableOpacity>
+                </HStack>
+            </HStack>
+        </View>
+    )
+}
+
+function Profile(props) {
+    return (
+        <TouchableOpacity>
+            <HStack
                 alignItems={"center"}
                 justifyContent={"space-between"}
-                style={{
-                    width: width - 40,
-                    // height: 30,
-                }}>
-                <Text style={[{
-                    fontSize: 16,
-                    color: "#1E1E1E",
-                    fontFamily: "Roboto-Medium",
-                }]}>{children}</Text>
+                style={{ width: width - 40, height: 60 }}>
+                {/* Btn */}
+                <HStack pl={5} space={5}>
+                    <FontAwesome name={"user-o"} color={"#000"} size={48} />
+                    <View style={{ width: 100 }}>
+                        <Text style={{
+                            fontFamily: "Roboto-Bold",
+                            fontSize: 18
+                        }}>Justin</Text>
+                    </View>
+                </HStack>
 
-                <FontAwesome
-                    name={"angle-right"}
-                    size={30}
-                    color={"#2898FF"}
-                />
+                {/* Angle-Right */}
+                <View>
+                    <FontAwesome name={"angle-right"} color={"#000"} size={32} />
+                </View>
             </HStack>
         </TouchableOpacity>
     )
 }
 
-function Pages(props) {
-    // const { name, product_name, id, model, icon } = props;
-    const lang = "en";
-    return (
-        <BcBoxShadow>
-            <View
-                py={3}
-                bgColor={"#fff"}
-                alignItems={"center"}
-                style={{
-                    width: width,
-                }}>
-
-                <View style={{ width: width - 40 }}>
-                    <Text style={{
-                        fontSize: 16,
-                        fontFamily: "Roboto-Bold",
-                        color: "#000"
-                    }}>Others</Text>
-
-                    <Divider bgColor={"#EBEBEB"} my={2} />
-                </View>
-                <VStack space={3}>
-                    <PageTxt>{Utility.translate("Frequently Asked Questions", lang)}</PageTxt>
-                    <PageTxt>{Utility.translate("Terms & Conditions", lang)}</PageTxt>
-                    <PageTxt>{Utility.translate("Privacy Policy", lang)}</PageTxt>
-                    <PageTxt>{Utility.translate("About Us", lang)}</PageTxt>
-                </VStack>
-            </View>
-        </BcBoxShadow>
-    )
-}
-
-function LogOut(props) {
-    const { lang } = props;
-    const { onLogOut = () => { } } = props;
-    return (
-        <TouchableOpacity onPress={onLogOut}>
-            <BcBoxShadow>
-                <View
-                    py={3}
-                    bgColor={"#fff"}
-                    alignItems={"center"}
-                    style={{
-                        width: width,
-                    }}>
-                    <View style={{ width: width - 40 }}>
-                        <Text style={[{
-                            fontSize: 16,
-                            color: "#2898FF",
-                            fontFamily: "Roboto-Medium",
-                        }]}>{Utility.translate("Log Out", lang)}</Text>
-                    </View>
-                </View>
-            </BcBoxShadow>
-        </TouchableOpacity>
-    )
-}
-
-function WelcomeInfo(props) {
+function PanelBtn(props) {
+    const { icon, title, Btn } = props;
     const { onPress = () => { } } = props;
+
     return (
         <TouchableOpacity onPress={onPress}>
-            <BcBoxShadow>
-                <View
-                    py={3}
-                    bgColor={"#fff"}
-                    alignItems={"center"}
-                    style={{
-                        width: width,
-                    }}>
-                    <View style={{ width: width - 40 }}>
-                        <Text style={[{
-                            fontSize: 16,
-                            color: "#2898FF",
+            <HStack px={3}
+                alignItems={"center"}
+                justifyContent={"space-between"}
+                style={{ width: width - 40, height: 60 }}>
+                {/* Icon & Title */}
+                <HStack alignItems={"center"} space={3}>
+                    <Btn name={icon} color={"#111111"} size={24} />
+                    <View>
+                        <Text style={{
                             fontFamily: "Roboto-Medium",
-                        }]}>New User Setup</Text>
+                            fontSize: 18,
+                            color: "#111111"
+                        }}>{title}</Text>
                     </View>
-                </View>
-            </BcBoxShadow>
+                </HStack>
+
+                {/* FontAwesome */}
+                <FontAwesome name={"angle-right"} color={"#000"} size={32} />
+
+            </HStack>
         </TouchableOpacity>
     )
 }
 
-function Header(props) {
-    const { children } = props;
+function NavPanel(props) {
     return (
-        <BcBoxShadow>
-            <View
-                alignItems={"center"}
-                justifyContent={"center"}
-                style={{
-                    height: 60,
-                    width: width,
-                    backgroundColor: "#fff",
-                }}>
-                <HStack
-                    style={{ width: width - 40 }}>
-                    {/* Logo */}
-                    <BcSvgIcon name={"Yatu"} width={80} height={40} />
-                </HStack>
-            </View>
-        </BcBoxShadow>
+        <VStack py={2}
+            bgColor={"#FFF"}
+            borderRadius={8}
+            alignItems={"center"}>
+
+            <PanelBtn Btn={FontAwesome} icon={"home"} title={"Home Management"} />
+            <PanelBtn Btn={MaterialCommunityIcons} icon={"message-text-outline"} title={"Message Center"} />
+            <PanelBtn Btn={SimpleLineIcons} icon={"question"} title={"FAQ & Feedback"} />
+        </VStack>
     )
 }
 // #endregion
@@ -246,69 +116,38 @@ function Index(props) {
     const navigation = useNavigation();
     const isFocused = useIsFocused();
 
-    const lang = "en";
-
-    // #region Helper
-    const onLogout = () => {
-        logout()
-            .then(res => {
-                Logger.info({
-                    content: res,
-                    page: "App",
-                    fileName: "tuya_logout",
-                });
-            })
-            .catch(err => {
-                console.log(`Error: ${err}`);
-            });
-
-            GoToLogin();
-    }
-    // #endregion
-
-    // #region Navigation
-    const GoToWelcomeInfo = () => {
-        navigation.navigate("WelcomeInfo");
-    }
-
-    const GoToLogin = () => {
-        navigation.navigate("Login");
-    }
-
-    const GoToTuyaPanel = () => {
-        navigation.navigate("TuyaPanel");
-    }
-    // #endregion
-
     return (
         <SafeAreaView style={{ flex: 1 }}>
-            <View style={{ flex: 1 }}>
+            <View bgColor={"#F6F7FA"} style={{ flex: 1 }}>
 
                 {/* Header */}
-                <Header>Profile</Header>
+                <Header />
 
                 <View style={{ height: 10 }} />
 
                 {/* Body */}
-                <ScrollView showsVerticalScrollIndicator={false}>
-                    <VStack space={2}>
-                        {/* Profile Photo */}
-                        <ProfilePhoto onPress={GoToTuyaPanel} />
+                <ScrollView showsVerticalScrollIndicator={false}
+                    contentContainerStyle={{ flexGrow: 1 }}>
+                    <VStack flexGrow={1}
+                        alignItems={"center"}
+                        space={5}>
+                        {/* User */}
+                        <View style={{ height: 80 }}>
+                            <Profile />
+                        </View>
 
-                        {/* Details */}
-                        <Details />
+                        <View
+                            bgColor={"#FFF"}
+                            borderRadius={8}
+                            style={{
+                                height: 120,
+                                width: width - 40
+                            }}>
 
-                        {/* Pages */}
-                        <Pages />
+                        </View>
 
-                        <WelcomeInfo onPress={GoToWelcomeInfo} />
-
-                        {/* Log Out */}
-                        <LogOut lang={lang} onLogOut={onLogout} />
-
+                        <NavPanel />
                     </VStack>
-
-                    <View style={{height: 10}} />
                 </ScrollView>
 
                 {/* Footer */}

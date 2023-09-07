@@ -413,10 +413,13 @@ function CheckBoxLegend(props) {
             }}
             containerStyle={{
                 flex: 1,
+                minWidth: 100,
+                paddingHorizontal: 5,
+                paddingVertical: 0,
             }}
-            iconType="material-community"
-            checkedIcon="checkbox-marked"
-            uncheckedIcon="checkbox-blank-outline"
+            iconType={"material-community"}
+            checkedIcon={"checkbox-marked"}
+            uncheckedIcon={"checkbox-blank-outline"}
             checked={flag}
             onPress={onPress}
             checkedColor={color} />
@@ -426,51 +429,33 @@ function CheckBoxLegend(props) {
 function Legend(props) {
     const { data, onUpdateLegend = () => { } } = props;
 
-    const col = 2;
-    let arr = Utility.splitItemsIntoK(data, col);
-
-    // #region Render
-    const renderItem = (item, ind) => {
-        return (
-            <HStack key={ind} alignItems={"center"} space={3}>
-                {
-                    item.map((obj, jnd) => {
-                        const onSelect = () => onUpdateLegend(col * ind + jnd);
-                        return (
-                            <CheckBoxLegend
-                                key={jnd}
-                                onPress={onSelect}
-                                {...obj} />
-                        )
-                    })
-                }
-            </HStack>
-        )
-    }
-    // #endregion
-
     if (data.length <= 0) {
         return (<></>)
     }
 
     return (
         <VStack bgColor={"#FFF"} alignItems={"center"} space={1}>
-            <View w={width - 40}>
+            <View style={{ width: width - 40 }}>
                 <Text style={{
                     fontFamily: "Roboto-Bold",
                     fontSize: 16,
                 }}>Legend</Text>
             </View>
-            <VStack
-                borderWidth={1} borderRadius={8}
+            <View
+                borderWidth={1} borderRadius={0}
                 borderColor={"#000"}
-                style={{
-                    width: width - 40,
-                }}>
-                {
-                    arr.map((obj, ind) => renderItem(obj, ind))
-                }
-            </VStack>
+                style={{ width: width - 40 }}>
+                <HStack flexWrap={"wrap"}>
+                    {
+                        data.map((obj, ind) => {
+                            const onSelect = () => onUpdateLegend(ind);
+                            return (
+                                <CheckBoxLegend key={ind} onPress={onSelect} {...obj} />
+                            )
+                        })
+                    }
+                </HStack>
+            </View>
         </VStack>
     );
 }

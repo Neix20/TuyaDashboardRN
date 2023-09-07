@@ -23,7 +23,7 @@ function Header(props) {
     return (
         <BcBoxShadow>
             <View
-                alignItems={"center"}
+            alignItems={"center"}
                 justifyContent={"center"}
                 style={{
                     height: 60,
@@ -53,12 +53,12 @@ function EmptyList(props) {
 
 function UsageSign(props) {
     return (
-        <VStack space={2}
-            alignItems={"center"}
+        <VStack space={2} 
+            alignItems={"center"} 
             style={{ width: width - 40 }}>
 
-            <FontAwesome name={"bolt"}
-                color={"#e6e6e6"}
+            <FontAwesome name={"bolt"} 
+                color={"#e6e6e6"} 
                 size={80} />
 
             <Text style={{
@@ -119,60 +119,41 @@ function Search(props) {
 }
 
 function Item(props) {
-
-    const { name, uri } = props;
+    
+    const { name, uri} = props;
     const { onSelect = () => { } } = props;
-
-    // return (
-    //     <TouchableOpacity onPress={onSelect}>
-    //         <BcBoxShadow>
-    //             <VStack
-    //                 pb={3} space={2}
-    //                 bgColor={"#FFF"}
-    //                 alignItems={"center"}
-    //                 style={{ width: width }}>
-
-    //                 {/* Banner */}
-    //                 <View>
-    //                     <Image
-    //                         source={uri}
-    //                         style={{
-    //                             width: width - 40,
-    //                             height: 120,
-    //                         }}
-    //                         resizeMode={"cover"}
-    //                         alt={name} />
-
-    //                 </View>
-
-    //                 {/* Description */}
-    //                 <HStack alignItems={"center"} style={{ width: width - 40 }}>
-    //                     <Text style={{
-    //                         fontFamily: "Roboto-Bold",
-    //                         fontSize: 16,
-    //                         color: "#000",
-    //                     }}>{name}</Text>
-    //                 </HStack>
-    //             </VStack>
-    //         </BcBoxShadow>
-    //     </TouchableOpacity>
-    // )
 
     return (
         <TouchableOpacity onPress={onSelect}>
-            <BcBoxShadow style={{ borderRadius: 15 }}>
-                <View>
-                    <Image
-                        source={uri}
-                        style={{ 
-                            width: width - 40, 
-                            maxHeight: 150,
-                            borderRadius: 15 
-                        }}
-                        resizeMethod="auto"
-                        resizeMode={"cover"}
-                        alt={name} />
-                </View>
+            <BcBoxShadow>
+                <VStack
+                    pb={3} space={2}
+                    bgColor={"#FFF"}
+                    alignItems={"center"}
+                    style={{ width: width }}>
+
+                    {/* Banner */}
+                    <View>
+                        <Image
+                            source={uri}
+                            style={{
+                                width: width - 40,
+                                height: 120,
+                            }}
+                            resizeMode={"cover"}
+                            alt={name} />
+
+                    </View>
+
+                    {/* Description */}
+                    <HStack alignItems={"center"} style={{width: width - 40}}>
+                        <Text style={{
+                            fontFamily: "Roboto-Bold",
+                            fontSize: 16,
+                            color: "#000",
+                        }}>{name}</Text>
+                    </HStack>
+                </VStack>
             </BcBoxShadow>
         </TouchableOpacity>
     )
@@ -234,15 +215,18 @@ function Index(props) {
     // #endregion
 
     // #region Render
-    const renderItem = (item, index) => {
+    const renderItem = ({item, index}) => {
 
         const onSelectItem = () => toggleSelectItem(item);
 
         return (
-            <Item
-                key={index}
-                onSelect={onSelectItem}
-                {...item} />
+            <>
+                 <Item
+                    key={index}
+                    onSelect={onSelectItem}
+                    {...item} />
+                <View style={{height: 10}} />
+            </>
         )
     }
     // #endregion
@@ -255,25 +239,26 @@ function Index(props) {
 
     return (
         <SafeAreaView style={{ flex: 1 }}>
-            <View bgColor={"#f6f7fa"} style={{ flex: 1 }}>
-
+            <View bgColor={"#FFF"}  style={{ flex: 1 }}>
+        
                 {/* Header */}
                 <Header />
-
+        
                 <View style={{ height: 10 }} />
 
-                <ScrollView showsVerticalScrollIndicator={false}
-                    contentContainerStyle={{ flexGrow: 1 }}>
-                    <VStack
-                        flexGrow={1}
-                        alignItems={"center"}
-                        space={3}>
-                        {
-                            filterLs.map((obj, ind) => renderItem(obj, ind))
-                        }
-                    </VStack>
-                </ScrollView>
-
+                {/* Search */}
+                <Search
+                    lang={lang}
+                    query={query} setQuery={setQuery} />
+        
+                {/* Body */}
+                <FlatList
+                    data={filterLs}
+                    renderItem={renderItem}
+                    contentContainerStyle={{ flexGrow: 1 }}
+                    ListEmptyComponent={<EmptyList />}
+                />
+        
                 {/* Footer */}
                 <View style={{ height: 60 }} />
             </View>

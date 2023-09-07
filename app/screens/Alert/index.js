@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { Text, TouchableOpacity, Image, TextInput, Dimensions, SafeAreaView, ImageBackground, ScrollView, Alert } from "react-native";
+import { Text, TouchableOpacity, Image, TextInput, Dimensions, SafeAreaView, ScrollView, FlatList } from "react-native";
 import { View, VStack, HStack, useToast } from "native-base";
 
+import Ionicons from "react-native-vector-icons/Ionicons";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 
@@ -12,14 +13,15 @@ const { width, height } = screen;
 
 import { info, error, Utility } from "@utility";
 
-import { Images, Svg } from "@config";
+import { Images, Svg, AlertDataList } from "@config";
 
 import { BcBoxShadow, BcSvgIcon } from "@components";
+
+import { fetchGetNotification } from "@api";
 
 // #region Components
 function Header(props) {
     const { children } = props;
-
     return (
         <BcBoxShadow>
             <View
@@ -42,8 +44,8 @@ function Header(props) {
 
 function AlertSign(props) {
     return (
-        <VStack space={2} 
-            alignItems={"center"} 
+        <VStack space={2}
+            alignItems={"center"}
             style={{ width: width - 40 }}>
             <FontAwesome name={"bell"} color={"#e6e6e6"} size={80} />
             <Text style={{
@@ -57,6 +59,20 @@ function AlertSign(props) {
         </VStack>
     )
 }
+
+function AlertHeader(props) {
+    return (
+        <HStack alignItems={"center"}
+            style={{ width: width - 40, height: 60 }}>
+            <View>
+                <Text style={{
+                    fontFamily: "Roboto-Bold",
+                    fontSize: 24,
+                }}>Alarm</Text>
+            </View>
+        </HStack>
+    )
+}
 // #endregion
 
 function Index(props) {
@@ -64,54 +80,116 @@ function Index(props) {
     const navigation = useNavigation();
     const isFocused = useIsFocused();
 
-    // #region Helper
-    const createAlert = () => {
-        toast.show({
-            description: "Work in progress!"
-        })
+    // #region UseState
+    const [data, setData] = useState({});
+    const [loading, setLoading] = useState(false);
+    // #endregion
+
+    // #region UseEffect
+    useEffect(() => {
+        // let arr = [...data].slice(0, 5);
+        if (isFocused) {
+            fetchGetNotification({
+                param: {
+                    UserId: 2
+                },
+                onSetLoading: setLoading
+            })
+                .then(res => {
+                    setData(res);
+                })
+                .catch(err => {
+                    console.log(`Error: ${err}`)
+                });
+        }
+    }, [isFocused]);
+    // #endregion
+
+    // #region Render
+    const renderItem = (item, ind) => {
+        const val = data[item];
+        return (
+            <View style={{ width: width - 40 }}>
+                {/* Date */}
+                <Text style={{
+                    fontFamily: "Roboto-Medium",
+                    fontSize: 28,
+                }}>
+                    {Utility.formatDt(item, "dd") + " "}
+                    <Text style={{
+                        fontFamily: "Roboto-Medium",
+                        fontSize: 18
+                    }}>
+                        {Utility.formatDt(item, "MMM")}
+                    </Text>
+                </Text>
+
+                {/* Item */}
+                <VStack space={3}>
+                    {
+                        val.map((obj, ind) => {
+                            const { Title, Message } = obj;
+                            return (
+                                <HStack style={{ width: width - 40 }}>
+                                    {/* FontAwesome */}
+                                    <View style={{ width: 40 }}>
+                                        <Ionicons name={"alert-circle"} color={"#F00"} size={24} />
+                                    </View>
+
+                                    {/* Alert */}
+                                    <BcBoxShadow style={{ borderRadius: 8, width: width - 80 }}>
+                                        <View p={1} flex={1}
+                                            bgColor={"#FFF"}
+                                            borderRadius={8}>
+                                            <Text style={{
+                                                fontFamily: "Roboto-Bold",
+                                                fontSize: 18
+                                            }}>{Title}</Text>
+
+                                            <Text style={{
+                                                fontFamily: "Roboto-Medium",
+                                                fontSize: 14
+                                            }}>{Message}</Text>
+                                        </View>
+                                    </BcBoxShadow>
+
+                                </HStack>
+                            )
+                        })
+                    }
+                </VStack>
+            </View>
+        )
     }
     // #endregion
 
     return (
         <SafeAreaView style={{ flex: 1 }}>
-            <View style={{ flex: 1 }}>
+            <View bgColor={"#f6f7fa"} style={{ flex: 1 }}>
 
                 {/* Header */}
                 <Header>Alert</Header>
 
-                <View style={{ height: 10 }} />
-
                 {/* Body */}
+
+                <View alignItems={"center"}>
+                    {/* Alarm Header */}
+                    <AlertHeader />
+                </View>
+
                 <ScrollView showsVerticalScrollIndicator={false}
                     contentContainerStyle={{ flexGrow: 1 }}>
-                    <View
-                        alignItems={"center"}
-                        justifyContent={"center"}
-                        bgColor={"#FFF"}
-                        flexGrow={1}>
-                        <VStack 
-                            alignItems={"center"}
-                            space={10}>
-                            <AlertSign />
+                    <View flexGrow={1} alignItems={"center"}>
 
-                            <TouchableOpacity onPress={createAlert}>
-                                <View
-                                    borderRadius={15}
-                                    alignItems={"center"}
-                                    justifyContent={"center"}
-                                    bgColor={"#2898FF"}
-                                    style={{
-                                        width: 180,
-                                        height: 40,
-                                    }}>
-                                    <Text style={{
-                                        fontFamily: "Roboto-Bold",
-                                        fontSize: 18,
-                                        color: "#FFF"
-                                    }}>Create Alert</Text>
-                                </View>
-                            </TouchableOpacity>
+                        {/* Alarm */}
+                        <VStack space={5}>
+                        {
+                            Object.keys(data).map(renderItem)
+                        }
                         </VStack>
+
+                        <View style={{ height: 10 }} />
+
                     </View>
                 </ScrollView>
 

@@ -332,10 +332,10 @@ function Index(props) {
         <BaseModal {...props}>
             <YtCalendar
                 dt={dt} setDt={updateCusStartDt}
-                flag={showCusStartDt} setFlag={setShowCusStartDt} />
+                showModal={showCusStartDt} setShowModal={setShowCusStartDt} />
             <YtCalendar
                 dt={dt} setDt={updateCusEndDt}
-                flag={showCusEndDt} setFlag={setShowCusEndDt} />
+                showModal={showCusEndDt} setShowModal={setShowCusEndDt} />
             <View
                 bgColor={"#FFF"}
                 style={{ flexGrow: 1 }}>

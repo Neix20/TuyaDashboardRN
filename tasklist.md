@@ -1,6 +1,6 @@
 ## Task List
 - [ ] Custom Dashboard
-  - [ ] Add Dashboard Modes
+  - [x] Add Dashboard Modes
   - [ ] Different Dashboard View
 - [x] Add Alerts to Device
   - [x] Experiment With Live Polling of Data
@@ -24,13 +24,36 @@
 - [ ] Orientation
   - [ ] Portrait
   - [ ] Landscape
+
 - [x] API
   - [x] Usage List
   - [x] Usage Info
   - [x] Get Device Chart
 
+- [ ] Pages
+  - [x] Profile
+  - [x] Alert
+  - [ ] Devices
+    - [ ] Main Page
+    - [ ] Device Chart API
+    - [ ] Device Management
+    - [ ] Device Info
+  - [x] Usage
+  - [ ] Dashboard
+    - [ ] Tables
+  - [x] Home
+    - [x] Top Modal
+  - [x] Carousel
+
+- [x] Components
+  - [x] Device Modal
+  - [x] Calendar Modal
+  - [x] Custom Dropdown
+    - [x] ~~Relative to Parent Position~~
+
 #### Research & Dev
 - [x] ~~Get Local DP From Network (Not from Tuya Server)~~
   - [x] Just same as Tuya Cloud
-- [ ] BlueTooth Scan for Device First
+- [x] BlueTooth Scan for Device First
+  - [x] `Temp` Use Temporary Device List
 - [ ] Auth With iOS
