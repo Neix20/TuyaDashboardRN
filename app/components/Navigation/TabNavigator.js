@@ -5,6 +5,8 @@ import { View, HStack } from "native-base";
 
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
+import { BcBoxShadow } from "@components";
+
 const Tab = createBottomTabNavigator();
 
 function MyTabBar(props) {
@@ -47,11 +49,13 @@ function MyTabBar(props) {
 
     return (
         <View style={{ position: "absolute", bottom: 0, left: 0, right: 0 }}>
-            <HStack bgColor={"#fff"}
-                justifyContent={"space-between"}
-                style={{ height: 60 }}>
-                {state.routes.map(renderTabItem)}
-            </HStack>
+            <BcBoxShadow style={{ width: "100%" }}>
+                <HStack bgColor={"#fff"}
+                    justifyContent={"space-between"}
+                    style={{ height: 60 }}>
+                    {state.routes.map(renderTabItem)}
+                </HStack>
+            </BcBoxShadow>
         </View>
     );
 }
@@ -64,10 +68,10 @@ function Index(props) {
 
     // #region Render
     const renderScreen = ({ title, component, tabBarIcon }, ind) => (
-        <Tab.Screen key={ind} 
-            name={title} 
-            component={component} 
-            options={{ title: title, tabBarIcon: tabBarIcon }} 
+        <Tab.Screen key={ind}
+            name={title}
+            component={component}
+            options={{ title: title, tabBarIcon: tabBarIcon }}
         />
     )
     // #endregion

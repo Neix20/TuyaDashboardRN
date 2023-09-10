@@ -25,6 +25,8 @@ import BcViewShot from "./ViewShot";
 
 import BcDropdown from "./Dropdown";
 
+import BcDateRange from "./DateRange";
+
 export {
     BcBoxShadow,
     BcDisable,
@@ -34,7 +36,8 @@ export {
     BcTimer,
     BcDateTimer,
     BcViewShot,
-    BcDropdown
+    BcDropdown,
+    BcDateRange
 }
 // #endregion
 

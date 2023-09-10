@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
-import { Text, TouchableOpacity, Image, Dimensions, SafeAreaView, ScrollView, FlatList, TouchableWithoutFeedback } from "react-native";
+import { Text, TouchableOpacity, Image, Dimensions, SafeAreaView, ScrollView, FlatList, TouchableWithoutFeedback, useWindowDimensions } from "react-native";
 import { View, VStack, HStack, Divider, useToast } from "native-base";
 
 import FontAwesome from "react-native-vector-icons/FontAwesome";
@@ -113,6 +113,8 @@ function WelcomeInfoModal(props) {
 function Header(props) {
     const { children } = props;
 
+    const { width, height } = useWindowDimensions();
+
     return (
         <BcBoxShadow>
             <View
@@ -134,6 +136,7 @@ function Header(props) {
 }
 
 function SvgLineChart(props) {
+
     const { metaData, chart, labels } = props;
 
     const Shadow = (props) => {
@@ -459,12 +462,82 @@ function Legend(props) {
         </VStack>
     );
 }
+
+function CardGradientItem(props) {
+    const { bgName = "CardGradientRed" } = props;
+    return (
+        <View style={{ height: 180, width: width - 40 }}>
+            {/* <BcSvgIcon name={bgName} /> */}
+            <View bgColor={"#00F"} flex={1} borderRadius={8} />
+            <VStack p={2}
+                space={4}
+                position={"absolute"}>
+                <View>
+                    <Text style={{
+                        fontSize: 12,
+                        color: "#FFF",
+                    }}>Cozy Home</Text>
+                </View>
+
+                <HStack space={3}>
+                    <FontAwesome5 name={"cloud"} color={"#FFF"} size={36} />
+                    <Text style={{
+                        fontFamily: "Roboto-Bold",
+                        fontSize: 32,
+                        color: "#f1f1f1"
+                    }}>29°C</Text>
+                </HStack>
+
+                <HStack alignItems={"center"} space={1}>
+                    <VStack>
+                        <Text style={{
+                            fontFamily: "Roboto-Medium",
+                            fontSize: 18,
+                            color: "#FFF",
+                        }}>Excellent</Text>
+                        <Text style={{
+                            fontFamily: "Roboto-Medium",
+                            fontSize: 14,
+                            color: "#FFF",
+                        }}>Outdoor PM 2.5</Text>
+                    </VStack>
+                    <VStack>
+                        <Text style={{
+                            fontFamily: "Roboto-Medium",
+                            fontSize: 18,
+                            color: "#FFF",
+                        }}>74.0%</Text>
+                        <Text style={{
+                            fontFamily: "Roboto-Medium",
+                            fontSize: 14,
+                            color: "#FFF",
+                        }}>Outdoor Humidity</Text>
+                    </VStack>
+                    <VStack>
+                        <Text style={{
+                            fontFamily: "Roboto-Medium",
+                            fontSize: 18,
+                            color: "#FFF",
+                        }}>1006.9hPa</Text>
+                        <Text style={{
+                            fontFamily: "Roboto-Medium",
+                            fontSize: 14,
+                            color: "#FFF",
+                        }}>Outdoor Air Pres...</Text>
+                    </VStack>
+                </HStack>
+            </VStack>
+        </View>
+    )
+}
 // #endregion
 
 function Index(props) {
     const toast = useToast();
     const navigation = useNavigation();
     const isFocused = useIsFocused();
+
+    const { width, height } = useWindowDimensions();
 
     // #region Initial
     const init = {
@@ -703,7 +776,6 @@ function Index(props) {
                                             fontFamily: "Roboto-Bold",
                                             fontSize: 16,
                                         }}>{Utility.formatDt(startDt, "EEEE, d MMMM")}</Text>
-                                        {/* <Text>vs {Utility.formatDt(prevDt, "EEEE, d MMMM")}</Text> */}
                                     </VStack>
                                 </HStack>
                                 <HStack>
@@ -738,8 +810,14 @@ function Index(props) {
                         showsVerticalScrollIndicator={false}
                         contentContainerStyle={{ flexGrow: 1 }}>
 
-                        <VStack space={2}
-                            alignItems={"center"}>
+                        <HStack flexWrap={"wrap"} 
+                            rowGap={10}
+                            alignItems={"flex-start"} 
+                            justifyContent={"space-between"}>
+                            <BcViewShot title="Energy Usage">
+                                <CardGradientItem />
+                            </BcViewShot>
+
                             <BcViewShot title="Daily Device Report">
                                 <SvgLineChart
                                     metaData={svgMetaData}
@@ -748,12 +826,7 @@ function Index(props) {
 
                                 <Legend data={svgLegend} onUpdateLegend={updateLegend} />
                             </BcViewShot>
-
-                            {/* Legend Checkbox */}
-
-
-                            <View style={{ height: 10 }} />
-                        </VStack>
+                        </HStack>
 
                     </ScrollView>
 

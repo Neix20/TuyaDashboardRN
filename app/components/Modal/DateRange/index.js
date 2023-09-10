@@ -73,61 +73,52 @@ function DRangeItem(props) {
     const { title, description, flag } = props;
     const { onPress = () => { } } = props;
 
-    const {width, height} = useWindowDimensions();
-
     return (
-        <TouchableOpacity onPress={onPress}>
-            <View alignItems={"center"} py={1}>
-                <HStack
-                    alignItems={"center"}
-                    justifyContent={"space-between"}
-                    style={{ width: width - 40 }}>
-                    <VStack space={1}>
-                        <Text style={{
-                            fontFamily: "Roboto-Medium",
-                            fontSize: 16,
-                            color: flag ? "#2898FF" : "#000"
-                        }}>{title}</Text>
-                        <Text style={{
-                            fontFamily: "Roboto-Medium",
-                            fontSize: 16,
-                            color: "#c6c6c6"
-                        }}>{description}</Text>
-                    </VStack>
-
-                    <View
-                        display={flag ? "flex" : "none"}
-                        alignItems={"center"} justifyContent={"center"}
-                        style={{ width: 40, height: 40 }}>
-                        <AntDesign name={"check"} size={25} color={"#2898FF"} />
-                    </View>
-                </HStack>
-            </View>
+        <TouchableOpacity onPress={onPress} style={{ width: "90%" }}>
+            <HStack
+                alignItems={"center"}
+                justifyContent={"space-between"}
+                width={"100%"}>
+                <VStack space={1}>
+                    <Text style={{
+                        fontFamily: "Roboto-Medium",
+                        fontSize: 16,
+                        color: flag ? "#2898FF" : "#000"
+                    }}>{title}</Text>
+                    <Text style={{
+                        fontFamily: "Roboto-Medium",
+                        fontSize: 16,
+                        color: "#c6c6c6"
+                    }}>{description}</Text>
+                </VStack>
+                <View
+                    display={flag ? "flex" : "none"}
+                    alignItems={"center"} justifyContent={"center"}
+                    style={{ width: 40, height: 40 }}>
+                    <AntDesign name={"check"} size={25} color={"#2898FF"} />
+                </View>
+            </HStack>
         </TouchableOpacity>
     );
 }
 
 function DateView(props) {
 
-    const {width, height} = useWindowDimensions();
-
     // #region Props
-    const { data, setData = () => {} } = props;
-    const { startDt, setStartDt = () => {} } = props;
-    const { endDt, setEndDt = () => {} } = props;
+    const { data, setData = () => { } } = props;
+    const { startDt, setStartDt = () => { } } = props;
+    const { endDt, setEndDt = () => { } } = props;
     // #endregion
 
     // #region Render
     const renderSelectDate = ({ item, index }) => {
-        const {flag} = item;
+        const { flag } = item;
         const onSelect = () => toggleItem(index);
         return (
-            <>
+            <View alignItems={"center"}>
                 <DRangeItem flag={flag} onPress={onSelect} {...item} />
-                <View alignItems={"center"}>
-                    <Divider my={2} width={width - 40} />
-                </View>
-            </>
+                <Divider my={2} width={"90%"} />
+            </View>
         );
     }
     // #endregion
@@ -147,6 +138,8 @@ function DateView(props) {
 
         arr[index].flag = true;
 
+        console.log(arr[index]);
+
         setData(arr);
 
         const { startDt, endDt } = data[index];
@@ -158,11 +151,8 @@ function DateView(props) {
     // #endregion
 
     return (
-        <TabView.Item style={{ width: '100%' }}>
-            <VStack 
-                space={3}
-                alignItems={"center"}>
-                
+        <TabView.Item>
+            <VStack>
                 <FlatList
                     data={data}
                     renderItem={renderSelectDate}
@@ -183,11 +173,9 @@ function DateView(props) {
 
 function CalendarView(props) {
 
-    const {width, height} = useWindowDimensions();
-
     // #region Props
     const { toggleCusStartDt, toggleCusEndDt } = props;
-    const { data, setData = () => {} } = props;
+    const { data, setData = () => { } } = props;
     // #endregion
 
     // #region UseState
@@ -199,15 +187,15 @@ function CalendarView(props) {
     // #endregion
 
     return (
-        <TabView.Item style={{ width: '100%' }}>
-            <VStack space={3} alignItems={"center"}>
+        <TabView.Item style={{width: "100%"}}>
+            <VStack>
 
-                <View>
+                <View alignItems={"center"}>
                     <DRangeItem onPress={toggleCusStartDt} flag={false} {...data[0]} />
-                    <Divider my={2} width={width - 40} />
-
+                    <Divider my={2} width={"90%"} />
+                    
                     <DRangeItem onPress={toggleCusEndDt} flag={false} {...data[1]} />
-                    <Divider my={2} width={width - 40} />
+                    <Divider my={2} width={"90%"} />
                 </View>
 
                 {/* <HStack style={{width: 360}} alignItems={"center"} justifyContent={"space-between"}>
@@ -229,12 +217,9 @@ function Index(props) {
 
     // #region Props
     const { showModal, setShowModal } = props;
-    const { dt = "" } = props;
-    const { startDt, setStartDt = () => {} } = props;
-    const { endDt, setEndDt = () => {} } = props;
+    const { startDt, setStartDt = () => { } } = props;
+    const { endDt, setEndDt = () => { } } = props;
     // #endregion
-
-    const {width, height} = useWindowDimensions();
 
     // #region Init
     const init = {
@@ -257,17 +242,17 @@ function Index(props) {
 
     const [dateRange, setDateRange] = useState(init.dateRange);
 
-    const [fStartDt, setFStartDt] = useState(dt);
-    const [fEndDt, setFEndDt] = useState(dt);
+    const [fStartDt, setFStartDt] = useState(startDt);
+    const [fEndDt, setFEndDt] = useState(startDt);
     // #endregion
 
     // #region UseEffect
     useEffect(() => {
-        
+
         let today_dt = DateTime.now();
 
-        if (dt !== "") {
-            today_dt = DateTime.fromISO(dt);
+        if (startDt !== "") {
+            today_dt = DateTime.fromISO(startDt);
         }
 
         // Create Date Range Based on Current Date
@@ -304,7 +289,7 @@ function Index(props) {
     }
 
     const updateDateRange = (key, value) => {
-        let data = {...dateRange};
+        let data = { ...dateRange };
         data[key] = value;
         setDateRange(data);
     }
@@ -316,7 +301,7 @@ function Index(props) {
 
     const toggleCusStartDt = () => setShowCusStartDt(!showCusStartDt);
     const toggleCusEndDt = () => setShowCusEndDt(!showCusEndDt);
-    
+
     const updateCusStartDt = (dt) => {
         let arr = [...dateRange["Custom"]];
         arr[0].description = Utility.formatDt(dt, "EEEE, d MMMM");
@@ -339,29 +324,29 @@ function Index(props) {
     return (
         <BaseModal {...props}>
             <YtCalendar
-                dt={dt} setDt={updateCusStartDt}
+                dt={startDt} setDt={updateCusStartDt}
                 showModal={showCusStartDt} setShowModal={setShowCusStartDt} />
             <YtCalendar
-                dt={dt} setDt={updateCusEndDt}
+                dt={startDt} setDt={updateCusEndDt}
                 showModal={showCusEndDt} setShowModal={setShowCusEndDt} />
             <View
                 bgColor={"#FFF"}
                 style={{ flexGrow: 1 }}>
                 <View alignItems={"center"}>
                     <HStack py={3}
-                        alignItems={"center"} 
+                        alignItems={"center"}
                         justifyContent={"space-between"}
-                        style={{ width: width - 40 }}>
+                        style={{ width: "90%" }}>
                         <TouchableOpacity onPress={closeModal}>
-                            <View 
-                                alignItems={"center"} 
+                            <View
+                                alignItems={"center"}
                                 justifyContent={"center"}
                                 style={{ width: 40, height: 40 }}>
                                 <AntDesign name={"close"} size={25} />
                             </View>
                         </TouchableOpacity>
 
-                        <View style={{ width: width - 160 }}>
+                        <View style={{ width: "72%" }}>
                             <Text style={{
                                 fontFamily: "Roboto-medium",
                                 fontSize: 18
@@ -397,32 +382,28 @@ function Index(props) {
                 <View style={{ height: 10 }} />
 
                 {/* Body */}
-                <ScrollView
-                    showsVerticalScrollIndicator={false}
-                    contentContainerStyle={{ flexGrow: 1 }}>
-                    <TabView
-                        value={datePaneInd}
-                        onChange={(e) => setDatePaneInd(e)}>
-                        <DateView 
-                            data={dateRange["Day"]} setData={updateDayRange} 
-                            startDt={fStartDt} setStartDt={setFStartDt} 
-                            endDt={fEndDt} setEndDt={setFEndDt} />
-                        <DateView 
-                            data={dateRange["Week"]} setData={updateWeekRange} 
-                            startDt={fStartDt} setStartDt={setFStartDt} 
-                            endDt={fEndDt} setEndDt={setFEndDt} />
-                        <DateView 
-                            data={dateRange["Month"]} setData={updateMonthRange} 
-                            startDt={fStartDt} setStartDt={setFStartDt} 
-                            endDt={fEndDt} setEndDt={setFEndDt} />
-                        <CalendarView 
-                            toggleCusStartDt={toggleCusStartDt}
-                            toggleCusEndDt={toggleCusEndDt}
-                            data={dateRange["Custom"]} setData={updateCustomRange}
-                            startDt={fStartDt} setStartDt={setFStartDt} 
-                            endDt={fEndDt} setEndDt={setFEndDt} />
-                    </TabView>
-                </ScrollView>
+                <TabView
+                    value={datePaneInd}
+                    onChange={(e) => setDatePaneInd(e)}>
+                    <DateView
+                        data={dateRange["Day"]} setData={updateDayRange}
+                        startDt={fStartDt} setStartDt={setFStartDt}
+                        endDt={fEndDt} setEndDt={setFEndDt} />
+                    <DateView
+                        data={dateRange["Week"]} setData={updateWeekRange}
+                        startDt={fStartDt} setStartDt={setFStartDt}
+                        endDt={fEndDt} setEndDt={setFEndDt} />
+                    <DateView
+                        data={dateRange["Month"]} setData={updateMonthRange}
+                        startDt={fStartDt} setStartDt={setFStartDt}
+                        endDt={fEndDt} setEndDt={setFEndDt} />
+                    <CalendarView
+                        toggleCusStartDt={toggleCusStartDt}
+                        toggleCusEndDt={toggleCusEndDt}
+                        data={dateRange["Custom"]} setData={updateCustomRange}
+                        startDt={fStartDt} setStartDt={setFStartDt}
+                        endDt={fEndDt} setEndDt={setFEndDt} />
+                </TabView>
             </View>
         </BaseModal>
     )

@@ -54,7 +54,7 @@ let TabScreens = {};
 TabScreens = {
     ...TabScreens,
     Dashboard: {
-        component: Empty,
+        component: Dashboard,
         title: "Dashboard",
         tabBarIcon: (props) => (
             <TabIconFontAwesome
