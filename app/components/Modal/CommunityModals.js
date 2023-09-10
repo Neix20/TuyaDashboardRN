@@ -57,8 +57,6 @@ function Index(props) {
             animationOut={'slideOutDown'}
             onBackButtonPress={() => setShowModal(false)}
             onBackdropPress={() => setShowModal(false)}
-            deviceHeight={height}
-            deviceWidth={width}
             backdropOpacity={backdropOpacity}>
             <View
                 style={{

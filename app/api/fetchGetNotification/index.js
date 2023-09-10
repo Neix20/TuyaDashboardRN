@@ -48,8 +48,9 @@ const Index = async (props) => {
         } else {
             data[dt] = [alert];
         }
-
     }
+
+    onSetLoading(false);
 
     return data;
 };

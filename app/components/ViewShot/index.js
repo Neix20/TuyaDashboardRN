@@ -12,23 +12,43 @@ import { Utility } from "@utility";
 import { BcBoxShadow } from "@components";
 
 import ViewShot from "react-native-view-shot";
-import BottomModal from "./../Modal/BottomModals";
+import BottomModal from "@components/Modal/BottomModals";
+
+import Modal from "@components/Modal/CommunityModals";
 
 import Share from "react-native-share";
+
+function ExpandModal(props) {
+    const { children } = props;
+    return (
+        <Modal {...props}>{children}</Modal>
+    )
+}
 
 function VSModal(props) {
 
     // #region Props
-    const { onDownload = () => { }, onShare = () => { } } = props;
+    const { onDownload = () => { }, onShare = () => { }, onExpand = () => { } } = props;
     // #endregion
 
     return (
         <BottomModal {...props} showCross={false}>
             <VStack space={3}>
+                <TouchableOpacity onPress={onExpand}>
+                    <View alignItems={"center"} justifyContent={"center"} style={{ height: 40 }}>
+                        <HStack space={5}
+                            alignItems={"center"}
+                            style={{ width: width - 40 }}>
+                            <FontAwesome5 name={"expand-arrows-alt"} size={27} />
+                            <Text style={{
+                                fontFamily: "Roboto-Bold",
+                                fontSize: 18,
+                            }}>Expand</Text>
+                        </HStack>
+                    </View>
+                </TouchableOpacity>
                 <TouchableOpacity onPress={onShare}>
-                    <View alignItems={"center"} justifyContent={"center"} style={{
-                        height: 40
-                    }}>
+                    <View alignItems={"center"} justifyContent={"center"} style={{ height: 40 }}>
                         <HStack alignItems={"center"}
                             space={5}
                             style={{
@@ -43,14 +63,10 @@ function VSModal(props) {
                     </View>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={onDownload}>
-                    <View alignItems={"center"} justifyContent={"center"} style={{
-                        height: 40
-                    }}>
-                        <HStack alignItems={"center"}
-                            space={5}
-                            style={{
-                                width: width - 40
-                            }}>
+                    <View alignItems={"center"} justifyContent={"center"} style={{ height: 40 }}>
+                        <HStack space={5}
+                            alignItems={"center"}
+                            style={{ width: width - 40 }}>
                             <FontAwesome5 name={"download"} size={27} />
                             <Text style={{
                                 fontFamily: "Roboto-Bold",
@@ -75,6 +91,7 @@ function Index(props) {
 
     // #region UseState
     const [showVsModal, setShowVsModal] = useState(false);
+    const [showExModal, setShowExModal] = useState(false);
     // #endregion
 
     // #region UseRef
@@ -82,7 +99,11 @@ function Index(props) {
     // #endregion
 
     // #region Helper
-    const toggleVsModal = () => setShowVsModal(!showVsModal);
+    const toggleVsModal = () => setShowVsModal((val) => !val);
+    const toggleExModal = () => {
+        toggleVsModal();
+        setShowExModal((val) => !val);
+    };
     const closeModal = () => setShowVsModal(false);
 
     const shareFunc = () => {
@@ -123,18 +144,19 @@ function Index(props) {
             <VSModal
                 onDownload={dlFunc}
                 onShare={shareFunc}
+                onExpand={toggleExModal}
                 showModal={showVsModal} setShowModal={setShowVsModal}
             />
+            <ExpandModal
+                showModal={showExModal} setShowModal={setShowExModal}
+            >{children}</ExpandModal>
             <BcBoxShadow>
-                <VStack
-                    py={3}
+                <VStack py={3}
                     space={3}
                     bgColor={"#FFF"}
                     // borderRadius={20}
                     alignItems={"center"}
-                    style={{
-                        width: width,
-                    }}>
+                    style={{ width: width }}>
                     <HStack
                         alignItems={"center"}
                         justifyContent={"space-between"}
@@ -148,8 +170,7 @@ function Index(props) {
                         </TouchableOpacity>
                     </HStack>
 
-                    <ViewShot
-                        ref={itemRef}
+                    <ViewShot ref={itemRef}
                         options={{ fileName: "test", format: "jpg", quality: 0.9 }}>
                         <View bgColor={"#FFF"}>
                             {children}

@@ -43,8 +43,6 @@ function Index(props) {
             animationOutTiming={1}
             onBackButtonPress={closeModal}
             onBackdropPress={closeModal}
-            deviceHeight={height}
-            deviceWidth={width}
             backdropOpacity={.5}>
             <View 
                 alignItems={"center"} 

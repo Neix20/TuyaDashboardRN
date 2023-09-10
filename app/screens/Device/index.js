@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { Text, TouchableOpacity, Image, TextInput, Dimensions, SafeAreaView, FlatList, ScrollView, useWindowDimensions } from "react-native";
-import { View, VStack, HStack, useToast } from "native-base";
+import { Text, TouchableOpacity, Image, TextInput, Dimensions, SafeAreaView, FlatList, ScrollView } from "react-native";
+import { View, VStack, HStack, Divider, useToast } from "native-base";
 
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
+import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 
 import { useNavigation, useIsFocused } from "@react-navigation/native";
 
@@ -26,20 +27,157 @@ import PaginationDot from 'react-native-animated-pagination-dot';
 
 import TopModal from "@components/Modal/TopModal";
 
+// #region Home Modal
+function HomeModal(props) {
+
+    // #region Props
+    const { data = [], onSelect = () => { } } = props;
+    // #endregion
+
+    // #region Render
+    const renderItem = ({ item, index }) => {
+        const { name, pos, flag } = item;
+        const selectItem = () => onSelect(item);
+
+        return (
+            <TouchableOpacity onPress={selectItem}>
+                <HStack alignItems={"center"} style={{ height: 30 }}>
+                    {
+                        (flag) ? (
+                            <View flex={.1}>
+                                <FontAwesome5 name={"check"} color={"#28984f"} size={20} />
+                            </View>
+                        ) : (
+                            <View flex={.1}></View>
+                        )
+                    }
+                    <View flex={.9}>
+                        <Text style={{
+                            fontFamily: "Roboto-Bold",
+                            fontSize: 18,
+                        }}>{name}</Text>
+                    </View>
+                </HStack>
+            </TouchableOpacity>
+        )
+    }
+    // #endregion
+
+    return (
+        <TopModal showCross={false} {...props}>
+            <View alignItems={"center"} width={"100%"}>
+                <FlatList data={data} renderItem={renderItem} style={{ width: "90%" }} />
+                <Divider my={2} width={"90%"} />
+                <TouchableOpacity style={{ width: "90%" }}>
+                    <HStack alignItems={"center"} style={{ height: 40 }}>
+                        <View flex={.1}>
+                            <FontAwesome name={"home"} color={"#ccc"} size={20} />
+                        </View>
+                        <View flex={.9}>
+                            <Text style={{
+                                fontFamily: "Roboto-Bold",
+                                fontSize: 18,
+                            }}>Home Management</Text>
+                        </View>
+                    </HStack>
+                </TouchableOpacity>
+            </View>
+        </TopModal>
+    )
+}
+function HomeInfo(props) {
+
+    const isFocused = useIsFocused();
+
+    // #region Initial
+    const init = {
+        home: {
+            name: "",
+            pos: 0,
+            flag: false,
+        },
+        homeLs: ["Home 1", "Home 2", "Home 3", "Home 4", "Home 5", "Home 6", "Home 7", "Home 8", "Home 9", "Home 10"]
+    }
+    // #endregion
+
+    // #region UseState
+    const [home, setHome] = useState("");
+    const [homeLs, setHomeLs] = useState([]);
+    const [showHomeModal, setShowHomeModal] = useState(false);
+    // #endregion
+
+    // #region UseEffect
+    useEffect(() => {
+        if (isFocused) {
+            let arr = [...init.homeLs];
+
+            arr = arr.map((obj, ind) => ({
+                name: obj,
+                pos: ind,
+                flag: false
+            }))
+
+            arr[0].flag = true;
+
+            setHome(arr[0]);
+            setHomeLs(arr);
+        }
+    }, [isFocused]);
+    // #endregion
+
+    // #region Helper
+    const toggleHomeModal = () => setShowHomeModal((val) => !val);
+    const selectHome = ({ pos }) => {
+
+        console.log(pos);
+        let arr = [...homeLs];
+
+        for (let ind in arr) {
+            arr[ind].flag = false;
+        }
+
+        arr[pos].flag = true;
+
+        setHome(arr[pos]);
+        setHomeLs(arr);
+    }
+    // #endregion
+    return (
+        <>
+            <HomeModal
+                data={homeLs} onSelect={selectHome}
+                showModal={showHomeModal} setShowModal={setShowHomeModal} />
+            <TouchableOpacity onPress={toggleHomeModal}>
+                <HStack alignItems={"center"}>
+                    <Text style={{
+                        fontFamily: "Roboto-Bold",
+                        fontSize: 20,
+                        color: "#c3c3c3"
+                    }}>{home.name}</Text>
+                    <FontAwesome5 name={"caret-down"} color={"#c3c3c3"} size={32} />
+                </HStack>
+            </TouchableOpacity>
+        </>
+    )
+}
+// #endregion
+
 // #region Add Device Modal
 function AddDeviceModal(props) {
     return (
         <TopModal showCross={false} {...props}>
-            <View alignItems={"center"}>
-                <TouchableOpacity>
-                    <HStack style={{ width: width - 40, height: 40 }}>
-                        <HStack alignItems={"center"} space={3}>
-                            <FontAwesome name={"plug"} color={"#ddd"} size={20} />
+            <View alignItems={"center"} width={"100%"}>
+                <TouchableOpacity style={{ width: "90%" }}>
+                    <HStack alignItems={"center"} style={{ height: 40 }}>
+                        <View flex={.1}>
+                            <FontAwesome name={"plug"} color={"#ccc"} size={20} />
+                        </View>
+                        <View flex={.9}>
                             <Text style={{
                                 fontFamily: "Roboto-Bold",
                                 fontSize: 18,
                             }}>Add Device</Text>
-                        </HStack>
+                        </View>
                     </HStack>
                 </TouchableOpacity>
             </View>
@@ -73,10 +211,32 @@ function AddDeviceBtn(props) {
 // #endregion
 
 // #region Components
+function Header(props) {
+    return (
+        <BcBoxShadow style={{ width: "100%" }}>
+            <View bgColor={"#FFF"}
+                alignItems={"center"}
+                justifyContent={"center"}
+                style={{ height: 60 }}>
+                <HStack
+                    alignItems={"center"}
+                    justifyContent={"space-between"}
+                    style={{ width: "90%" }}>
+                    {/* Logo */}
+                    <HomeInfo />
+
+                    {/* Button */}
+                    <AddDeviceBtn />
+                </HStack>
+            </View>
+        </BcBoxShadow>
+    )
+}
+
 function DeviceItem(props) {
 
     const { name, img, icon, product_name, description } = props;
-    const { onSelect = () => {} } = props;
+    const { onSelect = () => { } } = props;
     const borderRadius = 8;
 
     return (
@@ -187,28 +347,6 @@ function Search(props) {
                 </View>
             </View>
         </View>
-    )
-}
-
-function Header(props) {
-    return (
-        <BcBoxShadow>
-            <View bgColor={"#FFF"}
-                alignItems={"center"}
-                justifyContent={"center"}
-                style={{ height: 60, width: width }}>
-                <HStack
-                    alignItems={"center"}
-                    justifyContent={"space-between"}
-                    style={{ width: width - 40 }}>
-                    {/* Logo */}
-                    <BcSvgIcon name={"Yatu"} width={80} height={40} />
-
-                    {/* Button */}
-                    <AddDeviceBtn />
-                </HStack>
-            </View>
-        </BcBoxShadow>
     )
 }
 
@@ -361,7 +499,7 @@ function Index(props) {
         )
     }
 
-    const renderTabItem = ({ item, index }) => {
+    const renderTabItem = (item, index) => {
         return (
             <Tab.Item
                 key={index}
@@ -407,20 +545,29 @@ function Index(props) {
                 <View style={{ height: 5 }} />
 
                 <View alignItems={"center"}>
-                    <Tab
-                        scrollable={true} disableIndicator={true}
-                        value={roomPaneInd}
-                        onChange={(e) => setRoomPaneInd(e)}
-                        style={{ width: width - 40 }}>
-                        {roomLs.map((obj, ind) => renderTabItem({ item: obj, index: ind }))}
-                    </Tab>
+                    <HStack alignItems={"center"} width={"90%"}>
+                        <View flex={.92}>
+                            <Tab
+                                scrollable={true}
+                                disableIndicator={true}
+                                value={roomPaneInd}
+                                onChange={(e) => setRoomPaneInd(e)}>
+                                {roomLs.map(renderTabItem)}
+                            </Tab>
+                        </View>
+                        <View flex={.08}>
+                            <TouchableOpacity>
+                                <MaterialCommunityIcons name={"dots-horizontal"} size={32} />
+                            </TouchableOpacity>
+                        </View>
+                    </HStack>
                 </View>
 
                 <View style={{ height: 5 }} />
 
-                <View flexGrow={1}
+                {/* <View flexGrow={1}
                     alignItems={"center"}>
-                    <FlatList 
+                    <FlatList
                         key={viewMode}
                         data={deviceLs}
                         renderItem={renderDeviceItem}
@@ -433,7 +580,7 @@ function Index(props) {
                         }}
                         ListEmptyComponent={<EmptyList lang={lang} />}
                     />
-                </View>
+                </View> */}
 
                 {/* <TabView
                     value={roomPaneInd}

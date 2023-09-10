@@ -14,7 +14,7 @@ import { info, error, Utility } from "@utility";
 
 import { Images, Svg, AlertDataList } from "@config";
 
-import { BcBoxShadow, BcSvgIcon } from "@components";
+import { BcBoxShadow, BcSvgIcon, BcLoading } from "@components";
 
 import { fetchGetNotification } from "@api";
 
@@ -84,8 +84,8 @@ function Index(props) {
 
     // #region UseEffect
     useEffect(() => {
-        // let arr = [...data].slice(0, 5);
         if (isFocused) {
+            setLoading(true);
             fetchGetNotification({
                 param: {
                     UserId: 2
@@ -96,6 +96,7 @@ function Index(props) {
                     setData(res);
                 })
                 .catch(err => {
+                    setLoading(false);
                     console.log(`Error: ${err}`)
                 });
         }
@@ -165,39 +166,42 @@ function Index(props) {
     // #endregion
 
     return (
-        <SafeAreaView style={{ flex: 1 }}>
-            <View bgColor={"#f6f7fa"} style={{ flex: 1 }}>
+        <>
+            <BcLoading loading={loading} />
+            <SafeAreaView style={{ flex: 1 }}>
+                <View bgColor={"#f6f7fa"} style={{ flex: 1 }}>
 
-                {/* Header */}
-                <Header>Alert</Header>
+                    {/* Header */}
+                    <Header>Alert</Header>
 
-                {/* Body */}
+                    {/* Body */}
 
-                <View alignItems={"center"}>
-                    {/* Alarm Header */}
-                    <AlertHeader />
-                </View>
-
-                <ScrollView showsVerticalScrollIndicator={false}
-                    contentContainerStyle={{ flexGrow: 1 }}>
-                    <View flexGrow={1} alignItems={"center"}>
-
-                        {/* Alarm */}
-                        <VStack space={5} width={"90%"}>
-                            {
-                                Object.keys(data).map(renderItem)
-                            }
-                        </VStack>
-
-                        <View style={{ height: 10 }} />
-
+                    <View alignItems={"center"}>
+                        {/* Alarm Header */}
+                        <AlertHeader />
                     </View>
-                </ScrollView>
 
-                {/* Footer */}
-                <View style={{ height: 60 }} />
-            </View>
-        </SafeAreaView>
+                    <ScrollView showsVerticalScrollIndicator={false}
+                        contentContainerStyle={{ flexGrow: 1 }}>
+                        <View flexGrow={1} alignItems={"center"}>
+
+                            {/* Alarm */}
+                            <VStack space={5} width={"90%"}>
+                                {
+                                    Object.keys(data).map(renderItem)
+                                }
+                            </VStack>
+
+                            <View style={{ height: 10 }} />
+
+                        </View>
+                    </ScrollView>
+
+                    {/* Footer */}
+                    <View style={{ height: 60 }} />
+                </View>
+            </SafeAreaView>
+        </>
     );
 }
 

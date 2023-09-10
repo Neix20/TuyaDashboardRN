@@ -158,7 +158,7 @@ function Item(props) {
     // )
 
     return (
-        <View height={150}
+        <View height={180}
             width={"90%"}>
             <TouchableOpacity onPress={onSelect}>
                 <BcBoxShadow style={{ borderRadius: 15, width: "100%" }}>

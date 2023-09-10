@@ -10,7 +10,7 @@ const { width, height } = screen;
 
 import { info, error, Utility } from "@utility";
 
-import { BcSvgChart, BcDateRangeModal, BcViewShot, BcBoxShadow, BcDropdown, BcSvgIcon } from "@components";
+import { BcSvgChart, BcDateRangeModal, BcViewShot, BcBoxShadow, BcDropdown, BcSvgIcon, BcLoading } from "@components";
 
 import { iRData, Devices } from "@config";
 
@@ -409,15 +409,19 @@ function DebugTopModal(props) {
 
     // #region UseState
     const [svgLs, setSvgLs] = useState(init.svgLs);
+
     const [showTopModal, setShowTopModal] = useState(false);
+    const [loading, setLoading] = useState(false);
     // #endregion
 
     // #region Helper
     const toggleTopModal = () => setShowTopModal((val) => !val);
+    const toggleLoading = () => setLoading((val) => !val);
     // #endregion
 
     return (
         <>
+            <BcLoading loading={false} />
             <TopModal showCross={false} showModal={showTopModal}
                 setShowModal={setShowTopModal}>
                 <View style={{ height: 200 }}>
@@ -435,10 +439,11 @@ function DebugTopModal(props) {
                     <ScrollView showsVerticalScrollIndicator={false}
                         contentContainerStyle={{ flexGrow: 1 }}>
                         <VStack flexGrow={1}
+                            space={3}
                             alignItems={"center"}
                             justifyContent={"center"}>
                             {/* <ImgCarousel images={svgLs} /> */}
-                            <ImgItem bgName={"CardGradientGreen"} />
+                            {/* <ImgItem bgName={"CardGradientGreen"} /> */}
 
                             <TouchableOpacity onPress={toggleTopModal}>
                                 <View backgroundColor={"#ff0000"}
@@ -453,11 +458,35 @@ function DebugTopModal(props) {
                                 </View>
                             </TouchableOpacity>
 
+                            <TouchableOpacity onPress={toggleLoading}
+                                style={{ width: "40%" }}>
+                                <View bgColor={"#ff0000"}
+                                    alignItems={"center"} justifyContent={"center"}
+                                    style={{ height: 60 }}
+                                >
+                                    <Text style={[{
+                                        fontSize: 14,
+                                        fontWeight: "bold",
+                                        color: "white",
+                                    }]}>Show Loading</Text>
+                                </View>
+                            </TouchableOpacity>
+
+                            <BcViewShot>
+                                <View bgColor={"#ff0000"}
+                                    alignItems={"center"} justifyContent={"center"}
+                                    style={{ height: 60 }}
+                                >
+                                    <Text style={[{
+                                        fontSize: 14,
+                                        fontWeight: "bold",
+                                        color: "white",
+                                    }]}>Show Loading</Text>
+                                </View>
+                            </BcViewShot>
+
                         </VStack>
                     </ScrollView>
-
-                    {/* Footer */}
-                    <View style={{ height: 60 }} />
                 </View>
             </SafeAreaView>
         </>
