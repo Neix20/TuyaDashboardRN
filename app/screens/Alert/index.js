@@ -4,7 +4,6 @@ import { View, VStack, HStack, useToast } from "native-base";
 
 import Ionicons from "react-native-vector-icons/Ionicons";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
-import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 
 import { useNavigation, useIsFocused } from "@react-navigation/native";
 
@@ -23,17 +22,15 @@ import { fetchGetNotification } from "@api";
 function Header(props) {
     const { children } = props;
     return (
-        <BcBoxShadow>
+        <BcBoxShadow style={{ width: "100%" }}>
             <View
                 alignItems={"center"}
                 justifyContent={"center"}
                 style={{
                     height: 60,
-                    width: width,
-                    backgroundColor: "#fff",
+                    backgroundColor: "#FFF",
                 }}>
-                <HStack
-                    style={{ width: width - 40 }}>
+                <HStack style={{ width: "90%" }}>
                     {/* Logo */}
                     <BcSvgIcon name={"Yatu"} width={80} height={40} />
                 </HStack>
@@ -63,7 +60,7 @@ function AlertSign(props) {
 function AlertHeader(props) {
     return (
         <HStack alignItems={"center"}
-            style={{ width: width - 40, height: 60 }}>
+            style={{ width: "90%", height: 60 }}>
             <View>
                 <Text style={{
                     fontFamily: "Roboto-Bold",
@@ -108,8 +105,42 @@ function Index(props) {
     // #region Render
     const renderItem = (item, ind) => {
         const val = data[item];
+
+        // #region Render
+        const renderAlertItem = ({ Title, Message }, ind) => {
+            return (
+                <HStack key={ind}>
+                    {/* FontAwesome */}
+                    <View flex={.1} style={{ maxWidth: 40 }}>
+                        <Ionicons name={"alert-circle"} color={"#F00"} size={24} />
+                    </View>
+
+                    {/* Alert */}
+                    <View flex={.9}>
+                        <BcBoxShadow style={{ width: "100%" }}>
+                            <View p={1}
+                                bgColor={"#FFF"}
+                                borderRadius={8}>
+                                <Text style={{
+                                    fontFamily: "Roboto-Bold",
+                                    fontSize: 18
+                                }}>{Title}</Text>
+
+                                <Text style={{
+                                    fontFamily: "Roboto-Medium",
+                                    fontSize: 14
+                                }}>{Message}</Text>
+                            </View>
+                        </BcBoxShadow>
+                    </View>
+
+                </HStack>
+            )
+        }
+        // #endregion
+
         return (
-            <View style={{ width: width - 40 }}>
+            <View>
                 {/* Date */}
                 <Text style={{
                     fontFamily: "Roboto-Medium",
@@ -126,37 +157,7 @@ function Index(props) {
 
                 {/* Item */}
                 <VStack space={3}>
-                    {
-                        val.map((obj, ind) => {
-                            const { Title, Message } = obj;
-                            return (
-                                <HStack style={{ width: width - 40 }}>
-                                    {/* FontAwesome */}
-                                    <View style={{ width: 40 }}>
-                                        <Ionicons name={"alert-circle"} color={"#F00"} size={24} />
-                                    </View>
-
-                                    {/* Alert */}
-                                    <BcBoxShadow style={{ borderRadius: 8, width: width - 80 }}>
-                                        <View p={1} flex={1}
-                                            bgColor={"#FFF"}
-                                            borderRadius={8}>
-                                            <Text style={{
-                                                fontFamily: "Roboto-Bold",
-                                                fontSize: 18
-                                            }}>{Title}</Text>
-
-                                            <Text style={{
-                                                fontFamily: "Roboto-Medium",
-                                                fontSize: 14
-                                            }}>{Message}</Text>
-                                        </View>
-                                    </BcBoxShadow>
-
-                                </HStack>
-                            )
-                        })
-                    }
+                    {val.map(renderAlertItem)}
                 </VStack>
             </View>
         )
@@ -182,10 +183,10 @@ function Index(props) {
                     <View flexGrow={1} alignItems={"center"}>
 
                         {/* Alarm */}
-                        <VStack space={5}>
-                        {
-                            Object.keys(data).map(renderItem)
-                        }
+                        <VStack space={5} width={"90%"}>
+                            {
+                                Object.keys(data).map(renderItem)
+                            }
                         </VStack>
 
                         <View style={{ height: 10 }} />

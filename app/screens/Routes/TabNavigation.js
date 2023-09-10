@@ -83,16 +83,16 @@ TabScreens = {
                 {...props} />
         )
     },
-    // Usage: {
-    //     component: Usage,
-    //     title: "Usage",
-    //     tabBarIcon: (props) => (
-    //         <TabIconFontAwesome
-    //             icon={"bolt"}
-    //             title={"Usage"}
-    //             {...props} />
-    //     )
-    // },
+    Usage: {
+        component: Usage,
+        title: "Usage",
+        tabBarIcon: (props) => (
+            <TabIconFontAwesome
+                icon={"bolt"}
+                title={"Usage"}
+                {...props} />
+        )
+    },
     Profile: {
         component: Profile,
         title: "Profile",

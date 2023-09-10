@@ -1,5 +1,14 @@
 ## Task List
-- [ ] Add Device Info
 - [ ] Custom Dashboard
-  - [ ] Date Modal
+  - [x] Date Modal
+  - [ ] Line Chart
   - [ ] Expand Modal
+
+- [x] Alert
+- [ ] Profile
+  - [ ] Old
+- [ ] Usage
+  - [ ] Usage Info
+
+- [ ] Home Management
+- [ ] Device Connection
