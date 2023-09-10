@@ -21,17 +21,16 @@ function Header(props) {
     const { children } = props;
 
     return (
-        <BcBoxShadow>
+        <BcBoxShadow style={{ width: "100%" }}>
             <View
                 alignItems={"center"}
                 justifyContent={"center"}
                 style={{
                     height: 60,
-                    width: width,
                     backgroundColor: "#fff",
                 }}>
                 <HStack
-                    style={{ width: width - 40 }}
+                    style={{ width: "90%" }}
                     alignItems={"center"}
                     justifyContent={"space-between"}>
                     {/* Logo */}
@@ -55,7 +54,7 @@ function UsageSign(props) {
     return (
         <VStack space={2}
             alignItems={"center"}
-            style={{ width: width - 40 }}>
+            style={{ width: "100%" }}>
 
             <FontAwesome name={"bolt"}
                 color={"#e6e6e6"}
@@ -159,22 +158,23 @@ function Item(props) {
     // )
 
     return (
-        <TouchableOpacity onPress={onSelect}>
-            <BcBoxShadow style={{ borderRadius: 15 }}>
-                <View>
+        <View height={150}
+            width={"90%"}>
+            <TouchableOpacity onPress={onSelect}>
+                <BcBoxShadow style={{ borderRadius: 15, width: "100%" }}>
                     <Image
                         source={uri}
-                        style={{ 
-                            width: width - 40, 
-                            maxHeight: 150,
-                            borderRadius: 15 
+                        style={{
+                            width: "100%",
+                            height: "100%",
+                            borderRadius: 15
                         }}
                         resizeMethod="auto"
                         resizeMode={"cover"}
                         alt={name} />
-                </View>
-            </BcBoxShadow>
-        </TouchableOpacity>
+                </BcBoxShadow>
+            </TouchableOpacity>
+        </View>
     )
 }
 // #endregion
@@ -264,14 +264,11 @@ function Index(props) {
 
                 <ScrollView showsVerticalScrollIndicator={false}
                     contentContainerStyle={{ flexGrow: 1 }}>
-                    <VStack
-                        flexGrow={1}
-                        alignItems={"center"}
-                        space={3}>
-                        {
-                            filterLs.map((obj, ind) => renderItem(obj, ind))
-                        }
-                    </VStack>
+                    <View flexGrow={1}>
+                        <VStack alignItems={"center"} space={3}>
+                            {filterLs.map(renderItem)}
+                        </VStack>
+                    </View>
                 </ScrollView>
 
                 {/* Footer */}
