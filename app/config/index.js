@@ -15,6 +15,8 @@ import DeviceInfoList from "./data/device_info_list.json";
 
 import AlertDataList from "./data/alert_data_v2.json";
 
+import SmartPlugData from "./data/smart_plug.json";
+
 export {
     Animation,
     Images,
@@ -26,7 +28,8 @@ export {
     Devices,
     OriDevices,
     DeviceInfoList,
-    AlertDataList
+    AlertDataList,
+    SmartPlugData
 };
 
 export {

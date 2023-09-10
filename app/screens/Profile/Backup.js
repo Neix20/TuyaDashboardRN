@@ -310,9 +310,6 @@ function Index(props) {
 
                     <View style={{height: 10}} />
                 </ScrollView>
-
-                {/* Footer */}
-                <View style={{ height: 60 }} />
             </View>
         </SafeAreaView>
     );

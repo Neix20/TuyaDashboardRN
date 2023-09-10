@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Text, TouchableOpacity, Dimensions, SafeAreaView, ScrollView, FlatList } from "react-native";
+import { Text, TouchableOpacity, Dimensions, SafeAreaView, ScrollView, FlatList, useWindowDimensions } from "react-native";
 import { View, VStack, HStack, Divider, useToast } from "native-base";
 
 const screen = Dimensions.get("screen");
@@ -73,13 +73,15 @@ function DRangeItem(props) {
     const { title, description, flag } = props;
     const { onPress = () => { } } = props;
 
+    const {width, height} = useWindowDimensions();
+
     return (
         <TouchableOpacity onPress={onPress}>
             <View alignItems={"center"} py={1}>
                 <HStack
                     alignItems={"center"}
                     justifyContent={"space-between"}
-                    style={{ width: 360 }}>
+                    style={{ width: width - 40 }}>
                     <VStack space={1}>
                         <Text style={{
                             fontFamily: "Roboto-Medium",
@@ -106,6 +108,8 @@ function DRangeItem(props) {
 }
 
 function DateView(props) {
+
+    const {width, height} = useWindowDimensions();
 
     // #region Props
     const { data, setData = () => {} } = props;
@@ -179,6 +183,8 @@ function DateView(props) {
 
 function CalendarView(props) {
 
+    const {width, height} = useWindowDimensions();
+
     // #region Props
     const { toggleCusStartDt, toggleCusEndDt } = props;
     const { data, setData = () => {} } = props;
@@ -227,6 +233,8 @@ function Index(props) {
     const { startDt, setStartDt = () => {} } = props;
     const { endDt, setEndDt = () => {} } = props;
     // #endregion
+
+    const {width, height} = useWindowDimensions();
 
     // #region Init
     const init = {

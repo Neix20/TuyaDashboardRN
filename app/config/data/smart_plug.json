@@ -1,0 +1,5415 @@
+[
+  {
+    "Timestamp": "2023-09-04T23:59:00",
+    "add_ele": "27"
+  },
+  {
+    "Timestamp": "2023-09-04T23:30:00",
+    "add_ele": "27"
+  },
+  {
+    "Timestamp": "2023-09-04T23:29:00",
+    "cur_current": "530",
+    "cur_power": "435",
+    "cur_voltage": "2416",
+  },
+  {
+    "Timestamp": "2023-09-04T23:17:00",
+    "cur_current": "376",
+    "cur_power": "550",
+    "cur_voltage": "2434",
+  },
+  {
+    "Timestamp": "2023-09-04T23:16:00",
+    "cur_current": "377",
+    "cur_power": "512",
+  },
+  {
+    "Timestamp": "2023-09-04T23:14:00",
+    "cur_current": "626",
+    "cur_power": "697",
+    "cur_voltage": "2430",
+  },
+  {
+    "Timestamp": "2023-09-04T23:13:00",
+    "cur_current": "593",
+    "cur_power": "670",
+  },
+  {
+    "Timestamp": "2023-09-04T23:11:00",
+    "cur_current": "643",
+    "cur_power": "684",
+  },
+  {
+    "Timestamp": "2023-09-04T23:04:00",
+    "cur_current": "608",
+    "cur_power": "657",
+    "cur_voltage": "2439",
+  },
+  {
+    "Timestamp": "2023-09-04T23:02:00",
+    "cur_current": "907",
+    "cur_power": "978",
+    "cur_voltage": "2425",
+  },
+  {
+    "Timestamp": "2023-09-04T23:00:00",
+    "add_ele": "28"
+  },
+  {
+    "Timestamp": "2023-09-04T22:59:00",
+    "cur_current": "516",
+    "cur_power": "454",
+    "cur_voltage": "2420",
+  },
+  {
+    "Timestamp": "2023-09-04T22:53:00",
+    "cur_current": "374",
+    "cur_power": "575",
+    "cur_voltage": "2430",
+  },
+  {
+    "Timestamp": "2023-09-04T22:43:00",
+    "cur_current": "599",
+    "cur_power": "727",
+    "cur_voltage": "2425",
+  },
+  {
+    "Timestamp": "2023-09-04T22:33:00",
+    "cur_current": "392",
+    "cur_power": "582",
+    "cur_voltage": "2434",
+  },
+  {
+    "Timestamp": "2023-09-04T22:32:00",
+    "cur_current": "393",
+    "cur_power": "538",
+    "cur_voltage": "2425",
+  },
+  {
+    "Timestamp": "2023-09-04T22:31:00",
+    "cur_current": "529",
+    "cur_power": "436",
+    "cur_voltage": "2430",
+  },
+  {
+    "Timestamp": "2023-09-04T22:30:00",
+    "add_ele": "27"
+  },
+  {
+    "Timestamp": "2023-09-04T22:25:00",
+    "cur_current": "381",
+    "cur_power": "602",
+  },
+  {
+    "Timestamp": "2023-09-04T22:11:00",
+    "cur_current": "536",
+    "cur_power": "450",
+    "cur_voltage": "2425",
+  },
+  {
+    "Timestamp": "2023-09-04T22:10:00",
+    "cur_current": "360",
+    "cur_power": "482",
+    "cur_voltage": "2416",
+  },
+  {
+    "Timestamp": "2023-09-04T22:09:00",
+    "cur_current": "567",
+    "cur_power": "796",
+    "cur_voltage": "2420",
+  },
+  {
+    "Timestamp": "2023-09-04T22:00:00",
+    "add_ele": "28"
+  },
+  {
+    "Timestamp": "2023-09-04T21:59:00",
+    "cur_current": "752",
+    "cur_power": "750",
+    "cur_voltage": "2416",
+  },
+  {
+    "Timestamp": "2023-09-04T21:40:00",
+    "cur_current": "428",
+    "cur_power": "628",
+    "cur_voltage": "2454",
+  },
+  {
+    "Timestamp": "2023-09-04T21:29:00",
+    "add_ele": "27"
+  },
+  {
+    "Timestamp": "2023-09-04T21:24:00",
+    "cur_current": "747",
+    "cur_power": "781",
+    "cur_voltage": "2444",
+  },
+  {
+    "Timestamp": "2023-09-04T21:22:00",
+    "cur_current": "440",
+    "cur_power": "655",
+    "cur_voltage": "2434",
+  },
+  {
+    "Timestamp": "2023-09-04T21:13:00",
+    "cur_current": "406",
+    "cur_power": "678",
+    "cur_voltage": "2425",
+  },
+  {
+    "Timestamp": "2023-09-04T21:12:00",
+    "cur_current": "543",
+    "cur_power": "548",
+    "cur_voltage": "2439",
+  },
+  {
+    "Timestamp": "2023-09-04T21:10:00",
+    "cur_current": "371",
+    "cur_power": "546",
+    "cur_voltage": "2434",
+  },
+  {
+    "Timestamp": "2023-09-04T21:09:00",
+    "cur_current": "588",
+    "cur_power": "814",
+    "cur_voltage": "2425",
+  },
+  {
+    "Timestamp": "2023-09-04T21:07:00",
+    "cur_current": "430",
+    "cur_power": "443",
+    "cur_voltage": "2434",
+  },
+  {
+    "Timestamp": "2023-09-04T20:59:00",
+    "add_ele": "28"
+  },
+  {
+    "Timestamp": "2023-09-04T20:58:00",
+    "cur_current": "368",
+    "cur_power": "535",
+  },
+  {
+    "Timestamp": "2023-09-04T20:55:00",
+    "cur_current": "472",
+    "cur_power": "672",
+    "cur_voltage": "2425",
+  },
+  {
+    "Timestamp": "2023-09-04T20:54:00",
+    "cur_current": "376",
+    "cur_power": "460",
+    "cur_voltage": "2434",
+  },
+  {
+    "Timestamp": "2023-09-04T20:52:00",
+    "cur_current": "461",
+    "cur_power": "626",
+    "cur_voltage": "2420",
+  },
+  {
+    "Timestamp": "2023-09-04T20:51:00",
+    "cur_current": "408",
+    "cur_power": "682",
+    "cur_voltage": "2420",
+  },
+  {
+    "Timestamp": "2023-09-04T20:31:00",
+    "cur_current": "412",
+    "cur_power": "677",
+    "cur_voltage": "2430",
+  },
+  {
+    "Timestamp": "2023-09-04T20:29:00",
+    "add_ele": "27"
+  },
+  {
+    "Timestamp": "2023-09-04T20:23:00",
+    "cur_current": "597",
+    "cur_power": "692",
+    "cur_voltage": "2444",
+  },
+  {
+    "Timestamp": "2023-09-04T20:20:00",
+    "cur_current": "502",
+    "cur_power": "429",
+    "cur_voltage": "2434",
+  },
+  {
+    "Timestamp": "2023-09-04T20:10:00",
+    "cur_current": "527",
+    "cur_power": "579",
+    "cur_voltage": "2439",
+  },
+  {
+    "Timestamp": "2023-09-04T20:09:00",
+    "cur_current": "652",
+    "cur_power": "912",
+    "cur_voltage": "2430",
+  },
+  {
+    "Timestamp": "2023-09-04T19:59:00",
+    "add_ele": "28"
+  },
+  {
+    "Timestamp": "2023-09-04T19:44:00",
+    "cur_current": "480",
+    "cur_power": "695",
+    "cur_voltage": "2416",
+  },
+  {
+    "Timestamp": "2023-09-04T19:39:00",
+    "cur_current": "402",
+    "cur_power": "450",
+    "cur_voltage": "2420",
+  },
+  {
+    "Timestamp": "2023-09-04T19:37:00",
+    "cur_current": "362",
+    "cur_power": "443",
+    "cur_voltage": "2434",
+  },
+  {
+    "Timestamp": "2023-09-04T19:30:00",
+    "cur_current": "598",
+    "cur_power": "660",
+  },
+  {
+    "Timestamp": "2023-09-04T19:29:00",
+    "add_ele": "27"
+  },
+  {
+    "Timestamp": "2023-09-04T19:28:00",
+    "cur_current": "458",
+    "cur_power": "686",
+  },
+  {
+    "Timestamp": "2023-09-04T19:27:00",
+    "cur_current": "603",
+    "cur_power": "662",
+    "cur_voltage": "2430",
+  },
+  {
+    "Timestamp": "2023-09-04T19:20:00",
+    "cur_current": "458",
+    "cur_power": "735",
+    "cur_voltage": "2430",
+  },
+  {
+    "Timestamp": "2023-09-04T19:18:00",
+    "cur_current": "518",
+    "cur_power": "549",
+    "cur_voltage": "2425",
+  },
+  {
+    "Timestamp": "2023-09-04T19:10:00",
+    "cur_current": "402",
+    "cur_power": "582",
+    "cur_voltage": "2434",
+  },
+  {
+    "Timestamp": "2023-09-04T19:09:00",
+    "cur_current": "585",
+    "cur_power": "848",
+    "cur_voltage": "2430",
+  },
+  {
+    "Timestamp": "2023-09-04T19:04:00",
+    "cur_current": "453",
+    "cur_power": "675",
+    "cur_voltage": "2425",
+  },
+  {
+    "Timestamp": "2023-09-04T19:03:00",
+    "cur_current": "465",
+    "cur_power": "668",
+    "cur_voltage": "2434",
+  },
+  {
+    "Timestamp": "2023-09-04T18:59:00",
+    "add_ele": "27"
+  },
+  {
+    "Timestamp": "2023-09-04T18:53:00",
+    "cur_current": "381",
+    "cur_power": "563",
+    "cur_voltage": "2420",
+  },
+  {
+    "Timestamp": "2023-09-04T18:50:00",
+    "cur_current": "466",
+    "cur_power": "692",
+    "cur_voltage": "2430",
+  },
+  {
+    "Timestamp": "2023-09-04T18:47:00",
+    "cur_current": "532",
+    "cur_power": "433",
+    "cur_voltage": "2430",
+  },
+  {
+    "Timestamp": "2023-09-04T18:46:00",
+    "cur_current": "377",
+    "cur_power": "443",
+    "cur_voltage": "2416",
+  },
+  {
+    "Timestamp": "2023-09-04T18:40:00",
+    "cur_current": "500",
+    "cur_power": "580",
+    "cur_voltage": "2434",
+  },
+  {
+    "Timestamp": "2023-09-04T18:39:00",
+    "cur_current": "424",
+    "cur_power": "620",
+    "cur_voltage": "2430",
+  },
+  {
+    "Timestamp": "2023-09-04T18:38:00",
+    "cur_current": "433",
+    "cur_power": "595",
+    "cur_voltage": "2434",
+  },
+  {
+    "Timestamp": "2023-09-04T18:36:00",
+    "cur_current": "364",
+    "cur_power": "443",
+    "cur_voltage": "2430",
+  },
+  {
+    "Timestamp": "2023-09-04T18:34:00",
+    "cur_current": "510",
+    "cur_power": "547",
+    "cur_voltage": "2439",
+  },
+  {
+    "Timestamp": "2023-09-04T18:29:00",
+    "add_ele": "28"
+  },
+  {
+    "Timestamp": "2023-09-04T18:27:00",
+    "cur_current": "350",
+    "cur_power": "531",
+    "cur_voltage": "2416",
+  },
+  {
+    "Timestamp": "2023-09-04T18:22:00",
+    "cur_current": "515",
+    "cur_power": "519",
+    "cur_voltage": "2406",
+  },
+  {
+    "Timestamp": "2023-09-04T18:20:00",
+    "cur_current": "546",
+    "cur_power": "512",
+    "cur_voltage": "2411",
+  },
+  {
+    "Timestamp": "2023-09-04T18:17:00",
+    "cur_current": "518",
+    "cur_power": "539",
+    "cur_voltage": "2425",
+  },
+  {
+    "Timestamp": "2023-09-04T18:16:00",
+    "cur_current": "600",
+    "cur_power": "696",
+    "cur_voltage": "2430",
+  },
+  {
+    "Timestamp": "2023-09-04T18:15:00",
+    "cur_current": "365",
+    "cur_power": "544",
+    "cur_voltage": "2397",
+  },
+  {
+    "Timestamp": "2023-09-04T18:11:00",
+    "cur_current": "376",
+    "cur_power": "549",
+    "cur_voltage": "2425",
+  },
+  {
+    "Timestamp": "2023-09-04T18:04:00",
+    "cur_current": "516",
+    "cur_power": "611",
+  },
+  {
+    "Timestamp": "2023-09-04T17:59:00",
+    "add_ele": "27"
+  },
+  {
+    "Timestamp": "2023-09-04T17:56:00",
+    "cur_current": "360",
+    "cur_power": "429",
+    "cur_voltage": "2430",
+  },
+  {
+    "Timestamp": "2023-09-04T17:48:00",
+    "cur_current": "414",
+    "cur_power": "686",
+    "cur_voltage": "2420",
+  },
+  {
+    "Timestamp": "2023-09-04T17:44:00",
+    "cur_current": "468",
+    "cur_power": "596",
+  },
+  {
+    "Timestamp": "2023-09-04T17:29:00",
+    "add_ele": "31"
+  },
+  {
+    "Timestamp": "2023-09-04T17:20:00",
+    "cur_current": "628",
+    "cur_power": "835",
+    "cur_voltage": "2402",
+  },
+  {
+    "Timestamp": "2023-09-04T17:19:00",
+    "cur_current": "624",
+    "cur_power": "675",
+    "cur_voltage": "2411",
+  },
+  {
+    "Timestamp": "2023-09-04T17:18:00",
+    "cur_current": "453",
+    "cur_power": "690",
+    "cur_voltage": "2406",
+  },
+  {
+    "Timestamp": "2023-09-04T17:13:00",
+    "cur_current": "537",
+    "cur_power": "655",
+    "cur_voltage": "2384",
+  },
+  {
+    "Timestamp": "2023-09-04T17:11:00",
+    "cur_current": "609",
+    "cur_power": "585",
+    "cur_voltage": "2388",
+  },
+  {
+    "Timestamp": "2023-09-04T17:10:00",
+    "cur_current": "735",
+    "cur_power": "816",
+    "cur_voltage": "2393",
+  },
+  {
+    "Timestamp": "2023-09-04T17:08:00",
+    "cur_current": "791",
+    "cur_power": "1066",
+    "cur_voltage": "2402",
+  },
+  {
+    "Timestamp": "2023-09-04T17:04:00",
+    "cur_current": "400",
+    "cur_power": "567",
+    "cur_voltage": "2406",
+  },
+  {
+    "Timestamp": "2023-09-04T17:03:00",
+    "cur_current": "466",
+    "cur_power": "575",
+    "cur_voltage": "2402",
+  },
+  {
+    "Timestamp": "2023-09-04T17:01:00",
+    "cur_current": "612",
+    "cur_power": "815",
+    "cur_voltage": "2411",
+  },
+  {
+    "Timestamp": "2023-09-04T16:59:00",
+    "cur_current": "401",
+    "cur_power": "542",
+    "cur_voltage": "2402",
+    "add_ele": "38"
+  },
+  {
+    "Timestamp": "2023-09-04T16:58:00",
+    "cur_current": "613",
+    "cur_power": "1017",
+    "cur_voltage": "2406",
+  },
+  {
+    "Timestamp": "2023-09-04T16:55:00",
+    "cur_current": "418",
+    "cur_power": "745",
+  },
+  {
+    "Timestamp": "2023-09-04T16:54:00",
+    "cur_current": "575",
+    "cur_power": "831",
+    "cur_voltage": "2402",
+  },
+  {
+    "Timestamp": "2023-09-04T16:53:00",
+    "cur_current": "391",
+    "cur_power": "540",
+    "cur_voltage": "2402",
+  },
+  {
+    "Timestamp": "2023-09-04T16:51:00",
+    "cur_current": "591",
+    "cur_power": "829",
+    "cur_voltage": "2388",
+  },
+  {
+    "Timestamp": "2023-09-04T16:50:00",
+    "cur_current": "834",
+    "cur_power": "1180",
+    "cur_voltage": "2361",
+  },
+  {
+    "Timestamp": "2023-09-04T16:37:00",
+    "cur_current": "801",
+    "cur_power": "1132",
+    "cur_voltage": "2388",
+  },
+  {
+    "Timestamp": "2023-09-04T16:34:00",
+    "cur_current": "572",
+    "cur_power": "686",
+    "cur_voltage": "2379",
+  },
+  {
+    "Timestamp": "2023-09-04T16:33:00",
+    "cur_current": "558",
+    "cur_power": "704",
+    "cur_voltage": "2393",
+  },
+  {
+    "Timestamp": "2023-09-04T16:32:00",
+    "cur_current": "745",
+    "cur_power": "1220",
+    "cur_voltage": "2384",
+  },
+  {
+    "Timestamp": "2023-09-04T16:31:00",
+    "cur_current": "755",
+    "cur_power": "940",
+    "cur_voltage": "2397",
+  },
+  {
+    "Timestamp": "2023-09-04T16:29:00",
+    "cur_current": "415",
+    "cur_power": "689",
+    "cur_voltage": "2393",
+    "add_ele": "42"
+  },
+  {
+    "Timestamp": "2023-09-04T16:26:00",
+    "cur_current": "855",
+    "cur_power": "793",
+    "cur_voltage": "2388",
+  },
+  {
+    "Timestamp": "2023-09-04T16:25:00",
+    "cur_current": "1013",
+    "cur_power": "1047",
+  },
+  {
+    "Timestamp": "2023-09-04T16:23:00",
+    "cur_current": "970",
+    "cur_power": "979",
+    "cur_voltage": "2393",
+  },
+  {
+    "Timestamp": "2023-09-04T16:22:00",
+    "cur_current": "1158",
+    "cur_power": "1315",
+  },
+  {
+    "Timestamp": "2023-09-04T16:16:00",
+    "cur_current": "505",
+    "cur_power": "691",
+    "cur_voltage": "2384",
+  },
+  {
+    "Timestamp": "2023-09-04T16:15:00",
+    "cur_current": "495",
+    "cur_power": "1174",
+    "cur_voltage": "2406",
+  },
+  {
+    "Timestamp": "2023-09-04T16:14:00",
+    "cur_current": "583",
+    "cur_power": "663",
+    "cur_voltage": "2397",
+  },
+  {
+    "Timestamp": "2023-09-04T16:13:00",
+    "cur_current": "783",
+    "cur_power": "769",
+    "cur_voltage": "2384",
+  },
+  {
+    "Timestamp": "2023-09-04T16:12:00",
+    "cur_current": "644",
+    "cur_power": "903",
+    "cur_voltage": "2406",
+  },
+  {
+    "Timestamp": "2023-09-04T16:11:00",
+    "cur_current": "644",
+    "cur_power": "903",
+    "cur_voltage": "2406",
+  },
+  {
+    "Timestamp": "2023-09-04T16:09:00",
+    "cur_current": "410",
+    "cur_power": "801",
+    "cur_voltage": "2384",
+  },
+  {
+    "Timestamp": "2023-09-04T16:07:00",
+    "cur_current": "777",
+    "cur_power": "1132",
+    "cur_voltage": "2375",
+  },
+  {
+    "Timestamp": "2023-09-04T16:05:00",
+    "cur_current": "537",
+    "cur_power": "679",
+    "cur_voltage": "2393",
+  },
+  {
+    "Timestamp": "2023-09-04T16:01:00",
+    "cur_current": "857",
+    "cur_power": "922",
+    "cur_voltage": "2388",
+  },
+  {
+    "Timestamp": "2023-09-04T16:00:00",
+    "cur_current": "861",
+    "cur_power": "845",
+  },
+  {
+    "Timestamp": "2023-09-04T15:59:00",
+    "cur_current": "1249",
+    "cur_power": "1654",
+    "cur_voltage": "2384",
+    "add_ele": "42"
+  },
+  {
+    "Timestamp": "2023-09-04T15:58:00",
+    "cur_current": "503",
+    "cur_power": "633",
+    "cur_voltage": "2379",
+  },
+  {
+    "Timestamp": "2023-09-04T15:55:00",
+    "cur_current": "548",
+    "cur_power": "989",
+    "cur_voltage": "2375",
+  },
+  {
+    "Timestamp": "2023-09-04T15:53:00",
+    "cur_current": "671",
+    "cur_power": "1037",
+    "cur_voltage": "2393",
+  },
+  {
+    "Timestamp": "2023-09-04T15:47:00",
+    "cur_current": "861",
+    "cur_power": "809",
+    "cur_voltage": "2384",
+  },
+  {
+    "Timestamp": "2023-09-04T15:46:00",
+    "cur_current": "578",
+    "cur_power": "751",
+    "cur_voltage": "2393",
+  },
+  {
+    "Timestamp": "2023-09-04T15:41:00",
+    "cur_current": "618",
+    "cur_power": "697",
+    "cur_voltage": "2379",
+  },
+  {
+    "Timestamp": "2023-09-04T15:40:00",
+    "cur_current": "820",
+    "cur_power": "1083",
+    "cur_voltage": "2397",
+  },
+  {
+    "Timestamp": "2023-09-04T15:38:00",
+    "cur_current": "799",
+    "cur_power": "1118",
+    "cur_voltage": "2406",
+  },
+  {
+    "Timestamp": "2023-09-04T15:34:00",
+    "cur_current": "910",
+    "cur_power": "875",
+    "cur_voltage": "2384",
+  },
+  {
+    "Timestamp": "2023-09-04T15:33:00",
+    "cur_current": "1199",
+    "cur_power": "1630",
+    "cur_voltage": "2379",
+  },
+  {
+    "Timestamp": "2023-09-04T15:31:00",
+    "cur_current": "507",
+    "cur_power": "580",
+    "cur_voltage": "2402",
+  },
+  {
+    "Timestamp": "2023-09-04T15:30:00",
+    "cur_current": "698",
+    "cur_power": "831",
+    "cur_voltage": "2388",
+  },
+  {
+    "Timestamp": "2023-09-04T15:29:00",
+    "cur_current": "638",
+    "cur_power": "683",
+    "add_ele": "35"
+  },
+  {
+    "Timestamp": "2023-09-04T15:28:00",
+    "cur_current": "415",
+    "cur_power": "526",
+    "cur_voltage": "2406",
+  },
+  {
+    "Timestamp": "2023-09-04T15:27:00",
+    "cur_current": "835",
+    "cur_power": "866",
+    "cur_voltage": "2388",
+  },
+  {
+    "Timestamp": "2023-09-04T15:21:00",
+    "cur_current": "528",
+    "cur_power": "650",
+  },
+  {
+    "Timestamp": "2023-09-04T15:19:00",
+    "cur_current": "712",
+    "cur_power": "934",
+  },
+  {
+    "Timestamp": "2023-09-04T15:17:00",
+    "cur_current": "779",
+    "cur_power": "984",
+    "cur_voltage": "2375",
+  },
+  {
+    "Timestamp": "2023-09-04T15:10:00",
+    "cur_current": "546",
+    "cur_power": "651",
+    "cur_voltage": "2425",
+  },
+  {
+    "Timestamp": "2023-09-04T15:09:00",
+    "cur_current": "741",
+    "cur_power": "948",
+    "cur_voltage": "2416",
+  },
+  {
+    "Timestamp": "2023-09-04T15:08:00",
+    "cur_current": "575",
+    "cur_power": "710",
+    "cur_voltage": "2434",
+  },
+  {
+    "Timestamp": "2023-09-04T15:07:00",
+    "cur_current": "684",
+    "cur_power": "693",
+    "cur_voltage": "2425",
+  },
+  {
+    "Timestamp": "2023-09-04T15:03:00",
+    "cur_current": "568",
+    "cur_power": "912",
+    "cur_voltage": "2420",
+  },
+  {
+    "Timestamp": "2023-09-04T15:02:00",
+    "cur_current": "507",
+    "cur_power": "788",
+    "cur_voltage": "2434",
+  },
+  {
+    "Timestamp": "2023-09-04T14:59:00",
+    "add_ele": "38"
+  },
+  {
+    "Timestamp": "2023-09-04T14:56:00",
+    "cur_current": "802",
+    "cur_power": "858",
+    "cur_voltage": "2425",
+  },
+  {
+    "Timestamp": "2023-09-04T14:55:00",
+    "cur_current": "683",
+    "cur_power": "926",
+    "cur_voltage": "2420",
+  },
+  {
+    "Timestamp": "2023-09-04T14:54:00",
+    "cur_current": "566",
+    "cur_power": "649",
+    "cur_voltage": "2406",
+  },
+  {
+    "Timestamp": "2023-09-04T14:53:00",
+    "cur_current": "583",
+    "cur_power": "748",
+    "cur_voltage": "2402",
+  },
+  {
+    "Timestamp": "2023-09-04T14:51:00",
+    "cur_current": "557",
+    "cur_power": "715",
+    "cur_voltage": "2430",
+  },
+  {
+    "Timestamp": "2023-09-04T14:49:00",
+    "cur_current": "558",
+    "cur_power": "639",
+    "cur_voltage": "2420",
+  },
+  {
+    "Timestamp": "2023-09-04T14:48:00",
+    "cur_current": "749",
+    "cur_power": "950",
+    "cur_voltage": "2425",
+  },
+  {
+    "Timestamp": "2023-09-04T14:47:00",
+    "cur_current": "718",
+    "cur_power": "940",
+    "cur_voltage": "2416",
+  },
+  {
+    "Timestamp": "2023-09-04T14:46:00",
+    "cur_current": "636",
+    "cur_power": "685",
+    "cur_voltage": "2420",
+  },
+  {
+    "Timestamp": "2023-09-04T14:45:00",
+    "cur_current": "576",
+    "cur_power": "935",
+    "cur_voltage": "2411",
+  },
+  {
+    "Timestamp": "2023-09-04T14:43:00",
+    "cur_current": "693",
+    "cur_power": "1052",
+    "cur_voltage": "2420",
+  },
+  {
+    "Timestamp": "2023-09-04T14:42:00",
+    "cur_current": "709",
+    "cur_power": "878",
+    "cur_voltage": "2411",
+  },
+  {
+    "Timestamp": "2023-09-04T14:36:00",
+    "cur_current": "538",
+    "cur_voltage": "2439",
+  },
+  {
+    "Timestamp": "2023-09-04T14:35:00",
+    "cur_current": "666",
+    "cur_power": "907",
+    "cur_voltage": "2406",
+  },
+  {
+    "Timestamp": "2023-09-04T14:33:00",
+    "cur_current": "641",
+    "cur_power": "981",
+    "cur_voltage": "2397",
+  },
+  {
+    "Timestamp": "2023-09-04T14:32:00",
+    "cur_current": "736",
+    "cur_power": "1057",
+    "cur_voltage": "2393",
+  },
+  {
+    "Timestamp": "2023-09-04T14:29:00",
+    "cur_current": "445",
+    "cur_power": "654",
+    "cur_voltage": "2420",
+    "add_ele": "34"
+  },
+  {
+    "Timestamp": "2023-09-04T14:27:00",
+    "cur_current": "588",
+    "cur_power": "807",
+    "cur_voltage": "2406",
+  },
+  {
+    "Timestamp": "2023-09-04T14:25:00",
+    "cur_current": "548",
+    "cur_power": "864",
+    "cur_voltage": "2402",
+  },
+  {
+    "Timestamp": "2023-09-04T14:23:00",
+    "cur_current": "457",
+    "cur_power": "890",
+  },
+  {
+    "Timestamp": "2023-09-04T14:19:00",
+    "cur_current": "621",
+    "cur_power": "762",
+  },
+  {
+    "Timestamp": "2023-09-04T14:18:00",
+    "cur_current": "504",
+    "cur_power": "824",
+  },
+  {
+    "Timestamp": "2023-09-04T14:16:00",
+    "cur_current": "726",
+    "cur_power": "752",
+  },
+  {
+    "Timestamp": "2023-09-04T14:15:00",
+    "cur_current": "1057",
+    "cur_power": "1135",
+    "cur_voltage": "2416",
+  },
+  {
+    "Timestamp": "2023-09-04T14:13:00",
+    "cur_current": "629",
+    "cur_power": "974",
+    "cur_voltage": "2357",
+  },
+  {
+    "Timestamp": "2023-09-04T14:09:00",
+    "cur_current": "582",
+    "cur_power": "902",
+    "cur_voltage": "2384",
+  },
+  {
+    "Timestamp": "2023-09-04T14:08:00",
+    "cur_current": "789",
+    "cur_power": "565",
+    "cur_voltage": "2366",
+  },
+  {
+    "Timestamp": "2023-09-04T14:07:00",
+    "cur_current": "482",
+    "cur_power": "556",
+    "cur_voltage": "2379",
+  },
+  {
+    "Timestamp": "2023-09-04T14:04:00",
+    "cur_current": "414",
+    "cur_power": "478",
+  },
+  {
+    "Timestamp": "2023-09-04T14:03:00",
+    "cur_current": "676",
+    "cur_power": "793",
+    "cur_voltage": "2384",
+  },
+  {
+    "Timestamp": "2023-09-04T14:02:00",
+    "cur_current": "547",
+    "cur_power": "573",
+    "cur_voltage": "2366",
+  },
+  {
+    "Timestamp": "2023-09-04T14:00:00",
+    "cur_current": "648",
+    "cur_power": "886",
+    "cur_voltage": "2379",
+  },
+  {
+    "Timestamp": "2023-09-04T13:59:00",
+    "cur_current": "527",
+    "cur_power": "619",
+    "cur_voltage": "2384",
+    "add_ele": "28"
+  },
+  {
+    "Timestamp": "2023-09-04T13:58:00",
+    "cur_current": "654",
+    "cur_power": "862",
+    "cur_voltage": "2379",
+  },
+  {
+    "Timestamp": "2023-09-04T13:55:00",
+    "cur_current": "418",
+    "cur_power": "624",
+    "cur_voltage": "2384",
+  },
+  {
+    "Timestamp": "2023-09-04T13:53:00",
+    "cur_current": "817",
+    "cur_power": "1207",
+    "cur_voltage": "2379",
+  },
+  {
+    "Timestamp": "2023-09-04T13:52:00",
+    "cur_current": "798",
+    "cur_power": "1001",
+    "cur_voltage": "2384",
+  },
+  {
+    "Timestamp": "2023-09-04T13:51:00",
+    "cur_current": "414",
+    "cur_power": "475",
+    "cur_voltage": "2393",
+  },
+  {
+    "Timestamp": "2023-09-04T13:50:00",
+    "cur_current": "428",
+    "cur_power": "474",
+    "cur_voltage": "2388",
+  },
+  {
+    "Timestamp": "2023-09-04T13:47:00",
+    "cur_current": "628",
+    "cur_power": "778",
+    "cur_voltage": "2366",
+  },
+  {
+    "Timestamp": "2023-09-04T13:46:00",
+    "cur_current": "477",
+    "cur_power": "575",
+    "cur_voltage": "2384",
+  },
+  {
+    "Timestamp": "2023-09-04T13:45:00",
+    "cur_current": "494",
+    "cur_power": "539",
+    "cur_voltage": "2402",
+  },
+  {
+    "Timestamp": "2023-09-04T13:37:00",
+    "cur_current": "457",
+    "cur_power": "558",
+    "cur_voltage": "2375",
+  },
+  {
+    "Timestamp": "2023-09-04T13:33:00",
+    "cur_current": "380",
+    "cur_power": "452",
+    "cur_voltage": "2393",
+  },
+  {
+    "Timestamp": "2023-09-04T13:32:00",
+    "cur_current": "503",
+    "cur_power": "766",
+    "cur_voltage": "2384",
+  },
+  {
+    "Timestamp": "2023-09-04T13:30:00",
+    "cur_current": "776",
+    "cur_power": "1087",
+    "cur_voltage": "2406",
+  },
+  {
+    "Timestamp": "2023-09-04T13:29:00",
+    "add_ele": "42"
+  },
+  {
+    "Timestamp": "2023-09-04T13:27:00",
+    "cur_current": "620",
+    "cur_power": "832",
+    "cur_voltage": "2411",
+  },
+  {
+    "Timestamp": "2023-09-04T13:26:00",
+    "cur_current": "861",
+    "cur_power": "1489",
+    "cur_voltage": "2397",
+  },
+  {
+    "Timestamp": "2023-09-04T13:22:00",
+    "cur_current": "446",
+    "cur_power": "825",
+    "cur_voltage": "2393",
+  },
+  {
+    "Timestamp": "2023-09-04T13:21:00",
+    "cur_current": "1039",
+    "cur_power": "1354",
+    "cur_voltage": "2402",
+  },
+  {
+    "Timestamp": "2023-09-04T13:20:00",
+    "cur_current": "818",
+    "cur_power": "1053",
+    "cur_voltage": "2393",
+  },
+  {
+    "Timestamp": "2023-09-04T13:19:00",
+    "cur_current": "961",
+    "cur_power": "1246",
+    "cur_voltage": "2406",
+  },
+  {
+    "Timestamp": "2023-09-04T13:18:00",
+    "cur_current": "702",
+    "cur_power": "994",
+    "cur_voltage": "2402",
+  },
+  {
+    "Timestamp": "2023-09-04T13:15:00",
+    "cur_current": "713",
+    "cur_power": "848",
+  },
+  {
+    "Timestamp": "2023-09-04T13:14:00",
+    "cur_current": "767",
+    "cur_power": "861",
+    "cur_voltage": "2379",
+  },
+  {
+    "Timestamp": "2023-09-04T13:05:00",
+    "cur_current": "863",
+    "cur_power": "1055",
+  },
+  {
+    "Timestamp": "2023-09-04T13:01:00",
+    "cur_current": "598",
+    "cur_power": "671",
+    "cur_voltage": "2411",
+  },
+  {
+    "Timestamp": "2023-09-04T12:59:00",
+    "add_ele": "40"
+  },
+  {
+    "Timestamp": "2023-09-04T12:57:00",
+    "cur_current": "861",
+    "cur_power": "1109",
+    "cur_voltage": "2393",
+  },
+  {
+    "Timestamp": "2023-09-04T12:47:00",
+    "cur_current": "671",
+    "cur_power": "905",
+  },
+  {
+    "Timestamp": "2023-09-04T12:45:00",
+    "cur_current": "966",
+    "cur_power": "966",
+    "cur_voltage": "2379",
+  },
+  {
+    "Timestamp": "2023-09-04T12:29:00",
+    "add_ele": "41"
+  },
+  {
+    "Timestamp": "2023-09-04T12:20:00",
+    "cur_current": "568",
+    "cur_power": "675",
+    "cur_voltage": "2439",
+  },
+  {
+    "Timestamp": "2023-09-04T12:10:00",
+    "cur_current": "701",
+    "cur_power": "788",
+    "cur_voltage": "2425",
+  },
+  {
+    "Timestamp": "2023-09-04T12:09:00",
+    "cur_current": "930",
+    "cur_power": "1173",
+  },
+  {
+    "Timestamp": "2023-09-04T12:03:00",
+    "cur_current": "1065",
+    "cur_power": "1077",
+    "cur_voltage": "2416",
+  },
+  {
+    "Timestamp": "2023-09-04T11:59:00",
+    "add_ele": "44"
+  },
+  {
+    "Timestamp": "2023-09-04T11:58:00",
+    "cur_current": "920",
+    "cur_power": "1198",
+    "cur_voltage": "2430",
+  },
+  {
+    "Timestamp": "2023-09-04T11:57:00",
+    "cur_current": "386",
+    "cur_power": "783",
+    "cur_voltage": "2402",
+  },
+  {
+    "Timestamp": "2023-09-04T11:56:00",
+    "cur_current": "643",
+    "cur_power": "1000",
+    "cur_voltage": "2416",
+  },
+  {
+    "Timestamp": "2023-09-04T11:55:00",
+    "cur_current": "784",
+    "cur_power": "595",
+    "cur_voltage": "2411",
+  },
+  {
+    "Timestamp": "2023-09-04T11:54:00",
+    "cur_current": "844",
+    "cur_power": "595",
+    "cur_voltage": "2420",
+  },
+  {
+    "Timestamp": "2023-09-04T11:52:00",
+    "cur_current": "576",
+    "cur_power": "956",
+    "cur_voltage": "2388",
+  },
+  {
+    "Timestamp": "2023-09-04T11:50:00",
+    "cur_current": "600",
+    "cur_power": "705",
+    "cur_voltage": "2397",
+  },
+  {
+    "Timestamp": "2023-09-04T11:49:00",
+    "cur_current": "722",
+    "cur_power": "921",
+    "cur_voltage": "2375",
+  },
+  {
+    "Timestamp": "2023-09-04T11:48:00",
+    "cur_current": "1065",
+    "cur_power": "1213",
+    "cur_voltage": "2402",
+  },
+  {
+    "Timestamp": "2023-09-04T11:46:00",
+    "cur_current": "1123",
+    "cur_power": "1111",
+    "cur_voltage": "2416",
+  },
+  {
+    "Timestamp": "2023-09-04T11:45:00",
+    "cur_current": "1008",
+    "cur_power": "1306",
+    "cur_voltage": "2384",
+  },
+  {
+    "Timestamp": "2023-09-04T11:40:00",
+    "cur_current": "1021",
+    "cur_power": "1150",
+    "cur_voltage": "2420",
+  },
+  {
+    "Timestamp": "2023-09-04T11:37:00",
+    "cur_current": "562",
+    "cur_power": "806",
+    "cur_voltage": "2397",
+  },
+  {
+    "Timestamp": "2023-09-04T11:36:00",
+    "cur_current": "716",
+    "cur_power": "780",
+    "cur_voltage": "2375",
+  },
+  {
+    "Timestamp": "2023-09-04T11:35:00",
+    "cur_current": "646",
+    "cur_power": "589",
+    "cur_voltage": "2393",
+  },
+  {
+    "Timestamp": "2023-09-04T11:31:00",
+    "cur_current": "598",
+    "cur_power": "1052",
+    "cur_voltage": "2397",
+  },
+  {
+    "Timestamp": "2023-09-04T11:29:00",
+    "add_ele": "43"
+  },
+  {
+    "Timestamp": "2023-09-04T11:25:00",
+    "cur_current": "577",
+    "cur_power": "793",
+    "cur_voltage": "2379",
+  },
+  {
+    "Timestamp": "2023-09-04T11:23:00",
+    "cur_current": "1004",
+    "cur_power": "1219",
+    "cur_voltage": "2416",
+  },
+  {
+    "Timestamp": "2023-09-04T11:19:00",
+    "cur_current": "852",
+    "cur_power": "817",
+    "cur_voltage": "2384",
+  },
+  {
+    "Timestamp": "2023-09-04T11:17:00",
+    "cur_current": "573",
+    "cur_power": "733",
+  },
+  {
+    "Timestamp": "2023-09-04T11:16:00",
+    "cur_current": "923",
+    "cur_power": "1078",
+    "cur_voltage": "2357",
+  },
+  {
+    "Timestamp": "2023-09-04T11:14:00",
+    "cur_current": "825",
+    "cur_power": "974",
+    "cur_voltage": "2343",
+  },
+  {
+    "Timestamp": "2023-09-04T11:12:00",
+    "cur_current": "643",
+    "cur_power": "1115",
+    "cur_voltage": "2361",
+  },
+  {
+    "Timestamp": "2023-09-04T11:05:00",
+    "cur_current": "822",
+    "cur_power": "816",
+    "cur_voltage": "2384",
+  },
+  {
+    "Timestamp": "2023-09-04T11:04:00",
+    "cur_current": "904",
+    "cur_power": "950",
+    "cur_voltage": "2357",
+  },
+  {
+    "Timestamp": "2023-09-04T11:02:00",
+    "cur_current": "930",
+    "cur_power": "1141",
+    "cur_voltage": "2375",
+  },
+  {
+    "Timestamp": "2023-09-04T11:01:00",
+    "cur_current": "902",
+    "cur_power": "1405",
+    "cur_voltage": "2361",
+  },
+  {
+    "Timestamp": "2023-09-04T10:59:00",
+    "cur_current": "618",
+    "cur_power": "774",
+    "cur_voltage": "2375",
+    "add_ele": "38"
+  },
+  {
+    "Timestamp": "2023-09-04T10:53:00",
+    "cur_current": "587",
+    "cur_power": "847",
+    "cur_voltage": "2375",
+  },
+  {
+    "Timestamp": "2023-09-04T10:52:00",
+    "cur_current": "744",
+    "cur_power": "538",
+  },
+  {
+    "Timestamp": "2023-09-04T10:49:00",
+    "cur_current": "633",
+    "cur_power": "803",
+    "cur_voltage": "2366",
+  },
+  {
+    "Timestamp": "2023-09-04T10:46:00",
+    "cur_current": "560",
+    "cur_power": "458",
+    "cur_voltage": "2370",
+  },
+  {
+    "Timestamp": "2023-09-04T10:44:00",
+    "cur_current": "586",
+    "cur_power": "806",
+    "cur_voltage": "2375",
+  },
+  {
+    "Timestamp": "2023-09-04T10:41:00",
+    "cur_current": "886",
+    "cur_power": "1128",
+    "cur_voltage": "2384",
+  },
+  {
+    "Timestamp": "2023-09-04T10:39:00",
+    "cur_current": "676",
+    "cur_power": "793",
+    "cur_voltage": "2366",
+  },
+  {
+    "Timestamp": "2023-09-04T10:37:00",
+    "cur_current": "441",
+    "cur_power": "789",
+    "cur_voltage": "2366",
+  },
+  {
+    "Timestamp": "2023-09-04T10:36:00",
+    "cur_current": "849",
+    "cur_power": "560",
+    "cur_voltage": "2370",
+  },
+  {
+    "Timestamp": "2023-09-04T10:32:00",
+    "cur_current": "432",
+    "cur_power": "775",
+    "cur_voltage": "2361",
+  },
+  {
+    "Timestamp": "2023-09-04T10:29:00",
+    "add_ele": "40"
+  },
+  {
+    "Timestamp": "2023-09-04T10:27:00",
+    "cur_current": "772",
+    "cur_power": "905",
+    "cur_voltage": "2384",
+  },
+  {
+    "Timestamp": "2023-09-04T10:24:00",
+    "cur_current": "915",
+    "cur_power": "1094",
+    "cur_voltage": "2388",
+  },
+  {
+    "Timestamp": "2023-09-04T10:21:00",
+    "cur_current": "891",
+    "cur_power": "601",
+    "cur_voltage": "2402",
+  },
+  {
+    "Timestamp": "2023-09-04T10:18:00",
+    "cur_current": "643",
+    "cur_power": "831",
+    "cur_voltage": "2384",
+  },
+  {
+    "Timestamp": "2023-09-04T10:14:00",
+    "cur_current": "804",
+    "cur_power": "932",
+    "cur_voltage": "2397",
+  },
+  {
+    "Timestamp": "2023-09-04T10:11:00",
+    "cur_current": "793",
+    "cur_power": "566",
+    "cur_voltage": "2384",
+  },
+  {
+    "Timestamp": "2023-09-04T10:10:00",
+    "cur_current": "757",
+    "cur_power": "729",
+    "cur_voltage": "2388",
+  },
+  {
+    "Timestamp": "2023-09-04T10:09:00",
+    "cur_current": "780",
+    "cur_power": "956",
+    "cur_voltage": "2393",
+  },
+  {
+    "Timestamp": "2023-09-04T10:08:00",
+    "cur_current": "701",
+    "cur_power": "811",
+    "cur_voltage": "2397",
+  },
+  {
+    "Timestamp": "2023-09-04T10:06:00",
+    "cur_current": "897",
+    "cur_power": "585",
+  },
+  {
+    "Timestamp": "2023-09-04T10:05:00",
+    "cur_current": "690",
+    "cur_power": "615",
+    "cur_voltage": "2384",
+  },
+  {
+    "Timestamp": "2023-09-04T10:04:00",
+    "cur_current": "791",
+    "cur_power": "719",
+    "cur_voltage": "2384",
+  },
+  {
+    "Timestamp": "2023-09-04T10:02:00",
+    "cur_current": "932",
+    "cur_power": "1036",
+  },
+  {
+    "Timestamp": "2023-09-04T10:01:00",
+    "cur_current": "790",
+    "cur_power": "895",
+    "cur_voltage": "2379",
+  },
+  {
+    "Timestamp": "2023-09-04T09:59:00",
+    "add_ele": "40"
+  },
+  {
+    "Timestamp": "2023-09-04T09:51:00",
+    "cur_current": "1046",
+    "cur_power": "1052",
+  },
+  {
+    "Timestamp": "2023-09-04T09:50:00",
+    "cur_current": "562",
+    "cur_power": "807",
+    "cur_voltage": "2388",
+  },
+  {
+    "Timestamp": "2023-09-04T09:48:00",
+    "cur_current": "793",
+    "cur_power": "825",
+    "cur_voltage": "2397",
+  },
+  {
+    "Timestamp": "2023-09-04T09:47:00",
+    "cur_current": "704",
+    "cur_power": "1000",
+    "cur_voltage": "2402",
+  },
+  {
+    "Timestamp": "2023-09-04T09:46:00",
+    "cur_current": "710",
+    "cur_power": "809",
+    "cur_voltage": "2375",
+  },
+  {
+    "Timestamp": "2023-09-04T09:44:00",
+    "cur_current": "574",
+    "cur_power": "873",
+    "cur_voltage": "2397",
+  },
+  {
+    "Timestamp": "2023-09-04T09:39:00",
+    "cur_current": "1019",
+    "cur_power": "1130",
+    "cur_voltage": "2388",
+  },
+  {
+    "Timestamp": "2023-09-04T09:38:00",
+    "cur_current": "689",
+    "cur_power": "832",
+    "cur_voltage": "2384",
+  },
+  {
+    "Timestamp": "2023-09-04T09:36:00",
+    "cur_current": "701",
+    "cur_power": "990",
+    "cur_voltage": "2393",
+  },
+  {
+    "Timestamp": "2023-09-04T09:32:00",
+    "cur_current": "950",
+    "cur_power": "1470",
+    "cur_voltage": "2397",
+  },
+  {
+    "Timestamp": "2023-09-04T09:31:00",
+    "cur_current": "1090",
+    "cur_power": "1005",
+    "cur_voltage": "2393",
+  },
+  {
+    "Timestamp": "2023-09-04T09:30:00",
+    "cur_current": "561",
+    "cur_power": "943",
+    "cur_voltage": "2388",
+  },
+  {
+    "Timestamp": "2023-09-04T09:29:00",
+    "add_ele": "39"
+  },
+  {
+    "Timestamp": "2023-09-04T09:28:00",
+    "cur_current": "632",
+    "cur_power": "748",
+    "cur_voltage": "2384",
+  },
+  {
+    "Timestamp": "2023-09-04T09:27:00",
+    "cur_current": "1178",
+    "cur_power": "1416",
+  },
+  {
+    "Timestamp": "2023-09-04T09:26:00",
+    "cur_current": "414",
+    "cur_power": "677",
+    "cur_voltage": "2393",
+  },
+  {
+    "Timestamp": "2023-09-04T09:25:00",
+    "cur_current": "743",
+    "cur_power": "824",
+    "cur_voltage": "2402",
+  },
+  {
+    "Timestamp": "2023-09-04T09:24:00",
+    "cur_current": "1264",
+    "cur_power": "1619",
+    "cur_voltage": "2393",
+  },
+  {
+    "Timestamp": "2023-09-04T09:23:00",
+    "cur_current": "734",
+    "cur_power": "771",
+    "cur_voltage": "2397",
+  },
+  {
+    "Timestamp": "2023-09-04T09:22:00",
+    "cur_current": "414",
+    "cur_power": "632",
+    "cur_voltage": "2393",
+  },
+  {
+    "Timestamp": "2023-09-04T09:20:00",
+    "cur_current": "460",
+    "cur_power": "730",
+    "cur_voltage": "2397",
+  },
+  {
+    "Timestamp": "2023-09-04T09:19:00",
+    "cur_current": "356",
+    "cur_power": "608",
+    "cur_voltage": "2388",
+  },
+  {
+    "Timestamp": "2023-09-04T09:16:00",
+    "cur_current": "504",
+    "cur_power": "742",
+  },
+  {
+    "Timestamp": "2023-09-04T09:15:00",
+    "cur_current": "991",
+    "cur_power": "1086",
+    "cur_voltage": "2393",
+  },
+  {
+    "Timestamp": "2023-09-04T09:14:00",
+    "cur_current": "384",
+    "cur_power": "596",
+    "cur_voltage": "2406",
+  },
+  {
+    "Timestamp": "2023-09-04T09:13:00",
+    "cur_current": "747",
+    "cur_power": "742",
+    "cur_voltage": "2397",
+  },
+  {
+    "Timestamp": "2023-09-04T09:12:00",
+    "cur_current": "606",
+    "cur_power": "582",
+    "cur_voltage": "2406",
+  },
+  {
+    "Timestamp": "2023-09-04T09:11:00",
+    "cur_current": "920",
+    "cur_power": "1028",
+    "cur_voltage": "2388",
+  },
+  {
+    "Timestamp": "2023-09-04T09:10:00",
+    "cur_current": "1078",
+    "cur_power": "1262",
+    "cur_voltage": "2411",
+  },
+  {
+    "Timestamp": "2023-09-04T09:09:00",
+    "cur_current": "419",
+    "cur_power": "532",
+    "cur_voltage": "2397",
+  },
+  {
+    "Timestamp": "2023-09-04T09:08:00",
+    "cur_current": "552",
+    "cur_power": "506",
+    "cur_voltage": "2402",
+  },
+  {
+    "Timestamp": "2023-09-04T09:07:00",
+    "cur_current": "1176",
+    "cur_power": "1269",
+    "cur_voltage": "2393",
+  },
+  {
+    "Timestamp": "2023-09-04T09:04:00",
+    "cur_current": "581",
+    "cur_power": "690",
+    "cur_voltage": "2402",
+  },
+  {
+    "Timestamp": "2023-09-04T09:01:00",
+    "cur_current": "433",
+    "cur_power": "789",
+    "cur_voltage": "2388",
+  },
+  {
+    "Timestamp": "2023-09-04T08:59:00",
+    "cur_current": "0",
+    "cur_power": "0",
+    "cur_voltage": "2397",
+    "add_ele": "41"
+  },
+  {
+    "Timestamp": "2023-09-04T08:58:00",
+    "cur_current": "815",
+    "cur_power": "1123",
+    "cur_voltage": "2402",
+  },
+  {
+    "Timestamp": "2023-09-04T08:57:00",
+    "cur_current": "728",
+    "cur_power": "1078",
+    "cur_voltage": "2397",
+  },
+  {
+    "Timestamp": "2023-09-04T08:56:00",
+    "cur_current": "816",
+    "cur_power": "984",
+    "cur_voltage": "2393",
+  },
+  {
+    "Timestamp": "2023-09-04T08:55:00",
+    "cur_current": "984",
+    "cur_power": "976",
+    "cur_voltage": "2384",
+  },
+  {
+    "Timestamp": "2023-09-04T08:47:00",
+    "cur_current": "729",
+    "cur_power": "779",
+    "cur_voltage": "2406",
+  },
+  {
+    "Timestamp": "2023-09-04T08:46:00",
+    "cur_current": "780",
+    "cur_power": "981",
+    "cur_voltage": "2402",
+  },
+  {
+    "Timestamp": "2023-09-04T08:44:00",
+    "cur_current": "977",
+    "cur_power": "1010",
+    "cur_voltage": "2397",
+  },
+  {
+    "Timestamp": "2023-09-04T08:43:00",
+    "cur_current": "895",
+    "cur_power": "1154",
+    "cur_voltage": "2411",
+  },
+  {
+    "Timestamp": "2023-09-04T08:36:00",
+    "cur_current": "815",
+    "cur_power": "850",
+  },
+  {
+    "Timestamp": "2023-09-04T08:33:00",
+    "cur_current": "747",
+    "cur_power": "776",
+  },
+  {
+    "Timestamp": "2023-09-04T08:29:00",
+    "add_ele": "38"
+  },
+  {
+    "Timestamp": "2023-09-04T08:25:00",
+    "cur_current": "518",
+    "cur_power": "894",
+    "cur_voltage": "2397",
+  },
+  {
+    "Timestamp": "2023-09-04T08:14:00",
+    "cur_current": "832",
+    "cur_power": "716",
+    "cur_voltage": "2416",
+  },
+  {
+    "Timestamp": "2023-09-04T08:09:00",
+    "cur_current": "594",
+    "cur_power": "670",
+  },
+  {
+    "Timestamp": "2023-09-04T08:06:00",
+    "cur_current": "701",
+    "cur_power": "929",
+    "cur_voltage": "2411",
+  },
+  {
+    "Timestamp": "2023-09-04T08:05:00",
+    "cur_current": "557",
+    "cur_power": "705",
+    "cur_voltage": "2454",
+  },
+  {
+    "Timestamp": "2023-09-04T07:59:00",
+    "add_ele": "39"
+  },
+  {
+    "Timestamp": "2023-09-04T07:41:00",
+    "cur_current": "777",
+    "cur_power": "854",
+    "cur_voltage": "2430",
+  },
+  {
+    "Timestamp": "2023-09-04T07:29:00",
+    "add_ele": "40"
+  },
+  {
+    "Timestamp": "2023-09-04T07:12:00",
+    "cur_current": "699",
+    "cur_power": "915",
+    "cur_voltage": "2434",
+  },
+  {
+    "Timestamp": "2023-09-04T07:09:00",
+    "cur_current": "609",
+    "cur_power": "1129",
+  },
+  {
+    "Timestamp": "2023-09-04T06:59:00",
+    "add_ele": "39"
+  },
+  {
+    "Timestamp": "2023-09-04T06:53:00",
+    "cur_current": "767",
+    "cur_power": "880",
+    "cur_voltage": "2454",
+  },
+  {
+    "Timestamp": "2023-09-04T06:52:00",
+    "cur_current": "563",
+    "cur_power": "705",
+    "cur_voltage": "2449",
+  },
+  {
+    "Timestamp": "2023-09-04T06:51:00",
+    "cur_current": "773",
+    "cur_power": "734",
+  },
+  {
+    "Timestamp": "2023-09-04T06:44:00",
+    "cur_current": "803",
+    "cur_power": "927",
+    "cur_voltage": "2434",
+  },
+  {
+    "Timestamp": "2023-09-04T06:29:00",
+    "add_ele": "39"
+  },
+  {
+    "Timestamp": "2023-09-04T06:03:00",
+    "cur_current": "751",
+    "cur_power": "912",
+    "cur_voltage": "2406",
+  },
+  {
+    "Timestamp": "2023-09-04T05:59:00",
+    "add_ele": "38"
+  },
+  {
+    "Timestamp": "2023-09-04T05:58:00",
+    "cur_current": "747",
+    "cur_power": "642",
+    "cur_voltage": "2416",
+  },
+  {
+    "Timestamp": "2023-09-04T05:51:00",
+    "cur_current": "517",
+    "cur_power": "938",
+    "cur_voltage": "2420",
+  },
+  {
+    "Timestamp": "2023-09-04T05:38:00",
+    "cur_current": "538",
+    "cur_power": "605",
+    "cur_voltage": "2416",
+  },
+  {
+    "Timestamp": "2023-09-04T05:29:00",
+    "add_ele": "38"
+  },
+  {
+    "Timestamp": "2023-09-04T05:21:00",
+    "cur_current": "836",
+    "cur_power": "616",
+    "cur_voltage": "2416",
+  },
+  {
+    "Timestamp": "2023-09-04T05:18:00",
+    "cur_current": "676",
+    "cur_power": "718",
+    "cur_voltage": "2434",
+  },
+  {
+    "Timestamp": "2023-09-04T05:16:00",
+    "cur_current": "753",
+    "cur_power": "906",
+    "cur_voltage": "2416",
+  },
+  {
+    "Timestamp": "2023-09-04T05:01:00",
+    "cur_current": "868",
+    "cur_power": "938",
+    "cur_voltage": "2434",
+  },
+  {
+    "Timestamp": "2023-09-04T04:59:00",
+    "add_ele": "40"
+  },
+  {
+    "Timestamp": "2023-09-04T04:48:00",
+    "cur_current": "839",
+    "cur_power": "966",
+    "cur_voltage": "2439",
+  },
+  {
+    "Timestamp": "2023-09-04T04:47:00",
+    "cur_current": "600",
+    "cur_power": "839",
+    "cur_voltage": "2416",
+  },
+  {
+    "Timestamp": "2023-09-04T04:33:00",
+    "cur_current": "818",
+    "cur_power": "978",
+    "cur_voltage": "2434",
+  },
+  {
+    "Timestamp": "2023-09-04T04:30:00",
+    "cur_current": "614",
+    "cur_power": "1009",
+    "cur_voltage": "2434",
+  },
+  {
+    "Timestamp": "2023-09-04T04:29:00",
+    "add_ele": "39"
+  },
+  {
+    "Timestamp": "2023-09-04T04:09:00",
+    "cur_current": "919",
+    "cur_power": "1096",
+    "cur_voltage": "2425",
+  },
+  {
+    "Timestamp": "2023-09-04T04:08:00",
+    "cur_current": "907",
+    "cur_power": "862",
+    "cur_voltage": "2434",
+  },
+  {
+    "Timestamp": "2023-09-04T03:59:00",
+    "add_ele": "40"
+  },
+  {
+    "Timestamp": "2023-09-04T03:58:00",
+    "cur_current": "758",
+    "cur_power": "841",
+    "cur_voltage": "2420",
+  },
+  {
+    "Timestamp": "2023-09-04T03:53:00",
+    "cur_current": "676",
+    "cur_power": "932",
+    "cur_voltage": "2425",
+  },
+  {
+    "Timestamp": "2023-09-04T03:51:00",
+    "cur_current": "794",
+    "cur_power": "1057",
+    "cur_voltage": "2420",
+  },
+  {
+    "Timestamp": "2023-09-04T03:29:00",
+    "add_ele": "39"
+  },
+  {
+    "Timestamp": "2023-09-04T03:18:00",
+    "cur_current": "621",
+    "cur_power": "905",
+    "cur_voltage": "2416",
+  },
+  {
+    "Timestamp": "2023-09-04T02:59:00",
+    "add_ele": "40"
+  },
+  {
+    "Timestamp": "2023-09-04T02:53:00",
+    "cur_current": "606",
+    "cur_power": "886",
+    "cur_voltage": "2420",
+  },
+  {
+    "Timestamp": "2023-09-04T02:29:00",
+    "add_ele": "39"
+  },
+  {
+    "Timestamp": "2023-09-04T02:23:00",
+    "cur_current": "682",
+    "cur_power": "905",
+  },
+  {
+    "Timestamp": "2023-09-04T02:13:00",
+    "cur_current": "662",
+    "cur_power": "835",
+    "cur_voltage": "2416",
+  },
+  {
+    "Timestamp": "2023-09-04T02:09:00",
+    "cur_current": "643",
+    "cur_power": "795",
+    "cur_voltage": "2425",
+  },
+  {
+    "Timestamp": "2023-09-04T02:08:00",
+    "cur_current": "989",
+    "cur_power": "1169",
+    "cur_voltage": "2430",
+  },
+  {
+    "Timestamp": "2023-09-04T01:59:00",
+    "add_ele": "39"
+  },
+  {
+    "Timestamp": "2023-09-04T01:45:00",
+    "cur_current": "608",
+    "cur_power": "706",
+  },
+  {
+    "Timestamp": "2023-09-04T01:29:00",
+    "add_ele": "40"
+  },
+  {
+    "Timestamp": "2023-09-04T01:20:00",
+    "cur_current": "723",
+    "cur_power": "924",
+    "cur_voltage": "2434",
+  },
+  {
+    "Timestamp": "2023-09-04T01:19:00",
+    "cur_current": "555",
+    "cur_power": "789",
+    "cur_voltage": "2420",
+  },
+  {
+    "Timestamp": "2023-09-04T01:12:00",
+    "cur_current": "576",
+    "cur_power": "818",
+    "cur_voltage": "2444",
+  },
+  {
+    "Timestamp": "2023-09-04T01:03:00",
+    "cur_current": "621",
+    "cur_power": "899",
+    "cur_voltage": "2444",
+  },
+  {
+    "Timestamp": "2023-09-04T00:59:00",
+    "add_ele": "39"
+  },
+  {
+    "Timestamp": "2023-09-04T00:51:00",
+    "cur_current": "588",
+    "cur_power": "711",
+    "cur_voltage": "2434",
+  },
+  {
+    "Timestamp": "2023-09-04T00:39:00",
+    "cur_current": "652",
+    "cur_power": "699",
+    "cur_voltage": "2430",
+  },
+  {
+    "Timestamp": "2023-09-04T00:32:00",
+    "cur_current": "558",
+    "cur_power": "685",
+    "cur_voltage": "2434",
+  },
+  {
+    "Timestamp": "2023-09-04T00:29:00",
+    "add_ele": "39"
+  },
+  {
+    "Timestamp": "2023-09-04T00:24:00",
+    "cur_current": "719",
+    "cur_power": "1038",
+    "cur_voltage": "2425",
+  },
+  {
+    "Timestamp": "2023-09-04T00:09:00",
+    "cur_current": "776",
+    "cur_power": "1059",
+  },
+  {
+    "Timestamp": "2023-09-03T23:59:00",
+    "add_ele": "38"
+  },
+  {
+    "Timestamp": "2023-09-03T23:45:00",
+    "cur_current": "591",
+    "cur_power": "876",
+  },
+  {
+    "Timestamp": "2023-09-03T23:41:00",
+    "cur_current": "684",
+    "cur_power": "882",
+  },
+  {
+    "Timestamp": "2023-09-03T23:40:00",
+    "cur_current": "754",
+    "cur_power": "981",
+    "cur_voltage": "2416",
+  },
+  {
+    "Timestamp": "2023-09-03T23:30:00",
+    "add_ele": "39"
+  },
+  {
+    "Timestamp": "2023-09-03T23:28:00",
+    "cur_current": "714",
+    "cur_power": "939",
+    "cur_voltage": "2420",
+  },
+  {
+    "Timestamp": "2023-09-03T23:24:00",
+    "cur_current": "890",
+    "cur_power": "970",
+    "cur_voltage": "2416",
+  },
+  {
+    "Timestamp": "2023-09-03T23:21:00",
+    "cur_current": "731",
+    "cur_power": "1004",
+    "cur_voltage": "2430",
+  },
+  {
+    "Timestamp": "2023-09-03T23:09:00",
+    "cur_current": "809",
+    "cur_power": "1101",
+    "cur_voltage": "2402",
+  },
+  {
+    "Timestamp": "2023-09-03T23:04:00",
+    "cur_current": "732",
+    "cur_power": "967",
+    "cur_voltage": "2416",
+  },
+  {
+    "Timestamp": "2023-09-03T23:00:00",
+    "add_ele": "39"
+  },
+  {
+    "Timestamp": "2023-09-03T22:49:00",
+    "cur_current": "698",
+    "cur_power": "905",
+    "cur_voltage": "2420",
+  },
+  {
+    "Timestamp": "2023-09-03T22:46:00",
+    "cur_current": "719",
+    "cur_power": "883",
+    "cur_voltage": "2430",
+  },
+  {
+    "Timestamp": "2023-09-03T22:41:00",
+    "cur_current": "726",
+    "cur_power": "709",
+    "cur_voltage": "2420",
+  },
+  {
+    "Timestamp": "2023-09-03T22:39:00",
+    "cur_current": "711",
+    "cur_power": "873",
+    "cur_voltage": "2425",
+  },
+  {
+    "Timestamp": "2023-09-03T22:38:00",
+    "cur_current": "741",
+    "cur_power": "702",
+    "cur_voltage": "2430",
+  },
+  {
+    "Timestamp": "2023-09-03T22:33:00",
+    "cur_current": "420",
+    "cur_power": "757",
+    "cur_voltage": "2416",
+  },
+  {
+    "Timestamp": "2023-09-03T22:30:00",
+    "add_ele": "38"
+  },
+  {
+    "Timestamp": "2023-09-03T22:20:00",
+    "cur_current": "681",
+    "cur_power": "658",
+    "cur_voltage": "2430",
+  },
+  {
+    "Timestamp": "2023-09-03T22:19:00",
+    "cur_current": "771",
+    "cur_power": "545",
+    "cur_voltage": "2420",
+  },
+  {
+    "Timestamp": "2023-09-03T22:09:00",
+    "cur_current": "574",
+    "cur_power": "795",
+    "cur_voltage": "2439",
+  },
+  {
+    "Timestamp": "2023-09-03T22:03:00",
+    "cur_current": "740",
+    "cur_power": "853",
+    "cur_voltage": "2411",
+  },
+  {
+    "Timestamp": "2023-09-03T22:00:00",
+    "add_ele": "37"
+  },
+  {
+    "Timestamp": "2023-09-03T21:59:00",
+    "cur_current": "443",
+    "cur_power": "581",
+    "cur_voltage": "2425",
+  },
+  {
+    "Timestamp": "2023-09-03T21:58:00",
+    "cur_current": "391",
+    "cur_power": "589",
+    "cur_voltage": "2425",
+  },
+  {
+    "Timestamp": "2023-09-03T21:56:00",
+    "cur_current": "653",
+    "cur_power": "834",
+    "cur_voltage": "2434",
+  },
+  {
+    "Timestamp": "2023-09-03T21:45:00",
+    "cur_current": "413",
+    "cur_power": "783",
+  },
+  {
+    "Timestamp": "2023-09-03T21:44:00",
+    "cur_current": "817",
+    "cur_power": "575",
+    "cur_voltage": "2430",
+  },
+  {
+    "Timestamp": "2023-09-03T21:42:00",
+    "cur_current": "424",
+    "cur_power": "791",
+    "cur_voltage": "2416",
+  },
+  {
+    "Timestamp": "2023-09-03T21:40:00",
+    "cur_current": "603",
+    "cur_power": "766",
+    "cur_voltage": "2425",
+  },
+  {
+    "Timestamp": "2023-09-03T21:34:00",
+    "cur_current": "746",
+    "cur_power": "781",
+    "cur_voltage": "2406",
+  },
+  {
+    "Timestamp": "2023-09-03T21:31:00",
+    "cur_current": "679",
+    "cur_power": "842",
+    "cur_voltage": "2425",
+  },
+  {
+    "Timestamp": "2023-09-03T21:30:00",
+    "cur_current": "883",
+    "cur_power": "796",
+    "cur_voltage": "2411",
+    "add_ele": "37"
+  },
+  {
+    "Timestamp": "2023-09-03T21:25:00",
+    "cur_current": "415",
+    "cur_power": "559",
+    "cur_voltage": "2416",
+  },
+  {
+    "Timestamp": "2023-09-03T21:23:00",
+    "cur_current": "414",
+    "cur_power": "725",
+    "cur_voltage": "2420",
+  },
+  {
+    "Timestamp": "2023-09-03T21:06:00",
+    "cur_current": "439",
+    "cur_power": "653",
+  },
+  {
+    "Timestamp": "2023-09-03T21:00:00",
+    "add_ele": "38"
+  },
+  {
+    "Timestamp": "2023-09-03T20:54:00",
+    "cur_current": "403",
+    "cur_power": "602",
+    "cur_voltage": "2411",
+  },
+  {
+    "Timestamp": "2023-09-03T20:46:00",
+    "cur_current": "783",
+    "cur_power": "1015",
+  },
+  {
+    "Timestamp": "2023-09-03T20:45:00",
+    "cur_current": "815",
+    "cur_power": "809",
+    "cur_voltage": "2416",
+  },
+  {
+    "Timestamp": "2023-09-03T20:38:00",
+    "cur_current": "646",
+    "cur_power": "865",
+  },
+  {
+    "Timestamp": "2023-09-03T20:33:00",
+    "cur_current": "388",
+    "cur_power": "711",
+    "cur_voltage": "2420",
+  },
+  {
+    "Timestamp": "2023-09-03T20:30:00",
+    "add_ele": "39"
+  },
+  {
+    "Timestamp": "2023-09-03T20:24:00",
+    "cur_current": "684",
+    "cur_power": "946",
+  },
+  {
+    "Timestamp": "2023-09-03T20:20:00",
+    "cur_current": "772",
+    "cur_power": "1030",
+    "cur_voltage": "2420",
+  },
+  {
+    "Timestamp": "2023-09-03T20:13:00",
+    "cur_current": "781",
+    "cur_power": "901",
+  },
+  {
+    "Timestamp": "2023-09-03T20:01:00",
+    "cur_current": "631",
+    "cur_power": "899",
+  },
+  {
+    "Timestamp": "2023-09-03T20:00:00",
+    "cur_current": "676",
+    "cur_power": "905",
+    "cur_voltage": "2416",
+    "add_ele": "39"
+  },
+  {
+    "Timestamp": "2023-09-03T19:58:00",
+    "cur_current": "760",
+    "cur_power": "781",
+    "cur_voltage": "2430",
+  },
+  {
+    "Timestamp": "2023-09-03T19:48:00",
+    "cur_current": "857",
+    "cur_power": "963",
+    "cur_voltage": "2420",
+  },
+  {
+    "Timestamp": "2023-09-03T19:41:00",
+    "cur_current": "776",
+    "cur_power": "872",
+  },
+  {
+    "Timestamp": "2023-09-03T19:40:00",
+    "cur_current": "702",
+    "cur_power": "833",
+  },
+  {
+    "Timestamp": "2023-09-03T19:35:00",
+    "cur_current": "777",
+    "cur_power": "878",
+  },
+  {
+    "Timestamp": "2023-09-03T19:30:00",
+    "add_ele": "39"
+  },
+  {
+    "Timestamp": "2023-09-03T19:21:00",
+    "cur_current": "551",
+    "cur_power": "682",
+    "cur_voltage": "2416",
+  },
+  {
+    "Timestamp": "2023-09-03T19:10:00",
+    "cur_current": "632",
+    "cur_power": "864",
+    "cur_voltage": "2430",
+  },
+  {
+    "Timestamp": "2023-09-03T19:09:00",
+    "cur_current": "760",
+    "cur_power": "993",
+    "cur_voltage": "2420",
+  },
+  {
+    "Timestamp": "2023-09-03T19:03:00",
+    "cur_current": "572",
+    "cur_power": "830",
+    "cur_voltage": "2406",
+  },
+  {
+    "Timestamp": "2023-09-03T19:00:00",
+    "add_ele": "40"
+  },
+  {
+    "Timestamp": "2023-09-03T18:58:00",
+    "cur_current": "656",
+    "cur_power": "891",
+  },
+  {
+    "Timestamp": "2023-09-03T18:57:00",
+    "cur_current": "812",
+    "cur_power": "932",
+    "cur_voltage": "2411",
+  },
+  {
+    "Timestamp": "2023-09-03T18:40:00",
+    "cur_current": "674",
+    "cur_power": "944",
+    "cur_voltage": "2402",
+  },
+  {
+    "Timestamp": "2023-09-03T18:32:00",
+    "cur_current": "705",
+    "cur_power": "930",
+    "cur_voltage": "2420",
+  },
+  {
+    "Timestamp": "2023-09-03T18:30:00",
+    "cur_current": "754",
+    "cur_power": "697",
+    "cur_voltage": "2406",
+    "add_ele": "39"
+  },
+  {
+    "Timestamp": "2023-09-03T18:19:00",
+    "cur_current": "747",
+    "cur_power": "938",
+  },
+  {
+    "Timestamp": "2023-09-03T18:12:00",
+    "cur_current": "671",
+    "cur_power": "941",
+    "cur_voltage": "2416",
+  },
+  {
+    "Timestamp": "2023-09-03T18:10:00",
+    "cur_current": "821",
+    "cur_power": "1011",
+    "cur_voltage": "2420",
+  },
+  {
+    "Timestamp": "2023-09-03T18:08:00",
+    "cur_current": "771",
+    "cur_power": "928",
+    "cur_voltage": "2420",
+  },
+  {
+    "Timestamp": "2023-09-03T18:07:00",
+    "cur_current": "608",
+    "cur_power": "886",
+    "cur_voltage": "2425",
+  },
+  {
+    "Timestamp": "2023-09-03T18:00:00",
+    "add_ele": "39"
+  },
+  {
+    "Timestamp": "2023-09-03T17:30:00",
+    "add_ele": "40"
+  },
+  {
+    "Timestamp": "2023-09-03T17:15:00",
+    "cur_current": "787",
+    "cur_power": "902",
+    "cur_voltage": "2416",
+  },
+  {
+    "Timestamp": "2023-09-03T17:09:00",
+    "cur_current": "740",
+    "cur_power": "1036",
+    "cur_voltage": "2406",
+  },
+  {
+    "Timestamp": "2023-09-03T17:01:00",
+    "cur_current": "793",
+    "cur_power": "896",
+  },
+  {
+    "Timestamp": "2023-09-03T17:00:00",
+    "add_ele": "38"
+  },
+  {
+    "Timestamp": "2023-09-03T16:46:00",
+    "cur_current": "421",
+    "cur_power": "764",
+    "cur_voltage": "2416",
+  },
+  {
+    "Timestamp": "2023-09-03T16:45:00",
+    "cur_current": "814",
+    "cur_power": "527",
+    "cur_voltage": "2402",
+  },
+  {
+    "Timestamp": "2023-09-03T16:40:00",
+    "cur_current": "794",
+    "cur_power": "628",
+    "cur_voltage": "2416",
+  },
+  {
+    "Timestamp": "2023-09-03T16:35:00",
+    "cur_current": "834",
+    "cur_power": "905",
+    "cur_voltage": "2402",
+  },
+  {
+    "Timestamp": "2023-09-03T16:31:00",
+    "cur_current": "492",
+    "cur_power": "819",
+    "cur_voltage": "2411",
+  },
+  {
+    "Timestamp": "2023-09-03T16:30:00",
+    "add_ele": "38"
+  },
+  {
+    "Timestamp": "2023-09-03T16:27:00",
+    "cur_current": "504",
+    "cur_power": "897",
+  },
+  {
+    "Timestamp": "2023-09-03T16:21:00",
+    "cur_current": "556",
+    "cur_power": "788",
+    "cur_voltage": "2416",
+  },
+  {
+    "Timestamp": "2023-09-03T16:18:00",
+    "cur_current": "441",
+    "cur_power": "609",
+    "cur_voltage": "2420",
+  },
+  {
+    "Timestamp": "2023-09-03T16:00:00",
+    "cur_current": "410",
+    "cur_power": "913",
+    "add_ele": "37"
+  },
+  {
+    "Timestamp": "2023-09-03T15:45:00",
+    "cur_current": "700",
+    "cur_power": "870",
+    "cur_voltage": "2416",
+  },
+  {
+    "Timestamp": "2023-09-03T15:40:00",
+    "cur_current": "768",
+    "cur_power": "588",
+    "cur_voltage": "2411",
+  },
+  {
+    "Timestamp": "2023-09-03T15:32:00",
+    "cur_current": "869",
+    "cur_power": "789",
+  },
+  {
+    "Timestamp": "2023-09-03T15:31:00",
+    "cur_current": "560",
+    "cur_power": "632",
+    "cur_voltage": "2416",
+  },
+  {
+    "Timestamp": "2023-09-03T15:30:00",
+    "cur_current": "438",
+    "cur_power": "917",
+    "cur_voltage": "2411",
+    "add_ele": "38"
+  },
+  {
+    "Timestamp": "2023-09-03T15:24:00",
+    "cur_current": "599",
+    "cur_power": "945",
+    "cur_voltage": "2406",
+  },
+  {
+    "Timestamp": "2023-09-03T15:22:00",
+    "cur_current": "697",
+    "cur_power": "894",
+  },
+  {
+    "Timestamp": "2023-09-03T15:20:00",
+    "cur_current": "859",
+    "cur_power": "873",
+  },
+  {
+    "Timestamp": "2023-09-03T15:09:00",
+    "cur_current": "905",
+    "cur_power": "1087",
+  },
+  {
+    "Timestamp": "2023-09-03T15:00:00",
+    "add_ele": "37"
+  },
+  {
+    "Timestamp": "2023-09-03T14:52:00",
+    "cur_current": "425",
+    "cur_power": "604",
+    "cur_voltage": "2416",
+  },
+  {
+    "Timestamp": "2023-09-03T14:51:00",
+    "cur_current": "570",
+    "cur_power": "810",
+    "cur_voltage": "2402",
+  },
+  {
+    "Timestamp": "2023-09-03T14:40:00",
+    "cur_current": "869",
+    "cur_power": "603",
+  },
+  {
+    "Timestamp": "2023-09-03T14:39:00",
+    "cur_current": "605",
+    "cur_power": "884",
+  },
+  {
+    "Timestamp": "2023-09-03T14:37:00",
+    "cur_current": "844",
+    "cur_power": "886",
+    "cur_voltage": "2411",
+  },
+  {
+    "Timestamp": "2023-09-03T14:31:00",
+    "cur_current": "562",
+    "cur_power": "922",
+    "cur_voltage": "2420",
+  },
+  {
+    "Timestamp": "2023-09-03T14:30:00",
+    "cur_current": "805",
+    "cur_power": "559",
+    "cur_voltage": "2425",
+    "add_ele": "39"
+  },
+  {
+    "Timestamp": "2023-09-03T14:27:00",
+    "cur_current": "861",
+    "cur_power": "566",
+    "cur_voltage": "2420",
+  },
+  {
+    "Timestamp": "2023-09-03T14:25:00",
+    "cur_current": "879",
+    "cur_power": "699",
+    "cur_voltage": "2416",
+  },
+  {
+    "Timestamp": "2023-09-03T14:24:00",
+    "cur_current": "690",
+    "cur_power": "932",
+    "cur_voltage": "2425",
+  },
+  {
+    "Timestamp": "2023-09-03T14:22:00",
+    "cur_current": "451",
+    "cur_power": "761",
+  },
+  {
+    "Timestamp": "2023-09-03T14:21:00",
+    "cur_current": "438",
+    "cur_power": "506",
+    "cur_voltage": "2411",
+  },
+  {
+    "Timestamp": "2023-09-03T14:17:00",
+    "cur_current": "563",
+    "cur_power": "692",
+    "cur_voltage": "2420",
+  },
+  {
+    "Timestamp": "2023-09-03T14:14:00",
+    "cur_current": "691",
+    "cur_power": "960",
+  },
+  {
+    "Timestamp": "2023-09-03T14:09:00",
+    "cur_current": "864",
+    "cur_power": "1050",
+    "cur_voltage": "2406",
+  },
+  {
+    "Timestamp": "2023-09-03T14:00:00",
+    "add_ele": "39"
+  },
+  {
+    "Timestamp": "2023-09-03T13:32:00",
+    "cur_current": "726",
+    "cur_power": "912",
+    "cur_voltage": "2425",
+  },
+  {
+    "Timestamp": "2023-09-03T13:29:00",
+    "add_ele": "40"
+  },
+  {
+    "Timestamp": "2023-09-03T13:24:00",
+    "cur_current": "662",
+    "cur_power": "1066",
+    "cur_voltage": "2430",
+  },
+  {
+    "Timestamp": "2023-09-03T13:15:00",
+    "cur_current": "705",
+    "cur_power": "934",
+    "cur_voltage": "2416",
+  },
+  {
+    "Timestamp": "2023-09-03T13:09:00",
+    "cur_current": "795",
+    "cur_power": "1052",
+    "cur_voltage": "2416",
+  },
+  {
+    "Timestamp": "2023-09-03T12:59:00",
+    "add_ele": "39"
+  },
+  {
+    "Timestamp": "2023-09-03T12:47:00",
+    "cur_current": "644",
+    "cur_power": "901",
+    "cur_voltage": "2430",
+  },
+  {
+    "Timestamp": "2023-09-03T12:39:00",
+    "cur_current": "850",
+    "cur_power": "1017",
+    "cur_voltage": "2425",
+  },
+  {
+    "Timestamp": "2023-09-03T12:34:00",
+    "cur_current": "794",
+    "cur_power": "741",
+    "cur_voltage": "2420",
+  },
+  {
+    "Timestamp": "2023-09-03T12:29:00",
+    "add_ele": "39"
+  },
+  {
+    "Timestamp": "2023-09-03T12:22:00",
+    "cur_current": "595",
+    "cur_power": "824",
+    "cur_voltage": "2434",
+  },
+  {
+    "Timestamp": "2023-09-03T12:16:00",
+    "cur_current": "910",
+    "cur_power": "1021",
+    "cur_voltage": "2420",
+  },
+  {
+    "Timestamp": "2023-09-03T12:11:00",
+    "cur_current": "737",
+    "cur_power": "884",
+    "cur_voltage": "2425",
+  },
+  {
+    "Timestamp": "2023-09-03T12:06:00",
+    "cur_current": "804",
+    "cur_power": "952",
+    "cur_voltage": "2420",
+  },
+  {
+    "Timestamp": "2023-09-03T11:59:00",
+    "add_ele": "39"
+  },
+  {
+    "Timestamp": "2023-09-03T11:58:00",
+    "cur_current": "686",
+    "cur_power": "836",
+    "cur_voltage": "2425",
+  },
+  {
+    "Timestamp": "2023-09-03T11:57:00",
+    "cur_current": "726",
+    "cur_power": "837",
+  },
+  {
+    "Timestamp": "2023-09-03T11:54:00",
+    "cur_current": "611",
+    "cur_power": "819",
+    "cur_voltage": "2430",
+  },
+  {
+    "Timestamp": "2023-09-03T11:38:00",
+    "cur_current": "839",
+    "cur_power": "926",
+    "cur_voltage": "2416",
+  },
+  {
+    "Timestamp": "2023-09-03T11:29:00",
+    "add_ele": "40"
+  },
+  {
+    "Timestamp": "2023-09-03T11:21:00",
+    "cur_current": "709",
+    "cur_power": "796",
+    "cur_voltage": "2434",
+  },
+  {
+    "Timestamp": "2023-09-03T11:16:00",
+    "cur_current": "699",
+    "cur_power": "849",
+    "cur_voltage": "2430",
+  },
+  {
+    "Timestamp": "2023-09-03T11:14:00",
+    "cur_current": "701",
+    "cur_power": "922",
+    "cur_voltage": "2439",
+  },
+  {
+    "Timestamp": "2023-09-03T11:09:00",
+    "cur_current": "748",
+    "cur_power": "1164",
+    "cur_voltage": "2425",
+  },
+  {
+    "Timestamp": "2023-09-03T11:04:00",
+    "cur_current": "556",
+    "cur_power": "712",
+    "cur_voltage": "2420",
+  },
+  {
+    "Timestamp": "2023-09-03T10:59:00",
+    "add_ele": "39"
+  },
+  {
+    "Timestamp": "2023-09-03T10:51:00",
+    "cur_current": "609",
+    "cur_power": "914",
+  },
+  {
+    "Timestamp": "2023-09-03T10:29:00",
+    "add_ele": "38"
+  },
+  {
+    "Timestamp": "2023-09-03T10:16:00",
+    "cur_current": "551",
+    "cur_power": "834",
+    "cur_voltage": "2416",
+  },
+  {
+    "Timestamp": "2023-09-03T10:10:00",
+    "cur_current": "754",
+    "cur_power": "873",
+    "cur_voltage": "2430",
+  },
+  {
+    "Timestamp": "2023-09-03T10:09:00",
+    "cur_current": "582",
+    "cur_power": "789",
+    "cur_voltage": "2420",
+  },
+  {
+    "Timestamp": "2023-09-03T10:08:00",
+    "cur_current": "653",
+    "cur_power": "993",
+    "cur_voltage": "2434",
+  },
+  {
+    "Timestamp": "2023-09-03T10:06:00",
+    "cur_current": "437",
+    "cur_power": "576",
+    "cur_voltage": "2439",
+  },
+  {
+    "Timestamp": "2023-09-03T10:04:00",
+    "cur_current": "490",
+    "cur_power": "617",
+    "cur_voltage": "2420",
+  },
+  {
+    "Timestamp": "2023-09-03T09:59:00",
+    "add_ele": "37"
+  },
+  {
+    "Timestamp": "2023-09-03T09:56:00",
+    "cur_current": "664",
+    "cur_power": "664",
+  },
+  {
+    "Timestamp": "2023-09-03T09:54:00",
+    "cur_current": "899",
+    "cur_power": "864",
+    "cur_voltage": "2439",
+  },
+  {
+    "Timestamp": "2023-09-03T09:48:00",
+    "cur_current": "493",
+    "cur_power": "647",
+    "cur_voltage": "2430",
+  },
+  {
+    "Timestamp": "2023-09-03T09:43:00",
+    "cur_current": "517",
+    "cur_power": "587",
+    "cur_voltage": "2449",
+  },
+  {
+    "Timestamp": "2023-09-03T09:37:00",
+    "cur_current": "674",
+    "cur_power": "929",
+    "cur_voltage": "2439",
+  },
+  {
+    "Timestamp": "2023-09-03T09:31:00",
+    "cur_current": "998",
+    "cur_power": "1108",
+    "cur_voltage": "2406",
+  },
+  {
+    "Timestamp": "2023-09-03T09:30:00",
+    "cur_current": "954",
+    "cur_power": "1188",
+    "cur_voltage": "2402",
+  },
+  {
+    "Timestamp": "2023-09-03T09:29:00",
+    "add_ele": "38"
+  },
+  {
+    "Timestamp": "2023-09-03T09:28:00",
+    "cur_current": "697",
+    "cur_power": "798",
+    "cur_voltage": "2416",
+  },
+  {
+    "Timestamp": "2023-09-03T09:24:00",
+    "cur_current": "486",
+    "cur_power": "678",
+    "cur_voltage": "2411",
+  },
+  {
+    "Timestamp": "2023-09-03T09:11:00",
+    "cur_current": "770",
+    "cur_power": "808",
+    "cur_voltage": "2397",
+  },
+  {
+    "Timestamp": "2023-09-03T09:07:00",
+    "cur_current": "677",
+    "cur_power": "1017",
+    "cur_voltage": "2411",
+  },
+  {
+    "Timestamp": "2023-09-03T09:00:00",
+    "cur_current": "793",
+    "cur_power": "850",
+    "cur_voltage": "2416",
+  },
+  {
+    "Timestamp": "2023-09-03T08:59:00",
+    "add_ele": "37"
+  },
+  {
+    "Timestamp": "2023-09-03T08:49:00",
+    "cur_current": "399",
+    "cur_power": "554",
+    "cur_voltage": "2416",
+  },
+  {
+    "Timestamp": "2023-09-03T08:44:00",
+    "cur_current": "654",
+    "cur_power": "1005",
+  },
+  {
+    "Timestamp": "2023-09-03T08:33:00",
+    "cur_current": "649",
+    "cur_power": "601",
+    "cur_voltage": "2411",
+  },
+  {
+    "Timestamp": "2023-09-03T08:29:00",
+    "cur_current": "561",
+    "cur_power": "754",
+    "cur_voltage": "2416",
+    "add_ele": "38"
+  },
+  {
+    "Timestamp": "2023-09-03T08:27:00",
+    "cur_current": "731",
+    "cur_power": "807",
+    "cur_voltage": "2420",
+  },
+  {
+    "Timestamp": "2023-09-03T08:26:00",
+    "cur_current": "678",
+    "cur_power": "644",
+    "cur_voltage": "2425",
+  },
+  {
+    "Timestamp": "2023-09-03T08:25:00",
+    "cur_current": "777",
+    "cur_power": "525",
+    "cur_voltage": "2416",
+  },
+  {
+    "Timestamp": "2023-09-03T08:20:00",
+    "cur_current": "644",
+    "cur_power": "595",
+    "cur_voltage": "2406",
+  },
+  {
+    "Timestamp": "2023-09-03T08:14:00",
+    "cur_current": "615",
+    "cur_power": "970",
+    "cur_voltage": "2416",
+  },
+  {
+    "Timestamp": "2023-09-03T08:13:00",
+    "cur_current": "695",
+    "cur_power": "913",
+    "cur_voltage": "2420",
+  },
+  {
+    "Timestamp": "2023-09-03T08:10:00",
+    "cur_current": "420",
+    "cur_power": "590",
+    "cur_voltage": "2411",
+  },
+  {
+    "Timestamp": "2023-09-03T08:09:00",
+    "cur_current": "811",
+    "cur_power": "998",
+    "cur_voltage": "2430",
+  },
+  {
+    "Timestamp": "2023-09-03T08:05:00",
+    "cur_current": "726",
+    "cur_power": "705",
+    "cur_voltage": "2425",
+  },
+  {
+    "Timestamp": "2023-09-03T08:04:00",
+    "cur_current": "564",
+    "cur_power": "902",
+    "cur_voltage": "2420",
+  },
+  {
+    "Timestamp": "2023-09-03T08:01:00",
+    "cur_current": "778",
+    "cur_power": "880",
+    "cur_voltage": "2416",
+  },
+  {
+    "Timestamp": "2023-09-03T07:59:00",
+    "add_ele": "38"
+  },
+  {
+    "Timestamp": "2023-09-03T07:29:00",
+    "add_ele": "39"
+  },
+  {
+    "Timestamp": "2023-09-03T07:19:00",
+    "cur_current": "731",
+    "cur_power": "892",
+    "cur_voltage": "2430",
+  },
+  {
+    "Timestamp": "2023-09-03T07:16:00",
+    "cur_current": "754",
+    "cur_power": "825",
+    "cur_voltage": "2434",
+  },
+  {
+    "Timestamp": "2023-09-03T07:11:00",
+    "cur_current": "760",
+    "cur_power": "879",
+    "cur_voltage": "2416",
+  },
+  {
+    "Timestamp": "2023-09-03T07:09:00",
+    "cur_current": "751",
+    "cur_power": "1018",
+    "cur_voltage": "2444",
+  },
+  {
+    "Timestamp": "2023-09-03T07:08:00",
+    "cur_current": "819",
+    "cur_power": "940",
+    "cur_voltage": "2430",
+  },
+  {
+    "Timestamp": "2023-09-03T07:05:00",
+    "cur_current": "553",
+    "cur_power": "679",
+    "cur_voltage": "2416",
+  },
+  {
+    "Timestamp": "2023-09-03T07:04:00",
+    "cur_current": "782",
+    "cur_power": "895",
+  },
+  {
+    "Timestamp": "2023-09-03T07:00:00",
+    "cur_current": "709",
+    "cur_power": "789",
+    "cur_voltage": "2420",
+  },
+  {
+    "Timestamp": "2023-09-03T06:59:00",
+    "add_ele": "39"
+  },
+  {
+    "Timestamp": "2023-09-03T06:34:00",
+    "cur_current": "549",
+    "cur_power": "868",
+  },
+  {
+    "Timestamp": "2023-09-03T06:29:00",
+    "add_ele": "39"
+  },
+  {
+    "Timestamp": "2023-09-03T06:24:00",
+    "cur_current": "588",
+    "cur_power": "1060",
+    "cur_voltage": "2411",
+  },
+  {
+    "Timestamp": "2023-09-03T06:18:00",
+    "cur_current": "757",
+    "cur_power": "824",
+    "cur_voltage": "2406",
+  },
+  {
+    "Timestamp": "2023-09-03T06:12:00",
+    "cur_current": "570",
+    "cur_power": "700",
+    "cur_voltage": "2384",
+  },
+  {
+    "Timestamp": "2023-09-03T06:10:00",
+    "cur_current": "721",
+    "cur_power": "705",
+    "cur_voltage": "2416",
+  },
+  {
+    "Timestamp": "2023-09-03T06:04:00",
+    "cur_current": "656",
+    "cur_power": "906",
+  },
+  {
+    "Timestamp": "2023-09-03T05:59:00",
+    "add_ele": "39"
+  },
+  {
+    "Timestamp": "2023-09-03T05:55:00",
+    "cur_current": "714",
+    "cur_power": "899",
+    "cur_voltage": "2402",
+  },
+  {
+    "Timestamp": "2023-09-03T05:45:00",
+    "cur_current": "780",
+    "cur_power": "870",
+    "cur_voltage": "2420",
+  },
+  {
+    "Timestamp": "2023-09-03T05:44:00",
+    "cur_current": "747",
+    "cur_power": "1046",
+    "cur_voltage": "2406",
+  },
+  {
+    "Timestamp": "2023-09-03T05:29:00",
+    "add_ele": "38"
+  },
+  {
+    "Timestamp": "2023-09-03T05:25:00",
+    "cur_current": "625",
+    "cur_power": "888",
+    "cur_voltage": "2402",
+  },
+  {
+    "Timestamp": "2023-09-03T05:18:00",
+    "cur_current": "763",
+    "cur_power": "925",
+    "cur_voltage": "2406",
+  },
+  {
+    "Timestamp": "2023-09-03T05:01:00",
+    "cur_current": "714",
+    "cur_power": "872",
+    "cur_voltage": "2416",
+  },
+  {
+    "Timestamp": "2023-09-03T05:00:00",
+    "cur_current": "653",
+    "cur_power": "671",
+    "cur_voltage": "2411",
+  },
+  {
+    "Timestamp": "2023-09-03T04:59:00",
+    "add_ele": "40"
+  },
+  {
+    "Timestamp": "2023-09-03T04:56:00",
+    "cur_current": "737",
+    "cur_power": "707",
+    "cur_voltage": "2416",
+  },
+  {
+    "Timestamp": "2023-09-03T04:53:00",
+    "cur_current": "747",
+    "cur_power": "1020",
+  },
+  {
+    "Timestamp": "2023-09-03T04:50:00",
+    "cur_current": "689",
+    "cur_power": "873",
+    "cur_voltage": "2406",
+  },
+  {
+    "Timestamp": "2023-09-03T04:34:00",
+    "cur_current": "788",
+    "cur_power": "927",
+    "cur_voltage": "2416",
+  },
+  {
+    "Timestamp": "2023-09-03T04:29:00",
+    "add_ele": "39"
+  },
+  {
+    "Timestamp": "2023-09-03T04:27:00",
+    "cur_current": "769",
+    "cur_power": "871",
+    "cur_voltage": "2454",
+  },
+  {
+    "Timestamp": "2023-09-03T04:09:00",
+    "cur_current": "778",
+    "cur_power": "1053",
+    "cur_voltage": "2449",
+  },
+  {
+    "Timestamp": "2023-09-03T04:07:00",
+    "cur_current": "744",
+    "cur_power": "897",
+  },
+  {
+    "Timestamp": "2023-09-03T04:06:00",
+    "cur_current": "640",
+    "cur_power": "896",
+    "cur_voltage": "2444",
+  },
+  {
+    "Timestamp": "2023-09-03T04:05:00",
+    "cur_current": "828",
+    "cur_power": "904",
+  },
+  {
+    "Timestamp": "2023-09-03T03:59:00",
+    "add_ele": "38"
+  },
+  {
+    "Timestamp": "2023-09-03T03:42:00",
+    "cur_current": "769",
+    "cur_power": "886",
+  },
+  {
+    "Timestamp": "2023-09-03T03:34:00",
+    "cur_current": "576",
+    "cur_power": "809",
+    "cur_voltage": "2449",
+  },
+  {
+    "Timestamp": "2023-09-03T03:29:00",
+    "add_ele": "39"
+  },
+  {
+    "Timestamp": "2023-09-03T03:13:00",
+    "cur_current": "565",
+    "cur_power": "752",
+    "cur_voltage": "2444",
+  },
+  {
+    "Timestamp": "2023-09-03T03:06:00",
+    "cur_current": "570",
+    "cur_power": "756",
+    "cur_voltage": "2406",
+  },
+  {
+    "Timestamp": "2023-09-03T02:59:00",
+    "add_ele": "39"
+  },
+  {
+    "Timestamp": "2023-09-03T02:58:00",
+    "cur_current": "688",
+    "cur_power": "1026",
+    "cur_voltage": "2416",
+  },
+  {
+    "Timestamp": "2023-09-03T02:51:00",
+    "cur_current": "644",
+    "cur_power": "886",
+    "cur_voltage": "2425",
+  },
+  {
+    "Timestamp": "2023-09-03T02:34:00",
+    "cur_current": "630",
+    "cur_power": "851",
+    "cur_voltage": "2425",
+  },
+  {
+    "Timestamp": "2023-09-03T02:31:00",
+    "cur_current": "653",
+    "cur_power": "901",
+    "cur_voltage": "2434",
+  },
+  {
+    "Timestamp": "2023-09-03T02:29:00",
+    "add_ele": "38"
+  },
+  {
+    "Timestamp": "2023-09-03T02:24:00",
+    "cur_current": "608",
+    "cur_power": "865",
+    "cur_voltage": "2439",
+  },
+  {
+    "Timestamp": "2023-09-03T02:11:00",
+    "cur_current": "598",
+    "cur_power": "892",
+    "cur_voltage": "2416",
+  },
+  {
+    "Timestamp": "2023-09-03T02:09:00",
+    "cur_current": "873",
+    "cur_power": "1051",
+    "cur_voltage": "2425",
+  },
+  {
+    "Timestamp": "2023-09-03T02:02:00",
+    "cur_current": "711",
+    "cur_power": "1014",
+    "cur_voltage": "2434",
+  },
+  {
+    "Timestamp": "2023-09-03T01:59:00",
+    "add_ele": "39"
+  },
+  {
+    "Timestamp": "2023-09-03T01:57:00",
+    "cur_current": "570",
+    "cur_power": "707",
+    "cur_voltage": "2430",
+  },
+  {
+    "Timestamp": "2023-09-03T01:49:00",
+    "cur_current": "806",
+    "cur_power": "933",
+  },
+  {
+    "Timestamp": "2023-09-03T01:48:00",
+    "cur_current": "783",
+    "cur_power": "909",
+    "cur_voltage": "2439",
+  },
+  {
+    "Timestamp": "2023-09-03T01:29:00",
+    "add_ele": "39"
+  },
+  {
+    "Timestamp": "2023-09-03T01:19:00",
+    "cur_current": "732",
+    "cur_power": "987",
+  },
+  {
+    "Timestamp": "2023-09-03T01:17:00",
+    "cur_current": "724",
+    "cur_power": "894",
+    "cur_voltage": "2430",
+  },
+  {
+    "Timestamp": "2023-09-03T01:04:00",
+    "cur_current": "689",
+    "cur_power": "869",
+    "cur_voltage": "2420",
+  },
+  {
+    "Timestamp": "2023-09-03T00:59:00",
+    "add_ele": "38"
+  },
+  {
+    "Timestamp": "2023-09-03T00:50:00",
+    "cur_current": "681",
+    "cur_power": "863",
+    "cur_voltage": "2430",
+  },
+  {
+    "Timestamp": "2023-09-03T00:29:00",
+    "add_ele": "37"
+  },
+  {
+    "Timestamp": "2023-09-03T00:20:00",
+    "cur_current": "793",
+    "cur_power": "560",
+    "cur_voltage": "2434",
+  },
+  {
+    "Timestamp": "2023-09-03T00:09:00",
+    "cur_current": "803",
+    "cur_power": "805",
+    "cur_voltage": "2430",
+  },
+  {
+    "Timestamp": "2023-09-02T23:59:00",
+    "add_ele": "33"
+  },
+  {
+    "Timestamp": "2023-09-02T23:57:00",
+    "cur_current": "748",
+    "cur_power": "872",
+    "cur_voltage": "2425",
+  },
+  {
+    "Timestamp": "2023-09-02T23:42:00",
+    "cur_current": "816",
+    "cur_power": "994",
+    "cur_voltage": "2420",
+  },
+  {
+    "Timestamp": "2023-09-02T23:34:00",
+    "cur_current": "535",
+    "cur_power": "873",
+  },
+  {
+    "Timestamp": "2023-09-02T23:32:00",
+    "add_ele": "37"
+  },
+  {
+    "Timestamp": "2023-09-02T23:28:00",
+    "cur_current": "445",
+    "cur_power": "778",
+    "cur_voltage": "2425",
+  },
+  {
+    "Timestamp": "2023-09-02T23:27:00",
+    "cur_current": "557",
+    "cur_power": "644",
+    "cur_voltage": "2416",
+  },
+  {
+    "Timestamp": "2023-09-02T23:25:00",
+    "cur_current": "821",
+    "cur_power": "1079",
+    "cur_voltage": "2411",
+  },
+  {
+    "Timestamp": "2023-09-02T23:16:00",
+    "cur_current": "902",
+    "cur_power": "977",
+    "cur_voltage": "2420",
+  },
+  {
+    "Timestamp": "2023-09-02T23:12:00",
+    "cur_current": "490",
+    "cur_power": "815",
+    "cur_voltage": "2430",
+  },
+  {
+    "Timestamp": "2023-09-02T23:09:00",
+    "cur_current": "386",
+    "cur_power": "774",
+    "cur_voltage": "2425",
+  },
+  {
+    "Timestamp": "2023-09-02T23:08:00",
+    "cur_current": "532",
+    "cur_power": "783",
+    "cur_voltage": "2430",
+  },
+  {
+    "Timestamp": "2023-09-02T23:05:00",
+    "cur_current": "556",
+    "cur_power": "678",
+    "cur_voltage": "2420",
+  },
+  {
+    "Timestamp": "2023-09-02T23:04:00",
+    "cur_current": "507",
+    "cur_power": "893",
+    "cur_voltage": "2425",
+  },
+  {
+    "Timestamp": "2023-09-02T23:02:00",
+    "add_ele": "37"
+  },
+  {
+    "Timestamp": "2023-09-02T22:56:00",
+    "cur_current": "562",
+    "cur_power": "746",
+  },
+  {
+    "Timestamp": "2023-09-02T22:46:00",
+    "cur_current": "504",
+    "cur_power": "651",
+    "cur_voltage": "2420",
+  },
+  {
+    "Timestamp": "2023-09-02T22:37:00",
+    "cur_current": "634",
+    "cur_power": "754",
+  },
+  {
+    "Timestamp": "2023-09-02T22:36:00",
+    "cur_current": "385",
+    "cur_power": "580",
+    "cur_voltage": "2416",
+  },
+  {
+    "Timestamp": "2023-09-02T22:32:00",
+    "add_ele": "37"
+  },
+  {
+    "Timestamp": "2023-09-02T22:28:00",
+    "cur_current": "653",
+    "cur_power": "619",
+  },
+  {
+    "Timestamp": "2023-09-02T22:25:00",
+    "cur_current": "400",
+    "cur_power": "799",
+  },
+  {
+    "Timestamp": "2023-09-02T22:24:00",
+    "cur_current": "565",
+    "cur_power": "638",
+    "cur_voltage": "2420",
+  },
+  {
+    "Timestamp": "2023-09-02T22:23:00",
+    "cur_current": "900",
+    "cur_power": "656",
+    "cur_voltage": "2416",
+  },
+  {
+    "Timestamp": "2023-09-02T22:18:00",
+    "cur_current": "403",
+    "cur_power": "733",
+  },
+  {
+    "Timestamp": "2023-09-02T22:15:00",
+    "cur_current": "834",
+    "cur_power": "877",
+    "cur_voltage": "2425",
+  },
+  {
+    "Timestamp": "2023-09-02T22:11:00",
+    "cur_current": "395",
+    "cur_power": "560",
+  },
+  {
+    "Timestamp": "2023-09-02T22:10:00",
+    "cur_current": "550",
+    "cur_power": "942",
+    "cur_voltage": "2425",
+  },
+  {
+    "Timestamp": "2023-09-02T22:09:00",
+    "cur_current": "712",
+    "cur_power": "993",
+    "cur_voltage": "2444",
+  },
+  {
+    "Timestamp": "2023-09-02T22:06:00",
+    "cur_current": "538",
+    "cur_power": "838",
+    "cur_voltage": "2425",
+  },
+  {
+    "Timestamp": "2023-09-02T22:04:00",
+    "cur_current": "656",
+    "cur_power": "761",
+  },
+  {
+    "Timestamp": "2023-09-02T22:02:00",
+    "add_ele": "37"
+  },
+  {
+    "Timestamp": "2023-09-02T21:49:00",
+    "cur_current": "562",
+    "cur_power": "711",
+    "cur_voltage": "2434",
+  },
+  {
+    "Timestamp": "2023-09-02T21:43:00",
+    "cur_current": "401",
+    "cur_power": "518",
+    "cur_voltage": "2444",
+  },
+  {
+    "Timestamp": "2023-09-02T21:40:00",
+    "cur_current": "650",
+    "cur_power": "612",
+    "cur_voltage": "2439",
+  },
+  {
+    "Timestamp": "2023-09-02T21:34:00",
+    "cur_current": "629",
+    "cur_power": "753",
+    "cur_voltage": "2434",
+  },
+  {
+    "Timestamp": "2023-09-02T21:33:00",
+    "cur_current": "564",
+    "cur_power": "580",
+    "cur_voltage": "2425",
+  },
+  {
+    "Timestamp": "2023-09-02T21:32:00",
+    "add_ele": "37"
+  },
+  {
+    "Timestamp": "2023-09-02T21:31:00",
+    "cur_current": "430",
+    "cur_power": "853",
+    "cur_voltage": "2416",
+  },
+  {
+    "Timestamp": "2023-09-02T21:14:00",
+    "cur_current": "528",
+    "cur_power": "759",
+    "cur_voltage": "2439",
+  },
+  {
+    "Timestamp": "2023-09-02T21:09:00",
+    "cur_current": "836",
+    "cur_power": "1002",
+    "cur_voltage": "2416",
+  },
+  {
+    "Timestamp": "2023-09-02T21:02:00",
+    "add_ele": "37"
+  },
+  {
+    "Timestamp": "2023-09-02T20:58:00",
+    "cur_current": "724",
+    "cur_power": "651",
+    "cur_voltage": "2439",
+  },
+  {
+    "Timestamp": "2023-09-02T20:52:00",
+    "cur_current": "549",
+    "cur_power": "868",
+    "cur_voltage": "2430",
+  },
+  {
+    "Timestamp": "2023-09-02T20:50:00",
+    "cur_current": "563",
+    "cur_power": "850",
+    "cur_voltage": "2425",
+  },
+  {
+    "Timestamp": "2023-09-02T20:44:00",
+    "cur_current": "887",
+    "cur_power": "1083",
+    "cur_voltage": "2420",
+  },
+  {
+    "Timestamp": "2023-09-02T20:34:00",
+    "cur_current": "674",
+    "cur_power": "740",
+  },
+  {
+    "Timestamp": "2023-09-02T20:33:00",
+    "cur_current": "676",
+    "cur_power": "946",
+    "cur_voltage": "2434",
+  },
+  {
+    "Timestamp": "2023-09-02T20:32:00",
+    "add_ele": "38"
+  },
+  {
+    "Timestamp": "2023-09-02T20:31:00",
+    "cur_current": "379",
+    "cur_power": "586",
+    "cur_voltage": "2439",
+  },
+  {
+    "Timestamp": "2023-09-02T20:30:00",
+    "cur_current": "420",
+    "cur_power": "772",
+    "cur_voltage": "2444",
+  },
+  {
+    "Timestamp": "2023-09-02T20:26:00",
+    "cur_current": "483",
+    "cur_power": "547",
+    "cur_voltage": "2434",
+  },
+  {
+    "Timestamp": "2023-09-02T20:25:00",
+    "cur_current": "663",
+    "cur_power": "766",
+    "cur_voltage": "2420",
+  },
+  {
+    "Timestamp": "2023-09-02T20:24:00",
+    "cur_current": "994",
+    "cur_power": "1058",
+    "cur_voltage": "2434",
+  },
+  {
+    "Timestamp": "2023-09-02T20:16:00",
+    "cur_current": "511",
+    "cur_power": "835",
+    "cur_voltage": "2444",
+  },
+  {
+    "Timestamp": "2023-09-02T20:09:00",
+    "cur_current": "724",
+    "cur_power": "876",
+    "cur_voltage": "2425",
+  },
+  {
+    "Timestamp": "2023-09-02T20:07:00",
+    "cur_current": "439",
+    "cur_power": "744",
+    "cur_voltage": "2416",
+    "add_ele": "39"
+  },
+  {
+    "Timestamp": "2023-09-02T20:01:00",
+    "add_ele": "39"
+  },
+  {
+    "Timestamp": "2023-09-02T20:00:00",
+    "cur_current": "634",
+    "cur_power": "755",
+    "cur_voltage": "2430",
+  },
+  {
+    "Timestamp": "2023-09-02T19:56:00",
+    "cur_current": "448",
+    "cur_power": "699",
+    "cur_voltage": "2439",
+  },
+  {
+    "Timestamp": "2023-09-02T19:52:00",
+    "cur_current": "559",
+    "cur_power": "622",
+    "cur_voltage": "2411",
+  },
+  {
+    "Timestamp": "2023-09-02T19:50:00",
+    "cur_current": "675",
+    "cur_power": "769",
+    "cur_voltage": "2393",
+  },
+  {
+    "Timestamp": "2023-09-02T19:46:00",
+    "cur_current": "850",
+    "cur_power": "774",
+    "cur_voltage": "2416",
+  },
+  {
+    "Timestamp": "2023-09-02T19:45:00",
+    "cur_current": "968",
+    "cur_power": "977",
+    "cur_voltage": "2420",
+  },
+  {
+    "Timestamp": "2023-09-02T19:42:00",
+    "cur_current": "855",
+    "cur_power": "627",
+    "cur_voltage": "2420",
+  },
+  {
+    "Timestamp": "2023-09-02T19:38:00",
+    "cur_current": "1075",
+    "cur_power": "1249",
+  },
+  {
+    "Timestamp": "2023-09-02T19:36:00",
+    "cur_current": "605",
+    "cur_power": "717",
+  },
+  {
+    "Timestamp": "2023-09-02T19:35:00",
+    "cur_current": "493",
+    "cur_power": "779",
+  },
+  {
+    "Timestamp": "2023-09-02T19:31:00",
+    "add_ele": "38"
+  },
+  {
+    "Timestamp": "2023-09-02T19:26:00",
+    "cur_current": "567",
+    "cur_power": "740",
+    "cur_voltage": "2425",
+  },
+  {
+    "Timestamp": "2023-09-02T19:21:00",
+    "cur_current": "401",
+    "cur_power": "800",
+    "cur_voltage": "2420",
+  },
+  {
+    "Timestamp": "2023-09-02T19:01:00",
+    "add_ele": "39"
+  },
+  {
+    "Timestamp": "2023-09-02T18:48:00",
+    "cur_current": "646",
+    "cur_power": "961",
+    "cur_voltage": "2425",
+  },
+  {
+    "Timestamp": "2023-09-02T18:43:00",
+    "cur_current": "666",
+    "cur_power": "698",
+    "cur_voltage": "2430",
+  },
+  {
+    "Timestamp": "2023-09-02T18:31:00",
+    "add_ele": "39"
+  },
+  {
+    "Timestamp": "2023-09-02T18:30:00",
+    "cur_current": "639",
+    "cur_power": "896",
+    "cur_voltage": "2425",
+  },
+  {
+    "Timestamp": "2023-09-02T18:23:00",
+    "cur_current": "697",
+    "cur_power": "934",
+    "cur_voltage": "2434",
+  },
+  {
+    "Timestamp": "2023-09-02T18:01:00",
+    "add_ele": "37"
+  },
+  {
+    "Timestamp": "2023-09-02T17:57:00",
+    "cur_current": "584",
+    "cur_power": "783",
+    "cur_voltage": "2444",
+  },
+  {
+    "Timestamp": "2023-09-02T17:51:00",
+    "cur_current": "671",
+    "cur_power": "579",
+    "cur_voltage": "2434",
+  },
+  {
+    "Timestamp": "2023-09-02T17:47:00",
+    "cur_current": "483",
+    "cur_power": "712",
+    "cur_voltage": "2425",
+  },
+  {
+    "Timestamp": "2023-09-02T17:43:00",
+    "cur_current": "538",
+    "cur_power": "609",
+  },
+  {
+    "Timestamp": "2023-09-02T17:42:00",
+    "cur_current": "857",
+    "cur_power": "645",
+    "cur_voltage": "2434",
+  },
+  {
+    "Timestamp": "2023-09-02T17:39:00",
+    "cur_current": "663",
+    "cur_power": "644",
+    "cur_voltage": "2449",
+  },
+  {
+    "Timestamp": "2023-09-02T17:36:00",
+    "cur_current": "674",
+    "cur_power": "884",
+    "cur_voltage": "2430",
+  },
+  {
+    "Timestamp": "2023-09-02T17:35:00",
+    "cur_current": "719",
+    "cur_power": "589",
+    "cur_voltage": "2434",
+  },
+  {
+    "Timestamp": "2023-09-02T17:31:00",
+    "cur_current": "664",
+    "cur_power": "755",
+    "cur_voltage": "2430",
+    "add_ele": "37"
+  },
+  {
+    "Timestamp": "2023-09-02T17:28:00",
+    "cur_current": "803",
+    "cur_power": "877",
+    "cur_voltage": "2420",
+  },
+  {
+    "Timestamp": "2023-09-02T17:21:00",
+    "cur_current": "783",
+    "cur_power": "953",
+    "cur_voltage": "2444",
+  },
+  {
+    "Timestamp": "2023-09-02T17:11:00",
+    "cur_current": "799",
+    "cur_power": "595",
+    "cur_voltage": "2434",
+  },
+  {
+    "Timestamp": "2023-09-02T17:09:00",
+    "cur_current": "616",
+    "cur_power": "1037",
+    "cur_voltage": "2420",
+  },
+  {
+    "Timestamp": "2023-09-02T17:08:00",
+    "cur_current": "565",
+    "cur_power": "806",
+    "cur_voltage": "2434",
+  },
+  {
+    "Timestamp": "2023-09-02T17:03:00",
+    "cur_current": "736",
+    "cur_power": "838",
+    "cur_voltage": "2444",
+  },
+  {
+    "Timestamp": "2023-09-02T17:01:00",
+    "add_ele": "37"
+  },
+  {
+    "Timestamp": "2023-09-02T16:55:00",
+    "cur_current": "565",
+    "cur_power": "904",
+  },
+  {
+    "Timestamp": "2023-09-02T16:50:00",
+    "cur_current": "409",
+    "cur_power": "616",
+  },
+  {
+    "Timestamp": "2023-09-02T16:45:00",
+    "cur_current": "670",
+    "cur_power": "637",
+    "cur_voltage": "2416",
+  },
+  {
+    "Timestamp": "2023-09-02T16:42:00",
+    "cur_current": "759",
+    "cur_power": "525",
+    "cur_voltage": "2411",
+  },
+  {
+    "Timestamp": "2023-09-02T16:39:00",
+    "cur_current": "764",
+    "cur_power": "803",
+  },
+  {
+    "Timestamp": "2023-09-02T16:38:00",
+    "cur_current": "899",
+    "cur_power": "656",
+    "cur_voltage": "2416",
+  },
+  {
+    "Timestamp": "2023-09-02T16:33:00",
+    "cur_current": "778",
+    "cur_power": "808",
+    "cur_voltage": "2420",
+  },
+  {
+    "Timestamp": "2023-09-02T16:31:00",
+    "add_ele": "37"
+  },
+  {
+    "Timestamp": "2023-09-02T16:28:00",
+    "cur_current": "743",
+    "cur_power": "844",
+    "cur_voltage": "2416",
+  },
+  {
+    "Timestamp": "2023-09-02T16:23:00",
+    "cur_current": "666",
+    "cur_power": "970",
+    "cur_voltage": "2425",
+  },
+  {
+    "Timestamp": "2023-09-02T16:15:00",
+    "cur_current": "884",
+    "cur_power": "795",
+    "cur_voltage": "2411",
+  },
+  {
+    "Timestamp": "2023-09-02T16:09:00",
+    "cur_current": "430",
+    "cur_power": "862",
+    "cur_voltage": "2406",
+  },
+  {
+    "Timestamp": "2023-09-02T16:01:00",
+    "add_ele": "37"
+  },
+  {
+    "Timestamp": "2023-09-02T15:48:00",
+    "cur_current": "886",
+    "cur_power": "665",
+    "cur_voltage": "2416",
+  },
+  {
+    "Timestamp": "2023-09-02T15:46:00",
+    "cur_current": "757",
+    "cur_power": "602",
+    "cur_voltage": "2420",
+  },
+  {
+    "Timestamp": "2023-09-02T15:44:00",
+    "cur_current": "563",
+    "cur_power": "753",
+    "cur_voltage": "2416",
+  },
+  {
+    "Timestamp": "2023-09-02T15:37:00",
+    "cur_current": "919",
+    "cur_power": "885",
+    "cur_voltage": "2397",
+  },
+  {
+    "Timestamp": "2023-09-02T15:34:00",
+    "cur_current": "655",
+    "cur_power": "744",
+    "cur_voltage": "2416",
+  },
+  {
+    "Timestamp": "2023-09-02T15:31:00",
+    "add_ele": "37"
+  },
+  {
+    "Timestamp": "2023-09-02T15:19:00",
+    "cur_current": "397",
+    "cur_power": "547",
+    "cur_voltage": "2416",
+  },
+  {
+    "Timestamp": "2023-09-02T15:11:00",
+    "cur_current": "662",
+    "cur_power": "594",
+    "cur_voltage": "2425",
+  },
+  {
+    "Timestamp": "2023-09-02T15:09:00",
+    "cur_current": "664",
+    "cur_power": "759",
+  },
+  {
+    "Timestamp": "2023-09-02T15:04:00",
+    "cur_current": "450",
+    "cur_power": "796",
+    "cur_voltage": "2416",
+  },
+  {
+    "Timestamp": "2023-09-02T15:01:00",
+    "add_ele": "37"
+  },
+  {
+    "Timestamp": "2023-09-02T14:57:00",
+    "cur_current": "551",
+    "cur_power": "711",
+    "cur_voltage": "2416",
+  },
+  {
+    "Timestamp": "2023-09-02T14:56:00",
+    "cur_current": "618",
+    "cur_power": "784",
+    "cur_voltage": "2393",
+  },
+  {
+    "Timestamp": "2023-09-02T14:54:00",
+    "cur_current": "585",
+    "cur_power": "763",
+    "cur_voltage": "2425",
+  },
+  {
+    "Timestamp": "2023-09-02T14:51:00",
+    "cur_current": "412",
+    "cur_power": "791",
+    "cur_voltage": "2411",
+  },
+  {
+    "Timestamp": "2023-09-02T14:49:00",
+    "cur_current": "611",
+    "cur_power": "906",
+    "cur_voltage": "2425",
+  },
+  {
+    "Timestamp": "2023-09-02T14:46:00",
+    "cur_current": "856",
+    "cur_power": "739",
+    "cur_voltage": "2388",
+  },
+  {
+    "Timestamp": "2023-09-02T14:42:00",
+    "cur_current": "772",
+    "cur_power": "761",
+    "cur_voltage": "2416",
+  },
+  {
+    "Timestamp": "2023-09-02T14:41:00",
+    "cur_current": "876",
+    "cur_power": "790",
+    "cur_voltage": "2420",
+  },
+  {
+    "Timestamp": "2023-09-02T14:40:00",
+    "cur_current": "817",
+    "cur_power": "924",
+    "cur_voltage": "2397",
+  },
+  {
+    "Timestamp": "2023-09-02T14:39:00",
+    "cur_current": "817",
+    "cur_power": "924",
+    "cur_voltage": "2397",
+  },
+  {
+    "Timestamp": "2023-09-02T14:38:00",
+    "cur_current": "478",
+    "cur_power": "790",
+    "cur_voltage": "2406",
+  },
+  {
+    "Timestamp": "2023-09-02T14:37:00",
+    "cur_current": "642",
+    "cur_power": "792",
+    "cur_voltage": "2416",
+  },
+  {
+    "Timestamp": "2023-09-02T14:32:00",
+    "cur_current": "528",
+    "cur_power": "921",
+    "cur_voltage": "2397",
+  },
+  {
+    "Timestamp": "2023-09-02T14:31:00",
+    "add_ele": "37"
+  },
+  {
+    "Timestamp": "2023-09-02T14:24:00",
+    "cur_current": "575",
+    "cur_power": "804",
+    "cur_voltage": "2397",
+  },
+  {
+    "Timestamp": "2023-09-02T14:22:00",
+    "cur_current": "912",
+    "cur_power": "939",
+  },
+  {
+    "Timestamp": "2023-09-02T14:21:00",
+    "cur_current": "802",
+    "cur_power": "533",
+    "cur_voltage": "2397",
+  },
+  {
+    "Timestamp": "2023-09-02T14:18:00",
+    "cur_current": "678",
+    "cur_power": "857",
+    "cur_voltage": "2416",
+  },
+  {
+    "Timestamp": "2023-09-02T14:17:00",
+    "cur_current": "481",
+    "cur_power": "820",
+    "cur_voltage": "2388",
+  },
+  {
+    "Timestamp": "2023-09-02T14:15:00",
+    "cur_current": "892",
+    "cur_power": "822",
+    "cur_voltage": "2406",
+  },
+  {
+    "Timestamp": "2023-09-02T14:14:00",
+    "cur_current": "664",
+    "cur_power": "780",
+    "cur_voltage": "2406",
+  },
+  {
+    "Timestamp": "2023-09-02T14:13:00",
+    "cur_current": "576",
+    "cur_power": "956",
+    "cur_voltage": "2411",
+  },
+  {
+    "Timestamp": "2023-09-02T14:07:00",
+    "cur_current": "502",
+    "cur_power": "686",
+    "cur_voltage": "2402",
+  },
+  {
+    "Timestamp": "2023-09-02T14:01:00",
+    "add_ele": "37"
+  },
+  {
+    "Timestamp": "2023-09-02T13:58:00",
+    "cur_current": "569",
+    "cur_power": "773",
+    "cur_voltage": "2393",
+  },
+  {
+    "Timestamp": "2023-09-02T13:53:00",
+    "cur_current": "472",
+    "cur_power": "719",
+  },
+  {
+    "Timestamp": "2023-09-02T13:49:00",
+    "cur_current": "521",
+    "cur_power": "763",
+    "cur_voltage": "2416",
+  },
+  {
+    "Timestamp": "2023-09-02T13:46:00",
+    "cur_current": "666",
+    "cur_power": "702",
+    "cur_voltage": "2425",
+  },
+  {
+    "Timestamp": "2023-09-02T13:44:00",
+    "cur_current": "739",
+    "cur_power": "753",
+  },
+  {
+    "Timestamp": "2023-09-02T13:38:00",
+    "cur_current": "437",
+    "cur_power": "766",
+    "cur_voltage": "2411",
+  },
+  {
+    "Timestamp": "2023-09-02T13:35:00",
+    "cur_current": "776",
+    "cur_power": "532",
+    "cur_voltage": "2416",
+  },
+  {
+    "Timestamp": "2023-09-02T13:31:00",
+    "add_ele": "37"
+  },
+  {
+    "Timestamp": "2023-09-02T13:29:00",
+    "cur_current": "571",
+    "cur_power": "760",
+    "cur_voltage": "2425",
+  },
+  {
+    "Timestamp": "2023-09-02T13:23:00",
+    "cur_current": "545",
+    "cur_power": "786",
+  },
+  {
+    "Timestamp": "2023-09-02T13:14:00",
+    "cur_current": "501",
+    "cur_power": "607",
+    "cur_voltage": "2425",
+  },
+  {
+    "Timestamp": "2023-09-02T13:13:00",
+    "cur_current": "597",
+    "cur_power": "783",
+    "cur_voltage": "2420",
+  },
+  {
+    "Timestamp": "2023-09-02T13:10:00",
+    "cur_current": "421",
+    "cur_power": "769",
+    "cur_voltage": "2434",
+  },
+  {
+    "Timestamp": "2023-09-02T13:03:00",
+    "cur_current": "441",
+    "cur_power": "639",
+    "cur_voltage": "2411",
+  },
+  {
+    "Timestamp": "2023-09-02T13:02:00",
+    "cur_current": "566",
+    "cur_power": "747",
+    "cur_voltage": "2416",
+  },
+  {
+    "Timestamp": "2023-09-02T13:01:00",
+    "add_ele": "36"
+  },
+  {
+    "Timestamp": "2023-09-02T12:57:00",
+    "cur_current": "617",
+    "cur_power": "828",
+    "cur_voltage": "2430",
+  },
+  {
+    "Timestamp": "2023-09-02T12:56:00",
+    "cur_current": "404",
+    "cur_power": "554",
+    "cur_voltage": "2411",
+  },
+  {
+    "Timestamp": "2023-09-02T12:53:00",
+    "cur_current": "730",
+    "cur_power": "911",
+    "cur_voltage": "2416",
+  },
+  {
+    "Timestamp": "2023-09-02T12:48:00",
+    "cur_current": "459",
+    "cur_power": "840",
+  },
+  {
+    "Timestamp": "2023-09-02T12:42:00",
+    "cur_current": "550",
+    "cur_power": "977",
+    "cur_voltage": "2416",
+  },
+  {
+    "Timestamp": "2023-09-02T12:40:00",
+    "cur_current": "703",
+    "cur_power": "545",
+    "cur_voltage": "2420",
+  },
+  {
+    "Timestamp": "2023-09-02T12:36:00",
+    "cur_current": "807",
+    "cur_power": "499",
+    "cur_voltage": "2416",
+  },
+  {
+    "Timestamp": "2023-09-02T12:35:00",
+    "cur_current": "754",
+    "cur_power": "553",
+    "cur_voltage": "2420",
+  },
+  {
+    "Timestamp": "2023-09-02T12:33:00",
+    "cur_current": "552",
+    "cur_power": "803",
+    "cur_voltage": "2416",
+  },
+  {
+    "Timestamp": "2023-09-02T12:31:00",
+    "add_ele": "38"
+  },
+  {
+    "Timestamp": "2023-09-02T12:19:00",
+    "cur_current": "665",
+    "cur_power": "582",
+    "cur_voltage": "2411",
+  },
+  {
+    "Timestamp": "2023-09-02T12:14:00",
+    "cur_current": "539",
+    "cur_power": "919",
+    "cur_voltage": "2416",
+  },
+  {
+    "Timestamp": "2023-09-02T12:01:00",
+    "cur_current": "744",
+    "cur_power": "786",
+    "cur_voltage": "2384",
+    "add_ele": "37"
+  },
+  {
+    "Timestamp": "2023-09-02T11:56:00",
+    "cur_current": "807",
+    "cur_power": "781",
+  },
+  {
+    "Timestamp": "2023-09-02T11:55:00",
+    "cur_current": "395",
+    "cur_power": "720",
+    "cur_voltage": "2416",
+  },
+  {
+    "Timestamp": "2023-09-02T11:52:00",
+    "cur_current": "729",
+    "cur_power": "753",
+    "cur_voltage": "2393",
+  },
+  {
+    "Timestamp": "2023-09-02T11:51:00",
+    "cur_current": "433",
+    "cur_power": "799",
+    "cur_voltage": "2402",
+  },
+  {
+    "Timestamp": "2023-09-02T11:50:00",
+    "cur_current": "670",
+    "cur_power": "670",
+    "cur_voltage": "2420",
+  },
+  {
+    "Timestamp": "2023-09-02T11:47:00",
+    "cur_current": "570",
+    "cur_power": "733",
+    "cur_voltage": "2411",
+  },
+  {
+    "Timestamp": "2023-09-02T11:42:00",
+    "cur_current": "539",
+    "cur_power": "713",
+    "cur_voltage": "2388",
+  },
+  {
+    "Timestamp": "2023-09-02T11:40:00",
+    "cur_current": "585",
+    "cur_power": "630",
+    "cur_voltage": "2393",
+  },
+  {
+    "Timestamp": "2023-09-02T11:39:00",
+    "cur_current": "849",
+    "cur_power": "761",
+    "cur_voltage": "2439",
+  },
+  {
+    "Timestamp": "2023-09-02T11:38:00",
+    "cur_current": "645",
+    "cur_power": "864",
+    "cur_voltage": "2434",
+  },
+  {
+    "Timestamp": "2023-09-02T11:34:00",
+    "cur_current": "726",
+    "cur_power": "810",
+    "cur_voltage": "2425",
+  },
+  {
+    "Timestamp": "2023-09-02T11:32:00",
+    "cur_current": "561",
+    "cur_power": "601",
+    "cur_voltage": "2416",
+  },
+  {
+    "Timestamp": "2023-09-02T11:30:00",
+    "add_ele": "37"
+  },
+  {
+    "Timestamp": "2023-09-02T11:26:00",
+    "cur_current": "763",
+    "cur_power": "816",
+    "cur_voltage": "2420",
+  },
+  {
+    "Timestamp": "2023-09-02T11:25:00",
+    "cur_current": "779",
+    "cur_power": "920",
+    "cur_voltage": "2430",
+  },
+  {
+    "Timestamp": "2023-09-02T11:19:00",
+    "cur_current": "871",
+    "cur_power": "922",
+    "cur_voltage": "2420",
+  },
+  {
+    "Timestamp": "2023-09-02T11:16:00",
+    "cur_current": "702",
+    "cur_power": "672",
+  },
+  {
+    "Timestamp": "2023-09-02T11:08:00",
+    "cur_current": "964",
+    "cur_power": "1045",
+    "cur_voltage": "2416",
+  },
+  {
+    "Timestamp": "2023-09-02T11:00:00",
+    "add_ele": "36"
+  },
+  {
+    "Timestamp": "2023-09-02T10:49:00",
+    "cur_current": "526",
+    "cur_power": "775",
+    "cur_voltage": "2420",
+  },
+  {
+    "Timestamp": "2023-09-02T10:48:00",
+    "cur_current": "676",
+    "cur_power": "887",
+    "cur_voltage": "2420",
+  },
+  {
+    "Timestamp": "2023-09-02T10:47:00",
+    "cur_current": "514",
+    "cur_power": "524",
+    "cur_voltage": "2416",
+  },
+  {
+    "Timestamp": "2023-09-02T10:46:00",
+    "cur_current": "437",
+    "cur_power": "622",
+    "cur_voltage": "2420",
+  },
+  {
+    "Timestamp": "2023-09-02T10:39:00",
+    "cur_current": "435",
+    "cur_power": "511",
+    "cur_voltage": "2430",
+  },
+  {
+    "Timestamp": "2023-09-02T10:37:00",
+    "cur_current": "664",
+    "cur_power": "651",
+    "cur_voltage": "2434",
+  },
+  {
+    "Timestamp": "2023-09-02T10:34:00",
+    "cur_current": "834",
+    "cur_power": "747",
+    "cur_voltage": "2420",
+  },
+  {
+    "Timestamp": "2023-09-02T10:30:00",
+    "add_ele": "37"
+  },
+  {
+    "Timestamp": "2023-09-02T10:23:00",
+    "cur_current": "721",
+    "cur_power": "637",
+    "cur_voltage": "2430",
+  },
+  {
+    "Timestamp": "2023-09-02T10:21:00",
+    "cur_current": "829",
+    "cur_power": "769",
+    "cur_voltage": "2420",
+  },
+  {
+    "Timestamp": "2023-09-02T10:20:00",
+    "cur_current": "397",
+    "cur_power": "688",
+    "cur_voltage": "2416",
+  },
+  {
+    "Timestamp": "2023-09-02T10:17:00",
+    "cur_current": "562",
+    "cur_power": "836",
+    "cur_voltage": "2425",
+  },
+  {
+    "Timestamp": "2023-09-02T10:06:00",
+    "cur_current": "639",
+    "cur_power": "644",
+    "cur_voltage": "2434",
+  },
+  {
+    "Timestamp": "2023-09-02T10:00:00",
+    "add_ele": "36"
+  },
+  {
+    "Timestamp": "2023-09-02T09:57:00",
+    "cur_current": "374",
+    "cur_power": "498",
+    "cur_voltage": "2430",
+  },
+  {
+    "Timestamp": "2023-09-02T09:56:00",
+    "cur_current": "759",
+    "cur_power": "721",
+    "cur_voltage": "2439",
+  },
+  {
+    "Timestamp": "2023-09-02T09:55:00",
+    "cur_current": "704",
+    "cur_power": "697",
+    "cur_voltage": "2430",
+  },
+  {
+    "Timestamp": "2023-09-02T09:50:00",
+    "cur_current": "643",
+    "cur_power": "683",
+    "cur_voltage": "2425",
+  },
+  {
+    "Timestamp": "2023-09-02T09:45:00",
+    "cur_current": "629",
+    "cur_power": "490",
+    "cur_voltage": "2420",
+  },
+  {
+    "Timestamp": "2023-09-02T09:40:00",
+    "cur_current": "572",
+    "cur_power": "484",
+    "cur_voltage": "2420",
+  },
+  {
+    "Timestamp": "2023-09-02T09:39:00",
+    "cur_current": "549",
+    "cur_power": "512",
+  },
+  {
+    "Timestamp": "2023-09-02T09:36:00",
+    "cur_current": "707",
+    "cur_power": "801",
+    "cur_voltage": "2425",
+  },
+  {
+    "Timestamp": "2023-09-02T09:31:00",
+    "cur_current": "1008",
+    "cur_power": "1408",
+    "cur_voltage": "2425",
+  },
+  {
+    "Timestamp": "2023-09-02T09:30:00",
+    "cur_current": "763",
+    "cur_power": "881",
+    "cur_voltage": "2425",
+    "add_ele": "39"
+  },
+  {
+    "Timestamp": "2023-09-02T09:09:00",
+    "cur_current": "730",
+    "cur_power": "898",
+    "cur_voltage": "2420",
+  },
+  {
+    "Timestamp": "2023-09-02T09:02:00",
+    "cur_current": "536",
+    "cur_power": "753",
+    "cur_voltage": "2444",
+  },
+  {
+    "Timestamp": "2023-09-02T09:00:00",
+    "add_ele": "38"
+  },
+  {
+    "Timestamp": "2023-09-02T08:56:00",
+    "cur_current": "573",
+    "cur_power": "830",
+    "cur_voltage": "2449",
+  },
+  {
+    "Timestamp": "2023-09-02T08:43:00",
+    "cur_current": "758",
+    "cur_power": "758",
+    "cur_voltage": "2425",
+  },
+  {
+    "Timestamp": "2023-09-02T08:42:00",
+    "cur_current": "825",
+    "cur_power": "997",
+    "cur_voltage": "2430",
+  },
+  {
+    "Timestamp": "2023-09-02T08:40:00",
+    "cur_current": "723",
+    "cur_power": "658",
+    "cur_voltage": "2425",
+  },
+  {
+    "Timestamp": "2023-09-02T08:35:00",
+    "cur_current": "801",
+    "cur_power": "1018",
+    "cur_voltage": "2425",
+  },
+  {
+    "Timestamp": "2023-09-02T08:33:00",
+    "cur_current": "573",
+    "cur_power": "762",
+  },
+  {
+    "Timestamp": "2023-09-02T08:30:00",
+    "add_ele": "39"
+  },
+  {
+    "Timestamp": "2023-09-02T08:26:00",
+    "cur_current": "719",
+    "cur_power": "1030",
+    "cur_voltage": "2416",
+  },
+  {
+    "Timestamp": "2023-09-02T08:12:00",
+    "cur_current": "553",
+    "cur_power": "678",
+    "cur_voltage": "2425",
+  },
+  {
+    "Timestamp": "2023-09-02T08:09:00",
+    "cur_current": "916",
+    "cur_power": "989",
+    "cur_voltage": "2439",
+  },
+  {
+    "Timestamp": "2023-09-02T08:02:00",
+    "cur_current": "685",
+    "cur_power": "829",
+    "cur_voltage": "2411",
+  },
+  {
+    "Timestamp": "2023-09-02T08:00:00",
+    "add_ele": "39"
+  },
+  {
+    "Timestamp": "2023-09-02T07:56:00",
+    "cur_current": "564",
+    "cur_power": "784",
+    "cur_voltage": "2416",
+  },
+  {
+    "Timestamp": "2023-09-02T07:55:00",
+    "cur_current": "685",
+    "cur_power": "1056",
+    "cur_voltage": "2411",
+  },
+  {
+    "Timestamp": "2023-09-02T07:49:00",
+    "cur_current": "752",
+    "cur_power": "962",
+    "cur_voltage": "2406",
+  },
+  {
+    "Timestamp": "2023-09-02T07:47:00",
+    "cur_current": "587",
+    "cur_power": "686",
+    "cur_voltage": "2420",
+  },
+  {
+    "Timestamp": "2023-09-02T07:46:00",
+    "cur_current": "664",
+    "cur_power": "873",
+  },
+  {
+    "Timestamp": "2023-09-02T07:40:00",
+    "cur_current": "610",
+    "cur_power": "801",
+  },
+  {
+    "Timestamp": "2023-09-02T07:30:00",
+    "add_ele": "39"
+  },
+  {
+    "Timestamp": "2023-09-02T07:11:00",
+    "cur_current": "666",
+    "cur_power": "689",
+    "cur_voltage": "2416",
+  },
+  {
+    "Timestamp": "2023-09-02T07:03:00",
+    "cur_current": "812",
+    "cur_power": "929",
+    "cur_voltage": "2416",
+  },
+  {
+    "Timestamp": "2023-09-02T07:00:00",
+    "add_ele": "38"
+  },
+  {
+    "Timestamp": "2023-09-02T06:58:00",
+    "cur_current": "605",
+    "cur_power": "995",
+    "cur_voltage": "2402",
+  },
+  {
+    "Timestamp": "2023-09-02T06:55:00",
+    "cur_current": "651",
+    "cur_power": "874",
+  },
+  {
+    "Timestamp": "2023-09-02T06:45:00",
+    "cur_current": "674",
+    "cur_power": "982",
+    "cur_voltage": "2411",
+  },
+  {
+    "Timestamp": "2023-09-02T06:42:00",
+    "cur_current": "801",
+    "cur_power": "889",
+    "cur_voltage": "2416",
+  },
+  {
+    "Timestamp": "2023-09-02T06:35:00",
+    "cur_current": "700",
+    "cur_power": "728",
+  },
+  {
+    "Timestamp": "2023-09-02T06:30:00",
+    "add_ele": "39"
+  },
+  {
+    "Timestamp": "2023-09-02T06:27:00",
+    "cur_current": "673",
+    "cur_power": "885",
+    "cur_voltage": "2416",
+  },
+  {
+    "Timestamp": "2023-09-02T06:24:00",
+    "cur_current": "646",
+    "cur_power": "1043",
+    "cur_voltage": "2411",
+  },
+  {
+    "Timestamp": "2023-09-02T06:17:00",
+    "cur_current": "572",
+    "cur_power": "876",
+    "cur_voltage": "2416",
+  },
+  {
+    "Timestamp": "2023-09-02T06:10:00",
+    "cur_current": "677",
+    "cur_power": "912",
+    "cur_voltage": "2406",
+  },
+  {
+    "Timestamp": "2023-09-02T06:09:00",
+    "cur_current": "633",
+    "cur_power": "982",
+    "cur_voltage": "2397",
+  },
+  {
+    "Timestamp": "2023-09-02T06:00:00",
+    "add_ele": "39"
+  },
+  {
+    "Timestamp": "2023-09-02T05:38:00",
+    "cur_current": "987",
+    "cur_power": "972",
+  },
+  {
+    "Timestamp": "2023-09-02T05:30:00",
+    "add_ele": "38"
+  },
+  {
+    "Timestamp": "2023-09-02T05:27:00",
+    "cur_current": "818",
+    "cur_power": "867",
+    "cur_voltage": "2416",
+  },
+  {
+    "Timestamp": "2023-09-02T05:20:00",
+    "cur_current": "743",
+    "cur_power": "960",
+    "cur_voltage": "2425",
+  },
+  {
+    "Timestamp": "2023-09-02T05:12:00",
+    "cur_current": "714",
+    "cur_power": "839",
+  },
+  {
+    "Timestamp": "2023-09-02T05:09:00",
+    "cur_current": "863",
+    "cur_power": "1041",
+    "cur_voltage": "2411",
+  },
+  {
+    "Timestamp": "2023-09-02T05:00:00",
+    "add_ele": "38"
+  },
+  {
+    "Timestamp": "2023-09-02T04:57:00",
+    "cur_current": "557",
+    "cur_power": "831",
+    "cur_voltage": "2434",
+  },
+  {
+    "Timestamp": "2023-09-02T04:50:00",
+    "cur_current": "554",
+    "cur_power": "724",
+  },
+  {
+    "Timestamp": "2023-09-02T04:48:00",
+    "cur_current": "372",
+    "cur_power": "540",
+    "cur_voltage": "2416",
+  },
+  {
+    "Timestamp": "2023-09-02T04:44:00",
+    "cur_current": "760",
+    "cur_power": "649",
+    "cur_voltage": "2420",
+  },
+  {
+    "Timestamp": "2023-09-02T04:43:00",
+    "cur_current": "408",
+    "cur_power": "712",
+    "cur_voltage": "2430",
+  },
+  {
+    "Timestamp": "2023-09-02T04:41:00",
+    "cur_current": "581",
+    "cur_power": "766",
+  },
+  {
+    "Timestamp": "2023-09-02T04:40:00",
+    "cur_current": "1152",
+    "cur_power": "1434",
+    "cur_voltage": "2416",
+  },
+  {
+    "Timestamp": "2023-09-02T04:39:00",
+    "cur_current": "882",
+    "cur_power": "1270",
+    "cur_voltage": "2420",
+  },
+  {
+    "Timestamp": "2023-09-02T04:38:00",
+    "cur_current": "770",
+    "cur_power": "619",
+    "cur_voltage": "2420",
+  },
+  {
+    "Timestamp": "2023-09-02T04:37:00",
+    "cur_current": "493",
+    "cur_power": "657",
+    "cur_voltage": "2402",
+  },
+  {
+    "Timestamp": "2023-09-02T04:30:00",
+    "add_ele": "37"
+  },
+  {
+    "Timestamp": "2023-09-02T04:29:00",
+    "cur_current": "703",
+    "cur_power": "741",
+    "cur_voltage": "2411",
+  },
+  {
+    "Timestamp": "2023-09-02T04:28:00",
+    "cur_current": "494",
+    "cur_power": "811",
+  },
+  {
+    "Timestamp": "2023-09-02T04:25:00",
+    "cur_current": "407",
+    "cur_power": "684",
+    "cur_voltage": "2416",
+  },
+  {
+    "Timestamp": "2023-09-02T04:17:00",
+    "cur_current": "511",
+    "cur_power": "567",
+    "cur_voltage": "2411",
+  },
+  {
+    "Timestamp": "2023-09-02T04:14:00",
+    "cur_current": "747",
+    "cur_power": "793",
+  },
+  {
+    "Timestamp": "2023-09-02T04:09:00",
+    "cur_current": "677",
+    "cur_power": "975",
+    "cur_voltage": "2416",
+  },
+  {
+    "Timestamp": "2023-09-02T04:08:00",
+    "cur_current": "448",
+    "cur_power": "578",
+    "cur_voltage": "2416",
+  },
+  {
+    "Timestamp": "2023-09-02T04:06:00",
+    "cur_current": "755",
+    "cur_power": "869",
+    "cur_voltage": "2406",
+  },
+  {
+    "Timestamp": "2023-09-02T04:05:00",
+    "cur_current": "481",
+    "cur_power": "812",
+  },
+  {
+    "Timestamp": "2023-09-02T04:04:00",
+    "cur_current": "773",
+    "cur_power": "870",
+  },
+  {
+    "Timestamp": "2023-09-02T04:03:00",
+    "cur_current": "405",
+    "cur_power": "678",
+    "cur_voltage": "2416",
+  },
+  {
+    "Timestamp": "2023-09-02T04:02:00",
+    "cur_current": "552",
+    "cur_power": "821",
+    "cur_voltage": "2388",
+  },
+  {
+    "Timestamp": "2023-09-02T04:00:00",
+    "add_ele": "37"
+  },
+  {
+    "Timestamp": "2023-09-02T03:57:00",
+    "cur_current": "646",
+    "cur_power": "691",
+    "cur_voltage": "2411",
+  },
+  {
+    "Timestamp": "2023-09-02T03:55:00",
+    "cur_current": "598",
+    "cur_power": "803",
+    "cur_voltage": "2416",
+  },
+  {
+    "Timestamp": "2023-09-02T03:52:00",
+    "cur_current": "386",
+    "cur_power": "669",
+    "cur_voltage": "2411",
+  },
+  {
+    "Timestamp": "2023-09-02T03:50:00",
+    "cur_current": "531",
+    "cur_power": "663",
+    "cur_voltage": "2361",
+  },
+  {
+    "Timestamp": "2023-09-02T03:49:00",
+    "cur_current": "678",
+    "cur_power": "855",
+  },
+  {
+    "Timestamp": "2023-09-02T03:48:00",
+    "cur_current": "678",
+    "cur_power": "656",
+    "cur_voltage": "2411",
+  },
+  {
+    "Timestamp": "2023-09-02T03:46:00",
+    "cur_current": "551",
+    "cur_power": "746",
+    "cur_voltage": "2454",
+  },
+  {
+    "Timestamp": "2023-09-02T03:43:00",
+    "cur_current": "506",
+    "cur_power": "829",
+    "cur_voltage": "2458",
+  },
+  {
+    "Timestamp": "2023-09-02T03:39:00",
+    "cur_current": "446",
+    "cur_power": "593",
+    "cur_voltage": "2416",
+  },
+  {
+    "Timestamp": "2023-09-02T03:34:00",
+    "cur_current": "402",
+    "cur_power": "734",
+    "cur_voltage": "2420",
+    "add_ele": "36"
+  },
+  {
+    "Timestamp": "2023-09-02T03:29:00",
+    "cur_current": "564",
+    "cur_power": "791",
+    "add_ele": "36"
+  },
+  {
+    "Timestamp": "2023-09-02T03:28:00",
+    "cur_current": "702",
+    "cur_power": "754",
+    "cur_voltage": "2449",
+  },
+  {
+    "Timestamp": "2023-09-02T03:17:00",
+    "cur_current": "527",
+    "cur_power": "626",
+    "cur_voltage": "2454",
+  },
+  {
+    "Timestamp": "2023-09-02T03:14:00",
+    "cur_current": "668",
+    "cur_power": "581",
+    "cur_voltage": "2425",
+  },
+  {
+    "Timestamp": "2023-09-02T03:12:00",
+    "cur_current": "605",
+    "cur_power": "933",
+    "cur_voltage": "2439",
+  },
+  {
+    "Timestamp": "2023-09-02T03:09:00",
+    "cur_current": "747",
+    "cur_power": "945",
+  },
+  {
+    "Timestamp": "2023-09-02T03:06:00",
+    "cur_current": "446",
+    "cur_power": "714",
+    "cur_voltage": "2444",
+  },
+  {
+    "Timestamp": "2023-09-02T03:00:00",
+    "cur_current": "406",
+    "cur_power": "533",
+    "cur_voltage": "2439",
+  },
+  {
+    "Timestamp": "2023-09-02T02:59:00",
+    "cur_current": "469",
+    "cur_power": "580",
+    "cur_voltage": "2444",
+    "add_ele": "37"
+  },
+  {
+    "Timestamp": "2023-09-02T02:37:00",
+    "cur_current": "742",
+    "cur_power": "664",
+    "cur_voltage": "2434",
+  },
+  {
+    "Timestamp": "2023-09-02T02:29:00",
+    "add_ele": "36"
+  },
+  {
+    "Timestamp": "2023-09-02T02:28:00",
+    "cur_current": "449",
+    "cur_power": "761",
+    "cur_voltage": "2430",
+  },
+  {
+    "Timestamp": "2023-09-02T02:17:00",
+    "cur_current": "829",
+    "cur_power": "593",
+    "cur_voltage": "2439",
+  },
+  {
+    "Timestamp": "2023-09-02T02:14:00",
+    "cur_current": "602",
+    "cur_power": "915",
+    "cur_voltage": "2388",
+  },
+  {
+    "Timestamp": "2023-09-02T02:11:00",
+    "cur_current": "404",
+    "cur_power": "648",
+    "cur_voltage": "2402",
+  },
+  {
+    "Timestamp": "2023-09-02T02:05:00",
+    "cur_current": "768",
+    "cur_power": "1004",
+    "cur_voltage": "2425",
+  },
+  {
+    "Timestamp": "2023-09-02T01:59:00",
+    "add_ele": "37"
+  },
+  {
+    "Timestamp": "2023-09-02T01:46:00",
+    "cur_current": "663",
+    "cur_power": "938",
+    "cur_voltage": "2430",
+  },
+  {
+    "Timestamp": "2023-09-02T01:40:00",
+    "cur_current": "765",
+    "cur_power": "566",
+    "cur_voltage": "2425",
+  },
+  {
+    "Timestamp": "2023-09-02T01:35:00",
+    "cur_current": "453",
+    "cur_power": "733",
+    "cur_voltage": "2402",
+  },
+  {
+    "Timestamp": "2023-09-02T01:32:00",
+    "cur_current": "765",
+    "cur_power": "783",
+    "cur_voltage": "2420",
+  },
+  {
+    "Timestamp": "2023-09-02T01:29:00",
+    "add_ele": "37"
+  },
+  {
+    "Timestamp": "2023-09-02T01:28:00",
+    "cur_current": "640",
+    "cur_power": "719",
+    "cur_voltage": "2406",
+  },
+  {
+    "Timestamp": "2023-09-02T01:27:00",
+    "cur_current": "550",
+    "cur_power": "749",
+    "cur_voltage": "2425",
+  },
+  {
+    "Timestamp": "2023-09-02T01:24:00",
+    "cur_current": "423",
+    "cur_power": "787",
+    "cur_voltage": "2430",
+  },
+  {
+    "Timestamp": "2023-09-02T01:21:00",
+    "cur_current": "585",
+    "cur_power": "767",
+    "cur_voltage": "2416",
+  },
+  {
+    "Timestamp": "2023-09-02T01:17:00",
+    "cur_current": "410",
+    "cur_power": "623",
+    "cur_voltage": "2416",
+  },
+  {
+    "Timestamp": "2023-09-02T01:16:00",
+    "cur_current": "670",
+    "cur_power": "741",
+    "cur_voltage": "2411",
+  },
+  {
+    "Timestamp": "2023-09-02T01:13:00",
+    "cur_current": "765",
+    "cur_power": "900",
+    "cur_voltage": "2411",
+  },
+  {
+    "Timestamp": "2023-09-02T01:07:00",
+    "cur_current": "460",
+    "cur_power": "910",
+  },
+  {
+    "Timestamp": "2023-09-02T01:01:00",
+    "cur_current": "849",
+    "cur_power": "947",
+    "cur_voltage": "2416",
+  },
+  {
+    "Timestamp": "2023-09-02T00:59:00",
+    "cur_current": "603",
+    "cur_power": "879",
+    "cur_voltage": "2411",
+    "add_ele": "37"
+  },
+  {
+    "Timestamp": "2023-09-02T00:58:00",
+    "cur_current": "729",
+    "cur_power": "898",
+    "cur_voltage": "2420",
+  },
+  {
+    "Timestamp": "2023-09-02T00:57:00",
+    "cur_current": "694",
+    "cur_power": "955",
+    "cur_voltage": "2425",
+  },
+  {
+    "Timestamp": "2023-09-02T00:56:00",
+    "cur_current": "668",
+    "cur_power": "899",
+  },
+  {
+    "Timestamp": "2023-09-02T00:55:00",
+    "cur_current": "891",
+    "cur_power": "1005",
+    "cur_voltage": "2416",
+  },
+  {
+    "Timestamp": "2023-09-02T00:54:00",
+    "cur_current": "643",
+    "cur_power": "734",
+    "cur_voltage": "2420",
+  },
+  {
+    "Timestamp": "2023-09-02T00:51:00",
+    "cur_current": "814",
+    "cur_power": "789",
+    "cur_voltage": "2416",
+  },
+  {
+    "Timestamp": "2023-09-02T00:44:00",
+    "cur_current": "576",
+    "cur_power": "686",
+  },
+  {
+    "Timestamp": "2023-09-02T00:43:00",
+    "cur_current": "559",
+    "cur_power": "896",
+    "cur_voltage": "2411",
+  },
+  {
+    "Timestamp": "2023-09-02T00:36:00",
+    "cur_current": "621",
+    "cur_power": "629",
+    "cur_voltage": "2420",
+  },
+  {
+    "Timestamp": "2023-09-02T00:33:00",
+    "cur_current": "552",
+    "cur_power": "807",
+    "cur_voltage": "2430",
+  },
+  {
+    "Timestamp": "2023-09-02T00:29:00",
+    "add_ele": "36"
+  },
+  {
+    "Timestamp": "2023-09-02T00:18:00",
+    "cur_current": "481",
+    "cur_power": "723",
+    "cur_voltage": "2416",
+  },
+  {
+    "Timestamp": "2023-09-02T00:15:00",
+    "cur_current": "424",
+    "cur_power": "581",
+    "cur_voltage": "2411",
+  },
+  {
+    "Timestamp": "2023-09-02T00:14:00",
+    "cur_current": "770",
+    "cur_power": "893",
+  },
+  {
+    "Timestamp": "2023-09-02T00:12:00",
+    "cur_current": "918",
+    "cur_power": "794",
+    "cur_voltage": "2416",
+  },
+  {
+    "Timestamp": "2023-09-02T00:06:00",
+    "cur_current": "477",
+    "cur_power": "873",
+    "cur_voltage": "2406",
+  },
+  {
+    "Timestamp": "2023-09-02T00:05:00",
+    "cur_current": "696",
+    "cur_power": "858",
+    "cur_voltage": "2411",
+  }
+]

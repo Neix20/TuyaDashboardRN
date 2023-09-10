@@ -126,8 +126,9 @@ function Index(props) {
                 showModal={showVsModal} setShowModal={setShowVsModal}
             />
             <BcBoxShadow>
-                <View
+                <VStack
                     py={3}
+                    space={3}
                     bgColor={"#FFF"}
                     // borderRadius={20}
                     alignItems={"center"}
@@ -154,7 +155,7 @@ function Index(props) {
                             {children}
                         </View>
                     </ViewShot>
-                </View>
+                </VStack>
             </BcBoxShadow>
         </>
     );

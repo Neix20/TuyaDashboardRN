@@ -18,6 +18,8 @@ import WelcomeInfo from "@screens/WelcomeInfo";
 
 import TuyaPanel from "@screens/TuyaPanel";
 
+import ProfileBackup from "@screens/Profile/Backup";
+
 let StackScreens = {};
 
 StackScreens = {
@@ -53,6 +55,10 @@ StackScreens = {
     TuyaPanel: {
         component: TuyaPanel,
         title: "TuyaPanel"
+    },
+    ProfileBackup: {
+        component: ProfileBackup,
+        title: "ProfileBackup"
     }
 }
 
@@ -62,7 +68,7 @@ function Index(props) {
         SplashScreen.hide();
     }, []);
 
-    const defaultScreen = "Debug";
+    const defaultScreen = "TabNavigation";
     // const defaultScreen = "TuyaPanel";
 
     return (

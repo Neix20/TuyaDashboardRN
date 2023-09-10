@@ -1,3 +1,5 @@
+// FIX ME
+
 import React, { useState, useEffect } from "react";
 import { Text, TouchableOpacity, Image, TextInput, Dimensions, SafeAreaView, ImageBackground, ScrollView } from "react-native";
 import { View, VStack, HStack, useToast } from "native-base";

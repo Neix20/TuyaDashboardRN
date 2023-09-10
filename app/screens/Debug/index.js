@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Text, TouchableOpacity, Dimensions, SafeAreaView, ScrollView, FlatList, TouchableWithoutFeedback } from "react-native";
+import { Text, Image, TextInput, TouchableOpacity, Dimensions, SafeAreaView, ScrollView, FlatList } from "react-native";
 import { View, VStack, HStack, Divider, useToast } from "native-base";
 
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
@@ -12,7 +12,7 @@ import { info, error, Utility } from "@utility";
 
 import { BcSvgChart, BcDateRangeModal, BcViewShot, BcBoxShadow, BcDropdown, BcSvgIcon } from "@components";
 
-import { iRData } from "@config";
+import { iRData, Devices } from "@config";
 
 import { Checkbox as PaperCheckbox } from "react-native-paper";
 import { CheckBox as ElemCheckbox } from '@rneui/base';
@@ -282,67 +282,68 @@ import { GestureHandlerRootView } from "react-native-gesture-handler";
 import PaginationDot from 'react-native-animated-pagination-dot';
 
 function ImgItem(props) {
-
     const { bgName = "CardGradientRed" } = props;
     return (
-        <BcBoxShadow>
+        <View style={{ height: 180, width: width - 40 }}>
+            <BcSvgIcon name={bgName} />
+            <VStack p={2}
+                space={4}
+                position={"absolute"}>
+                <View>
+                    <Text style={{
+                        fontSize: 12,
+                        color: "#FFF",
+                    }}>Cozy Home</Text>
+                </View>
 
-            <View
-                style={{
-                    height: 180,
-                    width: width - 40
-                }}>
-                <BcSvgIcon name={bgName} />
-                <VStack p={2}
-                    space={4}
-                    position={"absolute"}>
-                    <View>
-                        <Text>Cozy Home</Text>
-                    </View>
+                <HStack space={3}>
+                    <FontAwesome5 name={"cloud"} color={"#FFF"} size={36} />
+                    <Text style={{
+                        fontFamily: "Roboto-Bold",
+                        fontSize: 32
+                    }}>29°C</Text>
+                </HStack>
 
-                    <HStack space={3}>
-                        <FontAwesome5 name={"cloud"} color={"#FFF"} size={36} />
+                <HStack alignItems={"center"} space={1}>
+                    <VStack>
                         <Text style={{
-                            fontFamily: "Roboto-Bold",
-                            fontSize: 32
-                        }}>29°C</Text>
-                    </HStack>
-
-                    <HStack alignItems={"center"} space={1}>
-                        <VStack>
-                            <Text style={{
-                                fontFamily: "Roboto-Medium",
-                                fontSize: 18,
-                            }}>Excellent</Text>
-                            <Text style={{
-                                fontFamily: "Roboto-Medium",
-                                fontSize: 14,
-                            }}>Outdoor PM 2.5</Text>
-                        </VStack>
-                        <VStack>
-                            <Text style={{
-                                fontFamily: "Roboto-Medium",
-                                fontSize: 18,
-                            }}>74.0%</Text>
-                            <Text style={{
-                                fontFamily: "Roboto-Medium",
-                                fontSize: 14,
-                            }}>Outdoor Humidity</Text>
-                        </VStack>
-                        <VStack>
-                            <Text style={{
-                                fontFamily: "Roboto-Medium",
-                                fontSize: 18,
-                            }}>1006.9hPa</Text>
-                            <Text style={{
-                                fontFamily: "Roboto-Medium",
-                                fontSize: 14,
-                            }}>Outdoor Air Pres...</Text>
-                        </VStack>
-                    </HStack>
-                </VStack>
-            </View>
-        </BcBoxShadow>
+                            fontFamily: "Roboto-Medium",
+                            fontSize: 18,
+                            color: "#FFF",
+                        }}>Excellent</Text>
+                        <Text style={{
+                            fontFamily: "Roboto-Medium",
+                            fontSize: 14,
+                            color: "#FFF",
+                        }}>Outdoor PM 2.5</Text>
+                    </VStack>
+                    <VStack>
+                        <Text style={{
+                            fontFamily: "Roboto-Medium",
+                            fontSize: 18,
+                            color: "#FFF",
+                        }}>74.0%</Text>
+                        <Text style={{
+                            fontFamily: "Roboto-Medium",
+                            fontSize: 14,
+                            color: "#FFF",
+                        }}>Outdoor Humidity</Text>
+                    </VStack>
+                    <VStack>
+                        <Text style={{
+                            fontFamily: "Roboto-Medium",
+                            fontSize: 18,
+                            color: "#FFF",
+                        }}>1006.9hPa</Text>
+                        <Text style={{
+                            fontFamily: "Roboto-Medium",
+                            fontSize: 14,
+                            color: "#FFF",
+                        }}>Outdoor Air Pres...</Text>
+                    </VStack>
+                </HStack>
+            </VStack>
+        </View>
     )
 }
 
@@ -351,25 +352,14 @@ function ImgCarousel(props) {
 
     // #region UseState
     const [dotInd, setDotInd] = useState(0);
-    const [mDot, setMDot] = useState(0);
-    // #endregion
-
-    // #region UseEffect
-    useEffect(() => {
-        setMDot(dotInd);
-    }, [dotInd]);
-    // #endregion
-
-    // #region Helper Functions
     // #endregion
 
     return (
-        <>
+        <View>
             <GestureHandlerRootView>
-                <Carousel
+                <Carousel loop
                     width={width - 40}
                     height={180}
-                    loop
                     autoPlay={true}
                     autoPlayInterval={5000}
                     scrollAnimationDuration={1500}
@@ -382,24 +372,28 @@ function ImgCarousel(props) {
                         setDotInd(num);
                     }}
                     renderItem={({ index }) => {
+                        const bgName = images[index];
                         return (
-                            <ImgItem />
+                            <ImgItem bgName={bgName} />
                         )
                     }}
                 />
             </GestureHandlerRootView>
             <View style={{
                 position: "absolute",
-                top: 160
+                left: 0,
+                right: 0,
+                alignItems: "center",
+                bottom: 20,
             }}>
                 <PaginationDot
                     activeDotColor={"#F00"}
                     inactiveDotColor={"#fff"}
-                    curPage={mDot}
+                    curPage={dotInd}
                     maxPage={images.length}
                 />
             </View>
-        </>
+        </View>
     )
 }
 
@@ -424,51 +418,254 @@ function DebugTopModal(props) {
 
     return (
         <>
-    <TopModal showCross={false}
-        showModal={showTopModal} 
-        setShowModal={setShowTopModal}>
-        <View style={{height: 200}}>
+            <TopModal showCross={false} showModal={showTopModal}
+                setShowModal={setShowTopModal}>
+                <View style={{ height: 200 }}>
+                </View>
+            </TopModal>
+            <SafeAreaView style={{ flex: 1 }}>
+                <View bgColor={"#f6f7fa"} style={{ flex: 1 }}>
 
+                    {/* Header */}
+                    <View style={{ height: 80 }} />
+
+                    <View style={{ height: 10 }} />
+
+                    {/* Body */}
+                    <ScrollView showsVerticalScrollIndicator={false}
+                        contentContainerStyle={{ flexGrow: 1 }}>
+                        <VStack flexGrow={1}
+                            alignItems={"center"}
+                            justifyContent={"center"}>
+                            {/* <ImgCarousel images={svgLs} /> */}
+                            <ImgItem bgName={"CardGradientGreen"} />
+
+                            <TouchableOpacity onPress={toggleTopModal}>
+                                <View backgroundColor={"#ff0000"}
+                                    alignItems={"center"} justifyContent={"center"}
+                                    style={{ width: 100, height: 40 }}
+                                >
+                                    <Text style={[{
+                                        fontSize: 14,
+                                        fontWeight: "bold",
+                                        color: "white",
+                                    }]}>Modal</Text>
+                                </View>
+                            </TouchableOpacity>
+
+                        </VStack>
+                    </ScrollView>
+
+                    {/* Footer */}
+                    <View style={{ height: 60 }} />
+                </View>
+            </SafeAreaView>
+        </>
+    )
+}
+
+function DeviceItem(props) {
+    const { name, img, icon, product_name, description } = props;
+
+    const borderRadius = 8;
+
+    return (
+        <TouchableOpacity>
+            <BcBoxShadow
+                style={{
+                    borderRadius: borderRadius,
+                    minWidth: 170,
+                    width: "100%",
+                }}>
+                <VStack
+                    p={2} space={2}
+                    style={{
+                        backgroundColor: "#FFF",
+                        borderRadius: borderRadius,
+                    }}>
+                    <Image
+                        source={img}
+                        style={{
+                            height: 60,
+                            width: 60,
+                        }}
+                        resizeMode={"cover"}
+                        alt={name} />
+                    <VStack>
+                        <Text style={{
+                            fontSize: 14,
+                            fontFamily: 'Roboto-Bold',
+                            color: "#000",
+                        }}>{name}</Text>
+                        <Text style={{
+                            fontSize: 12,
+                            fontFamily: 'Roboto-Medium',
+                            color: "#c6c6c6"
+                        }}>{description}</Text>
+                    </VStack>
+                </VStack>
+            </BcBoxShadow>
+        </TouchableOpacity>
+    )
+}
+
+function Search(props) {
+    const { lang } = props;
+    const { query, setQuery } = props;
+    return (
+        <View
+            alignItems={"center"}
+            justifyContent={"center"}
+            style={{
+                height: 60,
+            }}>
+            <View
+                bgColor={"#EDEEEF"}
+                borderRadius={4}>
+                <TextInput
+                    style={{
+                        fontSize: 14,
+                        fontFamily: "Roboto-Medium",
+                        height: 40,
+                        width: 360,
+                        paddingHorizontal: 16,
+                        color: "#000",
+                    }}
+                    placeholder={Utility.translate("Search", lang)}
+                    placeholderTextColor={"#6A7683"}
+                    defaultValue={query}
+                    onChangeText={setQuery}
+                />
+
+                {/* Front Layer */}
+                <View
+                    justifyContent={"center"}
+                    style={{
+                        position: "absolute",
+                        top: 0,
+                        bottom: 0,
+                        right: 16,
+                        display: (query !== "") ? "none" : "flex"
+                    }}>
+                    <FontAwesome5 name={"search"} size={20} color={"#6A7683"} />
+                </View>
+            </View>
         </View>
-    </TopModal>
+    )
+}
+
+function DebugDevice(props) {
+
+    const isFocused = useIsFocused();
+
+    // #region UseState
+    const [deviceLs, setDeviceLs] = useState([]);
+    const [filterLs, setFilterLs] = useState([]);
+
+    const [viewMode, setViewMode] = useState("grid");
+    const [refresh, setRefresh] = useState(false);
+    // #endregion
+
+    // #region UseEffect
+    useEffect(() => {
+        if (isFocused) {
+            let arr = Devices;
+
+            arr = arr.map((obj, ind) => (
+                {
+                    ...obj,
+                    img: { uri: obj.icon },
+                    pos: ind,
+                }
+            ));
+
+            setDeviceLs(arr);
+
+            toggleRefresh();
+        }
+    }, [isFocused]);
+    // #endregion
+
+    // #region Filter Query
+    const [query, setQuery] = useState("");
+
+    useEffect(() => {
+        let arr = [...deviceLs];
+        if (query !== "" && arr.length > 0) {
+            arr = arr.filter(x => x["name"].toLowerCase().includes(query.toLowerCase()));
+        }
+
+        // let fArr = Utility.splitItemsIntoK(arr);
+        // setItemLs(fArr);
+
+        setFilterLs(arr);
+    }, [query, refresh]);
+    // #endregion
+
+    // #region Render
+    const renderItem = ({ item, index }) => {
+        return (
+            <DeviceItem key={index} {...item} />
+        )
+    }
+    // #endregion
+
+    // #region Helper
+    const toggleViewMode = () => setViewMode((val) => (val === "list") ? "grid" : "list");
+    const toggleRefresh = () => setRefresh((val) => !val);
+    // #endregion
+
+    return (
         <SafeAreaView style={{ flex: 1 }}>
-            <View bgColor={"#f6f7fa"} style={{ flex: 1 }}>
+            <View bgColor={"#FFF"} style={{ flex: 1 }}>
 
                 {/* Header */}
-                <View style={{ height: 80 }} />
-
-                <View style={{ height: 10 }} />
-
-                {/* Body */}
-                <ScrollView showsVerticalScrollIndicator={false}
-                    contentContainerStyle={{ flexGrow: 1 }}>
-                    <VStack flexGrow={1}
-                        alignItems={"center"}
-                        justifyContent={"center"}>
-                        {/* <ImgCarousel images={svgLs} /> */}
-                        <ImgItem />
-
-                        <TouchableOpacity onPress={toggleTopModal}>
+                <View
+                    alignItems={"center"}>
+                    <HStack alignItems={"center"}
+                        justifyContent={"flex-end"}
+                        style={{ width: width - 40, height: 60 }}>
+                        <TouchableOpacity onPress={toggleViewMode}>
                             <View backgroundColor={"#ff0000"}
                                 alignItems={"center"} justifyContent={"center"}
-                                style={{ width: 100, height: 40 }}
-                            >
+                                style={{ height: 40, width: 100 }}>
                                 <Text style={[{
                                     fontSize: 14,
                                     fontWeight: "bold",
                                     color: "white",
-                                }]}>Modal</Text>
+                                }]}>{viewMode == "grid" ? "List" : "Grid"} View</Text>
                             </View>
                         </TouchableOpacity>
+                    </HStack>
+                </View>
 
-                    </VStack>
-                </ScrollView>
+                {/* Search */}
+                <Search lang={"en"} query={query} setQuery={setQuery} />
+
+                {/* Body */}
+                <View flexGrow={1}
+                    alignItems={"center"}>
+                    <FlatList
+                        key={viewMode === "grid"}
+                        data={filterLs}
+                        renderItem={renderItem}
+                        contentContainerStyle={{
+                            flexDirection: (viewMode === "grid") ? "row" : "column",
+                            flexWrap: (viewMode === "grid") ? "wrap" : "nowrap",
+                            justifyContent: (viewMode === "grid") ? "space-between" : "center",
+                            paddingHorizontal: 5,
+                            paddingVertical: 5,
+                            rowGap: 8,
+
+                        }}
+                        style={{ flex: 1, width: width - 30 }}
+                    />
+                </View>
 
                 {/* Footer */}
                 <View style={{ height: 60 }} />
             </View>
         </SafeAreaView>
-        </>
     )
 }
 // #endregion

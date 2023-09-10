@@ -33,14 +33,17 @@
 - [ ] Pages
   - [x] Profile
   - [x] Alert
-  - [ ] Devices
-    - [ ] Main Page
+  - [x] Devices
+    - [x] Main Page
     - [ ] Device Chart API
     - [ ] Device Management
     - [ ] Device Info
   - [x] Usage
   - [ ] Dashboard
     - [ ] Tables
+    - [ ] Excel Table
+    - [ ] Card Gradient Item
+    - [x] Rotatable
   - [x] Home
     - [x] Top Modal
   - [x] Carousel

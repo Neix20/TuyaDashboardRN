@@ -28,9 +28,6 @@ function Header(props) {
                 {/* Btn */}
                 <HStack alignItems={"center"} space={3}>
                     <TouchableOpacity>
-                        <Ionicons name={"scan"} color={"#000"} size={30} />
-                    </TouchableOpacity>
-                    <TouchableOpacity>
                         <FontAwesome name={"gear"} color={"#000"} size={30} />
                     </TouchableOpacity>
                 </HStack>
@@ -41,7 +38,7 @@ function Header(props) {
 
 function Profile(props) {
     return (
-        <TouchableOpacity>
+        <TouchableOpacity {...props}>
             <HStack
                 alignItems={"center"}
                 justifyContent={"space-between"}
@@ -116,6 +113,10 @@ function Index(props) {
     const navigation = useNavigation();
     const isFocused = useIsFocused();
 
+    const GoToProfileBackup = () => {
+        navigation.navigate("ProfileBackup");
+    }
+
     return (
         <SafeAreaView style={{ flex: 1 }}>
             <View bgColor={"#F6F7FA"} style={{ flex: 1 }}>
@@ -133,17 +134,7 @@ function Index(props) {
                         space={5}>
                         {/* User */}
                         <View style={{ height: 80 }}>
-                            <Profile />
-                        </View>
-
-                        <View
-                            bgColor={"#FFF"}
-                            borderRadius={8}
-                            style={{
-                                height: 120,
-                                width: width - 40
-                            }}>
-
+                            <Profile onPress={GoToProfileBackup} />
                         </View>
 
                         <NavPanel />
