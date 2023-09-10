@@ -20,46 +20,43 @@ function Details(props) {
     const { name, uri } = props;
 
     return (
-        <BcBoxShadow>
+        <BcBoxShadow style={{ width: "100%" }}>
             <VStack py={3} space={3}
                 bgColor={"#FFF"}
-                alignItems={"center"}
-                style={{
-                    width: width
-                }}>
+                alignItems={"center"}>
 
                 {/* Banner */}
-                <View>
+                <View width={"90%"} height={180}>
                     <Image
                         source={uri}
                         style={{
-                            width: width - 40,
-                            height: 180,
+                            width: "100%",
+                            height: "100%",
                             borderRadius: 8,
                         }}
                         resizeMode={"stretch"}
                         alt={name} />
                 </View>
 
-                <VStack space={3} style={{width: width - 40}}>
+                <VStack space={3} width={"90%"}>
                     <VStack space={2}>
                         {/* Title */}
-                    <Text style={{
+                        <Text style={{
                             fontFamily: "Roboto-Bold",
                             fontSize: 20,
                             color: "#000",
                         }}>{name}</Text>
 
-                    <Text style={{
-                        fontFamily: "Roboto-Medium",
-                        fontSize: 12,
-                    }}>
-                        This iot plan is used for improving overall efficiency in an industry workflow of automation. It aims to pinpoint areas that can be improved with speed via automation. It analyzes patterns where the workflow slow downs and provide recommendation for improvement. Furthermore, it check the status of machine to ensure minimal downtime. It provides data driven insight to improve overall efficiency.
-                    </Text>
+                        <Text style={{
+                            fontFamily: "Roboto-Medium",
+                            fontSize: 12,
+                        }}>
+                            This iot plan is used for improving overall efficiency in an industry workflow of automation. It aims to pinpoint areas that can be improved with speed via automation. It analyzes patterns where the workflow slow downs and provide recommendation for improvement. Furthermore, it check the status of machine to ensure minimal downtime. It provides data driven insight to improve overall efficiency.
+                        </Text>
                     </VStack>
 
                     <VStack space={2}>
-                    <Text style={{
+                        <Text style={{
                             fontFamily: "Roboto-Bold",
                             fontSize: 20,
                             color: "#000",
@@ -103,9 +100,6 @@ function Index(props) {
                         <Details {...item} />
                     </View>
                 </ScrollView>
-
-                {/* Footer */}
-                <View style={{ height: 80 }} />
             </View>
         </SafeAreaView>
     );
