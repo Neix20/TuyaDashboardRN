@@ -83,6 +83,7 @@ function TabDetailModal(props) {
 
     // #region Props
     const { showModal, setShowModal } = props;
+    const { onSelectRoomManagement = () => {} } = props;
     // #endregion
 
     return (
@@ -112,7 +113,8 @@ function TabDetailModal(props) {
                     </HStack>
                 </TouchableOpacity>
 
-                <TouchableOpacity style={{ width: "90%" }}>
+                <TouchableOpacity onPress={onSelectRoomManagement}
+                    style={{ width: "90%" }}>
                     <HStack
                         alignItems={"center"}
                         style={{ height: 40 }}>
@@ -133,6 +135,8 @@ function TabDetailModal(props) {
 
 function TabDetail(props) {
 
+    const navigation = useNavigation();
+
     // #region UseState
     const [showTdModal, setShowTdModal] = useState(false);
     // #endregion
@@ -141,9 +145,17 @@ function TabDetail(props) {
     const toggleTabDetail = () => setShowTdModal((val) => !val);
     // #endregion
 
+    // #region Navigation
+    const GoToRoomManagement = () => {
+        navigation.navigate("RoomManagement");
+        toggleTabDetail();
+    }
+    // #endregion
+
     return (
         <>
-            <TabDetailModal showModal={showTdModal} setShowModal={setShowTdModal} />
+            <TabDetailModal onSelectRoomManagement={GoToRoomManagement}
+                showModal={showTdModal} setShowModal={setShowTdModal} />
             <TouchableOpacity onPress={toggleTabDetail}>
                 <MaterialCommunityIcons name={"dots-horizontal"} size={32} />
             </TouchableOpacity>

@@ -7,6 +7,10 @@ import fetchGetNotification from "./fetchGetNotification";
 import fetchLogin from "./fetchLogin";
 
 import fetchHomeList from "./fetchHomeList";
+import fetchHomeInfo from "./fetchHomeInfo";
+
+import fetchRoomList from "./fetchRoomList";
+import fetchRoomInfo from "./fetchRoomInfo";
 
 export {
     fetchDashboardInfo,
@@ -16,4 +20,7 @@ export {
     fetchGetNotification,
     fetchLogin,
     fetchHomeList,
+    fetchHomeInfo,
+    fetchRoomList,
+    fetchRoomInfo,
 }

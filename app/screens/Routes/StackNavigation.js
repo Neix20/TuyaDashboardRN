@@ -24,6 +24,10 @@ import TuyaPanel from "@screens/TuyaPanel";
 
 import ProfileBackup from "@screens/Profile/Backup";
 
+import RoomManagement from "@screens/Room/RoomManagement";
+import RoomInfo from "@screens/Room/RoomInfo";
+import AddRoom from "@screens/Room/AddRoom";
+
 let StackScreens = {};
 
 StackScreens = {
@@ -75,6 +79,18 @@ StackScreens = {
     AddHome: {
         component: AddHome,
         title: "AddHome"
+    },
+    RoomManagement: {
+        component: RoomManagement,
+        title: "RoomManagement"
+    },
+    RoomInfo: {
+        component: RoomInfo,
+        title: "RoomInfo"
+    },
+    AddRoom: {
+        component: AddRoom,
+        title: "AddRoom"
     }
 }
 

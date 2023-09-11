@@ -37,12 +37,12 @@
 * Completed Before 2PM
 - [x] Home List
 - [x] Home Info
-- [ ] Add Home
-  - [ ] Pass List of Rooms
+- [x] Add Home
+  - [x] Pass List of Rooms
 
-- [ ] Room List
-- [ ] Room Info
-- [ ] Add Room
+- [x] Room List
+- [x] Room Info
+- [x] Add Room
 
 - [ ] Device Scan
 

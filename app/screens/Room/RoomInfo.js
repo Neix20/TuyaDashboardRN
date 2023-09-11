@@ -4,24 +4,23 @@ import { View, VStack, HStack, useToast } from "native-base";
 
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 import { useNavigation, useIsFocused } from "@react-navigation/native";
-1
+
 const screen = Dimensions.get("screen");
 const { width, height } = screen;
 
 import { Logger, Utility } from "@utility";
 
-import { Images } from "@config";
-
 import { BcHeader, BcBoxShadow, BcLoading } from "@components";
 
-import { fetchHomeInfo } from "@api";
+import { fetchRoomInfo } from "@api";
+
+import { useDispatch, useSelector } from 'react-redux';
+import { Actions, Selectors } from '@redux';
 
 // #region Components
-function HomeInfo(props) {
+function RoomInfo(props) {
 
-    // #region Props
-    const { Name, Address } = props;
-    // #endregion
+    const { Name } = props;
 
     return (
         <View alignItems={"center"}
@@ -40,59 +39,11 @@ function HomeInfo(props) {
                     color: "#CCC"
                 }}>{Name}</Text>
             </HStack>
-
-            <HStack width={"90%"}
-                alignItems={"center"}
-                justifyContent={"space-between"}
-                style={{ height: 40 }}>
-                <Text style={{
-                    fontFamily: "Roboto-Medium",
-                    fontSize: 18
-                }}>Rooms: </Text>
-                <Text style={{
-                    fontFamily: "Roboto-Medium",
-                    fontSize: 18,
-                    color: "#CCC"
-                }}>{null}</Text>
-            </HStack>
-
-            <HStack width={"90%"}
-                alignItems={"center"}
-                justifyContent={"space-between"}
-                style={{ height: 40 }}>
-                <Text style={{
-                    fontFamily: "Roboto-Medium",
-                    fontSize: 18
-                }}>Location: </Text>
-                <Text style={{
-                    fontFamily: "Roboto-Medium",
-                    fontSize: 18,
-                    color: "#CCC"
-                }}>{Address}</Text>
-            </HStack>
         </View>
     )
 }
 
-function AddRoom(props) {
-    return (
-        <TouchableOpacity>
-            <View py={3}
-                alignItems={"center"}
-                bgColor={"#FFF"}>
-                <View width={"90%"}>
-                    <Text style={{
-                        fontSize: 16,
-                        color: "#2898FF",
-                        fontFamily: "Roboto-Medium",
-                    }}>Add Room</Text>
-                </View>
-            </View>
-        </TouchableOpacity>
-    )
-}
-
-function DeleteHome(props) {
+function DeleteRoom(props) {
     return (
         <TouchableOpacity>
             <View py={3}
@@ -102,7 +53,7 @@ function DeleteHome(props) {
                     fontSize: 16,
                     color: "#F00",
                     fontFamily: "Roboto-Medium",
-                }}>Delete Home</Text>
+                }}>Delete Room</Text>
             </View>
         </TouchableOpacity>
     )
@@ -110,18 +61,19 @@ function DeleteHome(props) {
 // #endregion
 
 function Index(props) {
-
     const toast = useToast();
     const navigation = useNavigation();
     const isFocused = useIsFocused();
 
+    const userId = useSelector(Selectors.userIdSelect);
+
     // #region Props
     const data = props.route.params;
-    const { Id: homeId } = data;
+    const { Id: roomId } = data;
     // #endregion
 
     // #region UseState
-    const [home, setHome] = useState({});
+    const [room, setRoom] = useState({})
     const [loading, setLoading] = useState(false);
     // #endregion
 
@@ -129,19 +81,20 @@ function Index(props) {
     useEffect(() => {
         if (isFocused) {
             setLoading(true);
-            fetchHomeInfo({
+            fetchRoomInfo({
                 param: {
-                    HomeId: homeId
+                    UserId: userId,
+                    RoomId: roomId
                 },
                 onSetLoading: setLoading
             })
-                .then(data => {
-                    setHome(data)
-                })
-                .catch(err => {
-                    setLoading(false);
-                    console.log(`Error: ${err}`);
-                })
+            .then(data => {
+                setRoom(data);
+            })
+            .catch(err => {
+                setLoading(false)
+                console.log(`Error: ${err}`);
+            })
         }
     }, [isFocused]);
     // #endregion
@@ -153,24 +106,24 @@ function Index(props) {
                 <View style={{ flex: 1 }}>
 
                     {/* Header */}
-                    <BcHeader>Home Settings</BcHeader>
+                    <BcHeader>Room Info</BcHeader>
 
                     <View style={{ height: 10 }} />
 
                     {/* Body */}
                     <ScrollView showsVerticalScrollIndicator={false}
                         contentContainerStyle={{ flexGrow: 1 }}>
-                        <VStack space={3}
-                            flexGrow={1}>
-                            {/* Info */}
-                            <HomeInfo {...home} />
+                        <VStack space={3} flexGrow={1}>
+                            {/* Room Info */}
+                            <RoomInfo {...room} />
 
-                            <AddRoom />
-
-                            {/* Delete Home */}
-                            <DeleteHome />
+                            {/* Delete Room */}
+                            <DeleteRoom />
                         </VStack>
                     </ScrollView>
+
+                    {/* Footer */}
+                    <View style={{ height: 60 }} />
                 </View>
             </SafeAreaView>
         </>

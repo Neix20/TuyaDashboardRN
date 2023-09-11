@@ -1,19 +1,22 @@
 import React, { useState, useEffect } from "react";
-import { SafeAreaView, ScrollView, Text, TouchableOpacity, TextInput, FlatList } from "react-native";
+import { Text, TouchableOpacity, Image, TextInput, Dimensions, SafeAreaView, ImageBackground, ScrollView } from "react-native";
 import { View, VStack, HStack, useToast } from "native-base";
 
+import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 import { useNavigation, useIsFocused } from "@react-navigation/native";
-import { CheckBox } from "@rneui/themed";
+
+const screen = Dimensions.get("screen");
+const { width, height } = screen;
 
 import { Logger, Utility } from "@utility";
 
-import { BcBoxShadow, BcDisable } from "@components";
+import { BcDisable, BcLoading, BcBoxShadow } from "@components"
 
 // #region Components
 function Header(props) {
 
     // #region Props
-    const { children, onBack = () => { }, onSave = () => {} } = props;
+    const { children, onBack = () => { }, onSave = () => { } } = props;
     const { flag = false } = props;
     // #endregion
 
@@ -73,33 +76,26 @@ function HomeForm(props) {
     const { form, setForm = () => { } } = props;
     // #endregion
 
-    // #region Init
+    // #region Initial
     const init = {
-        roomLs: ["Living Room", "Office", "Kitchen", "Master Bedroom", "Dining Room"]
+        roomLs: ["Living Room", "Master Bedroom", "Dining Room", "Office", "Kitchen",]
     }
     // #endregion
 
+    const { name } = form;
+
     // #region UseState
-    const [roomLs, setRoomLs] = useState([])
+    const [roomLs, setRoomLs] = useState([]);
     // #endregion
 
     // #region UseEffect
     useEffect(() => {
         if (isFocused) {
             let arr = [...init.roomLs];
-
-            arr = arr.map((obj, ind) => ({
-                Name: obj,
-                pos: ind,
-                flag: false
-            }));
-
             setRoomLs(arr);
         }
     }, [isFocused]);
     // #endregion
-
-    const { name } = form;
 
     // #region Helper
     const onChangeName = (val) => {
@@ -109,55 +105,17 @@ function HomeForm(props) {
         }
         setForm(nextState);
     }
-
-    const onChangeRoom = (val) => {
-        val = val.map(obj => obj.name);
-
-        const nextState = {
-            ...form,
-            roomLs: val
-        }
-        setForm(nextState);
-    }
-
-    const selectRoom = (item) => {
-        const { pos, flag } = item;
-
-        let arr = [...roomLs];
-        arr[pos].flag = !flag;
-
-        setRoomLs(arr);
-
-        let fArr = arr.filter(obj => obj.flag === true);
-        onChangeRoom(fArr);
-    }
     // #endregion
 
     // #region Render
-    const renderItem = ({ item, index }) => {
-        const { Name, flag } = item;
-        const selectItem = () => selectRoom(item);
+    const renderItem = (item, index) => {
+        const onSelect = () => onChangeName(item);
         return (
-            <TouchableOpacity onPress={selectItem}>
-                <HStack key={index}
-                    alignItems={"center"}
-                    justifyContent={"space-between"}
-                    style={{ height: 60 }}>
-                    <Text style={{
-                        fontSize: 18
-                    }}>{Name}</Text>
-                    <CheckBox
-                        containerStyle={{
-                            paddingHorizontal: 5,
-                            paddingVertical: 0,
-                        }}
-                        iconType={"material-community"}
-                        checkedIcon={"checkbox-marked"}
-                        uncheckedIcon={"checkbox-blank-outline"}
-                        checked={flag}
-                        onPress={selectItem}
-                        checkedColor={"#2898ff"} />
-                </HStack>
+            <TouchableOpacity key={index}
+                 onPress={onSelect}>
+                <View borderWidth={1} borderRadius={8} p={2}>
+                    <Text>{item}</Text>
+                </View>
             </TouchableOpacity>
         )
     }
@@ -171,16 +129,16 @@ function HomeForm(props) {
                     alignItems={"center"}
                     width={"90%"}
                     style={{ height: 60 }}>
-                    <View flex={.2}>
+                    <View flex={.3}>
                         <Text style={{
                             fontSize: 18
-                        }}>Name</Text>
+                        }}>Room Name</Text>
                     </View>
-                    <View flex={.8}>
+                    <View flex={.7}>
                         <TextInput
                             defaultValue={name}
                             onChangeText={onChangeName}
-                            placeholder={"Home Name"}
+                            placeholder={"Room Name"}
                             autoCapitalize={"none"}
                             style={{
                                 fontFamily: "Roboto-Medium",
@@ -191,13 +149,23 @@ function HomeForm(props) {
                 </HStack>
             </View>
 
-            <View bgColor={"#FFF"}
-                alignItems={"center"}>
-                <FlatList
-                    data={roomLs}
-                    renderItem={renderItem}
-                    style={{ width: "90%" }} />
+            <View alignItems={"center"}>
+                <HStack width={'90%'}>
+                    <Text>Recommended</Text>
+                </HStack>
             </View>
+
+            <View alignItems={"center"}>
+                <HStack space={3} rowGap={10}
+                    flexWrap={"wrap"}
+                    width={'90%'}>
+                    {
+                        roomLs.map(renderItem)
+                    }
+                </HStack>
+            </View>
+
+
         </VStack>
     )
 }
@@ -211,8 +179,7 @@ function Index(props) {
     // #region Initial
     const init = {
         form: {
-            name: "",
-            roomLs: []
+            name: ""
         }
     }
     // #endregion
@@ -227,7 +194,6 @@ function Index(props) {
         let flag = true;
 
         flag = flag && form.name !== "";
-        flag = flag && form.roomLs.length > 0;
 
         setFlag((_) => flag);
     }, [JSON.stringify(form)]);
@@ -252,7 +218,7 @@ function Index(props) {
             <View style={{ flex: 1 }}>
 
                 {/* Header */}
-                <Header flag={flag} onSave={save}>Create a Home</Header>
+                <Header flag={flag} onSave={save}>Add Room</Header>
 
                 <View style={{ height: 10 }} />
 
@@ -260,11 +226,12 @@ function Index(props) {
                 <ScrollView showsVerticalScrollIndicator={false}
                     contentContainerStyle={{ flexGrow: 1 }}>
                     <View flexGrow={1}>
-                        {/* Add Home */}
-                        <HomeForm
-                            form={form} setForm={setForm} />
+                        <HomeForm form={form} setForm={setForm} />
                     </View>
                 </ScrollView>
+
+                {/* Footer */}
+                <View style={{ height: 60 }} />
             </View>
         </SafeAreaView>
     );

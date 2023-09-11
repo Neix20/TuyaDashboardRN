@@ -113,9 +113,11 @@ function Index(props) {
     const navigation = useNavigation();
     const isFocused = useIsFocused();
 
+    // #region Navigation
     const GoToProfileBackup = () => {
         navigation.navigate("ProfileBackup");
     }
+    // #endregion
 
     return (
         <SafeAreaView style={{ flex: 1 }}>
