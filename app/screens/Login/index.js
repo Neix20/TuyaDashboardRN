@@ -63,7 +63,7 @@ function Index(props) {
     }
 
     const onChangeForm = (name, val) => {
-        let obj = {...form};
+        let obj = { ...form };
         obj[name] = val;
 
         setForm(obj);
@@ -91,10 +91,7 @@ function Index(props) {
                 bgColor={"#FFF"}
                 style={{ flex: 1 }}>
 
-                {/* Header */}
-                <View style={{ height: 80 }} />
-
-                <View style={{ height: 10 }} />
+                <View style={{ height: 40 }} />
 
                 {/* Body */}
                 <ScrollView showsVerticalScrollIndicator={false}
@@ -105,9 +102,7 @@ function Index(props) {
                         <VStack
                             justifyContent={"space-between"}
                             alignItems={"center"}
-                            style={{
-                                height: 450
-                            }}>
+                            style={{ height: 450 }}>
                             {/* Logo Header */}
                             <View alignItems={"center"}>
                                 <BcSvgIcon
@@ -115,18 +110,19 @@ function Index(props) {
                                     width={160}
                                     height={160} />
                             </View>
-                            <VStack space={3}>
-
+                            <VStack width={"80%"}
+                                space={3}>
                                 {/* Username */}
-                                <View style={{
-                                    width: width - 80
-                                }}>
-                                    <Text style={{
-                                        fontSize: 14,
-                                        fontWeight: "bold"
-                                    }}>Username</Text>
+                                <View>
+                                    <View>
+                                        <Text style={{
+                                            fontSize: 14,
+                                            fontWeight: "bold"
+                                        }}>Username</Text>
+                                    </View>
 
-                                    <View bgColor={"#EEF3F6"}>
+                                    <View
+                                        bgColor={"#EEF3F6"}>
                                         {/* Front Layer */}
                                         {/* <View style={{
                                             position: "absolute",
@@ -160,15 +156,13 @@ function Index(props) {
                                                 fontFamily: "Roboto-Medium",
                                                 fontSize: 20,
                                                 height: 40,
-                                                color: "#000"
+                                                color: "#000",
                                             }} />
                                     </View>
                                 </View>
 
                                 {/* Enter OTP */}
-                                <View style={{
-                                    width: width - 80
-                                }}>
+                                <View>
                                     <Text style={{
                                         fontSize: 14,
                                         fontWeight: "bold"
@@ -195,7 +189,6 @@ function Index(props) {
                                     <View backgroundColor={"#2898FF"}
                                         alignItems={"center"} justifyContent={"center"}
                                         style={{
-                                            width: width - 80,
                                             height: 48
                                         }}
                                     >
@@ -208,11 +201,12 @@ function Index(props) {
                                 </TouchableOpacity>
                             </VStack>
                         </VStack>
+
+                        {/* Footer */}
+                        <View style={{ height: 40 }} />
                     </View>
                 </ScrollView>
 
-                {/* Footer */}
-                <View style={{ height: 80 }} />
             </View>
         </SafeAreaView>
     );
