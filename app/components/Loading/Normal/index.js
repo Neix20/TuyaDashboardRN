@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text } from "react-native";
+import { Text, SafeAreaView } from "react-native";
 import { View, Spinner } from 'native-base';
 
 import Modal from "react-native-modal";
@@ -16,13 +16,13 @@ function Index(props) {
             animationInTiming={1}
             animationOutTiming={1}
             backdropOpacity={.5}>
-            <View 
-                alignItems={"center"} 
+            <View
+                alignItems={"center"}
                 justifyContent={"center"}>
                 <Spinner size={128} color={"#2898FF"} />
             </View>
             <View
-                alignItems={"center"} 
+                alignItems={"center"}
                 style={{
                     position: "absolute",
                     left: 0,

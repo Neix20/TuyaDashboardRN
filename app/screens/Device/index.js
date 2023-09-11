@@ -15,7 +15,7 @@ const { width, height } = screen;
 
 import { Logger, Utility } from "@utility";
 
-import { BcSvgIcon, BcBoxShadow, BcDeviceConModal, BcDropdown, BaseModal } from "@components";
+import { BcSvgIcon, BcBoxShadow, BcDeviceConModal, BcDropdown, BcLoading } from "@components";
 
 import { Devices } from "@config";
 
@@ -27,21 +27,29 @@ import PaginationDot from 'react-native-animated-pagination-dot';
 
 import TopModal from "@components/Modal/TopModal";
 
+import Modal from "react-native-modal";
+
+import { fetchHomeList } from "@api";
+
+import { useDispatch, useSelector } from 'react-redux';
+import { Actions, Selectors } from '@redux';
+
 // #region Home Modal
 function HomeModal(props) {
 
     // #region Props
-    const { data = [], onSelect = () => { } } = props;
+    const { data = [], onItemSelect = () => { } } = props;
+    const { onSelectHomeManagement = () => { } } = props;
     // #endregion
 
     // #region Render
     const renderItem = ({ item, index }) => {
-        const { name, pos, flag } = item;
-        const selectItem = () => onSelect(item);
+        const { Name, pos, flag } = item;
+        const selectItem = () => onItemSelect(item);
 
         return (
             <TouchableOpacity onPress={selectItem}>
-                <HStack alignItems={"center"} style={{ height: 30 }}>
+                <HStack alignItems={"center"} style={{ height: 40 }}>
                     {
                         (flag) ? (
                             <View flex={.1}>
@@ -55,7 +63,7 @@ function HomeModal(props) {
                         <Text style={{
                             fontFamily: "Roboto-Bold",
                             fontSize: 18,
-                        }}>{name}</Text>
+                        }}>{Name}</Text>
                     </View>
                 </HStack>
             </TouchableOpacity>
@@ -68,7 +76,8 @@ function HomeModal(props) {
             <View alignItems={"center"} width={"100%"}>
                 <FlatList data={data} renderItem={renderItem} style={{ width: "90%" }} />
                 <Divider my={2} width={"90%"} />
-                <TouchableOpacity style={{ width: "90%" }}>
+                <TouchableOpacity onPress={onSelectHomeManagement}
+                    style={{ width: "90%" }}>
                     <HStack alignItems={"center"} style={{ height: 40 }}>
                         <View flex={.1}>
                             <FontAwesome name={"home"} color={"#ccc"} size={20} />
@@ -87,40 +96,50 @@ function HomeModal(props) {
 }
 function HomeInfo(props) {
 
+    const navigation = useNavigation();
     const isFocused = useIsFocused();
+
+    // const userId = useSelector(Selectors.userIdSelect);
+    const userId = 2;
 
     // #region Initial
     const init = {
         home: {
-            name: "",
+            Name: "",
             pos: 0,
             flag: false,
-        },
-        homeLs: ["Home 1", "Home 2", "Home 3", "Home 4", "Home 5", "Home 6", "Home 7", "Home 8", "Home 9", "Home 10"]
+        }
     }
     // #endregion
 
     // #region UseState
-    const [home, setHome] = useState("");
+    const [home, setHome] = useState(init.home);
     const [homeLs, setHomeLs] = useState([]);
     const [showHomeModal, setShowHomeModal] = useState(false);
+
+    const [loading, setLoading] = useState(false);
     // #endregion
 
     // #region UseEffect
     useEffect(() => {
         if (isFocused) {
-            let arr = [...init.homeLs];
-
-            arr = arr.map((obj, ind) => ({
-                name: obj,
-                pos: ind,
-                flag: false
-            }))
-
-            arr[0].flag = true;
-
-            setHome(arr[0]);
-            setHomeLs(arr);
+            setLoading(true);
+            fetchHomeList({
+                param: {
+                    UserId: userId,
+                },
+                onSetLoading: setLoading
+            })
+                .then(data => {
+                    if (data.length > 0) {
+                        setHome(data[0]);
+                    }
+                    setHomeLs(data);
+                })
+                .catch(err => {
+                    setLoading(false);
+                    console.log(`Error: ${err}`);
+                })
         }
     }, [isFocused]);
     // #endregion
@@ -128,8 +147,6 @@ function HomeInfo(props) {
     // #region Helper
     const toggleHomeModal = () => setShowHomeModal((val) => !val);
     const selectHome = ({ pos }) => {
-
-        console.log(pos);
         let arr = [...homeLs];
 
         for (let ind in arr) {
@@ -140,20 +157,32 @@ function HomeInfo(props) {
 
         setHome(arr[pos]);
         setHomeLs(arr);
+
+        toggleHomeModal();
     }
     // #endregion
+
+    // #region Navigation
+    const GoToHomeManagement = () => {
+        navigation.navigate("HomeManagement");
+        toggleHomeModal();
+    };
+    // #endregion
+
     return (
         <>
+            <BcLoading loading={loading} />
             <HomeModal
-                data={homeLs} onSelect={selectHome}
+                data={homeLs} onItemSelect={selectHome}
+                onSelectHomeManagement={GoToHomeManagement}
                 showModal={showHomeModal} setShowModal={setShowHomeModal} />
             <TouchableOpacity onPress={toggleHomeModal}>
-                <HStack alignItems={"center"}>
+                <HStack alignItems={"center"} space={2}>
                     <Text style={{
                         fontFamily: "Roboto-Bold",
                         fontSize: 20,
                         color: "#c3c3c3"
-                    }}>{home.name}</Text>
+                    }}>{home.Name}</Text>
                     <FontAwesome5 name={"caret-down"} color={"#c3c3c3"} size={32} />
                 </HStack>
             </TouchableOpacity>
@@ -186,6 +215,7 @@ function AddDeviceModal(props) {
 }
 
 function AddDeviceBtn(props) {
+
     // #region UseState
     const [showAdModal, setShowAdModal] = useState(false);
     // #endregion
@@ -204,6 +234,80 @@ function AddDeviceBtn(props) {
                     style={{ width: 32, height: 32 }}>
                     <FontAwesome name={"plus"} size={16} color={"#FFF"} />
                 </View>
+            </TouchableOpacity>
+        </>
+    )
+}
+// #endregion
+
+// #region Tab Detail
+function TabDetailModal(props) {
+
+    // #region Props
+    const { showModal, setShowModal } = props;
+    // #endregion
+
+    return (
+        <Modal
+            isVisible={showModal}
+            animationInTiming={1}
+            animationOutTiming={1}
+            onBackButtonPress={() => setShowModal(false)}
+            onBackdropPress={() => setShowModal(false)}
+            backdropOpacity={.3}>
+            <View py={5}
+                alignItems={"center"}
+                borderRadius={8}
+                bgColor={"#FFF"}>
+
+                <TouchableOpacity style={{ width: "90%" }}>
+                    <HStack
+                        alignItems={"center"}
+                        style={{ height: 40 }}>
+                        <HStack alignItems={"center"} space={3}>
+                            <MaterialCommunityIcons name={"view-grid-outline"} size={28} />
+                            <Text style={{
+                                fontFamily: "Roboto-Medium",
+                                fontSize: 18
+                            }}>Grid View</Text>
+                        </HStack>
+                    </HStack>
+                </TouchableOpacity>
+
+                <TouchableOpacity style={{ width: "90%" }}>
+                    <HStack
+                        alignItems={"center"}
+                        style={{ height: 40 }}>
+                        <HStack alignItems={"center"} space={3}>
+                            <MaterialCommunityIcons name={"hexagon-slice-4"} size={28} />
+                            <Text style={{
+                                fontFamily: "Roboto-Medium",
+                                fontSize: 18
+                            }}>Room Management</Text>
+                        </HStack>
+                    </HStack>
+                </TouchableOpacity>
+
+            </View>
+        </Modal>
+    )
+}
+
+function TabDetail(props) {
+
+    // #region UseState
+    const [showTdModal, setShowTdModal] = useState(false);
+    // #endregion
+
+    // #region Helper
+    const toggleTabDetail = () => setShowTdModal((val) => !val);
+    // #endregion
+
+    return (
+        <>
+            <TabDetailModal showModal={showTdModal} setShowModal={setShowTdModal} />
+            <TouchableOpacity onPress={toggleTabDetail}>
+                <MaterialCommunityIcons name={"dots-horizontal"} size={32} />
             </TouchableOpacity>
         </>
     )
@@ -504,14 +608,18 @@ function Index(props) {
             <Tab.Item
                 key={index}
                 title={item}
-                titleStyle={(active) => ({ fontSize: 12, color: active ? init.txtActive : init.txtInActive })}
+                titleStyle={(active) => ({
+                    fontSize: 18,
+                    paddingHorizontal: 0,
+                    color: active ? init.txtActive : init.txtInActive
+                })}
                 buttonStyle={(active) => ({
-                    backgroundColor: active ? init.bgActive : init.bgInActive,
-                    borderWidth: active ? 1 : 0,
+                    // backgroundColor: active ? init.bgActive : init.bgInActive,
+                    // borderWidth: active ? 1 : 0,
                     borderRadius: 8,
-                    paddingVertical: 5,
-                    marginRight: 5,
-                    minWidth: 100,
+                    marginRight: 10,
+                    paddingVertical: 0,
+                    paddingHorizontal: 0,
                 })}
             />
         )
@@ -525,28 +633,31 @@ function Index(props) {
     // #endregion
 
     // #region Helper
-    const toggleViewMode = () => setViewMode((val) => (val === "list") ? "grid" : "list");
+    const toggleViewMode = () => {
+        const val = (viewMode === "list") ? "grid" : "list";
+        setViewMode(val);
+    };
     // #endregion
 
     return (
-        <SafeAreaView style={{ flex: 1 }}>
-            <View bgColor={"#FFF"} style={{ flex: 1 }}>
+        <>
+            <SafeAreaView style={{ flex: 1 }}>
+                <View bgColor={"#FFF"} style={{ flex: 1 }}>
 
-                {/* Header */}
-                <Header />
+                    {/* Header */}
+                    <Header />
 
-                <View style={{ height: 10 }} />
+                    <View style={{ height: 10 }} />
 
-                {/* Card Gradient */}
-                <View alignItems={"center"}>
-                    <CardGradient />
-                </View>
+                    {/* Card Gradient */}
+                    <View alignItems={"center"}>
+                        <CardGradient />
+                    </View>
 
-                <View style={{ height: 5 }} />
+                    <View style={{ height: 5 }} />
 
-                <View alignItems={"center"}>
-                    <HStack alignItems={"center"} width={"90%"}>
-                        <View flex={.92}>
+                    <View alignItems={"center"}>
+                        <HStack alignItems={"center"} width={"90%"}>
                             <Tab
                                 scrollable={true}
                                 disableIndicator={true}
@@ -554,18 +665,21 @@ function Index(props) {
                                 onChange={(e) => setRoomPaneInd(e)}>
                                 {roomLs.map(renderTabItem)}
                             </Tab>
-                        </View>
-                        <View flex={.08}>
-                            <TouchableOpacity>
-                                <MaterialCommunityIcons name={"dots-horizontal"} size={32} />
-                            </TouchableOpacity>
-                        </View>
-                    </HStack>
-                </View>
+                            <View justifyContent={"center"}
+                                style={{
+                                    position: "absolute",
+                                    top: 0,
+                                    bottom: 0,
+                                    right: 0,
+                                }}>
+                                <TabDetail />
+                            </View>
+                        </HStack>
+                    </View>
 
-                <View style={{ height: 5 }} />
+                    <View style={{ height: 450 }} />
 
-                {/* <View flexGrow={1}
+                    {/* <View flexGrow={1}
                     alignItems={"center"}>
                     <FlatList
                         key={viewMode}
@@ -582,7 +696,7 @@ function Index(props) {
                     />
                 </View> */}
 
-                {/* <TabView
+                    {/* <TabView
                     value={roomPaneInd}
                     onChange={(e) => setRoomPaneInd(e)}>
                     <TabView.Item
@@ -624,10 +738,11 @@ function Index(props) {
                     }
                 </TabView> */}
 
-                {/* Footer */}
-                <View style={{ height: 60 }} />
-            </View>
-        </SafeAreaView>
+                    {/* Footer */}
+                    <View style={{ height: 60 }} />
+                </View>
+            </SafeAreaView>
+        </>
     )
 }
 

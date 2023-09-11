@@ -10,6 +10,8 @@ import TabNavigation from "./TabNavigation";
 import DeviceDetail from "@screens/DeviceDetail";
 import DeviceChart from "@screens/DeviceChart";
 
+import HomeManagement from "@screens/Home/HomeManagement";
+
 import Login from "@screens/Login";
 
 import UsageInfo from "@screens/UsageInfo";
@@ -59,6 +61,10 @@ StackScreens = {
     ProfileBackup: {
         component: ProfileBackup,
         title: "ProfileBackup"
+    },
+    HomeManagement: {
+        component: HomeManagement,
+        title: "HomeManagement"
     }
 }
 
@@ -68,7 +74,7 @@ function Index(props) {
         SplashScreen.hide();
     }, []);
 
-    const defaultScreen = "Login";
+    const defaultScreen = "Empty";
     // const defaultScreen = "TuyaPanel";
 
     return (
