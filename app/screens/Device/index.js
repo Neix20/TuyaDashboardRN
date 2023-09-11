@@ -76,8 +76,7 @@ function HomeModal(props) {
             <View alignItems={"center"} width={"100%"}>
                 <FlatList data={data} renderItem={renderItem} style={{ width: "90%" }} />
                 <Divider my={2} width={"90%"} />
-                <TouchableOpacity onPress={onSelectHomeManagement}
-                    style={{ width: "90%" }}>
+                <TouchableOpacity onPress={onSelectHomeManagement} style={{ width: "90%" }}>
                     <HStack alignItems={"center"} style={{ height: 40 }}>
                         <View flex={.1}>
                             <FontAwesome name={"home"} color={"#ccc"} size={20} />
@@ -99,8 +98,7 @@ function HomeInfo(props) {
     const navigation = useNavigation();
     const isFocused = useIsFocused();
 
-    // const userId = useSelector(Selectors.userIdSelect);
-    const userId = 2;
+    const userId = useSelector(Selectors.userIdSelect);
 
     // #region Initial
     const init = {

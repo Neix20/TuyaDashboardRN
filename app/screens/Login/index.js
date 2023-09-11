@@ -53,23 +53,7 @@ function Index(props) {
                 if (data !== null) {
                     const { Data: { User_Id } } = data;
 
-                    loginWithEmail({
-                        countryCode: 'MY',
-                        email: 'txen2000@gmail.com',
-                        password: 'arf11234'
-                    })
-                        .then(res => {
-                            Logger.info({
-                                content: res,
-                                page: "App",
-                                fileName: "tuya_login",
-                            });
-                        })
-                        .catch(err => {
-                            console.log(`Error: ${err}`);
-                        });
-
-                    // dispatch(Actions.onChangeUserId(User_Id));
+                    dispatch(Actions.onChangeUserId(User_Id));
                     GoToHome();
                 } else {
                     toast.show({

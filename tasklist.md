@@ -19,9 +19,9 @@
   - [x] Home Modal
   - [ ] Add New Home
   - [ ] Update Home
-- [ ] Room Management
-  - [ ] Switch To List View / Grid View
-  - [ ] Add Room
+- [x] Room Management
+  - [x] Switch To List View / Grid View
+  - [x] Add Room
 - [ ] Device Connection
   - [ ] Scan Device, Get Device Info
     - [ ] Ask To Connect
@@ -35,7 +35,7 @@
 #### Screens
 
 * Completed Before 2PM
-- [ ] Home List
+- [x] Home List
 - [ ] Home Info
 - [ ] Add Home
   - [ ] Pass List of Rooms

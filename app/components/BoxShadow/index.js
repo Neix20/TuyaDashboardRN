@@ -14,7 +14,11 @@ function Index(props) {
             distance={distance}
             startColor={startColor}
             offset={offset}
-            style={{ borderRadius: 8, ...style }}
+            style={{ 
+                borderRadius: 8, 
+                width: "100%",
+                ...style 
+            }}
             {...props}
         >
             {children}

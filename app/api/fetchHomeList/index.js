@@ -11,8 +11,6 @@ const Index = async (props) => {
     // Static Data
     let obj = Utility.requestObj(param);
 
-    console.log(JSON.stringify(param))
-
     const resp = await fetch(url, {
         method: "POST",
         headers: {

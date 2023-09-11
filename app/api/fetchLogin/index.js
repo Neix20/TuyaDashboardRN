@@ -25,6 +25,15 @@ const Index = async (props) => {
     onSetLoading(false);
 
     if (data["ResponseCode"] === "00") {
+
+        let res = await loginWithEmail({
+            countryCode: 'MY',
+            email: 'txen2000@gmail.com',
+            password: 'arf11234'
+        })
+        
+        res = await Logger.info({ content: res, page: "App", fileName: "tuya_login" });
+        
         return data;
     }
     else if (data["ResponseCode"] === "011001") {

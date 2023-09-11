@@ -26,7 +26,7 @@ if (process.env.NODE_ENV === `development`) {
 }
 
 // This Prevents Redux From Logging
-// middleware = [];
+middleware = [];
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 const store = createStore(persistedReducer, applyMiddleware(...middleware));
