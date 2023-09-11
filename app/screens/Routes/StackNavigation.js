@@ -12,6 +12,7 @@ import DeviceChart from "@screens/DeviceChart";
 
 import HomeManagement from "@screens/Home/HomeManagement";
 import HomeInfo from "@screens/Home/HomeInfo";
+import AddHome from "@screens/Home/AddHome";
 
 import Login from "@screens/Login";
 
@@ -70,6 +71,10 @@ StackScreens = {
     HomeInfo: {
         component: HomeInfo,
         title: "HomeInfo"
+    },
+    AddHome: {
+        component: AddHome,
+        title: "AddHome"
     }
 }
 

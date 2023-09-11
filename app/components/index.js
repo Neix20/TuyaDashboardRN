@@ -85,3 +85,9 @@ import BcSvgChart from "./Chart";
 export {
     BcSvgChart,
 }
+
+import BcYatuHome from "./YatuHome";
+
+export {
+    BcYatuHome
+}

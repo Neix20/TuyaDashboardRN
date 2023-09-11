@@ -71,20 +71,36 @@ function HomeInfo(props) {
     )
 }
 
+function AddRoom(props) {
+    return (
+        <TouchableOpacity>
+            <View py={3}
+                alignItems={"center"}
+                bgColor={"#FFF"}>
+                <View width={"90%"}>
+                    <Text style={{
+                        fontSize: 16,
+                        color: "#2898FF",
+                        fontFamily: "Roboto-Medium",
+                    }}>Add Room</Text>
+                </View>
+            </View>
+        </TouchableOpacity>
+    )
+}
+
 function DeleteHome(props) {
     return (
         <TouchableOpacity>
-            <BcBoxShadow>
-                <View py={3}
-                    alignItems={"center"}
-                    bgColor={"#FFF"}>
-                    <Text style={{
-                        fontSize: 16,
-                        color: "#F00",
-                        fontFamily: "Roboto-Medium",
-                    }}>Delete Home</Text>
-                </View>
-            </BcBoxShadow>
+            <View py={3}
+                alignItems={"center"}
+                bgColor={"#FFF"}>
+                <Text style={{
+                    fontSize: 16,
+                    color: "#F00",
+                    fontFamily: "Roboto-Medium",
+                }}>Delete Home</Text>
+            </View>
         </TouchableOpacity>
     )
 }
@@ -116,6 +132,8 @@ function Index(props) {
                         flexGrow={1}>
                         {/* Info */}
                         <HomeInfo {...home} />
+
+                        <AddRoom />
 
                         {/* Delete Home */}
                         <DeleteHome />

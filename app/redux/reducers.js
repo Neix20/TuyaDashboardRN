@@ -1,6 +1,7 @@
 const initialState = {
     defaultValue: -1,
     userId: -1,
+    homeId: -1,
 };
 
 function setReducer(state = initialState, action = {}) {
@@ -14,6 +15,11 @@ function setReducer(state = initialState, action = {}) {
             return {
                 ...state,
                 userId: action.userId,
+            };
+        case "SET_HOME_ID":
+            return {
+                ...state,
+                homeId: action.homeId,
             };
         default: {
             return {

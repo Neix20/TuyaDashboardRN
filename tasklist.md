@@ -36,7 +36,7 @@
 
 * Completed Before 2PM
 - [x] Home List
-- [ ] Home Info
+- [x] Home Info
 - [ ] Add Home
   - [ ] Pass List of Rooms
 

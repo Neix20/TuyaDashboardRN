@@ -12,7 +12,15 @@ const onChangeUserId = (userId) => {
     }
 };
 
+const onChangeHomeId = (homeId) => {
+    return {
+        type: "SET_HOME_ID",
+        homeId: homeId,
+    }
+};
+
 export {
     onChangeDefaultValue,
     onChangeUserId,
+    onChangeHomeId,
 }

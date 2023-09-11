@@ -51,9 +51,11 @@ function Index(props) {
         })
             .then(data => {
                 if (data !== null) {
-                    const { Data: { User_Id } } = data;
+                    const { Data: { User_Id, HomeId } } = data;
 
                     dispatch(Actions.onChangeUserId(User_Id));
+                    dispatch(Actions.onChangeHomeId(HomeId));
+                    
                     GoToHome();
                 } else {
                     toast.show({

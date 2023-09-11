@@ -27,7 +27,7 @@ function Index(props) {
     // #endregion
 
     return (
-        <BcBoxShadow style={{width: "100%"}}>
+        <BcBoxShadow>
             <View
                 style={{
                     height: 60,

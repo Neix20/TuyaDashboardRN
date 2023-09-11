@@ -60,23 +60,21 @@ function HomeList(props) {
 }
 
 function AddHome(props) {
-    const { onPress: onSelect = () => { } } = props;
+    const { onSelect = () => { } } = props;
     return (
         <TouchableOpacity onPress={onSelect}>
-            <BcBoxShadow>
-                <View
-                    py={3}
-                    bgColor={"#fff"}
-                    alignItems={"center"}>
-                    <View width={"90%"}>
-                        <Text style={[{
-                            fontSize: 16,
-                            color: "#2898FF",
-                            fontFamily: "Roboto-Medium",
-                        }]}>Create Home</Text>
-                    </View>
+            <View
+                py={3}
+                bgColor={"#fff"}
+                alignItems={"center"}>
+                <View width={"90%"}>
+                    <Text style={[{
+                        fontSize: 16,
+                        color: "#2898FF",
+                        fontFamily: "Roboto-Medium",
+                    }]}>Create Home</Text>
                 </View>
-            </BcBoxShadow>
+            </View>
         </TouchableOpacity>
     )
 }
@@ -118,6 +116,7 @@ function Index(props) {
 
     // #region Navigation
     const GoToHomeInfo = (item) => navigation.navigate("HomeInfo", item);
+    const GoToAddHome = () => navigation.navigate("AddHome");
     // #endregion
 
     return (
@@ -139,7 +138,7 @@ function Index(props) {
                             <HomeList data={homeLs} onItemSelect={GoToHomeInfo} />
 
                             {/*  */}
-                            <AddHome />
+                            <AddHome onSelect={GoToAddHome} />
                         </VStack>
                     </ScrollView>
                 </View>

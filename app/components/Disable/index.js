@@ -1,13 +1,11 @@
 import React from "react";
 
-import { StyleSheet } from "react-native";
-
 import { View } from "native-base";
 
 function Index(props) {
-    const { children, backgroundColor = "#fff", opacity = 0.5, styles = {} } = props;
+    const { children, backgroundColor = "#fff", opacity = 0.5 } = props;
     return (
-        <View style={styles}>
+        <View>
             {/* Front Layer */}
             <View style={{
                 position: "absolute",
@@ -16,12 +14,9 @@ function Index(props) {
                 bottom: 0,
                 left: 0,
                 right: 0,
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center"
-            }}>
-                <View backgroundColor={backgroundColor} height={"80%"} width={"80%"} opacity={opacity}></View>
-            </View>
+            }} 
+            backgroundColor={backgroundColor} 
+            opacity={opacity} />
             <View>
                 {children}
             </View>
