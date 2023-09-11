@@ -11,6 +11,7 @@ import DeviceDetail from "@screens/DeviceDetail";
 import DeviceChart from "@screens/DeviceChart";
 
 import HomeManagement from "@screens/Home/HomeManagement";
+import HomeInfo from "@screens/Home/HomeInfo";
 
 import Login from "@screens/Login";
 
@@ -65,6 +66,10 @@ StackScreens = {
     HomeManagement: {
         component: HomeManagement,
         title: "HomeManagement"
+    },
+    HomeInfo: {
+        component: HomeInfo,
+        title: "HomeInfo"
     }
 }
 

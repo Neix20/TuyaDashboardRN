@@ -19,14 +19,16 @@ import { Actions, Selectors } from '@redux';
 function HomeList(props) {
 
     // #region Props
-    const { data: ls = [] } = props;
+    const { data = [] } = props;
+    const { onItemSelect = () => { } } = props;
     // #endregion
 
     // #region Render
     const renderItem = ({ item, index }) => {
         const { Name } = item;
+        const selectItem = () => onItemSelect(item);
         return (
-            <TouchableOpacity>
+            <TouchableOpacity onPress={selectItem}>
                 <HStack
                     alignItems={"center"}
                     justifyContent={"space-between"}
@@ -42,20 +44,18 @@ function HomeList(props) {
     }
     // #endregion
 
-    if (ls.length == 0) {
+    if (data.length == 0) {
         return (<></>)
     }
 
     return (
-        <BcBoxShadow>
-            <View bgColor={"#FFF"} alignItems={"center"}>
-                <FlatList
-                    data={ls}
-                    renderItem={renderItem}
-                    style={{ width: "90%" }}
-                />
-            </View>
-        </BcBoxShadow>
+        <View bgColor={"#FFF"} alignItems={"center"}>
+            <FlatList
+                data={data}
+                renderItem={renderItem}
+                style={{ width: "90%" }}
+            />
+        </View>
     )
 }
 
@@ -116,6 +116,10 @@ function Index(props) {
     }, [isFocused]);
     // #endregion
 
+    // #region Navigation
+    const GoToHomeInfo = (item) => navigation.navigate("HomeInfo", item);
+    // #endregion
+
     return (
         <>
             <BcLoading loading={loading} />
@@ -132,7 +136,7 @@ function Index(props) {
                         <VStack space={3}
                             flexGrow={1}>
                             {/* Home List Panel */}
-                            <HomeList data={homeLs} />
+                            <HomeList data={homeLs} onItemSelect={GoToHomeInfo} />
 
                             {/*  */}
                             <AddHome />
