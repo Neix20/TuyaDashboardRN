@@ -45,8 +45,15 @@
 - [x] Add Room
 
 - [ ] Device Scan
+  - [x] Wifi Module
+  - [ ] Remove Device
+  - [ ] Device List
+  - [ ] Device Landing
+  - [ ] Device Info
+  - [ ] Device Chart
 
 #### Before Tomorrow
-- [ ] OneSignal Alert
+- [x] ~~OneSignal Alert~~
 - [ ] Remote Server: Notification Alert
-- [ ] Register, Profile
+- [ ] OnBoarding, Register, Profile
+- [ ] Live Data Pulling Every 2 Hours

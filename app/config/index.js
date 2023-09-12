@@ -11,7 +11,7 @@ import OriDevices from "./data/ori_devices";
 
 import * as clsConst from "./clsConst";
 
-import DeviceInfoList from "./data/device_info_list.json";
+import DeviceInfoDict from "./data/device_info_dict.json";
 
 import AlertDataList from "./data/alert_data_v2.json";
 
@@ -27,7 +27,7 @@ export {
     iRData,
     Devices,
     OriDevices,
-    DeviceInfoList,
+    DeviceInfoDict,
     AlertDataList,
     SmartPlugData
 };

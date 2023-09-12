@@ -19,8 +19,24 @@ const onChangeHomeId = (homeId) => {
     }
 };
 
+const onChangeWifi = (wifi) => {
+    return {
+        type: "SET_WIFI",
+        wifi: wifi,
+    }
+};
+
+const onChangeTuyaHomeId = (tuyaHomeId) => {
+    return {
+        type: "SET_TUYA_HOME_ID",
+        tuyaHomeId: tuyaHomeId,
+    }
+};
+
 export {
     onChangeDefaultValue,
     onChangeUserId,
     onChangeHomeId,
+    onChangeWifi,
+    onChangeTuyaHomeId,
 }

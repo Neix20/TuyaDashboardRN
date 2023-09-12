@@ -92,7 +92,6 @@ function Index(props) {
         requestPermission()
             .then(flag => {
                 if (flag) {
-                    console.log(flag);
                     initBluetoothDualModeActivator({
                         homeId: homeId,
                         ssid: "ivd_office",
@@ -101,14 +100,14 @@ function Index(props) {
                         Logger.info({
                             content: res,
                             page: "App",
-                            fileName: "tuya_blueTooth_scan",
+                            fileName: "tuya_blueTooth",
                         });
                         setResOutput(_ => JSON.stringify(res));
                     })
-                    .catch(err => {
-                        console.log(`Error: ${err}`);
-                        setResOutput(_ => JSON.stringify(err));
-                    });
+                        .catch(err => {
+                            console.log(`Error: ${err}`);
+                            setResOutput(_ => JSON.stringify(err));
+                        });
                 }
             })
             .catch(err => {
@@ -186,15 +185,24 @@ function Index(props) {
 
     const onBlueToothScan = () => {
         console.log(startBluetoothScan);
-        startBluetoothScan()
-            .then(res => {
-                Logger.info({
-                    content: res,
-                    page: "App",
-                    fileName: "tuya_bluetooth",
-                });
+        requestPermission()
+            .then(flag => {
+                if (flag) {
+                    startBluetoothScan()
+                        .then(res => {
+                            Logger.info({
+                                content: res,
+                                page: "App",
+                                fileName: "tuya_bluetooth_scan",
+                            });
 
-                setResOutput(_ => JSON.stringify(res));
+                            setResOutput(_ => JSON.stringify(res));
+                        })
+                        .catch(err => {
+                            console.log(`Error: ${err}`);
+                            setResOutput(_ => JSON.stringify(err));
+                        });
+                }
             })
             .catch(err => {
                 console.log(`Error: ${err}`);

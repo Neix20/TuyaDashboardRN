@@ -1,11 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { Text } from "react-native";
 
 function Index(props) {
-
     // #region Props
     const { duration = 15, onTimerEnd = () => { } } = props;
-    const { hide = false } = props;
     // #endregion
 
     // #region UseState
@@ -23,16 +20,6 @@ function Index(props) {
         }
     }, [timer]);
     // #endregion
-
-    if (timer <= 0 || hide) {
-        return <></>
-    }
-
-    return (
-        <Text {...props}>
-            {timer}
-        </Text>
-    );
 }
 
 export default Index;

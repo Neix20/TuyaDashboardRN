@@ -31,10 +31,16 @@ import Modal from "react-native-modal";
 
 // #region Add Device Modal
 function AddDeviceModal(props) {
+    
+    // #region Props
+    const { onDeviceScan = () => {} } = props;
+    // #endregion
+
     return (
         <TopModal showCross={false} {...props}>
             <View alignItems={"center"} width={"100%"}>
-                <TouchableOpacity style={{ width: "90%" }}>
+                <TouchableOpacity onPress={onDeviceScan}
+                    style={{ width: "90%" }}>
                     <HStack alignItems={"center"} style={{ height: 40 }}>
                         <View flex={.1}>
                             <Feather name={"target"} color={"#ccc"} size={20} />
@@ -54,6 +60,8 @@ function AddDeviceModal(props) {
 
 function AddDeviceBtn(props) {
 
+    const navigation = useNavigation();
+
     // #region UseState
     const [showAdModal, setShowAdModal] = useState(false);
     // #endregion
@@ -62,9 +70,17 @@ function AddDeviceBtn(props) {
     const toggleAdModal = () => setShowAdModal((val) => !val);
     // #endregion
 
+    // #region Navigation
+    const GoToDeviceScan = () => {
+        toggleAdModal();
+        navigation.navigate("DeviceScan");
+    }
+    // #endregion
+
     return (
         <>
-            <AddDeviceModal showModal={showAdModal} setShowModal={setShowAdModal} />
+            <AddDeviceModal onDeviceScan={GoToDeviceScan}
+                showModal={showAdModal} setShowModal={setShowAdModal} />
             <TouchableOpacity onPress={toggleAdModal}>
                 <View borderRadius={20}
                     bgColor={"#2898FF"}

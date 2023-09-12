@@ -9,6 +9,7 @@ import TabNavigation from "./TabNavigation";
 
 import DeviceDetail from "@screens/DeviceDetail";
 import DeviceChart from "@screens/DeviceChart";
+import DeviceScan from "@screens/Device/DeviceScan";
 
 import HomeManagement from "@screens/Home/HomeManagement";
 import HomeInfo from "@screens/Home/HomeInfo";
@@ -91,13 +92,33 @@ StackScreens = {
     AddRoom: {
         component: AddRoom,
         title: "AddRoom"
+    },
+    DeviceScan: {
+        component: DeviceScan,
+        title: "DeviceScan"
     }
-}
+};
+
+import { useDispatch, useSelector } from 'react-redux';
+import { Actions, Selectors } from '@redux';
 
 function Index(props) {
+
+    const dispatch = useDispatch();
+
+    const init = {
+        wifi: {
+            ssid: null,
+            password: null
+        }
+    }
+
     useEffect(() => {
         // Hide Splash Screen
         SplashScreen.hide();
+
+        // Reset Wifi
+        // dispatch(Actions.onChangeWifi(init.wifi));
     }, []);
 
     const defaultScreen = "TabNavigation";
