@@ -346,7 +346,6 @@ function Index(props) {
         },
         colors: ["#DB7D86", "#E7E005", "#188B9A", "#DB2E54", "#A53202", "#82EB20", "#75368B", "#395DAD", "#EC259F", "#0FA1AF", "#ADAC72", "#7FD106", "#6AC237", "#C5F022", "#76862A"],
         dt: DateTime.now().toFormat("yyyy-MM-dd"),
-        dt: "2023-07-01",
     }
     // #endregion
 
@@ -532,9 +531,15 @@ function Index(props) {
                                     )
                                 }
 
-                                <BcViewShot title="Device Report">
-                                    <DashboardReport data={DashboardReportData} />
-                                </BcViewShot>
+                                {
+                                    (Object.keys(chartData).length > 0) ? (
+                                        <BcViewShot title="Device Report">
+                                            <DashboardReport data={DashboardReportData} />
+                                        </BcViewShot>
+                                    ) : (
+                                        <></>
+                                    )
+                                }
                             </HStack>
                         </View>
 

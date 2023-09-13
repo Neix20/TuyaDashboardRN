@@ -125,7 +125,7 @@ function InfoPassword(props) {
                 secureTextEntry
                     defaultValue={Value}
                     onChangeValue={onChangeValue}
-                    placeholder={"Home Name"}
+                    placeholder={""}
                     autoCapitalize={"none"}
                     style={{
                         fontFamily: "Roboto-Medium",

@@ -2,6 +2,7 @@ const initialState = {
     defaultValue: -1,
     userId: -1,
     homeId: -1,
+    roomId: "",
     tuyaHomeId: 166388041,
     wifi: {
         ssid: null,
@@ -25,6 +26,11 @@ function setReducer(state = initialState, action = {}) {
             return {
                 ...state,
                 homeId: action.homeId,
+            };
+        case "SET_ROOM_ID":
+            return {
+                ...state,
+                roomId: action.roomId,
             };
         case "SET_WIFI":
             return {

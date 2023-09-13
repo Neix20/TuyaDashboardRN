@@ -131,7 +131,7 @@ function InfoItem(props) {
                 <TextInput
                     defaultValue={Value}
                     onChangeValue={onChangeValue}
-                    placeholder={"Home Name"}
+                    placeholder={""}
                     autoCapitalize={"none"}
                     style={{
                         fontFamily: "Roboto-Medium",
@@ -189,6 +189,7 @@ function Index(props) {
                 onSetLoading: setLoading,
             })
                 .then(data => {
+                    console.log(data);
                     setDeviceInfo(data)
                 })
                 .catch(err => {

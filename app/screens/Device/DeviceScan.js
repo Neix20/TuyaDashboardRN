@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Text, TouchableOpacity, Image, TextInput, Dimensions, SafeAreaView, ScrollView, FlatList } from "react-native";
 import { View, VStack, HStack, Spinner, useToast } from "native-base";
 
-import { PermissionsAndroid, Platform ,BackHandler } from "react-native";
+import { PermissionsAndroid, Platform, BackHandler } from "react-native";
 
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
@@ -22,7 +22,7 @@ import { DeviceInfoDict, Animation } from "@config";
 
 import { useWifi } from "@hooks";
 
-
+import { fetchAddDevice } from "@api";
 
 import { useDispatch, useSelector } from 'react-redux';
 import { Actions, Selectors } from '@redux';
@@ -77,7 +77,7 @@ function LoadingItem(props) {
     return (
         <View flexGrow={1} justifyContent={"center"}>
             <View alignItems={"center"}>
-            <Lottie
+                <Lottie
                     autoPlay
                     source={Animation.YatuLoader}
                     loop={true}
@@ -266,6 +266,9 @@ function AddDeviceModal(props) {
     // #region Redux
     const wifi = useSelector(Selectors.wifiSelect);
     const tuyaHomeId = useSelector(Selectors.tuyaHomeIdSelect);
+
+    const userId = useSelector(Selectors.userIdSelect);
+    const homeId = useSelector(Selectors.homeIdSelect);
     // #endregion
 
     // #region Props
@@ -298,7 +301,6 @@ function AddDeviceModal(props) {
     const closeModal = () => setShowModal(false);
 
     const onAddDevice = () => {
-        console.log(initBluetoothDualModeActivator);
         setLoading(true);
         requestPermission()
             .then(flag => {
@@ -307,18 +309,43 @@ function AddDeviceModal(props) {
                         homeId: tuyaHomeId,
                         ...wifi
                     }).then(res => {
-                        setLoading(false);
+                        // setLoading(false);
+
                         Logger.info({
                             content: res,
                             page: "App",
                             fileName: "tuya_blueTooth",
                         });
 
-                        closeModal();
-                        navigation.goBack();
-                        toast.show({
-                            description: "Successfully Added Device!"
+                        // Add Device
+                        const { ip, mac, name: devName, devId, timezoneId } = res;
+
+                        fetchAddDevice({
+                            param: {
+                                "UserId": userId,
+                                "HomeId": homeId,
+                                "RoomId": 999,
+                                "TuyaName": devName,
+                                "MDevice": "IR Temperature",
+                                "TuyaId": devId,
+                                "Ip_Addr": ip,
+                                "Mac_Addr": mac,
+                                "Timezone": timezoneId
+                            },
+                            onSetLoading: setLoading
                         })
+                            .then(data => {
+                                closeModal();
+                                navigation.goBack();
+                                toast.show({
+                                    description: "Successfully Added Device!"
+                                })
+                            })
+                            .catch(err => {
+                                setLoading(false);
+                                console.log(`Error: ${err}`);
+                            });
+
                     })
                         .catch(err => {
                             setLoading(false);
@@ -550,7 +577,7 @@ function Index(props) {
                                 onRefresh={refreshScan} />
                         ) : (
                             <View flexGrow={1}>
-                                <DevicePanel 
+                                <DevicePanel
                                     data={btScanArr} />
                             </View>
                         )

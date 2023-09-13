@@ -134,12 +134,16 @@ function Index(props) {
 
     const dispatch = useDispatch();
 
+    // #region Initial
     const init = {
         wifi: {
             ssid: null,
             password: null
         }
     }
+    // #endregion
+
+    const userId = useSelector(Selectors.userIdSelect);
 
     useEffect(() => {
         // Hide Splash Screen
@@ -149,7 +153,7 @@ function Index(props) {
         dispatch(Actions.onChangeWifi(init.wifi));
     }, []);
 
-    const defaultScreen = "TabNavigation";
+    const defaultScreen = (userId == -1) ? "Login" : "TabNavigation";
     // const defaultScreen = "TuyaPanel";
 
     return (

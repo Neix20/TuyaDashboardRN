@@ -119,7 +119,7 @@ function NavPanel(props) {
                 Btn={FontAwesome} icon={"home"} title={"Home Management"} />
             <PanelBtn onPress={GoToAlert}
                 Btn={MaterialCommunityIcons} icon={"message-text-outline"} title={"Message Center"} />
-            <PanelBtn Btn={SimpleLineIcons} icon={"question"} title={"FAQ & Feedback"} />
+            {/* <PanelBtn Btn={SimpleLineIcons} icon={"question"} title={"FAQ & Feedback"} /> */}
         </VStack>
     )
 }
@@ -155,6 +155,8 @@ function Index(props) {
     const toast = useToast();
     const navigation = useNavigation();
     const isFocused = useIsFocused();
+
+    const dispatch = useDispatch();
 
     const userId = useSelector(Selectors.userIdSelect);
 
@@ -192,7 +194,14 @@ function Index(props) {
         navigation.navigate("TuyaPanel");
     }
 
-    const GoToLogin = () => {
+    const SignOut = () => {
+
+        // Reset User Id
+        dispatch(Actions.onChangeUserId(-1));
+
+        // Reset Home Id
+        dispatch(Actions.onChangeHomeId(-1));
+
         navigation.navigate("Login");
     }
     // #endregion
@@ -224,7 +233,7 @@ function Index(props) {
                         <NavPanel />
 
                         {/* Logout */}
-                        <LogoutPanel onPress={GoToLogin} />
+                        <LogoutPanel onPress={SignOut} />
 
                     </VStack>
                 </ScrollView>

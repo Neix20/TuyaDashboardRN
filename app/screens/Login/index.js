@@ -47,8 +47,8 @@ function Index(props) {
         setLoading(false);
         fetchLogin({
             param: {
-                Username: username,
-                Password: password,
+                Username: form.username,
+                Password: form.password,
             },
             onSetLoading: setLoading,
         })
@@ -57,7 +57,8 @@ function Index(props) {
                     const { Data: { User_Id, HomeId } } = data;
 
                     dispatch(Actions.onChangeUserId(User_Id));
-                    dispatch(Actions.onChangeHomeId(HomeId));
+
+                    // dispatch(Actions.onChangeHomeId(HomeId));
                     
                     GoToHome();
                 } else {

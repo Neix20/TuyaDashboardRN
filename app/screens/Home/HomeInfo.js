@@ -101,7 +101,7 @@ function InfoItem(props) {
                 <TextInput
                     defaultValue={Value}
                     onChangeValue={onChangeValue}
-                    placeholder={"Home Name"}
+                    placeholder={""}
                     autoCapitalize={"none"}
                     style={{
                         fontFamily: "Roboto-Medium",
@@ -141,7 +141,7 @@ function InfoRoom(props) {
 function InfoPanel(props) {
 
     // #region Props
-    const { Name, Address } = props;
+    const { Name, RoomCount } = props;
     const { onRoomManagement = () => {}} = props;
     // #endregion
 
@@ -149,8 +149,8 @@ function InfoPanel(props) {
         <View alignItems={"center"}
             bgColor={"#FFF"}>
             <InfoItem Title={"Name"} Value={Name} />
-            <InfoRoom Title={"Rooms"} Value={null} onSelect={onRoomManagement} />
-            <InfoItem Title={"Location"} Value={Address} />
+            <InfoRoom Title={"Rooms"} Value={RoomCount} onSelect={onRoomManagement} />
+            {/* <InfoItem Title={"Location"} Value={Address} /> */}
         </View>
     )
 }
@@ -219,11 +219,13 @@ function Index(props) {
             setLoading(true);
             fetchHomeInfo({
                 param: {
+                    UserId: userId,
                     HomeId: homeId
                 },
                 onSetLoading: setLoading
             })
                 .then(data => {
+                    console.log(data);
                     setHome(data)
                 })
                 .catch(err => {

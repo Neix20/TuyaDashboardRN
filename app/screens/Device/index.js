@@ -16,7 +16,7 @@ const { width, height } = screen;
 
 import { Logger, Utility } from "@utility";
 
-import { BcSvgIcon, BcBoxShadow, BcDeviceConModal, BcDropdown, BcLoading, BcYatuHome, BcCarousel } from "@components";
+import { BcSvgIcon, BcBoxShadow, BcLoading, BcYatuHome, BcCarousel, BaseModal } from "@components";
 
 import { Devices, Images } from "@config";
 
@@ -27,7 +27,7 @@ import { removeDevice as TuyaRemoveDevice } from "@volst/react-native-tuya";
 import TopModal from "@components/Modal/TopModal";
 import Modal from "react-native-modal";
 
-import { fetchDeviceList } from "@api";
+import { fetchDeviceList, fetchDeleteDevice } from "@api";
 
 import { useDispatch, useSelector } from 'react-redux';
 import { Actions, Selectors } from '@redux';
@@ -208,6 +208,200 @@ function TabDetail(props) {
 }
 // #endregion
 
+// #region Device
+function DeviceRemoveModal(props) {
+
+    // #region Redux
+    const lang = "en";
+    // #endregion
+
+    // #region Props
+    const { onPress = () => { } } = props;
+    // #endregion
+
+    // #region Initial
+    const init = {
+        toast: {
+            msg: "",
+            flag: false
+        },
+    };
+    // #endregion
+
+    // #region Toast
+    const [cusToast, setCusToast] = useState(init.toast);
+
+    const setToastFlag = (val) => {
+        setCusToast({
+            ...cusToast,
+            flag: val
+        });
+    }
+
+    const showToastMsg = (val) => {
+        setCusToast({
+            ...cusToast,
+            msg: val,
+            flag: true
+        })
+    }
+
+    useEffect(() => {
+        if (cusToast.flag) {
+            setTimeout(() => {
+                setToastFlag(false);
+            }, 3 * 1000);
+        }
+    }, [cusToast.flag]);
+    // #endregion
+
+    return (
+        <BaseModal {...props} cusToast={cusToast}>
+            <VStack
+                py={5}
+                space={5}
+                alignItems={"center"}
+                style={{
+                    width: width - 100,
+                }}>
+                <View alignItems={"center"}>
+                    <Text style={{
+                        fontFamily: "Roboto-Bold",
+                        fontSize: 18,
+                        color: "#000",
+                        textAlign: "center",
+                    }}>Are you sure you want to remove this device?</Text>
+                </View>
+
+                <TouchableOpacity onPress={onPress}>
+                    <View backgroundColor={"#ff0000"}
+                        alignItems={"center"} justifyContent={"center"}
+                        style={{
+                            width: width - 120,
+                            height: 40,
+                            borderRadius: 8,
+                        }}
+                    >
+                        <Text style={[{
+                            fontSize: 14,
+                            fontWeight: "bold",
+                            color: "white",
+                        }]}>Remove Device</Text>
+                    </View>
+                </TouchableOpacity>
+            </VStack>
+        </BaseModal>
+    )
+}
+
+function DeviceItem(props) {
+
+    const toast = useToast();
+
+    // #region Props
+    const { Title, img, Description, Tuya_Id = "", Id: deviceId } = props;
+    const { loading, setLoading = () => { } } = props;
+    const { onSelect = () => { } } = props;
+    const { toggleRefresh = () => { } } = props;
+    // #endregion
+
+    const userId = useSelector(Selectors.userIdSelect);
+
+    // #region UseState
+    const [showRdModal, setShowRdModal] = useState(false);
+    // #endregion
+
+    // #region Helper
+    const toggleRdModal = () => setShowRdModal((val) => !val);
+
+    const onRemoveDevice = () => {
+        setLoading(true);
+        fetchDeleteDevice({
+            param: {
+                UserId: userId,
+                DeviceId: deviceId,
+            },
+            onSetLoading: setLoading
+        })
+        .then(data => {
+            toggleRdModal();
+            toggleRefresh();
+            toast.show({
+                description: "Successfully Removed Device!"
+            })
+            
+            TuyaRemoveDevice({
+                devId: Tuya_Id
+            })
+            .then(res => {
+                setLoading(false);
+                Logger.info({
+                    content: res,
+                    page: "App",
+                    fileName: "tuya_remove_device",
+                });
+            })
+            .catch(err => {
+                setLoading(false);
+                console.log(`Error: ${err}`);
+            });
+        })
+        .catch(err => {
+            setLoading(false);
+            console.log(`Error: ${err}`)
+        })
+    }
+    // #endregion
+
+    const borderRadius = 8;
+
+    return (
+        <>
+            <DeviceRemoveModal onPress={onRemoveDevice}
+                showModal={showRdModal} setShowModal={setShowRdModal} />
+            <TouchableOpacity
+                onPress={onSelect}
+                onLongPress={toggleRdModal}>
+                <BcBoxShadow
+                    style={{
+                        borderRadius: borderRadius,
+                        minWidth: 160,
+                        width: "100%",
+                    }}>
+                    <VStack
+                        p={2} space={2}
+                        style={{
+                            backgroundColor: "#FFF",
+                            borderRadius: borderRadius,
+                        }}>
+                        <Image
+                            source={img}
+                            style={{
+                                height: 60,
+                                width: 60,
+                            }}
+                            resizeMode={"cover"}
+                            alt={Title} />
+                        <VStack>
+                            <Text style={{
+                                fontSize: 14,
+                                fontFamily: 'Roboto-Bold',
+                                color: "#000",
+                            }}>{Title}</Text>
+                            <Text style={{
+                                fontSize: 12,
+                                fontFamily: 'Roboto-Medium',
+                                color: "#c6c6c6"
+                            }}>{Description}</Text>
+                        </VStack>
+                    </VStack>
+                </BcBoxShadow>
+            </TouchableOpacity>
+        </>
+    )
+}
+// #endregion
+
 // #region Components
 function Header(props) {
     return (
@@ -228,52 +422,6 @@ function Header(props) {
                 </HStack>
             </View>
         </BcBoxShadow>
-    )
-}
-
-function DeviceItem(props) {
-
-    const { Title, img, Description } = props;
-    const { onSelect = () => { } } = props;
-    const borderRadius = 8;
-
-    return (
-        <TouchableOpacity onPress={onSelect}>
-            <BcBoxShadow
-                style={{
-                    borderRadius: borderRadius,
-                    minWidth: 170,
-                    width: "100%",
-                }}>
-                <VStack
-                    p={2} space={2}
-                    style={{
-                        backgroundColor: "#FFF",
-                        borderRadius: borderRadius,
-                    }}>
-                    <Image
-                        source={img}
-                        style={{
-                            height: 60,
-                            width: 60,
-                        }}
-                        resizeMode={"cover"}
-                        alt={Title} />
-                    <VStack>
-                        <Text style={{
-                            fontSize: 14,
-                            fontFamily: 'Roboto-Bold',
-                            color: "#000",
-                        }}>{Title}</Text>
-                        <Text style={{
-                            fontSize: 12,
-                            fontFamily: 'Roboto-Medium',
-                            color: "#c6c6c6"
-                        }}>{Description}</Text>
-                    </VStack>
-                </VStack>
-            </BcBoxShadow>
-        </TouchableOpacity>
     )
 }
 
@@ -422,6 +570,8 @@ function Index(props) {
     const navigation = useNavigation();
     const isFocused = useIsFocused();
 
+    const dispatch = useDispatch();
+
     // #region Redux
     const lang = "en";
 
@@ -447,6 +597,7 @@ function Index(props) {
     const [imgLs, setImgLs] = useState(init.imgLs);
 
     const [loading, setLoading] = useState(false);
+    const [refresh, setRefresh] = useState(false);
 
     const [viewMode, toggleViewMode] = useViewMode();
     // #endregion
@@ -456,14 +607,6 @@ function Index(props) {
     // #region UseEffect
     useEffect(() => {
         if (isFocused) {
-            // arr = arr.map((obj, ind) => (
-            //     {
-            //         ...obj,
-            //         img: { uri: obj.icon },
-            //         pos: ind,
-            //     }
-            // ));
-
             setLoading(true);
             fetchDeviceList({
                 param: {
@@ -480,16 +623,33 @@ function Index(props) {
                     console.log(`Error: ${err}`);
                 })
         }
-    }, [isFocused, homeId]);
+    }, [isFocused, homeId, refresh]);
     // #endregion
 
+    // #region Navigation
     const GoToDetail = (item) => navigation.navigate("DeviceLanding", item);
+    // #endregion
+
+    // #region Helper
+    const onChangeTab = (ind) => {
+
+        const room = roomLs[ind];
+        dispatch(Actions.onChangeRoomId(room));
+
+        setRoomPaneInd(ind)
+    };
+
+    const toggleRefresh = () => setRefresh((val) => !val);
+    // #endregion
 
     // #region Render
     const renderDeviceItem = ({ item, index }) => {
         const onSelect = () => GoToDetail(item);
         return (
-            <DeviceItem key={index} onSelect={onSelect} {...item} />
+            <DeviceItem key={index}
+            toggleRefresh={toggleRefresh}
+                loading={loading} setLoading={setLoading}
+                onSelect={onSelect} {...item} />
         )
     }
 

@@ -13,16 +13,51 @@ const { width, height } = screen;
 
 import { info, error, Utility } from "@utility";
 
-import { Images, Svg, AlertDataList } from "@config";
+import { Animation } from "@config";
 
 import { BcBoxShadow, BcSvgIcon, BcLoading, BcYatuHome } from "@components";
 
-import { fetchDeviceNotification } from "@api";
+import { fetchGetNotification } from "@api";
 
 import { useDispatch, useSelector } from 'react-redux';
 import { Actions, Selectors } from '@redux';
 
+import Lottie from "lottie-react-native";
+
 // #region Components
+function Loading(props) {
+    return (
+        <View flexGrow={1} justifyContent={"center"}>
+            <View alignItems={"center"}>
+                <Lottie
+                    autoPlay
+                    source={Animation.YatuLoader}
+                    loop={true}
+                    style={{
+                        width: 360,
+                        height: 360
+                    }} />
+            </View>
+            <View
+                display={"none"}
+                alignItems={"center"}
+                style={{
+                    position: "absolute",
+                    left: 0,
+                    right: 0,
+                    bottom: 10,
+                }}
+            >
+                <Text style={{
+                    fontFamily: "Roboto-Bold",
+                    fontSize: 24,
+                    color: "#2898FF"
+                }}>Loading ...</Text>
+            </View>
+        </View>
+    )
+}
+
 function Header(props) {
 
     const { children, onBack = () => { } } = props;
@@ -138,20 +173,20 @@ function Index(props) {
     // #region UseEffect
     useEffect(() => {
         setLoading(true);
-        fetchDeviceNotification({
-                param: {
-                    UserId: userId,
-                    HomeId: homeId,
-                },
-                onSetLoading: setLoading
+        fetchGetNotification({
+            param: {
+                UserId: userId,
+                HomeId: homeId,
+            },
+            onSetLoading: setLoading
+        })
+            .then(res => {
+                setData(res);
             })
-                .then(res => {
-                    setData(res);
-                })
-                .catch(err => {
-                    setLoading(false);
-                    console.log(`Error: ${err}`)
-                });
+            .catch(err => {
+                setLoading(false);
+                console.log(`Error: ${err}`)
+            });
     }, [homeId]);
     // #endregion
 
@@ -219,7 +254,7 @@ function Index(props) {
 
     return (
         <>
-            <BcLoading loading={loading} />
+            {/* <BcLoading loading={loading} /> */}
             <SafeAreaView style={{ flex: 1 }}>
                 <View bgColor={"#f6f7fa"} style={{ flex: 1 }}>
 
@@ -235,16 +270,21 @@ function Index(props) {
 
                     <ScrollView showsVerticalScrollIndicator={false}
                         contentContainerStyle={{ flexGrow: 1 }}>
-                        <View flexGrow={1} alignItems={"center"}>
+                        {
+                            (loading) ? (
+                                <Loading />
+                            ) : (
+                                <View flexGrow={1} alignItems={"center"}>
+                                    {/* Alarm */}
+                                    <VStack space={5} width={"90%"}>
+                                        {dataKeys.map(renderItem)}
+                                    </VStack>
 
-                            {/* Alarm */}
-                            <VStack space={5} width={"90%"}>
-                                { dataKeys.map(renderItem) }
-                            </VStack>
+                                    <View style={{ height: 10 }} />
 
-                            <View style={{ height: 10 }} />
-
-                        </View>
+                                </View>
+                            )
+                        }
                     </ScrollView>
 
                     {/* Footer */}

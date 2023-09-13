@@ -33,10 +33,18 @@ const onChangeTuyaHomeId = (tuyaHomeId) => {
     }
 };
 
+const onChangeRoomId = (roomId) => {
+    return {
+        type: "SET_ROOM_ID",
+        roomId: roomId,
+    }
+};
+
 export {
     onChangeDefaultValue,
     onChangeUserId,
     onChangeHomeId,
+    onChangeRoomId,
     onChangeWifi,
     onChangeTuyaHomeId,
 }

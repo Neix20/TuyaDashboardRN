@@ -27,9 +27,9 @@ const Index = async (props) => {
         
         let res = {...Data[0]};
 
-        const { MetaData, DeviceImage } = Data[0];
+        const { MetaData, DeviceImg } = Data[0];
 
-        res["img"] = { uri: DeviceImage };
+        res["img"] = { uri: DeviceImg };
 
         let mObj = JSON.parse(MetaData);
 

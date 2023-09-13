@@ -35,7 +35,7 @@ function InfoItem(props) {
                 <TextInput
                     defaultValue={Value}
                     onChangeValue={onChangeValue}
-                    placeholder={"Room Name"}
+                    placeholder={""}
                     autoCapitalize={"none"}
                     style={{
                         fontFamily: "Roboto-Medium",
