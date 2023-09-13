@@ -12,6 +12,11 @@ import { Logger, Utility } from "@utility";
 
 import { BcDisable, BcLoading, BcBoxShadow } from "@components"
 
+import { fetchAddRoom } from "@api";
+
+import { useDispatch, useSelector } from 'react-redux';
+import { Actions, Selectors } from '@redux';
+
 // #region Components
 function Header(props) {
 
@@ -112,7 +117,7 @@ function HomeForm(props) {
         const onSelect = () => onChangeName(item);
         return (
             <TouchableOpacity key={index}
-                 onPress={onSelect}>
+                onPress={onSelect}>
                 <View borderWidth={1} borderRadius={8} p={2}>
                     <Text>{item}</Text>
                 </View>
@@ -176,6 +181,11 @@ function Index(props) {
     const navigation = useNavigation();
     const isFocused = useIsFocused();
 
+    // #region Redux
+    const userId = useSelector(Selectors.userIdSelect);
+    const homeId = useSelector(Selectors.homeIdSelect);
+    // #endregion
+
     // #region Initial
     const init = {
         form: {
@@ -187,6 +197,7 @@ function Index(props) {
     // #region UseState
     const [flag, setFlag] = useState(false);
     const [form, setForm] = useState(init.form);
+    const [loading, setLoading] = useState(false);
     // #endregion
 
     // #region UseEffect
@@ -204,36 +215,58 @@ function Index(props) {
         setForm(init.form);
     }
     const save = () => {
-        console.log(form);
-        clearForm();
+        const { name } = form;
+        
+        setLoading(true);
+        fetchAddRoom({
+            param: {
+                UserId: userId,
+                HomeId: homeId,
+                Title: name,
+                Description: name,
+            },
+            onSetLoading: setLoading,
+        })
+        .then(data => {
+            clearForm();
 
-        navigation.navigate("TabNavigation", {
-            screen: "Device"
+            navigation.navigate("RoomManagement")
+        })
+        .catch(err => {
+            setLoading(false);
+            console.log(`Error: ${err}`);
+
+            toast.show({
+                description:  `Error: ${err}`
+            })
         })
     }
     // #endregion
 
     return (
-        <SafeAreaView style={{ flex: 1 }}>
-            <View style={{ flex: 1 }}>
+        <>
+            <BcLoading loading={loading} />
+            <SafeAreaView style={{ flex: 1 }}>
+                <View style={{ flex: 1 }}>
 
-                {/* Header */}
-                <Header flag={flag} onSave={save}>Add Room</Header>
+                    {/* Header */}
+                    <Header flag={flag} onSave={save}>Add Room</Header>
 
-                <View style={{ height: 10 }} />
+                    <View style={{ height: 10 }} />
 
-                {/* Body */}
-                <ScrollView showsVerticalScrollIndicator={false}
-                    contentContainerStyle={{ flexGrow: 1 }}>
-                    <View flexGrow={1}>
-                        <HomeForm form={form} setForm={setForm} />
-                    </View>
-                </ScrollView>
+                    {/* Body */}
+                    <ScrollView showsVerticalScrollIndicator={false}
+                        contentContainerStyle={{ flexGrow: 1 }}>
+                        <View flexGrow={1}>
+                            <HomeForm form={form} setForm={setForm} />
+                        </View>
+                    </ScrollView>
 
-                {/* Footer */}
-                <View style={{ height: 60 }} />
-            </View>
-        </SafeAreaView>
+                    {/* Footer */}
+                    <View style={{ height: 60 }} />
+                </View>
+            </SafeAreaView>
+        </>
     );
 }
 

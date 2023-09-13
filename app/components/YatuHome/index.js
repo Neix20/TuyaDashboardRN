@@ -82,6 +82,8 @@ function Index(props) {
     const isFocused = useIsFocused();
 
     const userId = useSelector(Selectors.userIdSelect);
+    const homeId = useSelector(Selectors.homeIdSelect)
+    
     const dispatch = useDispatch();
 
     // #region Initial
@@ -113,10 +115,21 @@ function Index(props) {
                 onSetLoading: setLoading
             })
                 .then(data => {
-                    if (data.length > 0) {
-                        const { Id: homeId } = data[0];
+                    if (homeId == -1 && data.length > 0) {
+                        const { Id: tHomeId } = data[0];
                         setHome(data[0]);
-                        dispatch(Actions.onChangeHomeId(homeId));
+                        dispatch(Actions.onChangeHomeId(tHomeId));
+                    } else if (homeId > 0) {
+                    
+                        for(let obj of data) {
+                            const { Id } = obj;
+
+                            if (Id === homeId) {
+                                obj.flag = true;
+                                setHome(obj);
+                                // break;
+                            }
+                        }
                     }
                     setHomeLs(data);
                 })

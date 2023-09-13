@@ -35,7 +35,7 @@ const Index = async (props) => {
             flag: false
         }))
 
-        arr[0].flag = true;
+        // arr[0].flag = true;
 
         return arr;
     }

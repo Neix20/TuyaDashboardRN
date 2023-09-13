@@ -37,19 +37,20 @@ const Index = async (props) => {
         body: JSON.stringify(obj),
     });
 
-    // const data = await resp.json();
-    const data = init.home;
+    const data = await resp.json();
+    // const data = init.home;
     onSetLoading(false);
 
-    // if (data["ResponseCode"] === "00") {
-    //     // return data;
-    // }
-    // else {
-    //     console.log(`HomeInfo - Request - ${JSON.stringify(obj)}`);
-    //     console.log(`HomeInfo - Response - ${JSON.stringify(data)}`);
-    // }
+    if (data["ResponseCode"] === "00") {
+        const { Data } = data;
+        return Data[0];
+    }
+    else {
+        console.log(`HomeInfo - Request - ${JSON.stringify(obj)}`);
+        console.log(`HomeInfo - Response - ${JSON.stringify(data)}`);
+    }
 
-    return data;
+    return {};
 };
 
 export default Index;

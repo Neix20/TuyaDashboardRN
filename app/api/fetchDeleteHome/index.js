@@ -1,17 +1,11 @@
 import { Utility } from "@utility";
 
-const init = {
-    room: {
-        Name: "Living Room"
-    }
-}
-
 const Index = async (props) => {
 
     const { param } = props;
     const { onSetLoading } = props;
 
-    const action = "GetRoomInfo";
+    const action = "DeleteHome";
     const url = Utility.genServerUrl(action);
 
     // Static Data
@@ -26,20 +20,18 @@ const Index = async (props) => {
     });
 
     const data = await resp.json();
-    // const data = init.room;
-    onSetLoading(false);
-
+    
     if (data["ResponseCode"] === "00") {
         // return data;
-        const { Data } = data;
-        return Data[0];
     }
     else {
-        console.log(`RoomInfo - Request - ${JSON.stringify(obj)}`);
-        console.log(`RoomInfo - Response - ${JSON.stringify(data)}`);
+        console.log(`DeleteHome - Request - ${JSON.stringify(obj)}`);
+        console.log(`DeleteHome - Response - ${JSON.stringify(data)}`);
     }
 
-    return {};
+    onSetLoading(false);
+
+    return data;
 };
 
 export default Index;

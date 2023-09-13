@@ -14,7 +14,7 @@ import { Images } from "@config";
 
 import { BcHeader, BcLoading, BcBoxShadow } from "@components";
 
-import { fetchHomeInfo } from "@api";
+import { fetchHomeInfo, fetchDeleteHome } from "@api";
 
 // #region Components
 function Header(props) {
@@ -84,79 +84,80 @@ function Header(props) {
     )
 }
 
-function HomeInfo(props) {
+function InfoItem(props) {
+
+    const { Title, Value, onChangeValue = () => { } } = props;
+    return (
+        <HStack width={"90%"}
+            alignItems={"center"}
+            style={{ height: 48 }}>
+            <View flex={.3}>
+                <Text style={{
+                    fontFamily: "Roboto-Medium",
+                    fontSize: 18
+                }}>{Title}: </Text>
+            </View>
+            <View flex={.7}>
+                <TextInput
+                    defaultValue={Value}
+                    onChangeValue={onChangeValue}
+                    placeholder={"Home Name"}
+                    autoCapitalize={"none"}
+                    style={{
+                        fontFamily: "Roboto-Medium",
+                        fontSize: 18,
+                        color: "#000",
+                    }} />
+            </View>
+        </HStack>
+    )
+}
+
+function InfoRoom(props) {
+
+    const { Title, Value, onSelect = () => { } } = props;
+    return (
+        <TouchableOpacity onPress={onSelect}>
+            <HStack width={"90%"}
+                alignItems={"center"}
+                style={{ height: 48 }}>
+                <View flex={.3}>
+                    <Text style={{
+                        fontFamily: "Roboto-Medium",
+                        fontSize: 18
+                    }}>{Title}: </Text>
+                </View>
+                <View flex={.7}>
+                    <Text style={{
+                        fontFamily: "Roboto-Medium",
+                        fontSize: 18
+                    }}>{Value}</Text>
+                </View>
+            </HStack>
+        </TouchableOpacity>
+    )
+}
+
+function InfoPanel(props) {
 
     // #region Props
     const { Name, Address } = props;
+    const { onRoomManagement = () => {}} = props;
     // #endregion
 
     return (
         <View alignItems={"center"}
             bgColor={"#FFF"}>
-            <HStack width={"90%"}
-                alignItems={"center"}
-                style={{ height: 48 }}>
-                <View flex={.3}>
-                    <Text style={{
-                        fontFamily: "Roboto-Medium",
-                        fontSize: 18
-                    }}>Name: </Text>
-                </View>
-                <View flex={.7}>
-                    <TextInput
-                        defaultValue={Name}
-                        placeholder={"Home Name"}
-                        autoCapitalize={"none"}
-                        style={{
-                            fontFamily: "Roboto-Medium",
-                            fontSize: 18,
-                            color: "#000",
-                        }} />
-                </View>
-            </HStack>
-
-            <HStack width={"90%"}
-                alignItems={"center"}
-                style={{ height: 48 }}>
-                <View flex={.3}>
-                    <Text style={{
-                        fontFamily: "Roboto-Medium",
-                        fontSize: 18
-                    }}>Rooms: </Text>
-                </View>
-                <View flex={.7}>
-                    <Text style={{
-                        fontFamily: "Roboto-Medium",
-                        fontSize: 18,
-                        color: "#CCC"
-                    }}>{null}</Text>
-                </View>
-            </HStack>
-
-            <HStack width={"90%"}
-                alignItems={"center"}
-                style={{ height: 48 }}>
-                <View flex={.3}>
-                    <Text style={{
-                        fontFamily: "Roboto-Medium",
-                        fontSize: 18
-                    }}>Location: </Text>
-                </View>
-                <View flex={.7}>
-                    <Text style={{
-                        fontFamily: "Roboto-Medium",
-                        fontSize: 18,
-                        color: "#CCC"
-                    }}>{Address}</Text>
-                </View>
-            </HStack>
+            <InfoItem Title={"Name"} Value={Name} />
+            <InfoRoom Title={"Rooms"} Value={null} onSelect={onRoomManagement} />
+            <InfoItem Title={"Location"} Value={Address} />
         </View>
     )
 }
 
 function AddRoom(props) {
     return (
-        <TouchableOpacity>
+        <TouchableOpacity {...props}>
             <View py={3}
                 alignItems={"center"}
                 bgColor={"#FFF"}>
@@ -174,7 +175,7 @@ function AddRoom(props) {
 
 function DeleteHome(props) {
     return (
-        <TouchableOpacity>
+        <TouchableOpacity {...props}>
             <View py={3}
                 alignItems={"center"}
                 bgColor={"#FFF"}>
@@ -189,11 +190,18 @@ function DeleteHome(props) {
 }
 // #endregion
 
+import { useDispatch, useSelector } from 'react-redux';
+import { Actions, Selectors } from '@redux';
+
 function Index(props) {
 
     const toast = useToast();
     const navigation = useNavigation();
     const isFocused = useIsFocused();
+
+    const dispatch = useDispatch();
+
+    const userId = useSelector(Selectors.userIdSelect);
 
     // #region Props
     const data = props.route.params;
@@ -226,6 +234,41 @@ function Index(props) {
     }, [isFocused]);
     // #endregion
 
+    // #region Navigation
+    const GoToAddRoom = () => navigation.navigate("AddRoom");
+    const GoToRoomManagement = () => navigation.navigate("RoomManagement");
+    // #endregion
+
+    // #region Helper
+    const onAddRoom = () => {
+        dispatch(Actions.onChangeHomeId(homeId));
+        GoToAddRoom();
+    }
+
+    const onDeleteRoom = () => {
+        setLoading(true);
+        fetchDeleteHome({
+            param: {
+                UserId: userId,
+                HomeId: homeId
+            },
+            onSetLoading: setLoading,
+        })
+            .then(data => {
+                // setLoading(false);
+                toast.show({
+                    description: "Successfully Deleted Home!"
+                })
+
+                navigation.navigate("HomeManagement");
+            })
+            .catch(err => {
+                setLoading(false);
+                console.log(`Error: ${err}`);
+            })
+    }
+    // #endregion
+
     return (
         <>
             <BcLoading loading={loading} />
@@ -243,12 +286,13 @@ function Index(props) {
                         <VStack space={3}
                             flexGrow={1}>
                             {/* Info */}
-                            <HomeInfo {...home} />
+                            <InfoPanel onRoomManagement={GoToRoomManagement}
+                                {...home} />
 
-                            <AddRoom />
+                            <AddRoom onPress={onAddRoom} />
 
                             {/* Delete Home */}
-                            <DeleteHome />
+                            <DeleteHome onPress={onDeleteRoom} />
                         </VStack>
                     </ScrollView>
                 </View>

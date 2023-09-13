@@ -24,7 +24,7 @@ const Index = async (props) => {
 
     if (data["ResponseCode"] === "00") {
         const { Data } = data;
-        return Data;
+        return Data[0];
     }
     else {
         console.log(`GetProfile - Request - ${JSON.stringify(obj)}`);

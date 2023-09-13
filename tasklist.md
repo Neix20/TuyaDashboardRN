@@ -70,26 +70,24 @@
 - [x] Get Device Alert
 - [x] Profile Information
 - [x] Device Info I
-- [ ] Create Home
-- [ ] Delete Home
-- [ ] Create Room
-- [ ] Delete Room
+- [x] Create Home
+- [x] Delete Home
+- [x] Create Room
+- [x] Delete Room
 
 #### After 12:30 - 13:00
 - [ ] Device Info
   - [ ] Add Device
   - [ ] Remove Device
-  - [ ] Get Device Info II
+  - [x] Get Device Info II
   `Modify Server`
-    - [ ] Add Device Image
-    - [ ] Add Latest Data Point
-- [ ] Get Home Info
+    - [x] Add Device Image
+    - [x] Add Latest Data Point
+- [x] Get Home Info
   `Modify Server`
-  - [ ] Get Number of Rooms
+  - [x] Get Number of Rooms
+- [x] Room Info
 
 #### After 14:30 - 15:00
-- [ ] Update Device
-- [ ] Update Home
-- [ ] Update Profile
 
 - [ ] Hod Slides

@@ -584,9 +584,9 @@ function Index(props) {
                                             style={{ width: "90%" }}
                                             contentContainerStyle={{
                                                 flexGrow: 1,
-                                                flexDirection: (viewMode === "Grid") ? "row" : "column",
-                                                flexWrap: (viewMode === "Grid") ? "wrap" : "nowrap",
-                                                justifyContent: (viewMode === "Grid") ? "space-between" : "center",
+                                                flexDirection: (viewMode === "List") ? "column" : "row",
+                                                flexWrap: (viewMode === "List") ? "nowrap" : "wrap",
+                                                justifyContent: (viewMode === "List") ? "center" : "space-between",
                                                 padding: 5, rowGap: 8,
                                             }}
                                             ListEmptyComponent={<EmptyList lang={lang} />}

@@ -12,40 +12,56 @@ import { Logger, Utility } from "@utility";
 
 import { BcHeader, BcBoxShadow, BcLoading } from "@components";
 
-import { fetchRoomInfo } from "@api";
+import { fetchRoomInfo, fetchDeleteRoom } from "@api";
 
 import { useDispatch, useSelector } from 'react-redux';
 import { Actions, Selectors } from '@redux';
 
 // #region Components
-function RoomInfo(props) {
+function InfoItem(props) {
 
-    const { Name } = props;
+    const { Title, Value, onChangeValue = () => { } } = props;
+    return (
+        <HStack width={"90%"}
+            alignItems={"center"}
+            style={{ height: 48 }}>
+            <View flex={.3}>
+                <Text style={{
+                    fontFamily: "Roboto-Medium",
+                    fontSize: 18
+                }}>{Title}: </Text>
+            </View>
+            <View flex={.7}>
+                <TextInput
+                    defaultValue={Value}
+                    onChangeValue={onChangeValue}
+                    placeholder={"Room Name"}
+                    autoCapitalize={"none"}
+                    style={{
+                        fontFamily: "Roboto-Medium",
+                        fontSize: 18,
+                        color: "#000",
+                    }} />
+            </View>
+        </HStack>
+    )
+}
+
+function InfoPanel(props) {
+
+    const { Title } = props;
 
     return (
         <View alignItems={"center"}
             bgColor={"#FFF"}>
-            <HStack width={"90%"}
-                alignItems={"center"}
-                justifyContent={"space-between"}
-                style={{ height: 40 }}>
-                <Text style={{
-                    fontFamily: "Roboto-Medium",
-                    fontSize: 18
-                }}>Name: </Text>
-                <Text style={{
-                    fontFamily: "Roboto-Medium",
-                    fontSize: 18,
-                    color: "#CCC"
-                }}>{Name}</Text>
-            </HStack>
+            <InfoItem Title={"Name"} Value={Title} />
         </View>
     )
 }
 
 function DeleteRoom(props) {
     return (
-        <TouchableOpacity>
+        <TouchableOpacity {...props}>
             <View py={3}
                 alignItems={"center"}
                 bgColor={"#FFF"}>
@@ -99,6 +115,29 @@ function Index(props) {
     }, [isFocused]);
     // #endregion
 
+    const onDeleteRoom = () => {
+        setLoading(true);
+        fetchDeleteRoom({
+            param: {
+                UserId: userId,
+                RoomId: roomId
+            },
+            onSetLoading: setLoading
+        })
+        .then(data => {
+            // setLoading(false);
+            toast.show({
+                description: "Successfully Deleted Room!"
+            })
+
+            navigation.navigate("RoomManagement");
+        })
+        .catch(err => {
+            setLoading(false);
+            console.log(`Error: ${err}`);
+        })
+    }
+
     return (
         <>
             <BcLoading loading={loading} />
@@ -115,10 +154,10 @@ function Index(props) {
                         contentContainerStyle={{ flexGrow: 1 }}>
                         <VStack space={3} flexGrow={1}>
                             {/* Room Info */}
-                            <RoomInfo {...room} />
+                            <InfoPanel {...room} />
 
                             {/* Delete Room */}
-                            <DeleteRoom />
+                            <DeleteRoom onPress={onDeleteRoom} />
                         </VStack>
                     </ScrollView>
 

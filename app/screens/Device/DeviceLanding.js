@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Text, TouchableOpacity, Image, TextInput, Dimensions, SafeAreaView, ImageBackground, ScrollView } from "react-native";
-import { View, VStack, HStack, useToast } from "native-base";
+import { View, VStack, HStack, Divider, useToast } from "native-base";
 
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 import { useNavigation, useIsFocused } from "@react-navigation/native";
@@ -12,7 +12,12 @@ import { Logger, Utility } from "@utility";
 
 import { Images } from "@config";
 
-import { BcBoxShadow } from "@components";
+import { BcBoxShadow, BcLoading } from "@components";
+
+import { fetchDeviceInfo } from "@api";
+
+import { useDispatch, useSelector } from 'react-redux';
+import { Actions, Selectors } from '@redux';
 
 // #region Components
 function Header(props) {
@@ -154,6 +159,40 @@ function InfoPanel(props) {
         </View>
     )
 }
+
+function DeviceDataPanel(props) {
+    const { Temperature, Humidity } = props;
+    return (
+        <HStack width={"90%"}
+            alignItems={"center"} justifyContent={"space-between"}>
+            <VStack alignItems={"center"}>
+                <Text style={{
+                    fontSize: 24,
+                    fontFamily: "Roboto-Medium",
+                    color: "#FFF"
+                }}>Temperature</Text>
+                <Text style={{
+                    fontSize: 56,
+                    fontFamily: "Roboto-Bold",
+                    color: "#FFF"
+                }}>{(Temperature / 10).toFixed(1)}℃</Text>
+            </VStack>
+            <Divider orientation={"vertical"} style={{width: 3 }} bgColor={"#FFF"} />
+            <VStack alignItems={"center"}>
+                <Text style={{
+                    fontSize: 24,
+                    fontFamily: "Roboto-Medium",
+                    color: "#FFF"
+                }}>Humidity</Text>
+                <Text style={{
+                    fontSize: 56,
+                    fontFamily: "Roboto-Bold",
+                    color: "#FFF"
+                }}>{Humidity}%</Text>
+            </VStack>
+        </HStack>
+    )
+}
 // #endregion
 
 function Index(props) {
@@ -167,67 +206,98 @@ function Index(props) {
     }
     // #endregion
 
+    const userId = useSelector(Selectors.userIdSelect);
+
     // #region Props
     const item = props.route.params;
-    const { Id: DeviceId } = item;
+    const { Id: deviceId } = item;
     // #endregion
+
+    const [deviceInfo, setDeviceInfo] = useState({});
+    const [loading, setLoading] = useState(false);
+
+    useEffect(() => {
+        if (isFocused) {
+            setLoading(true);
+            fetchDeviceInfo({
+                param: {
+                    UserId: userId,
+                    DeviceId: deviceId,
+                },
+                onSetLoading: setLoading,
+            })
+                .then(data => {
+                    setDeviceInfo(data)
+                })
+                .catch(err => {
+                    setLoading(false);
+                    console.log(`Error: ${err}`);
+                })
+        }
+    }, [deviceId]);
 
     // #region Navigation
     const GoToInfo = () => navigation.navigate("DeviceInfo", item);
     const GoToAlert = () => navigation.navigate("DeviceAlert", item);
     const GoToChart = () => {
-        toast.show({
-            description: "Work In-Progress"
-        })
+        toast.show({ description: "Work In-Progress" })
     }
     // #endregion
 
     const ind = Utility.genRandomInt(0, 3);
 
     return (
-        <SafeAreaView style={{ flex: 1 }}>
-            <View style={{ flex: 1 }}>
+        <>
+            <BcLoading loading={loading} />
+            <SafeAreaView style={{ flex: 1 }}>
+                <View style={{ flex: 1 }}>
 
-                {/* Background */}
-                <View flexGrow={1}>
-                    <View flex={.4}>
-                        <Image source={Images[init.svgLs[ind]]}
-                            style={{
-                                width: "100%",
-                                height: "100%"
-                            }}
-                            resizeMode="cover"
-                            alt={"Card Gradient"}
-                        />
+                    {/* Background */}
+                    <View flexGrow={1}>
+                        <View flex={.4}>
+                            <Image source={Images[init.svgLs[ind]]}
+                                style={{
+                                    width: "100%",
+                                    height: "100%"
+                                }}
+                                resizeMode="cover"
+                                alt={"Card Gradient"}
+                            />
+                        </View>
+                    </View>
+
+                    <View position={"absolute"}
+                        style={{ top: 0, bottom: 0, left: 0, right: 0 }}>
+                        {/* Header */}
+                        <Header onSelectEdit={GoToInfo}>Device Information</Header>
+
+                        <View style={{ height: 10 }} />
+
+                        {/* Body */}
+                        <ScrollView showsVerticalScrollIndicator={false}
+                            contentContainerStyle={{ flexGrow: 1 }}>
+                            <VStack space={5}
+                                flexGrow={1} alignItems={"center"}>
+                                <View
+                                    flex={.25}
+                                    width={"90%"}
+                                    alignItems={"center"}
+                                    justifyContent={"flex-end"}>
+                                    <DeviceDataPanel {...deviceInfo} />
+                                </View>
+                                <InfoPanel onPress={GoToInfo} />
+                                <AlertPanel onPress={GoToAlert} />
+                                <ChartPanel onPress={GoToChart} />
+                            </VStack>
+                        </ScrollView>
+
+                        {/* Footer */}
+                        {/* <View style={{ height: 60 }} /> */}
                     </View>
                 </View>
+            </SafeAreaView>
 
-                <View position={"absolute"}
-                    style={{ top: 0, bottom: 0, left: 0, right: 0 }}>
-                    {/* Header */}
-                    <Header onSelectEdit={GoToInfo}>Device Information</Header>
-
-                    <View style={{ height: 10 }} />
-
-                    {/* Body */}
-                    <ScrollView showsVerticalScrollIndicator={false}
-                        contentContainerStyle={{ flexGrow: 1 }}>
-                        <VStack space={5}
-                            flexGrow={1} alignItems={"center"}>
-                            <View flex={.5}>
-
-                            </View>
-                            <InfoPanel onPress={GoToInfo} />
-                            <AlertPanel onPress={GoToAlert} />
-                            <ChartPanel onPress={GoToChart} />
-                        </VStack>
-                    </ScrollView>
-
-                    {/* Footer */}
-                    <View style={{ height: 60 }} />
-                </View>
-            </View>
-        </SafeAreaView>
+        </>
     );
 }
 

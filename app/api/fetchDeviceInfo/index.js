@@ -5,7 +5,7 @@ const Index = async (props) => {
     const { param } = props;
     const { onSetLoading } = props;
 
-    const action = "GetDeviceDetails";
+    const action = "GetDeviceInfo";
     const url = Utility.genServerUrl(action);
 
     // Static Data
@@ -24,7 +24,19 @@ const Index = async (props) => {
 
     if (data["ResponseCode"] === "00") {
         const { Data } = data;
-        return Data;
+        
+        let res = {...Data[0]};
+
+        const { MetaData, DeviceImage } = Data[0];
+
+        res["img"] = { uri: DeviceImage };
+
+        let mObj = JSON.parse(MetaData);
+
+        res["Temperature"] = +mObj["temp_current"];
+        res["Humidity"] = +mObj["humidity_value"];
+
+        return res;
     }
     else {
         console.log(`GetDeviceDetails - Request - ${JSON.stringify(obj)}`);

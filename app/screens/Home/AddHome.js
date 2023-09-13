@@ -7,13 +7,18 @@ import { CheckBox } from "@rneui/themed";
 
 import { Logger, Utility } from "@utility";
 
-import { BcBoxShadow, BcDisable } from "@components";
+import { BcBoxShadow, BcDisable, BcLoading } from "@components";
+
+import { fetchAddHome } from "@api";
+
+import { useDispatch, useSelector } from 'react-redux';
+import { Actions, Selectors } from '@redux';
 
 // #region Components
 function Header(props) {
 
     // #region Props
-    const { children, onBack = () => { }, onSave = () => {} } = props;
+    const { children, onBack = () => { }, onSave = () => { } } = props;
     const { flag = false } = props;
     // #endregion
 
@@ -111,7 +116,7 @@ function HomeForm(props) {
     }
 
     const onChangeRoom = (val) => {
-        val = val.map(obj => obj.name);
+        val = val.map(obj => obj.Name);
 
         const nextState = {
             ...form,
@@ -217,9 +222,14 @@ function Index(props) {
     }
     // #endregion
 
+    // #region Redux
+    const userId = useSelector(Selectors.userIdSelect);
+    // #endregion
+
     // #region UseState
     const [flag, setFlag] = useState(false);
     const [form, setForm] = useState(init.form);
+    const [loading, setLoading] = useState(false);
     // #endregion
 
     // #region UseEffect
@@ -238,35 +248,57 @@ function Index(props) {
         setForm(init.form);
     }
     const save = () => {
-        console.log(form);
-        clearForm();
 
-        navigation.navigate("TabNavigation", {
-            screen: "Device"
+        const { name, roomLs} = form;
+
+        setLoading(true);
+        fetchAddHome({
+            param: {
+                UserId: userId,
+                HomeName: name,
+                RoomLs: roomLs
+            },
+            onSetLoading: setLoading,
+        })
+        .then(data => {
+            clearForm();
+
+            navigation.navigate("HomeManagement");
+        })
+        .catch(err => {
+            setLoading(false);
+            console.log(`Error: ${err}`);
+
+            toast.show({
+                description:  `Error: ${err}`
+            })
         })
     }
     // #endregion
 
     return (
-        <SafeAreaView style={{ flex: 1 }}>
-            <View style={{ flex: 1 }}>
+        <>
+            <BcLoading loading={loading} />
+            <SafeAreaView style={{ flex: 1 }}>
+                <View style={{ flex: 1 }}>
 
-                {/* Header */}
-                <Header flag={flag} onSave={save}>Create a Home</Header>
+                    {/* Header */}
+                    <Header flag={flag} onSave={save}>Create a Home</Header>
 
-                <View style={{ height: 10 }} />
+                    <View style={{ height: 10 }} />
 
-                {/* Body */}
-                <ScrollView showsVerticalScrollIndicator={false}
-                    contentContainerStyle={{ flexGrow: 1 }}>
-                    <View flexGrow={1}>
-                        {/* Add Home */}
-                        <HomeForm
-                            form={form} setForm={setForm} />
-                    </View>
-                </ScrollView>
-            </View>
-        </SafeAreaView>
+                    {/* Body */}
+                    <ScrollView showsVerticalScrollIndicator={false}
+                        contentContainerStyle={{ flexGrow: 1 }}>
+                        <View flexGrow={1}>
+                            {/* Add Home */}
+                            <HomeForm
+                                form={form} setForm={setForm} />
+                        </View>
+                    </ScrollView>
+                </View>
+            </SafeAreaView>
+        </>
     );
 }
 
