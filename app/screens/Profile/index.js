@@ -16,7 +16,12 @@ const { width, height } = screen;
 
 import { Logger, Utility } from "@utility";
 
-import { Images, Svg, GlobalStyles, GlobalColors } from "@config";
+import { useDispatch, useSelector } from 'react-redux';
+import { Actions, Selectors } from '@redux';
+
+import { fetchProfileInfo } from "@api";
+
+import { BcLoading } from "@components";
 
 // #region Components
 function Header(props) {
@@ -39,6 +44,7 @@ function Header(props) {
 }
 
 function Profile(props) {
+    const { Username = "Nickname" } = props;
     return (
         <TouchableOpacity {...props} style={{ width: "90%"}}>
             <HStack
@@ -52,7 +58,7 @@ function Profile(props) {
                         <Text style={{
                             fontFamily: "Roboto-Bold",
                             fontSize: 18
-                        }}>Justin</Text>
+                        }}>{Username}</Text>
                     </View>
                 </HStack>
 
@@ -145,13 +151,41 @@ function LogoutPanel(props) {
 // #endregion
 
 function Index(props) {
+
     const toast = useToast();
     const navigation = useNavigation();
     const isFocused = useIsFocused();
 
+    const userId = useSelector(Selectors.userIdSelect);
+
+    // #region UseState
+    const [profileInfo, setProfileInfo] = useState({});
+    const [loading, setLoading] = useState(false);
+    // #endregion
+
+    useEffect(() => {
+        if (isFocused) {
+            setLoading(true);
+            fetchProfileInfo({
+                param: {
+                    UserId: userId
+                },
+                onSetLoading: setLoading
+            })
+            .then(data => {
+                console.log(data);
+                setProfileInfo(data);
+            })
+            .catch(err => {
+                setLoading(false);
+                console.log(`Error: ${err}`);
+            })
+        }
+    }, [userId]);
+
     // #region Navigation
-    const GoToProfileBackup = () => {
-        navigation.navigate("ProfileBackup");
+    const GoToProfileInfo = () => {
+        navigation.navigate("ProfileInfo");
     }
 
     const GoToTuyaPanel = () => {
@@ -164,6 +198,8 @@ function Index(props) {
     // #endregion
 
     return (
+        <>
+        <BcLoading loading={loading} />
         <SafeAreaView style={{ flex: 1 }}>
             <View bgColor={"#F6F7FA"} style={{ flex: 1 }}>
 
@@ -181,7 +217,8 @@ function Index(props) {
                         {/* User */}
                         <View width={"90%"} alignItems={"center"}
                             style={{ height: 80 }}>
-                            <Profile onPress={GoToProfileBackup} />
+                            <Profile {...profileInfo}
+                                onPress={GoToProfileInfo} />
                         </View>
 
                         <NavPanel />
@@ -193,9 +230,10 @@ function Index(props) {
                 </ScrollView>
 
                 {/* Footer */}
-                <View style={{ height: 70 }} />
+                {/* <View style={{ height: 70 }} /> */}
             </View>
         </SafeAreaView>
+        </>
     );
 }
 

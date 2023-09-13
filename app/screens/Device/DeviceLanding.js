@@ -161,13 +161,28 @@ function Index(props) {
     const navigation = useNavigation();
     const isFocused = useIsFocused();
 
+    // #region Initital
+    const init = {
+        svgLs: ["CardGradientRed", "CardGradientGreen", "CardGradientOrange", "CardGradientBlue"]
+    }
+    // #endregion
+
     // #region Props
     const item = props.route.params;
     const { Id: DeviceId } = item;
     // #endregion
 
+    // #region Navigation
     const GoToInfo = () => navigation.navigate("DeviceInfo", item);
     const GoToAlert = () => navigation.navigate("DeviceAlert", item);
+    const GoToChart = () => {
+        toast.show({
+            description: "Work In-Progress"
+        })
+    }
+    // #endregion
+
+    const ind = Utility.genRandomInt(0, 3);
 
     return (
         <SafeAreaView style={{ flex: 1 }}>
@@ -176,7 +191,7 @@ function Index(props) {
                 {/* Background */}
                 <View flexGrow={1}>
                     <View flex={.4}>
-                        <Image source={Images.CardGradientRed}
+                        <Image source={Images[init.svgLs[ind]]}
                             style={{
                                 width: "100%",
                                 height: "100%"
@@ -204,7 +219,7 @@ function Index(props) {
                             </View>
                             <InfoPanel onPress={GoToInfo} />
                             <AlertPanel onPress={GoToAlert} />
-                            <ChartPanel />
+                            <ChartPanel onPress={GoToChart} />
                         </VStack>
                     </ScrollView>
 

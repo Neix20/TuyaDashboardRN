@@ -10,9 +10,9 @@ const { width, height } = screen;
 
 import { Logger, Utility } from "@utility";
 
-import { BcBoxShadow, BcLoading } from "@components";
+import { fetchProfileInfo } from "@api";
 
-import { fetchDeviceInfo } from "@api";
+import { BcLoading, BcBoxShadow } from "@components";
 
 import { useDispatch, useSelector } from 'react-redux';
 import { Actions, Selectors } from '@redux';
@@ -80,42 +80,7 @@ function Header(props) {
     )
 }
 
-function DevicePhoto(props) {
-    const { Title, img } = props;
-    return (
-        <BcBoxShadow>
-            <VStack py={2}
-                bgColor={"#FFF"}
-                alignItems={"center"}>
-                {/* Profile Picture */}
-                <View >
-                    {/* Front Layer */}
-                    <View
-                        style={{
-                            position: "absolute",
-                            display: "none",
-                            zIndex: 1,
-                            bottom: -5,
-                            right: -5,
-                        }}>
-                    </View>
-                    <Image
-                        source={img}
-                        style={{
-                            width: 200,
-                            height: 200,
-                            borderRadius: 100,
-                        }}
-                        alt={Title} />
-                </View>
-
-            </VStack>
-        </BcBoxShadow>
-    )
-}
-
 function InfoItem(props) {
-
     const { Title, Value, onChangeValue = () => { } } = props;
     return (
         <HStack width={"90%"}
@@ -143,19 +108,48 @@ function InfoItem(props) {
     )
 }
 
+function InfoPassword(props) {
+    const { Title, Value, onChangeValue = () => { } } = props;
+    return (
+        <HStack width={"90%"}
+            alignItems={"center"}
+            style={{ height: 48 }}>
+            <View flex={.3}>
+                <Text style={{
+                    fontFamily: "Roboto-Medium",
+                    fontSize: 18
+                }}>{Title}: </Text>
+            </View>
+            <View flex={.7}>
+                <TextInput
+                secureTextEntry
+                    defaultValue={Value}
+                    onChangeValue={onChangeValue}
+                    placeholder={"Home Name"}
+                    autoCapitalize={"none"}
+                    style={{
+                        fontFamily: "Roboto-Medium",
+                        fontSize: 18,
+                        color: "#000",
+                    }} />
+            </View>
+        </HStack>
+    )
+}
+
 function InfoPanel(props) {
 
-    const { Title, Tuya_Id, Ip_Addr, Mac_Addr, Timezone } = props;
+    const { Username, Password, MobileNo, Email, Address } = props;
 
     return (
         <BcBoxShadow>
             <View bgColor={"#FFF"}
                 alignItems={"center"}>
-                <InfoItem Title={"Name"} Value={Title} />
-                <InfoItem Title={"Device Id"} Value={Tuya_Id} />
-                <InfoItem Title={"Ip Address"} Value={Ip_Addr} />
-                <InfoItem Title={"Mac Address"} Value={Mac_Addr} />
-                <InfoItem Title={"Timezone"} Value={Timezone} />
+                <InfoItem Title={"Name"} Value={Username} />
+                <InfoPassword Title={"Password"} Value={Password} />
+                <InfoItem Title={"MobileNo"} Value={MobileNo} />
+                <InfoItem Title={"Email"} Value={Email} />
+                <InfoItem Title={"Address"} Value={Address} />
             </View>
         </BcBoxShadow>
     )
@@ -169,34 +163,29 @@ function Index(props) {
 
     const userId = useSelector(Selectors.userIdSelect);
 
-    // #region Props
-    const { Id: deviceId = -1 } = props.route.params;
-    // #endregion
-
     // #region UseState
-    const [deviceInfo, setDeviceInfo] = useState({});
+    const [profileInfo, setProfileInfo] = useState({});
     const [loading, setLoading] = useState(false);
     // #endregion
 
     useEffect(() => {
         if (isFocused) {
             setLoading(true);
-            fetchDeviceInfo({
+            fetchProfileInfo({
                 param: {
                     UserId: userId,
-                    DeviceId: deviceId,
                 },
                 onSetLoading: setLoading,
             })
                 .then(data => {
-                    setDeviceInfo(data)
+                    setProfileInfo(data)
                 })
                 .catch(err => {
                     setLoading(false);
                     console.log(`Error: ${err}`);
                 })
         }
-    }, [deviceId]);
+    }, [userId]);
 
     return (
         <>
@@ -205,21 +194,20 @@ function Index(props) {
                 <View style={{ flex: 1 }}>
 
                     {/* Header */}
-                    <Header>Device Info</Header>
+                    <Header>Profile Info</Header>
 
                     <View style={{ height: 10 }} />
 
                     {/* Body */}
                     <ScrollView showsVerticalScrollIndicator={false}
                         contentContainerStyle={{ flexGrow: 1 }}>
-                        <VStack space={3} flexGrow={1}>
-                            <DevicePhoto {...deviceInfo} />
-                            <InfoPanel {...deviceInfo} />
-                        </VStack>
+                        <View flexGrow={1}>
+                            <InfoPanel {...profileInfo} />
+                        </View>
                     </ScrollView>
 
                     {/* Footer */}
-                    <View style={{ height: 60 }} />
+                    {/* <View style={{ height: 60 }} /> */}
                 </View>
             </SafeAreaView>
         </>

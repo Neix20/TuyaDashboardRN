@@ -29,6 +29,7 @@ import WelcomeInfo from "@screens/WelcomeInfo";
 import TuyaPanel from "@screens/TuyaPanel";
 
 import ProfileBackup from "@screens/Profile/Backup";
+import ProfileInfo from "@screens/Profile/ProfileInfo";
 
 import RoomManagement from "@screens/Room/RoomManagement";
 import RoomInfo from "@screens/Room/RoomInfo";
@@ -119,6 +120,10 @@ StackScreens = {
     Alert: {
         component: Alert,
         title: "Alert"
+    },
+    ProfileInfo: {
+        component: ProfileInfo,
+        title: "ProfileInfo"
     }
 };
 

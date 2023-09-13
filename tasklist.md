@@ -68,8 +68,8 @@
 #### GG Must Complete Stuff
 - [x] Get Room List
 - [x] Get Device Alert
-- [ ] Profile Information
-- [ ] Device Info I
+- [x] Profile Information
+- [x] Device Info I
 - [ ] Create Home
 - [ ] Delete Home
 - [ ] Create Room
