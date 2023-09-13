@@ -1,0 +1,65 @@
+{
+  "DCH-AHUX": {
+    "Name": "DCH-AHUX",
+    "Temperature": 33.28,
+    "Relative_Humidity": 48.09,
+    "Absolute_Humidity": 17.4,
+    "Count": 288
+  },
+  "DCH-CRYS": {
+    "Name": "DCH-CRYS",
+    "Temperature": 36.16,
+    "Relative_Humidity": 44.68,
+    "Absolute_Humidity": 18.79,
+    "Count": 288
+  },
+  "DCH-DEPA": {
+    "Name": "DCH-DEPA",
+    "Temperature": 35.54,
+    "Relative_Humidity": 52.48,
+    "Absolute_Humidity": 21.3,
+    "Count": 288
+  },
+  "DCH-FILL": {
+    "Name": "DCH-FILL",
+    "Temperature": 33.01,
+    "Relative_Humidity": 49.75,
+    "Absolute_Humidity": 17.8,
+    "Count": 288
+  },
+  "DCH-KETT": {
+    "Name": "DCH-KETT",
+    "Temperature": 35.61,
+    "Relative_Humidity": 47.87,
+    "Absolute_Humidity": 19.63,
+    "Count": 288
+  },
+  "DCH-PAC1": {
+    "Name": "DCH-PAC1",
+    "Temperature": 30.51,
+    "Relative_Humidity": 53.68,
+    "Absolute_Humidity": 16.74,
+    "Count": 288
+  },
+  "DCH-PAC2": {
+    "Name": "DCH-PAC2",
+    "Temperature": 31.55,
+    "Relative_Humidity": 50.64,
+    "Absolute_Humidity": 16.71,
+    "Count": 288
+  },
+  "DCH-STAG": {
+    "Name": "DCH-STAG",
+    "Temperature": 34.17,
+    "Relative_Humidity": 55.38,
+    "Absolute_Humidity": 20.88,
+    "Count": 288
+  },
+  "DCH-TIPP": {
+    "Name": "DCH-TIPP",
+    "Temperature": 39.15,
+    "Relative_Humidity": 37.95,
+    "Absolute_Humidity": 18.6,
+    "Count": 288
+  }
+}

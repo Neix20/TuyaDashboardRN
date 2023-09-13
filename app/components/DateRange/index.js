@@ -7,16 +7,18 @@ import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 
 import { Logger, Utility } from "@utility";
 
-import { BcDateRangeModal } from "@components";
+import { BcDateRangeModal, BcBoxShadow } from "@components";
 
 import { DateTime } from "luxon";
 
 function Index(props) {
 
-    // #region UseState
-    const [startDt, setStartDt] = useState("2023-09-01");
-    const [endDt, setEndDt] = useState("");
+    // #region Props
+    const { startDt = "2023-09-01", setStartDt = () => {} } = props;
+    const { endDt = "2023-09-01", setEndDt = () => {} } = props;
+    // #endregion
 
+    // #region UseState
     const [showDtModal, setShowDtModal] = useState(false);
     // #endregion
 
@@ -34,7 +36,7 @@ function Index(props) {
             .toFormat("yyyy-MM-dd");
         setEndDt(tEndDt);
     };
-    
+
     const minusDt = () => {
         const tStartDt = DateTime.fromISO(startDt)
             .plus({ days: -1 })
@@ -50,51 +52,52 @@ function Index(props) {
 
     return (
         <>
-            <BcDateRangeModal
-                startDt={startDt} setStartDt={setStartDt}
-                endDt={endDt} setEndDt={setEndDt}
+            <BcDateRangeModal key={startDt + endDt}
+                {...props}
                 showModal={showDtModal} setShowModal={setShowDtModal} />
             <TouchableOpacity onPress={toggleDateModal}>
-                <View py={3}
-                    bgColor={"#fff"}
-                    alignItems={"center"}>
-                    <HStack
-                        alignItems={"center"}
-                        justifyContent={"space-between"}
-                        style={{ width: "90%" }}>
+                <BcBoxShadow>
+                    <View py={3}
+                        bgColor={"#fff"}
+                        alignItems={"center"}>
+                        <HStack
+                            alignItems={"center"}
+                            justifyContent={"space-between"}
+                            style={{ width: "90%" }}>
 
-                        {/* Calendar */}
-                        <HStack space={3} alignItems={"center"}>
-                            <FontAwesome5 name={"calendar-alt"} size={27} color={"#606267"} />
-                            <VStack space={1}>
-                                <Text style={{
-                                    fontFamily: "Roboto-Bold",
-                                    fontSize: 16,
-                                }}>{Utility.formatDt(startDt, "EEEE, d MMMM")}</Text>
-                            </VStack>
-                        </HStack>
+                            {/* Calendar */}
+                            <HStack space={3} alignItems={"center"}>
+                                <FontAwesome5 name={"calendar-alt"} size={27} color={"#606267"} />
+                                <VStack space={1}>
+                                    <Text style={{
+                                        fontFamily: "Roboto-Bold",
+                                        fontSize: 16,
+                                    }}>{Utility.formatDt(startDt, "EEEE, d MMMM")}</Text>
+                                </VStack>
+                            </HStack>
 
-                        {/* Controls */}
-                        <HStack>
-                            <TouchableOpacity onPress={minusDt}>
-                                <View
-                                    justifyContent={"center"}
-                                    alignItems={"center"}
-                                    style={{ height: 40, width: 40 }}>
-                                    <FontAwesome name={"angle-left"} size={27} />
-                                </View>
-                            </TouchableOpacity>
-                            <TouchableOpacity onPress={addDt}>
-                                <View
-                                    justifyContent={"center"}
-                                    alignItems={"center"}
-                                    style={{ height: 40, width: 40 }}>
-                                    <FontAwesome name={"angle-right"} size={27} />
-                                </View>
-                            </TouchableOpacity>
+                            {/* Controls */}
+                            <HStack>
+                                <TouchableOpacity onPress={minusDt}>
+                                    <View
+                                        justifyContent={"center"}
+                                        alignItems={"center"}
+                                        style={{ height: 40, width: 40 }}>
+                                        <FontAwesome name={"angle-left"} size={27} />
+                                    </View>
+                                </TouchableOpacity>
+                                <TouchableOpacity onPress={addDt}>
+                                    <View
+                                        justifyContent={"center"}
+                                        alignItems={"center"}
+                                        style={{ height: 40, width: 40 }}>
+                                        <FontAwesome name={"angle-right"} size={27} />
+                                    </View>
+                                </TouchableOpacity>
+                            </HStack>
                         </HStack>
-                    </HStack>
-                </View>
+                    </View>
+                </BcBoxShadow>
             </TouchableOpacity>
         </>
     )

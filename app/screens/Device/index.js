@@ -16,24 +16,27 @@ const { width, height } = screen;
 
 import { Logger, Utility } from "@utility";
 
-import { BcSvgIcon, BcBoxShadow, BcDeviceConModal, BcDropdown, BcLoading, BcYatuHome } from "@components";
+import { BcSvgIcon, BcBoxShadow, BcDeviceConModal, BcDropdown, BcLoading, BcYatuHome, BcCarousel } from "@components";
 
-import { Devices } from "@config";
+import { Devices, Images } from "@config";
 
 import { Tab, TabView } from "@rneui/themed";
 
 import { removeDevice as TuyaRemoveDevice } from "@volst/react-native-tuya";
 
-import PaginationDot from 'react-native-animated-pagination-dot';
-
 import TopModal from "@components/Modal/TopModal";
 import Modal from "react-native-modal";
 
+import { fetchDeviceList } from "@api";
+
+import { useDispatch, useSelector } from 'react-redux';
+import { Actions, Selectors } from '@redux';
+
 // #region Add Device Modal
 function AddDeviceModal(props) {
-    
+
     // #region Props
-    const { onDeviceScan = () => {} } = props;
+    const { onDeviceScan = () => { } } = props;
     // #endregion
 
     return (
@@ -94,12 +97,26 @@ function AddDeviceBtn(props) {
 }
 // #endregion
 
+// #region Hooks
+function useViewMode(val = "list") {
+    const [viewMode, setViewMode] = useState(val);
+
+    const toggleViewMode = () => {
+        const val = (viewMode === "List") ? "Grid" : "List";
+        setViewMode(val);
+    };
+
+    return [viewMode, toggleViewMode];
+}
+// #endregion
+
 // #region Tab Detail
 function TabDetailModal(props) {
 
     // #region Props
     const { showModal, setShowModal } = props;
-    const { onSelectRoomManagement = () => {} } = props;
+    const { onSelectRoomManagement = () => { } } = props;
+    const { viewMode, toggleViewMode = () => { } } = props;
     // #endregion
 
     return (
@@ -115,22 +132,22 @@ function TabDetailModal(props) {
                 borderRadius={8}
                 bgColor={"#FFF"}>
 
-                <TouchableOpacity style={{ width: "90%" }}>
+                <TouchableOpacity onPress={toggleViewMode}
+                    style={{ width: "90%" }}>
                     <HStack
                         alignItems={"center"}
                         style={{ height: 40 }}>
                         <HStack alignItems={"center"} space={3}>
-                            <MaterialCommunityIcons name={"view-grid-outline"} size={28} />
+                            <MaterialCommunityIcons name={viewMode === "List" ? "view-grid-outline" : "view-list-outline"} size={28} />
                             <Text style={{
                                 fontFamily: "Roboto-Medium",
                                 fontSize: 18
-                            }}>Grid View</Text>
+                            }}>{viewMode === "List" ? "Grid" : "List"} View</Text>
                         </HStack>
                     </HStack>
                 </TouchableOpacity>
 
-                <TouchableOpacity onPress={onSelectRoomManagement}
-                    style={{ width: "90%" }}>
+                <TouchableOpacity onPress={onSelectRoomManagement} style={{ width: "90%" }}>
                     <HStack
                         alignItems={"center"}
                         style={{ height: 40 }}>
@@ -153,12 +170,21 @@ function TabDetail(props) {
 
     const navigation = useNavigation();
 
+    // #region Props
+    const { viewMode, toggleViewMode = () => { } } = props;
+    // #endregion
+
     // #region UseState
     const [showTdModal, setShowTdModal] = useState(false);
     // #endregion
 
     // #region Helper
     const toggleTabDetail = () => setShowTdModal((val) => !val);
+
+    const onSelectViewMode = () => {
+        toggleViewMode();
+        toggleTabDetail();
+    }
     // #endregion
 
     // #region Navigation
@@ -170,7 +196,9 @@ function TabDetail(props) {
 
     return (
         <>
-            <TabDetailModal onSelectRoomManagement={GoToRoomManagement}
+            <TabDetailModal {...props}
+                toggleViewMode={onSelectViewMode}
+                onSelectRoomManagement={GoToRoomManagement}
                 showModal={showTdModal} setShowModal={setShowTdModal} />
             <TouchableOpacity onPress={toggleTabDetail}>
                 <MaterialCommunityIcons name={"dots-horizontal"} size={32} />
@@ -205,7 +233,7 @@ function Header(props) {
 
 function DeviceItem(props) {
 
-    const { name, img, icon, product_name, description } = props;
+    const { Title, img, Description } = props;
     const { onSelect = () => { } } = props;
     const borderRadius = 8;
 
@@ -230,18 +258,18 @@ function DeviceItem(props) {
                             width: 60,
                         }}
                         resizeMode={"cover"}
-                        alt={name} />
+                        alt={Title} />
                     <VStack>
                         <Text style={{
                             fontSize: 14,
                             fontFamily: 'Roboto-Bold',
                             color: "#000",
-                        }}>{name}</Text>
+                        }}>{Title}</Text>
                         <Text style={{
                             fontSize: 12,
                             fontFamily: 'Roboto-Medium',
                             color: "#c6c6c6"
-                        }}>{description}</Text>
+                        }}>{Description}</Text>
                     </VStack>
                 </VStack>
             </BcBoxShadow>
@@ -258,7 +286,7 @@ function EmptyList(props) {
 
             <VStack space={2}
                 alignItems={"center"}
-                style={{ width: width - 40 }}>
+                width={"90%"}>
 
                 <FontAwesome name={"plug"}
                     color={"#e6e6e6"}
@@ -323,12 +351,11 @@ function Search(props) {
 function CardGradientItem(props) {
     const { bgName = "CardGradientRed" } = props;
     return (
-        <View style={{ height: 180, width: width - 40 }}>
-            {/* <BcSvgIcon name={bgName} /> */}
-            <View bgColor={"#00F"} flex={1} borderRadius={8} />
+        <View style={{ height: 180 }}>
+            <Image source={Images[bgName]} style={{ width: "100%", height: "100%", borderRadius: 15 }} resizeMode={"cover"} alt={bgName} />
             <VStack p={2}
                 space={4}
-                position={"absolute"}>
+                position={"absolute"} style={{ left: 0, right: 0 }}>
                 <View>
                     <Text style={{
                         fontSize: 12,
@@ -345,7 +372,7 @@ function CardGradientItem(props) {
                     }}>29°C</Text>
                 </HStack>
 
-                <HStack alignItems={"center"} space={1}>
+                <HStack alignItems={"center"} justifyContent={"space-between"}>
                     <VStack>
                         <Text style={{
                             fontFamily: "Roboto-Medium",
@@ -387,28 +414,6 @@ function CardGradientItem(props) {
         </View>
     )
 }
-
-function CardGradient(props) {
-    return (
-        <View>
-            <CardGradientItem {...props} />
-            <View style={{
-                position: "absolute",
-                alignItems: "center",
-                left: 0,
-                right: 0,
-                bottom: 20,
-            }}>
-                <PaginationDot
-                    activeDotColor={"#F00"}
-                    inactiveDotColor={"#fff"}
-                    curPage={1}
-                    maxPage={4}
-                />
-            </View>
-        </View>
-    )
-}
 // #endregion
 
 function Index(props) {
@@ -417,8 +422,11 @@ function Index(props) {
     const navigation = useNavigation();
     const isFocused = useIsFocused();
 
-    // #region Props
+    // #region Redux
     const lang = "en";
+
+    const userId = useSelector(Selectors.userIdSelect);
+    const homeId = useSelector(Selectors.homeIdSelect);
     // #endregion
 
     // #region Init
@@ -428,44 +436,60 @@ function Index(props) {
         bgActive: "#FFF",
         bgInActive: "#EDEEEF",
         roomLs: ["All Devices", "Living Room", "Office", "Kitchen", "Master Bedroom", "Dining Room"],
+        imgLs: ["CardGradientRed", "CardGradientGreen", "CardGradientOrange", "CardGradientBlue"]
     }
     // #endregion
 
     // #region UseState
-    const [deviceLs, setDeviceLs] = useState([]);
-    const [viewMode, setViewMode] = useState("grid");
-
-    const [roomLs, setRoomLs] = useState(init.roomLs);
-
+    const [deviceData, setDeviceData] = useState({});
     const [roomPaneInd, setRoomPaneInd] = useState(0);
+
+    const [imgLs, setImgLs] = useState(init.imgLs);
+
+    const [loading, setLoading] = useState(false);
+
+    const [viewMode, toggleViewMode] = useViewMode();
     // #endregion
+
+    const roomLs = Object.keys(deviceData);
 
     // #region UseEffect
     useEffect(() => {
         if (isFocused) {
-            let arr = Devices;
+            // arr = arr.map((obj, ind) => (
+            //     {
+            //         ...obj,
+            //         img: { uri: obj.icon },
+            //         pos: ind,
+            //     }
+            // ));
 
-            arr = arr.map((obj, ind) => (
-                {
-                    ...obj,
-                    img: { uri: obj.icon },
-                    pos: ind,
-                }
-            ));
-
-            setDeviceLs(arr);
+            setLoading(true);
+            fetchDeviceList({
+                param: {
+                    UserId: userId,
+                    HomeId: homeId
+                },
+                onSetLoading: setLoading,
+            })
+                .then(data => {
+                    setDeviceData(data);
+                })
+                .catch(err => {
+                    setLoading(false);
+                    console.log(`Error: ${err}`);
+                })
         }
-    }, [isFocused]);
+    }, [isFocused, homeId]);
     // #endregion
 
-    const GoToDetail = (item) => navigation.navigate("DeviceDetail", item);
+    const GoToDetail = (item) => navigation.navigate("DeviceLanding", item);
 
     // #region Render
     const renderDeviceItem = ({ item, index }) => {
         const onSelect = () => GoToDetail(item);
         return (
-            <DeviceItem key={index} onSelect={onSelect}
-                {...item} />
+            <DeviceItem key={index} onSelect={onSelect} {...item} />
         )
     }
 
@@ -496,17 +520,18 @@ function Index(props) {
             <></>
         )
     }
-    // #endregion
 
-    // #region Helper
-    const toggleViewMode = () => {
-        const val = (viewMode === "list") ? "grid" : "list";
-        setViewMode(val);
-    };
+    const renderGradientItem = ({ index }) => {
+        const bgName = imgLs[index];
+        return (
+            <CardGradientItem key={index} bgName={bgName} />
+        )
+    }
     // #endregion
 
     return (
         <>
+            <BcLoading loading={loading} />
             <SafeAreaView style={{ flex: 1 }}>
                 <View bgColor={"#FFF"} style={{ flex: 1 }}>
 
@@ -517,7 +542,7 @@ function Index(props) {
 
                     {/* Card Gradient */}
                     <View alignItems={"center"}>
-                        <CardGradient />
+                        <BcCarousel images={imgLs} renderItem={renderGradientItem} />
                     </View>
 
                     <View style={{ height: 5 }} />
@@ -538,74 +563,42 @@ function Index(props) {
                                     bottom: 0,
                                     right: 0,
                                 }}>
-                                <TabDetail />
+                                <TabDetail viewMode={viewMode} toggleViewMode={toggleViewMode} />
                             </View>
                         </HStack>
                     </View>
 
-                    <View style={{ height: 450 }} />
-
-                    {/* <View flexGrow={1}
-                    alignItems={"center"}>
-                    <FlatList
-                        key={viewMode}
-                        data={deviceLs}
-                        renderItem={renderDeviceItem}
-                        style={{ flex: 1, width: width - 30 }}
-                        contentContainerStyle={{
-                            flexDirection: (viewMode === "grid") ? "row" : "column",
-                            flexWrap: (viewMode === "grid") ? "wrap" : "nowrap",
-                            justifyContent: (viewMode === "grid") ? "space-between" : "center",
-                            padding: 5, rowGap: 8,
-                        }}
-                        ListEmptyComponent={<EmptyList lang={lang} />}
-                    />
-                </View> */}
-
-                    {/* <TabView
-                    value={roomPaneInd}
-                    onChange={(e) => setRoomPaneInd(e)}>
-                    <TabView.Item
-                        style={{ width: "100%", alignItems: "center" }}>
-                        <FlatList key={viewMode}
-                            data={deviceLs}
-                            renderItem={renderDeviceItem}
-                            style={{ flex: 1, width: width - 30 }}
-                            contentContainerStyle={{
-                                flexDirection: (viewMode === "grid") ? "row" : "column",
-                                flexWrap: (viewMode === "grid") ? "wrap" : "nowrap",
-                                justifyContent: (viewMode === "grid") ? "space-between" : "center",
-                                padding: 5, rowGap: 8,
-                            }}
-                            ListEmptyComponent={<EmptyList lang={lang} />}
-                        />
-                    </TabView.Item>
-
-                    {
-                        roomLs.map((room, ind) => {
-                            const flag = Math.random() > 0.3;
-                            return (
-                                <TabView.Item style={{ width: "100%", alignItems: "center" }}>
-                                    <FlatList key={ind + viewMode}
-                                        data={deviceLs.slice(ind, ind + 2)}
-                                        renderItem={renderDeviceItem}
-                                        style={{ flex: 1, width: width - 30 }}
-                                        contentContainerStyle={{
-                                            flexDirection: (flag) ? "row" : "column",
-                                            flexWrap: (flag) ? "wrap" : "nowrap",
-                                            justifyContent: (flag) ? "space-between" : "center",
-                                            padding: 5, rowGap: 8,
-                                        }}
-                                        ListEmptyComponent={<EmptyList lang={lang} />}
-                                    />
-                                </TabView.Item>
-                            )
-                        })
-                    }
-                </TabView> */}
+                    <TabView
+                        value={roomPaneInd}
+                        onChange={(e) => setRoomPaneInd(e)}>
+                        {
+                            roomLs.map((room, ind) => {
+                                const deviceLs = deviceData[room];
+                                return (
+                                    <TabView.Item key={ind}
+                                        style={{ width: "100%", alignItems: "center" }}>
+                                        <FlatList
+                                            key={viewMode}
+                                            data={deviceLs}
+                                            renderItem={renderDeviceItem}
+                                            style={{ width: "90%" }}
+                                            contentContainerStyle={{
+                                                flexGrow: 1,
+                                                flexDirection: (viewMode === "Grid") ? "row" : "column",
+                                                flexWrap: (viewMode === "Grid") ? "wrap" : "nowrap",
+                                                justifyContent: (viewMode === "Grid") ? "space-between" : "center",
+                                                padding: 5, rowGap: 8,
+                                            }}
+                                            ListEmptyComponent={<EmptyList lang={lang} />}
+                                        />
+                                    </TabView.Item>
+                                )
+                            })
+                        }
+                    </TabView>
 
                     {/* Footer */}
-                    <View style={{ height: 60 }} />
+                    <View style={{ height: 70 }} />
                 </View>
             </SafeAreaView>
         </>

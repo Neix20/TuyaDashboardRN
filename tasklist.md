@@ -1,13 +1,13 @@
 ## Task List
-- [ ] Custom Dashboard
+- [x] Custom Dashboard
   - [x] Date Modal
   - [x] Expand Modal
-  - [ ] Line Chart
+  - [x] Line Chart
 - [x] Loading Model
 
 - [x] Alert
-- [ ] Profile
-  - [ ] Old
+- [x] Profile
+  - [x] Old
 - [x] Usage
   - [x] Usage Info
 
@@ -17,18 +17,18 @@
 
 - [ ] Home Management
   - [x] Home Modal
-  - [ ] Add New Home
+  - [x] Add New Home
   - [ ] Update Home
 - [x] Room Management
   - [x] Switch To List View / Grid View
   - [x] Add Room
 - [ ] Device Connection
-  - [ ] Scan Device, Get Device Info
-    - [ ] Ask To Connect
+  - [x] Scan Device, Get Device Info
+    - [x] Ask To Connect
   - [ ] Add Device To Database
 
 #### Process
-- [ ] Add New Home
+- [x] Add New Home
 - [ ] Add New Room
 - [ ] Add New Device
 
@@ -47,13 +47,49 @@
 - [ ] Device Scan
   - [x] Wifi Module
   - [ ] Remove Device
-  - [ ] Device List
+  - [x] Device List
   - [ ] Device Landing
   - [ ] Device Info
-  - [ ] Device Chart
+  - [ ] ~~Device Chart~~
 
 #### Before Tomorrow
 - [x] ~~OneSignal Alert~~
-- [ ] Remote Server: Notification Alert
 - [ ] OnBoarding, Register, Profile
+- [x] Dashboard & Alert (2.00 AM)
+  - [x] Fake Data For Device Report
+  - [x] Device Chart
+- [ ] Device List, Device Landing, Info, Device Alert (3.00)
+- [ ] Device Chart (4.00)
+- [ ] Profile Update, Home Update, Room Update, Device Update (5.00)
 - [ ] Live Data Pulling Every 2 Hours
+- [x] Postman
+  - [x] Create Home
+
+#### GG Must Complete Stuff
+- [x] Get Room List
+- [x] Get Device Alert
+- [ ] Profile Information
+- [ ] Device Info I
+- [ ] Create Home
+- [ ] Delete Home
+- [ ] Create Room
+- [ ] Delete Room
+
+#### After 12:30 - 13:00
+- [ ] Device Info
+  - [ ] Add Device
+  - [ ] Remove Device
+  - [ ] Get Device Info II
+  `Modify Server`
+    - [ ] Add Device Image
+    - [ ] Add Latest Data Point
+- [ ] Get Home Info
+  `Modify Server`
+  - [ ] Get Number of Rooms
+
+#### After 14:30 - 15:00
+- [ ] Update Device
+- [ ] Update Home
+- [ ] Update Profile
+
+- [ ] Hod Slides

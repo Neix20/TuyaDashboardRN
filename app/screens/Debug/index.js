@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Text, Image, TextInput, TouchableOpacity, Dimensions, SafeAreaView, ScrollView, FlatList } from "react-native";
+import { Text, Image, TextInput, TouchableOpacity, Dimensions, SafeAreaView, ScrollView, FlatList, useWindowDimensions } from "react-native";
 import { View, VStack, HStack, Divider, useToast } from "native-base";
 
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
@@ -10,9 +10,9 @@ const { width, height } = screen;
 
 import { info, error, Utility } from "@utility";
 
-import { BcSvgChart, BcDateRangeModal, BcViewShot, BcBoxShadow, BcDropdown, BcSvgIcon, BcLoading } from "@components";
+import { BcSvgChart, BcDateRangeModal, BcViewShot, BcBoxShadow, BcDropdown, BcSvgIcon, BcLoading, BcCarousel } from "@components";
 
-import { iRData, Devices } from "@config";
+import { iRData, Devices, Animation, Images } from "@config";
 
 import { Checkbox as PaperCheckbox } from "react-native-paper";
 import { CheckBox as ElemCheckbox } from '@rneui/base';
@@ -21,6 +21,8 @@ import { Checkbox as NativeCheckbox } from "native-base";
 import WChart from "./WChart";
 
 import DropDownPicker from "react-native-dropdown-picker";
+
+import Lottie from "lottie-react-native"
 
 // #region Trash
 function Chart(props) {
@@ -277,18 +279,20 @@ function DebugChart() {
     )
 }
 
-import Carousel from 'react-native-reanimated-carousel';
-import { GestureHandlerRootView } from "react-native-gesture-handler";
-import PaginationDot from 'react-native-animated-pagination-dot';
 
 function ImgItem(props) {
     const { bgName = "CardGradientRed" } = props;
     return (
-        <View style={{ height: 180, width: width - 40 }}>
-            <BcSvgIcon name={bgName} />
-            <VStack p={2}
-                space={4}
-                position={"absolute"}>
+        <View style={{ height: 180 }}>
+            <Image source={Images[bgName]}
+                style={{ width: "100%", height: "100%", borderRadius: 15 }}
+                resizeMode={"cover"}
+                alt={bgName}
+            />
+            <VStack p={2} space={4} position={"absolute"} style={{
+                left: 0,
+                right: 0,
+            }}>
                 <View>
                     <Text style={{
                         fontSize: 12,
@@ -304,7 +308,10 @@ function ImgItem(props) {
                     }}>29°C</Text>
                 </HStack>
 
-                <HStack alignItems={"center"} space={1}>
+                <HStack
+                    alignItems={"center"}
+                    justifyContent={"space-between"}
+                    space={1}>
                     <VStack>
                         <Text style={{
                             fontFamily: "Roboto-Medium",
@@ -347,56 +354,6 @@ function ImgItem(props) {
     )
 }
 
-function ImgCarousel(props) {
-    const { images } = props;
-
-    // #region UseState
-    const [dotInd, setDotInd] = useState(0);
-    // #endregion
-
-    return (
-        <View>
-            <GestureHandlerRootView>
-                <Carousel loop
-                    width={width - 40}
-                    height={180}
-                    autoPlay={true}
-                    autoPlayInterval={5000}
-                    scrollAnimationDuration={1500}
-                    data={images.map((_, ind) => ind)}
-                    onProgressChange={(_, progress) => {
-                        let num = Math.round(progress);
-                        if (num >= images.length) {
-                            num = 0;
-                        }
-                        setDotInd(num);
-                    }}
-                    renderItem={({ index }) => {
-                        const bgName = images[index];
-                        return (
-                            <ImgItem bgName={bgName} />
-                        )
-                    }}
-                />
-            </GestureHandlerRootView>
-            <View style={{
-                position: "absolute",
-                left: 0,
-                right: 0,
-                alignItems: "center",
-                bottom: 20,
-            }}>
-                <PaginationDot
-                    activeDotColor={"#F00"}
-                    inactiveDotColor={"#fff"}
-                    curPage={dotInd}
-                    maxPage={images.length}
-                />
-            </View>
-        </View>
-    )
-}
-
 import TopModal from "@components/Modal/TopModal";
 
 function DebugTopModal(props) {
@@ -417,6 +374,15 @@ function DebugTopModal(props) {
     // #region Helper
     const toggleTopModal = () => setShowTopModal((val) => !val);
     const toggleLoading = () => setLoading((val) => !val);
+    // #endregion
+
+    // #region Render
+    const renderItem = ({ index }) => {
+        const bgName = svgLs[index];
+        return (
+            <ImgItem key={index} bgName={bgName} />
+        )
+    }
     // #endregion
 
     return (
@@ -442,8 +408,8 @@ function DebugTopModal(props) {
                             space={3}
                             alignItems={"center"}
                             justifyContent={"center"}>
-                            {/* <ImgCarousel images={svgLs} /> */}
-                            {/* <ImgItem bgName={"CardGradientGreen"} /> */}
+                            
+                            <BcCarousel images={svgLs} renderItem={renderItem} />
 
                             <TouchableOpacity onPress={toggleTopModal}>
                                 <View backgroundColor={"#ff0000"}
@@ -471,19 +437,6 @@ function DebugTopModal(props) {
                                     }]}>Show Loading</Text>
                                 </View>
                             </TouchableOpacity>
-
-                            <BcViewShot>
-                                <View bgColor={"#ff0000"}
-                                    alignItems={"center"} justifyContent={"center"}
-                                    style={{ height: 60 }}
-                                >
-                                    <Text style={[{
-                                        fontSize: 14,
-                                        fontWeight: "bold",
-                                        color: "white",
-                                    }]}>Show Loading</Text>
-                                </View>
-                            </BcViewShot>
 
                         </VStack>
                     </ScrollView>

@@ -4,6 +4,10 @@ import { View, Spinner } from 'native-base';
 
 import Modal from "react-native-modal";
 
+import { Animation } from "@config";
+
+import Lottie from "lottie-react-native";
+
 function Index(props) {
 
     // #region Props
@@ -15,13 +19,22 @@ function Index(props) {
             isVisible={loading}
             animationInTiming={1}
             animationOutTiming={1}
-            backdropOpacity={.5}>
+            backdropOpacity={0.7}>
             <View
                 alignItems={"center"}
                 justifyContent={"center"}>
+                {/* <Lottie
+                    autoPlay
+                    source={Animation.YatuLoader}
+                    loop={true}
+                    style={{
+                        width: 360,
+                        height: 360
+                    }} /> */}
                 <Spinner size={128} color={"#2898FF"} />
             </View>
             <View
+                // display={"none"}
                 alignItems={"center"}
                 style={{
                     position: "absolute",

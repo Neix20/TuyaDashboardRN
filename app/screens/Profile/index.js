@@ -4,6 +4,7 @@ import { View, VStack, HStack, useToast } from "native-base";
 
 import Ionicons from "react-native-vector-icons/Ionicons";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import SimpleLineIcons from "react-native-vector-icons/SimpleLineIcons";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
@@ -19,15 +20,16 @@ import { Images, Svg, GlobalStyles, GlobalColors } from "@config";
 
 // #region Components
 function Header(props) {
+    const { onSelectSetting = () => { } } = props;
     return (
         <View alignItems={"center"}>
-            <HStack
+            <HStack width={"90%"}
                 alignItems={"center"}
                 justifyContent={"flex-end"}
-                style={{ width: width - 40, height: 60 }}>
+                style={{ height: 60 }}>
                 {/* Btn */}
                 <HStack alignItems={"center"} space={3}>
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={onSelectSetting}>
                         <FontAwesome name={"gear"} color={"#000"} size={30} />
                     </TouchableOpacity>
                 </HStack>
@@ -38,13 +40,13 @@ function Header(props) {
 
 function Profile(props) {
     return (
-        <TouchableOpacity {...props}>
+        <TouchableOpacity {...props} style={{ width: "90%"}}>
             <HStack
                 alignItems={"center"}
                 justifyContent={"space-between"}
-                style={{ width: width - 40, height: 60 }}>
+                style={{ height: 60 }}>
                 {/* Btn */}
-                <HStack pl={5} space={5}>
+                <HStack space={5}>
                     <FontAwesome name={"user-o"} color={"#000"} size={48} />
                     <View style={{ width: 100 }}>
                         <Text style={{
@@ -68,11 +70,11 @@ function PanelBtn(props) {
     const { onPress = () => { } } = props;
 
     return (
-        <TouchableOpacity onPress={onPress}>
-            <HStack px={3}
+        <TouchableOpacity onPress={onPress} style={{ width: "90%" }}>
+            <HStack
                 alignItems={"center"}
                 justifyContent={"space-between"}
-                style={{ width: width - 40, height: 60 }}>
+                style={{ height: 60 }}>
                 {/* Icon & Title */}
                 <HStack alignItems={"center"} space={3}>
                     <Btn name={icon} color={"#111111"} size={24} />
@@ -94,16 +96,50 @@ function PanelBtn(props) {
 }
 
 function NavPanel(props) {
+
+    const navigation = useNavigation();
+
+    const GoToHomeManagement = () => navigation.navigate("HomeManagement");
+    const GoToAlert = () => navigation.navigate("Alert");
+
     return (
         <VStack py={2}
             bgColor={"#FFF"}
             borderRadius={8}
+            width={"90%"}
             alignItems={"center"}>
 
-            <PanelBtn Btn={FontAwesome} icon={"home"} title={"Home Management"} />
-            <PanelBtn Btn={MaterialCommunityIcons} icon={"message-text-outline"} title={"Message Center"} />
+            <PanelBtn onPress={GoToHomeManagement}
+                Btn={FontAwesome} icon={"home"} title={"Home Management"} />
+            <PanelBtn onPress={GoToAlert}
+                Btn={MaterialCommunityIcons} icon={"message-text-outline"} title={"Message Center"} />
             <PanelBtn Btn={SimpleLineIcons} icon={"question"} title={"FAQ & Feedback"} />
         </VStack>
+    )
+}
+
+function LogoutPanel(props) {
+    return (
+        <View
+            py={3}
+            width={"90%"}
+            alignItems={"center"}
+            bgColor={"#FFF"}
+            borderRadius={12}>
+            <TouchableOpacity {...props}
+                style={{ width: "90%" }}>
+                <HStack alignItems={"center"} space={3}>
+                    <MaterialIcons name={"logout"} color={"#2898FF"} size={24} />
+                    <View>
+                        <Text style={[{
+                            fontSize: 18,
+                            color: "#2898FF",
+                            fontFamily: "Roboto-Medium",
+                        }]}>Log Out</Text>
+                    </View>
+                </HStack>
+            </TouchableOpacity>
+        </View>
     )
 }
 // #endregion
@@ -117,6 +153,14 @@ function Index(props) {
     const GoToProfileBackup = () => {
         navigation.navigate("ProfileBackup");
     }
+
+    const GoToTuyaPanel = () => {
+        navigation.navigate("TuyaPanel");
+    }
+
+    const GoToLogin = () => {
+        navigation.navigate("Login");
+    }
     // #endregion
 
     return (
@@ -124,7 +168,7 @@ function Index(props) {
             <View bgColor={"#F6F7FA"} style={{ flex: 1 }}>
 
                 {/* Header */}
-                <Header />
+                <Header onSelectSetting={GoToTuyaPanel} />
 
                 <View style={{ height: 10 }} />
 
@@ -135,16 +179,21 @@ function Index(props) {
                         alignItems={"center"}
                         space={5}>
                         {/* User */}
-                        <View style={{ height: 80 }}>
+                        <View width={"90%"} alignItems={"center"}
+                            style={{ height: 80 }}>
                             <Profile onPress={GoToProfileBackup} />
                         </View>
 
                         <NavPanel />
+
+                        {/* Logout */}
+                        <LogoutPanel onPress={GoToLogin} />
+
                     </VStack>
                 </ScrollView>
 
                 {/* Footer */}
-                <View style={{ height: 60 }} />
+                <View style={{ height: 70 }} />
             </View>
         </SafeAreaView>
     );

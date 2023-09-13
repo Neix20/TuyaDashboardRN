@@ -1,14 +1,14 @@
 import { Utility } from "@utility";
 
-const init = {
-    roomLs: [
-        { Name: "Living Room" },
-        { Name: "Office" },
-        { Name: "Kitchen" },
-        { Name: "Master Bedroom" },
-        { Name: "Dining Room" }
-    ]
-}
+// const init = {
+//     roomLs: [
+//         { Name: "Living Room" },
+//         { Name: "Office" },
+//         { Name: "Kitchen" },
+//         { Name: "Master Bedroom" },
+//         { Name: "Dining Room" }
+//     ]
+// }
 
 const Index = async (props) => {
 
@@ -31,26 +31,28 @@ const Index = async (props) => {
 
     onSetLoading(false);
 
-    // const data = await resp.json();
-    // onSetLoading(false);
+    const data = await resp.json();
+    onSetLoading(false);
 
-    // if (data["ResponseCode"] === "00") {
-    //     return data;
-    // }
-    // else {
-    //     console.log(`Room List - Request - ${JSON.stringify(obj)}`);
-    //     console.log(`Room List - Response - ${JSON.stringify(data)}`);
-    // }
+    if (data["ResponseCode"] === "00") {
+        const { Data } = data; 
 
-    let arr = [...init.roomLs];
+        let arr = [...Data];
 
-    arr = arr.map((obj, ind) => ({
-        ...obj,
-        pos: ind,
-        flag: false
-    }));
+        arr = arr.map((obj, ind) => ({
+            ...obj,
+            pos: ind,
+            flag: false
+        }))
 
-    return arr;
+        return arr;
+    }
+    else {
+        console.log(`Room List - Request - ${JSON.stringify(obj)}`);
+        console.log(`Room List - Response - ${JSON.stringify(data)}`);
+    }
+
+    return [];
 };
 
 export default Index;

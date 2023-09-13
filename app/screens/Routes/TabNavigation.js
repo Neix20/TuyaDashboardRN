@@ -73,16 +73,6 @@ TabScreens = {
                 {...props} />
         )
     },
-    Alert: {
-        component: Alert,
-        title: "Alert",
-        tabBarIcon: (props) => (
-            <TabIconFontAwesome
-                icon={"bell"}
-                title={"Alert"}
-                {...props} />
-        )
-    },
     Usage: {
         component: Usage,
         title: "Usage",

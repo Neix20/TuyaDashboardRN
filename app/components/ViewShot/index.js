@@ -21,7 +21,10 @@ import Share from "react-native-share";
 function ExpandModal(props) {
     const { children } = props;
     return (
-        <Modal {...props}>{children}</Modal>
+        <Modal showCross={false} {...props}>
+            <View 
+                width={"90%"}>{children}</View>
+        </Modal>
     )
 }
 
@@ -33,12 +36,10 @@ function VSModal(props) {
 
     return (
         <BottomModal {...props} showCross={false}>
-            <VStack space={3}>
+            <VStack space={3} width={"100%"}>
                 <TouchableOpacity onPress={onExpand}>
                     <View alignItems={"center"} justifyContent={"center"} style={{ height: 40 }}>
-                        <HStack space={5}
-                            alignItems={"center"}
-                            style={{ width: width - 40 }}>
+                        <HStack width={"90%"} space={5} alignItems={"center"}>
                             <FontAwesome5 name={"expand-arrows-alt"} size={27} />
                             <Text style={{
                                 fontFamily: "Roboto-Bold",
@@ -49,11 +50,7 @@ function VSModal(props) {
                 </TouchableOpacity>
                 <TouchableOpacity onPress={onShare}>
                     <View alignItems={"center"} justifyContent={"center"} style={{ height: 40 }}>
-                        <HStack alignItems={"center"}
-                            space={5}
-                            style={{
-                                width: width - 40
-                            }}>
+                        <HStack width={"90%"} space={5} alignItems={"center"}>
                             <FontAwesome5 name={"share-alt"} size={27} />
                             <Text style={{
                                 fontFamily: "Roboto-Bold",
@@ -64,9 +61,7 @@ function VSModal(props) {
                 </TouchableOpacity>
                 <TouchableOpacity onPress={onDownload}>
                     <View alignItems={"center"} justifyContent={"center"} style={{ height: 40 }}>
-                        <HStack space={5}
-                            alignItems={"center"}
-                            style={{ width: width - 40 }}>
+                        <HStack width={"90%"} space={5} alignItems={"center"}>
                             <FontAwesome5 name={"download"} size={27} />
                             <Text style={{
                                 fontFamily: "Roboto-Bold",
@@ -147,20 +142,17 @@ function Index(props) {
                 onExpand={toggleExModal}
                 showModal={showVsModal} setShowModal={setShowVsModal}
             />
-            <ExpandModal
-                showModal={showExModal} setShowModal={setShowExModal}
-            >{children}</ExpandModal>
+            <ExpandModal showModal={showExModal} setShowModal={setShowExModal}>{children}</ExpandModal>
             <BcBoxShadow>
                 <VStack py={3}
                     space={3}
                     bgColor={"#FFF"}
-                    // borderRadius={20}
                     alignItems={"center"}
-                    style={{ width: width }}>
-                    <HStack
+                    width={"100%"}
+                    style={{ maxWidth: width - 24 }}>
+                    <HStack width={"90%"}
                         alignItems={"center"}
-                        justifyContent={"space-between"}
-                        style={{ width: width - 40 }}>
+                        justifyContent={"space-between"}>
                         <Text style={{
                             fontFamily: "Roboto-Bold",
                             fontSize: 18,
@@ -171,7 +163,8 @@ function Index(props) {
                     </HStack>
 
                     <ViewShot ref={itemRef}
-                        options={{ fileName: "test", format: "jpg", quality: 0.9 }}>
+                        options={{ fileName: "test", format: "jpg", quality: 0.9 }}
+                        style={{ width: "90%" }}>
                         <View bgColor={"#FFF"}>
                             {children}
                         </View>

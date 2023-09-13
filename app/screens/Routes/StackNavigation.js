@@ -8,8 +8,13 @@ import Debug from "@screens/Debug";
 import TabNavigation from "./TabNavigation";
 
 import DeviceDetail from "@screens/DeviceDetail";
+
 import DeviceChart from "@screens/DeviceChart";
 import DeviceScan from "@screens/Device/DeviceScan";
+
+import DeviceLanding from "@screens/Device/DeviceLanding";
+import DeviceInfo from "@screens/Device/DeviceInfo";
+import DeviceAlert from "@screens/Device/DeviceAlert";
 
 import HomeManagement from "@screens/Home/HomeManagement";
 import HomeInfo from "@screens/Home/HomeInfo";
@@ -28,6 +33,8 @@ import ProfileBackup from "@screens/Profile/Backup";
 import RoomManagement from "@screens/Room/RoomManagement";
 import RoomInfo from "@screens/Room/RoomInfo";
 import AddRoom from "@screens/Room/AddRoom";
+
+import Alert from "@screens/Alert";
 
 let StackScreens = {};
 
@@ -96,6 +103,22 @@ StackScreens = {
     DeviceScan: {
         component: DeviceScan,
         title: "DeviceScan"
+    },
+    DeviceLanding: {
+        component: DeviceLanding,
+        title: "DeviceLanding"
+    },
+    DeviceInfo: {
+        component: DeviceInfo,
+        title: "DeviceInfo"
+    },
+    DeviceAlert: {
+        component: DeviceAlert,
+        title: "DeviceAlert"
+    },
+    Alert: {
+        component: Alert,
+        title: "Alert"
     }
 };
 
@@ -118,7 +141,7 @@ function Index(props) {
         SplashScreen.hide();
 
         // Reset Wifi
-        // dispatch(Actions.onChangeWifi(init.wifi));
+        dispatch(Actions.onChangeWifi(init.wifi));
     }, []);
 
     const defaultScreen = "TabNavigation";

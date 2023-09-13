@@ -15,7 +15,7 @@ import { info, error, Utility } from "@utility";
 
 import { Images, Svg, AlertDataList } from "@config";
 
-import { BcBoxShadow, BcSvgIcon, BcLoading, BcYatuHome } from "@components";
+import { BcBoxShadow, BcSvgIcon, BcLoading, BcHeader } from "@components";
 
 import { fetchDeviceNotification } from "@api";
 
@@ -23,67 +23,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Actions, Selectors } from '@redux';
 
 // #region Components
-function Header(props) {
-
-    const { children, onBack = () => { } } = props;
-
-    const navigation = useNavigation();
-
-    const toast = useToast();
-
-    // #region Helper Functions
-    const GoBack = () => {
-        onBack();
-        navigation.goBack();
-    }
-    // #endregion
-
-    return (
-        <BcBoxShadow>
-            <View
-                p={2}
-                alignItems={"flex-end"}
-                justifyContent={"flex-end"}
-                style={{
-                    height: 60,
-                    backgroundColor: "#fff",
-                }}>
-                {/* Front Layer */}
-                <TouchableOpacity
-                    onPress={GoBack}
-                    style={{
-                        alignItems: "center",
-                        justifyContent: "center",
-                        width: 120,
-                        height: 120,
-                        position: "absolute",
-                        left: -30,
-                        top: -19,
-                        zIndex: 1,
-                    }}>
-                    <FontAwesome5 name={"chevron-left"} size={20} color={"#2898FF"} />
-                </TouchableOpacity>
-
-                <View style={{
-                    position: "absolute",
-                    height: 120,
-                    left: 45,
-                    top: -20,
-                    alignItems: "center",
-                    justifyContent: "center",
-                }}>
-                    <Text style={{
-                        fontSize: 20,
-                        fontWeight: "bold",
-                        color: "#000",
-                    }}>{children}</Text>
-                </View>
-
-                <BcYatuHome />
-            </View>
-        </BcBoxShadow>
-    )
-}
 
 function AlertSign(props) {
     return (
@@ -123,9 +62,12 @@ function Index(props) {
     const navigation = useNavigation();
     const isFocused = useIsFocused();
 
+    // #region Props
+    const { Id: deviceId } = props.route.params;
+    // #endregion
+
     // #region Redux
     const userId = useSelector(Selectors.userIdSelect);
-    const homeId = useSelector(Selectors.homeIdSelect);
     // #endregion
 
     // #region UseState
@@ -141,7 +83,7 @@ function Index(props) {
         fetchDeviceNotification({
                 param: {
                     UserId: userId,
-                    HomeId: homeId,
+                    DeviceId: deviceId,
                 },
                 onSetLoading: setLoading
             })
@@ -152,7 +94,7 @@ function Index(props) {
                     setLoading(false);
                     console.log(`Error: ${err}`)
                 });
-    }, [homeId]);
+    }, [deviceId]);
     // #endregion
 
     // #region Render
@@ -224,7 +166,7 @@ function Index(props) {
                 <View bgColor={"#f6f7fa"} style={{ flex: 1 }}>
 
                     {/* Header */}
-                    <Header>Alert</Header>
+                    <BcHeader>Device Alert</BcHeader>
 
                     {/* Body */}
 

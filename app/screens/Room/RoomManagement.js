@@ -27,7 +27,7 @@ function RoomList(props) {
 
     // #region Render
     const renderItem = ({ item, index }) => {
-        const { Name } = item;
+        const { Title } = item;
         const selectItem = () => onItemSelect(item);
         return (
             <TouchableOpacity onPress={selectItem}>
@@ -38,7 +38,7 @@ function RoomList(props) {
                     <Text style={{
                         fontFamily: "Roboto-Medium",
                         fontSize: 18
-                    }}>{Name}</Text>
+                    }}>{Title}</Text>
                     <FontAwesome5 name={"angle-right"} color={"#CCC"} size={28} />
                 </HStack>
             </TouchableOpacity>
@@ -110,6 +110,7 @@ function Index(props) {
                 onSetLoading: setLoading
             })
             .then(data => {
+                console.log(data);
                 setRoomLs(data);
             })
             .catch(err => {

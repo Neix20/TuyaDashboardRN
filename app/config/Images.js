@@ -5,6 +5,17 @@ data = {
     Profile: require("@assets/images/profile.png")
 }
 
+// Card gradient
+data = {
+    ...data,
+    CardGradientBlue: require("@assets/images/card_gradient_blue.png"),
+    CardGradientGreen: require("@assets/images/card_gradient_green.png"),
+    CardGradientGrey: require("@assets/images/card_gradient_grey.png"),
+    CardGradientOrange: require("@assets/images/card_gradient_orange.png"),
+    CardGradientPurple: require("@assets/images/card_gradient_purple.png"),
+    CardGradientRed: require("@assets/images/card_gradient_red.png"),
+}
+
 // Usage Banner
 data = {
     ...data,

@@ -46,7 +46,10 @@ function Index(props) {
     const Login = () => {
         setLoading(false);
         fetchLogin({
-            param: form,
+            param: {
+                Username: username,
+                Password: password,
+            },
             onSetLoading: setLoading,
         })
             .then(data => {

@@ -1,5 +1,11 @@
 import fetchDashboardInfo from "./fetchDashboardInfo";
+
 import fetchDeviceChart from "./fetchDeviceChart";
+import fetchDeviceList from "./fetchDeviceList";
+import fetchDeviceNotification from "./fetchDeviceNotification";
+import fetchDeviceInfo from "./fetchDeviceInfo";
+import fetchProfileInfo from "./fetchProfile";
+
 import fetchUsageList from "./fetchUsageList";
 import fetchUsageInfo from "./fetchUsageInfo";
 import fetchGetNotification from "./fetchGetNotification";
@@ -15,6 +21,8 @@ import fetchRoomInfo from "./fetchRoomInfo";
 export {
     fetchDashboardInfo,
     fetchDeviceChart,
+    fetchDeviceList,
+    fetchDeviceNotification,
     fetchUsageList,
     fetchUsageInfo,
     fetchGetNotification,
@@ -23,4 +31,6 @@ export {
     fetchHomeInfo,
     fetchRoomList,
     fetchRoomInfo,
+    fetchDeviceInfo,
+    fetchProfileInfo,
 }

@@ -561,20 +561,21 @@ function Index(props) {
     // #endregion
 
     // #region UseState
-    const [svgChart, setSvgChart] = useState(init.svgChart);
-    const [svgLegend, setSvgLegend] = useState([]);
-    const [svgLabels, setSvgLabels] = useState(["00", "06", "12", "18", "24"]);
+    const [chartData, setChartData] = useState({});
 
+    const [svgChart, setSvgChart] = useState(init.svgChart);
     const [svgMetaData, setSvgMetaData] = useState({});
 
-    const [showDtModal, setShowDtModal] = useState(false);
+    const [svgLegend, setSvgLegend] = useState([]);
+    const [svgLabels, setSvgLabels] = useState(["00", "06", "12", "18", "24"]);
 
     const [startDt, setStartDt] = useState("2023-07-01");
     const [endDt, setEndDt] = useState("2023-07-01");
 
     const [loading, setLoading] = useState(false);
 
-    const [chartData, setChartData] = useState({});
+
+    const [showDtModal, setShowDtModal] = useState(false);
 
     const [showWelModal, setShowWelModal] = useState(false);
     // #endregion
@@ -733,10 +734,7 @@ function Index(props) {
                 setSvgChart(datasets);
                 setSvgLegend(legend);
 
-                setSvgMetaData({
-                    min: minData,
-                    max: maxData,
-                });
+                setSvgMetaData({ min: minData, max: maxData });
             })
             .catch(err => {
                 setLoading(false);

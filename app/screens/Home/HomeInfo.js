@@ -12,11 +12,78 @@ import { Logger, Utility } from "@utility";
 
 import { Images } from "@config";
 
-import { BcHeader, BcBoxShadow, BcLoading } from "@components";
+import { BcHeader, BcLoading, BcBoxShadow } from "@components";
 
 import { fetchHomeInfo } from "@api";
 
 // #region Components
+function Header(props) {
+
+    const { children, onBack = () => { } } = props;
+
+    const navigation = useNavigation();
+
+    const toast = useToast();
+
+    // #region Helper Functions
+    const GoBack = () => {
+        onBack();
+        navigation.goBack();
+    }
+    // #endregion
+
+    return (
+        <BcBoxShadow>
+            <View
+                p={2}
+                alignItems={"flex-end"}
+                justifyContent={"flex-end"}
+                style={{
+                    height: 60,
+                    backgroundColor: "#fff",
+                }}>
+                {/* Front Layer */}
+                <TouchableOpacity
+                    onPress={GoBack}
+                    style={{
+                        alignItems: "center",
+                        justifyContent: "center",
+                        width: 120,
+                        height: 120,
+                        position: "absolute",
+                        left: -30,
+                        top: -19,
+                        zIndex: 1,
+                    }}>
+                    <FontAwesome5 name={"chevron-left"} size={20} color={"#2898FF"} />
+                </TouchableOpacity>
+
+                <View style={{
+                    position: "absolute",
+                    height: 120,
+                    left: 45,
+                    top: -20,
+                    alignItems: "center",
+                    justifyContent: "center",
+                }}>
+                    <Text style={{
+                        fontSize: 20,
+                        fontWeight: "bold",
+                        color: "#000",
+                    }}>{children}</Text>
+                </View>
+
+                <TouchableOpacity>
+                    <Text style={{
+                        fontSize: 20,
+                        color: "#2898FF"
+                    }}>Save</Text>
+                </TouchableOpacity>
+            </View>
+        </BcBoxShadow>
+    )
+}
+
 function HomeInfo(props) {
 
     // #region Props
@@ -28,47 +95,60 @@ function HomeInfo(props) {
             bgColor={"#FFF"}>
             <HStack width={"90%"}
                 alignItems={"center"}
-                justifyContent={"space-between"}
-                style={{ height: 40 }}>
-                <Text style={{
-                    fontFamily: "Roboto-Medium",
-                    fontSize: 18
-                }}>Name: </Text>
-                <Text style={{
-                    fontFamily: "Roboto-Medium",
-                    fontSize: 18,
-                    color: "#CCC"
-                }}>{Name}</Text>
+                style={{ height: 48 }}>
+                <View flex={.3}>
+                    <Text style={{
+                        fontFamily: "Roboto-Medium",
+                        fontSize: 18
+                    }}>Name: </Text>
+                </View>
+                <View flex={.7}>
+                    <TextInput
+                        defaultValue={Name}
+                        placeholder={"Home Name"}
+                        autoCapitalize={"none"}
+                        style={{
+                            fontFamily: "Roboto-Medium",
+                            fontSize: 18,
+                            color: "#000",
+                        }} />
+                </View>
             </HStack>
 
             <HStack width={"90%"}
                 alignItems={"center"}
-                justifyContent={"space-between"}
-                style={{ height: 40 }}>
-                <Text style={{
-                    fontFamily: "Roboto-Medium",
-                    fontSize: 18
-                }}>Rooms: </Text>
-                <Text style={{
-                    fontFamily: "Roboto-Medium",
-                    fontSize: 18,
-                    color: "#CCC"
-                }}>{null}</Text>
+                style={{ height: 48 }}>
+                <View flex={.3}>
+                    <Text style={{
+                        fontFamily: "Roboto-Medium",
+                        fontSize: 18
+                    }}>Rooms: </Text>
+                </View>
+                <View flex={.7}>
+                    <Text style={{
+                        fontFamily: "Roboto-Medium",
+                        fontSize: 18,
+                        color: "#CCC"
+                    }}>{null}</Text>
+                </View>
             </HStack>
 
             <HStack width={"90%"}
                 alignItems={"center"}
-                justifyContent={"space-between"}
-                style={{ height: 40 }}>
-                <Text style={{
-                    fontFamily: "Roboto-Medium",
-                    fontSize: 18
-                }}>Location: </Text>
-                <Text style={{
-                    fontFamily: "Roboto-Medium",
-                    fontSize: 18,
-                    color: "#CCC"
-                }}>{Address}</Text>
+                style={{ height: 48 }}>
+                <View flex={.3}>
+                    <Text style={{
+                        fontFamily: "Roboto-Medium",
+                        fontSize: 18
+                    }}>Location: </Text>
+                </View>
+                <View flex={.7}>
+                    <Text style={{
+                        fontFamily: "Roboto-Medium",
+                        fontSize: 18,
+                        color: "#CCC"
+                    }}>{Address}</Text>
+                </View>
             </HStack>
         </View>
     )
@@ -153,7 +233,7 @@ function Index(props) {
                 <View style={{ flex: 1 }}>
 
                     {/* Header */}
-                    <BcHeader>Home Settings</BcHeader>
+                    <Header>Home Settings</Header>
 
                     <View style={{ height: 10 }} />
 

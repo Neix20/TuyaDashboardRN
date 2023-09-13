@@ -1,13 +1,11 @@
 import { Utility } from "@utility";
 
-import { AlertDataList } from "@config";
-
 const Index = async (props) => {
 
     const { param } = props;
     const { onSetLoading } = props;
 
-    const action = "GetNotification";
+    const action = "GetDeviceNotification";
     const url = Utility.genServerUrl(action);
 
     // Static Data
@@ -24,7 +22,6 @@ const Index = async (props) => {
     const data = await resp.json();
 
     if (data["ResponseCode"] === "00") {
-        // return data;
 
         const { Data } = data;
 
@@ -47,11 +44,12 @@ const Index = async (props) => {
         return resData;
     }
     else {
-        console.log(`Alert - GetNotification - Request - ${JSON.stringify(obj)}`);
-        console.log(`Alert - GetNotification - Response - ${JSON.stringify(data)}`);
+        console.log(`DeviceNotification - Request - ${JSON.stringify(obj)}`);
+        console.log(`DeviceNotification - Response - ${JSON.stringify(data)}`);
     }
 
     onSetLoading(false);
+
     return {};
 };
 

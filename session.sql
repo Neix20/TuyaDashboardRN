@@ -1,3 +1,3 @@
 SELECT * 
-FROM [dbo].[TUser]
+FROM [dbo].[TDevice]
 WHERE 1=1;

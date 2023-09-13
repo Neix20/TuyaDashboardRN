@@ -18,12 +18,14 @@ import { BcHeader, BcTimer, BaseModal, BcLoading } from "@components";
 
 import { startBluetoothScan, initBluetoothDualModeActivator } from "@volst/react-native-tuya";
 
-import { DeviceInfoDict } from "@config";
+import { DeviceInfoDict, Animation } from "@config";
 
 import { useWifi } from "@hooks";
 
 import { useDispatch, useSelector } from 'react-redux';
 import { Actions, Selectors } from '@redux';
+
+import Lottie from "lottie-react-native";
 
 const requestPermission = async () => {
     if (Platform.OS === "ios") {
@@ -73,9 +75,17 @@ function LoadingItem(props) {
     return (
         <View flexGrow={1} justifyContent={"center"}>
             <View alignItems={"center"}>
-                <Spinner size={128} color={"#2898FF"} />
+            <Lottie
+                    autoPlay
+                    source={Animation.YatuLoader}
+                    loop={true}
+                    style={{
+                        width: 360,
+                        height: 360
+                    }} />
             </View>
             <View
+                display={"none"}
                 alignItems={"center"}
                 style={{
                     position: "absolute",
@@ -496,11 +506,6 @@ function Index(props) {
                     startBluetoothScan()
                         .then(res => {
                             setLoading(false);
-                            // Logger.info({
-                            //     content: res,
-                            //     page: "App",
-                            //     fileName: "tuya_bluetooth_scan",
-                            // });
 
                             const { productId } = res;
 
