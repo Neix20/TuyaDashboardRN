@@ -513,9 +513,6 @@ function Index(props) {
                                 rowGap={10}
                                 alignItems={"flex-start"}
                                 justifyContent={"space-between"}>
-                                <BcViewShot title="Energy Usage">
-                                    <CardGradientItem />
-                                </BcViewShot>
 
                                 {
                                     (Object.keys(chartData).length > 0) ? (

@@ -1,7 +1,11 @@
 import fetchDashboardInfo from "./fetchDashboardInfo";
 
 import fetchProfileInfo from "./fetchProfile";
+
+import fetchRequestOtp from "./fetchRequestOtp";
 import fetchLogin from "./fetchLogin";
+import fetchAuthTuyaCode from "./fetchAuthTuyaCode";
+import fetchRegister from "./fetchRegister";
 
 import fetchUsageList from "./fetchUsageList";
 import fetchUsageInfo from "./fetchUsageInfo";
@@ -59,6 +63,9 @@ export {
 }
 
 export {
+    fetchRequestOtp,
     fetchLogin,
+    fetchAuthTuyaCode,
+    fetchRegister,
     fetchProfileInfo,
 }

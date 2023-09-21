@@ -68,9 +68,9 @@ function Index(props) {
     const onLogin = () => {
         console.log(loginWithEmail);
         loginWithEmail({
-            countryCode: 'MY',
+            countryCode: "60",
             email: 'txen2000@gmail.com',
-            password: 'arf11234'
+            password: 'aBcD1@3'
         })
             .then(res => {
                 Logger.info({

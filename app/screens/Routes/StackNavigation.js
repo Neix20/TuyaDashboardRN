@@ -21,6 +21,7 @@ import HomeInfo from "@screens/Home/HomeInfo";
 import AddHome from "@screens/Home/AddHome";
 
 import Login from "@screens/Login";
+import AuthTuya from "@screens/AuthTuya";
 
 import UsageInfo from "@screens/UsageInfo";
 
@@ -124,6 +125,10 @@ StackScreens = {
     ProfileInfo: {
         component: ProfileInfo,
         title: "ProfileInfo"
+    },
+    AuthTuya: {
+        component: AuthTuya,
+        title: "AuthTuya"
     }
 };
 
@@ -154,7 +159,7 @@ function Index(props) {
     }, []);
 
     const defaultScreen = (userId == -1) ? "Login" : "TabNavigation";
-    // const defaultScreen = "TuyaPanel";
+    // const defaultScreen = "TabNavigation";
 
     return (
         <BcStackNavigator

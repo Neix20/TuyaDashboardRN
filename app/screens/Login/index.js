@@ -12,7 +12,7 @@ import { Logger, Utility } from "@utility";
 
 import { BcSvgIcon, BcLoading } from "@components";
 
-import { fetchLogin } from "@api";
+import { fetchRequestOtp, fetchLogin } from "@api";
 
 import { useDispatch, useSelector } from 'react-redux';
 import { Actions, Selectors } from '@redux';
@@ -29,8 +29,9 @@ function Index(props) {
     // #region Initial
     const init = {
         form: {
-            username: "",
-            password: "",
+            email: "",
+            otp: "",
+            sessionId: "",
         }
     }
     // #endregion
@@ -40,33 +41,69 @@ function Index(props) {
     const [loading, setLoading] = useState(false);
     // #endregion
 
-    const { username, password } = form;
+    const { email, otp, sessionId } = form;
 
     // #region Helper
+    const RequestOtp = () => {
+        setLoading(true);
+        fetchRequestOtp({
+            param: {
+                Email: email
+            },
+            onSetLoading: setLoading,
+        })
+        .then(data => {
+            const { Otp, SessionId, MsgTemplate, ShowDebugFlag } = data;
+
+            console.log(`DebugFlag: ${ShowDebugFlag}`);
+            if (ShowDebugFlag) {
+                toast.show({
+                    description: MsgTemplate
+                })
+            }
+
+            setForm({
+                ...form,
+                sessionId: SessionId
+            })
+
+
+        })
+        .catch(err => {
+            setLoading(false);
+            console.log(`Error: ${err}`);
+        })
+    }
+
     const Login = () => {
-        setLoading(false);
+        setLoading(true);
         fetchLogin({
             param: {
-                Username: form.username,
-                Password: form.password,
+                Email: email,
+                Otp: otp,
+                SessionId: sessionId
             },
             onSetLoading: setLoading,
         })
             .then(data => {
                 if (data !== null) {
-                    const { Data: { User_Id, HomeId } } = data;
+
+                    const { Data: { User_Id, FirstTimeUserId } } = data;
 
                     dispatch(Actions.onChangeUserId(User_Id));
 
-                    // dispatch(Actions.onChangeHomeId(HomeId));
-                    
-                    GoToHome();
+                    if (FirstTimeUserId == 1) {
+                        navigation.navigate("AuthTuya", {
+                            Email: email,
+                        })
+                    } else {                        
+                        GoToHome();
+                    }
                 } else {
                     toast.show({
-                        description: "Account / Password is incorrect!"
+                        description: "Account / otp is incorrect!"
                     })
                 }
-
                 clearForm();
             })
             .catch(err => {
@@ -78,14 +115,13 @@ function Index(props) {
     const onChangeForm = (name, val) => {
         let obj = { ...form };
         obj[name] = val;
-
         setForm(obj);
     }
 
     const clearForm = () => setForm(init.form);
 
-    const setUsername = (val) => onChangeForm("username", val);
-    const setPassword = (val) => onChangeForm("password", val);
+    const setEmail = (val) => onChangeForm("email", val);
+    const setOtp = (val) => onChangeForm("otp", val);
     // #endregion
 
     // #region Navigation
@@ -129,45 +165,45 @@ function Index(props) {
                                 </View>
                                 <VStack width={"80%"}
                                     space={3}>
-                                    {/* Username */}
+                                    {/* OTP */}
                                     <View>
                                         <View>
                                             <Text style={{
                                                 fontSize: 14,
                                                 fontWeight: "bold"
-                                            }}>Username</Text>
+                                            }}>Email</Text>
                                         </View>
 
                                         <View
                                             bgColor={"#EEF3F6"}>
                                             {/* Front Layer */}
-                                            {/* <View style={{
-                                            position: "absolute",
-                                            zIndex: 2,
-                                            top: 5,
-                                            bottom: 5,
-                                            right: 5,
-                                        }}>
-                                            <TouchableOpacity>
-                                                <View backgroundColor={"#fff"}
-                                                    alignItems={"center"} justifyContent={"center"}
-                                                    style={{
-                                                        width: 100,
-                                                        height: 40
-                                                    }}
-                                                >
-                                                    <Text style={[{
-                                                        fontSize: 14,
-                                                        fontWeight: "bold",
+                                            <View style={{
+                                                position: "absolute",
+                                                zIndex: 2,
+                                                top: 5,
+                                                bottom: 5,
+                                                right: 5,
+                                            }}>
+                                                <TouchableOpacity onPress={RequestOtp}>
+                                                    <View backgroundColor={"#fff"}
+                                                        alignItems={"center"} justifyContent={"center"}
+                                                        style={{
+                                                            width: 100,
+                                                            height: 40
+                                                        }}
+                                                    >
+                                                        <Text style={[{
+                                                            fontSize: 14,
+                                                            fontWeight: "bold",
 
-                                                    }]}>Request OTP</Text>
-                                                </View>
-                                            </TouchableOpacity>
-                                        </View> */}
+                                                        }]}>Request OTP</Text>
+                                                    </View>
+                                                </TouchableOpacity>
+                                            </View>
 
                                             <TextInput
-                                                defaultValue={username}
-                                                onChangeText={setUsername}
+                                                defaultValue={email}
+                                                onChangeText={setEmail}
                                                 autoCapitalize={"none"}
                                                 style={{
                                                     fontFamily: "Roboto-Medium",
@@ -183,14 +219,14 @@ function Index(props) {
                                         <Text style={{
                                             fontSize: 14,
                                             fontWeight: "bold"
-                                        }}>Password</Text>
+                                        }}>OTP</Text>
                                         <View bgColor={"#EEF3F6"}>
 
                                             <TextInput
-                                                secureTextEntry
-                                                defaultValue={password}
-                                                onChangeText={setPassword}
+                                                defaultValue={otp}
+                                                onChangeText={setOtp}
                                                 autoCapitalize={"none"}
+                                                keyboardType={"numeric"}
                                                 style={{
                                                     fontFamily: "Roboto-Medium",
                                                     fontSize: 20,
