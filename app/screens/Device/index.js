@@ -16,7 +16,7 @@ const { width, height } = screen;
 
 import { Logger, Utility } from "@utility";
 
-import { BcSvgIcon, BcBoxShadow, BcLoading, BcYatuHome, BcCarousel, BaseModal } from "@components";
+import { BcBoxShadow, BcLoading, BcYatuHome, BaseModal } from "@components";
 
 import { Devices, Images } from "@config";
 
@@ -32,70 +32,7 @@ import { fetchDeviceList, fetchDeleteDevice } from "@api";
 import { useDispatch, useSelector } from 'react-redux';
 import { Actions, Selectors } from '@redux';
 
-// #region Add Device Modal
-function AddDeviceModal(props) {
-
-    // #region Props
-    const { onDeviceScan = () => { } } = props;
-    // #endregion
-
-    return (
-        <TopModal showCross={false} {...props}>
-            <View alignItems={"center"} width={"100%"}>
-                <TouchableOpacity onPress={onDeviceScan}
-                    style={{ width: "90%" }}>
-                    <HStack alignItems={"center"} style={{ height: 40 }}>
-                        <View flex={.1}>
-                            <Feather name={"target"} color={"#ccc"} size={20} />
-                        </View>
-                        <View flex={.9}>
-                            <Text style={{
-                                fontFamily: "Roboto-Bold",
-                                fontSize: 18,
-                            }}>Scan Device</Text>
-                        </View>
-                    </HStack>
-                </TouchableOpacity>
-            </View>
-        </TopModal>
-    )
-}
-
-function AddDeviceBtn(props) {
-
-    const navigation = useNavigation();
-
-    // #region UseState
-    const [showAdModal, setShowAdModal] = useState(false);
-    // #endregion
-
-    // #region Helper
-    const toggleAdModal = () => setShowAdModal((val) => !val);
-    // #endregion
-
-    // #region Navigation
-    const GoToDeviceScan = () => {
-        toggleAdModal();
-        navigation.navigate("DeviceScan");
-    }
-    // #endregion
-
-    return (
-        <>
-            <AddDeviceModal onDeviceScan={GoToDeviceScan}
-                showModal={showAdModal} setShowModal={setShowAdModal} />
-            <TouchableOpacity onPress={toggleAdModal}>
-                <View borderRadius={20}
-                    bgColor={"#2898FF"}
-                    alignItems={"center"} justifyContent={"center"}
-                    style={{ width: 32, height: 32 }}>
-                    <FontAwesome name={"plus"} size={16} color={"#FFF"} />
-                </View>
-            </TouchableOpacity>
-        </>
-    )
-}
-// #endregion
+import { useToggle, useModalToast } from "@hooks";
 
 // #region Hooks
 function useViewMode(val = "list") {
@@ -107,6 +44,64 @@ function useViewMode(val = "list") {
     };
 
     return [viewMode, toggleViewMode];
+}
+// #endregion
+
+// #region Add Device Modal
+function AddDeviceModal(props) {
+
+    // #region Props
+    const { onLinkedDevice = () => { } } = props;
+    // #endregion
+
+    return (
+        <TopModal showCross={false} {...props}>
+            <View alignItems={"center"} width={"100%"}>
+                <TouchableOpacity onPress={onLinkedDevice}
+                    style={{ width: "90%" }}>
+                    <HStack alignItems={"center"} style={{ height: 40 }}>
+                        <View flex={.1}>
+                            <FontAwesome name={"plug"} color={"#ccc"} size={20} />
+                        </View>
+                        <View flex={.9}>
+                            <Text style={{
+                                fontFamily: "Roboto-Bold",
+                                fontSize: 18,
+                            }}>Linked Device</Text>
+                        </View>
+                    </HStack>
+                </TouchableOpacity>
+            </View>
+        </TopModal>
+    )
+}
+
+function AddDeviceBtn(props) {
+
+    // #region UseState
+    const [showAdModal, setShowAdModal, toggleAdModal] = useToggle(false);
+    const [showLdModal, setShowLdModal, toggleLdModal] = useToggle(false);
+    // #endregion
+
+    // #region Navigation
+    const GoToLinkDevice = () => {
+        toggleAdModal();
+    }
+    // #endregion
+
+    return (
+        <>
+            <AddDeviceModal onLinkedDevice={GoToLinkDevice} showModal={showAdModal} setShowModal={setShowAdModal} />
+            <TouchableOpacity onPress={toggleAdModal}>
+                <View borderRadius={20}
+                    bgColor={"#2898FF"}
+                    alignItems={"center"} justifyContent={"center"}
+                    style={{ width: 32, height: 32 }}>
+                    <FontAwesome name={"plus"} size={16} color={"#FFF"} />
+                </View>
+            </TouchableOpacity>
+        </>
+    )
 }
 // #endregion
 
@@ -175,11 +170,10 @@ function TabDetail(props) {
     // #endregion
 
     // #region UseState
-    const [showTdModal, setShowTdModal] = useState(false);
+    const [showTdModal, setShowTdModal, toggleTabDetail] = useToggle(false);
     // #endregion
 
     // #region Helper
-    const toggleTabDetail = () => setShowTdModal((val) => !val);
 
     const onSelectViewMode = () => {
         toggleViewMode();
@@ -211,59 +205,14 @@ function TabDetail(props) {
 // #region Device
 function DeviceRemoveModal(props) {
 
-    // #region Redux
-    const lang = "en";
-    // #endregion
-
-    // #region Props
     const { onPress = () => { } } = props;
-    // #endregion
-
-    // #region Initial
-    const init = {
-        toast: {
-            msg: "",
-            flag: false
-        },
-    };
-    // #endregion
-
-    // #region Toast
-    const [cusToast, setCusToast] = useState(init.toast);
-
-    const setToastFlag = (val) => {
-        setCusToast({
-            ...cusToast,
-            flag: val
-        });
-    }
-
-    const showToastMsg = (val) => {
-        setCusToast({
-            ...cusToast,
-            msg: val,
-            flag: true
-        })
-    }
-
-    useEffect(() => {
-        if (cusToast.flag) {
-            setTimeout(() => {
-                setToastFlag(false);
-            }, 3 * 1000);
-        }
-    }, [cusToast.flag]);
-    // #endregion
+    const [cusToast, showMsg] = useModalToast();
 
     return (
         <BaseModal {...props} cusToast={cusToast}>
-            <VStack
-                py={5}
-                space={5}
+            <VStack py={5} space={5}
                 alignItems={"center"}
-                style={{
-                    width: width - 100,
-                }}>
+                width={"80%"}>
                 <View alignItems={"center"}>
                     <Text style={{
                         fontFamily: "Roboto-Bold",
@@ -273,14 +222,10 @@ function DeviceRemoveModal(props) {
                     }}>Are you sure you want to remove this device?</Text>
                 </View>
 
-                <TouchableOpacity onPress={onPress}>
+                <TouchableOpacity onPress={onPress} style={{ width: "80%" }}>
                     <View backgroundColor={"#ff0000"}
                         alignItems={"center"} justifyContent={"center"}
-                        style={{
-                            width: width - 120,
-                            height: 40,
-                            borderRadius: 8,
-                        }}
+                        style={{ height: 40, borderRadius: 8 }}
                     >
                         <Text style={[{
                             fontSize: 14,
@@ -308,12 +253,10 @@ function DeviceItem(props) {
     const userId = useSelector(Selectors.userIdSelect);
 
     // #region UseState
-    const [showRdModal, setShowRdModal] = useState(false);
+    const [showRdModal, setShowRdModal, toggleRdModal] = useToggle(false);
     // #endregion
 
     // #region Helper
-    const toggleRdModal = () => setShowRdModal((val) => !val);
-
     const onRemoveDevice = () => {
         setLoading(true);
         fetchDeleteDevice({
@@ -451,51 +394,6 @@ function EmptyList(props) {
     )
 }
 
-function Search(props) {
-    const { lang } = props;
-    const { query, setQuery } = props;
-    return (
-        <View
-            alignItems={"center"}
-            justifyContent={"center"}
-            style={{
-                height: 60,
-            }}>
-            <View
-                bgColor={"#EDEEEF"}
-                borderRadius={4}>
-                <TextInput
-                    style={{
-                        fontSize: 14,
-                        fontFamily: "Roboto-Medium",
-                        height: 40,
-                        width: 360,
-                        paddingHorizontal: 16,
-                        color: "#000",
-                    }}
-                    placeholder={Utility.translate("Search", lang)}
-                    placeholderTextColor={"#6A7683"}
-                    defaultValue={query}
-                    onChangeText={setQuery}
-                />
-
-                {/* Front Layer */}
-                <View
-                    justifyContent={"center"}
-                    style={{
-                        position: "absolute",
-                        top: 0,
-                        bottom: 0,
-                        right: 16,
-                        display: (query !== "") ? "none" : "flex"
-                    }}>
-                    <FontAwesome5 name={"search"} size={20} color={"#6A7683"} />
-                </View>
-            </View>
-        </View>
-    )
-}
-
 function CardGradientItem(props) {
     const { bgName = "CardGradientRed" } = props;
     return (
@@ -596,8 +494,8 @@ function Index(props) {
 
     const [imgLs, setImgLs] = useState(init.imgLs);
 
-    const [loading, setLoading] = useState(false);
-    const [refresh, setRefresh] = useState(false);
+    const [loading, setLoading, toggleLoading] = useToggle(false);
+    const [refresh, setRefresh, toggleRefresh] = useToggle(false);
 
     const [viewMode, toggleViewMode] = useViewMode();
     // #endregion
@@ -630,24 +528,12 @@ function Index(props) {
     const GoToDetail = (item) => navigation.navigate("DeviceLanding", item);
     // #endregion
 
-    // #region Helper
-    const onChangeTab = (ind) => {
-
-        const room = roomLs[ind];
-        dispatch(Actions.onChangeRoomId(room));
-
-        setRoomPaneInd(ind)
-    };
-
-    const toggleRefresh = () => setRefresh((val) => !val);
-    // #endregion
-
     // #region Render
     const renderDeviceItem = ({ item, index }) => {
         const onSelect = () => GoToDetail(item);
         return (
             <DeviceItem key={index}
-            toggleRefresh={toggleRefresh}
+                toggleRefresh={toggleRefresh}
                 loading={loading} setLoading={setLoading}
                 onSelect={onSelect} {...item} />
         )

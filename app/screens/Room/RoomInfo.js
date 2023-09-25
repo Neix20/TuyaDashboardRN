@@ -157,7 +157,7 @@ function Index(props) {
                             <InfoPanel {...room} />
 
                             {/* Delete Room */}
-                            <DeleteRoom onPress={onDeleteRoom} />
+                            {/* <DeleteRoom onPress={onDeleteRoom} /> */}
                         </VStack>
                     </ScrollView>
 

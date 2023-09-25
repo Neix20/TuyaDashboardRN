@@ -144,8 +144,9 @@ function Index(props) {
                             flexGrow={1}>
                             {/* Room List */}
                             <RoomList data={roomLs} onItemSelect={GoToRoomInfo} />
+
                             {/* Add Room */}
-                            <AddRoom onSelect={GoToAddRoom} />
+                            {/* <AddRoom onSelect={GoToAddRoom} /> */}
                         </VStack>
                     </ScrollView>
 

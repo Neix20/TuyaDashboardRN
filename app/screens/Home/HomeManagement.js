@@ -139,8 +139,8 @@ function Index(props) {
                             {/* Home List Panel */}
                             <HomeList data={homeLs} onItemSelect={GoToHomeInfo} />
 
-                            {/*  */}
-                            <AddHome onSelect={GoToAddHome} />
+                            {/* Add Home  */}
+                            {/* <AddHome onSelect={GoToAddHome} /> */}
                         </VStack>
                     </ScrollView>
                 </View>

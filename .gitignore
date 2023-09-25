@@ -67,3 +67,5 @@ android/app/tuyaDeveloper/release/app-tuyaDeveloper-release.apk
 
 android/app/yatu/*
 android/app/yatuDeveloper/*
+
+*.zip

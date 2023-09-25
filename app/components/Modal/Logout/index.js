@@ -19,6 +19,8 @@ import { BaseModal } from "@components";
 import { useDispatch, useSelector } from 'react-redux';
 import { Actions, Selectors } from "@redux";
 
+import { useModalToast } from "@hooks";
+
 function Index(props) {
 
     const navigation = useNavigation();
@@ -29,45 +31,11 @@ function Index(props) {
     const { mobileNo, sessionId } = useSelector(Selectors.userSelect);
     // #endregion
 
-    // #region Initial
-    const init = {
-        toast: {
-            msg: "",
-            flag: false
-        }
-    }
-    // #endregion
-
     // #region Props
     const { showModal, setShowModal } = props;
     // #endregion
 
-    // #region Toast
-    const [cusToast, setCusToast] = useState(init.toast);
-
-    const setToastFlag = (val) => {
-        setCusToast({
-            ...cusToast,
-            flag: val
-        });
-    }
-
-    const showToastMsg = (val) => {
-        setCusToast({
-            ...cusToast,
-            msg: val,
-            flag: true
-        })
-    }
-
-    useEffect(() => {
-        if (cusToast.flag) {
-            setTimeout(() => {
-                setToastFlag(false);
-            }, 3 * 1000);
-        }
-    }, [cusToast.flag]);
-    // #endregion
+    const [cusToast, showMsg] = useModalToast();
 
     // #region API List
     const fetchDeleteAccount = async () => {

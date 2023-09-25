@@ -29,6 +29,9 @@ import fetchRoomInfo from "./fetchRoomInfo";
 import fetchAddRoom from "./fetchAddRoom";
 import fetchDeleteRoom from "./fetchDeleteRoom";
 
+import fetchLinkDevice from "./fetchLinkDevice";
+import fetchGetLinkedDevice from "./fetchGetLinkedDevice";
+
 export { 
     fetchHomeList,
     fetchHomeInfo,
@@ -68,4 +71,9 @@ export {
     fetchAuthTuyaCode,
     fetchRegister,
     fetchProfileInfo,
+}
+
+export {
+    fetchLinkDevice,
+    fetchGetLinkedDevice,
 }

@@ -288,13 +288,13 @@ function Index(props) {
                         <VStack space={3}
                             flexGrow={1}>
                             {/* Info */}
-                            <InfoPanel onRoomManagement={GoToRoomManagement}
-                                {...home} />
+                            <InfoPanel onRoomManagement={GoToRoomManagement} {...home} />
 
-                            <AddRoom onPress={onAddRoom} />
+                            {/* Add Room */}
+                            {/* <AddRoom onPress={onAddRoom} /> */}
 
                             {/* Delete Home */}
-                            <DeleteHome onPress={onDeleteRoom} />
+                            {/* <DeleteHome onPress={onDeleteRoom} /> */}
                         </VStack>
                     </ScrollView>
                 </View>
