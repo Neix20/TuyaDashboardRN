@@ -18,7 +18,7 @@ import { Logger, Utility } from "@utility";
 
 import { BcBoxShadow, BcLoading, BcYatuHome, BaseModal } from "@components";
 
-import { Devices, Images } from "@config";
+import { Devices, Images, Animation } from "@config";
 
 import { Tab, TabView } from "@rneui/themed";
 
@@ -27,12 +27,16 @@ import { removeDevice as TuyaRemoveDevice } from "@volst/react-native-tuya";
 import TopModal from "@components/Modal/TopModal";
 import Modal from "react-native-modal";
 
-import { fetchDeviceList, fetchDeleteDevice } from "@api";
+import { fetchDeviceList, fetchDeleteDevice, fetchGetLinkedDevice, fetchLinkDevice } from "@api";
 
 import { useDispatch, useSelector } from 'react-redux';
 import { Actions, Selectors } from '@redux';
 
 import { useToggle, useModalToast } from "@hooks";
+
+import { CheckBox } from "@rneui/base";
+
+import Lottie from "lottie-react-native";
 
 // #region Hooks
 function useViewMode(val = "list") {
@@ -45,7 +49,262 @@ function useViewMode(val = "list") {
 
     return [viewMode, toggleViewMode];
 }
+
+function useLinkDevice(val = []) {
+    const [ls, setLs] = useState(val);
+
+    const toggleItem = (item) => {
+        const { pos, flag } = item;
+
+        let arr = [...ls];
+        arr[pos].flag = !flag;
+        arr[pos].Status = !flag ? 1 : 0;
+
+        setLs(arr);
+    }
+
+    return [ls, setLs, toggleItem];
+}
 // #endregion
+
+function LinkDeviceItem(props) {
+
+    const { Title, flag } = props;
+    const { onSelect = () => { } } = props;
+
+    return (
+        <TouchableOpacity onPress={onSelect}>
+            <HStack alignItems={"center"} justifyContent={"space-between"}>
+                <View>
+                    <Text style={{
+                        fontFamily: "Roboto-Medium",
+                        fontSize: 16,
+                    }}>{Title}</Text>
+                </View>
+                <CheckBox
+                    containerStyle={{
+                        paddingHorizontal: 5,
+                        paddingVertical: 0,
+                    }}
+                    iconType={"material-community"}
+                    checkedIcon={"checkbox-marked"}
+                    uncheckedIcon={"checkbox-blank-outline"}
+                    onPress={onSelect}
+                    checked={flag} />
+            </HStack>
+        </TouchableOpacity>
+    )
+}
+
+function LinkDeviceModal(props) {
+
+    const init = {
+        txtActive: "#2898FF",
+        txtInActive: "#6A7683",
+        bgActive: "#FFF",
+        bgInActive: "#EDEEEF",
+        tabLs: ["Inactive", "Active"]
+    }
+
+    const { tabLs = [] } = init;
+
+    const { showModal, setShowModal } = props;
+    const { toggleRefresh = () => { } } = props;
+
+    // #region Redux
+    const userId = useSelector(Selectors.userIdSelect);
+    const homeId = useSelector(Selectors.homeIdSelect);
+    // #endregion
+
+    // #region UseState
+    const [cusToast, showMsg] = useModalToast();
+    const [data, setData, toggleItem] = useLinkDevice([]);
+    const [loading, setLoading, toggleLoading] = useToggle(false);
+    const [tabPaneInd, setTabPaneInd] = useState(0);
+    // #endregion
+
+    useEffect(() => {
+        setLoading(true);
+        fetchGetLinkedDevice({
+            param: {
+                UserId: userId,
+                HomeId: homeId
+            },
+            onSetLoading: setLoading
+        })
+            .then(data => {
+                setData(data);
+            })
+            .catch(err => {
+                setLoading(false);
+                console.log(`Error: ${err}`);
+            })
+
+    }, [userId, homeId])
+
+    // #region Render
+    const renderItem = ({ item, index }) => {
+        const onSelect = () => toggleItem(item);
+        return (
+            <LinkDeviceItem key={index} onSelect={onSelect} {...item} />
+        )
+    }
+
+    const renderTabItem = (item, index) => {
+        return (
+            <Tab.Item
+                key={index}
+                title={item}
+                titleStyle={(active) => ({
+                    fontSize: 18,
+                    paddingHorizontal: 0,
+                    color: active ? init.txtActive : init.txtInActive
+                })}
+                buttonStyle={(active) => ({
+                    borderWidth: active ? 1 : 0,
+                    borderRadius: 8,
+                    marginRight: 5,
+                    paddingVertical: 0,
+                    paddingHorizontal: 30,
+                })}
+            />
+        )
+    }
+    // #endregion
+
+    const onSubmit = () => {
+        let arr = [];
+
+        arr = data.map(obj => {
+            const { Id, Status } = obj;
+            return { Id, Status };
+        })
+
+        setLoading(true);
+        fetchLinkDevice({
+            param: {
+                UserId: userId,
+                DeviceLs: arr
+            },
+            onSetLoading: setLoading
+        })
+            .then(data => {
+                setShowModal(false);
+                toggleRefresh();
+                // Refresh Home List
+            })
+            .catch(err => {
+                setLoading(false);
+                console.log(`Error: ${err}`);
+            })
+    }
+
+
+    return (
+        <BaseModal {...props} cusToast={cusToast}>
+            {
+                (loading) ? (
+                    <View flexGrow={1} alignItems={"center"} justifyContent={"center"}>
+                        <Lottie
+                            autoPlay
+                            source={Animation.YatuLoader}
+                            loop={true}
+                            style={{
+                                width: 320,
+                                height: 320
+                            }} />
+                    </View>
+                ) : (
+                    <VStack py={3} space={3} w={"100%"}
+                        bgColor={"#FFF"} alignItems={"center"}>
+
+                        <View>
+                            <Text style={{
+                                fontFamily: "Roboto-Bold",
+                                fontSize: 18
+                            }}>Device List</Text>
+                        </View>
+
+                        {/* <View>
+                            <Tab scrollable={true} disableIndicator={true} value={tabPaneInd} onChange={(e) => setTabPaneInd(e)}>
+                                {tabLs.map(renderTabItem)}
+                            </Tab>
+                        </View>
+
+                        {
+                            (tabPaneInd == 0) ? (
+                                <FlatList
+                                    data={data.filter(obj => !obj.flag)}
+                                    renderItem={renderItem}
+                                    style={{ width: "90%", height: 300 }}
+                                    contentContainerStyle={{
+                                        flexDirection: "column",
+                                        padding: 5,
+                                        rowGap: 8,
+                                    }}
+                                    ListEmptyComponent={<></>}
+                                />
+                            ) : (tabPaneInd == 1) ? (
+                                <FlatList
+                                    data={data.filter(obj => obj.flag)}
+                                    renderItem={renderItem}
+                                    style={{ width: "90%", height: 300 }}
+                                    contentContainerStyle={{
+                                        flexDirection: "column",
+                                        padding: 5,
+                                        rowGap: 8,
+                                    }}
+                                    ListEmptyComponent={<></>}
+                                />
+                            ) : (
+                                <></>
+                            )
+                        } */}
+
+                        <FlatList
+                            data={data.filter(obj => obj.flag)}
+                            renderItem={renderItem}
+                            style={{ width: "90%", maxHeight: 300 }}
+                            contentContainerStyle={{
+                                flexDirection: "column",
+                                padding: 5,
+                                rowGap: 8,
+                            }}
+                            ListEmptyComponent={<></>}
+                        />
+
+                        <FlatList
+                            data={data.filter(obj => !obj.flag)}
+                            renderItem={renderItem}
+                            style={{ width: "90%", maxHeight: 300 }}
+                            contentContainerStyle={{
+                                flexDirection: "column",
+                                padding: 5,
+                                rowGap: 8,
+                            }}
+                            ListEmptyComponent={<></>}
+                        />
+
+                        <TouchableOpacity onPress={onSubmit}
+                            style={{ width: "60%" }}>
+                            <View backgroundColor={"#ff0000"}
+                                alignItems={"center"} justifyContent={"center"}
+                                borderRadius={8}
+                                style={{ height: 48 }}
+                            >
+                                <Text style={[{
+                                    fontSize: 14,
+                                    fontWeight: "bold",
+                                    color: "white",
+                                }]}>Submit</Text>
+                            </View>
+                        </TouchableOpacity>
+                    </VStack>
+                )
+            }
+        </BaseModal>
+    )
+}
 
 // #region Add Device Modal
 function AddDeviceModal(props) {
@@ -78,6 +337,8 @@ function AddDeviceModal(props) {
 
 function AddDeviceBtn(props) {
 
+    const { toggleRefresh = () => { } } = props;
+
     // #region UseState
     const [showAdModal, setShowAdModal, toggleAdModal] = useToggle(false);
     const [showLdModal, setShowLdModal, toggleLdModal] = useToggle(false);
@@ -86,11 +347,13 @@ function AddDeviceBtn(props) {
     // #region Navigation
     const GoToLinkDevice = () => {
         toggleAdModal();
+        setShowLdModal(() => true)
     }
     // #endregion
 
     return (
         <>
+            <LinkDeviceModal showModal={showLdModal} setShowModal={setShowLdModal} toggleRefresh={toggleRefresh} />
             <AddDeviceModal onLinkedDevice={GoToLinkDevice} showModal={showAdModal} setShowModal={setShowAdModal} />
             <TouchableOpacity onPress={toggleAdModal}>
                 <View borderRadius={20}
@@ -266,33 +529,33 @@ function DeviceItem(props) {
             },
             onSetLoading: setLoading
         })
-        .then(data => {
-            toggleRdModal();
-            toggleRefresh();
-            toast.show({
-                description: "Successfully Removed Device!"
-            })
-            
-            TuyaRemoveDevice({
-                devId: Tuya_Id
-            })
-            .then(res => {
-                setLoading(false);
-                Logger.info({
-                    content: res,
-                    page: "App",
-                    fileName: "tuya_remove_device",
-                });
+            .then(data => {
+                toggleRdModal();
+                toggleRefresh();
+                toast.show({
+                    description: "Successfully Removed Device!"
+                })
+
+                TuyaRemoveDevice({
+                    devId: Tuya_Id
+                })
+                    .then(res => {
+                        setLoading(false);
+                        Logger.info({
+                            content: res,
+                            page: "App",
+                            fileName: "tuya_remove_device",
+                        });
+                    })
+                    .catch(err => {
+                        setLoading(false);
+                        console.log(`Error: ${err}`);
+                    });
             })
             .catch(err => {
                 setLoading(false);
-                console.log(`Error: ${err}`);
-            });
-        })
-        .catch(err => {
-            setLoading(false);
-            console.log(`Error: ${err}`)
-        })
+                console.log(`Error: ${err}`)
+            })
     }
     // #endregion
 
@@ -357,11 +620,13 @@ function Header(props) {
                     alignItems={"center"}
                     justifyContent={"space-between"}
                     style={{ width: "90%" }}>
+
                     {/* Logo */}
                     <BcYatuHome />
 
                     {/* Button */}
-                    <AddDeviceBtn />
+                    <AddDeviceBtn {...props} />
+
                 </HStack>
             </View>
         </BcBoxShadow>
@@ -504,24 +769,22 @@ function Index(props) {
 
     // #region UseEffect
     useEffect(() => {
-        if (isFocused) {
-            setLoading(true);
-            fetchDeviceList({
-                param: {
-                    UserId: userId,
-                    HomeId: homeId
-                },
-                onSetLoading: setLoading,
+        setLoading(true);
+        fetchDeviceList({
+            param: {
+                UserId: userId,
+                HomeId: homeId
+            },
+            onSetLoading: setLoading,
+        })
+            .then(data => {
+                setDeviceData(data);
             })
-                .then(data => {
-                    setDeviceData(data);
-                })
-                .catch(err => {
-                    setLoading(false);
-                    console.log(`Error: ${err}`);
-                })
-        }
-    }, [isFocused, homeId, refresh]);
+            .catch(err => {
+                setLoading(false);
+                console.log(`Error: ${err}`);
+            })
+    }, [homeId, refresh]);
     // #endregion
 
     // #region Navigation
@@ -561,12 +824,6 @@ function Index(props) {
         )
     }
 
-    const renderTabViewItem = ({ item, index }) => {
-        return (
-            <></>
-        )
-    }
-
     const renderGradientItem = ({ index }) => {
         const bgName = imgLs[index];
         return (
@@ -582,7 +839,7 @@ function Index(props) {
                 <View bgColor={"#FFF"} style={{ flex: 1 }}>
 
                     {/* Header */}
-                    <Header />
+                    <Header toggleRefresh={toggleRefresh} />
 
                     <View style={{ height: 10 }} />
 

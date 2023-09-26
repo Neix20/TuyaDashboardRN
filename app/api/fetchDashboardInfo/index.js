@@ -10,8 +10,8 @@ const Index = async (props) => {
 
     // Static Data
     let obj = Utility.requestObj({
-        ...param,
         DataCount: 100,
+        ...param,
         url: url,
     });
 
@@ -29,13 +29,16 @@ const Index = async (props) => {
 
     if (data["ResponseCode"] === "00") {
         // return data;
+
+        const { Data } = data;
+        return Data;
     }
     else {
         console.log(`Dashboard - GetDashboardInfo - Request - ${JSON.stringify(obj)}`);
         console.log(`Dashboard - GetDashboardInfo - Response - ${JSON.stringify(data)}`);
     }
 
-    return data;
+    return {};
 };
 
 export default Index;

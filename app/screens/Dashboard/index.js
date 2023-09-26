@@ -20,7 +20,7 @@ import { DateTime } from "luxon";
 
 import { fetchDashboardInfo } from "@api";
 
-import { LineChart as LineChartSvg, YAxis, XAxis, Grid, Path } from 'react-native-svg-charts';
+import { LineChart as LineChartSvg, YAxis, XAxis, Path } from 'react-native-svg-charts';
 import * as shape from 'd3-shape';
 
 import { CheckBox } from "@rneui/base";
@@ -382,7 +382,7 @@ function Index(props) {
 
         for (let key in chartData) {
             if (legend[ind] != null && legend[ind].flag) {
-                let val = chartData[key]["Data"];
+                let val = chartData[key];
 
                 val = val.map(obj => +obj["absolute_humidity"]);
 
@@ -412,14 +412,14 @@ function Index(props) {
             param: {
                 UserId: userId,
                 HomeId: homeId,
+                DataCount: 100,
                 StartDate: start_date,
                 EndDate: `${end_date} 23:59:59`
             },
             onSetLoading: setLoading,
         })
             .then(res => {
-
-                if ("Data" in res) {
+                if ("Data" in res && "IR Temperature" in res["Data"]) {
                     const Data = res["Data"]["IR Temperature"];
 
                     setChartData(Data);
@@ -432,7 +432,7 @@ function Index(props) {
 
                     let ind = 0;
                     for (let key in Data) {
-                        let val = Data[key]["Data"];
+                        let val = Data[key];
 
                         val = val.map(obj => +obj["absolute_humidity"]);
                         val = (val.length > 0) ? val : [0];
@@ -517,10 +517,7 @@ function Index(props) {
                                 {
                                     (Object.keys(chartData).length > 0) ? (
                                         <BcViewShot title="Daily Device Report">
-                                            <SvgLineChart
-                                                metaData={svgMetaData}
-                                                chart={svgChart}
-                                                labels={svgLabels} />
+                                            <SvgLineChart metaData={svgMetaData} chart={svgChart} labels={svgLabels} />
                                             <Legend data={svgLegend} onUpdateLegend={updateLegend} />
                                         </BcViewShot>
                                     ) : (

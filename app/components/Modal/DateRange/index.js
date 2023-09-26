@@ -19,6 +19,10 @@ import CustomToast from "./../CustomToast";
 import YtCalendar from "./Calendar";
 import { dateArrGen, weekArrGen, monthArrGen, customArrGen } from "./Generator";
 
+import { useToggle } from "@hooks";
+
+import { Switch } from "@rneui/base";
+
 // #region Base Modal
 function BaseModal(props) {
     // #region Initial
@@ -124,7 +128,7 @@ function DateView(props) {
     // #endregion
 
     // #region UseState
-    const [compare, setCompare] = useState(false);
+    const [compare, setCompare, toggleCompare] = useToggle(false);
     // #endregion
 
     // #region Helper
@@ -138,16 +142,12 @@ function DateView(props) {
 
         arr[index].flag = true;
 
-        console.log(arr[index]);
-
         setData(arr);
 
         const { startDt, endDt } = data[index];
         setStartDt(startDt);
         setEndDt(endDt);
     }
-
-    const toggleCompare = () => setCompare(!compare);
     // #endregion
 
     return (
@@ -158,14 +158,16 @@ function DateView(props) {
                     renderItem={renderSelectDate}
                 />
 
-                {/* <HStack style={{width: 360}} alignItems={"center"} justifyContent={"space-between"}>
-                    <Text style={{
-                        fontFamily: "Roboto-Bold",
-                        fontSize: 18,
-                        color: "#000"
-                    }}>Compare</Text>
-                    <Switch value={compare} onValueChange={toggleCompare} />
-                </HStack> */}
+                <View alignItems={"center"}>
+                    <HStack alignItems={"center"} justifyContent={"space-between"} style={{ width: 360 }}>
+                        <Text style={{
+                            fontFamily: "Roboto-Bold",
+                            fontSize: 18,
+                            color: "#000"
+                        }}>Compare</Text>
+                        <Switch value={compare} onValueChange={toggleCompare} />
+                    </HStack>
+                </View>
             </VStack>
         </TabView.Item>
     )
@@ -179,33 +181,31 @@ function CalendarView(props) {
     // #endregion
 
     // #region UseState
-    const [compare, setCompare] = useState(false);
-    // #endregion
-
-    // #region Helper
-    const toggleCompare = () => setCompare(!compare);
+    const [compare, setCompare, toggleCompare] = useToggle(false);
     // #endregion
 
     return (
-        <TabView.Item style={{width: "100%"}}>
+        <TabView.Item style={{ width: "100%" }}>
             <VStack>
 
                 <View alignItems={"center"}>
                     <DRangeItem onPress={toggleCusStartDt} flag={false} {...data[0]} />
                     <Divider my={2} width={"90%"} />
-                    
+
                     <DRangeItem onPress={toggleCusEndDt} flag={false} {...data[1]} />
                     <Divider my={2} width={"90%"} />
                 </View>
 
-                {/* <HStack style={{width: 360}} alignItems={"center"} justifyContent={"space-between"}>
-                    <Text style={{
-                        fontFamily: "Roboto-Bold",
-                        fontSize: 18,
-                        color: "#000"
-                    }}>Compare</Text>
-                    <Switch value={compare} onValueChange={toggleCompare} />
-                </HStack> */}
+                <View alignItems={"center"}>
+                    <HStack alignItems={"center"} justifyContent={"space-between"} style={{ width: 360 }}>
+                        <Text style={{
+                            fontFamily: "Roboto-Bold",
+                            fontSize: 18,
+                            color: "#000"
+                        }}>Compare</Text>
+                        <Switch value={compare} onValueChange={toggleCompare} />
+                    </HStack>
+                </View>
 
             </VStack>
         </TabView.Item>

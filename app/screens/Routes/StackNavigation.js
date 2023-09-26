@@ -158,8 +158,8 @@ function Index(props) {
         dispatch(Actions.onChangeWifi(init.wifi));
     }, []);
 
-    const defaultScreen = (userId == -1) ? "Login" : "TabNavigation";
-    // const defaultScreen = "TabNavigation";
+    // const defaultScreen = (userId == -1) ? "Login" : "TabNavigation";
+    const defaultScreen = "Debug";
 
     return (
         <BcStackNavigator

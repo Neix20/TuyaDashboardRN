@@ -18,11 +18,13 @@ import Modal from "@components/Modal/CommunityModals";
 
 import Share from "react-native-share";
 
+import { useToggle } from "@hooks";
+
 function ExpandModal(props) {
     const { children } = props;
     return (
         <Modal showCross={false} {...props}>
-            <View 
+            <View
                 width={"90%"}>{children}</View>
         </Modal>
     )
