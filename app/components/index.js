@@ -86,6 +86,14 @@ export {
     BcSvgChart,
 }
 
+import BcLineChart from "./LineChart";
+import BcLineChartFull from "./LineChart/full";
+
+export {
+    BcLineChart,
+    BcLineChartFull
+}
+
 import BcYatuHome from "./YatuHome";
 
 export {

@@ -7,14 +7,16 @@ import Debug from "@screens/Debug";
 
 import TabNavigation from "./TabNavigation";
 
-import DeviceDetail from "@screens/DeviceDetail";
-
-import DeviceChart from "@screens/DeviceChart";
 import DeviceScan from "@screens/Device/DeviceScan";
 
 import DeviceLanding from "@screens/Device/DeviceLanding";
 import DeviceInfo from "@screens/Device/DeviceInfo";
 import DeviceAlert from "@screens/Device/DeviceAlert";
+import DeviceTable from "@screens/Device/DeviceTable";
+import DeviceChart from "@screens/Device/DeviceChart";
+
+import DeviceRulesInfo from "@screens/Device/DeviceRulesInfo";
+import AddDeviceRules from "@screens/Device/AddDeviceRules";
 
 import HomeManagement from "@screens/Home/HomeManagement";
 import HomeInfo from "@screens/Home/HomeInfo";
@@ -49,10 +51,6 @@ StackScreens = {
     TabNavigation: {
         component: TabNavigation,
         title: "TabNavigation"
-    },
-    DeviceDetail: {
-        component: DeviceDetail,
-        title: "DeviceDetail"
     },
     Login: {
         component: Login,
@@ -118,6 +116,10 @@ StackScreens = {
         component: DeviceAlert,
         title: "DeviceAlert"
     },
+    DeviceTable: {
+        component: DeviceTable,
+        title: "DeviceTable"
+    },
     Alert: {
         component: Alert,
         title: "Alert"
@@ -129,6 +131,14 @@ StackScreens = {
     AuthTuya: {
         component: AuthTuya,
         title: "AuthTuya"
+    },
+    DeviceRulesInfo: {
+        component: DeviceRulesInfo,
+        title: "DeviceRulesInfo"
+    },
+    AddDeviceRules: {
+        component: AddDeviceRules,
+        title: "AddDeviceRules"
     }
 };
 
@@ -159,7 +169,7 @@ function Index(props) {
     }, []);
 
     // const defaultScreen = (userId == -1) ? "Login" : "TabNavigation";
-    const defaultScreen = "Debug";
+    const defaultScreen = "TabNavigation";
 
     return (
         <BcStackNavigator

@@ -11,6 +11,8 @@ import { BcDateRangeModal, BcBoxShadow } from "@components";
 
 import { DateTime } from "luxon";
 
+import { useToggle } from "@hooks";
+
 function Index(props) {
 
     // #region Props
@@ -19,11 +21,12 @@ function Index(props) {
     // #endregion
 
     // #region UseState
-    const [showDtModal, setShowDtModal] = useState(false);
+    const [showDtModal, setShowDtModal, toggleDateModal] = useToggle(false);
+
+
     // #endregion
 
     // #region Helper
-    const toggleDateModal = () => setShowDtModal((val) => !val);
 
     const addDt = () => {
         const tStartDt = DateTime.fromISO(startDt)
@@ -52,9 +55,7 @@ function Index(props) {
 
     return (
         <>
-            <BcDateRangeModal key={startDt + endDt}
-                {...props}
-                showModal={showDtModal} setShowModal={setShowDtModal} />
+            <BcDateRangeModal key={startDt + endDt} showModal={showDtModal} setShowModal={setShowDtModal} {...props} />
             <TouchableOpacity onPress={toggleDateModal}>
                 <BcBoxShadow>
                     <View py={3}

@@ -82,78 +82,25 @@ function Header(props) {
     )
 }
 
-function AlertPanel(props) {
-    return (
-        <View
-            bgColor={"#FFF"}
-            width={"90%"}
-            alignItems={"center"}
-            justifyContent={"center"}
-            borderRadius={12}
-            style={{ height: 60 }}>
-            <TouchableOpacity {...props}
-                style={{ width: "90%" }}>
-                <HStack alignItems={"center"} space={3}>
-                    <FontAwesome5 name={"bell"} color={"#000"} size={24} />
-                    <View>
-                        <Text style={[{
-                            fontSize: 18,
-                            color: "#000",
-                            fontFamily: "Roboto-Medium",
-                        }]}>Device Alert</Text>
-                    </View>
-                </HStack>
-            </TouchableOpacity>
-        </View>
-    )
-}
+function ItemPanel(props) {
 
-function ChartPanel(props) {
-    return (
-        <View
-            bgColor={"#FFF"}
-            width={"90%"}
-            alignItems={"center"}
-            justifyContent={"center"}
-            borderRadius={12}
-            style={{ height: 60 }}>
-            <TouchableOpacity {...props}
-                style={{ width: "90%" }}>
-                <HStack alignItems={"center"} space={3}>
-                    <FontAwesome5 name={"chart-area"} color={"#000"} size={24} />
-                    <View>
-                        <Text style={[{
-                            fontSize: 18,
-                            color: "#000",
-                            fontFamily: "Roboto-Medium",
-                        }]}>Data Chart</Text>
-                    </View>
-                </HStack>
-            </TouchableOpacity>
-        </View>
-    )
-}
+    const { Icon, name } = props;
 
-function InfoPanel(props) {
+    const { children } = props;
+
     return (
         <View
-            bgColor={"#FFF"}
-            width={"90%"}
-            alignItems={"center"}
-            justifyContent={"center"}
-            borderRadius={12}
-            style={{ height: 60 }}>
-            <TouchableOpacity {...props}
-                style={{ width: "90%" }}>
+            width={"90%"} bgColor={"#FFF"}
+            alignItems={"center"} justifyContent={"center"}
+            borderRadius={12} style={{ height: 60 }}>
+            <TouchableOpacity {...props} style={{ width: "90%" }}>
                 <HStack alignItems={"center"} space={3}>
-                    <FontAwesome5 name={"info-circle"} color={"#000"} size={24} />
-                    <View>
-                        <Text style={[{
-                            fontSize: 18,
-                            color: "#000",
-                            fontFamily: "Roboto-Medium",
-                        }]}>Device Info</Text>
-                    </View>
+                    <Icon name={name} color={"#000"} size={24} />
+                    <Text style={[{
+                        fontSize: 18,
+                        color: "#000",
+                        fontFamily: "Roboto-Medium",
+                    }]}>{children}</Text>
                 </HStack>
             </TouchableOpacity>
         </View>
@@ -177,7 +124,7 @@ function DeviceDataPanel(props) {
                     color: "#FFF"
                 }}>{(Temperature / 10).toFixed(1)}℃</Text>
             </VStack>
-            <Divider orientation={"vertical"} style={{width: 3 }} bgColor={"#FFF"} />
+            <Divider orientation={"vertical"} style={{ width: 3 }} bgColor={"#FFF"} />
             <VStack alignItems={"center"}>
                 <Text style={{
                     fontSize: 24,
@@ -239,9 +186,10 @@ function Index(props) {
     // #region Navigation
     const GoToInfo = () => navigation.navigate("DeviceInfo", item);
     const GoToAlert = () => navigation.navigate("DeviceAlert", item);
-    const GoToChart = () => {
-        toast.show({ description: "Work In-Progress" })
-    }
+    const GoToChart = () => navigation.navigate("DeviceChart", item);
+    const GoToTable = () => navigation.navigate("DeviceTable", item);
+    const GoToRules = () => navigation.navigate("DeviceRulesInfo", item);
+
     // #endregion
 
     const ind = Utility.genRandomInt(0, 3);
@@ -278,16 +226,18 @@ function Index(props) {
                             contentContainerStyle={{ flexGrow: 1 }}>
                             <VStack space={5}
                                 flexGrow={1} alignItems={"center"}>
-                                <View
-                                    flex={.25}
-                                    width={"90%"}
+                                <View flex={.4} width={"90%"}
                                     alignItems={"center"}
                                     justifyContent={"flex-end"}>
                                     <DeviceDataPanel {...deviceInfo} />
                                 </View>
-                                <InfoPanel onPress={GoToInfo} />
-                                <AlertPanel onPress={GoToAlert} />
-                                <ChartPanel onPress={GoToChart} />
+                                <VStack flex={.6} space={5} width={"100%"} alignItems={"center"}>
+                                    <ItemPanel Icon={FontAwesome5} name={"info-circle"} onPress={GoToInfo}>Device Info</ItemPanel>
+                                    <ItemPanel Icon={FontAwesome5} name={"clipboard-list"} onPress={GoToRules}>Device Rules</ItemPanel>
+                                    <ItemPanel Icon={FontAwesome5} name={"bell"} onPress={GoToAlert}>Device Alert</ItemPanel>
+                                    <ItemPanel Icon={FontAwesome5} name={"chart-area"} onPress={GoToChart}>Data Chart</ItemPanel>
+                                    <ItemPanel Icon={FontAwesome5} name={"table"} onPress={GoToTable}>Data Table</ItemPanel>
+                                </VStack>
                             </VStack>
                         </ScrollView>
 

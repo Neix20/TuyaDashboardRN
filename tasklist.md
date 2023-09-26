@@ -16,17 +16,22 @@
   - [x] Previous Chart
 
 #### 20230926 (Before 3PM)
-- [ ] Chart UI
-  - [ ] Device Chart
-- [ ] Data Rules UI
-- [ ] Data Alert UI
+- [x] Chart UI
 
 #### 20230926 (Before 6PM)
 - [ ] OneSignal
+  - [ ] Send Email QR
+  - [ ] Use Server to Send Push Notification
+- [x] Device Table UI
+- [x] Previous Chart
+- [ ] Chart Labels
+- [x] Device Chart
+- [x] Data Rules UI
+- [ ] Data Alert UI
+  - [ ] Add Alert
 - [ ] Device Control
-- [ ] Send Email QR
 
 #### 20230926 (Before 9 PM)
-- [ ] Report Template SQL
-  - [ ] Report Schedule
-- [ ] OTP Timer
+- [x] Deivce Rules
+- [ ] OneSignal (Notification)
+- [ ] Report Schedule

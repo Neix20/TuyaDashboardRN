@@ -13,6 +13,8 @@ import AlertDataList from "./data/alert_data_v2.json";
 import SmartPlugData from "./data/smart_plug.json";
 import DashboardReportData from "./data/dashboard_report_data.json";
 
+import DCHAhux from "./data/DCH-AHUX.json";
+
 export {
     Animation,
     Images,
@@ -26,7 +28,8 @@ export {
     DeviceInfoDict,
     AlertDataList,
     SmartPlugData,
-    DashboardReportData
+    DashboardReportData,
+    DCHAhux
 };
 
 export {

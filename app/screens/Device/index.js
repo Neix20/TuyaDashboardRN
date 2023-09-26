@@ -67,6 +67,7 @@ function useLinkDevice(val = []) {
 }
 // #endregion
 
+// #region Linked Device
 function LinkDeviceItem(props) {
 
     const { Title, flag } = props;
@@ -305,6 +306,7 @@ function LinkDeviceModal(props) {
         </BaseModal>
     )
 }
+// #endregion
 
 // #region Add Device Modal
 function AddDeviceModal(props) {

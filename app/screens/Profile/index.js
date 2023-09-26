@@ -226,8 +226,7 @@ function Index(props) {
                         {/* User */}
                         <View width={"90%"} alignItems={"center"}
                             style={{ height: 80 }}>
-                            <Profile {...profileInfo}
-                                onPress={GoToProfileInfo} />
+                            <Profile {...profileInfo} onPress={GoToProfileInfo} />
                         </View>
 
                         <NavPanel />

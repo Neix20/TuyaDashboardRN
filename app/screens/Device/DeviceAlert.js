@@ -55,9 +55,60 @@ function AlertHeader(props) {
         </HStack>
     )
 }
+
+function Header(props) {
+
+    const navigation = useNavigation();
+    const GoBack = () => navigation.goBack();
+    return (
+        <BcBoxShadow>
+            <View p={2} style={{ height: 60, backgroundColor: "#fff" }}
+                alignItems={"flex-end"} justifyContent={"flex-end"}>
+                {/* Front Layer */}
+                <TouchableOpacity onPress={GoBack}
+                    style={{
+                        alignItems: "center",
+                        justifyContent: "center",
+                        width: 120,
+                        height: 120,
+                        position: "absolute",
+                        left: -30,
+                        top: -19,
+                        zIndex: 1,
+                    }}>
+                    <FontAwesome5 name={"chevron-left"} size={20} color={"#2898FF"} />
+                </TouchableOpacity>
+
+                <View style={{
+                    position: "absolute",
+                    height: 120,
+                    left: 45,
+                    top: -20,
+                    alignItems: "center",
+                    justifyContent: "center",
+                }}>
+                    <Text style={{
+                        fontSize: 20,
+                        fontWeight: "bold",
+                        color: "#000",
+                    }}>Device Alert</Text>
+                </View>
+
+                <TouchableOpacity>
+                    <View borderRadius={16} bgColor={"#2898FF"}
+                        alignItems={"center"} justifyContent={"center"}
+                        style={{ width: 32, height: 32 }}>
+                        <FontAwesome name={"plus"} size={16} color={"#FFF"} />
+                    </View>
+                </TouchableOpacity>
+            </View>
+        </BcBoxShadow>
+    )
+}
 // #endregion
 
 function Index(props) {
+    
     const toast = useToast();
     const navigation = useNavigation();
     const isFocused = useIsFocused();
@@ -81,19 +132,19 @@ function Index(props) {
     useEffect(() => {
         setLoading(true);
         fetchDeviceNotification({
-                param: {
-                    UserId: userId,
-                    DeviceId: deviceId,
-                },
-                onSetLoading: setLoading
+            param: {
+                UserId: userId,
+                DeviceId: deviceId,
+            },
+            onSetLoading: setLoading
+        })
+            .then(res => {
+                setData(res);
             })
-                .then(res => {
-                    setData(res);
-                })
-                .catch(err => {
-                    setLoading(false);
-                    console.log(`Error: ${err}`)
-                });
+            .catch(err => {
+                setLoading(false);
+                console.log(`Error: ${err}`)
+            });
     }, [deviceId]);
     // #endregion
 
@@ -166,7 +217,7 @@ function Index(props) {
                 <View bgColor={"#f6f7fa"} style={{ flex: 1 }}>
 
                     {/* Header */}
-                    <BcHeader>Device Alert</BcHeader>
+                    <Header />
 
                     {/* Body */}
 
@@ -181,7 +232,7 @@ function Index(props) {
 
                             {/* Alarm */}
                             <VStack space={5} width={"90%"}>
-                                { dataKeys.map(renderItem) }
+                                {dataKeys.map(renderItem)}
                             </VStack>
 
                             <View style={{ height: 10 }} />

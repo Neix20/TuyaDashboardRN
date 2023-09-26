@@ -14,134 +14,16 @@ import { Logger, Utility } from "@utility";
 
 import { Images, DashboardReportData } from "@config";
 
-import { BcBoxShadow, BcSvgIcon, BcDateRange, BcViewShot, BcLoading, BcYatuHome } from "@components";
+import { BcBoxShadow, BcSvgIcon, BcDateRange, BcViewShot, BcLoading, BcYatuHome, BcLineChartFull } from "@components";
 
 import { DateTime } from "luxon";
 
 import { fetchDashboardInfo } from "@api";
 
-import { LineChart as LineChartSvg, YAxis, XAxis, Path } from 'react-native-svg-charts';
-import * as shape from 'd3-shape';
-
-import { CheckBox } from "@rneui/base";
+import { useChart } from "@hooks";
 
 import { useDispatch, useSelector } from 'react-redux';
 import { Actions, Selectors } from '@redux';
-
-// #region Line Chart
-function CheckBoxLegend(props) {
-    const { name, flag, color } = props;
-    const { onPress = () => { } } = props;
-    return (
-        <CheckBox
-            title={name}
-            titleProps={{
-                fontFamily: "Roboto-Medium",
-                fontSize: 16,
-                color: color,
-            }}
-            containerStyle={{
-                flex: 1,
-                minWidth: 100,
-                paddingHorizontal: 5,
-                paddingVertical: 0,
-            }}
-            iconType={"material-community"}
-            checkedIcon={"checkbox-marked"}
-            uncheckedIcon={"checkbox-blank-outline"}
-            checked={flag}
-            onPress={onPress}
-            checkedColor={color} />
-    )
-}
-
-function Legend(props) {
-    const { data, onUpdateLegend = () => { } } = props;
-
-    const renderItem = (obj, ind) => {
-        const onSelect = () => onUpdateLegend(ind);
-        return (
-            <CheckBoxLegend key={ind} onPress={onSelect} {...obj} />
-        )
-    }
-
-    if (data.length <= 0) {
-        return (<></>)
-    }
-
-    return (
-        <VStack bgColor={"#FFF"} alignItems={"center"} space={1}>
-            <View width={"90%"}>
-                <Text style={{
-                    fontFamily: "Roboto-Bold",
-                    fontSize: 16,
-                }}>Legend</Text>
-            </View>
-            <View
-                borderWidth={1} borderRadius={0}
-                borderColor={"#000"}
-                width={"90%"}>
-                <HStack flexWrap={"wrap"}>
-                    {data.map(renderItem)}
-                </HStack>
-            </View>
-        </VStack>
-    );
-}
-
-function SvgLineChart(props) {
-
-    const { metaData, chart, labels } = props;
-
-    const Shadow = (props) => {
-        const { lines } = props;
-        return (
-            <Path
-                key={'shadow'}
-                y={2}
-                d={lines}
-                fill={"none"}
-                strokeWidth={4}
-                stroke={'rgba(134, 65, 244, 0.2)'}
-            />
-        )
-    }
-
-    const { min, max } = metaData;
-
-    return (
-        <HStack space={2}>
-            <YAxis
-                data={[min, max]}
-                contentInset={{ top: 20, bottom: 20 }}
-                svg={{
-                    fill: 'grey',
-                    fontSize: 10,
-                }}
-            />
-            <VStack width={"100%"}>
-                <LineChartSvg
-                    data={chart}
-                    style={{ height: 300, width: "90%" }}
-                    svg={{
-                        strokeWidth: 2,
-                    }}
-                    curve={shape.curveNatural}
-                    contentInset={{ top: 20, bottom: 20 }}
-                >
-                </LineChartSvg>
-                <XAxis
-                    style={{ width: "90%" }}
-                    data={labels}
-                    formatLabel={(_, index) => labels[index]}
-                    contentInset={{ left: 10, right: 10 }}
-                    svg={{ fontSize: 10, fill: 'black' }}
-                />
-            </VStack>
-        </HStack>
-    )
-}
-// #endregion
 
 // #region Components
 function Header(props) {
@@ -332,81 +214,82 @@ function Index(props) {
 
     // #region Initial
     const init = {
-        svgChart: [
-            { data: [50, 10, 40, 95, -4, -24, 85, 91, 35, 53, -53, 24, 50, -20, -80] }
-        ],
-        svgMetaData: {
-            min: Number.MIN_VALUE,
-            max: Number.MAX_VALUE
-        },
-        legend: {
-            name: "",
-            flag: false,
-            color: "#000",
-        },
-        colors: ["#DB7D86", "#E7E005", "#188B9A", "#DB2E54", "#A53202", "#82EB20", "#75368B", "#395DAD", "#EC259F", "#0FA1AF", "#ADAC72", "#7FD106", "#6AC237", "#C5F022", "#76862A"],
         dt: DateTime.now().toFormat("yyyy-MM-dd"),
     }
     // #endregion
 
     // #region UseState
-    const [chartData, setChartData] = useState({});
+    const chartHook = useChart("absolute_humidity");
+    const chartObj = {
+        chart: chartHook[0],
+        setChart: chartHook[1],
+        chartKey: chartHook[2],
+        setChartKey: chartHook[3],
+        chartData: chartHook[4],
+        setChartData: chartHook[5],
+        chartLegend: chartHook[6],
+        setChartLegend: chartHook[7],
+        chartKeyOption: chartHook[8]
+    };
 
-    const [svgChart, setSvgChart] = useState(init.svgChart);
-    const [svgMetaData, setSvgMetaData] = useState({});
+    const prevChartHook = useChart("absolute_humidity");
+    const prevChartObj = {
+        chart: prevChartHook[0],
+        setChart: prevChartHook[1],
+        chartKey: prevChartHook[2],
+        setChartKey: prevChartHook[3],
+        chartData: prevChartHook[4],
+        setChartData: prevChartHook[5],
+        chartLegend: prevChartHook[6],
+        setChartLegend: prevChartHook[7],
+        chartKeyOption: prevChartHook[8]
+    };
 
-    const [svgLegend, setSvgLegend] = useState([]);
-    const [svgLabels, setSvgLabels] = useState(["00", "06", "12", "18", "24"]);
+    const [labels, setLabels] = useState([]);
+    const [prevLabels, setPrevLabels] = useState([]);
 
     const [startDt, setStartDt] = useState(init.dt);
     const [endDt, setEndDt] = useState(init.dt);
 
+    const [cmpStartDt, setCmpStartDt] = useState(init.dt);
+    const [cmpEndDt, setCmpEndDt] = useState(init.dt);
+
     const [loading, setLoading] = useState(false);
     // #endregion
+
+    const { chart, setChart } = chartObj;
+    const { chart: prevChart, setChart: setPrevChart } = prevChartObj;
 
     // #region UseEffect
     // Update Data
     useEffect(() => {
         if (isFocused) {
-            getDashboard(startDt, endDt);
+            getDashboard(startDt, endDt, setChart);
+
+            const prevStartDt = DateTime.fromISO(startDt)
+            .minus({ months: 1 })
+            .toFormat("yyyy-MM-dd")
+
+            setCmpStartDt(prevStartDt);
+
+            const prevEndDt = DateTime.fromISO(endDt)
+            .minus({ months: 1 })
+            .toFormat("yyyy-MM-dd");
+
+            setCmpEndDt(prevEndDt);
         }
     }, [isFocused, JSON.stringify(startDt + endDt + homeId)]);
 
-    // Update Legend
     useEffect(() => {
-        let legend = [...svgLegend];
-
-        let datasets = [];
-
-        let ind = 0;
-
-        for (let key in chartData) {
-            if (legend[ind] != null && legend[ind].flag) {
-                let val = chartData[key];
-
-                val = val.map(obj => +obj["absolute_humidity"]);
-
-                val = (val.length > 0) ? val : [0];
-
-                let obj = {
-                    data: val,
-                    svg: { stroke: init.colors[ind] },
-                    strokeWidth: 2,
-                }
-
-                datasets.push(obj);
-            }
-
-            ind += 1;
+        if (isFocused) {
+            setTimeout(() => {
+                getDashboard(cmpStartDt, cmpEndDt, setPrevChart);
+            }, 2000);
         }
-
-        setSvgChart(datasets);
-
-    }, [JSON.stringify(svgLegend.map(obj => obj.flag)), JSON.stringify(chartData)]);
-    // #endregion
+    }, [isFocused, JSON.stringify(cmpStartDt + cmpEndDt)])
 
     // #region API
-    const getDashboard = (start_date = '2023-07-01', end_date = '2023-07-01') => {
+    const getDashboard = (start_date = '2023-07-01', end_date = '2023-07-01', setFunc = () => {}) => {
         setLoading(true);
         fetchDashboardInfo({
             param: {
@@ -419,69 +302,15 @@ function Index(props) {
             onSetLoading: setLoading,
         })
             .then(res => {
-                if ("Data" in res && "IR Temperature" in res["Data"]) {
-                    const Data = res["Data"]["IR Temperature"];
-
-                    setChartData(Data);
-
-                    let datasets = [];
-                    let legend = [];
-
-                    let minData = Number.MAX_VALUE;
-                    let maxData = Number.MIN_VALUE;
-
-                    let ind = 0;
-                    for (let key in Data) {
-                        let val = Data[key];
-
-                        val = val.map(obj => +obj["absolute_humidity"]);
-                        val = (val.length > 0) ? val : [0];
-
-                        minData = Math.min(...val, minData);
-                        maxData = Math.max(...val, maxData);
-
-                        let obj = {
-                            data: val,
-                            svg: { stroke: init.colors[ind] },
-                            strokeWidth: 2,
-                        }
-
-                        datasets.push(obj);
-
-                        let legendObj = {
-                            name: key,
-                            flag: true,
-                            color: init.colors[ind],
-                        }
-
-                        legend.push(legendObj);
-
-                        ind += 1;
-                    }
-
-                    setSvgChart(datasets);
-                    setSvgLegend(legend);
-
-                    setSvgMetaData({ min: minData, max: maxData });
-                } else {
-                    setChartData({});
+                if ("IR Temperature" in res) {
+                    const Data = res["IR Temperature"]
+                    setFunc(() => Data);
                 }
             })
             .catch(err => {
                 setLoading(false);
                 console.log(`Error: ${err}`);
             })
-    }
-    // #endregion
-
-    // #region Helper
-    const updateLegend = (pos) => {
-        let arr = [...svgLegend];
-
-        const { flag } = arr[pos];
-        arr[pos].flag = !flag;
-
-        setSvgLegend(arr);
     }
     // #endregion
 
@@ -515,10 +344,9 @@ function Index(props) {
                                 justifyContent={"space-between"}>
 
                                 {
-                                    (Object.keys(chartData).length > 0) ? (
+                                    (Object.keys(chart).length > 0) ? (
                                         <BcViewShot title="Daily Device Report">
-                                            <SvgLineChart metaData={svgMetaData} chart={svgChart} labels={svgLabels} />
-                                            <Legend data={svgLegend} onUpdateLegend={updateLegend} />
+                                            <BcLineChartFull labels={labels} {...chartObj} />
                                         </BcViewShot>
                                     ) : (
                                         <></>
@@ -526,7 +354,17 @@ function Index(props) {
                                 }
 
                                 {
-                                    (Object.keys(chartData).length > 0) ? (
+                                    (true) ? (
+                                        <BcViewShot title="Previous Month">
+                                            <BcLineChartFull labels={prevLabels} {...prevChartObj} />
+                                        </BcViewShot>
+                                    ) : (
+                                        <></>
+                                    )
+                                }
+
+                                {
+                                    (Object.keys(chart).length > 0) ? (
                                         <BcViewShot title="Device Report">
                                             <DashboardReport data={DashboardReportData} />
                                         </BcViewShot>
