@@ -222,19 +222,18 @@ function Index(props) {
                         <View style={{ height: 10 }} />
 
                         {/* Body */}
-                        <ScrollView showsVerticalScrollIndicator={false}
-                            contentContainerStyle={{ flexGrow: 1 }}>
-                            <VStack space={5}
-                                flexGrow={1} alignItems={"center"}>
-                                <View flex={.4} width={"90%"}
+                        <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{ flexGrow: 1 }}>
+                            <VStack flexGrow={1} alignItems={"center"}>
+                                <View flex={.3} width={"90%"}
                                     alignItems={"center"}
                                     justifyContent={"flex-end"}>
                                     <DeviceDataPanel {...deviceInfo} />
                                 </View>
-                                <VStack flex={.6} space={5} width={"100%"} alignItems={"center"}>
+                                <VStack
+                                    flex={.7} space={5} width={"100%"} alignItems={"center"}>
                                     <ItemPanel Icon={FontAwesome5} name={"info-circle"} onPress={GoToInfo}>Device Info</ItemPanel>
                                     <ItemPanel Icon={FontAwesome5} name={"clipboard-list"} onPress={GoToRules}>Device Rules</ItemPanel>
-                                    <ItemPanel Icon={FontAwesome5} name={"bell"} onPress={GoToAlert}>Device Alert</ItemPanel>
+                                    {/* <ItemPanel Icon={FontAwesome5} name={"bell"} onPress={GoToAlert}>Device Alert</ItemPanel> */}
                                     <ItemPanel Icon={FontAwesome5} name={"chart-area"} onPress={GoToChart}>Data Chart</ItemPanel>
                                     <ItemPanel Icon={FontAwesome5} name={"table"} onPress={GoToTable}>Data Table</ItemPanel>
                                 </VStack>

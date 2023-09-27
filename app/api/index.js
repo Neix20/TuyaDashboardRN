@@ -34,7 +34,10 @@ import fetchGetLinkedDevice from "./fetchGetLinkedDevice";
 
 import fetchDeviceDataChart from "./fetchDeviceDataChart";
 
-export { 
+import fetchGetReportSchedule from "./fetchGetReportSchedule";
+
+import fetchAddReportSchedule from "./fetchAddReportSchedule";
+export {
     fetchHomeList,
     fetchHomeInfo,
     fetchAddHome,
@@ -79,4 +82,9 @@ export {
     fetchLinkDevice,
     fetchGetLinkedDevice,
     fetchDeviceDataChart,
+}
+
+export {
+    fetchGetReportSchedule,
+    fetchAddReportSchedule
 }

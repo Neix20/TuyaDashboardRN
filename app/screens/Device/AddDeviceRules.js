@@ -76,7 +76,20 @@ function DeviceForm(props) {
 
     // #region Initial
     const init = {
-        formulaLs: ["Absolute Humidity"]
+        formulaLs: [
+            {
+                name: "Absolute Humidity",
+                formula: "6.112 * [humidity_value] * ( 2.1674 / ( 273.15 + [temp_current] ) ) * power(2.71828 , ( ( 17.67 * [temp_current] ) / ( [temp_current] + 243.5 ) ))"
+            },
+            {
+                name: "Parse Temperature",
+                formula: "[temp_current] / 10"
+            },
+            {
+                name: "Clear All",
+                formula: ""
+            }
+        ]
     }
     // #endregion
 
@@ -94,12 +107,13 @@ function DeviceForm(props) {
 
     // #region Render
     const renderItem = (item, index) => {
-        const onSelect = () => onChangeFormula(item);
+        const { name, formula } = item;
+        const onSelect = () => onChangeFormula(formula);
         return (
             <TouchableOpacity key={index}
                 onPress={onSelect}>
                 <View borderWidth={1} borderRadius={8} p={2}>
-                    <Text>{item}</Text>
+                    <Text>{name}</Text>
                 </View>
             </TouchableOpacity>
         )
@@ -113,7 +127,7 @@ function DeviceForm(props) {
                 <HStack
                     alignItems={"center"}
                     width={"90%"}
-                    style={{ height: 60 }}>
+                    style={{ minHeight: 60, maxHeight: 180 }}>
                     <View flex={.3}>
                         <Text style={{
                             fontSize: 18
@@ -125,6 +139,7 @@ function DeviceForm(props) {
                             onChangeText={onChangeFormula}
                             placeholder={"Formula"}
                             autoCapitalize={"none"}
+                            multiline={true}
                             style={{
                                 fontFamily: "Roboto-Medium",
                                 fontSize: 18,
@@ -166,7 +181,7 @@ function Index(props) {
             <View style={{ flex: 1 }}>
 
                 {/* Header */}
-                <Header />
+                <Header>Rules List</Header>
 
                 <View style={{ height: 10 }} />
 

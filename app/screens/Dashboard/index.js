@@ -214,7 +214,7 @@ function Index(props) {
 
     // #region Initial
     const init = {
-        dt: DateTime.now().toFormat("yyyy-MM-dd"),
+        dt: DateTime.now().minus({days: 1}).toFormat("yyyy-MM-dd"),
     }
     // #endregion
 

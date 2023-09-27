@@ -31,8 +31,8 @@ import WelcomeInfo from "@screens/WelcomeInfo";
 
 import TuyaPanel from "@screens/TuyaPanel";
 
-import ProfileBackup from "@screens/Profile/Backup";
 import ProfileInfo from "@screens/Profile/ProfileInfo";
+import ReportSchedule from "@screens/ReportSchedule";
 
 import RoomManagement from "@screens/Room/RoomManagement";
 import RoomInfo from "@screens/Room/RoomInfo";
@@ -71,10 +71,6 @@ StackScreens = {
     TuyaPanel: {
         component: TuyaPanel,
         title: "TuyaPanel"
-    },
-    ProfileBackup: {
-        component: ProfileBackup,
-        title: "ProfileBackup"
     },
     HomeManagement: {
         component: HomeManagement,
@@ -139,6 +135,10 @@ StackScreens = {
     AddDeviceRules: {
         component: AddDeviceRules,
         title: "AddDeviceRules"
+    },
+    ReportSchedule: {
+        component: ReportSchedule,
+        title: "ReportSchedule"
     }
 };
 
@@ -168,8 +168,8 @@ function Index(props) {
         dispatch(Actions.onChangeWifi(init.wifi));
     }, []);
 
-    // const defaultScreen = (userId == -1) ? "Login" : "TabNavigation";
-    const defaultScreen = "TabNavigation";
+    const defaultScreen = (userId == -1) ? "Login" : "TabNavigation";
+    // const defaultScreen = "TabNavigation";
 
     return (
         <BcStackNavigator

@@ -22,14 +22,30 @@ import { useToggle } from "@hooks";
 
 import { fetchDeviceDataChart } from "@api";
 
+import { useDispatch, useSelector } from 'react-redux';
+import { Actions, Selectors } from '@redux';
+
 function useChart() {
 
     const [chart, setChart] = useState([]);
 
     const [chartData, setChartData] = useState({});
 
+    const init = {
+        colors: [
+            "#DB7D86", "#E7E005", "#188B9A",
+            "#DB2E54", "#A53202", "#82EB20",
+            "#75368B", "#395DAD", "#EC259F",
+            "#0FA1AF", "#ADAC72", "#7FD106",
+            "#6AC237", "#C5F022", "#76862A"
+        ]
+    }
+
     useEffect(() => {
         if (chart.length > 0) {
+
+            const ind = Utility.genRandomInt(0, 10);
+
             const obj = { ...chart[0] };
 
             delete obj["Timestamp"];
@@ -51,7 +67,7 @@ function useChart() {
 
                 let dataset = [{
                     data: val,
-                    svg: { stroke: "#000" },
+                    svg: { stroke: init.colors[ind] },
                     strokeWidth: 2,
                 }]
 
@@ -80,10 +96,11 @@ function Index(props) {
     const init = {
         activeColor: "#2898FF",
         inActiveColor: "#000",
-        dt: DateTime.now().toFormat("yyyy-MM-dd"),
+        dt: DateTime.now().minus({days: 1}).toFormat("yyyy-MM-dd"),
     }
     // #endregion
 
+    // #region UseState
     const [loading, setLoading, toggleLoading] = useToggle(false);
     const [startDt, setStartDt] = useState(init.dt);
     const [endDt, setEndDt] = useState(init.dt);
@@ -91,13 +108,36 @@ function Index(props) {
     const [tabPaneInd, setTabPaneInd] = useState(0);
 
     const [chart, setChart, chartData, setChartData] = useChart();
+    // #endregion
 
-    // const { Id: deviceId } = props.route.params;
+    const userId = useSelector(Selectors.userIdSelect);
+
+    const { Id: deviceId } = props.route.params;
 
     useEffect(() => {
-        const { Data } = DCHAhux;
-        setChart(Data);
-    }, []);
+        if (isFocused) {
+            setLoading(true);
+
+            fetchDeviceDataChart({
+                param: {
+                    UserId: userId,
+                    DeviceId: deviceId,
+                    DataCount: 100,
+                    StartDate: startDt,
+                    EndDate: `${endDt} 23:59:59`
+                },
+                onSetLoading: setLoading,
+            })
+            .then(data => {
+                setChart(data)
+                // console.log(data);
+            })
+            .catch(err => {
+                setLoading(false);
+                console.log(`Error: ${err}`)
+            })
+        }
+    }, [isFocused, JSON.stringify(startDt + endDt + deviceId)]);
 
     const attr = Object.keys(chartData);
     const dataset = Object.values(chartData);
@@ -107,7 +147,7 @@ function Index(props) {
             <Tab.Item key={ind}
                 title={item} 
                 titleStyle={{ color: "#000", fontSize: 14 }}
-                buttonStyle={{ paddingVertical: 0 }} />
+                buttonStyle={{ paddingVertical: 0, height: 60 }} />
         )
     }
 

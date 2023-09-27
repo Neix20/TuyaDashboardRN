@@ -107,6 +107,7 @@ function NavPanel(props) {
 
     const GoToHomeManagement = () => navigation.navigate("HomeManagement");
     const GoToAlert = () => navigation.navigate("Alert");
+    const GoToReportSchedule = () => navigation.navigate("ReportSchedule");
 
     return (
         <VStack py={2}
@@ -115,10 +116,9 @@ function NavPanel(props) {
             width={"90%"}
             alignItems={"center"}>
 
-            <PanelBtn onPress={GoToHomeManagement}
-                Btn={FontAwesome} icon={"home"} title={"Home Management"} />
-            <PanelBtn onPress={GoToAlert}
-                Btn={MaterialCommunityIcons} icon={"message-text-outline"} title={"Message Center"} />
+            <PanelBtn onPress={GoToHomeManagement} Btn={FontAwesome} icon={"home"} title={"Home Management"} />
+            <PanelBtn onPress={GoToAlert} Btn={MaterialCommunityIcons} icon={"message-text-outline"} title={"Message Center"} />
+            <PanelBtn onPress={GoToReportSchedule} Btn={FontAwesome5} icon={"clipboard-list"} title={"Report Schedule"} />
             {/* <PanelBtn Btn={SimpleLineIcons} icon={"question"} title={"FAQ & Feedback"} /> */}
         </VStack>
     )

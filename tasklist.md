@@ -34,4 +34,11 @@
 #### 20230926 (Before 9 PM)
 - [x] Deivce Rules
 - [ ] OneSignal (Notification)
-- [ ] Report Schedule
+- [x] Report Schedule
+
+#### 20230927
+- [x] OneSignal
+- [x] Report Schedule
+- [x] Send Email QR
+- [x] Generate Report Schedule
+- [ ] 

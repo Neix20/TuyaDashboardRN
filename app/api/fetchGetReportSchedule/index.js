@@ -5,7 +5,7 @@ const Index = async (props) => {
     const { param } = props;
     const { onSetLoading } = props;
 
-    const action = "GetDeviceDataChart";
+    const action = "GetReportSchedule";
     const url = Utility.genServerUrl(action);
 
     // Static Data
@@ -22,23 +22,30 @@ const Index = async (props) => {
     const data = await resp.json();
     onSetLoading(false);
 
-    console.log(`GetDeviceDataChart - Request - ${JSON.stringify(obj)}`);
-
     if (data["ResponseCode"] === "00") {
-        const { Data = [] } = data;
+        // return data;
 
-        if (Data === "[]") {
-            return [];
-        }
-        
+        const { Email = [], Device = [] } = data;
+
+        const Data = {};
+
+        let email_arr = [...Email];
+
+        email_arr = email_arr.map(x => ({
+            name: x
+        }));
+
+        Data["Email"] = email_arr;
+        Data["Device"] = Device;
+
         return Data;
     }
     else {
-        console.log(`GetDeviceDataChart - Request - ${JSON.stringify(obj)}`);
-        console.log(`GetDeviceDataChart - Response - ${JSON.stringify(data)}`);
+        console.log(`ReportSchedule - Request - ${JSON.stringify(obj)}`);
+        console.log(`ReportSchedule - Response - ${JSON.stringify(data)}`);
     }
 
-    return [];
+    return {};
 };
 
 export default Index;
