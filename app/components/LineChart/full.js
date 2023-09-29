@@ -152,10 +152,9 @@ function DataAttributeModal(props) {
 
 function Index(props) {
 
-    const { labels = [], chartData } = props;
+    const { labels = [], hook = [] } = props;
 
-    const { chartKey, setChartKey = () => { }, chartKeyOption = [] } = props;
-    const { chartLegend, setChartLegend = () => { } } = props;
+    const [ chart, setChart, chartKey, setChartKey, chartData, setChartData, chartLegend, setChartLegend, chartKeyOption, setChartKeyOption ] = hook;
 
     const [showLegend, setShowLegend, toggleLegend] = useToggle(false);
     const [showDaModal, setShowDaModal, toggleDaModal] = useToggle(false);

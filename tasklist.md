@@ -1,50 +1,13 @@
 ## Task List
 
-- [ ] Python Run Request in Background
-- [x] Report Template Generation
-  - [x] Use Based on JSON First
-- [x] OneSignal Setup
-  - [x] Send Email
-- [ ] Insert M Device Category
-- [ ] Downtime Report Setup (Optional)
-  - [ ] Sample Data
-- [x] Table UI (Optional)
 
-#### 20230926 (Before 1PM)
-- [x] Compare Data Performance
-- [x] Chart UI
-  - [x] Previous Chart
+#### Major Tasks
+- [ ] Date Range Modal
+- [ ] OneSignal Alert
+- [x] Down Time Report
+- [ ] Chart Options
 
-#### 20230926 (Before 3PM)
-- [x] Chart UI
-
-#### 20230926 (Before 6PM)
-- [ ] OneSignal
-  - [ ] Send Email QR
-  - [ ] Use Server to Send Push Notification
-- [x] Device Table UI
-- [x] Previous Chart
-- [ ] Chart Labels
-- [x] Device Chart
-- [x] Data Rules UI
-- [ ] Data Alert UI
-  - [ ] Add Alert
-- [ ] Device Control
-
-#### 20230926 (Before 9 PM)
-- [x] Deivce Rules
-- [ ] OneSignal (Notification)
-- [x] Report Schedule
-
-#### 20230927
-- [x] OneSignal
-- [x] Report Schedule
-- [x] Send Email QR
-- [x] Generate Report Schedule
-
-#### 20230927 (Before 10 PM)
-- [x] Generate Labels
-- [x] Add, Delete, Get Device Rules Listing
-  - [x] Add Rules Listing
-- [x] Report zip
-- [x] Mockup
+#### Minor Tasks
+- [x] Fix Line Chart
+- [ ] Update Rules Alert
+- [ ] Fix add Rules Alert

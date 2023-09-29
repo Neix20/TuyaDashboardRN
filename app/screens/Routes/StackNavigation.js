@@ -145,18 +145,18 @@ StackScreens = {
 import { useDispatch, useSelector } from 'react-redux';
 import { Actions, Selectors } from '@redux';
 
+// #region Initial
+const init = {
+    wifi: {
+        ssid: null,
+        password: null
+    }
+}
+// #endregion
+
 function Index(props) {
 
     const dispatch = useDispatch();
-
-    // #region Initial
-    const init = {
-        wifi: {
-            ssid: null,
-            password: null
-        }
-    }
-    // #endregion
 
     const userId = useSelector(Selectors.userIdSelect);
 
@@ -168,8 +168,8 @@ function Index(props) {
         dispatch(Actions.onChangeWifi(init.wifi));
     }, []);
 
-    const defaultScreen = (userId == -1) ? "Login" : "TabNavigation";
-    // const defaultScreen = "TabNavigation";
+    // const defaultScreen = (userId == -1) ? "Login" : "TabNavigation";
+    const defaultScreen = "Debug";
 
     return (
         <BcStackNavigator

@@ -1,80 +1,23 @@
 import React, { useState, useEffect } from "react";
-import { Text, TouchableOpacity, Image, TextInput, SafeAreaView, ScrollView } from "react-native";
+import { Text, TouchableOpacity, Image, TextInput, Dimensions, SafeAreaView, ScrollView } from "react-native";
 import { View, VStack, HStack, useToast } from "native-base";
 
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 import { useNavigation, useIsFocused } from "@react-navigation/native";
 
+const { width, height } = Dimensions.get("screen");
+
 import { Logger, Utility } from "@utility";
 
-import { iRData, clsConst } from "@config";
+import { iRData, clsConst, DowntimeData } from "@config";
 
 import { useChart } from "@hooks";
 
 import { BcViewShot, BcLineChartFull } from "@components";
 
-function TestChart(props) {
-
-    const toast = useToast();
-    const navigation = useNavigation();
-    const isFocused = useIsFocused();
-
-    const init = {
-        labels: ["00", "06", "12", "18", "24", "30", "36", "42", "48"]
-    }
-
-    const chartHook = useChart("absolute_humidity");
-    const chartObj = {
-        chart: chartHook[0],
-        setChart: chartHook[1],
-        chartKey: chartHook[2],
-        setChartKey: chartHook[3],
-        chartData: chartHook[4],
-        setChartData: chartHook[5],
-        chartLegend: chartHook[6],
-        setChartLegend: chartHook[7],
-        chartKeyOption: chartHook[8]
-    };
-
-    const { setChart } = chartObj;
-
-    useEffect(() => {
-        setChart(iRData);
-    }, []);
-
-    return (
-        <SafeAreaView style={{ flex: 1 }}>
-            <View style={{ flex: 1 }}>
-
-                {/* Header */}
-                <View style={{ height: 80 }} />
-
-                <View style={{ height: 10 }} />
-
-                {/* Body */}
-                <ScrollView showsVerticalScrollIndicator={false}
-                    contentContainerStyle={{ flexGrow: 1 }}>
-                    <View flexGrow={1} justifyContent={"center"}>
-
-                        <View px={3}>
-                            <BcViewShot title={"Daily Device Report"}>
-                                <BcLineChartFull labels={init.labels} {...chartObj} />
-                            </BcViewShot>
-                        </View>
-                    </View>
-                </ScrollView>
-
-                {/* Footer */}
-                <View style={{ height: 60 }} />
-            </View>
-        </SafeAreaView>
-    );
-}
-
 import OneSignal from 'react-native-onesignal';
 
-
-function Index(props) {
+function TestOneSignal(props) {
 
     useEffect(() => {
         // // Remove this method to stop OneSignal Debugging
@@ -94,27 +37,6 @@ function Index(props) {
         });
 
         OneSignal.setExternalUserId(`60166489466`);
-
-        // // // OneSignal Initialization
-        // OneSignal.initialize(clsConst.ONESIGNAL_APP_ID)
-
-        // // requestPermission will show the native iOS or Android notification permission prompt.
-        // // We recommend removing the following code and instead using an In-App Message to prompt for notification permission
-        // OneSignal.Notifications.requestPermission(true);
-
-        // // Method for listening for notification clicks
-        // OneSignal.Notifications.addEventListener('foregroundWillDisplayµ', (event) => {
-        //     console.log('OneSignal: notification clicked:', event);
-        // });
-
-        // OneSignal.setConsentGiven(true)
-
-        // OneSignal.User.addEmail("txen2000@gmail.com");
-
-
-        // OneSignal.User.addSms("+60166489466");
-
-        // console.log(clsConst.ONESIGNAL_APP_ID)
     }, [])
 
     return (
@@ -131,6 +53,133 @@ function Index(props) {
                     contentContainerStyle={{ flexGrow: 1 }}>
                     <View flexGrow={1} justifyContent={"center"}>
                         <Text>Test</Text>
+                    </View>
+                </ScrollView>
+
+                {/* Footer */}
+                <View style={{ height: 60 }} />
+            </View>
+        </SafeAreaView>
+    )
+}
+
+function TestChart(props) {
+
+    const chartHook = useChart("absolute_humidity");
+    const setChart = chartHook[1];
+
+    useEffect(() => {
+        setChart(iRData);
+    }, []);
+
+    const labels = Utility.genLabel("2023-09-28", "2023-09-29", 5);
+
+    return (
+        <SafeAreaView style={{ flex: 1 }}>
+            <View style={{ flex: 1 }}>
+
+                {/* Header */}
+                <View style={{ height: 80 }} />
+
+                <View style={{ height: 10 }} />
+
+                {/* Body */}
+                <ScrollView showsVerticalScrollIndicator={false}
+                    contentContainerStyle={{ flexGrow: 1 }}>
+                    <View flexGrow={1} justifyContent={"center"}>
+
+                        <View px={3}>
+                            <BcViewShot title={"Daily Device Report"}>
+                                <BcLineChartFull hook={chartHook} labels={labels} />
+                            </BcViewShot>
+                        </View>
+                    </View>
+                </ScrollView>
+
+                {/* Footer */}
+                <View style={{ height: 60 }} />
+            </View>
+        </SafeAreaView>
+    );
+}
+
+function DownTimeTable(props) {
+
+    const color = {
+        active: "#F00",
+        inactive: "#0F0"
+    }
+
+    const { data = [] } = props;
+
+    if (data.length == 0) {
+        return (
+            <></>
+        )
+    }
+
+    const renderValues = (item, index) => {
+
+        const { Name, Timestamp, Status } = item;
+
+        return (
+            <HStack key={index} alignItems={"center"} justifyContent={"space-between"}>
+                <View flex={.3}>
+                    <Text style={{
+                        fontFamily: "Roboto-Bold"
+                    }}>{Name}</Text>
+                </View>
+                <View flex={.5}>
+                    <Text>{Utility.formatDt(Timestamp, "yyyy-MM-dd HH:mm:ss")}</Text>
+                </View>
+                <View flex={.2}>
+                    <View w={"100%"} bgColor={Status ? color.active : color.inactive}></View>
+                </View>
+            </HStack>
+        )
+    }
+
+    return (
+        <VStack>
+            {data.map(renderValues)}
+        </VStack>
+    )
+}
+
+function Index(props) {
+
+
+
+    return (
+        <SafeAreaView style={{ flex: 1 }}>
+            <View style={{ flex: 1 }}>
+
+                {/* Header */}
+                <View style={{ height: 80 }} />
+
+                <View style={{ height: 10 }} />
+
+                {/* Body */}
+                <ScrollView showsVerticalScrollIndicator={false}
+                    contentContainerStyle={{ flexGrow: 1 }}>
+                    <View flexGrow={1}>
+                        <HStack
+                            flexWrap={"wrap"}
+                            rowGap={10}
+                            alignItems={"flex-start"}
+                            justifyContent={"space-between"}>
+                            <View px={3} style={{ width: width }}>
+                                <BcViewShot title={"Test"}>
+                                    <View bgColor={"#F00"} w={"100%"} height={100}>
+                                    </View>
+                                </BcViewShot>
+                            </View>
+                            <View px={3} style={{ maxWidth: width }}>
+                                <BcViewShot title={"Device Downtime"}>
+                                    <DownTimeTable data={DowntimeData} />
+                                </BcViewShot>
+                            </View>
+                        </HStack>
                     </View>
                 </ScrollView>
 

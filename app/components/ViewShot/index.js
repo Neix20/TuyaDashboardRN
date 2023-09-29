@@ -24,8 +24,7 @@ function ExpandModal(props) {
     const { children } = props;
     return (
         <Modal showCross={false} {...props}>
-            <View
-                width={"90%"}>{children}</View>
+            <View width={"90%"}>{children}</View>
         </Modal>
     )
 }
@@ -146,12 +145,7 @@ function Index(props) {
             />
             <ExpandModal showModal={showExModal} setShowModal={setShowExModal}>{children}</ExpandModal>
             <BcBoxShadow>
-                <VStack py={3}
-                    space={3}
-                    bgColor={"#FFF"}
-                    alignItems={"center"}
-                    width={"100%"}
-                    style={{ maxWidth: width - 24 }}>
+                <VStack py={3} space={3} bgColor={"#FFF"} alignItems={"center"}>
                     <HStack width={"90%"}
                         alignItems={"center"}
                         justifyContent={"space-between"}>

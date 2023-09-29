@@ -1,0 +1,47 @@
+[
+    {
+        "Name": "DCH-AHUX",
+        "Timestamp": "2023-11-04T09:28:01",
+        "Status": false
+    },
+    {
+        "Name": "DCH-CRYS",
+        "Timestamp": "2023-07-27T13:46:39",
+        "Status": true
+    },
+    {
+        "Name": "DCH-DEPA",
+        "Timestamp": "2023-05-02T04:43:31",
+        "Status": false
+    },
+    {
+        "Name": "DCH-FILL",
+        "Timestamp": "2023-03-25T13:57:10",
+        "Status": true
+    },
+    {
+        "Name": "DCH-KETT",
+        "Timestamp": "2023-02-25T15:28:02",
+        "Status": true
+    },
+    {
+        "Name": "DCH-PAC1",
+        "Timestamp": "2023-06-08T04:43:02",
+        "Status": false
+    },
+    {
+        "Name": "DCH-PAC2",
+        "Timestamp": "2023-08-09T11:27:15",
+        "Status": true
+    },
+    {
+        "Name": "DCH-STAG",
+        "Timestamp": "2023-02-18T02:09:22",
+        "Status": true
+    },
+    {
+        "Name": "DCH-TIPP",
+        "Timestamp": "2023-10-22T10:57:20",
+        "Status": false
+    }
+]

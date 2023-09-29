@@ -22,8 +22,6 @@ import { Devices, Images, Animation } from "@config";
 
 import { Tab, TabView } from "@rneui/themed";
 
-import { removeDevice as TuyaRemoveDevice } from "@volst/react-native-tuya";
-
 import TopModal from "@components/Modal/TopModal";
 import Modal from "react-native-modal";
 
@@ -536,23 +534,7 @@ function DeviceItem(props) {
                 toggleRefresh();
                 toast.show({
                     description: "Successfully Removed Device!"
-                })
-
-                TuyaRemoveDevice({
-                    devId: Tuya_Id
-                })
-                    .then(res => {
-                        setLoading(false);
-                        Logger.info({
-                            content: res,
-                            page: "App",
-                            fileName: "tuya_remove_device",
-                        });
-                    })
-                    .catch(err => {
-                        setLoading(false);
-                        console.log(`Error: ${err}`);
-                    });
+                });
             })
             .catch(err => {
                 setLoading(false);

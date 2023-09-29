@@ -17,8 +17,6 @@ import { fetchRequestOtp, fetchLogin } from "@api";
 import { useDispatch, useSelector } from 'react-redux';
 import { Actions, Selectors } from '@redux';
 
-import { loginWithEmail } from "@volst/react-native-tuya";
-
 function Index(props) {
     const toast = useToast();
     const navigation = useNavigation();

@@ -52,6 +52,7 @@ function DataTable(props) {
 
     const keys = Object.keys(data[0]);
 
+    // #region Render Item
     const renderHeader = (item, ind) => {
         return (
             <View key={ind} alignItems={"center"} style={{ width: 60 }}>
@@ -89,10 +90,10 @@ function DataTable(props) {
             </HStack>
         )
     }
+    // #endregion
 
     return (
         <VStack alignItems={"center"}>
-
             {/* Data Header */}
             <HStack width={"90%"}
                 alignItems={"center"} justifyContent={"space-between"}>

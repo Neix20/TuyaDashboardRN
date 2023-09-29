@@ -153,10 +153,7 @@ function DateView(props) {
     return (
         <TabView.Item>
             <VStack>
-                <FlatList
-                    data={data}
-                    renderItem={renderSelectDate}
-                />
+                <FlatList data={data} renderItem={renderSelectDate} />
 
                 <View alignItems={"center"}>
                     <HStack alignItems={"center"} justifyContent={"space-between"} style={{ width: 360 }}>

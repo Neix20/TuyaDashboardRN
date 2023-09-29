@@ -1,6 +1,6 @@
 import { Logger, Utility } from "@utility";
 
-import { loginWithEmail } from "@volst/react-native-tuya";
+// import { loginWithEmail } from "@volst/react-native-tuya";
 
 const Index = async (props) => {
 
@@ -26,13 +26,13 @@ const Index = async (props) => {
 
     if (data["ResponseCode"] === "00") {
 
-        let res = await loginWithEmail({
-            countryCode: 'MY',
-            email: 'txen2000@gmail.com',
-            password: 'arf11234'
-        })
+        // let res = await loginWithEmail({
+        //     countryCode: 'MY',
+        //     email: 'txen2000@gmail.com',
+        //     password: 'arf11234'
+        // })
         
-        res = await Logger.info({ content: res, page: "App", fileName: "tuya_login" });
+        // res = await Logger.info({ content: res, page: "App", fileName: "tuya_login" });
         
         return data;
     }

@@ -220,30 +220,7 @@ function Index(props) {
 
     // #region UseState
     const chartHook = useChart("absolute_humidity");
-    const chartObj = {
-        chart: chartHook[0],
-        setChart: chartHook[1],
-        chartKey: chartHook[2],
-        setChartKey: chartHook[3],
-        chartData: chartHook[4],
-        setChartData: chartHook[5],
-        chartLegend: chartHook[6],
-        setChartLegend: chartHook[7],
-        chartKeyOption: chartHook[8]
-    };
-
     const prevChartHook = useChart("absolute_humidity");
-    const prevChartObj = {
-        chart: prevChartHook[0],
-        setChart: prevChartHook[1],
-        chartKey: prevChartHook[2],
-        setChartKey: prevChartHook[3],
-        chartData: prevChartHook[4],
-        setChartData: prevChartHook[5],
-        chartLegend: prevChartHook[6],
-        setChartLegend: prevChartHook[7],
-        chartKeyOption: prevChartHook[8]
-    };
 
     const [labels, setLabels] = useState([]);
     const [prevLabels, setPrevLabels] = useState([]);
@@ -257,8 +234,8 @@ function Index(props) {
     const [loading, setLoading] = useState(false);
     // #endregion
 
-    const { chart, setChart } = chartObj;
-    const { chart: prevChart, setChart: setPrevChart } = prevChartObj;
+    const [chart, setChart] = chartHook.slice(0, 2);
+    const [prevChart, setPrevChart] = prevChartHook.slice(0, 2);
 
     // #region UseEffect
     // Update Data
@@ -352,7 +329,7 @@ function Index(props) {
                                 {
                                     (Object.keys(chart).length > 0) ? (
                                         <BcViewShot title="Daily Device Report">
-                                            <BcLineChartFull labels={labels} {...chartObj} />
+                                            <BcLineChartFull labels={labels} hook={chartHook} />
                                         </BcViewShot>
                                     ) : (
                                         <></>
@@ -362,7 +339,7 @@ function Index(props) {
                                 {
                                     (true) ? (
                                         <BcViewShot title="Previous Month">
-                                            <BcLineChartFull labels={prevLabels} {...prevChartObj} />
+                                            <BcLineChartFull labels={prevLabels} hook={prevChartHook} />
                                         </BcViewShot>
                                     ) : (
                                         <></>

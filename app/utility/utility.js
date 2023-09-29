@@ -288,14 +288,16 @@ function genLabel(start, end, data_point = 10) {
 
     const interval = end_dt.diff(start_dt).as("hours");
 
-    const step = interval / data_point;
+    const step = interval / (data_point - 1);
 
     const points = [];
 
     for (let ind = 0; ind < data_point; ind++) {
         const dt = start_dt.plus({ hours: ind * step });
 
-        let point = dt.toFormat("HH");
+        let point = dt.diff(start_dt).as("hours");
+		point = Math.round(point);
+		point = point.toString().padStart(2, "0");
 
         points.push(point);
     }
