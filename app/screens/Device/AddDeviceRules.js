@@ -11,7 +11,14 @@ const { width, height } = screen;
 
 import { Logger, Utility } from "@utility";
 
-import { BcHeader, BcBoxShadow, BcDisable } from "@components"
+import { BcHeader, BcBoxShadow, BcDisable, BcLoading } from "@components"
+
+import { fetchAddDeviceRules } from "@api";
+
+import { useToggle } from "@hooks";
+
+import { useDispatch, useSelector } from 'react-redux';
+import { Actions, Selectors } from '@redux';
 
 function Header(props) {
 
@@ -72,48 +79,68 @@ function DeviceForm(props) {
 
     const isFocused = useIsFocused();
 
-    const [form, setForm] = useState({});
+    const { form, setForm } = props;
 
     // #region Initial
     const init = {
         formulaLs: [
             {
-                name: "Absolute Humidity",
-                formula: "6.112 * [humidity_value] * ( 2.1674 / ( 273.15 + [temp_current] ) ) * power(2.71828 , ( ( 17.67 * [temp_current] ) / ( [temp_current] + 243.5 ) ))"
+                "Title": "Temperature",
+                "Description": "Parse Temperature",
+                "Param": "[temp_current]",
+                "Operation": "EVAL",
+                "Expression": "temp_current => temp_current / 10",
             },
             {
-                name: "Parse Temperature",
-                formula: "[temp_current] / 10"
+                "Title": "Absolute Humidity",
+                "Description": "Absolute Humidity",
+                "Param": "[humidity_value, temp_current]",
+                "Operation": "EVAL",
+                "Expression": "absolute_humidity => 6.112 * humidity_value * ( 2.1674 / ( 273.15 + temp_current ) ) * 2.71828 ^ ( ( 17.67 * temp_current ) / ( temp_current + 243.5 ) )",
             },
             {
-                name: "Clear All",
-                formula: ""
-            }
+                "Title": "Rename Temperature",
+                "Description": "Rename Temperature",
+                "Param": "[temp_current]",
+                "Operation": "RENAME",
+                "Expression": "temp_current => temperature"
+            },
+            {
+                "Title": "Rename Humidity",
+                "Description": "Rename Humidity",
+                "Param": "[humidity_value]",
+                "Operation": "RENAME",
+                "Expression": "humidity_value => relative_humidity"
+            },
+            {
+                "Title": "Clear All",
+                "Description": "",
+                "Param": "",
+                "Operation": "",
+                "Expression": ""
+            },
         ]
     }
     // #endregion
 
-    const { formula } = form;
+    const { Title, Description, Param, Operation, Expression } = form;
 
     // #region Helper
-    const onChangeFormula = (val) => {
-        const nextState = {
-            ...form,
-            formula: val
-        }
+    const onChangeForm = (name, val) => {
+        const nextState = { ...form, name: val };
         setForm(nextState);
     }
     // #endregion
 
     // #region Render
     const renderItem = (item, index) => {
-        const { name, formula } = item;
-        const onSelect = () => onChangeFormula(formula);
+        const { Title, Description, Param, Operation, Expression } = item;
+        const onSelect = () => setForm(item);
         return (
             <TouchableOpacity key={index}
                 onPress={onSelect}>
                 <View borderWidth={1} borderRadius={8} p={2}>
-                    <Text>{name}</Text>
+                    <Text>{Title}</Text>
                 </View>
             </TouchableOpacity>
         )
@@ -131,13 +158,105 @@ function DeviceForm(props) {
                     <View flex={.3}>
                         <Text style={{
                             fontSize: 18
-                        }}>Formula</Text>
+                        }}>Title</Text>
                     </View>
                     <View flex={.7}>
                         <TextInput
-                            defaultValue={formula}
-                            onChangeText={onChangeFormula}
-                            placeholder={"Formula"}
+                            defaultValue={Title}
+                            onChange={(e) => onChangeForm("Title", e)}
+                            placeholder={"Title"}
+                            autoCapitalize={"none"}
+                            multiline={true}
+                            style={{
+                                fontFamily: "Roboto-Medium",
+                                fontSize: 18,
+                                color: "#000",
+                            }} />
+                    </View>
+                </HStack>
+                <HStack
+                    alignItems={"center"}
+                    width={"90%"}
+                    style={{ minHeight: 60, maxHeight: 180 }}>
+                    <View flex={.3}>
+                        <Text style={{
+                            fontSize: 18
+                        }}>Description</Text>
+                    </View>
+                    <View flex={.7}>
+                        <TextInput
+                            defaultValue={Description}
+                            onChange={(e) => onChangeForm("Description", e)}
+                            placeholder={"Description"}
+                            autoCapitalize={"none"}
+                            multiline={true}
+                            style={{
+                                fontFamily: "Roboto-Medium",
+                                fontSize: 18,
+                                color: "#000",
+                            }} />
+                    </View>
+                </HStack>
+                <HStack
+                    alignItems={"center"}
+                    width={"90%"}
+                    style={{ minHeight: 60, maxHeight: 180 }}>
+                    <View flex={.3}>
+                        <Text style={{
+                            fontSize: 18
+                        }}>Param</Text>
+                    </View>
+                    <View flex={.7}>
+                        <TextInput
+                            defaultValue={Param}
+                            onChange={(e) => onChangeForm("Param", e)}
+                            placeholder={"Param"}
+                            autoCapitalize={"none"}
+                            multiline={true}
+                            style={{
+                                fontFamily: "Roboto-Medium",
+                                fontSize: 18,
+                                color: "#000",
+                            }} />
+                    </View>
+                </HStack>
+                <HStack
+                    alignItems={"center"}
+                    width={"90%"}
+                    style={{ minHeight: 60, maxHeight: 180 }}>
+                    <View flex={.3}>
+                        <Text style={{
+                            fontSize: 18
+                        }}>Operation</Text>
+                    </View>
+                    <View flex={.7}>
+                        <TextInput
+                            defaultValue={Operation}
+                            onChange={(e) => onChangeForm("Operation", e)}
+                            placeholder={"Operation"}
+                            autoCapitalize={"none"}
+                            multiline={true}
+                            style={{
+                                fontFamily: "Roboto-Medium",
+                                fontSize: 18,
+                                color: "#000",
+                            }} />
+                    </View>
+                </HStack>
+                <HStack
+                    alignItems={"center"}
+                    width={"90%"}
+                    style={{ minHeight: 60, maxHeight: 180 }}>
+                    <View flex={.3}>
+                        <Text style={{
+                            fontSize: 18
+                        }}>Expression</Text>
+                    </View>
+                    <View flex={.7}>
+                        <TextInput
+                            defaultValue={Expression}
+                            onChange={(e) => onChangeForm("Expression", e)}
+                            placeholder={"Expression"}
                             autoCapitalize={"none"}
                             multiline={true}
                             style={{
@@ -176,27 +295,60 @@ function Index(props) {
     const navigation = useNavigation();
     const isFocused = useIsFocused();
 
+    const [loading, setLoading, toggleLoading] = useToggle(false);
+    const [form, setForm] = useState({});
+
+    const { Id: deviceId} = props.route.params;
+    const userId = useSelector(Selectors.userIdSelect);
+
+    const onSave = () => {
+        setLoading(true);
+        fetchAddDeviceRules({
+            param: {
+                UserId: userId,
+                DeviceId: deviceId,
+                ...form
+            },
+            onSetLoading: setLoading
+        })
+            .then(data => {
+                toast.show({
+                    description: "Successfully Added New Formula"
+                })
+                setForm({});
+
+                navigation.goBack();
+            })
+            .catch(err => {
+                setLoading(false);
+                console.log(`Error: ${err}`)
+            })
+    }
+
     return (
-        <SafeAreaView style={{ flex: 1 }}>
-            <View style={{ flex: 1 }}>
+        <>
+            <BcLoading loading={loading} />
+            <SafeAreaView style={{ flex: 1 }}>
+                <View style={{ flex: 1 }}>
 
-                {/* Header */}
-                <Header>Rules List</Header>
+                    {/* Header */}
+                    <Header flag={true} onSave={onSave}>Rules List</Header>
 
-                <View style={{ height: 10 }} />
+                    <View style={{ height: 10 }} />
 
-                {/* Body */}
-                <ScrollView showsVerticalScrollIndicator={false}
-                    contentContainerStyle={{ flexGrow: 1 }}>
-                    <View flexGrow={1}>
-                        <DeviceForm />
-                    </View>
-                </ScrollView>
+                    {/* Body */}
+                    <ScrollView showsVerticalScrollIndicator={false}
+                        contentContainerStyle={{ flexGrow: 1 }}>
+                        <View flexGrow={1}>
+                            <DeviceForm form={form} setForm={setForm} />
+                        </View>
+                    </ScrollView>
 
-                {/* Footer */}
-                <View style={{ height: 60 }} />
-            </View>
-        </SafeAreaView>
+                    {/* Footer */}
+                    <View style={{ height: 60 }} />
+                </View>
+            </SafeAreaView>
+        </>
     );
 }
 

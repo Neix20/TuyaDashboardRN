@@ -108,6 +108,8 @@ function Index(props) {
     const [tabPaneInd, setTabPaneInd] = useState(0);
 
     const [chart, setChart, chartData, setChartData] = useChart();
+
+    const [label, setLabel] = useState([]);
     // #endregion
 
     const userId = useSelector(Selectors.userIdSelect);
@@ -136,6 +138,9 @@ function Index(props) {
                 setLoading(false);
                 console.log(`Error: ${err}`)
             })
+
+            let label = Utility.genLabel(startDt, endDt);
+            setLabel(label);
         }
     }, [isFocused, JSON.stringify(startDt + endDt + deviceId)]);
 
@@ -155,7 +160,7 @@ function Index(props) {
         return (
             <TabView.Item key={ind} style={{ width: "100%" }}>
                 <View px={3} bgColor={"#FFF"}>
-                    <BcLineChart labels={[]} {...item} />
+                    <BcLineChart labels={label} {...item} />
                 </View>
             </TabView.Item>
         )

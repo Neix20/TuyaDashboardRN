@@ -394,7 +394,11 @@ function Index(props) {
             },
             onSetLoading: setLoading
         })
-            .then(data => { })
+            .then(data => { 
+                toast.show({
+                    description: "Successfully Updated Report Schedule"
+                })
+            })
             .catch(err => {
                 setLoading(false);
                 console.log(`Error: ${err}`)

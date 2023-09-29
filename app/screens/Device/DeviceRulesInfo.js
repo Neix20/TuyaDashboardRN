@@ -11,14 +11,21 @@ const { width, height } = screen;
 
 import { Logger, Utility } from "@utility";
 
-import { BcHeader, BcBoxShadow } from "@components";
+import { BcHeader, BcBoxShadow, BcLoading } from "@components";
+
+import { useToggle } from "@hooks";
+
+import { fetchGetRulesListing, fetchDeleteDeviceRules } from "@api";
+
+import { useDispatch, useSelector } from 'react-redux';
+import { Actions, Selectors } from '@redux';
 
 function Header(props) {
 
     const navigation = useNavigation();
 
     const GoBack = () => navigation.goBack();
-    const GoToAddDeviceRule = () => navigation.navigate("AddDeviceRules");
+    const GoToAddDeviceRule = () => navigation.navigate("AddDeviceRules", props);
 
 
     return (
@@ -72,28 +79,105 @@ function Index(props) {
     const navigation = useNavigation();
     const isFocused = useIsFocused();
 
-    // const { Id: deviceId } = props.route.params;
+    const { Id: deviceId } = props.route.params;
+
+    const userId = useSelector(Selectors.userIdSelect);
+
+    const [loading, setLoading, toggleLoading] = useToggle(false);
+    const [refresh, setRefresh, toggleRefresh] = useToggle(false);
+
+    const [data, setData] = useState([]);
+
+    useEffect(() => {
+        if (isFocused) {
+            setLoading(true);
+
+            fetchGetRulesListing({
+                param: {
+                    UserId: userId,
+                    DeviceId: deviceId
+                },
+                onSetLoading: setLoading
+            })
+            .then(data => {
+                setData(data)
+            })
+            .catch(err => {
+                setLoading(false);
+                console.log(`Error: ${err}`)
+            })
+        }
+
+    }, [isFocused, refresh]);
+
+    const deleteRules = (item) => {
+        const { Id } = item;
+        fetchDeleteDeviceRules({
+            param: {
+                UserId: userId,
+                DeviceRulesId: Id
+            },
+            onSetLoading: setLoading
+        })
+        .then(data => {
+            toggleRefresh();
+        })
+        .catch(err => {
+            setLoading(false);
+            console.log(`Error: ${err}`)
+        })
+    }
+
+    const renderItem = (item, index) => {
+        const { Title } = item;
+        const onSelect = () => deleteRules(item);
+        return (
+            <HStack width={"90%"} alignItems={"center"} justifyContent={"space-between"}>
+                <View>
+                    <Text style={{
+                        fontFamily: "Roboto-Medium",
+                        fontSize: 18
+                    }}>{Title}</Text>
+                </View>
+                <TouchableOpacity onPress={onSelect}>
+                    <View borderRadius={16} bgColor={"#F00"}
+                        alignItems={"center"} justifyContent={"center"}
+                        style={{ width: 32, height: 32 }}>
+                        <FontAwesome name={"minus"} size={16} color={"#FFF"} />
+                    </View>
+                </TouchableOpacity>
+            </HStack>
+        )
+    }
+
 
     return (
-        <SafeAreaView style={{ flex: 1 }}>
-            <View style={{ flex: 1 }}>
-        
-                {/* Header */}
-                <Header />
-        
-                <View style={{ height: 10 }} />
-        
-                {/* Body */}
-                <ScrollView showsVerticalScrollIndicator={false}
-                    contentContainerStyle={{ flexGrow: 1 }}>
-                    <View flexGrow={1} 
-                        bgColor={"#FFF"}
-                        justifyContent={"center"}>
-                    </View>
-                </ScrollView>
-    
-            </View>
-        </SafeAreaView>
+        <>
+            <BcLoading loading={loading} />
+            <SafeAreaView style={{ flex: 1 }}>
+                <View style={{ flex: 1 }}>
+
+                    {/* Header */}
+                    <Header {...props.route.params} />
+
+                    <View style={{ height: 10 }} />
+
+                    {/* Body */}
+                    <ScrollView showsVerticalScrollIndicator={false}
+                        contentContainerStyle={{ flexGrow: 1 }}>
+                        <VStack flexGrow={1} 
+                            py={3} space={3}
+                            bgColor={"#FFF"}
+                            alignItems={"center"}>
+                            {
+                                data.map(renderItem)
+                            }
+                        </VStack>
+                    </ScrollView>
+
+                </View>
+            </SafeAreaView>
+        </>
     );
 }
 

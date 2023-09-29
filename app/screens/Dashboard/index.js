@@ -266,6 +266,9 @@ function Index(props) {
         if (isFocused) {
             getDashboard(startDt, endDt, setChart);
 
+            let label = Utility.genLabel(startDt, endDt);
+            setLabels(label);
+
             const prevStartDt = DateTime.fromISO(startDt)
             .minus({ months: 1 })
             .toFormat("yyyy-MM-dd")
@@ -277,6 +280,9 @@ function Index(props) {
             .toFormat("yyyy-MM-dd");
 
             setCmpEndDt(prevEndDt);
+
+            let prevLabel = Utility.genLabel(prevStartDt, prevEndDt);
+            setPrevLabels(prevLabel);
         }
     }, [isFocused, JSON.stringify(startDt + endDt + homeId)]);
 

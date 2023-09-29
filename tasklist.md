@@ -3,12 +3,12 @@
 - [ ] Python Run Request in Background
 - [x] Report Template Generation
   - [x] Use Based on JSON First
-- [ ] OneSignal Setup
-  - [ ] Send Email
+- [x] OneSignal Setup
+  - [x] Send Email
 - [ ] Insert M Device Category
 - [ ] Downtime Report Setup (Optional)
   - [ ] Sample Data
-- [ ] Table UI (Optional)
+- [x] Table UI (Optional)
 
 #### 20230926 (Before 1PM)
 - [x] Compare Data Performance
@@ -41,4 +41,10 @@
 - [x] Report Schedule
 - [x] Send Email QR
 - [x] Generate Report Schedule
-- [ ] 
+
+#### 20230927 (Before 10 PM)
+- [x] Generate Labels
+- [x] Add, Delete, Get Device Rules Listing
+  - [x] Add Rules Listing
+- [x] Report zip
+- [x] Mockup
