@@ -306,6 +306,25 @@ function genLabel(start, end, data_point = 10) {
     return points;
 }
 
+function checkAppVersion(str) {
+	const [ a = 0, b = 0, c = 0 ] = str.split(".");
+
+	const res = a * 10000 + b * 1000 + c;
+
+	return res;
+}
+
+import OneSignal from "react-native-onesignal";
+
+function OneSignalSubscribe(email) {
+	OneSignal.setExternalUserId(email);
+}
+
+export {
+	checkAppVersion,
+	OneSignalSubscribe
+}
+
 export {
 	genRandomInt,
 	basename,

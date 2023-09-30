@@ -32,7 +32,7 @@ const Index = async (props) => {
     if (data["ResponseCode"] === "00") {
         // return data;
         const { Data } = data;
-        return Data[0];
+        return Data;
     }
     else {
         console.log(`RoomInfo - Request - ${JSON.stringify(obj)}`);

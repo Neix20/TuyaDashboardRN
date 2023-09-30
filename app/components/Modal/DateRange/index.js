@@ -17,36 +17,31 @@ import { CheckBox, Tab, TabView } from "@rneui/themed";
 import CustomToast from "./../CustomToast";
 
 import YtCalendar from "./Calendar";
+
 import { dateArrGen, weekArrGen, monthArrGen, customArrGen } from "./Generator";
 
-import { useToggle } from "@hooks";
+import { useToggle, useModalToast, useDate } from "@hooks";
 
 import { Switch } from "@rneui/base";
 
 // #region Base Modal
 function BaseModal(props) {
-    // #region Initial
-    const init = {
-        toast: {
-            msg: "Test",
-            flag: false
-        }
-    }
-    // #endregion
 
     // #region Props
     const { children } = props;
     const { showModal, setShowModal } = props;
-    const { cusToast = init.toast } = props;
+    const { cusToast = {} } = props;
     // #endregion
+
+    const closeModal = () => setShowModal(false);
 
     return (
         <Modal
             isVisible={showModal}
             animationIn={'slideInUp'}
             animationOut={'slideOutDown'}
-            onBackButtonPress={() => setShowModal(false)}
-            onBackdropPress={() => setShowModal(false)}
+            onBackButtonPress={closeModal}
+            onBackdropPress={closeModal}
             style={{ margin: 0 }}>
             <SafeAreaView style={{ flex: 1 }}>
                 <View style={{ flex: 1 }}>
@@ -109,9 +104,8 @@ function DRangeItem(props) {
 function DateView(props) {
 
     // #region Props
-    const { data, setData = () => { } } = props;
-    const { startDt, setStartDt = () => { } } = props;
-    const { endDt, setEndDt = () => { } } = props;
+    const { data, setData = () => { }, hook = [] } = props;
+    const [startDt, setStartDt, endDt, setEndDt] = hook.slice(0, 4);
     // #endregion
 
     // #region Render
@@ -141,7 +135,6 @@ function DateView(props) {
         }
 
         arr[index].flag = true;
-
         setData(arr);
 
         const { startDt, endDt } = data[index];
@@ -173,8 +166,8 @@ function DateView(props) {
 function CalendarView(props) {
 
     // #region Props
-    const { toggleCusStartDt, toggleCusEndDt } = props;
     const { data, setData = () => { } } = props;
+    const { toggleCusStartDt, toggleCusEndDt } = props;
     // #endregion
 
     // #region UseState
@@ -184,7 +177,6 @@ function CalendarView(props) {
     return (
         <TabView.Item style={{ width: "100%" }}>
             <VStack>
-
                 <View alignItems={"center"}>
                     <DRangeItem onPress={toggleCusStartDt} flag={false} {...data[0]} />
                     <Divider my={2} width={"90%"} />
@@ -210,18 +202,9 @@ function CalendarView(props) {
 }
 // #endregion
 
-function Index(props) {
-
-    // #region Props
-    const { showModal, setShowModal } = props;
-    const { startDt, setStartDt = () => { } } = props;
-    const { endDt, setEndDt = () => { } } = props;
-    // #endregion
-
-    // #region Init
+// #region Hooks
+function useDateRange() {
     const init = {
-        activeColor: "#2898FF",
-        inActiveColor: "#000",
         dateRange: {
             "Day": [],
             "Week": [],
@@ -229,43 +212,24 @@ function Index(props) {
             "Custom": [{}, {}]
         }
     }
-    // #endregion
-
-    // #region UseState
-    const [datePaneInd, setDatePaneInd] = useState(0);
-
-    const [showCusStartDt, setShowCusStartDt] = useState(false);
-    const [showCusEndDt, setShowCusEndDt] = useState(false);
 
     const [dateRange, setDateRange] = useState(init.dateRange);
 
-    const [fStartDt, setFStartDt] = useState(startDt);
-    const [fEndDt, setFEndDt] = useState(startDt);
-    // #endregion
-
-    // #region UseEffect
-    useEffect(() => {
-
-        let today_dt = DateTime.now();
-
-        if (startDt !== "") {
-            today_dt = DateTime.fromISO(startDt);
-        }
-
+    const initDateRange = (start_dt, end_dt) => {
         // Create Date Range Based on Current Date
         // Yesterday, Today
-        const dtArr = dateArrGen(today_dt);
+        const dtArr = dateArrGen(start_dt);
 
         // Create Week Range Based on Current Date
         // Last 7 Days, This Week
-        const weekArr = weekArrGen(today_dt);
+        const weekArr = weekArrGen(start_dt);
 
         // Create Month Range Based on Current Date
         // Last 30 Days, This Month
-        const monthArr = monthArrGen(today_dt);
+        const monthArr = monthArrGen(start_dt);
 
         // Create Custom Calendar Modal
-        const customArr = customArrGen(today_dt);
+        const customArr = customArrGen(start_dt, end_dt);
 
         setDateRange({
             "Day": dtArr,
@@ -273,16 +237,6 @@ function Index(props) {
             "Month": monthArr,
             "Custom": customArr,
         });
-    }, []);
-    // #endregion
-
-    // #region Helper
-    const closeModal = () => setShowModal(false);
-
-    const saveModal = () => {
-        setStartDt(fStartDt);
-        setEndDt(fEndDt);
-        closeModal();
     }
 
     const updateDateRange = (key, value) => {
@@ -296,8 +250,63 @@ function Index(props) {
     const updateMonthRange = (value) => updateDateRange("Month", value);
     const updateCustomRange = (value) => updateDateRange("Custom", value);
 
-    const toggleCusStartDt = () => setShowCusStartDt(!showCusStartDt);
-    const toggleCusEndDt = () => setShowCusEndDt(!showCusEndDt);
+    return [dateRange, setDateRange, initDateRange, updateDayRange, updateWeekRange, updateMonthRange, updateCustomRange];
+}
+// #endregion
+
+function Index(props) {
+
+    const colors = {
+        activeColor: "#2898FF",
+        inActiveColor: "#000",
+    }
+
+    // #region Props
+    const { showModal, setShowModal, hook = [] } = props;
+    const [startDt, setStartDt, endDt, setEndDt] = hook.slice(0, 4);
+    // #endregion
+
+    // #region UseState
+    const [datePaneInd, setDatePaneInd] = useState(0);
+
+    const dateRangeHook = useDateRange();
+    const [dateRange, setDateRange, initDateRange, updateDayRange, updateWeekRange, updateMonthRange, updateCustomRange] = dateRangeHook
+
+    const dateHook = useDate({ startDt, endDt });
+    const [fStartDt, setFStartDt, fEndDt, setFEndDt] = dateHook.slice(0, 4);
+
+    const [showCusStartDt, setShowCusStartDt, toggleCusStartDt] = useToggle(false);
+    const [showCusEndDt, setShowCusEndDt, toggleCusEndDt] = useToggle(false);
+
+    const [cusToast, showMsg] = useModalToast();
+    // #endregion
+
+    // #region UseEffect
+    useEffect(() => {
+        let start_dt = DateTime.now();
+        let end_dt = DateTime.now();
+
+        if (startDt !== "") {
+            start_dt = DateTime.fromISO(startDt);
+        }
+
+        if (endDt !== "") {
+            end_dt = DateTime.fromISO(endDt)
+        }
+
+        initDateRange(start_dt, end_dt);
+
+    }, [startDt + endDt]);
+    // #endregion
+
+    // #region Helper
+    const closeModal = () => setShowModal(false);
+
+    const saveModal = () => {
+        setStartDt(fStartDt);
+        setEndDt(fEndDt);
+        closeModal();
+    }
 
     const updateCusStartDt = (dt) => {
         let arr = [...dateRange["Custom"]];
@@ -319,7 +328,7 @@ function Index(props) {
     // #endregion
 
     return (
-        <BaseModal {...props}>
+        <BaseModal cusToast={cusToast} {...props}>
             <YtCalendar
                 dt={startDt} setDt={updateCusStartDt}
                 showModal={showCusStartDt} setShowModal={setShowCusStartDt} />
@@ -367,13 +376,13 @@ function Index(props) {
                     value={datePaneInd}
                     onChange={(e) => setDatePaneInd(e)}
                     indicatorStyle={{
-                        backgroundColor: init.activeColor,
+                        backgroundColor: colors.activeColor,
                         height: 3
                     }}>
-                    <Tab.Item title={"Day"} titleStyle={(active) => ({ color: (active) ? init.activeColor : init.inActiveColor })} />
-                    <Tab.Item title={"Week"} titleStyle={(active) => ({ color: (active) ? init.activeColor : init.inActiveColor })} />
-                    <Tab.Item title={"Month"} titleStyle={(active) => ({ color: (active) ? init.activeColor : init.inActiveColor })} />
-                    <Tab.Item title={"Custom"} titleStyle={(active) => ({ color: (active) ? init.activeColor : init.inActiveColor })} />
+                    <Tab.Item title={"Day"} titleStyle={(active) => ({ color: (active) ? colors.activeColor : colors.inActiveColor })} />
+                    <Tab.Item title={"Week"} titleStyle={(active) => ({ color: (active) ? colors.activeColor : colors.inActiveColor })} />
+                    <Tab.Item title={"Month"} titleStyle={(active) => ({ color: (active) ? colors.activeColor : colors.inActiveColor })} />
+                    <Tab.Item title={"Custom"} titleStyle={(active) => ({ color: (active) ? colors.activeColor : colors.inActiveColor })} />
                 </Tab>
 
                 <View style={{ height: 10 }} />
@@ -382,24 +391,15 @@ function Index(props) {
                 <TabView
                     value={datePaneInd}
                     onChange={(e) => setDatePaneInd(e)}>
-                    <DateView
-                        data={dateRange["Day"]} setData={updateDayRange}
-                        startDt={fStartDt} setStartDt={setFStartDt}
-                        endDt={fEndDt} setEndDt={setFEndDt} />
-                    <DateView
-                        data={dateRange["Week"]} setData={updateWeekRange}
-                        startDt={fStartDt} setStartDt={setFStartDt}
-                        endDt={fEndDt} setEndDt={setFEndDt} />
-                    <DateView
-                        data={dateRange["Month"]} setData={updateMonthRange}
-                        startDt={fStartDt} setStartDt={setFStartDt}
-                        endDt={fEndDt} setEndDt={setFEndDt} />
+                    <DateView hook={dateHook}
+                        data={dateRange["Day"]} setData={updateDayRange} />
+                    <DateView hook={dateHook}
+                        data={dateRange["Week"]} setData={updateWeekRange} />
+                    <DateView hook={dateHook}
+                        data={dateRange["Month"]} setData={updateMonthRange} />
                     <CalendarView
-                        toggleCusStartDt={toggleCusStartDt}
-                        toggleCusEndDt={toggleCusEndDt}
                         data={dateRange["Custom"]} setData={updateCustomRange}
-                        startDt={fStartDt} setStartDt={setFStartDt}
-                        endDt={fEndDt} setEndDt={setFEndDt} />
+                        toggleCusStartDt={toggleCusStartDt} toggleCusEndDt={toggleCusEndDt} />
                 </TabView>
             </View>
         </BaseModal>

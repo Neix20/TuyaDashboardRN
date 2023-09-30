@@ -116,16 +116,14 @@ function monthArrGen(dt) {
     return arr;
 }
 
-function customArrGen(dt) {
+function customArrGen(startDt, endDt) {
     let arr = [];
-
-    const ytdDt = dt.plus({days: -1});
 
     const ytdObj = {
         title: "Start Date",
-        description: ytdDt.toFormat("EEEE, d MMMM"),
-        startDt: ytdDt.toFormat("yyyy-MM-dd"),
-        endDt: ytdDt.toFormat("yyyy-MM-dd"),
+        description: startDt.toFormat("EEEE, d MMMM"),
+        startDt: startDt.toFormat("yyyy-MM-dd"),
+        endDt: startDt.toFormat("yyyy-MM-dd"),
         flag: false,
     };
 
@@ -133,9 +131,9 @@ function customArrGen(dt) {
 
     const tdObj = {
         title: "End Date",
-        description: dt.toFormat("EEEE, d MMMM"),
-        startDt: dt.toFormat("yyyy-MM-dd"),
-        endDt: dt.toFormat("yyyy-MM-dd"),
+        description: endDt.toFormat("EEEE, d MMMM"),
+        startDt: endDt.toFormat("yyyy-MM-dd"),
+        endDt: endDt.toFormat("yyyy-MM-dd"),
         flag: false,
     };
 

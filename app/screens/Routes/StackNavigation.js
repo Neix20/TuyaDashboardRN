@@ -145,6 +145,9 @@ StackScreens = {
 import { useDispatch, useSelector } from 'react-redux';
 import { Actions, Selectors } from '@redux';
 
+import OneSignal from "react-native-onesignal";
+import { clsConst } from "@config";
+
 // #region Initial
 const init = {
     wifi: {
@@ -166,6 +169,35 @@ function Index(props) {
 
         // Reset Wifi
         dispatch(Actions.onChangeWifi(init.wifi));
+
+        // One Signal
+        OneSignal.setAppId(clsConst.ONESIGNAL_APP_ID);
+
+        OneSignal.promptForPushNotificationsWithUserResponse();
+
+        //Method for handling notifications received while app in foreground
+        OneSignal.setNotificationWillShowInForegroundHandler(event => {
+            const notification = event.getNotification();
+
+            const { additionalData = {} } = notification;
+
+            // Check For Payment Success
+            if ("Action" in additionalData && additionalData["Action"] == "Data_Controller") {
+
+            }
+
+            // Complete with null means don't show a notification.
+            event.complete(notification);
+        });
+
+        //Method for handling notifications opened
+        OneSignal.setNotificationOpenedHandler(event => {
+            const { additionalData = {} } = event.notification;
+
+            if ("Action" in additionalData && additionalData["Action"] == "Data_Alert") {
+                
+            }
+        });
     }, []);
 
     // const defaultScreen = (userId == -1) ? "Login" : "TabNavigation";

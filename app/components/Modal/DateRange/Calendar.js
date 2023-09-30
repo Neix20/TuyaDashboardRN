@@ -11,26 +11,20 @@ import Modal from "react-native-modal";
 
 function Index(props) {
 
-    // #region Props
     const { showModal = false, setShowModal = () => { } } = props;
     const { dt, setDt = () => { } } = props;
-    // #endregion
 
-    // #region UseState
     const [selected, setSelected] = useState(dt);
-    // #endregion
 
-    // #region Helper
     const closeModal = () => setShowModal(false);
-
     const updateDay = (day) => {
         const { dateString } = day;
-        setDt(dateString);
 
+        setDt(dateString);
         setSelected(dateString);
+
         closeModal();
     }
-    // #endregion
 
     if (!showModal) {
         return (<></>);

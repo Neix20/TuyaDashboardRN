@@ -11,57 +11,11 @@ import { Logger, Utility } from "@utility";
 
 import { iRData, clsConst, DowntimeData } from "@config";
 
-import { useChart } from "@hooks";
+import { useChart, useToggle, useDate } from "@hooks";
 
-import { BcViewShot, BcLineChartFull } from "@components";
+import { BcViewShot, BcLineChartFull, BcDateRange } from "@components";
 
-import OneSignal from 'react-native-onesignal';
 
-function TestOneSignal(props) {
-
-    useEffect(() => {
-        // // Remove this method to stop OneSignal Debugging
-        // OneSignal.Debug.setLogLevel(LogLevel.Verbose);
-
-        OneSignal.setAppId(clsConst.ONESIGNAL_APP_ID);
-
-        OneSignal.promptForPushNotificationsWithUserResponse();
-
-        OneSignal.setNotificationWillShowInForegroundHandler(event => {
-            const notification = event.getNotification();
-            // Complete with null means don't show a notification.
-            event.complete(notification);
-        });
-
-        OneSignal.setNotificationOpenedHandler(event => {
-        });
-
-        OneSignal.setExternalUserId(`60166489466`);
-    }, [])
-
-    return (
-        <SafeAreaView style={{ flex: 1 }}>
-            <View style={{ flex: 1 }}>
-
-                {/* Header */}
-                <View style={{ height: 80 }} />
-
-                <View style={{ height: 10 }} />
-
-                {/* Body */}
-                <ScrollView showsVerticalScrollIndicator={false}
-                    contentContainerStyle={{ flexGrow: 1 }}>
-                    <View flexGrow={1} justifyContent={"center"}>
-                        <Text>Test</Text>
-                    </View>
-                </ScrollView>
-
-                {/* Footer */}
-                <View style={{ height: 60 }} />
-            </View>
-        </SafeAreaView>
-    )
-}
 
 function TestChart(props) {
 
@@ -110,6 +64,20 @@ function DownTimeTable(props) {
         inactive: "#0F0"
     }
 
+    // const duration = 1000;
+
+    // const [opacity, setOpacity] = useState(0);
+    // const [flag, setFlag, toggleFlag] = useToggle(false);
+
+    // useEffect(() => {
+    //     const interval = setInterval(() => {
+    //         // setOpacity(opacity => (opacity + 1) % 21)
+    //         toggleFlag();
+    //     }, duration);
+
+    //     return () => clearInterval(interval);
+    // }, [])
+
     const { data = [] } = props;
 
     if (data.length == 0) {
@@ -118,9 +86,24 @@ function DownTimeTable(props) {
         )
     }
 
+    // #region Render
+    const Active = () => {
+        return (
+            <View flex={1} opacity={1} bgColor={color.active} />
+        )
+    }
+
+    const InActive = () => {
+        return (
+            <View flex={1} bgColor={color.inactive} />
+        )
+    }
+
     const renderValues = (item, index) => {
 
         const { Name, Timestamp, Status } = item;
+
+        const StatusDiv = (Status) ? Active : InActive;
 
         return (
             <HStack key={index} alignItems={"center"} justifyContent={"space-between"}>
@@ -133,22 +116,37 @@ function DownTimeTable(props) {
                     <Text>{Utility.formatDt(Timestamp, "yyyy-MM-dd HH:mm:ss")}</Text>
                 </View>
                 <View flex={.2}>
-                    <View w={"100%"} bgColor={Status ? color.active : color.inactive}></View>
+                    <StatusDiv />
                 </View>
             </HStack>
         )
     }
+    // #endregion
+
+    // return (
+    //     <Text>{1 - Math.abs(opacity / 5 - 1)}</Text>
+    // )
 
     return (
-        <VStack>
-            {data.map(renderValues)}
-        </VStack>
+        <VStack>{data.slice(0,2).map(renderValues)}</VStack>
     )
 }
 
 function Index(props) {
 
+    const toast = useToast();
 
+    const dateObj = {
+        startDt: "2023-08-18",
+        endDt: "2023-08-19"
+    }
+
+    const dateHook = useDate(dateObj)
+    const [startDt, setStartDt, endDt, setEndDt, addDt, minusDt] = dateHook;
+
+    useEffect(() => {
+        Utility.OneSignalSubscribe(`txen2000@gmail.com`);
+    }, []);    
 
     return (
         <SafeAreaView style={{ flex: 1 }}>
@@ -180,6 +178,11 @@ function Index(props) {
                                 </BcViewShot>
                             </View>
                         </HStack>
+
+                        <BcDateRange hook={dateHook} />
+
+                        <Text>{startDt}</Text>
+                        <Text>{endDt}</Text>
                     </View>
                 </ScrollView>
 

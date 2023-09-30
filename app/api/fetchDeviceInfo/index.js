@@ -25,9 +25,9 @@ const Index = async (props) => {
     if (data["ResponseCode"] === "00") {
         const { Data } = data;
         
-        let res = {...Data[0]};
+        let res = {...Data };
 
-        const { MetaData, DeviceImg } = Data[0];
+        const { MetaData, DeviceImg } = Data;
 
         res["img"] = { uri: DeviceImg };
 

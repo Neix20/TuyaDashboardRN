@@ -13,49 +13,44 @@ import { DateTime } from "luxon";
 
 import { useToggle } from "@hooks";
 
+// #region Custom Hooks
+function useDateModal(props) {
+
+    const [startDt, setStartDt] = useState();
+    const [endDt, setEndDt] = useState();
+
+    const addDt = () => {
+        const tStartDt = DateTime.fromISO(startDt).plus({ days: 1 }).toFormat("yyyy-MM-dd");
+        setStartDt(tStartDt);
+
+        const tEndDt = DateTime.fromISO(endDt).plus({ days: 1 }).toFormat("yyyy-MM-dd");
+        setEndDt(tEndDt);
+    }
+
+    const minusDt = () => {
+        const tStartDt = DateTime.fromISO(startDt).plus({ days: -1 }).toFormat("yyyy-MM-dd");
+        setStartDt(tStartDt);
+
+        const tEndDt = DateTime.fromISO(endDt).plus({ days: -1 }).toFormat("yyyy-MM-dd");
+        setEndDt(tEndDt);
+    }
+
+    return [startDt, setStartDt, endDt, setEndDt, addDt, minusDt];
+}
+// #endregion
+
 function Index(props) {
 
-    // #region Props
-    const { startDt = "2023-09-01", setStartDt = () => {} } = props;
-    const { endDt = "2023-09-01", setEndDt = () => {} } = props;
-    // #endregion
+    const { hook = [] } = props;
+    const [startDt, setStartDt, endDt, setEndDt, addDt, minusDt] = hook;
 
     // #region UseState
     const [showDtModal, setShowDtModal, toggleDateModal] = useToggle(false);
-
-
-    // #endregion
-
-    // #region Helper
-
-    const addDt = () => {
-        const tStartDt = DateTime.fromISO(startDt)
-            .plus({ days: 1 })
-            .toFormat("yyyy-MM-dd");
-        setStartDt(tStartDt);
-
-        const tEndDt = DateTime.fromISO(endDt)
-            .plus({ days: 1 })
-            .toFormat("yyyy-MM-dd");
-        setEndDt(tEndDt);
-    };
-
-    const minusDt = () => {
-        const tStartDt = DateTime.fromISO(startDt)
-            .plus({ days: -1 })
-            .toFormat("yyyy-MM-dd");
-        setStartDt(tStartDt);
-
-        const tEndDt = DateTime.fromISO(endDt)
-            .plus({ days: -1 })
-            .toFormat("yyyy-MM-dd");
-        setEndDt(tEndDt);
-    };
     // #endregion
 
     return (
         <>
-            <BcDateRangeModal key={startDt + endDt} showModal={showDtModal} setShowModal={setShowDtModal} {...props} />
+            <BcDateRangeModal showModal={showDtModal} setShowModal={setShowDtModal} {...props} />
             <TouchableOpacity onPress={toggleDateModal}>
                 <BcBoxShadow>
                     <View py={3}

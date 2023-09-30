@@ -5,7 +5,7 @@ const Index = async (props) => {
     const { param } = props;
     const { onSetLoading } = props;
 
-    const action = "GetProfile";
+    const action = "GetUserInfo";
     const url = Utility.genServerUrl(action);
 
     // Static Data
@@ -24,11 +24,11 @@ const Index = async (props) => {
 
     if (data["ResponseCode"] === "00") {
         const { Data } = data;
-        return Data[0];
+        return Data;
     }
     else {
-        console.log(`GetProfile - Request - ${JSON.stringify(obj)}`);
-        console.log(`GetProfile - Response - ${JSON.stringify(data)}`);
+        console.log(`GetUserInfo - Request - ${JSON.stringify(obj)}`);
+        console.log(`GetUserInfo - Response - ${JSON.stringify(data)}`);
     }
 
     return {};

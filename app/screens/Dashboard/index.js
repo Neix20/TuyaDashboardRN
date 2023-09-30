@@ -214,13 +214,13 @@ function Index(props) {
 
     // #region Initial
     const init = {
-        dt: DateTime.now().minus({days: 1}).toFormat("yyyy-MM-dd"),
+        dt: DateTime.now().minus({ days: 1 }).toFormat("yyyy-MM-dd"),
     }
     // #endregion
 
     // #region UseState
-    const chartHook = useChart("absolute_humidity");
-    const prevChartHook = useChart("absolute_humidity");
+    const chartHook = useChart("Absolute Humidity");
+    const prevChartHook = useChart("Absolute Humidity");
 
     const [labels, setLabels] = useState([]);
     const [prevLabels, setPrevLabels] = useState([]);
@@ -247,14 +247,14 @@ function Index(props) {
             setLabels(label);
 
             const prevStartDt = DateTime.fromISO(startDt)
-            .minus({ months: 1 })
-            .toFormat("yyyy-MM-dd")
+                .minus({ months: 1 })
+                .toFormat("yyyy-MM-dd")
 
             setCmpStartDt(prevStartDt);
 
             const prevEndDt = DateTime.fromISO(endDt)
-            .minus({ months: 1 })
-            .toFormat("yyyy-MM-dd");
+                .minus({ months: 1 })
+                .toFormat("yyyy-MM-dd");
 
             setCmpEndDt(prevEndDt);
 
@@ -272,7 +272,7 @@ function Index(props) {
     }, [isFocused, JSON.stringify(cmpStartDt + cmpEndDt)])
 
     // #region API
-    const getDashboard = (start_date = '2023-07-01', end_date = '2023-07-01', setFunc = () => {}) => {
+    const getDashboard = (start_date = '2023-07-01', end_date = '2023-07-01', setFunc = () => { }) => {
         setLoading(true);
         fetchDashboardInfo({
             param: {
@@ -320,7 +320,6 @@ function Index(props) {
                         contentContainerStyle={{ flexGrow: 1 }}>
                         <View flexGrow={1}>
                             <HStack
-                                px={3}
                                 flexWrap={"wrap"}
                                 rowGap={10}
                                 alignItems={"flex-start"}
@@ -328,19 +327,23 @@ function Index(props) {
 
                                 {
                                     (Object.keys(chart).length > 0) ? (
-                                        <BcViewShot title="Daily Device Report">
-                                            <BcLineChartFull labels={labels} hook={chartHook} />
-                                        </BcViewShot>
+                                        <View px={3} style={{ width: width}}>
+                                            <BcViewShot title="Daily Device Report">
+                                                <BcLineChartFull labels={labels} hook={chartHook} />
+                                            </BcViewShot>
+                                        </View>
                                     ) : (
                                         <></>
                                     )
                                 }
 
                                 {
-                                    (true) ? (
-                                        <BcViewShot title="Previous Month">
+                                    (Object.keys(prevChart).length > 0) ? (
+                                        <View px={3} style={{ width: width}}>
+                                            <BcViewShot title="Previous Month">
                                             <BcLineChartFull labels={prevLabels} hook={prevChartHook} />
-                                        </BcViewShot>
+                                            </BcViewShot>
+                                        </View>
                                     ) : (
                                         <></>
                                     )
