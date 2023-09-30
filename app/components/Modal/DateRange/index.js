@@ -104,14 +104,31 @@ function DRangeItem(props) {
 function DateView(props) {
 
     // #region Props
-    const { data, setData = () => { }, hook = [] } = props;
+    const { data, setData = () => { } } = props;
+    const { prevData, setPrevData = () => { } } = props;
+
+    const { hook = [], prevHook = [], flagHook = [] } = props;
     const [startDt, setStartDt, endDt, setEndDt] = hook.slice(0, 4);
+    const [pStartDt, setPStartDt, pEndDt, setPEndDt] = prevHook.slice(0, 4);
+
+    const [compare, setCompare, toggleCompare] = flagHook;
     // #endregion
 
     // #region Render
-    const renderSelectDate = ({ item, index }) => {
+    const renderCurDt = ({ item, index }) => {
         const { flag } = item;
-        const onSelect = () => toggleItem(index);
+        const onSelect = () => toggleCurDt(index);
+        return (
+            <View alignItems={"center"}>
+                <DRangeItem flag={flag} onPress={onSelect} {...item} />
+                <Divider my={2} width={"90%"} />
+            </View>
+        );
+    }
+
+    const renderPrevDt = ({ item, index }) => {
+        const { flag } = item;
+        const onSelect = () => togglePrevDt(index);
         return (
             <View alignItems={"center"}>
                 <DRangeItem flag={flag} onPress={onSelect} {...item} />
@@ -121,12 +138,8 @@ function DateView(props) {
     }
     // #endregion
 
-    // #region UseState
-    const [compare, setCompare, toggleCompare] = useToggle(false);
-    // #endregion
-
     // #region Helper
-    const toggleItem = (index) => {
+    const toggleCurDt = (index) => {
 
         let arr = [...data];
 
@@ -141,15 +154,31 @@ function DateView(props) {
         setStartDt(startDt);
         setEndDt(endDt);
     }
+
+    const togglePrevDt = (index) => {
+
+        let arr = [...prevData];
+
+        for (let ind in arr) {
+            arr[ind].flag = false;
+        }
+
+        arr[index].flag = true;
+        setPrevData(arr);
+
+        const { startDt, endDt } = prevData[index];
+        setPStartDt(startDt);
+        setPEndDt(endDt);
+    }
     // #endregion
 
     return (
-        <TabView.Item>
-            <VStack>
-                <FlatList data={data} renderItem={renderSelectDate} />
+        <TabView.Item style={{ width: "100%" }}>
+            <VStack space={2}>
+                <FlatList data={data} renderItem={renderCurDt} />
 
                 <View alignItems={"center"}>
-                    <HStack alignItems={"center"} justifyContent={"space-between"} style={{ width: 360 }}>
+                    <HStack alignItems={"center"} justifyContent={"space-between"} width={"90%"}>
                         <Text style={{
                             fontFamily: "Roboto-Bold",
                             fontSize: 18,
@@ -158,6 +187,14 @@ function DateView(props) {
                         <Switch value={compare} onValueChange={toggleCompare} />
                     </HStack>
                 </View>
+
+                {
+                    (compare) ? (
+                        <FlatList data={prevData} renderItem={renderPrevDt} />
+                    ) : (
+                        <></>
+                    )
+                }
             </VStack>
         </TabView.Item>
     )
@@ -166,27 +203,26 @@ function DateView(props) {
 function CalendarView(props) {
 
     // #region Props
-    const { data, setData = () => { } } = props;
-    const { toggleCusStartDt, toggleCusEndDt } = props;
-    // #endregion
-
-    // #region UseState
-    const [compare, setCompare, toggleCompare] = useToggle(false);
+    const { data = [], setData = () => { }, flagHook = [] } = props;
+    const { prevData = [], setPrevData = () => { } } = props;
+    const { toggleCSDt, toggleCEDt } = props;
+    const { togglePSDt, togglePEDt } = props;
+    const [compare, setCompare, toggleCompare] = flagHook;
     // #endregion
 
     return (
         <TabView.Item style={{ width: "100%" }}>
-            <VStack>
+            <VStack space={2}>
                 <View alignItems={"center"}>
-                    <DRangeItem onPress={toggleCusStartDt} flag={false} {...data[0]} />
+                    <DRangeItem onPress={toggleCSDt} flag={false} {...data[0]} />
                     <Divider my={2} width={"90%"} />
 
-                    <DRangeItem onPress={toggleCusEndDt} flag={false} {...data[1]} />
+                    <DRangeItem onPress={toggleCEDt} flag={false} {...data[1]} />
                     <Divider my={2} width={"90%"} />
                 </View>
 
                 <View alignItems={"center"}>
-                    <HStack alignItems={"center"} justifyContent={"space-between"} style={{ width: 360 }}>
+                    <HStack alignItems={"center"} justifyContent={"space-between"} width={"90%"}>
                         <Text style={{
                             fontFamily: "Roboto-Bold",
                             fontSize: 18,
@@ -195,6 +231,20 @@ function CalendarView(props) {
                         <Switch value={compare} onValueChange={toggleCompare} />
                     </HStack>
                 </View>
+
+                {
+                    (compare) ? (
+                        <View alignItems={"center"}>
+                            <DRangeItem onPress={togglePSDt} flag={false} {...prevData[0]} />
+                            <Divider my={2} width={"90%"} />
+
+                            <DRangeItem onPress={togglePEDt} flag={false} {...prevData[1]} />
+                            <Divider my={2} width={"90%"} />
+                        </View>
+                    ) : (
+                        <></>
+                    )
+                }
 
             </VStack>
         </TabView.Item>
@@ -262,8 +312,9 @@ function Index(props) {
     }
 
     // #region Props
-    const { showModal, setShowModal, hook = [] } = props;
+    const { showModal, setShowModal, hook = [], flagHook = [], prevHook = [] } = props;
     const [startDt, setStartDt, endDt, setEndDt] = hook.slice(0, 4);
+    const [pStartDt, setPStartDt, pEndDt, setPEndDt] = prevHook.slice(0, 4);
     // #endregion
 
     // #region UseState
@@ -272,11 +323,14 @@ function Index(props) {
     const dateRangeHook = useDateRange();
     const [dateRange, setDateRange, initDateRange, updateDayRange, updateWeekRange, updateMonthRange, updateCustomRange] = dateRangeHook
 
+    const prevDateRangeHook = useDateRange();
+    const [prevDateRange, setPrevDateRange, initPrevDateRange, updatePrevDayRange, updatePrevWeekRange, updatePrevMonthRange, updatePrevCustomRange] = prevDateRangeHook;
+
     const dateHook = useDate({ startDt, endDt });
     const [fStartDt, setFStartDt, fEndDt, setFEndDt] = dateHook.slice(0, 4);
 
-    const [showCusStartDt, setShowCusStartDt, toggleCusStartDt] = useToggle(false);
-    const [showCusEndDt, setShowCusEndDt, toggleCusEndDt] = useToggle(false);
+    const prevDateHook = useDate({ startDt: pStartDt, endDt: pEndDt });
+    const [fPrevStartDt, setFPrevStartDt, fPrevEndDt, setFPrevEndDt] = prevDateHook.slice(0, 4);
 
     const [cusToast, showMsg] = useModalToast();
     // #endregion
@@ -295,8 +349,22 @@ function Index(props) {
         }
 
         initDateRange(start_dt, end_dt);
-
     }, [startDt + endDt]);
+
+    useEffect(() => {
+        let start_dt = DateTime.now();
+        let end_dt = DateTime.now();
+
+        if (pStartDt !== "") {
+            start_dt = DateTime.fromISO(pStartDt);
+        }
+
+        if (pEndDt !== "") {
+            end_dt = DateTime.fromISO(pEndDt)
+        }
+
+        initPrevDateRange(start_dt, end_dt);
+    }, [pStartDt + pEndDt]);
     // #endregion
 
     // #region Helper
@@ -305,10 +373,24 @@ function Index(props) {
     const saveModal = () => {
         setStartDt(fStartDt);
         setEndDt(fEndDt);
+
+        setPStartDt(fPrevStartDt);
+        setPEndDt(fPrevEndDt);
+
         closeModal();
     }
+    // #endregion
 
-    const updateCusStartDt = (dt) => {
+    // #region Date Range UseState
+    const [showCSDt, setShowCSDt, toggleCSDt] = useToggle(false);
+    const [showCEDt, setShowCEDt, toggleCEDt] = useToggle(false);
+
+    const [showPSDt, setShowPSDt, togglePSDt] = useToggle(false);
+    const [showPEDt, setShowPEDt, togglePEDt] = useToggle(false);
+    // #endregion
+
+    // #region Date Range
+    const updateCSDt = (dt) => {
         let arr = [...dateRange["Custom"]];
         arr[0].description = Utility.formatDt(dt, "EEEE, d MMMM");
         arr[0].startDt = dt;
@@ -317,7 +399,7 @@ function Index(props) {
         setFStartDt(dt);
     }
 
-    const updateCusEndDt = (dt) => {
+    const updateCEDt = (dt) => {
         let arr = [...dateRange["Custom"]];
         arr[1].description = Utility.formatDt(dt, "EEEE, d MMMM");
         arr[1].startDt = dt;
@@ -325,19 +407,41 @@ function Index(props) {
 
         setFEndDt(dt);
     }
+
+    const updatePSDt = (dt) => {
+        let arr = [...prevDateRange["Custom"]];
+        arr[0].description = Utility.formatDt(dt, "EEEE, d MMMM");
+        arr[0].startDt = dt;
+        updatePrevCustomRange(arr);
+
+        setFPrevStartDt(dt)
+    }
+
+    const updatePEDt = (dt) => {
+        let arr = [...prevDateRange["Custom"]];
+        arr[1].description = Utility.formatDt(dt, "EEEE, d MMMM");
+        arr[1].startDt = dt;
+        updatePrevCustomRange(arr);
+
+        setFPrevEndDt(dt);
+    }
     // #endregion
 
     return (
         <BaseModal cusToast={cusToast} {...props}>
             <YtCalendar
-                dt={startDt} setDt={updateCusStartDt}
-                showModal={showCusStartDt} setShowModal={setShowCusStartDt} />
+                dt={fStartDt} setDt={updateCSDt}
+                showModal={showCSDt} setShowModal={setShowCSDt} />
             <YtCalendar
-                dt={startDt} setDt={updateCusEndDt}
-                showModal={showCusEndDt} setShowModal={setShowCusEndDt} />
-            <View
-                bgColor={"#FFF"}
-                style={{ flexGrow: 1 }}>
+                dt={fEndDt} setDt={updateCEDt}
+                showModal={showCEDt} setShowModal={setShowCEDt} />
+            <YtCalendar
+                dt={fPrevStartDt} setDt={updatePSDt}
+                showModal={showPSDt} setShowModal={setShowPSDt} />
+            <YtCalendar
+                dt={fPrevEndDt} setDt={updatePEDt}
+                showModal={showPEDt} setShowModal={setShowPEDt} />
+            <View bgColor={"#FFF"} style={{ flexGrow: 1 }}>
                 <View alignItems={"center"}>
                     <HStack py={3}
                         alignItems={"center"}
@@ -371,10 +475,7 @@ function Index(props) {
                     </HStack>
                 </View>
 
-                <Tab
-                    dense
-                    value={datePaneInd}
-                    onChange={(e) => setDatePaneInd(e)}
+                <Tab dense value={datePaneInd} onChange={(e) => setDatePaneInd(e)}
                     indicatorStyle={{
                         backgroundColor: colors.activeColor,
                         height: 3
@@ -391,15 +492,24 @@ function Index(props) {
                 <TabView
                     value={datePaneInd}
                     onChange={(e) => setDatePaneInd(e)}>
-                    <DateView hook={dateHook}
-                        data={dateRange["Day"]} setData={updateDayRange} />
-                    <DateView hook={dateHook}
-                        data={dateRange["Week"]} setData={updateWeekRange} />
-                    <DateView hook={dateHook}
-                        data={dateRange["Month"]} setData={updateMonthRange} />
+                    <DateView flagHook={flagHook}
+                        hook={dateHook} prevHook={prevDateHook}
+                        data={dateRange["Day"]} setData={updateDayRange}
+                        prevData={prevDateRange["Day"]} setPrevData={updatePrevDayRange} />
+                    <DateView flagHook={flagHook}
+                        hook={dateHook} prevHook={prevDateHook}
+                        data={dateRange["Week"]} setData={updateWeekRange}
+                        prevData={prevDateRange["Week"]} setPrevData={updatePrevWeekRange} />
+                    <DateView flagHook={flagHook}
+                        hook={dateHook} prevHook={prevDateHook}
+                        data={dateRange["Month"]} setData={updateMonthRange}
+                        prevData={prevDateRange["Month"]} setPrevData={updatePrevMonthRange} />
                     <CalendarView
+                        flagHook={flagHook}
                         data={dateRange["Custom"]} setData={updateCustomRange}
-                        toggleCusStartDt={toggleCusStartDt} toggleCusEndDt={toggleCusEndDt} />
+                        prevData={prevDateRange["Custom"]} setPrevData={updatePrevCustomRange}
+                        toggleCSDt={toggleCSDt} toggleCEDt={toggleCEDt}
+                        togglePSDt={togglePSDt} togglePEDt={togglePEDt} />
                 </TabView>
             </View>
         </BaseModal>

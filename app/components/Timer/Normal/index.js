@@ -14,12 +14,14 @@ function Index(props) {
 
     // #region UseEffect
     useEffect(() => {
-        if (timer > 0) {
-            setTimeout(() => {
-                setTimer(timer - 1);
-            }, 1000);
-        } else if (timer === 0) {
+        if (timer === 0) {
             onTimerEnd();
+        }
+        else {
+            const timeout = setTimeout(() => {
+                setTimer((timer) => timer - 1);
+            }, 1000);
+            return () => clearTimeout(timeout);
         }
     }, [timer]);
     // #endregion

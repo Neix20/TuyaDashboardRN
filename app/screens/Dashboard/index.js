@@ -20,7 +20,7 @@ import { DateTime } from "luxon";
 
 import { fetchDashboardInfo } from "@api";
 
-import { useChart } from "@hooks";
+import { useChart, useDate, useToggle } from "@hooks";
 
 import { useDispatch, useSelector } from 'react-redux';
 import { Actions, Selectors } from '@redux';
@@ -213,29 +213,41 @@ function Index(props) {
     // #endregion
 
     // #region Initial
+    const dt = DateTime.now();
+
     const init = {
-        dt: DateTime.now().minus({ days: 1 }).toFormat("yyyy-MM-dd"),
+        dateObj: {
+            startDt: dt.toFormat("yyyy-MM-dd"),
+            endDt: dt.toFormat("yyyy-MM-dd")
+        },
+        cmpDateObj: {
+            startDt: dt.plus({months: -1}).toFormat("yyyy-MM-dd"),
+            endDt: dt.plus({months: -1}).toFormat("yyyy-MM-dd")
+        }
     }
     // #endregion
 
     // #region UseState
     const chartHook = useChart("Absolute Humidity");
+    const [chart, setChart] = chartHook.slice(0, 2);
+
     const prevChartHook = useChart("Absolute Humidity");
+    const [prevChart, setPrevChart] = prevChartHook.slice(0, 2);
+
+    const dateHook = useDate(init.dateObj);
+    const [startDt, setStartDt, endDt, setEndDt] = dateHook.slice(0, 4);
+
+    const cmpDateHook = useDate(init.cmpDateObj);
+    const [cmpStartDt, setCmpStartDt, cmpEndDt, setCmpEndDt] = cmpDateHook.slice(0, 4);
+
+    const chartCompareHook = useToggle(false); 
+    const [compare, setCompare, toggleCompare] = chartCompareHook;
 
     const [labels, setLabels] = useState([]);
     const [prevLabels, setPrevLabels] = useState([]);
 
-    const [startDt, setStartDt] = useState(init.dt);
-    const [endDt, setEndDt] = useState(init.dt);
-
-    const [cmpStartDt, setCmpStartDt] = useState(init.dt);
-    const [cmpEndDt, setCmpEndDt] = useState(init.dt);
-
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading, toggleLoading] = useToggle(false);
     // #endregion
-
-    const [chart, setChart] = chartHook.slice(0, 2);
-    const [prevChart, setPrevChart] = prevChartHook.slice(0, 2);
 
     // #region UseEffect
     // Update Data
@@ -245,21 +257,6 @@ function Index(props) {
 
             let label = Utility.genLabel(startDt, endDt);
             setLabels(label);
-
-            const prevStartDt = DateTime.fromISO(startDt)
-                .minus({ months: 1 })
-                .toFormat("yyyy-MM-dd")
-
-            setCmpStartDt(prevStartDt);
-
-            const prevEndDt = DateTime.fromISO(endDt)
-                .minus({ months: 1 })
-                .toFormat("yyyy-MM-dd");
-
-            setCmpEndDt(prevEndDt);
-
-            let prevLabel = Utility.genLabel(prevStartDt, prevEndDt);
-            setPrevLabels(prevLabel);
         }
     }, [isFocused, JSON.stringify(startDt + endDt + homeId)]);
 
@@ -267,12 +264,15 @@ function Index(props) {
         if (isFocused) {
             setTimeout(() => {
                 getDashboard(cmpStartDt, cmpEndDt, setPrevChart);
+
+                let label = Utility.genLabel(cmpStartDt, cmpEndDt);
+                setPrevLabels(label);
             }, 2000);
         }
-    }, [isFocused, JSON.stringify(cmpStartDt + cmpEndDt)])
+    }, [isFocused, JSON.stringify(cmpStartDt + cmpEndDt + homeId)])
 
     // #region API
-    const getDashboard = (start_date = '2023-07-01', end_date = '2023-07-01', setFunc = () => { }) => {
+    const getDashboard = (start_date, end_date, setFunc = () => { }) => {
         setLoading(true);
         fetchDashboardInfo({
             param: {
@@ -287,7 +287,7 @@ function Index(props) {
             .then(res => {
                 if ("IR Temperature" in res) {
                     const Data = res["IR Temperature"]
-                    setFunc(() => Data);
+                    setFunc(Data);
                 }
             })
             .catch(err => {
@@ -308,10 +308,7 @@ function Index(props) {
 
                     <View style={{ height: 10 }} />
 
-                    <BcDateRange
-                        startDt={startDt} setStartDt={setStartDt}
-                        endDt={endDt} setEndDt={setEndDt}
-                    />
+                    <BcDateRange hook={dateHook} prevHook={cmpDateHook} flagHook={chartCompareHook} />
 
                     <View style={{ height: 10 }} />
 
@@ -326,6 +323,7 @@ function Index(props) {
                                 justifyContent={"space-between"}>
 
                                 {
+                                    
                                     (Object.keys(chart).length > 0) ? (
                                         <View px={3} style={{ width: width}}>
                                             <BcViewShot title="Daily Device Report">
@@ -338,9 +336,9 @@ function Index(props) {
                                 }
 
                                 {
-                                    (Object.keys(prevChart).length > 0) ? (
+                                    (compare && Object.keys(prevChart).length > 0) ? (
                                         <View px={3} style={{ width: width}}>
-                                            <BcViewShot title="Previous Month">
+                                            <BcViewShot title="Comparison">
                                             <BcLineChartFull labels={prevLabels} hook={prevChartHook} />
                                             </BcViewShot>
                                         </View>

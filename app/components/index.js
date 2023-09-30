@@ -66,12 +66,17 @@ import BcLogoutModal from "./Modal/Logout";
 
 import BcDateRangeModal from "./Modal/DateRange";
 
+import BcAppUpdateModal from "./Modal/AppUpdate";
+import BcServerMainModal from "./Modal/ServerMaintenance";
+
 export {
     BaseModal,
     BcGenderModal,
     BcBirthdayModal,
     BcLogoutModal,
-    BcDateRangeModal
+    BcDateRangeModal,
+    BcAppUpdateModal,
+    BcServerMainModal
 }
 
 import BcGradient from "./Gradient";

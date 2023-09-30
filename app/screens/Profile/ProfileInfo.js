@@ -1,30 +1,29 @@
 import React, { useState, useEffect } from "react";
-import { Text, TouchableOpacity, Image, TextInput, Dimensions, SafeAreaView, ImageBackground, ScrollView } from "react-native";
+import { Text, TouchableOpacity, Image, TextInput, SafeAreaView, ImageBackground, ScrollView } from "react-native";
 import { View, VStack, HStack, useToast } from "native-base";
 
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 import { useNavigation, useIsFocused } from "@react-navigation/native";
 
-const screen = Dimensions.get("screen");
-const { width, height } = screen;
-
 import { Logger, Utility } from "@utility";
 
-import { fetchProfileInfo } from "@api";
+import { fetchProfileInfo, fetchUpdateProfile } from "@api";
 
-import { BcLoading, BcBoxShadow } from "@components";
+import { BcLoading, BcBoxShadow, BcDisable } from "@components";
 
 import { useDispatch, useSelector } from 'react-redux';
 import { Actions, Selectors } from '@redux';
 
+import { useToggle } from "@hooks";
+
 // #region Components
 function Header(props) {
 
-    const { children, onBack = () => { } } = props;
-
+    const toast = useToast();
     const navigation = useNavigation();
 
-    const toast = useToast();
+    const { children, onBack = () => { } } = props;
+    const { flag = false, onSave = () => { } } = props;
 
     // #region Helper Functions
     const GoBack = () => {
@@ -69,19 +68,30 @@ function Header(props) {
                         color: "#000",
                     }}>{children}</Text>
                 </View>
-                <TouchableOpacity>
-                    <Text style={{
-                        fontSize: 20,
-                        color: "#2898FF"
-                    }}>Save</Text>
-                </TouchableOpacity>
+                {
+                    (flag) ? (
+                        <TouchableOpacity onPress={onSave}>
+                            <Text style={{
+                                fontSize: 20,
+                                color: "#2898FF"
+                            }}>Save</Text>
+                        </TouchableOpacity>
+                    ) : (
+                        <BcDisable>
+                            <Text style={{
+                                fontSize: 20,
+                                color: "#2898FF"
+                            }}>Save</Text>
+                        </BcDisable>
+                    )
+                }
             </View>
         </BcBoxShadow>
     )
 }
 
 function InfoItem(props) {
-    const { Title, Value, onChangeValue = () => { } } = props;
+    const { Title, Value, Placeholder = "", onChangeValue = () => { } } = props;
     return (
         <HStack width={"90%"}
             alignItems={"center"}
@@ -95,8 +105,8 @@ function InfoItem(props) {
             <View flex={.7}>
                 <TextInput
                     defaultValue={Value}
-                    onChangeValue={onChangeValue}
-                    placeholder={"Home Name"}
+                    onChangeText={onChangeValue}
+                    placeholder={Placeholder}
                     autoCapitalize={"none"}
                     style={{
                         fontFamily: "Roboto-Medium",
@@ -122,7 +132,7 @@ function InfoPassword(props) {
             </View>
             <View flex={.7}>
                 <TextInput
-                secureTextEntry
+                    secureTextEntry
                     defaultValue={Value}
                     onChangeValue={onChangeValue}
                     placeholder={""}
@@ -139,22 +149,41 @@ function InfoPassword(props) {
 
 function InfoPanel(props) {
 
-    const { Username, Password, MobileNo, Email, Address } = props;
+    const { hook = [] } = props;
+    const [profile, setProfile, onChangeUsername, onChangeMobileNo, onChangeEmail, onChangeAddress] = hook;
+
+    const { Username, MobileNo, Email, Address } = profile;
 
     return (
         <BcBoxShadow>
-            <View bgColor={"#FFF"}
-                alignItems={"center"}>
-                <InfoItem Title={"Name"} Value={Username} />
-                <InfoPassword Title={"Password"} Value={Password} />
-                <InfoItem Title={"MobileNo"} Value={MobileNo} />
-                <InfoItem Title={"Email"} Value={Email} />
-                <InfoItem Title={"Address"} Value={Address} />
+            <View bgColor={"#FFF"} alignItems={"center"}>
+                <InfoItem Title={"Name"} Value={Username} onChangeValue={onChangeUsername} />
+                <InfoItem Title={"MobileNo"} Value={MobileNo} onChangeValue={onChangeMobileNo} />
+                <InfoItem Title={"Email"} Value={Email} onChangeValue={onChangeEmail} />
+                <InfoItem Title={"Address"} Value={Address} onChangeValue={onChangeAddress} />
             </View>
         </BcBoxShadow>
     )
 }
 // #endregion
+
+function useProfile() {
+    const [profile, setProfile] = useState({});
+
+    const updateProfile = (name, value) => {
+        const nextState = { ...profile };
+        nextState[name] = value;
+
+        setProfile(() => nextState);
+    }
+
+    const onChangeUsername = (val) => updateProfile("Username", val);
+    const onChangeMobileNo = (val) => updateProfile("MobileNo", val);
+    const onChangeEmail = (val) => updateProfile("Email", val);
+    const onChangeAddress = (val) => updateProfile("Address", val);
+
+    return [profile, setProfile, onChangeUsername, onChangeMobileNo, onChangeEmail, onChangeAddress];
+}
 
 function Index(props) {
     const toast = useToast();
@@ -164,10 +193,16 @@ function Index(props) {
     const userId = useSelector(Selectors.userIdSelect);
 
     // #region UseState
-    const [profileInfo, setProfileInfo] = useState({});
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading, toggleLoading] = useToggle();
+    const [flag, setFlag, toggleFlag] = useToggle();
+
+    const profileHook = useProfile();
+    const [profile, setProfile] = profileHook.slice(0, 2);
+
+    const [oProfile, setOProfile] = useState({});
     // #endregion
 
+    // #region UseEffect
     useEffect(() => {
         if (isFocused) {
             setLoading(true);
@@ -178,7 +213,8 @@ function Index(props) {
                 onSetLoading: setLoading,
             })
                 .then(data => {
-                    setProfileInfo(data)
+                    setProfile(() => data);
+                    setOProfile(() => data);
                 })
                 .catch(err => {
                     setLoading(false);
@@ -187,6 +223,32 @@ function Index(props) {
         }
     }, [userId]);
 
+    // Compare Flag
+    useEffect(() => {
+        const str = JSON.stringify(profile);
+        const str_2 = JSON.stringify(oProfile);
+
+        const t_flag = str !== str_2;
+        setFlag(() => t_flag);
+    }, [profile])
+    // #endregion
+
+    const updateProfile = () => {
+        setLoading(true);
+        fetchUpdateProfile({
+            param: {
+                UserId: userId,
+                ...profile
+            },
+            onSetLoading: setLoading
+        })
+        .then(data => {})
+        .catch(err => {
+            setLoading(false);
+            console.log(`Error: ${err}`);
+        })
+    }
+
     return (
         <>
             <BcLoading loading={loading} />
@@ -194,7 +256,7 @@ function Index(props) {
                 <View style={{ flex: 1 }}>
 
                     {/* Header */}
-                    <Header>Profile Info</Header>
+                    <Header flag={flag} onSave={updateProfile}>Profile Info</Header>
 
                     <View style={{ height: 10 }} />
 
@@ -202,12 +264,10 @@ function Index(props) {
                     <ScrollView showsVerticalScrollIndicator={false}
                         contentContainerStyle={{ flexGrow: 1 }}>
                         <View flexGrow={1}>
-                            <InfoPanel {...profileInfo} />
+                            <InfoPanel hook={profileHook} />
                         </View>
                     </ScrollView>
 
-                    {/* Footer */}
-                    {/* <View style={{ height: 60 }} /> */}
                 </View>
             </SafeAreaView>
         </>

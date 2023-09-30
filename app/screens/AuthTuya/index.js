@@ -62,8 +62,15 @@ function Index(props) {
             onSetLoading: setLoading,
         })
         .then(data => {
-            const { AuthCode } = data;
-            setRefLink(AuthCode)
+            const { AuthCode, Flag } = data;
+            if (Flag) {
+                setRefLink(AuthCode);
+            } else {
+                toast.show({
+                    description: AuthCode
+                });
+                navigation.goBack();
+            }
         })
         .catch(err => {
             setLoading(false);

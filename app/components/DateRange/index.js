@@ -9,35 +9,7 @@ import { Logger, Utility } from "@utility";
 
 import { BcDateRangeModal, BcBoxShadow } from "@components";
 
-import { DateTime } from "luxon";
-
 import { useToggle } from "@hooks";
-
-// #region Custom Hooks
-function useDateModal(props) {
-
-    const [startDt, setStartDt] = useState();
-    const [endDt, setEndDt] = useState();
-
-    const addDt = () => {
-        const tStartDt = DateTime.fromISO(startDt).plus({ days: 1 }).toFormat("yyyy-MM-dd");
-        setStartDt(tStartDt);
-
-        const tEndDt = DateTime.fromISO(endDt).plus({ days: 1 }).toFormat("yyyy-MM-dd");
-        setEndDt(tEndDt);
-    }
-
-    const minusDt = () => {
-        const tStartDt = DateTime.fromISO(startDt).plus({ days: -1 }).toFormat("yyyy-MM-dd");
-        setStartDt(tStartDt);
-
-        const tEndDt = DateTime.fromISO(endDt).plus({ days: -1 }).toFormat("yyyy-MM-dd");
-        setEndDt(tEndDt);
-    }
-
-    return [startDt, setStartDt, endDt, setEndDt, addDt, minusDt];
-}
-// #endregion
 
 function Index(props) {
 

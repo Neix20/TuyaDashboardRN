@@ -4,14 +4,24 @@
 #### Major Tasks
 - [x] OneSignal Alert
 - [x] Down Time Report
-- [ ] Chart Options
 - [x] Date Range Modal
+- [ ] Report Template
+- [ ] Down Time Report
+
+#### Before 10 PM
+- [x] Profile
+- [ ] Rules Alert
+- [ ] Device Detail (MetaData)
+
+#### Chart Options
+- [ ] Fix View Shot
+  - [ ] Show / Hide Legend
+  - [ ] Download Report
+- [ ] Check Out SVG Library
 
 #### Minor Tasks
 - [x] Fix Line Chart
-- [ ] Update Rules Alert
-- [ ] Fix add Rules Alert
-- [ ] Check Server Maintenance
-- [ ] Check App Version
-- [ ] Report Template
-- [ ] DownTime Report
+- [x] Check Server Maintenance (Modal)
+- [x] Check App Version (Modal)
+- [x] OTP Timer
+- [x] Login / Auth Tuya

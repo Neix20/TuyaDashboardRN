@@ -13,9 +13,7 @@ import { iRData, clsConst, DowntimeData } from "@config";
 
 import { useChart, useToggle, useDate } from "@hooks";
 
-import { BcViewShot, BcLineChartFull, BcDateRange } from "@components";
-
-
+import { BcViewShot, BcLineChartFull, BcDateRange, BcAppUpdateModal, BcServerMainModal } from "@components";
 
 function TestChart(props) {
 
@@ -128,7 +126,7 @@ function DownTimeTable(props) {
     // )
 
     return (
-        <VStack>{data.slice(0,2).map(renderValues)}</VStack>
+        <VStack>{data.slice(0, 2).map(renderValues)}</VStack>
     )
 }
 
@@ -136,60 +134,97 @@ function Index(props) {
 
     const toast = useToast();
 
-    const dateObj = {
-        startDt: "2023-08-18",
-        endDt: "2023-08-19"
+    const init = {
+        dateObj: {
+            startDt: "2023-08-18",
+            endDt: "2023-08-19"
+        },
+        prevDateObj: {
+            startDt: "2023-07-18",
+            endDt: "2023-07-19"
+        }
     }
 
-    const dateHook = useDate(dateObj)
-    const [startDt, setStartDt, endDt, setEndDt, addDt, minusDt] = dateHook;
+    const dateHook = useDate(init.dateObj);
+
+    const startDt = dateHook[0];
+    const endDt = dateHook[2];
+
+    const prevHook = useDate(init.prevDateObj);
+
+    const pStartDt = prevHook[0];
+    const pEndDt = prevHook[2];
+
+    const flagHook = useToggle(false);
+    const [flag, setFlag, toggleFlag] = flagHook;
+
 
     useEffect(() => {
         Utility.OneSignalSubscribe(`txen2000@gmail.com`);
-    }, []);    
+    }, []);
 
     return (
-        <SafeAreaView style={{ flex: 1 }}>
-            <View style={{ flex: 1 }}>
+        <>
+            {/* <BcAppUpdateModal showModal={true} /> */}
+            {/* <BcServerMainModal showModal={true} /> */}
+            <SafeAreaView style={{ flex: 1 }}>
+                <View style={{ flex: 1 }}>
 
-                {/* Header */}
-                <View style={{ height: 80 }} />
+                    {/* Header */}
+                    <View style={{ height: 80 }} />
 
-                <View style={{ height: 10 }} />
+                    <View style={{ height: 10 }} />
 
-                {/* Body */}
-                <ScrollView showsVerticalScrollIndicator={false}
-                    contentContainerStyle={{ flexGrow: 1 }}>
-                    <View flexGrow={1}>
-                        <HStack
-                            flexWrap={"wrap"}
-                            rowGap={10}
-                            alignItems={"flex-start"}
-                            justifyContent={"space-between"}>
-                            <View px={3} style={{ width: width }}>
-                                <BcViewShot title={"Test"}>
-                                    <View bgColor={"#F00"} w={"100%"} height={100}>
-                                    </View>
-                                </BcViewShot>
+                    {/* Body */}
+                    <ScrollView showsVerticalScrollIndicator={false}
+                        contentContainerStyle={{ flexGrow: 1 }}>
+                        <VStack flexGrow={1} space={3}>
+                            <HStack
+                                flexWrap={"wrap"}
+                                rowGap={10}
+                                alignItems={"flex-start"}
+                                justifyContent={"space-between"}>
+                                <View px={3} style={{ width: width }}>
+                                    <BcViewShot title={"Test"}>
+                                        <View bgColor={"#F00"} w={"100%"} height={100}>
+                                        </View>
+                                    </BcViewShot>
+                                </View>
+                                <View px={3} style={{ maxWidth: width }}>
+                                    <BcViewShot title={"Device Downtime"}>
+                                        <DownTimeTable data={DowntimeData} />
+                                    </BcViewShot>
+                                </View>
+                            </HStack>
+
+                            <BcDateRange hook={dateHook}
+                                prevHook={prevHook}
+                                flagHook={flagHook} />
+
+                            <View>
+                                <Text>Start Date: {startDt}</Text>
+                                <Text>End Date: {endDt}</Text>
+
+                                {
+                                    (flag) ? (
+                                        <>
+                                            <Text>Start Date: {pStartDt}</Text>
+                                            <Text>End Date: {pEndDt}</Text>
+                                        </>
+                                    ) : (
+                                        <></>
+                                    )
+                                }
                             </View>
-                            <View px={3} style={{ maxWidth: width }}>
-                                <BcViewShot title={"Device Downtime"}>
-                                    <DownTimeTable data={DowntimeData} />
-                                </BcViewShot>
-                            </View>
-                        </HStack>
+                        </VStack>
+                    </ScrollView>
 
-                        <BcDateRange hook={dateHook} />
+                    {/* Footer */}
+                    <View style={{ height: 60 }} />
+                </View>
+            </SafeAreaView>
 
-                        <Text>{startDt}</Text>
-                        <Text>{endDt}</Text>
-                    </View>
-                </ScrollView>
-
-                {/* Footer */}
-                <View style={{ height: 60 }} />
-            </View>
-        </SafeAreaView>
+        </>
     )
 }
 

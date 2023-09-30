@@ -44,7 +44,7 @@ function Header(props) {
 }
 
 function Profile(props) {
-    const { Username = "Nickname" } = props;
+    const { Email = "Nickname" } = props;
     return (
         <TouchableOpacity {...props} style={{ width: "90%"}}>
             <HStack
@@ -54,11 +54,11 @@ function Profile(props) {
                 {/* Btn */}
                 <HStack space={5}>
                     <FontAwesome name={"user-o"} color={"#000"} size={48} />
-                    <View style={{ width: 100 }}>
+                    <View width={"70%"}>
                         <Text style={{
                             fontFamily: "Roboto-Bold",
                             fontSize: 18
-                        }}>{Username}</Text>
+                        }}>{Email}</Text>
                     </View>
                 </HStack>
 

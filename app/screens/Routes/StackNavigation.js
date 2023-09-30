@@ -201,7 +201,7 @@ function Index(props) {
     }, []);
 
     // const defaultScreen = (userId == -1) ? "Login" : "TabNavigation";
-    const defaultScreen = "Debug";
+    const defaultScreen = "TabNavigation";
 
     return (
         <BcStackNavigator

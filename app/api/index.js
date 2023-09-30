@@ -1,6 +1,7 @@
 import fetchDashboardInfo from "./fetchDashboardInfo";
 
 import fetchProfileInfo from "./fetchProfile";
+import fetchUpdateProfile from "./fetchUpdateProfile";
 
 import fetchRequestOtp from "./fetchRequestOtp";
 import fetchLogin from "./fetchLogin";
@@ -78,8 +79,12 @@ export {
     fetchRequestOtp,
     fetchLogin,
     fetchAuthTuyaCode,
-    fetchRegister,
+    fetchRegister
+}
+
+export {
     fetchProfileInfo,
+    fetchUpdateProfile
 }
 
 export {
