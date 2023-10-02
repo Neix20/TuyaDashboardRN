@@ -381,11 +381,17 @@ function Index(props) {
                                             )
                                         }
 
-                                        <View px={3} style={{ width: width }}>
-                                            <BcViewShot title="Device Report">
-                                                <DashboardReport data={DashboardReportData} />
-                                            </BcViewShot>
-                                        </View>
+                                        {
+                                            (Object.keys(DashboardReportData).length > 0) ? (
+                                                <View px={3} style={{ width: width }}>
+                                                    <BcViewShot title="Device Report">
+                                                        <DashboardReport data={DashboardReportData} />
+                                                    </BcViewShot>
+                                                </View>
+                                            ) : (
+                                                <></>
+                                            )
+                                        }
                                     </HStack>
                                 </View>
                             ) : (
