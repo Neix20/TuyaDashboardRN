@@ -281,4 +281,4 @@ function Index(props) {
     )
 }
 
-export default Index;
+export default TestChart;

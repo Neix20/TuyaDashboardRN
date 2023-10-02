@@ -50,12 +50,14 @@ function VSItem(props) {
 function VSModal(props) {
 
     // #region Props
+    const { setShowModal = () => {} } = props;
     const { functionLs = [] } = props;
     const { onDownload = () => { }, onShare = () => { }, onExpand = () => { } } = props;
     // #endregion
 
-    const ls = [
-        ...functionLs,
+    const closeModal = () => setShowModal(false);
+
+    const default_ls = [
         {
             Title: "Expand",
             onPress: onExpand,
@@ -76,12 +78,25 @@ function VSModal(props) {
         },
     ]
 
-    const renderItem = (item, index) => (<VSItem key={index} {...item} />);
+    const renderDefaultItem = (item, index) => (<VSItem key={index} {...item} />);
+    const renderItem = (item, index) => {
+        const { onPress = () => {} } = item;
+
+        const wrapper = () => {
+            onPress();
+            closeModal();
+        }
+        return (
+            <VSItem key={index} {...item} onPress={wrapper} />
+        )
+    }
+
 
     return (
         <BottomModal {...props} showCross={false}>
             <VStack space={3} width={"100%"}>
-                {ls.map(renderItem)}
+                {functionLs.map(renderItem)}
+                {default_ls.map(renderDefaultItem)}
             </VStack>
         </BottomModal>
     );
@@ -145,7 +160,8 @@ function Index(props) {
 
     return (
         <>
-            <VSModal showModal={showVsModal} setShowModal={setShowVsModal}
+            <VSModal showModal={showVsModal} 
+                setShowModal={setShowVsModal}
                 onShare={shareFunc} onDownload={dlFunc} 
                 onExpand={expandFunc} {...props}
             />
