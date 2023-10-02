@@ -69,6 +69,8 @@ import BcDateRangeModal from "./Modal/DateRange";
 import BcAppUpdateModal from "./Modal/AppUpdate";
 import BcServerMainModal from "./Modal/ServerMaintenance";
 
+import BcPhotoGalleryModal from "./Modal/PhotoGallery";
+
 export {
     BaseModal,
     BcGenderModal,
@@ -76,7 +78,8 @@ export {
     BcLogoutModal,
     BcDateRangeModal,
     BcAppUpdateModal,
-    BcServerMainModal
+    BcServerMainModal,
+    BcPhotoGalleryModal
 }
 
 import BcGradient from "./Gradient";

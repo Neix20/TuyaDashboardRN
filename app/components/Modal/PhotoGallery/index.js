@@ -72,16 +72,18 @@ function Index(props) {
         const { uri } = item;
         return (
             <TabView.Item key={index} style={{ width: "100%" }}>
-                <TouchableWithoutFeedback style={{ width: 400, height: 540 }}>
-                    <View justifyContent={"center"}>
-                        <Image
-                            source={uri}
-                            style={{
-                                width: "100%",
-                                height: "100%",
-                            }}
-                            resizeMode={"contain"}
-                            alt={uri + ""} />
+                <TouchableWithoutFeedback onPress={closeModal} style={{ flex: 1 }}>
+                    <View flexGrow={1} justifyContent={"center"}>
+                        <TouchableWithoutFeedback>
+                            <Image
+                                source={uri}
+                                style={{
+                                    width: "100%",
+                                    height: 540,
+                                }}
+                                resizeMode={"contain"}
+                                alt={uri + ""} />
+                        </TouchableWithoutFeedback>
                     </View>
                 </TouchableWithoutFeedback>
             </TabView.Item>
@@ -102,13 +104,20 @@ function Index(props) {
                 </TouchableOpacity>
             </View>
 
-            <View>
+            <View alignItems={"center"}
+                style={{
+                    position: "absolute",
+                    zIndex: 2,
+                    top: 80,
+                    left: 0,
+                    right: 0
+                }}>
                 <Text style={{
                     fontFamily: "Roboto-Bold",
                     fontSize: 24,
                     color: "#FFF"
                 }}>
-                    Test
+                    Tutorial
                 </Text>
             </View>
 

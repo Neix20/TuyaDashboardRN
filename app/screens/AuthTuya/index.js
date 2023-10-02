@@ -1,16 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { Text, TouchableOpacity, Image, TextInput, Dimensions, SafeAreaView, ImageBackground, ScrollView } from "react-native";
+import { Text, TouchableOpacity, Image, TextInput, SafeAreaView, ImageBackground, ScrollView } from "react-native";
 import { View, VStack, HStack, useToast } from "native-base";
 
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 import { useNavigation, useIsFocused } from "@react-navigation/native";
 
-const screen = Dimensions.get("screen");
-const { width, height } = screen;
-
 import { Logger, Utility } from "@utility";
 
-import { Animation } from "@config";
+import { Animation, Images } from "@config";
 
 import Lottie from "lottie-react-native";
 
@@ -21,9 +18,9 @@ import { fetchAuthTuyaCode, fetchRegister } from "@api";
 
 import Clipboard from '@react-native-clipboard/clipboard';
 
-import { useModalToast, useToggle } from "@hooks";
+import { useModalToast, useToggle, useTimer } from "@hooks";
 
-import { BaseModal } from "@components";
+import { BcPhotoGalleryModal } from "@components";
 
 function Loading(props) {
 
@@ -55,50 +52,99 @@ function Loading(props) {
     )
 }
 
-function TutorialModal(props) {
-    const [cusToast, showMsg] = useModalToast();
+function TutorialGuideBtn(props) {
+    const [showTGModal, setShowTGModal, toggleTGModal] = useToggle(false);
+
+    useEffect(() => {
+        const timeout = setTimeout(() => {
+            toggleTGModal();
+        }, 1000)
+        return () => clearTimeout(timeout);
+    }, [])
+
+    const images = [
+        { uri: Images.ScanQrI },
+        { uri: Images.ScanQrII },
+        { uri: Images.ScanQrIII },
+    ]
+
     return (
-        <BaseModal cusToast={cusToast} {...props}>
-            <VStack space={3}
-                alignItems={"center"}>
-                <View alignItems={"center"}>
-                    <Text style={{
-                        fontFamily: "Roboto-Bold",
-                        fontSize: 18,
-                        color: "#000"
-                    }}>Guide</Text>
-                </View>
-                <View>
-                    <Text style={{
-                        fontFamily: "Roboto-Medium",
-                        fontSize: 16,
-                        color: "#000"
-                    }}>1. Select the Top Right Corner Button to Link Devices</Text>
-                    <Text style={{
-                        fontFamily: "Roboto-Medium",
-                        fontSize: 16,
-                        color: "#000"
-                    }}>2. Enjoy your Personalized Dashboard!</Text>
-                </View>
-            </VStack>
-        </BaseModal>
+        <>
+            <BcPhotoGalleryModal showModal={showTGModal} setShowModal={setShowTGModal} images={images} />
+            <TouchableOpacity onPress={toggleTGModal}>
+                <VStack alignItems={"center"}>
+                    <View borderRadius={20}
+                        bgColor={"#000"}
+                        alignItems={"center"} justifyContent={"center"}
+                        style={{ width: 32, height: 32 }}>
+                        <FontAwesome5 name={"info"} size={16} color={"#FFF"} />
+                    </View>
+                    <Text>Guide</Text>
+                </VStack>
+            </TouchableOpacity>
+        </>
     )
 }
 
-function TutorialGuideBtn(props) {
-    const [showTGModal, setShowTGModal, toggleTGModal] = useToggle(true);
+function Disable(props) {
+    const { children, timer = 0 } = props;
     return (
-        <>
-            <TutorialModal showModal={showTGModal} setShowModal={setShowTGModal} />
-            <TouchableOpacity onPress={toggleTGModal}>
-                <View borderRadius={20}
-                    bgColor={"#d3d3d3"}
-                    alignItems={"center"} justifyContent={"center"}
-                    style={{ width: 32, height: 32 }}>
-                    <FontAwesome5 name={"info"} size={16} color={"#FFF"} />
-                </View>
-            </TouchableOpacity>
-        </>
+        <View>
+            {/* Front Layer */}
+            <View alignItems={"center"}
+                justifyContent={"center"}
+                borderRadius={12}
+                style={{
+                    position: "absolute",
+                    zIndex: 10,
+                    top: 0,
+                    bottom: 0,
+                    left: 0,
+                    right: 0,
+                }}
+                backgroundColor={"rgba(0, 0, 0, 0.5)"}>
+                <Text style={{
+                    fontFamily: "Roboto-Bold",
+                    fontSize: 24,
+                    color: "#FFF"
+                }}>
+                    {timer}
+                </Text>
+            </View>
+            <View>
+                {children}
+            </View>
+        </View>
+    )
+}
+
+function RefreshQrBtn(props) {
+    const { timer = 0, onPress = () => { } } = props;
+
+    const Item = () => (
+        <View backgroundColor={"#F00"} borderRadius={12}
+            alignItems={"center"} justifyContent={"center"}
+            style={{ height: 80, width: 120 }}>
+            <Text style={[{
+                fontSize: 24,
+                fontWeight: "bold",
+                color: "white",
+            }]}>Refresh</Text>
+        </View>
+    )
+
+    if (timer > 0) {
+        return (
+            <Disable {...props}>
+                <Item />
+            </Disable>
+        )
+    }
+
+    return (
+        <TouchableOpacity onPress={onPress}>
+            <Item />
+        </TouchableOpacity>
     )
 }
 
@@ -118,10 +164,13 @@ function Index(props) {
     const [loading, setLoading] = useState(false);
     const [refLink, setRefLink] = useState("");
     const [loadingTxt, setLoadingTxt] = useState("");
+    const [timer, setTimer] = useTimer(60);
     // #endregion
 
     // #region Api
     const authTuyaCode = () => {
+        setTimer(60);
+
         setLoading(true);
         setLoadingTxt("Generating Smart Home QR Code...");
         fetchAuthTuyaCode({
@@ -190,17 +239,17 @@ function Index(props) {
     return (
         <SafeAreaView style={{ flex: 1 }}>
             <View style={{ flex: 1 }}>
+                <View alignItems={"center"} justifyContent={"center"} style={{ height: 80 }}>
+                    <HStack width={"90%"} alignItems={"flex-end"} justifyContent={"flex-end"}>
+                        <TutorialGuideBtn />
+                    </HStack>
+                </View>
                 {
                     (loading) ? (
                         <Loading>{loadingTxt}</Loading>
                     ) : (
                         <>
-                            <View alignItems={"center"} justifyContent={"center"} style={{ height: 60 }}>
-                                <HStack width={"90%"} alignItems={"center"} justifyContent={"flex-end"}>
-                                    <TutorialGuideBtn />
-                                </HStack>
-                            </View>
-                            <View flexGrow={1} justifyContent={"center"}>
+                            <View flexGrow={1}>
                                 <VStack space={6} alignItems={"center"}>
                                     {/* Instruction */}
                                     <View width={"90%"}>
@@ -248,19 +297,21 @@ function Index(props) {
                                     </HStack>
 
                                     {/* Button To Register */}
-                                    <TouchableOpacity style={{ width: "50%" }} onPress={register}>
-                                        <View backgroundColor={"#2898FF"}
-                                            alignItems={"center"} justifyContent={"center"}
-                                            borderRadius={12}
-                                            style={{ height: 80 }}
-                                        >
-                                            <Text style={[{
-                                                fontSize: 24,
-                                                fontWeight: "bold",
-                                                color: "white",
-                                            }]}>Register</Text>
-                                        </View>
-                                    </TouchableOpacity>
+                                    <HStack space={5}
+                                        alignItems={"center"} justifyContent={"center"}>
+                                        <TouchableOpacity onPress={register}>
+                                            <View backgroundColor={"#2898FF"} borderRadius={12}
+                                                alignItems={"center"} justifyContent={"center"}
+                                                style={{ height: 80, width: 120 }}>
+                                                <Text style={[{
+                                                    fontSize: 24,
+                                                    fontWeight: "bold",
+                                                    color: "white",
+                                                }]}>Register</Text>
+                                            </View>
+                                        </TouchableOpacity>
+                                        <RefreshQrBtn onPress={authTuyaCode} timer={timer} />
+                                    </HStack>
                                 </VStack>
                             </View>
                         </>
