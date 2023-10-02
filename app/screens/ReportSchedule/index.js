@@ -190,7 +190,8 @@ function EmailModal(props) {
                             fontSize: 18,
                             color: "#000",
                             backgroundColor: "#e6e6e6",
-                            borderRadius: 12
+                            borderRadius: 12,
+                            paddingHorizontal: 10
                         }} />
                 </View>
                 <TouchableOpacity onPress={onSubmit}>
@@ -426,15 +427,6 @@ function Index(props) {
                                 {/* Email List */}
                                 <VStack space={3} alignItems={"center"}>
                                     {emailLs.map(renderEmail)}
-                                </VStack>
-                            </View>
-                            <View flex={1}>
-                                <DeviceTitle hook={deviceHook}
-                                    devices={deviceLs.filter(x => x.Status == 0)} />
-
-                                {/* Device List */}
-                                <VStack space={3} alignItems={"center"}>
-                                    {deviceLs.filter(x => x.Status == 1).map(renderDevice)}
                                 </VStack>
                             </View>
                         </View>

@@ -7,7 +7,8 @@ const initialState = {
     wifi: {
         ssid: null,
         password: null,
-    }
+    },
+    firstTimeLink: true,
 };
 
 function setReducer(state = initialState, action = {}) {
@@ -41,6 +42,11 @@ function setReducer(state = initialState, action = {}) {
             return {
                 ...state,
                 tuyaHomeId: action.tuyaHomeId,
+            };
+        case "SET_FIRST_TIME_LINK":
+            return {
+                ...state,
+                firstTimeLink: action.firstTimeLink,
             };
         default: {
             return {

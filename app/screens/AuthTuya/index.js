@@ -22,6 +22,8 @@ import { fetchAuthTuyaCode, fetchRegister } from "@api";
 import Clipboard from '@react-native-clipboard/clipboard';
 
 function Loading(props) {
+
+    const { children } = props;
     return (
         <View flexGrow={1}
             alignItems={"center"}
@@ -34,6 +36,12 @@ function Loading(props) {
                     width: 360,
                     height: 360
                 }} />
+
+            <Text style={{
+                fontFamily: "Roboto-Bold",
+                fontSize: 18,
+                textAlign: "center"
+            }}>{children}</Text>
         </View>
     )
 }
@@ -43,6 +51,8 @@ function Index(props) {
     const navigation = useNavigation();
     const isFocused = useIsFocused();
 
+    const dispatch = useDispatch();
+
     const userId = useSelector(Selectors.userIdSelect);
 
     const { Email } = props.route.params;
@@ -50,36 +60,41 @@ function Index(props) {
 
     // #region UseState
     const [loading, setLoading] = useState(false);
-    const [refLink, setRefLink] = useState("Hello d");
+    const [refLink, setRefLink] = useState("");
+    const [loadingTxt, setLoadingTxt] = useState("");
     // #endregion
 
     // #region Api
     const authTuyaCode = () => {
+        setLoading(true);
+        setLoadingTxt("Generating Smart Home QR Code...");
         fetchAuthTuyaCode({
             param: {
                 UserId: userId
             },
             onSetLoading: setLoading,
         })
-        .then(data => {
-            const { AuthCode, Flag } = data;
-            if (Flag) {
-                setRefLink(AuthCode);
-            } else {
-                toast.show({
-                    description: AuthCode
-                });
-                navigation.goBack();
-            }
-        })
-        .catch(err => {
-            setLoading(false);
-            console.log(`Error: ${err}`);
-        })
+            .then(data => {
+                const { AuthCode, Flag } = data;
+                if (Flag) {
+                    setRefLink(AuthCode);
+                } else {
+                    toast.show({
+                        description: AuthCode
+                    });
+                    navigation.goBack();
+                }
+            })
+            .catch(err => {
+                setLoading(false);
+                console.log(`Error: ${err}`);
+            })
     }
 
     const register = () => {
         setLoading(true);
+        setLoadingTxt("Syncing Data With Smart Life App...");
+
         fetchRegister({
             param: {
                 UserId: userId,
@@ -87,13 +102,13 @@ function Index(props) {
             },
             onSetLoading: setLoading,
         })
-        .then(data => {
-            GoToHome();
-        })
-        .catch(err => {
-            setLoading(false);
-            console.log(`Error: ${err}`);
-        })
+            .then(data => {
+                GoToHome();
+            })
+            .catch(err => {
+                setLoading(false);
+                console.log(`Error: ${err}`);
+            })
     }
     // #endregion
 
@@ -112,8 +127,9 @@ function Index(props) {
     }
 
     const GoToHome = () => {
+        dispatch(Actions.onChangeFirstTimeLink(true));
         navigation.navigate("TabNavigation", {
-            screen: "Dashboard",
+            screen: "Device",
         });
     }
 
@@ -122,7 +138,7 @@ function Index(props) {
             <View style={{ flex: 1 }}>
                 {
                     (loading) ? (
-                        <Loading />
+                        <Loading>{loadingTxt}</Loading>
                     ) : (
                         <View flexGrow={1}
                             justifyContent={"center"}>

@@ -40,6 +40,13 @@ const onChangeRoomId = (roomId) => {
     }
 };
 
+const onChangeFirstTimeLink = (firstTimeLink) => {
+    return {
+        type: "SET_FIRST_TIME_LINK",
+        firstTimeLink: firstTimeLink,
+    }
+};
+
 export {
     onChangeDefaultValue,
     onChangeUserId,
@@ -47,4 +54,5 @@ export {
     onChangeRoomId,
     onChangeWifi,
     onChangeTuyaHomeId,
+    onChangeFirstTimeLink
 }

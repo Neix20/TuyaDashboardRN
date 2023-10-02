@@ -92,11 +92,13 @@ export {
 }
 
 import BcLineChart from "./LineChart";
+import BcLineLegend from "./LineChart/Legend";
 import BcLineChartFull from "./LineChart/full";
 
 export {
     BcLineChart,
-    BcLineChartFull
+    BcLineChartFull,
+    BcLineLegend,
 }
 
 import BcYatuHome from "./YatuHome";

@@ -297,6 +297,30 @@ function Index(props) {
     }
     // #endregion
 
+    const legendHook = useToggle(false);
+    const [showLegend, setShowLegend, toggleShowLegend] = legendHook;
+
+    const funcLs = [
+        {
+            Title: showLegend ? "Hide Legend" : "Show Legend",
+            onPress: toggleShowLegend,
+            Icon: FontAwesome5,
+            IconName: showLegend ? "eye-slash" : "eye"
+        }
+    ]
+    
+    const prevLegendHook = useToggle(false);
+    const [showPrevLegend, setShowPrevLegend, toggleShowPrevLegend] = prevLegendHook;
+
+    const prevFuncLs = [
+        {
+            Title: showPrevLegend ? "Hide Legend" : "Show Legend",
+            onPress: toggleShowPrevLegend,
+            Icon: FontAwesome5,
+            IconName: showPrevLegend ? "eye-slash" : "eye"
+        }
+    ]
+
     return (
         <>
             <BcLoading loading={loading} />
@@ -326,8 +350,8 @@ function Index(props) {
                                     
                                     (Object.keys(chart).length > 0) ? (
                                         <View px={3} style={{ width: width}}>
-                                            <BcViewShot title="Daily Device Report">
-                                                <BcLineChartFull labels={labels} hook={chartHook} />
+                                            <BcViewShot title="Daily Device Report" functionLs={funcLs}>
+                                                <BcLineChartFull labels={labels} hook={chartHook} legendHook={legendHook} />
                                             </BcViewShot>
                                         </View>
                                     ) : (
@@ -338,8 +362,8 @@ function Index(props) {
                                 {
                                     (compare && Object.keys(prevChart).length > 0) ? (
                                         <View px={3} style={{ width: width}}>
-                                            <BcViewShot title="Comparison">
-                                            <BcLineChartFull labels={prevLabels} hook={prevChartHook} />
+                                            <BcViewShot title="Comparison" functionLs={prevFuncLs}>
+                                                <BcLineChartFull labels={prevLabels} hook={prevChartHook} legendHook={prevLegendHook} />
                                             </BcViewShot>
                                         </View>
                                     ) : (

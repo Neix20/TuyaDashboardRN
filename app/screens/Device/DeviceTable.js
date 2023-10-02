@@ -15,9 +15,7 @@ import { BcHeader, BcLoading, BcDateRange } from "@components";
 
 import { fetchDeviceDataChart } from "@api";
 
-import { useToggle } from "@hooks";
-
-import { DCHAhux } from "@config";
+import { useToggle, useDate } from "@hooks";
 
 import { DateTime } from "luxon";
 
@@ -117,9 +115,20 @@ function Index(props) {
     const navigation = useNavigation();
     const isFocused = useIsFocused();
 
+    // #region Initial
+    const dt = DateTime.now();
+
     const init = {
-        dt: DateTime.now().minus({days: 1}).toFormat("yyyy-MM-dd"),
+        dateObj: {
+            startDt: dt.toFormat("yyyy-MM-dd"),
+            endDt: dt.toFormat("yyyy-MM-dd")
+        },
+        cmpDateObj: {
+            startDt: dt.plus({months: -1}).toFormat("yyyy-MM-dd"),
+            endDt: dt.plus({months: -1}).toFormat("yyyy-MM-dd")
+        }
     }
+    // #endregion
 
     const userId = useSelector(Selectors.userIdSelect);
 
@@ -127,8 +136,10 @@ function Index(props) {
     const [loading, setLoading, toggleLoading] = useToggle(false);
     const [data, setData] = useState([]);
 
-    const [startDt, setStartDt] = useState(init.dt);
-    const [endDt, setEndDt] = useState(init.dt);
+    const dateHook = useDate(init.dateObj);
+    const [startDt, setStartDt, endDt, setEndDt] = dateHook.slice(0, 4);
+
+    const prevDateHook = useDate(init.cmpDateObj);
     // #endregion
 
     const { Id: deviceId } = props.route.params;
@@ -168,10 +179,8 @@ function Index(props) {
 
                     <View style={{ height: 10 }} />
 
-                    <BcDateRange
-                        startDt={startDt} setStartDt={setStartDt}
-                        endDt={endDt} setEndDt={setEndDt}
-                    />
+                    <BcDateRange showCompare={false} 
+                        hook={dateHook} prevHook={prevDateHook} />
 
                     <View style={{ height: 10 }} />
 

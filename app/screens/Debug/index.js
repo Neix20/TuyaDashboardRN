@@ -13,18 +13,39 @@ import { iRData, clsConst, DowntimeData } from "@config";
 
 import { useChart, useToggle, useDate } from "@hooks";
 
-import { BcViewShot, BcLineChartFull, BcDateRange, BcAppUpdateModal, BcServerMainModal } from "@components";
+import { BcViewShot, BcLineChartFull, BcDateRange, BcLineChart, BcLineLegend } from "@components";
 
 function TestChart(props) {
 
-    const chartHook = useChart("absolute_humidity");
-    const setChart = chartHook[1];
+    const chartHook = useChart("Absolute Humidity");
+    const [chart, setChart, chartKey, setChartKey, chartData, setChartData, chartLegend, setChartLegend, chartKeyOption, setChartKeyOption] = chartHook;
+
+    const legendHook = useToggle(false);
+    const [showLegend, setShowLegend, toggleShowLegend] = legendHook;
+    
+    const labels = Utility.genLabel("2023-09-28", "2023-09-29", 5);
 
     useEffect(() => {
         setChart(iRData);
     }, []);
 
-    const labels = Utility.genLabel("2023-09-28", "2023-09-29", 5);
+    const updateLegend = (pos) => {
+        let arr = [...chartLegend];
+
+        const { flag } = arr[pos];
+        arr[pos].flag = !flag;
+
+        setChartLegend(arr);
+    };
+
+    const funcLs = [
+        {
+            Title: showLegend ? "Hide Legend" : "Show Legend",
+            onPress: toggleShowLegend,
+            Icon: FontAwesome5,
+            IconName: showLegend ? "eye-slash" : "eye"
+        }
+    ] 
 
     return (
         <SafeAreaView style={{ flex: 1 }}>
@@ -39,10 +60,17 @@ function TestChart(props) {
                 <ScrollView showsVerticalScrollIndicator={false}
                     contentContainerStyle={{ flexGrow: 1 }}>
                     <View flexGrow={1} justifyContent={"center"}>
-
                         <View px={3}>
-                            <BcViewShot title={"Daily Device Report"}>
-                                <BcLineChartFull hook={chartHook} labels={labels} />
+                            <BcViewShot title={"Daily Device Report"} functionLs={funcLs}>
+                                {/* <BcLineChart key={chartKey} labels={labels} {...chartData} />
+                                {
+                                    (showLegend) ? (
+                                        <BcLineLegend legend={chartLegend} onUpdateLegend={updateLegend} />
+                                    ) : (
+                                        <></>
+                                    )
+                                } */}
+                                <BcLineChartFull hook={chartHook} legendHook={legendHook} labels={labels} />
                             </BcViewShot>
                         </View>
                     </View>
@@ -158,15 +186,8 @@ function Index(props) {
     const flagHook = useToggle(false);
     const [flag, setFlag, toggleFlag] = flagHook;
 
-
-    useEffect(() => {
-        Utility.OneSignalSubscribe(`txen2000@gmail.com`);
-    }, []);
-
     return (
         <>
-            {/* <BcAppUpdateModal showModal={true} /> */}
-            {/* <BcServerMainModal showModal={true} /> */}
             <SafeAreaView style={{ flex: 1 }}>
                 <View style={{ flex: 1 }}>
 
@@ -186,20 +207,19 @@ function Index(props) {
                                 justifyContent={"space-between"}>
                                 <View px={3} style={{ width: width }}>
                                     <BcViewShot title={"Test"}>
-                                        <View bgColor={"#F00"} w={"100%"} height={100}>
-                                        </View>
+
                                     </BcViewShot>
                                 </View>
-                                <View px={3} style={{ maxWidth: width }}>
+                                <View px={3} style={{ width: width }}>
                                     <BcViewShot title={"Device Downtime"}>
                                         <DownTimeTable data={DowntimeData} />
                                     </BcViewShot>
                                 </View>
                             </HStack>
 
-                            <BcDateRange hook={dateHook}
-                                prevHook={prevHook}
-                                flagHook={flagHook} />
+                            <BcDateRange flagHook={flagHook} showCompare={false}
+                                hook={dateHook} prevHook={prevHook}
+                            />
 
                             <View>
                                 <Text>Start Date: {startDt}</Text>

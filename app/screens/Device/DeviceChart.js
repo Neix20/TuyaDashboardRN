@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Text, TouchableOpacity, Image, TextInput, Dimensions, SafeAreaView, ImageBackground, ScrollView } from "react-native";
 import { View, VStack, HStack, useToast } from "native-base";
 
-import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
+import FontAwesome from "react-native-vector-icons/FontAwesome";
 import { useNavigation, useIsFocused } from "@react-navigation/native";
 
 const screen = Dimensions.get("screen");
@@ -12,13 +12,11 @@ import { Logger, Utility } from "@utility";
 
 import { DateTime } from "luxon";
 
-import { DCHAhux } from "@config";
-
 import { BcLoading, BcHeader, BcDateRange, BcLineChart } from "@components";
 
 import { Tab, TabView } from "@rneui/themed";
 
-import { useToggle } from "@hooks";
+import { useToggle, useDate } from "@hooks";
 
 import { fetchDeviceDataChart } from "@api";
 
@@ -86,6 +84,51 @@ function useChart() {
     return [chart, setChart, chartData, setChartData];
 }
 
+function EmptyList(props) {
+    return (
+        <View justifyContent={"center"} alignItems={"center"} style={{ height: 400 }}>
+            <VStack space={2} width={"90%"} alignItems={"center"}>
+                <FontAwesome name={"plug"} color={"#e6e6e6"} size={80} />
+                <Text style={{
+                    fontSize: 18,
+                    color: "#d3d3d3",
+                    fontFamily: 'Roboto-Medium',
+                    fontWeight: "700"
+                }}>Empty List</Text>
+            </VStack>
+        </View>
+    )
+}
+
+function DataChart(props) {
+    const { label = [], dataset = [] } = props;
+    const { tabPaneInd, setTabPaneInd} = props;
+
+    if (dataset.length == 0) {
+        return (
+            <View bgColor={"#FFF"}>
+                <EmptyList />
+            </View>
+        )
+    }
+
+    const renderTabViewItem = (item, ind) => {
+        return (
+            <TabView.Item key={ind} style={{ width: "100%" }}>
+                <View px={3} pt={3} bgColor={"#FFF"}>
+                    <BcLineChart labels={label} {...item} />
+                </View>
+            </TabView.Item>
+        )
+    }
+
+    return (
+        <TabView value={tabPaneInd} onChange={(e) => setTabPaneInd(e)}>
+            {dataset.map(renderTabViewItem)}
+        </TabView>
+    )
+}
+
 function Index(props) {
 
     const toast = useToast();
@@ -93,17 +136,29 @@ function Index(props) {
     const isFocused = useIsFocused();
 
     // #region Initial
+    const dt = DateTime.now();
+
     const init = {
         activeColor: "#2898FF",
         inActiveColor: "#000",
-        dt: DateTime.now().minus({days: 1}).toFormat("yyyy-MM-dd"),
+        dateObj: {
+            startDt: dt.toFormat("yyyy-MM-dd"),
+            endDt: dt.toFormat("yyyy-MM-dd")
+        },
+        cmpDateObj: {
+            startDt: dt.plus({ months: -1 }).toFormat("yyyy-MM-dd"),
+            endDt: dt.plus({ months: -1 }).toFormat("yyyy-MM-dd")
+        }
     }
     // #endregion
 
     // #region UseState
     const [loading, setLoading, toggleLoading] = useToggle(false);
-    const [startDt, setStartDt] = useState(init.dt);
-    const [endDt, setEndDt] = useState(init.dt);
+
+    const dateHook = useDate(init.dateObj);
+    const [startDt, setStartDt, endDt, setEndDt] = dateHook.slice(0, 4);
+
+    const prevDateHook = useDate(init.cmpDateObj);
 
     const [tabPaneInd, setTabPaneInd] = useState(0);
 
@@ -130,14 +185,14 @@ function Index(props) {
                 },
                 onSetLoading: setLoading,
             })
-            .then(data => {
-                setChart(data)
-                // console.log(data);
-            })
-            .catch(err => {
-                setLoading(false);
-                console.log(`Error: ${err}`)
-            })
+                .then(data => {
+                    setChart(data)
+                    // console.log(data);
+                })
+                .catch(err => {
+                    setLoading(false);
+                    console.log(`Error: ${err}`)
+                })
 
             let label = Utility.genLabel(startDt, endDt);
             setLabel(label);
@@ -147,24 +202,16 @@ function Index(props) {
     const attr = Object.keys(chartData);
     const dataset = Object.values(chartData);
 
+    // #region Render
     const renderTabItem = (item, ind) => {
         return (
             <Tab.Item key={ind}
-                title={item} 
+                title={item}
                 titleStyle={{ color: "#000", fontSize: 14 }}
                 buttonStyle={{ paddingVertical: 0, height: 60 }} />
         )
     }
-
-    const renderTabViewItem = (item, ind) => {
-        return (
-            <TabView.Item key={ind} style={{ width: "100%" }}>
-                <View px={3} bgColor={"#FFF"}>
-                    <BcLineChart labels={label} {...item} />
-                </View>
-            </TabView.Item>
-        )
-    }
+    // #endregion
 
     return (
         <>
@@ -177,10 +224,8 @@ function Index(props) {
 
                     <View style={{ height: 10 }} />
 
-                    <BcDateRange
-                        startDt={startDt} setStartDt={setStartDt}
-                        endDt={endDt} setEndDt={setEndDt}
-                    />
+                    <BcDateRange showCompare={false}
+                        hook={dateHook} prevHook={prevDateHook} />
 
                     <View style={{ height: 10 }} />
 
@@ -199,20 +244,15 @@ function Index(props) {
                         </Tab>
                     </View>
 
-                    <View flexGrow={1}>
-                        <TabView value={tabPaneInd} onChange={(e) => setTabPaneInd(e)}>
-                            {
-                                dataset.map(renderTabViewItem)
-                            }
-                        </TabView>
-                    </View>
-
                     {/* Body */}
-                    {/* <ScrollView showsVerticalScrollIndicator={false}
+                    <ScrollView showsVerticalScrollIndicator={false}
                         contentContainerStyle={{ flexGrow: 1 }}>
-                        <View flexGrow={1} bgColor={"#FFF"}>
+                        <View flexGrow={1}>
+                            <DataChart 
+                                tabPaneInd={tabPaneInd} setTabPaneInd={setTabPaneInd}
+                                label={label} dataset={dataset} />
                         </View>
-                    </ScrollView> */}
+                    </ScrollView>
                 </View>
             </SafeAreaView>
         </>

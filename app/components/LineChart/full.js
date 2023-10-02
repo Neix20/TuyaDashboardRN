@@ -10,65 +10,7 @@ import { BcViewShot, BaseModal, BcLineChart } from "@components";
 import { useToggle, useModalToast } from "@hooks";
 import { CheckBox } from "@rneui/base";
 
-function CheckBoxLegend(props) {
-    const { name, flag, color } = props;
-    const { onPress = () => { } } = props;
-    return (
-        <CheckBox
-            title={name}
-            titleProps={{
-                fontFamily: "Roboto-Medium",
-                fontSize: 16,
-                color: color,
-            }}
-            containerStyle={{
-                flex: 1,
-                minWidth: 100,
-                paddingHorizontal: 5,
-                paddingVertical: 0,
-            }}
-            iconType={"material-community"}
-            checkedIcon={"checkbox-marked"}
-            uncheckedIcon={"checkbox-blank-outline"}
-            checked={flag}
-            onPress={onPress}
-            checkedColor={color} />
-    )
-}
-
-function Legend(props) {
-    const { legend = [], onUpdateLegend = () => { } } = props;
-
-    const renderItem = (obj, ind) => {
-        const onSelect = () => onUpdateLegend(ind);
-        return (
-            <CheckBoxLegend key={ind} onPress={onSelect} {...obj} />
-        )
-    }
-
-    if (legend.length <= 0) {
-        return (<></>)
-    }
-
-    return (
-        <VStack alignItems={"center"} space={1}>
-            <View width={"90%"}>
-                <Text style={{
-                    fontFamily: "Roboto-Bold",
-                    fontSize: 16,
-                }}>Legend</Text>
-            </View>
-            <View
-                borderWidth={1} borderRadius={0}
-                borderColor={"#000"}
-                width={"90%"}>
-                <HStack flexWrap={"wrap"}>
-                    {legend.map(renderItem)}
-                </HStack>
-            </View>
-        </VStack>
-    );
-}
+import Legend from "./Legend";
 
 function DataAttributeModal(props) {
 
@@ -152,11 +94,11 @@ function DataAttributeModal(props) {
 
 function Index(props) {
 
-    const { labels = [], hook = [] } = props;
+    const { labels = [], hook = [], legendHook = [] } = props;
 
-    const [ chart, setChart, chartKey, setChartKey, chartData, setChartData, chartLegend, setChartLegend, chartKeyOption, setChartKeyOption ] = hook;
+    const [chart, setChart, chartKey, setChartKey, chartData, setChartData, chartLegend, setChartLegend, chartKeyOption, setChartKeyOption] = hook;
+    const showLegend = legendHook[0];
 
-    const [showLegend, setShowLegend, toggleLegend] = useToggle(false);
     const [showDaModal, setShowDaModal, toggleDaModal] = useToggle(false);
 
     const updateLegend = (pos) => {
@@ -175,8 +117,8 @@ function Index(props) {
                 showModal={showDaModal} setShowModal={setShowDaModal}
                 chartKey={chartKey} setChartKey={setChartKey}
             />
-            <HStack alignItems={"center"}>
-                <TouchableOpacity onPress={toggleDaModal} style={{ flex: 1 }}>
+            <VStack>
+                <TouchableOpacity onPress={toggleDaModal}>
                     <VStack px={3} borderWidth={1} justifyContent={"space-between"} style={{ height: 44 }}>
                         <View>
                             <Text style={{
@@ -192,46 +134,15 @@ function Index(props) {
                         </View>
                     </VStack>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={toggleLegend} style={{ flex: 1 }}>
-                    <VStack px={3} borderWidth={1} justifyContent={"space-between"} style={{ height: 44 }}>
-                        <View>
-                            <Text style={{
-                                fontFamily: "Roboto-Bold",
-                                fontSize: 16
-                            }}>Legend</Text>
-                        </View>
-                        <View alignItems={"flex-end"}>
-                            {
-                                (showLegend) ? (
-                                    <HStack alignItems={"center"} space={2}>
-                                        <FontAwesome5 name={"eye-slash"} size={14} />
-                                        <Text style={{
-                                            fontFamily: "Roboto-Medium",
-                                            fontSize: 14
-                                        }}>Hide Legend</Text>
-                                    </HStack>
-                                ) : (
-                                    <HStack alignItems={"center"} space={2}>
-                                        <FontAwesome5 name={"eye"} size={14} />
-                                        <Text style={{
-                                            fontFamily: "Roboto-Medium",
-                                            fontSize: 14
-                                        }}>Show Legend</Text>
-                                    </HStack>
-                                )
-                            }
-                        </View>
-                    </VStack>
-                </TouchableOpacity>
-            </HStack>
-            <BcLineChart key={chartKey} labels={labels} {...chartData} />
-            {
-                (showLegend) ? (
-                    <Legend legend={chartLegend} onUpdateLegend={updateLegend} />
-                ) : (
-                    <></>
-                )
-            }
+                <BcLineChart key={chartKey} labels={labels} {...chartData} />
+                {
+                    (showLegend) ? (
+                        <Legend legend={chartLegend} onUpdateLegend={updateLegend} />
+                    ) : (
+                        <></>
+                    )
+                }
+            </VStack>
         </>
     )
 }

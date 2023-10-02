@@ -41,6 +41,7 @@ import fetchAddReportSchedule from "./fetchAddReportSchedule";
 import fetchGetRulesListing from "./fetchGetRulesListing";
 import fetchAddDeviceRules from "./fetchAddDeviceRules";
 import fetchDeleteDeviceRules from "./fetchDeleteDeviceRules";
+import fetchUpdateDeviceRules from "./fetchUpdateDeviceRules";
 
 export {
     fetchHomeList,
@@ -101,5 +102,6 @@ export {
 export {
     fetchGetRulesListing,
     fetchAddDeviceRules,
-    fetchDeleteDeviceRules
+    fetchDeleteDeviceRules,
+    fetchUpdateDeviceRules
 }

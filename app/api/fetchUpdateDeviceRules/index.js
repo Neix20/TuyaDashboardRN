@@ -5,7 +5,7 @@ const Index = async (props) => {
     const { param } = props;
     const { onSetLoading } = props;
 
-    const action = "GetDeviceDataChart";
+    const action = "UpdateDeviceRules";
     const url = Utility.genServerUrl(action);
 
     // Static Data
@@ -23,20 +23,14 @@ const Index = async (props) => {
     onSetLoading(false);
 
     if (data["ResponseCode"] === "00") {
-        const { Data = [] } = data;
-
-        if (Data === "[]") {
-            return [];
-        }
-        
-        return Data;
+        // return data;
     }
     else {
-        console.log(`GetDeviceDataChart - Request - ${JSON.stringify(obj)}`);
-        console.log(`GetDeviceDataChart - Response - ${JSON.stringify(data)}`);
+        console.log(`UpdateDeviceRules - Request - ${JSON.stringify(obj)}`);
+        console.log(`UpdateDeviceRules - Response - ${JSON.stringify(data)}`);
     }
 
-    return [];
+    return data;
 };
 
 export default Index;

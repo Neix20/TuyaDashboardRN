@@ -69,12 +69,6 @@ function Header(props) {
                         color: "#000",
                     }}>{children}</Text>
                 </View>
-                <TouchableOpacity>
-                    <Text style={{
-                        fontSize: 20,
-                        color: "#2898FF"
-                    }}>Save</Text>
-                </TouchableOpacity>
             </View>
         </BcBoxShadow>
     )
@@ -145,7 +139,7 @@ function InfoItem(props) {
 
 function InfoPanel(props) {
 
-    const { Title, Tuya_Id, Ip_Addr, Mac_Addr, Timezone } = props;
+    const { Title, Tuya_Id, Ip_Addr, Timezone } = props;
 
     return (
         <BcBoxShadow>
@@ -154,7 +148,6 @@ function InfoPanel(props) {
                 <InfoItem Title={"Name"} Value={Title} />
                 <InfoItem Title={"Device Id"} Value={Tuya_Id} />
                 <InfoItem Title={"Ip Address"} Value={Ip_Addr} />
-                <InfoItem Title={"Mac Address"} Value={Mac_Addr} />
                 <InfoItem Title={"Timezone"} Value={Timezone} />
             </View>
         </BcBoxShadow>
@@ -218,9 +211,6 @@ function Index(props) {
                             <InfoPanel {...deviceInfo} />
                         </VStack>
                     </ScrollView>
-
-                    {/* Footer */}
-                    <View style={{ height: 60 }} />
                 </View>
             </SafeAreaView>
         </>

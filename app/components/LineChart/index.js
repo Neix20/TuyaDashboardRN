@@ -42,7 +42,7 @@ function Index(props) {
                     fontSize: 10,
                 }}
             />
-            <VStack width={"100%"}>
+            <VStack width={"100%"} space={2}>
                 <LineChartSvg
                     data={dataset}
                     style={{ height: 300, width: "90%" }}

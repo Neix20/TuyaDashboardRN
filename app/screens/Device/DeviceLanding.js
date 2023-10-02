@@ -184,11 +184,11 @@ function Index(props) {
     }, [deviceId]);
 
     // #region Navigation
-    const GoToInfo = () => navigation.navigate("DeviceInfo", item);
-    const GoToAlert = () => navigation.navigate("DeviceAlert", item);
-    const GoToChart = () => navigation.navigate("DeviceChart", item);
-    const GoToTable = () => navigation.navigate("DeviceTable", item);
-    const GoToRules = () => navigation.navigate("DeviceRulesInfo", item);
+    const GoToInfo = () => navigation.navigate("DeviceInfo", deviceInfo);
+    const GoToAlert = () => navigation.navigate("DeviceAlert", deviceInfo);
+    const GoToChart = () => navigation.navigate("DeviceChart", deviceInfo);
+    const GoToTable = () => navigation.navigate("DeviceTable", deviceInfo);
+    const GoToRules = () => navigation.navigate("DeviceRulesInfo", deviceInfo);
 
     // #endregion
 
@@ -223,14 +223,14 @@ function Index(props) {
 
                         {/* Body */}
                         <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{ flexGrow: 1 }}>
-                            <VStack flexGrow={1} alignItems={"center"}>
-                                <View flex={.3} width={"90%"}
+                            <VStack flexGrow={1} alignItems={"center"} space={3}>
+                                <View flex={.35} width={"90%"}
                                     alignItems={"center"}
                                     justifyContent={"flex-end"}>
                                     <DeviceDataPanel {...deviceInfo} />
                                 </View>
                                 <VStack
-                                    flex={.7} space={5} width={"100%"} alignItems={"center"}>
+                                    flex={.65} space={5} width={"100%"} alignItems={"center"}>
                                     <ItemPanel Icon={FontAwesome5} name={"info-circle"} onPress={GoToInfo}>Device Info</ItemPanel>
                                     <ItemPanel Icon={FontAwesome5} name={"clipboard-list"} onPress={GoToRules}>Device Rules</ItemPanel>
                                     {/* <ItemPanel Icon={FontAwesome5} name={"bell"} onPress={GoToAlert}>Device Alert</ItemPanel> */}

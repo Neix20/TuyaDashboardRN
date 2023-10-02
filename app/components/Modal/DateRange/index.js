@@ -107,7 +107,7 @@ function DateView(props) {
     const { data, setData = () => { } } = props;
     const { prevData, setPrevData = () => { } } = props;
 
-    const { hook = [], prevHook = [], flagHook = [] } = props;
+    const { hook = [], prevHook = [], flagHook = [], showCompare } = props;
     const [startDt, setStartDt, endDt, setEndDt] = hook.slice(0, 4);
     const [pStartDt, setPStartDt, pEndDt, setPEndDt] = prevHook.slice(0, 4);
 
@@ -177,16 +177,22 @@ function DateView(props) {
             <VStack space={2}>
                 <FlatList data={data} renderItem={renderCurDt} />
 
-                <View alignItems={"center"}>
-                    <HStack alignItems={"center"} justifyContent={"space-between"} width={"90%"}>
-                        <Text style={{
-                            fontFamily: "Roboto-Bold",
-                            fontSize: 18,
-                            color: "#000"
-                        }}>Compare</Text>
-                        <Switch value={compare} onValueChange={toggleCompare} />
-                    </HStack>
-                </View>
+                {
+                    (showCompare) ? (
+                        <View alignItems={"center"}>
+                            <HStack alignItems={"center"} justifyContent={"space-between"} width={"90%"}>
+                                <Text style={{
+                                    fontFamily: "Roboto-Bold",
+                                    fontSize: 18,
+                                    color: "#000"
+                                }}>Compare</Text>
+                                <Switch value={compare} onValueChange={toggleCompare} />
+                            </HStack>
+                        </View>
+                    ) : (
+                        <></>
+                    )
+                }
 
                 {
                     (compare) ? (
@@ -203,7 +209,7 @@ function DateView(props) {
 function CalendarView(props) {
 
     // #region Props
-    const { data = [], setData = () => { }, flagHook = [] } = props;
+    const { data = [], setData = () => { }, flagHook = [], showCompare } = props;
     const { prevData = [], setPrevData = () => { } } = props;
     const { toggleCSDt, toggleCEDt } = props;
     const { togglePSDt, togglePEDt } = props;
@@ -221,16 +227,22 @@ function CalendarView(props) {
                     <Divider my={2} width={"90%"} />
                 </View>
 
-                <View alignItems={"center"}>
-                    <HStack alignItems={"center"} justifyContent={"space-between"} width={"90%"}>
-                        <Text style={{
-                            fontFamily: "Roboto-Bold",
-                            fontSize: 18,
-                            color: "#000"
-                        }}>Compare</Text>
-                        <Switch value={compare} onValueChange={toggleCompare} />
-                    </HStack>
-                </View>
+                {
+                    (showCompare) ? (
+                        <View alignItems={"center"}>
+                            <HStack alignItems={"center"} justifyContent={"space-between"} width={"90%"}>
+                                <Text style={{
+                                    fontFamily: "Roboto-Bold",
+                                    fontSize: 18,
+                                    color: "#000"
+                                }}>Compare</Text>
+                                <Switch value={compare} onValueChange={toggleCompare} />
+                            </HStack>
+                        </View>
+                    ) : (
+                        <></>
+                    )
+                }
 
                 {
                     (compare) ? (
@@ -312,7 +324,7 @@ function Index(props) {
     }
 
     // #region Props
-    const { showModal, setShowModal, hook = [], flagHook = [], prevHook = [] } = props;
+    const { showModal, setShowModal, hook = [], flagHook = [], prevHook = [], showCompare = true } = props;
     const [startDt, setStartDt, endDt, setEndDt] = hook.slice(0, 4);
     const [pStartDt, setPStartDt, pEndDt, setPEndDt] = prevHook.slice(0, 4);
     // #endregion
@@ -492,20 +504,19 @@ function Index(props) {
                 <TabView
                     value={datePaneInd}
                     onChange={(e) => setDatePaneInd(e)}>
-                    <DateView flagHook={flagHook}
+                    <DateView flagHook={flagHook} showCompare={showCompare}
                         hook={dateHook} prevHook={prevDateHook}
                         data={dateRange["Day"]} setData={updateDayRange}
                         prevData={prevDateRange["Day"]} setPrevData={updatePrevDayRange} />
-                    <DateView flagHook={flagHook}
+                    <DateView flagHook={flagHook} showCompare={showCompare}
                         hook={dateHook} prevHook={prevDateHook}
                         data={dateRange["Week"]} setData={updateWeekRange}
                         prevData={prevDateRange["Week"]} setPrevData={updatePrevWeekRange} />
-                    <DateView flagHook={flagHook}
+                    <DateView flagHook={flagHook} showCompare={showCompare}
                         hook={dateHook} prevHook={prevDateHook}
                         data={dateRange["Month"]} setData={updateMonthRange}
                         prevData={prevDateRange["Month"]} setPrevData={updatePrevMonthRange} />
-                    <CalendarView
-                        flagHook={flagHook}
+                    <CalendarView flagHook={flagHook} showCompare={showCompare}
                         data={dateRange["Custom"]} setData={updateCustomRange}
                         prevData={prevDateRange["Custom"]} setPrevData={updatePrevCustomRange}
                         toggleCSDt={toggleCSDt} toggleCEDt={toggleCEDt}

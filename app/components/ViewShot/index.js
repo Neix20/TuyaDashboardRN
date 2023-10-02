@@ -1,19 +1,17 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Text, TouchableOpacity, Dimensions } from "react-native";
+import { Text, TouchableOpacity } from "react-native";
 import { View, VStack, HStack, useToast } from "native-base";
 
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
-
-const screen = Dimensions.get("screen");
-const { width, height } = screen;
+import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 
 import { Utility } from "@utility";
 
 import { BcBoxShadow } from "@components";
 
 import ViewShot from "react-native-view-shot";
-import BottomModal from "@components/Modal/BottomModals";
 
+import BottomModal from "@components/Modal/BottomModals";
 import Modal from "@components/Modal/CommunityModals";
 
 import Share from "react-native-share";
@@ -29,48 +27,61 @@ function ExpandModal(props) {
     )
 }
 
+function VSItem(props) {
+
+    const { Title = "", onPress = () => { } } = props;
+    const { Icon = MaterialIcons, IconName = "dashboard-customize" } = props;
+
+    return (
+        <TouchableOpacity onPress={onPress}>
+            <View alignItems={"center"} justifyContent={"center"} style={{ height: 40 }}>
+                <HStack width={"90%"} space={5} alignItems={"center"}>
+                    <Icon name={IconName} size={27} />
+                    <Text style={{
+                        fontFamily: "Roboto-Bold",
+                        fontSize: 18,
+                    }}>{Title}</Text>
+                </HStack>
+            </View>
+        </TouchableOpacity>
+    )
+}
+
 function VSModal(props) {
 
     // #region Props
+    const { functionLs = [] } = props;
     const { onDownload = () => { }, onShare = () => { }, onExpand = () => { } } = props;
     // #endregion
+
+    const ls = [
+        ...functionLs,
+        {
+            Title: "Expand",
+            onPress: onExpand,
+            Icon: FontAwesome5,
+            IconName: "expand-arrows-alt"
+        },
+        {
+            Title: "Share",
+            onPress: onShare,
+            Icon: FontAwesome5,
+            IconName: "share-alt"
+        },
+        {
+            Title: "Download",
+            onPress: onDownload,
+            Icon: FontAwesome5,
+            IconName: "download"
+        },
+    ]
+
+    const renderItem = (item, index) => (<VSItem key={index} {...item} />);
 
     return (
         <BottomModal {...props} showCross={false}>
             <VStack space={3} width={"100%"}>
-                <TouchableOpacity onPress={onExpand}>
-                    <View alignItems={"center"} justifyContent={"center"} style={{ height: 40 }}>
-                        <HStack width={"90%"} space={5} alignItems={"center"}>
-                            <FontAwesome5 name={"expand-arrows-alt"} size={27} />
-                            <Text style={{
-                                fontFamily: "Roboto-Bold",
-                                fontSize: 18,
-                            }}>Expand</Text>
-                        </HStack>
-                    </View>
-                </TouchableOpacity>
-                <TouchableOpacity onPress={onShare}>
-                    <View alignItems={"center"} justifyContent={"center"} style={{ height: 40 }}>
-                        <HStack width={"90%"} space={5} alignItems={"center"}>
-                            <FontAwesome5 name={"share-alt"} size={27} />
-                            <Text style={{
-                                fontFamily: "Roboto-Bold",
-                                fontSize: 18,
-                            }}>Share</Text>
-                        </HStack>
-                    </View>
-                </TouchableOpacity>
-                <TouchableOpacity onPress={onDownload}>
-                    <View alignItems={"center"} justifyContent={"center"} style={{ height: 40 }}>
-                        <HStack width={"90%"} space={5} alignItems={"center"}>
-                            <FontAwesome5 name={"download"} size={27} />
-                            <Text style={{
-                                fontFamily: "Roboto-Bold",
-                                fontSize: 18,
-                            }}>Download</Text>
-                        </HStack>
-                    </View>
-                </TouchableOpacity>
+                {ls.map(renderItem)}
             </VStack>
         </BottomModal>
     );
@@ -78,29 +89,26 @@ function VSModal(props) {
 
 function Index(props) {
 
-    const toast = useToast();
-
     // #region Props
     const { title, children } = props;
-    const { imgOption, shareOption } = props;
     // #endregion
 
     // #region UseState
-    const [showVsModal, setShowVsModal] = useState(false);
-    const [showExModal, setShowExModal] = useState(false);
-    // #endregion
-
-    // #region UseRef
-    const itemRef = useRef(null);
+    const [showVsModal, setShowVsModal, toggleVsModal] = useToggle(false);
+    const [showExModal, setShowExModal, toggleExModal] = useToggle(false);
     // #endregion
 
     // #region Helper
-    const toggleVsModal = () => setShowVsModal((val) => !val);
-    const toggleExModal = () => {
+    const expandFunc = () => {
+        toggleExModal();
         toggleVsModal();
-        setShowExModal((val) => !val);
-    };
+    }
+
     const closeModal = () => setShowVsModal(false);
+    // #endregion
+
+    // #region ViewShot
+    const itemRef = useRef(null);
 
     const shareFunc = () => {
         itemRef.current.capture()
@@ -137,11 +145,9 @@ function Index(props) {
 
     return (
         <>
-            <VSModal
-                onDownload={dlFunc}
-                onShare={shareFunc}
-                onExpand={toggleExModal}
-                showModal={showVsModal} setShowModal={setShowVsModal}
+            <VSModal showModal={showVsModal} setShowModal={setShowVsModal}
+                onShare={shareFunc} onDownload={dlFunc} 
+                onExpand={expandFunc} {...props}
             />
             <ExpandModal showModal={showExModal} setShowModal={setShowExModal}>{children}</ExpandModal>
             <BcBoxShadow>

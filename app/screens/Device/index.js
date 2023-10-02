@@ -212,6 +212,14 @@ function LinkDeviceModal(props) {
                                 width: 320,
                                 height: 320
                             }} />
+
+                        <Text style={{
+                            fontFamily: "Roboto-Bold",
+                            fontSize: 18,
+                            textAlign: "center"
+                        }}>
+                            Syncing Data with Smart Home Server...
+                        </Text>
                     </View>
                 ) : (
                     <VStack py={3} space={3} w={"100%"}
@@ -711,6 +719,38 @@ function CardGradientItem(props) {
 }
 // #endregion
 
+function TutorialModal(props) {
+    const [cusToast, showMsg] = useModalToast();
+    return (
+        <BaseModal 
+            cusToast={cusToast}
+            {...props}>
+            <VStack space={3}
+                alignItems={"center"}>
+                <View alignItems={"center"}>
+                    <Text style={{
+                        fontFamily: "Roboto-Bold",
+                        fontSize: 18,
+                        color: "#000"
+                    }}>Guide</Text>
+                </View>
+                <View>
+                    <Text style={{
+                        fontFamily: "Roboto-Medium",
+                        fontSize: 16,
+                        color: "#000"
+                    }}>1. Select the Top Right Corner Button to Link Devices</Text>
+                    <Text style={{
+                        fontFamily: "Roboto-Medium",
+                        fontSize: 16,
+                        color: "#000"
+                    }}>2. Enjoy your Personalized Dashboard!</Text>
+                </View>
+            </VStack>
+        </BaseModal>
+    )
+}
+
 function Index(props) {
 
     const toast = useToast();
@@ -750,6 +790,8 @@ function Index(props) {
     // #endregion
 
     const roomLs = Object.keys(deviceData);
+
+    const firstTimeLink = useSelector(Selectors.firstTimeLinkSelect);
 
     // #region UseEffect
     useEffect(() => {
@@ -797,8 +839,6 @@ function Index(props) {
                     color: active ? init.txtActive : init.txtInActive
                 })}
                 buttonStyle={(active) => ({
-                    // backgroundColor: active ? init.bgActive : init.bgInActive,
-                    // borderWidth: active ? 1 : 0,
                     borderRadius: 8,
                     marginRight: 10,
                     paddingVertical: 0,
@@ -814,11 +854,16 @@ function Index(props) {
             <CardGradientItem key={index} bgName={bgName} />
         )
     }
+
+    const updateFirstTimeLink = () => {
+        dispatch(Actions.onChangeFirstTimeLink(false));
+    }
     // #endregion
 
     return (
         <>
             <BcLoading loading={loading} />
+            <TutorialModal showModal={firstTimeLink} setShowModal={updateFirstTimeLink} />
             <SafeAreaView style={{ flex: 1 }}>
                 <View bgColor={"#FFF"} style={{ flex: 1 }}>
 

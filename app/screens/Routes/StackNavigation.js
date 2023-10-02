@@ -15,8 +15,9 @@ import DeviceAlert from "@screens/Device/DeviceAlert";
 import DeviceTable from "@screens/Device/DeviceTable";
 import DeviceChart from "@screens/Device/DeviceChart";
 
-import DeviceRulesInfo from "@screens/Device/DeviceRulesInfo";
-import AddDeviceRules from "@screens/Device/AddDeviceRules";
+import DeviceRulesInfo from "@screens/DeviceRules/DeviceRulesInfo";
+import AddDeviceRules from "@screens/DeviceRules/AddDeviceRules";
+import UpdateDeviceRules from "@screens/DeviceRules/UpdateDeviceRules";
 
 import HomeManagement from "@screens/Home/HomeManagement";
 import HomeInfo from "@screens/Home/HomeInfo";
@@ -139,6 +140,10 @@ StackScreens = {
     ReportSchedule: {
         component: ReportSchedule,
         title: "ReportSchedule"
+    },
+    UpdateDeviceRules: {
+        component: UpdateDeviceRules,
+        title: "UpdateDeviceRules"
     }
 };
 
@@ -200,8 +205,8 @@ function Index(props) {
         });
     }, []);
 
-    // const defaultScreen = (userId == -1) ? "Login" : "TabNavigation";
-    const defaultScreen = "TabNavigation";
+    const defaultScreen = (userId == -1) ? "Login" : "TabNavigation";
+    // const defaultScreen = "AuthTuya";
 
     return (
         <BcStackNavigator
