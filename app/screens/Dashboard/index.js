@@ -199,6 +199,22 @@ function DashboardReport(props) {
         </VStack>
     )
 }
+
+function EmptyList(props) {
+    return (
+        <View flexGrow={1} justifyContent={"center"} alignItems={"center"} bgColor={"#FFF"}>
+            <VStack space={2} width={"90%"} alignItems={"center"}>
+                <FontAwesome5 name={"chart-line"} color={"#e6e6e6"} size={80} />
+                <Text style={{
+                    fontSize: 18,
+                    color: "#d3d3d3",
+                    fontFamily: 'Roboto-Medium',
+                    fontWeight: "700"
+                }}>No Data Collected Yet</Text>
+            </VStack>
+        </View>
+    )
+}
 // #endregion
 
 function Index(props) {
@@ -221,8 +237,8 @@ function Index(props) {
             endDt: dt.toFormat("yyyy-MM-dd")
         },
         cmpDateObj: {
-            startDt: dt.plus({months: -1}).toFormat("yyyy-MM-dd"),
-            endDt: dt.plus({months: -1}).toFormat("yyyy-MM-dd")
+            startDt: dt.plus({ months: -1 }).toFormat("yyyy-MM-dd"),
+            endDt: dt.plus({ months: -1 }).toFormat("yyyy-MM-dd")
         }
     }
     // #endregion
@@ -240,7 +256,7 @@ function Index(props) {
     const cmpDateHook = useDate(init.cmpDateObj);
     const [cmpStartDt, setCmpStartDt, cmpEndDt, setCmpEndDt] = cmpDateHook.slice(0, 4);
 
-    const chartCompareHook = useToggle(false); 
+    const chartCompareHook = useToggle(false);
     const [compare, setCompare, toggleCompare] = chartCompareHook;
 
     const [labels, setLabels] = useState([]);
@@ -308,7 +324,7 @@ function Index(props) {
             IconName: showLegend ? "eye-slash" : "eye"
         }
     ]
-    
+
     const prevLegendHook = useToggle(false);
     const [showPrevLegend, setShowPrevLegend, toggleShowPrevLegend] = prevLegendHook;
 
@@ -339,49 +355,44 @@ function Index(props) {
                     {/* Body */}
                     <ScrollView showsVerticalScrollIndicator={false}
                         contentContainerStyle={{ flexGrow: 1 }}>
-                        <View flexGrow={1}>
-                            <HStack
-                                flexWrap={"wrap"}
-                                rowGap={10}
-                                alignItems={"flex-start"}
-                                justifyContent={"space-between"}>
-
-                                {
-                                    
-                                    (Object.keys(chart).length > 0) ? (
-                                        <View px={3} style={{ width: width}}>
+                        {
+                            (Object.keys(chart).length > 0) ? (
+                                <View flexGrow={1}>
+                                    <HStack
+                                        flexWrap={"wrap"}
+                                        rowGap={10}
+                                        alignItems={"flex-start"}
+                                        justifyContent={"space-between"}>
+                                        <View px={3} style={{ width: width }}>
                                             <BcViewShot title="Daily Device Report" functionLs={funcLs}>
                                                 <BcLineChartFull labels={labels} hook={chartHook} legendHook={legendHook} />
                                             </BcViewShot>
                                         </View>
-                                    ) : (
-                                        <></>
-                                    )
-                                }
 
-                                {
-                                    (compare && Object.keys(prevChart).length > 0) ? (
-                                        <View px={3} style={{ width: width}}>
-                                            <BcViewShot title="Comparison" functionLs={prevFuncLs}>
-                                                <BcLineChartFull labels={prevLabels} hook={prevChartHook} legendHook={prevLegendHook} />
+                                        {
+                                            (compare && Object.keys(prevChart).length > 0) ? (
+                                                <View px={3} style={{ width: width }}>
+                                                    <BcViewShot title="Comparison" functionLs={prevFuncLs}>
+                                                        <BcLineChartFull labels={prevLabels} hook={prevChartHook} legendHook={prevLegendHook} />
+                                                    </BcViewShot>
+                                                </View>
+                                            ) : (
+                                                <></>
+                                            )
+                                        }
+
+                                        <View px={3} style={{ width: width }}>
+                                            <BcViewShot title="Device Report">
+                                                <DashboardReport data={DashboardReportData} />
                                             </BcViewShot>
                                         </View>
-                                    ) : (
-                                        <></>
-                                    )
-                                }
+                                    </HStack>
+                                </View>
+                            ) : (
+                                <EmptyList />
+                            )
+                        }
 
-                                {
-                                    (Object.keys(chart).length > 0) ? (
-                                        <BcViewShot title="Device Report">
-                                            <DashboardReport data={DashboardReportData} />
-                                        </BcViewShot>
-                                    ) : (
-                                        <></>
-                                    )
-                                }
-                            </HStack>
-                        </View>
 
                     </ScrollView>
 

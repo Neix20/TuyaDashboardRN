@@ -113,6 +113,11 @@ function validatePhoneNum(str) {
 	return rgx.test(str);
 }
 
+function validateEmail(str) {
+	const rgx = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+	return rgx.test(str);
+}
+
 function requestObj(obj) {
 	let res = { ...obj };
 	return res;
@@ -329,8 +334,12 @@ export {
 	genRandomInt,
 	basename,
 	extName,
-	validatePhoneNum,
 	requestObj,
+}
+
+export {
+	validatePhoneNum,
+	validateEmail
 }
 
 export {

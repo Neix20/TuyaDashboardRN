@@ -33,11 +33,11 @@ function Header(props) {
                 justifyContent={"flex-end"}
                 style={{ height: 60 }}>
                 {/* Btn */}
-                <HStack alignItems={"center"} space={3}>
+                {/* <HStack alignItems={"center"} space={3}>
                     <TouchableOpacity onPress={onSelectSetting}>
                         <FontAwesome name={"gear"} color={"#000"} size={30} />
                     </TouchableOpacity>
-                </HStack>
+                </HStack> */}
             </HStack>
         </View>
     )
@@ -120,6 +120,18 @@ function NavPanel(props) {
             <PanelBtn onPress={GoToAlert} Btn={MaterialCommunityIcons} icon={"message-text-outline"} title={"Message Center"} />
             <PanelBtn onPress={GoToReportSchedule} Btn={FontAwesome5} icon={"clipboard-list"} title={"Report Schedule"} />
             {/* <PanelBtn Btn={SimpleLineIcons} icon={"question"} title={"FAQ & Feedback"} /> */}
+        </VStack>
+    )
+}
+
+function AppInfoPanel(props) {
+    const navigation = useNavigation();
+
+    const GoToAboutUs = () => navigation.navigate("AboutUs");
+    return (
+        <VStack bgColor={"#FFF"} borderRadius={8}
+            width={"90%"} alignItems={"center"}>
+            <PanelBtn onPress={GoToAboutUs} Btn={FontAwesome5} icon={"info-circle"} title={"About Us"} />
         </VStack>
     )
 }
@@ -230,6 +242,8 @@ function Index(props) {
                         </View>
 
                         <NavPanel />
+
+                        <AppInfoPanel />
 
                         {/* Logout */}
                         <LogoutPanel onPress={SignOut} />

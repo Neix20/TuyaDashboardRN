@@ -122,7 +122,7 @@ function InfoItem(props) {
                 }}>{Title}: </Text>
             </View>
             <View flex={.7}>
-                <TextInput
+                {/* <TextInput
                     defaultValue={Value}
                     onChangeValue={onChangeValue}
                     placeholder={""}
@@ -131,7 +131,12 @@ function InfoItem(props) {
                         fontFamily: "Roboto-Medium",
                         fontSize: 18,
                         color: "#000",
-                    }} />
+                    }} /> */}
+                <Text style={{
+                        fontFamily: "Roboto-Medium",
+                        fontSize: 18,
+                        color: "#000",
+                    }}>{Value}</Text>
             </View>
         </HStack>
     )

@@ -21,6 +21,10 @@ import { fetchAuthTuyaCode, fetchRegister } from "@api";
 
 import Clipboard from '@react-native-clipboard/clipboard';
 
+import { useModalToast, useToggle } from "@hooks";
+
+import { BaseModal } from "@components";
+
 function Loading(props) {
 
     const { children } = props;
@@ -41,8 +45,60 @@ function Loading(props) {
                 fontFamily: "Roboto-Bold",
                 fontSize: 18,
                 textAlign: "center"
+            }}>Please Do Not Close the App...</Text>
+            <Text style={{
+                fontFamily: "Roboto-Bold",
+                fontSize: 18,
+                textAlign: "center"
             }}>{children}</Text>
         </View>
+    )
+}
+
+function TutorialModal(props) {
+    const [cusToast, showMsg] = useModalToast();
+    return (
+        <BaseModal cusToast={cusToast} {...props}>
+            <VStack space={3}
+                alignItems={"center"}>
+                <View alignItems={"center"}>
+                    <Text style={{
+                        fontFamily: "Roboto-Bold",
+                        fontSize: 18,
+                        color: "#000"
+                    }}>Guide</Text>
+                </View>
+                <View>
+                    <Text style={{
+                        fontFamily: "Roboto-Medium",
+                        fontSize: 16,
+                        color: "#000"
+                    }}>1. Select the Top Right Corner Button to Link Devices</Text>
+                    <Text style={{
+                        fontFamily: "Roboto-Medium",
+                        fontSize: 16,
+                        color: "#000"
+                    }}>2. Enjoy your Personalized Dashboard!</Text>
+                </View>
+            </VStack>
+        </BaseModal>
+    )
+}
+
+function TutorialGuideBtn(props) {
+    const [showTGModal, setShowTGModal, toggleTGModal] = useToggle(true);
+    return (
+        <>
+            <TutorialModal showModal={showTGModal} setShowModal={setShowTGModal} />
+            <TouchableOpacity onPress={toggleTGModal}>
+                <View borderRadius={20}
+                    bgColor={"#d3d3d3"}
+                    alignItems={"center"} justifyContent={"center"}
+                    style={{ width: 32, height: 32 }}>
+                    <FontAwesome5 name={"info"} size={16} color={"#FFF"} />
+                </View>
+            </TouchableOpacity>
+        </>
     )
 }
 
@@ -55,8 +111,8 @@ function Index(props) {
 
     const userId = useSelector(Selectors.userIdSelect);
 
-    const { Email } = props.route.params;
-    // const Email = "";
+    // const { Email } = props.route.params;
+    const Email = "";
 
     // #region UseState
     const [loading, setLoading] = useState(false);
@@ -114,8 +170,7 @@ function Index(props) {
 
     useEffect(() => {
         if (isFocused) {
-            setLoading(true);
-            authTuyaCode();
+            // authTuyaCode();
         }
     }, [isFocused]);
 
@@ -127,7 +182,6 @@ function Index(props) {
     }
 
     const GoToHome = () => {
-        dispatch(Actions.onChangeFirstTimeLink(true));
         navigation.navigate("TabNavigation", {
             screen: "Device",
         });
@@ -140,70 +194,76 @@ function Index(props) {
                     (loading) ? (
                         <Loading>{loadingTxt}</Loading>
                     ) : (
-                        <View flexGrow={1}
-                            justifyContent={"center"}>
-                            <VStack space={6} alignItems={"center"}>
-                                {/* Instruction */}
-                                <View width={"90%"}>
-                                    <Text style={{
-                                        fontFamily: "Roboto-Bold",
-                                        fontSize: 18
-                                    }}>Please Enter the Following Link at Any Available Browser.</Text>
-                                    <Text style={{
-                                        fontFamily: "Roboto-Bold",
-                                        fontSize: 18
-                                    }}>
-                                        Scan the QR Code App using your existing Tuya Smart Home App.
-                                    </Text>
-                                </View>
-
-                                <View width={"90%"}>
-                                    <Image source={{ uri: refLink }}
-                                        style={{
-                                            width: "100%",
-                                            height: 250
-                                        }}
-                                        resizeMode={"contain"}
-                                        alt={"Auth QR Code"} />
-                                </View>
-
-                                {/* Copy Link */}
-                                <HStack px={4} borderRadius={4}
-                                    bgColor={"#E6E6E6"}
-                                    alignItems={"center"}
-                                    justifyContent={"space-between"}
-                                    width={"90%"} style={{ height: 48 }}>
-
-                                    <View width={"80%"}>
-                                        <Text style={{ fontFamily: "Roboto-Medium", fontSize: 14 }}>{refLink}</Text>
-                                    </View>
-
-                                    <TouchableOpacity onPress={copyRefLink}>
-                                        <HStack alignItems={"center"} space={1}>
-                                            <FontAwesome5 name={"clone"} size={20} />
-                                            <Text style={{ fontFamily: "Roboto-Bold", fontSize: 16 }}>
-                                                Copy
-                                            </Text>
-                                        </HStack>
-                                    </TouchableOpacity>
+                        <>
+                            <View alignItems={"center"} justifyContent={"center"} style={{ height: 60 }}>
+                                <HStack width={"90%"} alignItems={"center"} justifyContent={"flex-end"}>
+                                    <TutorialGuideBtn />
                                 </HStack>
-
-                                {/* Button To Register */}
-                                <TouchableOpacity style={{ width: "50%" }} onPress={register}>
-                                    <View backgroundColor={"#2898FF"}
-                                        alignItems={"center"} justifyContent={"center"}
-                                        borderRadius={12}
-                                        style={{ height: 80 }}
-                                    >
-                                        <Text style={[{
-                                            fontSize: 24,
-                                            fontWeight: "bold",
-                                            color: "white",
-                                        }]}>Register</Text>
+                            </View>
+                            <View flexGrow={1} justifyContent={"center"}>
+                                <VStack space={6} alignItems={"center"}>
+                                    {/* Instruction */}
+                                    <View width={"90%"}>
+                                        <Text style={{
+                                            fontFamily: "Roboto-Bold",
+                                            fontSize: 18
+                                        }}>Please Enter the Following Link at Any Available Browser.</Text>
+                                        <Text style={{
+                                            fontFamily: "Roboto-Bold",
+                                            fontSize: 18
+                                        }}>
+                                            Scan the QR Code App using your existing Tuya Smart Home App.
+                                        </Text>
                                     </View>
-                                </TouchableOpacity>
-                            </VStack>
-                        </View>
+
+                                    <View width={"90%"}>
+                                        <Image source={{ uri: refLink }}
+                                            style={{
+                                                width: "100%",
+                                                height: 250
+                                            }}
+                                            resizeMode={"contain"}
+                                            alt={"Auth QR Code"} />
+                                    </View>
+
+                                    {/* Copy Link */}
+                                    <HStack px={4} borderRadius={4}
+                                        bgColor={"#E6E6E6"}
+                                        alignItems={"center"}
+                                        justifyContent={"space-between"}
+                                        width={"90%"} style={{ height: 48 }}>
+
+                                        <View width={"80%"}>
+                                            <Text style={{ fontFamily: "Roboto-Medium", fontSize: 14 }}>{refLink}</Text>
+                                        </View>
+
+                                        <TouchableOpacity onPress={copyRefLink}>
+                                            <HStack alignItems={"center"} space={1}>
+                                                <FontAwesome5 name={"clone"} size={20} />
+                                                <Text style={{ fontFamily: "Roboto-Bold", fontSize: 16 }}>
+                                                    Copy
+                                                </Text>
+                                            </HStack>
+                                        </TouchableOpacity>
+                                    </HStack>
+
+                                    {/* Button To Register */}
+                                    <TouchableOpacity style={{ width: "50%" }} onPress={register}>
+                                        <View backgroundColor={"#2898FF"}
+                                            alignItems={"center"} justifyContent={"center"}
+                                            borderRadius={12}
+                                            style={{ height: 80 }}
+                                        >
+                                            <Text style={[{
+                                                fontSize: 24,
+                                                fontWeight: "bold",
+                                                color: "white",
+                                            }]}>Register</Text>
+                                        </View>
+                                    </TouchableOpacity>
+                                </VStack>
+                            </View>
+                        </>
                     )
                 }
 

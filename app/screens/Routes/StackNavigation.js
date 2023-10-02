@@ -7,6 +7,8 @@ import Debug from "@screens/Debug";
 
 import TabNavigation from "./TabNavigation";
 
+import AboutUs from "@screens/AboutUs";
+
 import DeviceScan from "@screens/Device/DeviceScan";
 
 import DeviceLanding from "@screens/Device/DeviceLanding";
@@ -144,6 +146,10 @@ StackScreens = {
     UpdateDeviceRules: {
         component: UpdateDeviceRules,
         title: "UpdateDeviceRules"
+    },
+    AboutUs: {
+        component: AboutUs,
+        title: "AboutUs"
     }
 };
 
@@ -162,11 +168,17 @@ const init = {
 }
 // #endregion
 
+import { BcAppUpdateModal, BcServerMainModal } from "@components";
+import { fetchGetAppVersion, fetchGetServerStatus } from "@api";
+
+import { useToggle } from "@hooks";
+
 function Index(props) {
 
     const dispatch = useDispatch();
 
     const userId = useSelector(Selectors.userIdSelect);
+    const firstTimeLink = useSelector(Selectors.firstTimeLinkSelect);
 
     useEffect(() => {
         // Hide Splash Screen
@@ -200,18 +212,60 @@ function Index(props) {
             const { additionalData = {} } = event.notification;
 
             if ("Action" in additionalData && additionalData["Action"] == "Data_Alert") {
-                
+
             }
         });
+
+        getAppVersion();
+        getServerStatus();
     }, []);
 
-    const defaultScreen = (userId == -1) ? "Login" : "TabNavigation";
-    // const defaultScreen = "AuthTuya";
+    const [appFlag, setAppFlag, toggleAppFlag] = useToggle(false);
+    const [serverFlag, setServerFlag, toggleServerFlag] = useToggle(false);
+
+    const getAppVersion = () => {
+        fetchGetAppVersion({
+            param: {
+                UserId: 10,
+            },
+            onSetLoading: () => {}
+        })
+        .then(data => {
+            console.log(data);
+            setAppFlag(data);
+        })
+        .catch(err => {
+            console.log(`Error: ${err}`)
+        })
+    }
+
+    const getServerStatus = () => {
+        fetchGetServerStatus({
+            param: {
+                UserId: 10,
+            },
+            onSetLoading: () => {}
+        })
+        .then(data => {
+            console.log(data);
+            setServerFlag(data);
+        })
+        .catch(err => {
+            console.log(`Error: ${err}`)
+        })
+    }
+
+    // const defaultScreen = (userId == -1 && firstTimeLink) ? "Login" : "TabNavigation";
+    const defaultScreen = "AuthTuya";
 
     return (
-        <BcStackNavigator
-            StackScreens={StackScreens}
-            defaultScreen={defaultScreen} />
+        <>
+            <BcAppUpdateModal showModal={appFlag} />
+            <BcServerMainModal showModal={serverFlag} />
+            <BcStackNavigator
+                StackScreens={StackScreens}
+                defaultScreen={defaultScreen} />
+        </>
     )
 }
 

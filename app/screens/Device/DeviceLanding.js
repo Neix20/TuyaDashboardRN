@@ -75,9 +75,9 @@ function Header(props) {
                 }}>{children}</Text>
             </View>
 
-            <TouchableOpacity onPress={onSelectEdit}>
+            {/* <TouchableOpacity onPress={onSelectEdit}>
                 <FontAwesome5 name={"edit"} size={24} color={"#FFF"} />
-            </TouchableOpacity>
+            </TouchableOpacity> */}
         </View>
     )
 }
@@ -108,36 +108,46 @@ function ItemPanel(props) {
 }
 
 function DeviceDataPanel(props) {
-    const { Temperature, Humidity } = props;
+    const { Title, Temperature, Humidity } = props;
     return (
-        <HStack width={"90%"}
-            alignItems={"center"} justifyContent={"space-between"}>
-            <VStack alignItems={"center"}>
+        <VStack space={5} height={"100%"}
+            alignItems={"center"} justifyContent={"flex-end"}>
+            <View>
                 <Text style={{
                     fontSize: 24,
                     fontFamily: "Roboto-Medium",
                     color: "#FFF"
-                }}>Temperature</Text>
-                <Text style={{
-                    fontSize: 56,
-                    fontFamily: "Roboto-Bold",
-                    color: "#FFF"
-                }}>{(Temperature / 10).toFixed(1)}℃</Text>
-            </VStack>
-            <Divider orientation={"vertical"} style={{ width: 3 }} bgColor={"#FFF"} />
-            <VStack alignItems={"center"}>
-                <Text style={{
-                    fontSize: 24,
-                    fontFamily: "Roboto-Medium",
-                    color: "#FFF"
-                }}>Humidity</Text>
-                <Text style={{
-                    fontSize: 56,
-                    fontFamily: "Roboto-Bold",
-                    color: "#FFF"
-                }}>{Humidity}%</Text>
-            </VStack>
-        </HStack>
+                }}>{Title}</Text>
+            </View>
+            <HStack width={"90%"}
+                alignItems={"center"} justifyContent={"space-between"}>
+                <VStack alignItems={"center"}>
+                    <Text style={{
+                        fontSize: 24,
+                        fontFamily: "Roboto-Medium",
+                        color: "#FFF"
+                    }}>Temperature</Text>
+                    <Text style={{
+                        fontSize: 56,
+                        fontFamily: "Roboto-Bold",
+                        color: "#FFF"
+                    }}>{(Temperature / 10).toFixed(1)}℃</Text>
+                </VStack>
+                <Divider orientation={"vertical"} style={{ width: 3 }} bgColor={"#FFF"} />
+                <VStack alignItems={"center"}>
+                    <Text style={{
+                        fontSize: 24,
+                        fontFamily: "Roboto-Medium",
+                        color: "#FFF"
+                    }}>Humidity</Text>
+                    <Text style={{
+                        fontSize: 56,
+                        fontFamily: "Roboto-Bold",
+                        color: "#FFF"
+                    }}>{Humidity}%</Text>
+                </VStack>
+            </HStack>
+        </VStack>
     )
 }
 // #endregion
@@ -192,7 +202,7 @@ function Index(props) {
 
     // #endregion
 
-    const ind = Utility.genRandomInt(0, 3);
+    const ind = 3;
 
     return (
         <>
@@ -224,13 +234,11 @@ function Index(props) {
                         {/* Body */}
                         <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{ flexGrow: 1 }}>
                             <VStack flexGrow={1} alignItems={"center"} space={3}>
-                                <View flex={.35} width={"90%"}
-                                    alignItems={"center"}
-                                    justifyContent={"flex-end"}>
+                                <View flex={.25}>
                                     <DeviceDataPanel {...deviceInfo} />
                                 </View>
                                 <VStack
-                                    flex={.65} space={5} width={"100%"} alignItems={"center"}>
+                                    flex={.75} space={5} width={"100%"} alignItems={"center"}>
                                     <ItemPanel Icon={FontAwesome5} name={"info-circle"} onPress={GoToInfo}>Device Info</ItemPanel>
                                     <ItemPanel Icon={FontAwesome5} name={"clipboard-list"} onPress={GoToRules}>Device Rules</ItemPanel>
                                     {/* <ItemPanel Icon={FontAwesome5} name={"bell"} onPress={GoToAlert}>Device Alert</ItemPanel> */}

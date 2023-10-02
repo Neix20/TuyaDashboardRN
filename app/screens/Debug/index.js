@@ -9,11 +9,15 @@ const { width, height } = Dimensions.get("screen");
 
 import { Logger, Utility } from "@utility";
 
-import { iRData, clsConst, DowntimeData } from "@config";
+import { iRData, clsConst, DowntimeData, Images } from "@config";
 
 import { useChart, useToggle, useDate } from "@hooks";
 
 import { BcViewShot, BcLineChartFull, BcDateRange, BcLineChart, BcLineLegend } from "@components";
+
+import DeviceChart from "./DeviceChart";
+
+import PhotoGalleryModal from "./PhotoGallery";
 
 function TestChart(props) {
 
@@ -22,7 +26,7 @@ function TestChart(props) {
 
     const legendHook = useToggle(false);
     const [showLegend, setShowLegend, toggleShowLegend] = legendHook;
-    
+
     const labels = Utility.genLabel("2023-09-28", "2023-09-29", 5);
 
     useEffect(() => {
@@ -45,7 +49,7 @@ function TestChart(props) {
             Icon: FontAwesome5,
             IconName: showLegend ? "eye-slash" : "eye"
         }
-    ] 
+    ]
 
     return (
         <SafeAreaView style={{ flex: 1 }}>
@@ -158,6 +162,33 @@ function DownTimeTable(props) {
     )
 }
 
+function PhotoGalleyBtn(props) {
+    const [showPgModal, setShowPgModal, togglePgModal] = useToggle(false);
+
+    const images = [
+        { uri: Images.ScanQrI },
+        { uri: Images.ScanQrII },
+        { uri: Images.ScanQrIII },
+    ]
+
+    return (
+        <>
+            <PhotoGalleryModal showModal={showPgModal} setShowModal={setShowPgModal} images={images} />
+            <TouchableOpacity onPress={togglePgModal}>
+                <View backgroundColor={"#ff0000"}
+                    alignItems={"center"} justifyContent={"center"}
+                >
+                    <Text style={[{
+                        fontSize: 14,
+                        fontWeight: "bold",
+                        color: "white",
+                    }]}>button_title</Text>
+                </View>
+            </TouchableOpacity>
+        </>
+    )
+}
+
 function Index(props) {
 
     const toast = useToast();
@@ -236,6 +267,8 @@ function Index(props) {
                                     )
                                 }
                             </View>
+
+                            <PhotoGalleyBtn />
                         </VStack>
                     </ScrollView>
 

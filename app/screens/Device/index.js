@@ -217,6 +217,11 @@ function LinkDeviceModal(props) {
                             fontFamily: "Roboto-Bold",
                             fontSize: 18,
                             textAlign: "center"
+                        }}>Please Do Not Close the Modal...</Text>
+                        <Text style={{
+                            fontFamily: "Roboto-Bold",
+                            fontSize: 18,
+                            textAlign: "center"
                         }}>
                             Syncing Data with Smart Home Server...
                         </Text>
@@ -363,7 +368,7 @@ function AddDeviceBtn(props) {
         <>
             <LinkDeviceModal showModal={showLdModal} setShowModal={setShowLdModal} toggleRefresh={toggleRefresh} />
             <AddDeviceModal onLinkedDevice={GoToLinkDevice} showModal={showAdModal} setShowModal={setShowAdModal} />
-            <TouchableOpacity onPress={toggleAdModal}>
+            <TouchableOpacity onPress={toggleLdModal}>
                 <View borderRadius={20}
                     bgColor={"#2898FF"}
                     alignItems={"center"} justifyContent={"center"}
@@ -603,7 +608,7 @@ function DeviceItem(props) {
 // #region Components
 function Header(props) {
     return (
-        <BcBoxShadow style={{ width: "100%" }}>
+        <BcBoxShadow>
             <View bgColor={"#FFF"}
                 alignItems={"center"}
                 justifyContent={"center"}
@@ -616,8 +621,11 @@ function Header(props) {
                     {/* Logo */}
                     <BcYatuHome />
 
-                    {/* Button */}
-                    <AddDeviceBtn {...props} />
+                    <HStack alignItems={"center"} space={3}>
+                        {/* Button */}
+                        <TutorialGuideBtn />
+                        <AddDeviceBtn {...props} />
+                    </HStack>
 
                 </HStack>
             </View>
@@ -722,7 +730,7 @@ function CardGradientItem(props) {
 function TutorialModal(props) {
     const [cusToast, showMsg] = useModalToast();
     return (
-        <BaseModal 
+        <BaseModal
             cusToast={cusToast}
             {...props}>
             <VStack space={3}
@@ -748,6 +756,23 @@ function TutorialModal(props) {
                 </View>
             </VStack>
         </BaseModal>
+    )
+}
+
+function TutorialGuideBtn(props) {
+    const [showTGModal, setShowTGModal, toggleTGModal] = useToggle(false);
+    return (
+        <>
+            <TutorialModal showModal={showTGModal} setShowModal={setShowTGModal} />
+            <TouchableOpacity onPress={toggleTGModal}>
+                <View borderRadius={20}
+                    bgColor={"#d3d3d3"}
+                    alignItems={"center"} justifyContent={"center"}
+                    style={{ width: 32, height: 32 }}>
+                    <FontAwesome name={"info"} size={16} color={"#FFF"} />
+                </View>
+            </TouchableOpacity>
+        </>
     )
 }
 

@@ -47,5 +47,13 @@ data = {
     companyD: require("@assets/images/Welcome/Company/d.jpg"),
 }
 
+// Tutorial
+data = {
+    ...data,
+    ScanQrI: require("@assets/images/Tutorial/ScanQR/I.jpeg"),
+    ScanQrII: require("@assets/images/Tutorial/ScanQR/II.jpeg"),
+    ScanQrIII: require("@assets/images/Tutorial/ScanQR/III.jpeg"),
+}
+
 
 export default data;

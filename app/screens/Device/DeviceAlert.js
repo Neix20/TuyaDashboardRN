@@ -24,21 +24,22 @@ import { Actions, Selectors } from '@redux';
 
 // #region Components
 
-function AlertSign(props) {
+function EmptyList(props) {
     return (
-        <VStack space={2}
-            alignItems={"center"}
-            style={{ width: width - 40 }}>
-            <FontAwesome name={"bell"} color={"#e6e6e6"} size={80} />
-            <Text style={{
-                fontFamily: "Roboto-Medium",
-                fontSize: 18,
-                color: "#d3d3d3",
-                textAlign: "center",
-            }}>
-                Alerts help you to keep tracks of your devices.
-            </Text>
-        </VStack>
+        <View flexGrow={1} justifyContent={"center"} alignItems={"center"} bgColor={"#FFF"}>
+            <VStack space={2} width={"90%"} alignItems={"center"}>
+                <FontAwesome name={"bell"} color={"#e6e6e6"} size={80} />
+                <Text style={{
+                    fontFamily: "Roboto-Medium",
+                    fontSize: 18,
+                    color: "#d3d3d3",
+                    textAlign: "center",
+                    fontWeight: "700"
+                }}>
+                    Alerts help you to keep tracks of your devices.
+                </Text>
+            </VStack>
+        </View>
     )
 }
 
@@ -108,7 +109,7 @@ function Header(props) {
 // #endregion
 
 function Index(props) {
-    
+
     const toast = useToast();
     const navigation = useNavigation();
     const isFocused = useIsFocused();
@@ -228,16 +229,22 @@ function Index(props) {
 
                     <ScrollView showsVerticalScrollIndicator={false}
                         contentContainerStyle={{ flexGrow: 1 }}>
-                        <View flexGrow={1} alignItems={"center"}>
+                        {
+                            (false) ? (
+                                <View flexGrow={1} alignItems={"center"}>
 
-                            {/* Alarm */}
-                            <VStack space={5} width={"90%"}>
-                                {dataKeys.map(renderItem)}
-                            </VStack>
+                                    {/* Alarm */}
+                                    <VStack space={5} width={"90%"}>
+                                        {dataKeys.map(renderItem)}
+                                    </VStack>
 
-                            <View style={{ height: 10 }} />
+                                    <View style={{ height: 10 }} />
 
-                        </View>
+                                </View>
+                            ) : (
+                                <EmptyList />
+                            )
+                        }
                     </ScrollView>
 
                     {/* Footer */}

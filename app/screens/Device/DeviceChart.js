@@ -3,6 +3,7 @@ import { Text, TouchableOpacity, Image, TextInput, Dimensions, SafeAreaView, Ima
 import { View, VStack, HStack, useToast } from "native-base";
 
 import FontAwesome from "react-native-vector-icons/FontAwesome";
+import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 import { useNavigation, useIsFocused } from "@react-navigation/native";
 
 const screen = Dimensions.get("screen");
@@ -86,15 +87,15 @@ function useChart() {
 
 function EmptyList(props) {
     return (
-        <View justifyContent={"center"} alignItems={"center"} style={{ height: 400 }}>
+        <View flexGrow={1} justifyContent={"center"} alignItems={"center"} bgColor={"#FFF"}>
             <VStack space={2} width={"90%"} alignItems={"center"}>
-                <FontAwesome name={"plug"} color={"#e6e6e6"} size={80} />
+                <FontAwesome5 name={"chart-line"} color={"#e6e6e6"} size={80} />
                 <Text style={{
                     fontSize: 18,
                     color: "#d3d3d3",
                     fontFamily: 'Roboto-Medium',
                     fontWeight: "700"
-                }}>Empty List</Text>
+                }}>No Data Collected Yet</Text>
             </VStack>
         </View>
     )
@@ -102,7 +103,7 @@ function EmptyList(props) {
 
 function DataChart(props) {
     const { label = [], dataset = [] } = props;
-    const { tabPaneInd, setTabPaneInd} = props;
+    const { tabPaneInd, setTabPaneInd } = props;
 
     if (dataset.length == 0) {
         return (
@@ -229,30 +230,38 @@ function Index(props) {
 
                     <View style={{ height: 10 }} />
 
-                    {/* Tab View */}
-                    <View bgColor={"#FFF"}>
-                        <Tab
-                            value={tabPaneInd}
-                            onChange={(e) => setTabPaneInd(e)}
-                            indicatorStyle={{
-                                backgroundColor: init.activeColor,
-                                height: 3
-                            }}>
-                            {
-                                attr.map(renderTabItem)
-                            }
-                        </Tab>
-                    </View>
+                    {
+                        (Object.keys(chart).length > 0) ? (
+                            <>
+                                {/* Tab View */}
+                                <View bgColor={"#FFF"}>
+                                    <Tab
+                                        value={tabPaneInd}
+                                        onChange={(e) => setTabPaneInd(e)}
+                                        indicatorStyle={{
+                                            backgroundColor: init.activeColor,
+                                            height: 3
+                                        }}>
+                                        {
+                                            attr.map(renderTabItem)
+                                        }
+                                    </Tab>
+                                </View>
 
-                    {/* Body */}
-                    <ScrollView showsVerticalScrollIndicator={false}
-                        contentContainerStyle={{ flexGrow: 1 }}>
-                        <View flexGrow={1}>
-                            <DataChart 
-                                tabPaneInd={tabPaneInd} setTabPaneInd={setTabPaneInd}
-                                label={label} dataset={dataset} />
-                        </View>
-                    </ScrollView>
+                                {/* Body */}
+                                <ScrollView showsVerticalScrollIndicator={false}
+                                    contentContainerStyle={{ flexGrow: 1 }}>
+                                    <View flexGrow={1}>
+                                        <DataChart
+                                            tabPaneInd={tabPaneInd} setTabPaneInd={setTabPaneInd}
+                                            label={label} dataset={dataset} />
+                                    </View>
+                                </ScrollView>
+                            </>
+                        ) : (
+                            <EmptyList />
+                        )
+                    }
                 </View>
             </SafeAreaView>
         </>

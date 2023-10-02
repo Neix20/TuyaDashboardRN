@@ -10,6 +10,8 @@ const { width, height } = screen;
 
 import { Logger, Utility } from "@utility";
 
+import { clsConst } from "@config";
+
 import { BcSvgIcon, BcLoading, BcDisable } from "@components";
 
 import { fetchRequestOtp, fetchLogin } from "@api";
@@ -73,7 +75,39 @@ function RequestOtpBtn(props) {
     )
 }
 
+function LoginBtn(props) {
+
+    const { flag = true, onPress = () => { } } = props;
+
+    const Item = () => (
+        <View backgroundColor={"#2898FF"}
+            alignItems={"center"} justifyContent={"center"}
+            style={{ height: 50 }}>
+            <Text style={[{
+                fontSize: 14,
+                fontWeight: "bold",
+                color: "white",
+            }]}>Login</Text>
+        </View>
+    )
+
+    if (!flag) {
+        return (
+            <BcDisable>
+                <Item />
+            </BcDisable>
+        )
+    }
+
+    return (
+        <TouchableOpacity onPress={onPress}>
+            <Item />
+        </TouchableOpacity>
+    )
+}
+
 function Index(props) {
+
     const toast = useToast();
     const navigation = useNavigation();
     const isFocused = useIsFocused();
@@ -87,7 +121,7 @@ function Index(props) {
             otp: "",
             sessionId: "",
         },
-        duration: 15
+        duration: 30
     }
     // #endregion
 
@@ -98,10 +132,12 @@ function Index(props) {
     const [timer, setTimer] = useTimer(0);
 
     const [otpFlag, setOtpFlag, toggleOtpFlag] = useToggle(false);
+    const [loginFlag, setLoginFlag, toggleLoginFlag] = useToggle(false);
     // #endregion
 
     const { email, otp, sessionId } = form;
 
+    // #region UseEffect
     useEffect(() => {
         if (isFocused) {
             clearForm();
@@ -110,9 +146,17 @@ function Index(props) {
     }, [isFocused]);
 
     useEffect(() => {
-        const flag = email.length > 0 && timer == 0;
+        let flag = email.length > 0 && timer == 0;
+        flag = flag && Utility.validateEmail(email);
         setOtpFlag(flag);
     }, [email, timer]);
+
+    useEffect(() => {
+        let flag = email.length > 0 && otp.length >= 6;
+        flag = flag && Utility.validateEmail(email);
+        setLoginFlag(flag);
+    }, [email, otp])
+    // #endregion
 
     // #region Helper
     const RequestOtp = () => {
@@ -154,15 +198,19 @@ function Index(props) {
             .then(data => {
                 if (data !== null) {
 
-                    const { Data: { User_Id, FirstTimeUserId } } = data;
+                    const { Data: { User_Id, FirstTimeUserId }, ResponseCode } = data;
+
+                    
 
                     dispatch(Actions.onChangeUserId(User_Id));
 
                     if (FirstTimeUserId == 1) {
+                        dispatch(Actions.onChangeFirstTimeLink(true));
                         navigation.navigate("AuthTuya", {
                             Email: email,
                         })
                     } else {
+                        dispatch(Actions.onChangeFirstTimeLink(false));
                         GoToHome();
                     }
                 } else {
@@ -213,18 +261,22 @@ function Index(props) {
                     {/* Body */}
                     <ScrollView showsVerticalScrollIndicator={false}
                         contentContainerStyle={{ flexGrow: 1 }}>
-                        <View
-                            style={{ flexGrow: 1 }}
-                            justifyContent={"center"}>
+                        <View justifyContent={"center"}
+                            style={{ flexGrow: 1 }}>
                             <VStack
                                 justifyContent={"space-between"}
                                 alignItems={"center"}
-                                style={{ height: 450 }}>
+                                style={{ height: 500 }}>
                                 {/* Logo Header */}
                                 <View alignItems={"center"}>
                                     <BcSvgIcon name={"AppLogo"} width={160} height={160} />
                                 </View>
                                 <VStack width={"80%"} space={3}>
+                                    <Text style={{
+                                        fontSize: 18,
+                                        fontWeight: "bold"
+                                    }}>Login</Text>
+
                                     {/* Email */}
                                     <View>
                                         <Text style={{
@@ -286,22 +338,24 @@ function Index(props) {
                                     </View>
 
                                     {/* Login Btn */}
-                                    <TouchableOpacity onPress={Login}>
-                                        <View backgroundColor={"#2898FF"}
-                                            alignItems={"center"} justifyContent={"center"}
-                                            style={{ height: 50 }}>
-                                            <Text style={[{
-                                                fontSize: 14,
-                                                fontWeight: "bold",
-                                                color: "white",
-                                            }]}>Login</Text>
-                                        </View>
-                                    </TouchableOpacity>
+                                    <LoginBtn flag={loginFlag} onPress={Login} />
                                 </VStack>
                             </VStack>
+                        </View>
 
-                            {/* Footer */}
-                            <View style={{ height: 40 }} />
+                        {/* Footer */}
+                        <View
+                            justifyContent={"center"}
+                            alignItems={"center"}
+                            style={{ height: 60 }}>
+                            <Text style={{
+                                fontFamily: "Roboto-Medium",
+                                fontSize: 16
+                            }}>Powered By {clsConst.ORG_NAME}</Text>
+                            <Text style={{
+                                fontFamily: "Roboto-Medium",
+                                fontSize: 14
+                            }}>© Version {clsConst.APP_VERSION}</Text>
                         </View>
                     </ScrollView>
 

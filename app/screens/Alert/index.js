@@ -24,6 +24,25 @@ import { Actions, Selectors } from '@redux';
 
 import Lottie from "lottie-react-native";
 
+function EmptyList(props) {
+    return (
+        <View flexGrow={1} justifyContent={"center"} alignItems={"center"}>
+            <VStack space={2} width={"90%"} alignItems={"center"}>
+                <FontAwesome name={"bell"} color={"#e6e6e6"} size={80} />
+                <Text style={{
+                    fontFamily: "Roboto-Medium",
+                    fontSize: 18,
+                    color: "#d3d3d3",
+                    textAlign: "center",
+                    fontWeight: "700"
+                }}>
+                    Alerts help you to keep tracks of your devices.
+                </Text>
+            </VStack>
+        </View>
+    )
+}
+
 // #region Components
 function Loading(props) {
     return (
@@ -274,15 +293,19 @@ function Index(props) {
                             (loading) ? (
                                 <Loading />
                             ) : (
-                                <View flexGrow={1} alignItems={"center"}>
-                                    {/* Alarm */}
-                                    <VStack space={5} width={"90%"}>
-                                        {dataKeys.map(renderItem)}
-                                    </VStack>
+                                (dataKeys.length > 0) ? (
+                                    <View flexGrow={1} alignItems={"center"}>
+                                        {/* Alarm */}
+                                        <VStack space={5} width={"90%"}>
+                                            {dataKeys.map(renderItem)}
+                                        </VStack>
 
-                                    <View style={{ height: 10 }} />
+                                        <View style={{ height: 10 }} />
 
-                                </View>
+                                    </View>
+                                ) : (
+                                    <EmptyList />
+                                )
                             )
                         }
                     </ScrollView>

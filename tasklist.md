@@ -1,37 +1,29 @@
 ## Task List
 
-#### Major Tasks
-- [x] OneSignal Alert
-- [x] Down Time Report
-- [x] Date Range Modal
-- [x] Profile
+#### Major Tasks (Before 6PM)
+- [x] Modify OTP Screen
+  - [x] Build Version
+  - [x] Tutorial On How-To use
 - [ ] Report Template
-- [ ] Report Schedule
-- [ ] Down Time Report
+- [x] Chart Options
+  - [x] Switch To React Native ECharts
+  - [x] Multiple Line In Same Chart
+- [x] Check App Version
+- [x] Check Server Maintenance
+- [ ] Email OTP
 
-- [x] Update Rules Alert
-- [x] Report Template
+#### Major Tasks
+- [x] First Time User Id
+- [x] Tutorial Modal
+  - [ ] Modify Using PhotoGallery
+- [ ] Line Chart Data (Switch To EChart)
+- [x] About Us
+- [ ] ViewShot
+- [x] Add "Please Do Not Close"
 
-#### Minor Tasks
-- [x] Fix Line Chart
-- [x] Check Server Maintenance (Modal)
-- [x] Check App Version (Modal)
-- [x] OTP Timer
-- [x] Login / Auth Tuya
-
-#### Before 2 30 AM
-- [x] View Shot
-  - [x] Add New Functionalities
-- [ ] Chart Options
-  - [ ] Zoom in To Data Points
-  - [ ] On Touch View
-- [x] Data Chart
-- [x] Data Table
-#### 20231001 (Before 12PM)
-- [ ] Device Detail
-  - [ ] Make It Dynamic (Only Show 2 Data Types)
-- [ ] MDeviceCategory
-- [x] Device Pull
-- [x] Report Generation
-- [x] 1 Week Data
-- [x] Test Function for Report Generation
+#### C# Server
+- [ ] Report Template
+- [ ] Selenium
+- [ ] Login UI
+- [ ] Login Server
+- [ ] Email OTP

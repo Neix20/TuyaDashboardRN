@@ -10,6 +10,10 @@ import CardGradientOrange from "@assets/svg/card_gradient_orange.svg";
 import CardGradientPurple from "@assets/svg/card_gradient_purple.svg";
 import CardGradientRed from "@assets/svg/card_gradient_red.svg";
 
+import WhatsApp from "@assets/svg/WhatsApp.svg";
+import Envelope from "@assets/svg/Envelope.svg";
+import PhoneBook from "@assets/svg/PhoneBook.svg";
+
 Data = {
     AppLogo: AppLogo,
     Yatu: Yatu,
@@ -23,6 +27,13 @@ Data = {
     CardGradientOrange: CardGradientOrange,
     CardGradientPurple: CardGradientPurple,
     CardGradientRed: CardGradientRed,
+}
+
+Data = {
+    ...Data,
+    WhatsApp: WhatsApp,
+    Envelope: Envelope,
+    PhoneBook: PhoneBook,
 }
 
 export default Data;

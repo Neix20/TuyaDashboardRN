@@ -43,6 +43,9 @@ import fetchAddDeviceRules from "./fetchAddDeviceRules";
 import fetchDeleteDeviceRules from "./fetchDeleteDeviceRules";
 import fetchUpdateDeviceRules from "./fetchUpdateDeviceRules";
 
+import fetchGetAppVersion from "./fetchGetAppVersion";
+import fetchGetServerStatus from "./fetchGetServerStatus";
+
 export {
     fetchHomeList,
     fetchHomeInfo,
@@ -104,4 +107,9 @@ export {
     fetchAddDeviceRules,
     fetchDeleteDeviceRules,
     fetchUpdateDeviceRules
+}
+
+export {
+    fetchGetAppVersion,
+    fetchGetServerStatus
 }
