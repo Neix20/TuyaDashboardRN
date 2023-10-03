@@ -263,7 +263,7 @@ function Index(props) {
     const chartHook = useEChart("Absolute Humidity");
     const [chart, setChart] = chartHook.slice(0, 6);
 
-    const prevChartHook = useChart("Absolute Humidity");
+    const prevChartHook = useEChart("Absolute Humidity");
     const [prevChart, setPrevChart] = prevChartHook.slice(0, 6);
 
     const dateHook = useDate(init.dateObj);
@@ -276,9 +276,6 @@ function Index(props) {
     const [compare, setCompare, toggleCompare] = chartCompareHook;
 
     const [drData, setDrData] = useState([]);
-
-    const [labels, setLabels] = useState([]);
-    const [prevLabels, setPrevLabels] = useState([]);
 
     const [loading, setLoading, toggleLoading] = useToggle(false);
     // #endregion
@@ -322,9 +319,6 @@ function Index(props) {
         if (isFocused) {
             setTimeout(() => {
                 getDashboard(cmpStartDt, cmpEndDt, setPrevChart);
-
-                let label = Utility.genLabel(cmpStartDt, `${cmpEndDt}T23:59:59`);
-                setPrevLabels(label);
             }, 2000);
         }
     }, [isFocused, JSON.stringify(cmpStartDt + cmpEndDt + homeId)])
@@ -356,30 +350,6 @@ function Index(props) {
             })
     }
     // #endregion
-
-    const legendHook = useToggle(false);
-    const [showLegend, setShowLegend, toggleShowLegend] = legendHook;
-
-    const funcLs = [
-        {
-            Title: showLegend ? "Hide Legend" : "Show Legend",
-            onPress: toggleShowLegend,
-            Icon: FontAwesome5,
-            IconName: showLegend ? "eye-slash" : "eye"
-        }
-    ]
-
-    const prevLegendHook = useToggle(false);
-    const [showPrevLegend, setShowPrevLegend, toggleShowPrevLegend] = prevLegendHook;
-
-    const prevFuncLs = [
-        {
-            Title: showPrevLegend ? "Hide Legend" : "Show Legend",
-            onPress: toggleShowPrevLegend,
-            Icon: FontAwesome5,
-            IconName: showPrevLegend ? "eye-slash" : "eye"
-        }
-    ]
 
     return (
         <>
@@ -416,8 +386,8 @@ function Index(props) {
                                         {
                                             (compare && Object.keys(prevChart).length > 0) ? (
                                                 <View px={3} style={{ width: width }}>
-                                                    <BcViewShot title="Comparison" functionLs={prevFuncLs}>
-                                                        <BcLineChartFull labels={prevLabels} hook={prevChartHook} legendHook={prevLegendHook} />
+                                                    <BcViewShot title="Comparison">
+                                                        <BcApacheChart hook={prevChartHook} height={360} />
                                                     </BcViewShot>
                                                 </View>
                                             ) : (

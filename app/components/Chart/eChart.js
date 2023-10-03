@@ -55,7 +55,7 @@ function Index(props) {
 
 	const [chart, setChart, chartKey, setChartKey, chartData, setChartData, chartLegend, chartKeyOption, setChartKeyOption] = hook;
 
-	const { label=[], dataset = [], min, max } = chartData;
+	const { label = [], dataset = [] } = chartData;
 
 	const option = {
 		tooltip: {
@@ -69,7 +69,7 @@ function Index(props) {
 			right: 10,
 		},
 		legend: {
-			
+
 			data: chartLegend,
 			padding: 10,
 			top: -10
@@ -90,8 +90,8 @@ function Index(props) {
 			}
 		],
 		grid: {
-		left: 10,
-		right: 10,
+			left: 10,
+			right: 10,
 			containLabel: true,
 		},
 		series: dataset
