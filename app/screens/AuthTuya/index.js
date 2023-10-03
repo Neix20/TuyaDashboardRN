@@ -7,7 +7,7 @@ import { useNavigation, useIsFocused } from "@react-navigation/native";
 
 import { Logger, Utility } from "@utility";
 
-import { Animation, Images } from "@config";
+import { Animation, Images, clsConst } from "@config";
 
 import Lottie from "lottie-react-native";
 
@@ -42,12 +42,24 @@ function Loading(props) {
                 fontFamily: "Roboto-Bold",
                 fontSize: 18,
                 textAlign: "center"
-            }}>Please Do Not Close the App...</Text>
+            }}>Please Refrain from Closing the App...</Text>
             <Text style={{
                 fontFamily: "Roboto-Bold",
                 fontSize: 18,
                 textAlign: "center"
             }}>{children}</Text>
+
+            {
+                (children === "Syncing Data With Smart Life App...") ? (
+                    <Text style={{
+                        fontFamily: "Roboto-Bold",
+                        fontSize: 18,
+                        textAlign: "center"
+                    }}>(It May take 1 to 5 Minutes to Sync Data)</Text>
+                ) : (
+                    <></>
+                )
+            }
         </View>
     )
 }
@@ -157,19 +169,19 @@ function Index(props) {
 
     const userId = useSelector(Selectors.userIdSelect);
 
-    // const { Email } = props.route.params;
-    const Email = "";
+    const { Email } = props.route.params;
+    // const Email = "";
 
     // #region UseState
     const [loading, setLoading] = useState(false);
     const [refLink, setRefLink] = useState("");
     const [loadingTxt, setLoadingTxt] = useState("");
-    const [timer, setTimer] = useTimer(60);
+    const [timer, setTimer] = useTimer(0);
     // #endregion
 
     // #region Api
     const authTuyaCode = () => {
-        setTimer(60);
+
 
         setLoading(true);
         setLoadingTxt("Generating Smart Home QR Code...");
@@ -183,11 +195,12 @@ function Index(props) {
                 const { AuthCode, Flag } = data;
                 if (Flag) {
                     setRefLink(AuthCode);
+                    setTimer(60);
                 } else {
                     toast.show({
                         description: AuthCode
                     });
-                    navigation.goBack();
+                    // navigation.goBack();
                 }
             })
             .catch(err => {
@@ -208,7 +221,16 @@ function Index(props) {
             onSetLoading: setLoading,
         })
             .then(data => {
-                GoToHome();
+                const { ResponseCode, ResponseMessage } = data;
+
+                if (ResponseCode == "00") {
+                    GoToHome();
+                } else {
+                    toast.show({
+                        description: ResponseMessage
+                    })
+                }
+
             })
             .catch(err => {
                 setLoading(false);
@@ -219,7 +241,7 @@ function Index(props) {
 
     useEffect(() => {
         if (isFocused) {
-            // authTuyaCode();
+            authTuyaCode();
         }
     }, [isFocused]);
 
@@ -249,19 +271,15 @@ function Index(props) {
                         <Loading>{loadingTxt}</Loading>
                     ) : (
                         <>
-                            <View flexGrow={1}>
+                            <VStack flexGrow={1} space={5}>
                                 <VStack space={6} alignItems={"center"}>
                                     {/* Instruction */}
                                     <View width={"90%"}>
                                         <Text style={{
                                             fontFamily: "Roboto-Bold",
                                             fontSize: 18
-                                        }}>Please Enter the Following Link at Any Available Browser.</Text>
-                                        <Text style={{
-                                            fontFamily: "Roboto-Bold",
-                                            fontSize: 18
                                         }}>
-                                            Scan the QR Code App using your existing Tuya Smart Home App.
+                                            Kindly utilize your Tuya or SmartLife app to scan the QR code provided through any web browser.
                                         </Text>
                                     </View>
 
@@ -313,7 +331,21 @@ function Index(props) {
                                         <RefreshQrBtn onPress={authTuyaCode} timer={timer} />
                                     </HStack>
                                 </VStack>
-                            </View>
+
+                                <View
+                                    justifyContent={"center"}
+                                    alignItems={"center"}
+                                    style={{ height: 60 }}>
+                                    <Text style={{
+                                        fontFamily: "Roboto-Medium",
+                                        fontSize: 16
+                                    }}>Powered By {clsConst.ORG_NAME}</Text>
+                                    <Text style={{
+                                        fontFamily: "Roboto-Medium",
+                                        fontSize: 14
+                                    }}>© Version {clsConst.APP_VERSION}</Text>
+                                </View>
+                            </VStack>
                         </>
                     )
                 }

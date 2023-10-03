@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Text, TouchableOpacity, Image, TextInput, Dimensions, SafeAreaView, ImageBackground, ScrollView } from "react-native";
+import { Text, TouchableOpacity, Image, TextInput, SafeAreaView, ImageBackground, ScrollView } from "react-native";
 import { View, VStack, HStack, useToast } from "native-base";
 
 import Ionicons from "react-native-vector-icons/Ionicons";
@@ -11,19 +11,91 @@ import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 
 import { useNavigation, useIsFocused } from "@react-navigation/native";
 
-const screen = Dimensions.get("screen");
-const { width, height } = screen;
-
 import { Logger, Utility } from "@utility";
+
+import { clsConst } from "@config";
 
 import { useDispatch, useSelector } from 'react-redux';
 import { Actions, Selectors } from '@redux';
 
 import { fetchProfileInfo } from "@api";
 
-import { BcLoading } from "@components";
+import { BcLoading, BaseModal } from "@components";
+
+import { useToggle } from "@hooks";
 
 // #region Components
+
+function LogoutModal(props) {
+
+    const { showModal, setShowModal } = props;
+    const { onLogout = () => {} } = props;
+
+    const closeModal = () => setShowModal(false);
+
+    return (
+
+        <BaseModal {...props}>
+            {/* Content */}
+            <VStack
+                py={3}
+                width={"90%"}
+                alignItems={"center"} space={3}>
+                <Text style={{ fontFamily: "Roboto-Bold", fontSize: 20 }}>Confirm Log Out</Text>
+                <Text style={{
+                    fontFamily: "Roboto-Bold",
+                    fontSize: 16,
+                    textAlign: "justify",
+                    color: "#000",
+                }}>Are you sure you want to log out? You will be returned to the login screen.</Text>
+
+                {/* Button Panel */}
+                <HStack space={3}>
+                    <TouchableOpacity onPress={onLogout}>
+                        <HStack
+                            bgColor={"#2898FF"}
+                            borderRadius={8}
+                            alignItems={"center"}
+                            justifyContent={"center"}
+                            style={{
+                                width: 120,
+                                height: 40
+                            }}
+                        >
+                            <Text style={{
+                                fontFamily: "Roboto-Bold",
+                                fontSize: 20,
+                                textAlign: "center",
+                                color: "#fff",
+                            }}>Yes</Text>
+                        </HStack>
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={closeModal}>
+                        <HStack
+                            borderRadius={8}
+                            bgColor={"#E6E6E6"}
+                            alignItems={"center"}
+                            justifyContent={"center"}
+                            style={{
+                                width: 120,
+                                height: 40
+                            }}
+                        >
+                            <Text style={{
+                                fontFamily: "Roboto-Bold",
+                                fontSize: 20,
+                                textAlign: "center",
+                                color: "#6A7683",
+                            }}>No</Text>
+                        </HStack>
+                    </TouchableOpacity>
+                </HStack>
+            </VStack>
+        </BaseModal>
+
+    )
+}
+
 function Header(props) {
     const { onSelectSetting = () => { } } = props;
     return (
@@ -46,7 +118,7 @@ function Header(props) {
 function Profile(props) {
     const { Email = "Nickname" } = props;
     return (
-        <TouchableOpacity {...props} style={{ width: "90%"}}>
+        <TouchableOpacity {...props} style={{ width: "90%" }}>
             <HStack
                 alignItems={"center"}
                 justifyContent={"space-between"}
@@ -137,27 +209,34 @@ function AppInfoPanel(props) {
 }
 
 function LogoutPanel(props) {
+
+    const [showLgModal, setShowLgModal, toggleLgModal] = useToggle(false);
+
     return (
-        <View
-            py={3}
-            width={"90%"}
-            alignItems={"center"}
-            bgColor={"#FFF"}
-            borderRadius={12}>
-            <TouchableOpacity {...props}
-                style={{ width: "90%" }}>
-                <HStack alignItems={"center"} space={3}>
-                    <MaterialIcons name={"logout"} color={"#2898FF"} size={24} />
-                    <View>
-                        <Text style={[{
-                            fontSize: 18,
-                            color: "#2898FF",
-                            fontFamily: "Roboto-Medium",
-                        }]}>Log Out</Text>
-                    </View>
-                </HStack>
-            </TouchableOpacity>
-        </View>
+        <>
+            <LogoutModal showModal={showLgModal} setShowModal={setShowLgModal} {...props} />
+            <View
+                py={3}
+                width={"90%"}
+                alignItems={"center"}
+                bgColor={"#FFF"}
+                borderRadius={12}>
+                <TouchableOpacity onPress={toggleLgModal}
+                    style={{ width: "90%" }}>
+                    <HStack alignItems={"center"} space={3}>
+                        <MaterialIcons name={"logout"} color={"#2898FF"} size={24} />
+                        <View>
+                            <Text style={[{
+                                fontSize: 18,
+                                color: "#2898FF",
+                                fontFamily: "Roboto-Medium",
+                            }]}>Log Out</Text>
+                        </View>
+                    </HStack>
+                </TouchableOpacity>
+            </View>
+
+        </>
     )
 }
 // #endregion
@@ -186,14 +265,13 @@ function Index(props) {
                 },
                 onSetLoading: setLoading
             })
-            .then(data => {
-                console.log(data);
-                setProfileInfo(data);
-            })
-            .catch(err => {
-                setLoading(false);
-                console.log(`Error: ${err}`);
-            })
+                .then(data => {
+                    setProfileInfo(data);
+                })
+                .catch(err => {
+                    setLoading(false);
+                    console.log(`Error: ${err}`);
+                })
         }
     }, [userId]);
 
@@ -220,41 +298,64 @@ function Index(props) {
 
     return (
         <>
-        <BcLoading loading={loading} />
-        <SafeAreaView style={{ flex: 1 }}>
-            <View bgColor={"#F6F7FA"} style={{ flex: 1 }}>
+            <BcLoading loading={loading} />
+            <SafeAreaView style={{ flex: 1 }}>
+                <View bgColor={"#F6F7FA"} style={{ flex: 1 }}>
 
-                {/* Header */}
-                <Header onSelectSetting={GoToTuyaPanel} />
+                    {/* Header */}
+                    <Header onSelectSetting={GoToTuyaPanel} />
 
-                <View style={{ height: 10 }} />
+                    <View style={{ height: 10 }} />
 
-                {/* Body */}
-                <ScrollView showsVerticalScrollIndicator={false}
-                    contentContainerStyle={{ flexGrow: 1 }}>
-                    <VStack flexGrow={1}
-                        alignItems={"center"}
-                        space={5}>
-                        {/* User */}
-                        <View width={"90%"} alignItems={"center"}
+                    {/* Body */}
+                    <ScrollView showsVerticalScrollIndicator={false}
+                        contentContainerStyle={{ flexGrow: 1 }}>
+                        <VStack flexGrow={1}
+                            alignItems={"center"}
+                            space={5}>
+                            {/* User */}
+                            <View width={"90%"} alignItems={"center"}
+                                style={{ height: 80 }}>
+                                <Profile {...profileInfo} onPress={GoToProfileInfo} />
+                            </View>
+
+                            <NavPanel />
+
+                            {/* <AppInfoPanel /> */}
+
+                            {/* Logout */}
+                            <LogoutPanel onLogout={SignOut} />
+
+
+
+                        </VStack>
+
+                        <VStack space={2}
+                            alignItems={"center"}
+                            justifyContent={"center"}
                             style={{ height: 80 }}>
-                            <Profile {...profileInfo} onPress={GoToProfileInfo} />
-                        </View>
+                            <Text style={{
+                                fontFamily: "Roboto-Bold",
+                                fontSize: 18,
+                                color: "#A6AFB8"
+                            }}>App Version</Text>
+                            <Text style={{
+                                fontFamily: "Roboto-Medium",
+                                fontSize: 16,
+                                color: "#2898FF"
+                            }}>v{clsConst.APP_VERSION}</Text>
+                            <Text style={{
+                                fontFamily: "Roboto-Medium",
+                                fontSize: 16,
+                                color: "#A6AFB8"
+                            }}>Powered By {clsConst.ORG_NAME}</Text>
+                        </VStack>
+                    </ScrollView>
 
-                        <NavPanel />
-
-                        <AppInfoPanel />
-
-                        {/* Logout */}
-                        <LogoutPanel onPress={SignOut} />
-
-                    </VStack>
-                </ScrollView>
-
-                {/* Footer */}
-                {/* <View style={{ height: 70 }} /> */}
-            </View>
-        </SafeAreaView>
+                    {/* Footer */}
+                    <View style={{ height: 70 }} />
+                </View>
+            </SafeAreaView>
         </>
     );
 }

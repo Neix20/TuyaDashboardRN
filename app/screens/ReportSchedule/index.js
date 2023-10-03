@@ -113,7 +113,7 @@ function Header(props) {
                     fontWeight: "bold",
                     color: "#000",
                 }}>{children}</Text>
-                {
+                {/* {
                     (flag) ? (
                         <TouchableOpacity onPress={onSave}>
                             <Text style={{
@@ -129,7 +129,7 @@ function Header(props) {
                             }}>Save</Text>
                         </BcDisable>
                     )
-                }
+                } */}
             </HStack>
         </View>
     )
@@ -149,13 +149,13 @@ function Title(props) {
                         fontSize: 20
                     }}>{children}</Text>
                 </View>
-                <TouchableOpacity onPress={onPress}>
+                {/* <TouchableOpacity onPress={onPress}>
                     <View borderRadius={16} bgColor={"#2898FF"}
                         alignItems={"center"} justifyContent={"center"}
                         style={{ width: 32, height: 32 }}>
                         <FontAwesome name={"plus"} size={16} color={"#FFF"} />
                     </View>
-                </TouchableOpacity>
+                </TouchableOpacity> */}
             </HStack>
         </View>
     )
@@ -350,13 +350,13 @@ function Index(props) {
                         fontSize: 18
                     }}>{name}</Text>
                 </View>
-                <TouchableOpacity onPress={onSelect}>
+                {/* <TouchableOpacity onPress={onSelect}>
                     <View borderRadius={16} bgColor={"#F00"}
                         alignItems={"center"} justifyContent={"center"}
                         style={{ width: 32, height: 32 }}>
                         <FontAwesome name={"minus"} size={16} color={"#FFF"} />
                     </View>
-                </TouchableOpacity>
+                </TouchableOpacity> */}
             </HStack>
         )
     }
@@ -395,7 +395,7 @@ function Index(props) {
             },
             onSetLoading: setLoading
         })
-            .then(data => { 
+            .then(data => {
                 toast.show({
                     description: "Successfully Updated Report Schedule"
                 })
@@ -420,6 +420,15 @@ function Index(props) {
                     {/* Body */}
                     <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{ flexGrow: 1 }}>
                         <View flexGrow={1} bgColor={"#FFF"}>
+
+                            <View flex={.1} justifyContent={"center"} alignItems={"center"}>
+                                <View width={"90%"}>
+                                    <Text style={{
+                                        fontFamily: "Roboto-Bold",
+                                        fontSize: 18
+                                    }}>We will send a report via email once per day to your designated email address</Text>
+                                </View>
+                            </View>
                             <View flex={1}>
                                 {/* Email List */}
                                 <EmailTitle hook={emailHook} />

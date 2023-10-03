@@ -32,7 +32,7 @@ function EmptyList(props) {
                     color: "#d3d3d3",
                     fontFamily: 'Roboto-Medium',
                     fontWeight: "700"
-                }}>Empty List</Text>
+                }}>No Data Collected Yet</Text>
             </VStack>
         </View>
     )

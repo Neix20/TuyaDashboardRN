@@ -173,6 +173,7 @@ function AlertHeader(props) {
 // #endregion
 
 function Index(props) {
+
     const toast = useToast();
     const navigation = useNavigation();
     const isFocused = useIsFocused();
@@ -200,6 +201,7 @@ function Index(props) {
             onSetLoading: setLoading
         })
             .then(res => {
+                console.log(res);
                 setData(res);
             })
             .catch(err => {

@@ -55,5 +55,14 @@ data = {
     ScanQrIII: require("@assets/images/Tutorial/ScanQR/III.jpeg"),
 }
 
+data = {
+    ...data,
+    LinkDeviceI: require("@assets/images/Tutorial/LinkDevice/I.jpeg"),
+    LinkDeviceII: require("@assets/images/Tutorial/LinkDevice/II.jpeg"),
+    LinkDeviceIII: require("@assets/images/Tutorial/LinkDevice/III.jpeg"),
+    LinkDeviceIV: require("@assets/images/Tutorial/LinkDevice/IV.jpeg"),
+    LinkDeviceV: require("@assets/images/Tutorial/LinkDevice/V.jpeg")
+}
+
 
 export default data;

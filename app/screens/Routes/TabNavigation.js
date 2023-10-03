@@ -1,12 +1,14 @@
-import React from "react";
+import React, { useEffect } from "react";
 
-import { Text } from "react-native";
+import { Text, BackHandler } from "react-native";
 import { View, VStack } from "native-base";
 
 import { BcTabNavigator, BcSvgIcon } from "@components";
 
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
+
+import { useIsFocused, useNavigation } from "@react-navigation/native";
 
 function TabIconFontAwesome(props) {
     const { icon, title, color, focused } = props;
@@ -88,6 +90,22 @@ TabScreens = {
 function Index(props) {
 
     const defaultScreen = "Dashboard";
+
+    // const navigation = useNavigation();
+
+    const isFocused = useIsFocused();
+
+    useEffect(() => {
+        const backAction = () => {
+            if (!isFocused) {
+                return false;
+            }
+
+            return true;
+        };
+        const backHandler = BackHandler.addEventListener("hardwareBackPress", backAction);
+        return () => backHandler.remove();
+    }, [isFocused]);
 
     return (
         <BcTabNavigator

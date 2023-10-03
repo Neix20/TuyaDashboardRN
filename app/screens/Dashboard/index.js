@@ -18,7 +18,7 @@ import { BcBoxShadow, BcSvgIcon, BcDateRange, BcViewShot, BcLoading, BcYatuHome,
 
 import { DateTime } from "luxon";
 
-import { fetchDashboardInfo } from "@api";
+import { fetchDashboardInfo, fetchReportData } from "@api";
 
 import { useChart, useDate, useToggle } from "@hooks";
 
@@ -125,10 +125,12 @@ function DashboardReport(props) {
     // #endregion
 
     // #region Props
-    const { data = {} } = props;
+    const { data = [] } = props;
     // #endregion
 
-    const dataValues = Object.values(data);
+    if (data.length == 0) {
+        return (<></>)
+    }
 
     // #region Render
     const renderKeys = (item, index) => {
@@ -141,7 +143,9 @@ function DashboardReport(props) {
 
     const renderValues = (item, index) => {
 
-        const { Name, Absolute_Humidity, Count } = item;
+        const { Device_Name, Count } = item;
+
+        const Absolute_Humidity = item["Absolute Humidity"]
 
         const keys = Object.keys(item);
 
@@ -170,14 +174,15 @@ function DashboardReport(props) {
         }
 
         return (
+
             <HStack key={index} alignItems={"center"} justifyContent={"space-between"}>
                 <View style={{ width: 80 }}>
                     <Text style={{
                         fontFamily: "Roboto-Bold"
-                    }}>{Name}</Text>
+                    }}>{Device_Name}</Text>
                 </View>
                 {
-                    keys.slice(1, -2).map(renderData)
+                    keys.slice(3, -1).map(renderData)
                 }
                 <View
                     bgColor={getColor(Absolute_Humidity)}
@@ -193,9 +198,20 @@ function DashboardReport(props) {
     }
     // #endregion
 
+    const keys = Object.keys(data[0]);
+
     return (
         <VStack>
-            {dataValues.map(renderValues)}
+            <HStack alignItems={"center"} justifyContent={"space-between"}>
+                <View style={{ width: 80 }}>
+                    <Text style={{ fontFamily: "Roboto-Bold" }}>Name</Text>
+                </View>
+                <View alignItems={"center"} style={{ width: 40 }}><Text style={{ fontFamily: "Roboto-Bold" }}>Temp</Text></View>
+                <View alignItems={"center"} style={{ width: 40 }}><Text style={{ fontFamily: "Roboto-Bold" }}>R Humid</Text></View>
+                <View alignItems={"center"} style={{ width: 60 }}><Text style={{ fontFamily: "Roboto-Bold" }}>A Humid</Text></View>
+                    <Text style={{ fontFamily: "Roboto-Bold" }}>Count</Text>
+            </HStack>
+            {data.map(renderValues)}
         </VStack>
     )
 }
@@ -245,10 +261,10 @@ function Index(props) {
 
     // #region UseState
     const chartHook = useChart("Absolute Humidity");
-    const [chart, setChart] = chartHook.slice(0, 2);
+    const [chart, setChart] = chartHook.slice(0, 6);
 
     const prevChartHook = useChart("Absolute Humidity");
-    const [prevChart, setPrevChart] = prevChartHook.slice(0, 2);
+    const [prevChart, setPrevChart] = prevChartHook.slice(0, 6);
 
     const dateHook = useDate(init.dateObj);
     const [startDt, setStartDt, endDt, setEndDt] = dateHook.slice(0, 4);
@@ -258,6 +274,8 @@ function Index(props) {
 
     const chartCompareHook = useToggle(false);
     const [compare, setCompare, toggleCompare] = chartCompareHook;
+
+    const [drData, setDrData] = useState([]);
 
     const [labels, setLabels] = useState([]);
     const [prevLabels, setPrevLabels] = useState([]);
@@ -271,8 +289,48 @@ function Index(props) {
         if (isFocused) {
             getDashboard(startDt, endDt, setChart);
 
-            let label = Utility.genLabel(startDt, endDt);
+            let label = Utility.genLabel(startDt, `${endDt}T23:59:59`);;
+
+            if (Object.keys(chart).length > 0) {
+                const val = Object.values(chart)[0];
+
+                const minDt = val[0]["Timestamp"];
+                const maxDt = val.at(-1)["Timestamp"];
+
+                console.log(minDt, maxDt);
+
+                label = Utility.genLabel(minDt, maxDt);
+            }
+
+            
             setLabels(label);
+
+            fetchReportData({
+                param: {
+                    UserId: userId,
+                    HomeId: homeId,
+                    StartDate: startDt,
+                    EndDate: `${endDt} 23:59:59`
+                },
+                onSetLoading: () => { }
+            })
+                .then(res => {
+
+                    if ("IR Temperature" in res) {
+                        const Data = res["IR Temperature"]
+
+                        const Data_II = Object.values(Data).map(x => x[0]);
+
+                        setDrData(Data_II);
+                    } else {
+                        setDrData([])
+                    }
+
+                })
+                .catch(err => {
+                    console.log(`Error: ${err}`);
+                })
+
         }
     }, [isFocused, JSON.stringify(startDt + endDt + homeId)]);
 
@@ -281,7 +339,17 @@ function Index(props) {
             setTimeout(() => {
                 getDashboard(cmpStartDt, cmpEndDt, setPrevChart);
 
-                let label = Utility.genLabel(cmpStartDt, cmpEndDt);
+                let label = Utility.genLabel(cmpStartDt, `${cmpEndDt}T23:59:59`);
+
+                if (Object.keys(prevChart).length > 0) {
+                    const val = Object.values(prevChart)[0];
+    
+                    const minDt = val[0]["Timestamp"];
+                    const maxDt = val.at(-1)["Timestamp"];
+    
+                    label = Utility.genLabel(minDt, maxDt);
+                }
+
                 setPrevLabels(label);
             }, 2000);
         }
@@ -304,6 +372,8 @@ function Index(props) {
                 if ("IR Temperature" in res) {
                     const Data = res["IR Temperature"]
                     setFunc(Data);
+                } else {
+                    setFunc({})
                 }
             })
             .catch(err => {
@@ -382,10 +452,10 @@ function Index(props) {
                                         }
 
                                         {
-                                            (Object.keys(DashboardReportData).length > 0) ? (
+                                            (Object.keys(drData).length > 0) ? (
                                                 <View px={3} style={{ width: width }}>
                                                     <BcViewShot title="Device Report">
-                                                        <DashboardReport data={DashboardReportData} />
+                                                        <DashboardReport data={drData} />
                                                     </BcViewShot>
                                                 </View>
                                             ) : (

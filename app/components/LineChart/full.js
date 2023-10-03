@@ -117,7 +117,7 @@ function Index(props) {
                 showModal={showDaModal} setShowModal={setShowDaModal}
                 chartKey={chartKey} setChartKey={setChartKey}
             />
-            <VStack>
+            <VStack space={2}>
                 <TouchableOpacity onPress={toggleDaModal}>
                     <VStack px={3} borderWidth={1} justifyContent={"space-between"} style={{ height: 44 }}>
                         <View>

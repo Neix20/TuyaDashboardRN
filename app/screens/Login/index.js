@@ -198,9 +198,7 @@ function Index(props) {
             .then(data => {
                 if (data !== null) {
 
-                    const { Data: { User_Id, FirstTimeUserId }, ResponseCode } = data;
-
-                    
+                    const { Data: { User_Id, FirstTimeUserId, ResponseMessage } } = data;
 
                     dispatch(Actions.onChangeUserId(User_Id));
 
@@ -212,6 +210,12 @@ function Index(props) {
                     } else {
                         dispatch(Actions.onChangeFirstTimeLink(false));
                         GoToHome();
+                    }
+
+                    if (ResponseMessage != "") {
+                        toast.show({
+                            description: ResponseMessage
+                        })
                     }
                 } else {
                     toast.show({

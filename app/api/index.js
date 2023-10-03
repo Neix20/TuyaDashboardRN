@@ -34,6 +34,7 @@ import fetchLinkDevice from "./fetchLinkDevice";
 import fetchGetLinkedDevice from "./fetchGetLinkedDevice";
 
 import fetchDeviceDataChart from "./fetchDeviceDataChart";
+import fetchReportData from "./fetchReportData";
 
 import fetchGetReportSchedule from "./fetchGetReportSchedule";
 import fetchAddReportSchedule from "./fetchAddReportSchedule";
@@ -76,6 +77,7 @@ export {
 
 export {
     fetchDashboardInfo,
+    fetchReportData,
     fetchGetNotification,
 }
 

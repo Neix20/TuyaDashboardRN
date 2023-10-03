@@ -36,7 +36,6 @@ function Index(default_key = "") {
         for (const obj of arr) {
 
             delete obj["Device_Id"];
-            delete obj["Timestamp"];
 
             for (const o_key in obj) {
                 const o_val = obj[o_key];
@@ -74,6 +73,11 @@ function Index(default_key = "") {
             const ck_obj = chart[key][0];
 
             for (const ck_key in ck_obj) {
+
+                if (ck_key === "Timestamp") {
+                    continue;
+                }
+
                 ck_arr.push(ck_key);
             }
 

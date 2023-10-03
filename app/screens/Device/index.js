@@ -16,7 +16,7 @@ const { width, height } = screen;
 
 import { Logger, Utility } from "@utility";
 
-import { BcBoxShadow, BcLoading, BcYatuHome, BaseModal } from "@components";
+import { BcBoxShadow, BcLoading, BcYatuHome, BaseModal, BcPhotoGalleryModal } from "@components";
 
 import { Devices, Images, Animation } from "@config";
 
@@ -217,13 +217,20 @@ function LinkDeviceModal(props) {
                             fontFamily: "Roboto-Bold",
                             fontSize: 18,
                             textAlign: "center"
-                        }}>Please Do Not Close the Modal...</Text>
+                        }}>Please refrain from closing the app...</Text>
                         <Text style={{
                             fontFamily: "Roboto-Bold",
                             fontSize: 18,
                             textAlign: "center"
                         }}>
                             Syncing Data with Smart Home Server...
+                        </Text>
+                        <Text style={{
+                            fontFamily: "Roboto-Bold",
+                            fontSize: 16,
+                            textAlign: "center"
+                        }}>
+                            (It Make take 1 to 5 Minutes ...)
                         </Text>
                     </View>
                 ) : (
@@ -653,7 +660,7 @@ function EmptyList(props) {
                     color: "#d3d3d3",
                     fontFamily: 'Roboto-Medium',
                     fontWeight: "700"
-                }}>{Utility.translate("Empty List", lang)}</Text>
+                }}>Add Device to Your Dashboard</Text>
             </VStack>
         </View>
     )
@@ -727,43 +734,20 @@ function CardGradientItem(props) {
 }
 // #endregion
 
-function TutorialModal(props) {
-    const [cusToast, showMsg] = useModalToast();
-    return (
-        <BaseModal
-            cusToast={cusToast}
-            {...props}>
-            <VStack space={3}
-                alignItems={"center"}>
-                <View alignItems={"center"}>
-                    <Text style={{
-                        fontFamily: "Roboto-Bold",
-                        fontSize: 18,
-                        color: "#000"
-                    }}>Guide</Text>
-                </View>
-                <View>
-                    <Text style={{
-                        fontFamily: "Roboto-Medium",
-                        fontSize: 16,
-                        color: "#000"
-                    }}>1. Select the Top Right Corner Button to Link Devices</Text>
-                    <Text style={{
-                        fontFamily: "Roboto-Medium",
-                        fontSize: 16,
-                        color: "#000"
-                    }}>2. Enjoy your Personalized Dashboard!</Text>
-                </View>
-            </VStack>
-        </BaseModal>
-    )
-}
-
 function TutorialGuideBtn(props) {
     const [showTGModal, setShowTGModal, toggleTGModal] = useToggle(false);
+
+    const images = [
+        { uri: Images.LinkDeviceI },
+        { uri: Images.LinkDeviceII },
+        { uri: Images.LinkDeviceIII },
+        { uri: Images.LinkDeviceIV },
+        { uri: Images.LinkDeviceV },
+    ]
+
     return (
         <>
-            <TutorialModal showModal={showTGModal} setShowModal={setShowTGModal} />
+            <BcPhotoGalleryModal showModal={showTGModal} setShowModal={setShowTGModal} images={images} />
             <TouchableOpacity onPress={toggleTGModal}>
                 <View borderRadius={20}
                     bgColor={"#d3d3d3"}
@@ -836,7 +820,17 @@ function Index(props) {
                 console.log(`Error: ${err}`);
             })
     }, [homeId, refresh]);
+
+    useEffect(() => {
+        if (isFocused && firstTimeLink) {
+            setTimeout(() => {
+                toggleTGModal();
+            }, 3000);
+        }
+    }, [isFocused, firstTimeLink]);
     // #endregion
+
+    const [showTGModal, setShowTGModal, toggleTGModal] = useToggle(false);
 
     // #region Navigation
     const GoToDetail = (item) => navigation.navigate("DeviceLanding", item);
@@ -881,14 +875,23 @@ function Index(props) {
     }
 
     const updateFirstTimeLink = () => {
+        toggleTGModal();
         dispatch(Actions.onChangeFirstTimeLink(false));
     }
+
+    const images = [
+        { uri: Images.LinkDeviceI },
+        { uri: Images.LinkDeviceII },
+        { uri: Images.LinkDeviceIII },
+        { uri: Images.LinkDeviceIV },
+        { uri: Images.LinkDeviceV },
+    ]
     // #endregion
 
     return (
         <>
             <BcLoading loading={loading} />
-            <TutorialModal showModal={firstTimeLink} setShowModal={updateFirstTimeLink} />
+            <BcPhotoGalleryModal showModal={showTGModal} setShowModal={updateFirstTimeLink} images={images} />
             <SafeAreaView style={{ flex: 1 }}>
                 <View bgColor={"#FFF"} style={{ flex: 1 }}>
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Text, SafeAreaView } from "react-native";
-import { View, Spinner } from 'native-base';
+import { View, Spinner, VStack } from 'native-base';
 
 import Modal from "react-native-modal";
 
@@ -31,25 +31,17 @@ function Index(props) {
                         width: 360,
                         height: 360
                     }} /> */}
-                <Spinner size={128} color={"#2898FF"} />
+                <VStack space={3}>
+                    <Spinner size={128} color={"#2898FF"} />
+
+                    <Text style={{
+                        fontFamily: "Roboto-Bold",
+                        fontSize: 24,
+                        color: "#2898FF"
+                    }}>Loading ...</Text>
+                </VStack>
             </View>
-            <View
-                // display={"none"}
-                alignItems={"center"}
-                style={{
-                    position: "absolute",
-                    left: 0,
-                    right: 0,
-                    bottom: 10,
-                }}
-            >
-                {/* <Text>{Utility.translate("Loading", lang)}</Text> */}
-                <Text style={{
-                    fontFamily: "Roboto-Bold",
-                    fontSize: 24,
-                    color: "#2898FF"
-                }}>Loading ...</Text>
-            </View>
+
         </Modal>
     )
 }

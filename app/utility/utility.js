@@ -2,7 +2,7 @@ import { clsConst } from "@config";
 
 import { DateTime } from "luxon";
 
-import { Platform, CameraRoll } from 'react-native'; 
+import { Platform, CameraRoll } from 'react-native';
 
 import RNFS from "react-native-fs";
 
@@ -14,7 +14,7 @@ function genLogUrl(action) {
 }
 
 function genServerUrl(action) {
-	const {SERVER_URL} = clsConst;
+	const { SERVER_URL } = clsConst;
 	const res = `${SERVER_URL}/api/YatuApi/${action}`;
 	return res;
 }
@@ -178,7 +178,7 @@ function splitItemsIntoK(arr, col = 2) {
 
 		tArr.push(arr[ind]);
 
-		for(let jnd = 1; jnd < col; jnd += 1) {
+		for (let jnd = 1; jnd < col; jnd += 1) {
 			if (ind + jnd < arr.length) {
 				tArr.push(arr[ind + jnd]);
 			}
@@ -288,31 +288,53 @@ async function formatArrWithBase64(ls) {
 }
 
 function genLabel(start, end, data_point = 10) {
-    const start_dt = DateTime.fromISO(start);
-    const end_dt = DateTime.fromISO(end).plus({days: 1});
+	const start_dt = DateTime.fromISO(start);
+	const end_dt = DateTime.fromISO(end);
 
-    const interval = end_dt.diff(start_dt).as("hours");
+	let step = 1;
+	let points = [];
 
-    const step = interval / (data_point - 1);
+	let interval = end_dt.diff(start_dt).as("hours");
 
-    const points = [];
+	if (interval <= 1) {
+		interval = end_dt.diff(start_dt).as("minutes");
 
-    for (let ind = 0; ind < data_point; ind++) {
-        const dt = start_dt.plus({ hours: ind * step });
+		step = interval / (data_point - 1);
+		points = [];
 
-        let point = dt.diff(start_dt).as("hours");
+		for (let ind = 0; ind < data_point; ind++) {
+			const dt = start_dt.plus({ minutes: ind * step });
+
+			let point = dt.diff(start_dt).as("minutes");
+			point = Math.round(point);
+			point = point.toString().padStart(2, "0");
+
+			points.push(point);
+		}
+
+		// Print the generated points
+		return points;
+	}
+
+	step = interval / (data_point - 1);
+	points = [];
+
+	for (let ind = 0; ind < data_point; ind++) {
+		const dt = start_dt.plus({ hours: ind * step });
+
+		let point = dt.diff(start_dt).as("hours");
 		point = Math.round(point);
 		point = point.toString().padStart(2, "0");
 
-        points.push(point);
-    }
+		points.push(point);
+	}
 
-    // Print the generated points
-    return points;
+	// Print the generated points
+	return points;
 }
 
 function checkAppVersion(str) {
-	const [ a = 0, b = 0, c = 0 ] = str.split(".");
+	const [a = 0, b = 0, c = 0] = str.split(".");
 
 	const res = a * 10000 + b * 1000 + c;
 

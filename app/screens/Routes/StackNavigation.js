@@ -231,7 +231,6 @@ function Index(props) {
             onSetLoading: () => {}
         })
         .then(data => {
-            console.log(data);
             setAppFlag(data);
         })
         .catch(err => {
@@ -247,7 +246,6 @@ function Index(props) {
             onSetLoading: () => {}
         })
         .then(data => {
-            console.log(data);
             setServerFlag(data);
         })
         .catch(err => {
@@ -255,7 +253,7 @@ function Index(props) {
         })
     }
 
-    // const defaultScreen = (userId == -1 && firstTimeLink) ? "Login" : "TabNavigation";
+    // const defaultScreen = (userId == -1 || firstTimeLink) ? "Login" : "TabNavigation";
     const defaultScreen = "Debug";
 
     return (

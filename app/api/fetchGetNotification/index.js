@@ -26,7 +26,12 @@ const Index = async (props) => {
     if (data["ResponseCode"] === "00") {
         // return data;
 
-        const { Data } = data;
+        const { Data = [] } = data;
+
+        if (Data.length == 0 || Data == "[]") {
+            onSetLoading(false);
+            return {}
+        }
 
         let resData = {};
 

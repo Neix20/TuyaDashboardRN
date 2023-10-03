@@ -159,7 +159,7 @@ function InfoPanel(props) {
             <View bgColor={"#FFF"} alignItems={"center"}>
                 <InfoItem Title={"Name"} Value={Username} onChangeValue={onChangeUsername} />
                 <InfoItem Title={"MobileNo"} Value={MobileNo} onChangeValue={onChangeMobileNo} />
-                <InfoItem Title={"Email"} Value={Email} onChangeValue={onChangeEmail} />
+                <InfoItem Title={"Email"} Value={Email} />
                 <InfoItem Title={"Address"} Value={Address} onChangeValue={onChangeAddress} />
             </View>
         </BcBoxShadow>
