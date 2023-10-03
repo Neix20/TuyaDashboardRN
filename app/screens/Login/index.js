@@ -161,6 +161,11 @@ function Index(props) {
     // #region Helper
     const RequestOtp = () => {
         setTimer(init.duration);
+
+        toast.show({
+            description: "OTP Requested. Please Check your Email for OTP Code"
+        })
+
         fetchRequestOtp({
             param: {
                 Email: email
@@ -263,7 +268,7 @@ function Index(props) {
                     <View style={{ height: 40 }} />
 
                     {/* Body */}
-                    <ScrollView showsVerticalScrollIndicator={false}
+                    <ScrollView showsVerticalScrollIndicator={false} keyboardShouldPersistTaps={"handled"}
                         contentContainerStyle={{ flexGrow: 1 }}>
                         <View justifyContent={"center"}
                             style={{ flexGrow: 1 }}>
@@ -288,30 +293,22 @@ function Index(props) {
                                             fontWeight: "bold"
                                         }}>Email</Text>
 
-                                        <View bgColor={"#EEF3F6"}>
-                                            {/* Front Layer */}
-                                            <View style={{
-                                                position: "absolute",
-                                                zIndex: 2,
-                                                top: 5,
-                                                bottom: 5,
-                                                right: 5,
-                                            }}>
-                                                <RequestOtpBtn flag={otpFlag} onPress={RequestOtp} />
+                                        <HStack px={1} bgColor={"#EEF3F6"} 
+                                            alignItems={"center"} justifyContent={"space-between"}>
+                                            <View flex={1}>
+                                                <TextInput
+                                                    defaultValue={email}
+                                                    onChangeText={setEmail}
+                                                    autoCapitalize={"none"}
+                                                    multiline={true}
+                                                    style={{
+                                                        fontFamily: "Roboto-Medium",
+                                                        fontSize: 16,
+                                                        color: "#000"
+                                                    }} />
                                             </View>
-
-                                            <TextInput
-                                                defaultValue={email}
-                                                onChangeText={setEmail}
-                                                autoCapitalize={"none"}
-                                                multiline={true}
-                                                style={{
-                                                    fontFamily: "Roboto-Medium",
-                                                    fontSize: 16,
-                                                    height: 50,
-                                                    color: "#000",
-                                                }} />
-                                        </View>
+                                            <RequestOtpBtn flag={otpFlag} onPress={RequestOtp} />
+                                        </HStack>
 
                                         <View alignItems={"flex-end"}>
                                             <Timer timer={timer} />

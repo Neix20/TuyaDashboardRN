@@ -196,7 +196,7 @@ function Index(props) {
                     </View>
 
                     {/* Body */}
-                    <ScrollView showsVerticalScrollIndicator={false}
+                    <ScrollView showsVerticalScrollIndicator={false} keyboardShouldPersistTaps={"handled"}
                         contentContainerStyle={{ flexGrow: 1 }}>
                         <View flexGrow={1} bgColor={"#FFF"}>
                             <DataTable data={data} />

@@ -17,8 +17,6 @@ import { BcViewShot, BcLineChartFull, BcDateRange, BcLineChart, BcLineLegend } f
 
 import DeviceChart from "./DeviceChart";
 
-import PhotoGalleryModal from "./PhotoGallery";
-
 function TestChart(props) {
 
     const chartHook = useChart("Absolute Humidity");
@@ -61,7 +59,7 @@ function TestChart(props) {
                 <View style={{ height: 10 }} />
 
                 {/* Body */}
-                <ScrollView showsVerticalScrollIndicator={false}
+                <ScrollView showsVerticalScrollIndicator={false} keyboardShouldPersistTaps={"handled"}
                     contentContainerStyle={{ flexGrow: 1 }}>
                     <View flexGrow={1} justifyContent={"center"}>
                         <View px={3}>
@@ -162,33 +160,6 @@ function DownTimeTable(props) {
     )
 }
 
-function PhotoGalleyBtn(props) {
-    const [showPgModal, setShowPgModal, togglePgModal] = useToggle(false);
-
-    const images = [
-        { uri: Images.ScanQrI },
-        { uri: Images.ScanQrII },
-        { uri: Images.ScanQrIII },
-    ]
-
-    return (
-        <>
-            <PhotoGalleryModal showModal={showPgModal} setShowModal={setShowPgModal} images={images} />
-            <TouchableOpacity onPress={togglePgModal}>
-                <View backgroundColor={"#ff0000"}
-                    alignItems={"center"} justifyContent={"center"}
-                >
-                    <Text style={[{
-                        fontSize: 14,
-                        fontWeight: "bold",
-                        color: "white",
-                    }]}>button_title</Text>
-                </View>
-            </TouchableOpacity>
-        </>
-    )
-}
-
 function Index(props) {
 
     const toast = useToast();
@@ -228,7 +199,7 @@ function Index(props) {
                     <View style={{ height: 10 }} />
 
                     {/* Body */}
-                    <ScrollView showsVerticalScrollIndicator={false}
+                    <ScrollView showsVerticalScrollIndicator={false} keyboardShouldPersistTaps={"handled"}
                         contentContainerStyle={{ flexGrow: 1 }}>
                         <VStack flexGrow={1} space={3}>
                             <HStack
@@ -267,8 +238,6 @@ function Index(props) {
                                     )
                                 }
                             </View>
-
-                            <PhotoGalleyBtn />
                         </VStack>
                     </ScrollView>
 
@@ -281,4 +250,4 @@ function Index(props) {
     )
 }
 
-export default TestChart;
+export default DeviceChart;

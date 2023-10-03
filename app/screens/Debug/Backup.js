@@ -61,7 +61,7 @@ function Chart(props) {
                 <View style={{ height: 10 }} />
 
                 {/* Body */}
-                <ScrollView showsVerticalScrollIndicator={false}
+                <ScrollView showsVerticalScrollIndicator={false} keyboardShouldPersistTaps={"handled"}
                     contentContainerStyle={{ flexGrow: 1 }}>
                     <View flexGrow={1} justifyContent={"center"} alignItems={"center"}>
                         <BcSvgChart
@@ -105,7 +105,7 @@ function TestCheckbox(props) {
                 <View style={{ height: 10 }} />
 
                 {/* Body */}
-                <ScrollView showsVerticalScrollIndicator={false}
+                <ScrollView showsVerticalScrollIndicator={false} keyboardShouldPersistTaps={"handled"}
                     contentContainerStyle={{ flexGrow: 1 }}>
                     <View flexGrow={1} justifyContent={"center"} alignItems={"center"}>
                         <VStack space={1}>
@@ -402,7 +402,7 @@ function DebugTopModal(props) {
                     <View style={{ height: 10 }} />
 
                     {/* Body */}
-                    <ScrollView showsVerticalScrollIndicator={false}
+                    <ScrollView showsVerticalScrollIndicator={false} keyboardShouldPersistTaps={"handled"}
                         contentContainerStyle={{ flexGrow: 1 }}>
                         <VStack flexGrow={1}
                             space={3}

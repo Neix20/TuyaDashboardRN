@@ -262,7 +262,7 @@ function Index(props) {
 
                 <View style={{ height: 10 }} />
 
-                <ScrollView showsVerticalScrollIndicator={false}
+                <ScrollView showsVerticalScrollIndicator={false} keyboardShouldPersistTaps={"handled"}
                     contentContainerStyle={{ flexGrow: 1 }}>
                     <View flexGrow={1}>
                         <VStack alignItems={"center"} space={3}>

@@ -418,7 +418,7 @@ function Index(props) {
                     <View style={{ height: 10 }} />
 
                     {/* Body */}
-                    <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{ flexGrow: 1 }}>
+                    <ScrollView showsVerticalScrollIndicator={false} keyboardShouldPersistTaps={"handled"} contentContainerStyle={{ flexGrow: 1 }}>
                         <View flexGrow={1} bgColor={"#FFF"}>
 
                             <View flex={.1} justifyContent={"center"} alignItems={"center"}>

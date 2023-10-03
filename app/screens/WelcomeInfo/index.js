@@ -189,7 +189,7 @@ function Welcome(props) {
                 }}>{question}</Text>
             </View>
 
-            <ScrollView showsVerticalScrollIndicator={false}
+            <ScrollView showsVerticalScrollIndicator={false} keyboardShouldPersistTaps={"handled"}
                 contentContainerStyle={{ flexGrow: 1 }}>
                 {/* Options */}
                 <VStack

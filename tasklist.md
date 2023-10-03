@@ -3,5 +3,6 @@
 #### Tasks
 - [ ] ECharts
 - [ ] Report Template
-- [ ] OTP (Your OTP Is Currently Generating)
+- [x] OTP (Your OTP Is Currently Generating)
+- [x] Login Error
  

@@ -289,7 +289,7 @@ function Index(props) {
                         <AlertHeader />
                     </View>
 
-                    <ScrollView showsVerticalScrollIndicator={false}
+                    <ScrollView showsVerticalScrollIndicator={false} keyboardShouldPersistTaps={"handled"}
                         contentContainerStyle={{ flexGrow: 1 }}>
                         {
                             (loading) ? (

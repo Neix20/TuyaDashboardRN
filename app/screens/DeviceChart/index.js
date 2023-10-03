@@ -64,7 +64,7 @@ function Index(props) {
                 <View style={{ height: 10 }} />
 
                 {/* Body */}
-                <ScrollView showsVerticalScrollIndicator={false}
+                <ScrollView showsVerticalScrollIndicator={false} keyboardShouldPersistTaps={"handled"}
                     contentContainerStyle={{ flexGrow: 1 }}>
                     <View flexGrow={1} justifyContent={"center"}>
                         <BcSvgChart

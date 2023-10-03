@@ -232,7 +232,7 @@ function Index(props) {
                         <View style={{ height: 10 }} />
 
                         {/* Body */}
-                        <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{ flexGrow: 1 }}>
+                        <ScrollView showsVerticalScrollIndicator={false} keyboardShouldPersistTaps={"handled"} contentContainerStyle={{ flexGrow: 1 }}>
                             <VStack flexGrow={1} alignItems={"center"} space={3}>
                                 <View flex={.25}>
                                     <DeviceDataPanel {...deviceInfo} />
