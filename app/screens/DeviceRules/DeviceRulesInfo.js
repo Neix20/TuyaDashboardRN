@@ -11,9 +11,9 @@ const { width, height } = screen;
 
 import { Logger, Utility } from "@utility";
 
-import { BcHeader, BcBoxShadow, BcLoading } from "@components";
+import { BcHeader, BcBoxShadow, BcLoading, BaseModal } from "@components";
 
-import { useToggle } from "@hooks";
+import { useToggle, useModalToast } from "@hooks";
 
 import { fetchGetRulesListing, fetchDeleteDeviceRules } from "@api";
 
@@ -76,6 +76,73 @@ function Header(props) {
     )
 }
 
+function RemoveRulesModal(props) {
+
+    const { onPress = () => { } } = props;
+    const [cusToast, showMsg] = useModalToast();
+
+    return (
+        <BaseModal {...props} cusToast={cusToast}>
+            <VStack py={5} space={5}
+                alignItems={"center"}
+                width={"80%"}>
+                <View alignItems={"center"}>
+                    <Text style={{
+                        fontFamily: "Roboto-Bold",
+                        fontSize: 18,
+                        color: "#000",
+                        textAlign: "center",
+                    }}>Are you sure you want to remove this Rule?</Text>
+                </View>
+
+                <TouchableOpacity onPress={onPress} style={{ width: "80%" }}>
+                    <View backgroundColor={"#ff0000"}
+                        alignItems={"center"} justifyContent={"center"}
+                        style={{ height: 40, borderRadius: 8 }}
+                    >
+                        <Text style={[{
+                            fontSize: 14,
+                            fontWeight: "bold",
+                            color: "white",
+                        }]}>Remove Rule</Text>
+                    </View>
+                </TouchableOpacity>
+            </VStack>
+        </BaseModal>
+    )
+}
+
+function RulesItem(props) {
+
+    const { Title } = props;
+    const { onSelect = () => { }, onSelectDelete = () => { } } = props;
+    const [showRDModal, setShowRDModal, toggleRDModal] = useToggle(false);
+    return (
+        <>
+            <RemoveRulesModal showModal={showRDModal} setShowModal={setShowRDModal} onPress={onSelectDelete} />
+            <TouchableOpacity onPress={onSelect} style={{ width: "90%" }}>
+                <HStack alignItems={"center"} justifyContent={"space-between"}>
+                    <View>
+                        <Text style={{
+                            fontFamily: "Roboto-Medium",
+                            fontSize: 18
+                        }}>{Title}</Text>
+                    </View>
+                    <TouchableOpacity onPress={toggleRDModal}>
+                        <View borderRadius={16} bgColor={"#F00"}
+                            alignItems={"center"} justifyContent={"center"}
+                            style={{ width: 32, height: 32 }}>
+                            <FontAwesome name={"minus"} size={16} color={"#FFF"} />
+                        </View>
+                    </TouchableOpacity>
+                </HStack>
+                <Divider my={3} />
+            </TouchableOpacity>
+        </>
+    )
+
+}
+
 function Index(props) {
     const toast = useToast();
     const navigation = useNavigation();
@@ -132,28 +199,13 @@ function Index(props) {
     }
 
     const renderItem = (item, index) => {
-        const { Title } = item;
-        const onSelectDelete = () => deleteRules(item);
         const onSelect = () => navigation.navigate("UpdateDeviceRules", item);
+        const onSelectDelete = () => deleteRules(item);
+
         return (
-            <TouchableOpacity onPress={onSelect} style={{ width: "90%"}}>
-                <HStack alignItems={"center"} justifyContent={"space-between"}>
-                    <View>
-                        <Text style={{
-                            fontFamily: "Roboto-Medium",
-                            fontSize: 18
-                        }}>{Title}</Text>
-                    </View>
-                    <TouchableOpacity onPress={onSelectDelete}>
-                        <View borderRadius={16} bgColor={"#F00"}
-                            alignItems={"center"} justifyContent={"center"}
-                            style={{ width: 32, height: 32 }}>
-                            <FontAwesome name={"minus"} size={16} color={"#FFF"} />
-                        </View>
-                    </TouchableOpacity>
-                </HStack>
-                <Divider my={3} />
-            </TouchableOpacity>
+            <RulesItem key={index} 
+                onSelect={onSelect} onSelectDelete={onSelectDelete}
+                {...item} />
         )
     }
 

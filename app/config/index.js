@@ -6,6 +6,7 @@ import * as clsConst from "./clsConst";
 
 // Data
 import iRData from "./data/iRData";
+import iRDataReal from "./data/ir_data_real.json";
 import Devices from "./data/devices";
 import OriDevices from "./data/ori_devices";
 import DeviceInfoDict from "./data/device_info_dict.json";
@@ -24,6 +25,7 @@ export {
 
 export {
     iRData,
+    iRDataReal,
     Devices,
     OriDevices,
     DeviceInfoDict,

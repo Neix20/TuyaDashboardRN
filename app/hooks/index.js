@@ -4,6 +4,7 @@ import useToggle from "./useToggle";
 import useModalToast from "./useModalToast";
 
 import useChart from "./useChart";
+import useEChart from "./useChart/eChart";
 
 import useDate from "./useDate";
 
@@ -12,6 +13,10 @@ export {
     useWifi,
     useToggle,
     useModalToast,
-    useChart,
     useDate
+}
+
+export {
+    useChart,
+    useEChart,
 }

@@ -14,13 +14,13 @@ import { Logger, Utility } from "@utility";
 
 import { Images, DashboardReportData } from "@config";
 
-import { BcBoxShadow, BcSvgIcon, BcDateRange, BcViewShot, BcLoading, BcYatuHome, BcLineChartFull } from "@components";
+import { BcBoxShadow, BcSvgIcon, BcDateRange, BcViewShot, BcLoading, BcYatuHome, BcLineChartFull, BcApacheChart } from "@components";
 
 import { DateTime } from "luxon";
 
 import { fetchDashboardInfo, fetchReportData } from "@api";
 
-import { useChart, useDate, useToggle } from "@hooks";
+import { useChart, useDate, useToggle, useEChart } from "@hooks";
 
 import { useDispatch, useSelector } from 'react-redux';
 import { Actions, Selectors } from '@redux';
@@ -260,7 +260,7 @@ function Index(props) {
     // #endregion
 
     // #region UseState
-    const chartHook = useChart("Absolute Humidity");
+    const chartHook = useEChart("Absolute Humidity");
     const [chart, setChart] = chartHook.slice(0, 6);
 
     const prevChartHook = useChart("Absolute Humidity");
@@ -288,22 +288,6 @@ function Index(props) {
     useEffect(() => {
         if (isFocused) {
             getDashboard(startDt, endDt, setChart);
-
-            let label = Utility.genLabel(startDt, `${endDt}T23:59:59`);;
-
-            if (Object.keys(chart).length > 0) {
-                const val = Object.values(chart)[0];
-
-                const minDt = val[0]["Timestamp"];
-                const maxDt = val.at(-1)["Timestamp"];
-
-                console.log(minDt, maxDt);
-
-                label = Utility.genLabel(minDt, maxDt);
-            }
-
-            
-            setLabels(label);
 
             fetchReportData({
                 param: {
@@ -340,16 +324,6 @@ function Index(props) {
                 getDashboard(cmpStartDt, cmpEndDt, setPrevChart);
 
                 let label = Utility.genLabel(cmpStartDt, `${cmpEndDt}T23:59:59`);
-
-                if (Object.keys(prevChart).length > 0) {
-                    const val = Object.values(prevChart)[0];
-    
-                    const minDt = val[0]["Timestamp"];
-                    const maxDt = val.at(-1)["Timestamp"];
-    
-                    label = Utility.genLabel(minDt, maxDt);
-                }
-
                 setPrevLabels(label);
             }, 2000);
         }
@@ -434,8 +408,8 @@ function Index(props) {
                                         alignItems={"flex-start"}
                                         justifyContent={"space-between"}>
                                         <View px={3} style={{ width: width }}>
-                                            <BcViewShot title="Daily Device Report" functionLs={funcLs}>
-                                                <BcLineChartFull labels={labels} hook={chartHook} legendHook={legendHook} />
+                                            <BcViewShot title="Daily Device Report">
+                                                <BcApacheChart hook={chartHook} height={360} />
                                             </BcViewShot>
                                         </View>
 

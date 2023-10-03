@@ -175,6 +175,7 @@ function Index(props) {
     // #region UseState
     const [loading, setLoading] = useState(false);
     const [refLink, setRefLink] = useState("");
+    const [refImg, setRefImg] = useState("");
     const [loadingTxt, setLoadingTxt] = useState("");
     const [timer, setTimer] = useTimer(0);
     // #endregion
@@ -192,8 +193,9 @@ function Index(props) {
             onSetLoading: setLoading,
         })
             .then(data => {
-                const { AuthCode, Flag } = data;
+                const { AuthCode, Flag, AuthImg } = data;
                 if (Flag) {
+                    setRefImg(AuthImg);
                     setRefLink(AuthCode);
                     setTimer(60);
                 } else {
@@ -284,7 +286,7 @@ function Index(props) {
                                     </View>
 
                                     <View width={"90%"}>
-                                        <Image source={{ uri: refLink }}
+                                        <Image source={{ uri: refImg }}
                                             style={{
                                                 width: "100%",
                                                 height: 250
@@ -294,25 +296,32 @@ function Index(props) {
                                     </View>
 
                                     {/* Copy Link */}
-                                    <HStack px={4} borderRadius={4}
-                                        bgColor={"#E6E6E6"}
-                                        alignItems={"center"}
-                                        justifyContent={"space-between"}
-                                        width={"90%"} style={{ height: 48 }}>
+                                    {
+                                        (false) ? (
+                                            <HStack
+                                                px={4} borderRadius={4}
+                                                bgColor={"#E6E6E6"}
+                                                alignItems={"center"}
+                                                justifyContent={"space-between"}
+                                                width={"90%"} style={{ height: 48 }}>
 
-                                        <View width={"80%"}>
-                                            <Text style={{ fontFamily: "Roboto-Medium", fontSize: 14 }}>{refLink}</Text>
-                                        </View>
+                                                <View width={"80%"}>
+                                                    <Text style={{ fontFamily: "Roboto-Medium", fontSize: 14 }}>{refLink}</Text>
+                                                </View>
 
-                                        <TouchableOpacity onPress={copyRefLink}>
-                                            <HStack alignItems={"center"} space={1}>
-                                                <FontAwesome5 name={"clone"} size={20} />
-                                                <Text style={{ fontFamily: "Roboto-Bold", fontSize: 16 }}>
-                                                    Copy
-                                                </Text>
+                                                <TouchableOpacity onPress={copyRefLink}>
+                                                    <HStack alignItems={"center"} space={1}>
+                                                        <FontAwesome5 name={"clone"} size={20} />
+                                                        <Text style={{ fontFamily: "Roboto-Bold", fontSize: 16 }}>
+                                                            Copy
+                                                        </Text>
+                                                    </HStack>
+                                                </TouchableOpacity>
                                             </HStack>
-                                        </TouchableOpacity>
-                                    </HStack>
+                                        ) : (
+                                            <></>
+                                        )
+                                    }
 
                                     {/* Button To Register */}
                                     <HStack space={5}
@@ -332,24 +341,26 @@ function Index(props) {
                                     </HStack>
                                 </VStack>
 
-                                <View
-                                    justifyContent={"center"}
-                                    alignItems={"center"}
-                                    style={{ height: 60 }}>
-                                    <Text style={{
-                                        fontFamily: "Roboto-Medium",
-                                        fontSize: 16
-                                    }}>Powered By {clsConst.ORG_NAME}</Text>
-                                    <Text style={{
-                                        fontFamily: "Roboto-Medium",
-                                        fontSize: 14
-                                    }}>© Version {clsConst.APP_VERSION}</Text>
-                                </View>
+
                             </VStack>
                         </>
                     )
                 }
 
+            </View>
+
+            <View
+                justifyContent={"center"}
+                alignItems={"center"}
+                style={{ height: 60 }}>
+                <Text style={{
+                    fontFamily: "Roboto-Medium",
+                    fontSize: 16
+                }}>Powered By {clsConst.ORG_NAME}</Text>
+                <Text style={{
+                    fontFamily: "Roboto-Medium",
+                    fontSize: 14
+                }}>© Version {clsConst.APP_VERSION}</Text>
             </View>
         </SafeAreaView>
     );

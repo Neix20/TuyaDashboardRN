@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Text, TouchableOpacity, Image, TextInput, Dimensions, SafeAreaView, ImageBackground, ScrollView } from "react-native";
+import { Text, TouchableOpacity, Image, TextInput, Dimensions, SafeAreaView, ImageBackground, ScrollView, Keyboard } from "react-native";
 import { View, VStack, HStack, useToast } from "native-base";
 
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
@@ -165,6 +165,8 @@ function Index(props) {
         toast.show({
             description: "OTP Requested. Please Check your Email for OTP Code"
         })
+
+        Keyboard.dismiss();
 
         fetchRequestOtp({
             param: {

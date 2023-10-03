@@ -896,7 +896,7 @@ function Index(props) {
                 <View bgColor={"#FFF"} style={{ flex: 1 }}>
 
                     {/* Header */}
-                    <Header toggleRefresh={toggleRefresh} />
+                    <Header key={refresh} toggleRefresh={toggleRefresh} />
 
                     <View style={{ height: 10 }} />
 
@@ -946,7 +946,7 @@ function Index(props) {
                                                 flexGrow: 1,
                                                 flexDirection: (viewMode === "List") ? "column" : "row",
                                                 flexWrap: (viewMode === "List") ? "nowrap" : "wrap",
-                                                justifyContent: (viewMode === "List") ? "center" : "space-between",
+                                                justifyContent: (viewMode === "List") ? "flex-start" : "space-between",
                                                 padding: 5, rowGap: 8,
                                             }}
                                             ListEmptyComponent={<EmptyList lang={lang} />}

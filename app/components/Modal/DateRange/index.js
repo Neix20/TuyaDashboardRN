@@ -383,11 +383,19 @@ function Index(props) {
     const closeModal = () => setShowModal(false);
 
     const saveModal = () => {
-        setStartDt(fStartDt);
-        setEndDt(fEndDt);
 
-        setPStartDt(fPrevStartDt);
-        setPEndDt(fPrevEndDt);
+        if (fStartDt !== undefined && fEndDt !== undefined) {
+            setStartDt(fStartDt);
+            setEndDt(fEndDt);
+        }
+
+        console.log(fStartDt, fEndDt, fPrevStartDt, fPrevEndDt);
+
+        if (fPrevStartDt !== undefined && fPrevEndDt !== undefined) {
+            setPStartDt(fPrevStartDt);
+            setPEndDt(fPrevEndDt);
+        }
+
 
         closeModal();
     }

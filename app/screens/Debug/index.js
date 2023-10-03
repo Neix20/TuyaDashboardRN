@@ -9,15 +9,14 @@ const { width, height } = Dimensions.get("screen");
 
 import { Logger, Utility } from "@utility";
 
-import { iRData, clsConst, DowntimeData, Images } from "@config";
+import { iRData, clsConst, DowntimeData, Images, iRDataReal } from "@config";
 
-import { useChart, useToggle, useDate } from "@hooks";
+import { useChart, useToggle, useDate, useEChart } from "@hooks";
 
-import { BcViewShot, BcLineChartFull, BcDateRange, BcLineChart, BcLineLegend } from "@components";
+import { BcViewShot, BcLineChartFull, BcDateRange, BcLineChart, BcLineLegend, BcApacheChart } from "@components";
 
-import DeviceChart from "./DeviceChart";
 
-function TestChart(props) {
+function TestSvgChart(props) {
 
     const chartHook = useChart("Absolute Humidity");
     const [chart, setChart, chartKey, setChartKey, chartData, setChartData, chartLegend, setChartLegend, chartKeyOption, setChartKeyOption] = chartHook;
@@ -247,6 +246,40 @@ function Index(props) {
             </SafeAreaView>
 
         </>
+    )
+}
+
+function DeviceChart(props) {
+
+    const chartHook = useEChart("Absolute Humidity");
+
+    const [chart, setChart] = chartHook.slice(0, 2);
+
+    useEffect(() => {
+        setChart(iRDataReal);
+    }, []);
+
+    return (
+        <SafeAreaView style={{ flex: 1 }}>
+            <View style={{ flex: 1 }}>
+
+                {/* Header */}
+                <View style={{ height: 80 }} />
+
+                <View style={{ height: 10 }} />
+
+                {/* Body */}
+                <ScrollView showsVerticalScrollIndicator={false}
+                    contentContainerStyle={{ flexGrow: 1 }}>
+                    <View flexGrow={1} justifyContent={"center"}>
+                        <BcApacheChart key={true} hook={chartHook} height={360} />
+                    </View>
+                </ScrollView>
+
+                {/* Footer */}
+                <View style={{ height: 60 }} />
+            </View>
+        </SafeAreaView>
     )
 }
 

@@ -33,6 +33,11 @@ function LogoutModal(props) {
 
     const closeModal = () => setShowModal(false);
 
+    const signOut = () => {
+        onLogout();
+        closeModal();
+    }
+
     return (
 
         <BaseModal {...props}>
@@ -51,7 +56,7 @@ function LogoutModal(props) {
 
                 {/* Button Panel */}
                 <HStack space={3}>
-                    <TouchableOpacity onPress={onLogout}>
+                    <TouchableOpacity onPress={signOut}>
                         <HStack
                             bgColor={"#2898FF"}
                             borderRadius={8}

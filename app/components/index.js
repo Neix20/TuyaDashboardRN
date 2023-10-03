@@ -94,6 +94,12 @@ export {
     BcSvgChart,
 }
 
+import BcApacheChart from "./Chart/eChart";
+
+export {
+    BcApacheChart
+}
+
 import BcLineChart from "./LineChart";
 import BcLineLegend from "./LineChart/Legend";
 import BcLineChartFull from "./LineChart/full";

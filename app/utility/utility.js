@@ -296,25 +296,25 @@ function genLabel(start, end, data_point = 10) {
 
 	let interval = end_dt.diff(start_dt).as("hours");
 
-	if (interval <= 1) {
-		interval = end_dt.diff(start_dt).as("minutes");
+	// if (false) {
+	// 	interval = end_dt.diff(start_dt).as("minutes");
 
-		step = interval / (data_point - 1);
-		points = [];
+	// 	step = interval / (data_point - 1);
+	// 	points = [];
 
-		for (let ind = 0; ind < data_point; ind++) {
-			const dt = start_dt.plus({ minutes: ind * step });
+	// 	for (let ind = 0; ind < data_point; ind++) {
+	// 		const dt = start_dt.plus({ minutes: ind * step });
 
-			let point = dt.diff(start_dt).as("minutes");
-			point = Math.round(point);
-			point = point.toString().padStart(2, "0");
+	// 		let point = dt.diff(start_dt).as("minutes");
+	// 		point = Math.round(point);
+	// 		point = point.toString().padStart(2, "0");
 
-			points.push(point);
-		}
+	// 		points.push(point);
+	// 	}
 
-		// Print the generated points
-		return points;
-	}
+	// 	// Print the generated points
+	// 	return points;
+	// }
 
 	step = interval / (data_point - 1);
 	points = [];
@@ -332,6 +332,25 @@ function genLabel(start, end, data_point = 10) {
 	// Print the generated points
 	return points;
 }
+
+function genTsLabel(start, end, data_point = 100, format="hh:mma") {
+	const start_dt = DateTime.fromISO(start);
+	const end_dt = DateTime.fromISO(end);
+
+	let points = [];
+
+	const interval = end_dt.diff(start_dt).as("seconds");
+	const step = interval / (data_point - 1);
+
+	for (let ind = 0; ind < data_point; ind += 1) {
+		const dt = start_dt.plus({ seconds: ind * step });
+		
+		const point = dt.toFormat(format);
+		points.push(point);
+	}
+
+	return points;
+} 
 
 function checkAppVersion(str) {
 	const [a = 0, b = 0, c = 0] = str.split(".");
@@ -367,7 +386,8 @@ export {
 export {
 	genDt,
 	genTs,
-	genLabel
+	genLabel,
+	genTsLabel
 }
 
 export {

@@ -24,6 +24,21 @@ import { fetchDeviceDataChart } from "@api";
 import { useDispatch, useSelector } from 'react-redux';
 import { Actions, Selectors } from '@redux';
 
+function genDefArr(start_num = 0, end_num = 0, data_point = 12) {
+    start_num = start_num * 60;
+    end_num = end_num * 60;
+
+    let arr = [];
+
+    let step = 60 / data_point; 
+
+    for(let ind = start_num; ind < end_num; ind += step) {
+        arr.push(null);
+    }
+
+    return arr;
+}
+
 function useChart() {
 
     const [chart, setChart] = useState([]);
@@ -47,8 +62,10 @@ function useChart() {
 
             const obj = { ...chart[0] };
 
-            delete obj["Timestamp"];
             delete obj["Device_Id"];
+
+            const ts = chart.map(x => x["Timestamp"]);
+            delete obj["Timestamp"];
 
             const keys = Object.keys(obj);
 
@@ -63,6 +80,23 @@ function useChart() {
 
                 min_val = Math.min(...val, min_val);
                 max_val = Math.max(...val, max_val);
+
+                if (ts.length > 0) {
+                    min_dt = ts[0];
+                    max_dt = ts.at(-1);
+
+                    // Get Start Dt
+                    const s_hr = DateTime.fromISO(min_dt).hour;
+
+                    let s_arr = genDefArr(0, s_hr);
+            
+                    // Get End Dt
+                    const e_hr = DateTime.fromISO(max_dt).hour;
+
+                    let e_arr = genDefArr(e_hr, 23);
+
+                    val = [...s_arr, ...val, ...e_arr]
+                }
 
                 let dataset = [{
                     data: val,
@@ -187,15 +221,14 @@ function Index(props) {
                 onSetLoading: setLoading,
             })
                 .then(data => {
-                    setChart(data)
-                    // console.log(data);
+                    setChart(data);
                 })
                 .catch(err => {
                     setLoading(false);
                     console.log(`Error: ${err}`)
                 })
 
-            let label = Utility.genLabel(startDt, endDt);
+            let label = Utility.genLabel(startDt, `${endDt}T23:59:59`);
             setLabel(label);
         }
     }, [isFocused, JSON.stringify(startDt + endDt + deviceId)]);

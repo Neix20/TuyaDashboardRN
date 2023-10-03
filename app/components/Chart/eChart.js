@@ -36,7 +36,7 @@ function ChartComponent(props) {
 		if (chartRef.current) {
 			chart = echarts.init(chartRef.current, 'light', {
 				renderer: 'svg',
-				width: width,
+				width: 320,
 				height: height
 			});
 			chart.setOption(option);
@@ -69,6 +69,7 @@ function Index(props) {
 			right: 10,
 		},
 		legend: {
+			
 			data: chartLegend,
 			padding: 10,
 			top: -10
@@ -89,6 +90,8 @@ function Index(props) {
 			}
 		],
 		grid: {
+		left: 10,
+		right: 10,
 			containLabel: true,
 		},
 		series: dataset
