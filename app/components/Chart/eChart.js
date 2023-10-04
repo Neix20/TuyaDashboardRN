@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Dimensions, SafeAreaView, ScrollView } from "react-native";
+import { Dimensions, SafeAreaView, ScrollView, useWindowDimensions } from "react-native";
 
 import * as echarts from 'echarts/core';
 import { SVGRenderer, SkiaChart } from '@wuba/react-native-echarts';
@@ -7,9 +7,6 @@ import { LineChart } from 'echarts/charts';
 import { TitleComponent, TooltipComponent, GridComponent, LegendComponent, ToolboxComponent, DataZoomComponent } from 'echarts/components';
 
 import { Logger, Utility } from "@utility";
-
-const screen = Dimensions.get("screen");
-const { width } = screen;
 
 // Register extensions
 echarts.use([
@@ -26,7 +23,7 @@ echarts.use([
 // Initialize
 function ChartComponent(props) {
 
-	const { height = 480, option } = props;
+	const { height = 480, width = 320, option } = props;
 
 	const chartRef = useRef(null);
 
@@ -36,7 +33,7 @@ function ChartComponent(props) {
 		if (chartRef.current) {
 			chart = echarts.init(chartRef.current, 'light', {
 				renderer: 'svg',
-				width: 320,
+				width: width,
 				height: height
 			});
 			chart.setOption(option);
@@ -57,7 +54,11 @@ function Index(props) {
 
 	const { label = [], dataset = [] } = chartData;
 
+	const { width } = useWindowDimensions();
+
 	const option = {
+		// animation: false,
+		animationDuration: 10,
 		tooltip: {
 			trigger: 'axis',
 			renderMode: "richText"
@@ -66,13 +67,12 @@ function Index(props) {
 			feature: {
 				restore: {}
 			},
+			top: 20,
 			right: 10,
 		},
 		legend: {
-
 			data: chartLegend,
-			padding: 10,
-			top: -10
+			type: "scroll"
 		},
 		xAxis: {
 			type: 'category',
@@ -86,7 +86,8 @@ function Index(props) {
 		dataZoom: [
 			{
 				start: 0,
-				end: 100
+				end: 100,
+				bottom: 30,
 			}
 		],
 		grid: {
@@ -97,7 +98,12 @@ function Index(props) {
 		series: dataset
 	};
 
-	return <ChartComponent option={option} {...props} />
+	return (
+		<ChartComponent 
+			option={option} 
+			width={width * 0.8}
+			{...props} />
+	)
 }
 
 export default Index;

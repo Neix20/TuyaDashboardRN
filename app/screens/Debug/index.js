@@ -261,23 +261,10 @@ function DeviceChart(props) {
 
     return (
         <SafeAreaView style={{ flex: 1 }}>
-            <View style={{ flex: 1 }}>
-
-                {/* Header */}
-                <View style={{ height: 80 }} />
-
-                <View style={{ height: 10 }} />
-
-                {/* Body */}
-                <ScrollView showsVerticalScrollIndicator={false}
-                    contentContainerStyle={{ flexGrow: 1 }}>
-                    <View flexGrow={1} justifyContent={"center"}>
-                        <BcApacheChart key={true} hook={chartHook} height={360} />
-                    </View>
-                </ScrollView>
-
-                {/* Footer */}
-                <View style={{ height: 60 }} />
+            <View flexGrow={1} 
+                alignItems={"center"}
+                justifyContent={"center"}>
+                <BcApacheChart hook={chartHook} height={320} />
             </View>
         </SafeAreaView>
     )

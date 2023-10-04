@@ -276,7 +276,7 @@ function Index(props) {
     const [compare, setCompare, toggleCompare] = chartCompareHook;
 
     const [drData, setDrData] = useState([]);
-
+    
     const [loading, setLoading, toggleLoading] = useToggle(false);
     // #endregion
 

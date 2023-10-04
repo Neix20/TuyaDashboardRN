@@ -2,7 +2,10 @@
 
 #### Tasks
 - [x] ECharts
-  - [ ] Implement Chart Into App
+  - [x] Implement Chart Into App
+  - [ ] App Is Slow
+- [ ] Test Out Data Table
+  - [ ] Select From Gay
 - [ ] Report Template
   - [ ] Insert New From Report
 - [x] Fix Data Sync (7 Days)
