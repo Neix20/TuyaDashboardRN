@@ -13,13 +13,15 @@ import { Logger, Utility } from "@utility";
 
 import { DateTime } from "luxon";
 
-import { BcLoading, BcHeader, BcDateRange, BcLineChart } from "@components";
+import { BcLoading, BcHeader, BcDateRange, BcLineChart, BcSvgIcon } from "@components";
 
 import { Tab, TabView } from "@rneui/themed";
 
 import { useToggle, useDate } from "@hooks";
 
 import { fetchDeviceDataChart } from "@api";
+
+import { Svg } from "@config";
 
 import { useDispatch, useSelector } from 'react-redux';
 import { Actions, Selectors } from '@redux';
@@ -30,9 +32,9 @@ function genDefArr(start_num = 0, end_num = 0, data_point = 12) {
 
     let arr = [];
 
-    let step = 60 / data_point; 
+    let step = 60 / data_point;
 
-    for(let ind = start_num; ind < end_num; ind += step) {
+    for (let ind = start_num; ind < end_num; ind += step) {
         arr.push(null);
     }
 
@@ -56,7 +58,7 @@ function useChart() {
     }
 
     useEffect(() => {
-        if (chart.length > 0) {
+        if (chart.length > 1) {
 
             const ind = Utility.genRandomInt(0, 10);
 
@@ -65,6 +67,7 @@ function useChart() {
             delete obj["Device_Id"];
 
             const ts = chart.map(x => x["Timestamp"]);
+            
             delete obj["Timestamp"];
 
             const keys = Object.keys(obj);
@@ -74,6 +77,8 @@ function useChart() {
             for (const key of keys) {
                 let val = chart.map(x => x[key]);
                 val = val.map(x => +x);
+
+                if (val.length == 0) continue;
 
                 let min_val = Number.MAX_VALUE;
                 let max_val = Number.MIN_VALUE;
@@ -89,7 +94,7 @@ function useChart() {
                     const s_hr = DateTime.fromISO(min_dt).hour;
 
                     let s_arr = genDefArr(0, s_hr);
-            
+
                     // Get End Dt
                     const e_hr = DateTime.fromISO(max_dt).hour;
 
@@ -135,15 +140,60 @@ function EmptyList(props) {
     )
 }
 
+function DataAttribute(props) {
+
+    const { data = [] } = props;
+
+    if (data.length == 0) {
+        return (<></>)
+    }
+
+    let keys = Object.keys(data[0]);
+
+    const svg_key = Object.keys(Svg["MetaData_Header"]);
+
+    keys = keys.filter(x => svg_key.includes(x));
+
+    const renderItem = (item, index) => {
+        return (
+            <HStack key={index} space={3}
+                width={"90%"}
+                alignItems={"center"}>
+                <BcSvgIcon name={item} />
+                <Text style={{
+                    fontFamily: "Roboto-Bold",
+                    fontSize: 16
+                }}>{item}</Text>
+            </HStack>
+        )
+    }
+
+    return (
+        <>
+            <View py={3}
+                alignItems={"center"}
+                bgColor={"#FFF"}>
+                <View w={'90%'}>
+                    <Text style={{
+                        fontFamily: "Roboto-Bold",
+                        fontSize: 18
+                    }}>Data Attributes</Text>
+                </View>
+            </View>
+            <VStack alignItems={"center"} bgColor={"#FFF"} space={2} pb={2}>
+                {keys.map(renderItem)}
+            </VStack>
+        </>
+    )
+}
+
 function DataChart(props) {
     const { label = [], dataset = [] } = props;
     const { tabPaneInd, setTabPaneInd } = props;
 
     if (dataset.length == 0) {
         return (
-            <View bgColor={"#FFF"}>
-                <EmptyList />
-            </View>
+            <EmptyList />
         )
     }
 
@@ -197,6 +247,8 @@ function Index(props) {
 
     const [tabPaneInd, setTabPaneInd] = useState(0);
 
+    const [data, setData] = useState([]);
+
     const [chart, setChart, chartData, setChartData] = useChart();
 
     const [label, setLabel] = useState([]);
@@ -222,6 +274,7 @@ function Index(props) {
             })
                 .then(data => {
                     setChart(data);
+                    setData(data);
                 })
                 .catch(err => {
                     setLoading(false);
@@ -284,7 +337,7 @@ function Index(props) {
                                 {/* Body */}
                                 <ScrollView showsVerticalScrollIndicator={false} keyboardShouldPersistTaps={"handled"}
                                     contentContainerStyle={{ flexGrow: 1 }}>
-                                    <View flexGrow={1}>
+                                    <View flexGrow={1} bgColor={"#FFF"}>
                                         <DataChart
                                             tabPaneInd={tabPaneInd} setTabPaneInd={setTabPaneInd}
                                             label={label} dataset={dataset} />

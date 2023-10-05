@@ -11,9 +11,11 @@ const { width, height } = screen;
 
 import { Logger, Utility } from "@utility";
 
-import { BcHeader, BcLoading, BcDateRange } from "@components";
+import { BcHeader, BcLoading, BcDateRange, BcSvgIcon } from "@components";
 
 import { fetchDeviceDataChart } from "@api";
+
+import { Svg } from "@config";
 
 import { useToggle, useDate } from "@hooks";
 
@@ -48,16 +50,18 @@ function DataTable(props) {
         )
     }
 
-    const keys = Object.keys(data[0]);
+    let keys = Object.keys(data[0]);
+
+    // Only Filter Keys That Are In Svg
+    const svg_key = Object.keys(Svg["MetaData_Header"]);
+
+    keys = keys.filter(x => [...svg_key, "Timestamp"].includes(x));
 
     // #region Render Item
     const renderHeader = (item, ind) => {
         return (
             <View key={ind} alignItems={"center"} style={{ width: 60 }}>
-                <Text style={{
-                    fontFamily: "Roboto-Bold",
-                    fontSize: 16
-                }}>{item}</Text>
+                <BcSvgIcon name={item} />
             </View>
         )
     }
@@ -83,7 +87,7 @@ function DataTable(props) {
                     <Text>{Utility.formatDt(ts, "yyyy-MM-dd HH:mm:ss")}</Text>
                 </View>
                 {
-                    keys.slice(2).map(renderData)
+                    keys.slice(1).map(renderData)
                 }
             </HStack>
         )
@@ -102,11 +106,58 @@ function DataTable(props) {
                     }}>{keys[0]}</Text>
                 </View>
                 {
-                    keys.slice(2).map(renderHeader)
+                    keys.slice(1).map(renderHeader)
                 }
             </HStack>
             {data.map(renderValues)}
         </VStack>
+    )
+}
+
+function DataAttribute(props) {
+
+    const { data = [] } = props;
+
+    if (data.length == 0) {
+        return (<></>)
+    }
+
+    let keys = Object.keys(data[0]);
+
+    const svg_key = Object.keys(Svg["MetaData_Header"]);
+
+    keys = keys.filter(x => svg_key.includes(x));
+
+    const renderItem = (item, index) => {
+        return (
+            <HStack key={index} space={3}
+                width={"90%"}
+                alignItems={"center"}>
+                <BcSvgIcon name={item} />
+                <Text style={{
+                    fontFamily: "Roboto-Bold",
+                    fontSize: 16
+                }}>{item}</Text>
+            </HStack>
+        )
+    }
+
+    return (
+        <>
+            <View py={3}
+                alignItems={"center"}
+                bgColor={"#FFF"}>
+                <View w={'90%'}>
+                    <Text style={{
+                        fontFamily: "Roboto-Bold",
+                        fontSize: 18
+                    }}>Data Attributes</Text>
+                </View>
+            </View>
+            <VStack alignItems={"center"} bgColor={"#FFF"} space={2} pb={2}>
+                {keys.map(renderItem)}
+            </VStack>
+        </>
     )
 }
 
@@ -124,8 +175,8 @@ function Index(props) {
             endDt: dt.toFormat("yyyy-MM-dd")
         },
         cmpDateObj: {
-            startDt: dt.plus({months: -1}).toFormat("yyyy-MM-dd"),
-            endDt: dt.plus({months: -1}).toFormat("yyyy-MM-dd")
+            startDt: dt.plus({ months: -1 }).toFormat("yyyy-MM-dd"),
+            endDt: dt.plus({ months: -1 }).toFormat("yyyy-MM-dd")
         }
     }
     // #endregion
@@ -158,13 +209,14 @@ function Index(props) {
                 },
                 onSetLoading: setLoading,
             })
-            .then(data => {
-                setData(data)
-            })
-            .catch(err => {
-                setLoading(false);
-                console.log(`Error: ${err}`)
-            })
+                .then(data => {
+                    console.log(data);
+                    setData(data);
+                })
+                .catch(err => {
+                    setLoading(false);
+                    console.log(`Error: ${err}`)
+                })
         }
     }, [isFocused, JSON.stringify(startDt + endDt + deviceId)]);
 
@@ -179,8 +231,12 @@ function Index(props) {
 
                     <View style={{ height: 10 }} />
 
-                    <BcDateRange showCompare={false} 
+                    <BcDateRange showCompare={false}
                         hook={dateHook} prevHook={prevDateHook} />
+
+                    <View style={{ height: 10 }} />
+
+                    <DataAttribute data={data} />
 
                     <View style={{ height: 10 }} />
 
@@ -202,6 +258,7 @@ function Index(props) {
                             <DataTable data={data} />
                         </View>
                     </ScrollView>
+
                 </View>
             </SafeAreaView>
         </>

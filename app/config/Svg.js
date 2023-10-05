@@ -14,6 +14,14 @@ import WhatsApp from "@assets/svg/WhatsApp.svg";
 import Envelope from "@assets/svg/Envelope.svg";
 import PhoneBook from "@assets/svg/PhoneBook.svg";
 
+import Power from "@assets/svg/Power.svg";
+import Current from "@assets/svg/Current.svg";
+import Voltage from "@assets/svg/Voltage.svg";
+
+import Temperature from "@assets/svg/Temperature";
+import AbsoluteHumidity from "@assets/svg/Absolute_Humidity.svg";
+import RelativeHumidity from "@assets/svg/Relative_Humidity.svg";
+
 Data = {
     AppLogo: AppLogo,
     Yatu: Yatu,
@@ -34,6 +42,28 @@ Data = {
     WhatsApp: WhatsApp,
     Envelope: Envelope,
     PhoneBook: PhoneBook,
+}
+
+Data = {
+    ...Data,
+    Temperature: Temperature,
+    "Absolute Humidity": AbsoluteHumidity,
+    "Relative Humidity": RelativeHumidity,
+    Power: Power,
+    Current: Current,
+    Voltage: Voltage,
+}
+
+Data = {
+    ...Data,
+    MetaData_Header: {
+        Temperature: Temperature,
+        "Absolute Humidity": AbsoluteHumidity,
+        "Relative Humidity": RelativeHumidity,
+        Power: Power,
+        Current: Current,
+        Voltage: Voltage,
+    }
 }
 
 export default Data;

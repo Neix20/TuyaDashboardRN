@@ -27,14 +27,9 @@ const Index = async (props) => {
         
         let res = {...Data };
 
-        const { MetaData, DeviceImg } = Data;
+        const { DeviceImg } = Data;
 
         res["img"] = { uri: DeviceImg };
-
-        let mObj = JSON.parse(MetaData);
-
-        res["Temperature"] = +mObj["temp_current"];
-        res["Humidity"] = +mObj["humidity_value"];
 
         return res;
     }

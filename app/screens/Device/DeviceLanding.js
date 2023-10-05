@@ -108,7 +108,74 @@ function ItemPanel(props) {
 }
 
 function DeviceDataPanel(props) {
-    const { Title, Temperature, Humidity } = props;
+    const { Title, IsTempHumd = 1, MetaData = {} } = props;
+
+    if (IsTempHumd == 0) {
+
+        const { Current, Power, Voltage } = MetaData;
+
+        return (
+            <VStack space={5} height={"100%"}
+                alignItems={"center"} justifyContent={"flex-end"}>
+                <View>
+                    <Text style={{
+                        fontSize: 24,
+                        fontFamily: "Roboto-Medium",
+                        color: "#FFF"
+                    }}>{Title}</Text>
+                </View>
+                <HStack width={"90%"}
+                    alignItems={"center"} justifyContent={"space-between"}>
+                    <VStack alignItems={"center"} flex={1}>
+                        <Text style={{
+                            fontSize: 20,
+                            fontFamily: "Roboto-Medium",
+                            color: "#FFF",
+                            textAlign: "center",
+                        }}>Current</Text>
+                        <Text style={{
+                            fontSize: 28,
+                            fontFamily: "Roboto-Bold",
+                            color: "#FFF"
+                        }}>{(Current / 100).toFixed(2)} A</Text>
+                    </VStack>
+                    <Divider orientation={"vertical"} style={{ width: 3 }} bgColor={"#FFF"} />
+                    <VStack alignItems={"center"} flex={1}>
+                        <Text style={{
+                            fontSize: 20,
+                            fontFamily: "Roboto-Medium",
+                            color: "#FFF",
+                            textAlign: "center",
+                        }}>Voltage</Text>
+                        <Text style={{
+                            fontSize: 28,
+                            fontFamily: "Roboto-Bold",
+                            color: "#FFF"
+                        }}>{(Voltage / 100).toFixed(2)} V</Text>
+                    </VStack>
+                    <Divider orientation={"vertical"} style={{ width: 3 }} bgColor={"#FFF"} />
+                    <VStack alignItems={"center"} flex={1}>
+                        <Text style={{
+                            fontSize: 20,
+                            fontFamily: "Roboto-Medium",
+                            color: "#FFF",
+                            textAlign: "center",
+                        }}>Power</Text>
+                        <Text style={{
+                            fontSize: 28,
+                            fontFamily: "Roboto-Bold",
+                            color: "#FFF"
+                        }}>{(Power / 100).toFixed(2)} W</Text>
+                    </VStack>
+                </HStack>
+            </VStack>
+        )
+    }
+
+    const AH_Humidity = MetaData["Absolute Humidity"];
+    const RH_Humidity = MetaData["Relative Humidity"];
+    const Temperature = MetaData["Temperature"];
+
     return (
         <VStack space={5} height={"100%"}
             alignItems={"center"} justifyContent={"flex-end"}>
@@ -121,30 +188,46 @@ function DeviceDataPanel(props) {
             </View>
             <HStack width={"90%"}
                 alignItems={"center"} justifyContent={"space-between"}>
-                <VStack alignItems={"center"}>
+                <VStack alignItems={"center"} flex={1.2}>
                     <Text style={{
-                        fontSize: 24,
+                        fontSize: 20,
                         fontFamily: "Roboto-Medium",
-                        color: "#FFF"
+                        color: "#FFF",
+                        textAlign: "center",
                     }}>Temperature</Text>
                     <Text style={{
-                        fontSize: 56,
+                        fontSize: 28,
                         fontFamily: "Roboto-Bold",
                         color: "#FFF"
-                    }}>{(Temperature / 10).toFixed(1)}℃</Text>
+                    }}>{(Temperature / 10).toFixed(1)} ℃</Text>
                 </VStack>
                 <Divider orientation={"vertical"} style={{ width: 3 }} bgColor={"#FFF"} />
-                <VStack alignItems={"center"}>
+                <VStack alignItems={"center"} flex={1}>
                     <Text style={{
-                        fontSize: 24,
+                        fontSize: 20,
                         fontFamily: "Roboto-Medium",
-                        color: "#FFF"
-                    }}>Humidity</Text>
+                        color: "#FFF",
+                        textAlign: "center",
+                    }}>Relative Humidity</Text>
                     <Text style={{
-                        fontSize: 56,
+                        fontSize: 28,
                         fontFamily: "Roboto-Bold",
                         color: "#FFF"
-                    }}>{Humidity}%</Text>
+                    }}>{RH_Humidity} %</Text>
+                </VStack>
+                <Divider orientation={"vertical"} style={{ width: 3 }} bgColor={"#FFF"} />
+                <VStack alignItems={"center"} flex={1}>
+                    <Text style={{
+                        fontSize: 20,
+                        fontFamily: "Roboto-Medium",
+                        color: "#FFF",
+                        textAlign: "center",
+                    }}>Absolute Humidity</Text>
+                    <Text style={{
+                        fontSize: 28,
+                        fontFamily: "Roboto-Bold",
+                        color: "#FFF"
+                    }}>{AH_Humidity} %</Text>
                 </VStack>
             </HStack>
         </VStack>
@@ -184,6 +267,7 @@ function Index(props) {
                 onSetLoading: setLoading,
             })
                 .then(data => {
+                    console.log(data);
                     setDeviceInfo(data)
                 })
                 .catch(err => {
@@ -202,7 +286,9 @@ function Index(props) {
 
     // #endregion
 
-    const ind = 3;
+    const { Online_Status = 0, IsTempHumd = 0 } = deviceInfo;
+
+    const ind = (IsTempHumd == 0) ? 1 : 3;
 
     return (
         <>
@@ -239,6 +325,17 @@ function Index(props) {
                                 </View>
                                 <VStack
                                     flex={.75} space={5} width={"100%"} alignItems={"center"}>
+                                    <ItemPanel Icon={FontAwesome5} name={"power-off"} onPress={() => { }}>
+                                        <Text style={{
+                                            fontSize: 18,
+                                            fontFamily: "Roboto-Medium",
+                                        }}>
+                                            <Text>Status: </Text>
+                                            <Text key={Online_Status} style={{
+                                                color: (Online_Status == 1) ? "#0F0" : "#F00"
+                                            }}>{Online_Status == 1 ? "Online" : "Offline"}</Text>
+                                        </Text>
+                                    </ItemPanel>
                                     <ItemPanel Icon={FontAwesome5} name={"info-circle"} onPress={GoToInfo}>Device Info</ItemPanel>
                                     <ItemPanel Icon={FontAwesome5} name={"clipboard-list"} onPress={GoToRules}>Device Rules</ItemPanel>
                                     {/* <ItemPanel Icon={FontAwesome5} name={"bell"} onPress={GoToAlert}>Device Alert</ItemPanel> */}

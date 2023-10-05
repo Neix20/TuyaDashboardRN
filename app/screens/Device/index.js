@@ -527,7 +527,7 @@ function DeviceItem(props) {
     const toast = useToast();
 
     // #region Props
-    const { Title, img, Description, Tuya_Id = "", Id: deviceId } = props;
+    const { Title, img, Description, Tuya_Id = "", Id: deviceId, Online_Status } = props;
     const { loading, setLoading = () => { } } = props;
     const { onSelect = () => { } } = props;
     const { toggleRefresh = () => { } } = props;
@@ -600,9 +600,11 @@ function DeviceItem(props) {
                             }}>{Title}</Text>
                             <Text style={{
                                 fontSize: 12,
-                                fontFamily: 'Roboto-Medium',
-                                color: "#c6c6c6"
-                            }}>{Description}</Text>
+                                fontFamily: 'Roboto-Bold',
+                                color: (Online_Status === 1) ? "#0F0" : "#F00",
+                            }}>
+                                {Online_Status === 1 ? "Online" : "Offline"}
+                            </Text>
                         </VStack>
                     </VStack>
                 </BcBoxShadow>

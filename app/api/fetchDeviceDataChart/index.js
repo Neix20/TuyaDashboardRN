@@ -23,7 +23,7 @@ const Index = async (props) => {
     onSetLoading(false);
 
     if (data["ResponseCode"] === "00") {
-        const { Data = [] } = data;
+        const { Data } = data;
 
         if (Data === "[]") {
             return [];
@@ -36,7 +36,7 @@ const Index = async (props) => {
         console.log(`GetDeviceDataChart - Response - ${JSON.stringify(data)}`);
     }
 
-    return [];
+    return []
 };
 
 export default Index;

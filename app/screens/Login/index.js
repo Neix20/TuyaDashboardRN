@@ -175,7 +175,7 @@ function Index(props) {
             onSetLoading: setLoading,
         })
             .then(data => {
-                const { Otp, SessionId, MsgTemplate, ShowDebugFlag } = data;
+                const { Otp, SessionId, MsgTemplate, ShowDebugFlag = false } = data;
                 if (ShowDebugFlag) {
                     toast.show({
                         description: MsgTemplate

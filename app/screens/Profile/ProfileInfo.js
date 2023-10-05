@@ -221,7 +221,7 @@ function Index(props) {
                     console.log(`Error: ${err}`);
                 })
         }
-    }, [userId]);
+    }, [isFocused, userId]);
 
     // Compare Flag
     useEffect(() => {

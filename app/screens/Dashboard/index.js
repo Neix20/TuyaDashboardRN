@@ -12,7 +12,7 @@ const { width, height } = screen;
 
 import { Logger, Utility } from "@utility";
 
-import { Images, DashboardReportData } from "@config";
+import { Images, Svg } from "@config";
 
 import { BcBoxShadow, BcSvgIcon, BcDateRange, BcViewShot, BcLoading, BcYatuHome, BcLineChartFull, BcApacheChart } from "@components";
 
@@ -112,7 +112,54 @@ function CardGradientItem(props) {
     )
 }
 
-function DashboardReport(props) {
+function DataAttribute(props) {
+
+    const { data = [] } = props;
+
+    if (data.length == 0) {
+        return (<></>)
+    }
+
+    let keys = Object.keys(data[0]);
+
+    const svg_key = Object.keys(Svg["MetaData_Header"]);
+
+    keys = keys.filter(x => svg_key.includes(x));
+
+    const renderItem = (item, index) => {
+        return (
+            <HStack key={index} space={3}
+                width={"90%"}
+                alignItems={"center"}>
+                <BcSvgIcon name={item} />
+                <Text style={{
+                    fontFamily: "Roboto-Bold",
+                    fontSize: 16
+                }}>{item}</Text>
+            </HStack>
+        )
+    }
+
+    return (
+        <>
+            <View py={3}
+                alignItems={"center"}
+                bgColor={"#FFF"}>
+                <View w={'90%'}>
+                    <Text style={{
+                        fontFamily: "Roboto-Bold",
+                        fontSize: 18
+                    }}>Data Attributes</Text>
+                </View>
+            </View>
+            <VStack alignItems={"center"} bgColor={"#FFF"} space={2} pb={2}>
+                {keys.map(renderItem)}
+            </VStack>
+        </>
+    )
+}
+
+function DashboardHumidityReport(props) {
 
     // #region Initial
     const init = {
@@ -209,7 +256,7 @@ function DashboardReport(props) {
                 <View alignItems={"center"} style={{ width: 40 }}><Text style={{ fontFamily: "Roboto-Bold" }}>Temp</Text></View>
                 <View alignItems={"center"} style={{ width: 40 }}><Text style={{ fontFamily: "Roboto-Bold" }}>R Humid</Text></View>
                 <View alignItems={"center"} style={{ width: 60 }}><Text style={{ fontFamily: "Roboto-Bold" }}>A Humid</Text></View>
-                    <Text style={{ fontFamily: "Roboto-Bold" }}>Count</Text>
+                <Text style={{ fontFamily: "Roboto-Bold" }}>Count</Text>
             </HStack>
             {data.map(renderValues)}
         </VStack>
@@ -263,6 +310,9 @@ function Index(props) {
     const chartHook = useEChart("Absolute Humidity");
     const [chart, setChart] = chartHook.slice(0, 6);
 
+    const spChartHook = useEChart("Voltage");
+    const [spChart, setSpChart] = spChartHook.slice(0, 2);
+
     const prevChartHook = useEChart("Absolute Humidity");
     const [prevChart, setPrevChart] = prevChartHook.slice(0, 6);
 
@@ -276,7 +326,8 @@ function Index(props) {
     const [compare, setCompare, toggleCompare] = chartCompareHook;
 
     const [drData, setDrData] = useState([]);
-    
+    const [drSpData, setDrSpData] = useState([]);
+
     const [loading, setLoading, toggleLoading] = useToggle(false);
     // #endregion
 
@@ -343,6 +394,13 @@ function Index(props) {
                 } else {
                     setFunc({})
                 }
+
+                if ("Default" in res) {
+                    const Data = res["Default"];
+                    setSpChart(Data);
+                } else {
+                    setSpChart({});
+                }
             })
             .catch(err => {
                 setLoading(false);
@@ -378,10 +436,22 @@ function Index(props) {
                                         alignItems={"flex-start"}
                                         justifyContent={"space-between"}>
                                         <View px={3} style={{ width: width }}>
-                                            <BcViewShot title="Daily Device Report">
+                                            <BcViewShot title="Daily Humidity Device Report">
                                                 <BcApacheChart hook={chartHook} height={360} />
                                             </BcViewShot>
                                         </View>
+
+                                        {
+                                            (Object.keys(spChart).length > 0) ? (
+                                                <View px={3} style={{ width: width }}>
+                                                    <BcViewShot title="Daily Smart Plug Data">
+                                                        <BcApacheChart hook={spChartHook} height={360} />
+                                                    </BcViewShot>
+                                                </View>
+                                            ) : (
+                                                <></>
+                                            )
+                                        }
 
                                         {
                                             (compare && Object.keys(prevChart).length > 0) ? (
@@ -397,11 +467,13 @@ function Index(props) {
 
                                         {
                                             (Object.keys(drData).length > 0) ? (
-                                                <View px={3} style={{ width: width }}>
-                                                    <BcViewShot title="Device Report">
-                                                        <DashboardReport data={drData} />
-                                                    </BcViewShot>
-                                                </View>
+                                                <>
+                                                    <View px={3} style={{ width: width }}>
+                                                        <BcViewShot title="Humidity Device Report">
+                                                            <DashboardHumidityReport data={drData} />
+                                                        </BcViewShot>
+                                                    </View>
+                                                </>
                                             ) : (
                                                 <></>
                                             )
