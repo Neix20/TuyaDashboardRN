@@ -144,13 +144,14 @@ function InfoItem(props) {
 
 function InfoPanel(props) {
 
-    const { Title, Tuya_Id, Ip_Addr, Timezone } = props;
+    const { Title, Tuya_Id, Ip_Addr, Timezone, Device_Model } = props;
 
     return (
         <BcBoxShadow>
             <View bgColor={"#FFF"}
                 alignItems={"center"}>
                 <InfoItem Title={"Name"} Value={Title} />
+                <InfoItem Title={"Model"} Value={Device_Model} />
                 <InfoItem Title={"Device Id"} Value={Tuya_Id} />
                 <InfoItem Title={"Ip Address"} Value={Ip_Addr} />
                 <InfoItem Title={"Timezone"} Value={Timezone} />

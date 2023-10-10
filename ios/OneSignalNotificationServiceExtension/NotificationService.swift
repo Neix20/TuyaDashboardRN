@@ -1,6 +1,6 @@
 import UserNotifications
 
-import OneSignalExtension
+import OneSignal
 
 class NotificationService: UNNotificationServiceExtension {
     
@@ -20,7 +20,7 @@ class NotificationService: UNNotificationServiceExtension {
             // print("Running NotificationServiceExtension")
             // bestAttemptContent.body = "[Modified] " + bestAttemptContent.body
             
-            OneSignalExtension.didReceiveNotificationExtensionRequest(self.receivedRequest, with: bestAttemptContent, withContentHandler: self.contentHandler)
+            OneSignal.didReceiveNotificationExtensionRequest(self.receivedRequest, with: bestAttemptContent, withContentHandler: self.contentHandler)
         }
     }
     
@@ -28,7 +28,7 @@ class NotificationService: UNNotificationServiceExtension {
         // Called just before the extension will be terminated by the system.
         // Use this as an opportunity to deliver your "best attempt" at modified content, otherwise the original push payload will be used.
         if let contentHandler = contentHandler, let bestAttemptContent =  bestAttemptContent {
-            OneSignalExtension.serviceExtensionTimeWillExpireRequest(self.receivedRequest, with: self.bestAttemptContent)
+            OneSignal.serviceExtensionTimeWillExpireRequest(self.receivedRequest, with: self.bestAttemptContent)
             contentHandler(bestAttemptContent)
         }
     }

@@ -52,6 +52,10 @@ target 'YatuDashboard' do
     # Pods for testing
   end
   
+  target 'OneSignalNotificationServiceExtension' do
+    pod 'OneSignalXCFramework', '>= 3.0', '< 4.0'
+  end  
+  
   pod "ThingSmartCryption", :path =>'./TuyaSDK'
   pod 'ThingSmartHomeKit','~> 5.1.0'
 
@@ -71,12 +75,12 @@ target 'YatuDashboard' do
         config.build_settings['CLANG_WARN_DOCUMENTATION_COMMENTS'] = 'NO'
         # iOS 模拟器去除 arm64
         config.build_settings["EXCLUDED_ARCHS[sdk=iphonesimulator*]"] = "arm64"
+
+        config.build_settings['ARCHS[sdk=iphonesimulator*]'] = 'x86_64'
+        
+        config.build_settings['APPLICATION_EXTENSION_API_ONLY'] = 'NO'
       end
     end
-  end
-
-  target 'OneSignalNotificationServiceExtension' do
-    pod 'OneSignalXCFramework', '>= 5.0.0', '< 6.0'
   end
 
 end

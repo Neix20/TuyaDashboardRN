@@ -30,7 +30,7 @@ import { fetchDeviceList, fetchDeleteDevice, fetchGetLinkedDevice, fetchLinkDevi
 import { useDispatch, useSelector } from 'react-redux';
 import { Actions, Selectors } from '@redux';
 
-import { useToggle, useModalToast } from "@hooks";
+import { useToggle, useModalToast, useTimer } from "@hooks";
 
 import { CheckBox } from "@rneui/base";
 
@@ -56,6 +56,7 @@ function useLinkDevice(val = []) {
 
         let arr = [...ls];
         arr[pos].flag = !flag;
+
         arr[pos].Status = !flag ? 1 : 0;
 
         setLs(arr);
@@ -68,7 +69,7 @@ function useLinkDevice(val = []) {
 // #region Linked Device
 function LinkDeviceItem(props) {
 
-    const { Title, flag } = props;
+    const { Title, flag, Model } = props;
     const { onSelect = () => { } } = props;
 
     return (
@@ -79,6 +80,11 @@ function LinkDeviceItem(props) {
                         fontFamily: "Roboto-Medium",
                         fontSize: 16,
                     }}>{Title}</Text>
+                    <Text style={{
+                        fontFamily: "Roboto-Medium",
+                        fontSize: 12,
+                        color: "#c6c6c6"
+                    }}><Text>Model: </Text>{Model}</Text>
                 </View>
                 <CheckBox
                     containerStyle={{
@@ -120,6 +126,12 @@ function LinkDeviceModal(props) {
     const [data, setData, toggleItem] = useLinkDevice([]);
     const [loading, setLoading, toggleLoading] = useToggle(false);
     const [tabPaneInd, setTabPaneInd] = useState(0);
+
+    const [timer, setTimer] = useTimer(-1);
+    const [subLoadFlag, setSubLoadFlag, toggleSubLoadFlag] = useToggle(false);
+    const [curDeviceInd, setCurDeviceInd] = useState(0);
+    const [percentage, setPercentage] = useState(0);
+    const [duration, setDuration] = useState(0);
     // #endregion
 
     useEffect(() => {
@@ -143,33 +155,64 @@ function LinkDeviceModal(props) {
 
     // #region Render
     const renderItem = ({ item, index }) => {
-        const onSelect = () => toggleItem(item);
+        const { flag } = item;
+        const onSelect = () => {
+            let arr = data.filter(obj => obj.flag == true);
+
+            if (arr.length >= 5 && !flag) {
+                showMsg("You can only link 5 Devices at a time!");
+            } else {
+                toggleItem(item, showMsg);
+            }
+        };
         return (
             <LinkDeviceItem key={index} onSelect={onSelect} {...item} />
         )
     }
 
-    const renderTabItem = (item, index) => {
+    const renderUnsupportItem = ({ item, index }) => {
+        const { Title } = item;
         return (
-            <Tab.Item
-                key={index}
-                title={item}
-                titleStyle={(active) => ({
-                    fontSize: 18,
-                    paddingHorizontal: 0,
-                    color: active ? init.txtActive : init.txtInActive
-                })}
-                buttonStyle={(active) => ({
-                    borderWidth: active ? 1 : 0,
-                    borderRadius: 8,
-                    marginRight: 5,
-                    paddingVertical: 0,
-                    paddingHorizontal: 30,
-                })}
-            />
+            <HStack key={index} alignItems={"center"} justifyContent={"space-between"}>
+                <View>
+                    <Text style={{
+                        fontFamily: "Roboto-Medium",
+                        fontSize: 16,
+                    }}>{Title}</Text>
+                </View>
+                <View bgColor={"#F00"}
+                    py={1} px={3}>
+                    <Text style={{
+                        fontFamily: "Roboto-Medium",
+                        fontSize: 12,
+                        color: "#FFF"
+                    }}>Device Not Supported</Text>
+                </View>
+            </HStack>
         )
     }
     // #endregion
+
+    const dev_to_update_len = data.filter(x => x.Status).length;
+
+    const time_to_wait = 225;
+
+    useEffect(() => {
+        if (timer > 0 && data.length > 0) {
+
+            let ind = Math.floor((timer - 1) / time_to_wait);
+            setCurDeviceInd(ind);
+
+            let percent = (time_to_wait - (timer - ind * time_to_wait)) / time_to_wait * 100;
+            setPercentage(percent);
+        }
+
+        if (timer == 0) {
+            setLoading(false);
+            setSubLoadFlag(false);
+            toggleRefresh();
+        }
+    }, [timer]);
 
     const onSubmit = () => {
         let arr = [];
@@ -179,31 +222,72 @@ function LinkDeviceModal(props) {
             return { Id, Status };
         })
 
+        let f_arr = arr.filter(x => x.Status);
+
         setLoading(true);
+        setSubLoadFlag(true);
+
+        let duration = f_arr.length * time_to_wait;
+        setTimer(duration);
+
+        setDuration(duration);
+
         fetchLinkDevice({
             param: {
                 UserId: userId,
                 DeviceLs: arr
             },
-            onSetLoading: setLoading
+            onSetLoading: () => { }
         })
             .then(data => {
-                setShowModal(false);
-                toggleRefresh();
+                // setShowModal(false);
+
                 // Refresh Home List
+                // toggleRefresh();
             })
             .catch(err => {
                 setLoading(false);
+                setSubLoadFlag(false);
                 console.log(`Error: ${err}`);
             })
     }
 
-
     return (
-        <BaseModal {...props} cusToast={cusToast}>
+        <BaseModal {...props} cusToast={cusToast}
+            showCross={!loading}
+            showModal={showModal || loading && subLoadFlag}>
             {
                 (loading) ? (
-                    <View flexGrow={1} alignItems={"center"} justifyContent={"center"}>
+                    <View flexGrow={1} alignItems={"center"} justifyContent={"center"} pt={5}>
+                        {
+                            (subLoadFlag) ? (
+                                <VStack px={3}>
+                                    <Text style={{
+                                        fontFamily: "Roboto-Bold",
+                                        fontSize: 20,
+                                        textAlign: "center"
+                                    }}>
+                                        Now Syncing With {data.filter(x => x.Status)[dev_to_update_len - curDeviceInd - 1]?.Title} <Text style={{ color: "#F00" }}>{dev_to_update_len - curDeviceInd}</Text>/{dev_to_update_len}
+                                    </Text>
+                                    <Text style={{
+                                        fontFamily: "Roboto-Bold",
+                                        fontSize: 20,
+                                        textAlign: "center"
+                                    }}>
+                                        Loading: <Text style={{ color: "#F00" }}>{percentage.toFixed(2)}</Text>%
+                                    </Text>
+                                    <Text style={{
+                                        fontFamily: "Roboto-Bold",
+                                        fontSize: 20,
+                                        textAlign: "center"
+                                    }}>
+                                        Time Left: <Text style={{ color: "#F00" }}>{timer}</Text> seconds
+                                    </Text>
+                                </VStack>
+                            ) : (
+                                <></>
+                            )
+                        }
                         <Lottie
                             autoPlay
                             source={Animation.YatuLoader}
@@ -212,26 +296,24 @@ function LinkDeviceModal(props) {
                                 width: 320,
                                 height: 320
                             }} />
-
-                        <Text style={{
-                            fontFamily: "Roboto-Bold",
-                            fontSize: 18,
-                            textAlign: "center"
-                        }}>Please refrain from closing the app...</Text>
-                        <Text style={{
-                            fontFamily: "Roboto-Bold",
-                            fontSize: 18,
-                            textAlign: "center"
-                        }}>
-                            Syncing Data with Smart Home Server...
-                        </Text>
-                        <Text style={{
-                            fontFamily: "Roboto-Bold",
-                            fontSize: 16,
-                            textAlign: "center"
-                        }}>
-                            (It Make take 1 to 5 Minutes ...)
-                        </Text>
+                        <VStack space={3}>
+                            <View>
+                                <Text style={{
+                                    fontFamily: "Roboto-Bold",
+                                    fontSize: 18,
+                                    textAlign: "center"
+                                }}>
+                                    Syncing Data with Smart Home Server
+                                </Text>
+                                <Text style={{
+                                    fontFamily: "Roboto-Bold",
+                                    fontSize: 16,
+                                    textAlign: "center"
+                                }}>
+                                    (It may take upwards to 15 minutes)
+                                </Text>
+                            </View>
+                        </VStack>
                     </View>
                 ) : (
                     <VStack py={3} space={3} w={"100%"}
@@ -244,68 +326,58 @@ function LinkDeviceModal(props) {
                             }}>Device List</Text>
                         </View>
 
-                        {/* <View>
-                            <Tab scrollable={true} disableIndicator={true} value={tabPaneInd} onChange={(e) => setTabPaneInd(e)}>
-                                {tabLs.map(renderTabItem)}
-                            </Tab>
-                        </View>
+                        <FlatList
+                            data={data.filter(obj => obj.flag && obj.Supported == 1)}
+                            renderItem={renderItem}
+                            style={{ width: "90%", maxHeight: 300 }}
+                            contentContainerStyle={{
+                                flexDirection: "column",
+                                padding: 5,
+                                rowGap: 8,
+                            }}
+                            ListEmptyComponent={<></>}
+                        />
+
+                        <FlatList
+                            data={data.filter(obj => !obj.flag && obj.Supported == 1)}
+                            renderItem={renderItem}
+                            style={{ width: "90%", maxHeight: 300 }}
+                            contentContainerStyle={{
+                                flexDirection: "column",
+                                padding: 5,
+                                rowGap: 8,
+                            }}
+                            ListEmptyComponent={<></>}
+                        />
 
                         {
-                            (tabPaneInd == 0) ? (
-                                <FlatList
-                                    data={data.filter(obj => !obj.flag)}
-                                    renderItem={renderItem}
-                                    style={{ width: "90%", height: 300 }}
-                                    contentContainerStyle={{
-                                        flexDirection: "column",
-                                        padding: 5,
-                                        rowGap: 8,
-                                    }}
-                                    ListEmptyComponent={<></>}
-                                />
-                            ) : (tabPaneInd == 1) ? (
-                                <FlatList
-                                    data={data.filter(obj => obj.flag)}
-                                    renderItem={renderItem}
-                                    style={{ width: "90%", height: 300 }}
-                                    contentContainerStyle={{
-                                        flexDirection: "column",
-                                        padding: 5,
-                                        rowGap: 8,
-                                    }}
-                                    ListEmptyComponent={<></>}
-                                />
+                            (data.filter(obj => obj.Supported == 0).length > 0) ? (
+                                <>
+                                    <View width={"90%"} style={{ paddingHorizontal: 5 }}>
+                                        <Text style={{
+                                            fontFamily: "Roboto-Bold",
+                                            fontSize: 16
+                                        }}>Not Supported</Text>
+                                    </View>
+
+                                    <FlatList
+                                        data={data.filter(obj => obj.Supported == 0)}
+                                        renderItem={renderUnsupportItem}
+                                        style={{ width: "90%", maxHeight: 300 }}
+                                        contentContainerStyle={{
+                                            flexDirection: "column",
+                                            padding: 5,
+                                            rowGap: 8,
+                                        }}
+                                        ListEmptyComponent={<></>}
+                                    />
+                                </>
                             ) : (
                                 <></>
                             )
-                        } */}
+                        }
 
-                        <FlatList
-                            data={data.filter(obj => obj.flag)}
-                            renderItem={renderItem}
-                            style={{ width: "90%", maxHeight: 300 }}
-                            contentContainerStyle={{
-                                flexDirection: "column",
-                                padding: 5,
-                                rowGap: 8,
-                            }}
-                            ListEmptyComponent={<></>}
-                        />
-
-                        <FlatList
-                            data={data.filter(obj => !obj.flag)}
-                            renderItem={renderItem}
-                            style={{ width: "90%", maxHeight: 300 }}
-                            contentContainerStyle={{
-                                flexDirection: "column",
-                                padding: 5,
-                                rowGap: 8,
-                            }}
-                            ListEmptyComponent={<></>}
-                        />
-
-                        <TouchableOpacity onPress={onSubmit}
-                            style={{ width: "60%" }}>
+                        <TouchableOpacity onPress={onSubmit} style={{ width: "60%" }}>
                             <View backgroundColor={"#ff0000"}
                                 alignItems={"center"} justifyContent={"center"}
                                 borderRadius={8}

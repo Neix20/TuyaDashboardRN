@@ -10,7 +10,6 @@ const Index = async (props) => {
 
     // Static Data
     let obj = Utility.requestObj({
-        DataCount: 100,
         ...param,
         url: url,
     });

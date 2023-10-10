@@ -129,9 +129,10 @@ function DataAttribute(props) {
     const renderItem = (item, index) => {
         return (
             <HStack key={index} space={3}
-                width={"90%"}
                 alignItems={"center"}>
-                <BcSvgIcon name={item} />
+                <View style={{ width: 32 }}>
+                    <BcSvgIcon name={item} />
+                </View>
                 <Text style={{
                     fontFamily: "Roboto-Bold",
                     fontSize: 16
@@ -142,20 +143,106 @@ function DataAttribute(props) {
 
     return (
         <>
-            <View py={3}
-                alignItems={"center"}
-                bgColor={"#FFF"}>
-                <View w={'90%'}>
-                    <Text style={{
-                        fontFamily: "Roboto-Bold",
-                        fontSize: 18
-                    }}>Data Attributes</Text>
-                </View>
-            </View>
-            <VStack alignItems={"center"} bgColor={"#FFF"} space={2} pb={2}>
+            {/* <View bgColor={"#FFF"}>
+                <Text style={{
+                    fontFamily: "Roboto-Bold",
+                    fontSize: 18
+                }}>Data Attributes</Text>
+            </View> */}
+            <VStack bgColor={"#FFF"} space={2} pb={2}>
                 {keys.map(renderItem)}
             </VStack>
         </>
+    )
+}
+
+function DashboardVoltageReport(props) {
+    // #region Initial
+    const init = {
+        colors: {
+            "yellow": "#FFC000",
+            "green": "#92D050",
+            "red": "#FF0000",
+        }
+    }
+    // #endregion
+
+    // #region Props
+    const { data = [] } = props;
+    // #endregion
+
+    if (data.length == 0) {
+        return (<></>)
+    }
+
+    // #region Render
+    const renderValues = (item, index) => {
+
+        const { Device_Name, Count } = item;
+
+        const { Voltage = 0, Power = 0, Current = 0 } = item;
+
+        const getColor = (val) => {
+            const { green, yellow, red } = init.colors;
+
+            if (val <= 14) {
+                return green;
+            }
+            else if (val > 14 && val <= 17) {
+                return yellow;
+            }
+
+            return red;
+        }
+
+        return (
+
+            <HStack key={index} alignItems={"center"} justifyContent={"space-between"}>
+                <View style={{ width: 100 }}>
+                    <Text style={{
+                        fontFamily: "Roboto-Bold"
+                    }}>{Device_Name}</Text>
+                </View>
+                <View alignItems={"center"} 
+                    style={{ width: 60 }}>
+                    <Text>{Current}</Text>
+                </View>
+                <View alignItems={"center"} 
+                    style={{ width: 60 }}>
+                    <Text>{Power}</Text>
+                </View>
+                <View
+                    bgColor={getColor(Voltage)}
+                    alignItems={"center"}
+                    style={{ width: 60 }}>
+                    <Text style={{
+                        fontFamily: "Roboto-Bold"
+                    }}>{Voltage}</Text>
+                </View>
+                <View alignItems={"flex-end"} flex={1}>
+                    <Text>{Count}</Text>
+                </View>
+            </HStack>
+        )
+    }
+    // #endregion
+
+    return (
+        <VStack space={1}>
+            <HStack alignItems={"center"} justifyContent={"space-between"}>
+                <View style={{ width: 100 }}>
+                    <Text style={{ fontFamily: "Roboto-Bold" }}>Name</Text>
+                </View>
+                <View alignItems={"center"} style={{ width: 60 }}><BcSvgIcon name={"Current"} /></View>
+                <View alignItems={"center"} style={{ width: 60 }}><BcSvgIcon name={"Voltage"} /></View>
+                <View alignItems={"center"} style={{ width: 60 }}><BcSvgIcon name={"Power"} /></View>
+                <View alignItems={"flex-end"} flex={1}>
+                <Text style={{ fontFamily: "Roboto-Bold" }}>Count</Text>
+                </View>
+                
+            </HStack>
+            {data.map(renderValues)}
+        </VStack>
     )
 }
 
@@ -180,32 +267,13 @@ function DashboardHumidityReport(props) {
     }
 
     // #region Render
-    const renderKeys = (item, index) => {
-        return (
-            <Text style={{
-                fontFamily: "Roboto-Bold"
-            }}>{item}</Text>
-        )
-    }
-
     const renderValues = (item, index) => {
 
         const { Device_Name, Count } = item;
 
-        const Absolute_Humidity = item["Absolute Humidity"]
-
-        const keys = Object.keys(item);
-
-        // #region Render
-        const renderData = (key, jnd) => {
-            const val = item[key];
-            return (
-                <View style={{ width: 40 }}>
-                    <Text>{val}</Text>
-                </View>
-            )
-        }
-        // #endregion
+        const Temperature = item["Temperature"];
+        const Relative_Humidity = item["Relative Humidity"] || 0;
+        const Absolute_Humidity = item["Absolute Humidity"];
 
         const getColor = (val) => {
             const { green, yellow, red } = init.colors;
@@ -221,16 +289,20 @@ function DashboardHumidityReport(props) {
         }
 
         return (
-
             <HStack key={index} alignItems={"center"} justifyContent={"space-between"}>
-                <View style={{ width: 80 }}>
+                <View style={{ width: 100 }}>
                     <Text style={{
                         fontFamily: "Roboto-Bold"
                     }}>{Device_Name}</Text>
                 </View>
-                {
-                    keys.slice(3, -1).map(renderData)
-                }
+                <View alignItems={"center"} 
+                    style={{ width: 60 }}>
+                    <Text>{Temperature}</Text>
+                </View>
+                <View alignItems={"center"} 
+                    style={{ width: 60 }}>
+                    <Text>{Relative_Humidity}</Text>
+                </View>
                 <View
                     bgColor={getColor(Absolute_Humidity)}
                     alignItems={"center"}
@@ -239,24 +311,27 @@ function DashboardHumidityReport(props) {
                         fontFamily: "Roboto-Bold"
                     }}>{Absolute_Humidity}</Text>
                 </View>
-                <Text>{Count}</Text>
+                
+                <View alignItems={"flex-end"} flex={1}>
+                    <Text>{Count}</Text>
+                </View>
             </HStack>
         )
     }
     // #endregion
 
-    const keys = Object.keys(data[0]);
-
     return (
-        <VStack>
+        <VStack space={1}>
             <HStack alignItems={"center"} justifyContent={"space-between"}>
-                <View style={{ width: 80 }}>
+                <View style={{ width: 100 }}>
                     <Text style={{ fontFamily: "Roboto-Bold" }}>Name</Text>
                 </View>
-                <View alignItems={"center"} style={{ width: 40 }}><Text style={{ fontFamily: "Roboto-Bold" }}>Temp</Text></View>
-                <View alignItems={"center"} style={{ width: 40 }}><Text style={{ fontFamily: "Roboto-Bold" }}>R Humid</Text></View>
-                <View alignItems={"center"} style={{ width: 60 }}><Text style={{ fontFamily: "Roboto-Bold" }}>A Humid</Text></View>
+                <View alignItems={"center"} style={{ width: 60 }}><BcSvgIcon name={"Temperature"} /></View>
+                <View alignItems={"center"} style={{ width: 60 }}><BcSvgIcon name={"Relative Humidity"} /></View>
+                <View alignItems={"center"} style={{ width: 60 }}><BcSvgIcon name={"Absolute Humidity"} /></View>
+                <View alignItems={"flex-end"} flex={1}>
                 <Text style={{ fontFamily: "Roboto-Bold" }}>Count</Text>
+                </View>
             </HStack>
             {data.map(renderValues)}
         </VStack>
@@ -313,6 +388,9 @@ function Index(props) {
     const spChartHook = useEChart("Voltage");
     const [spChart, setSpChart] = spChartHook.slice(0, 2);
 
+    const aqChartHook = useEChart("pm25");
+    const [aqChart, setAqChart] = aqChartHook.slice(0, 2);
+
     const prevChartHook = useEChart("Absolute Humidity");
     const [prevChart, setPrevChart] = prevChartHook.slice(0, 6);
 
@@ -327,6 +405,7 @@ function Index(props) {
 
     const [drData, setDrData] = useState([]);
     const [drSpData, setDrSpData] = useState([]);
+    const [drAqData, setDrAqData] = useState([]);
 
     const [loading, setLoading, toggleLoading] = useToggle(false);
     // #endregion
@@ -358,6 +437,26 @@ function Index(props) {
                         setDrData([])
                     }
 
+                    if ("Smart Plug" in res) {
+                        const Data = res["Smart Plug"];
+
+                        const Data_II = Object.values(Data).map(x => x[0]);
+
+                        setDrSpData(Data_II);
+                    } else {
+                        setDrSpData([])
+                    }
+
+                    if ("Air Quality" in res) {
+                        const Data = res["Air Quality"];
+
+                        const Data_II = Object.values(Data).map(x => x[0]);
+
+                        setDrAqData(Data_II);
+                    } else {
+                        setDrAqData([])
+                    }
+
                 })
                 .catch(err => {
                     console.log(`Error: ${err}`);
@@ -381,7 +480,6 @@ function Index(props) {
             param: {
                 UserId: userId,
                 HomeId: homeId,
-                DataCount: 100,
                 StartDate: start_date,
                 EndDate: `${end_date} 23:59:59`
             },
@@ -395,11 +493,18 @@ function Index(props) {
                     setFunc({})
                 }
 
-                if ("Default" in res) {
-                    const Data = res["Default"];
+                if ("Smart Plug" in res) {
+                    const Data = res["Smart Plug"];
                     setSpChart(Data);
                 } else {
                     setSpChart({});
+                }
+
+                if ("Air Quality" in res) {
+                    const Data = res["Air Quality"];
+                    setAqChart(Data);
+                } else {
+                    setAqChart({});
                 }
             })
             .catch(err => {
@@ -428,24 +533,42 @@ function Index(props) {
                     <ScrollView showsVerticalScrollIndicator={false} keyboardShouldPersistTaps={"handled"}
                         contentContainerStyle={{ flexGrow: 1 }}>
                         {
-                            (Object.keys(chart).length > 0) ? (
+                            (Object.keys(chart).length > 0 || Object.keys(spChart).length > 0) ? (
                                 <View flexGrow={1}>
                                     <HStack
                                         flexWrap={"wrap"}
                                         rowGap={10}
                                         alignItems={"flex-start"}
                                         justifyContent={"space-between"}>
-                                        <View px={3} style={{ width: width }}>
-                                            <BcViewShot title="Daily Humidity Device Report">
-                                                <BcApacheChart hook={chartHook} height={360} />
-                                            </BcViewShot>
-                                        </View>
+                                        {
+                                            (Object.keys(chart).length > 0) ? (
+                                                <View px={3} style={{ width: width }}>
+                                                    <BcViewShot title="Daily Humidity Device Report">
+                                                        <BcApacheChart hook={chartHook} height={360} />
+                                                    </BcViewShot>
+                                                </View>
+                                            ) : (
+                                                <></>
+                                            )
+                                        }
 
                                         {
                                             (Object.keys(spChart).length > 0) ? (
                                                 <View px={3} style={{ width: width }}>
                                                     <BcViewShot title="Daily Smart Plug Data">
                                                         <BcApacheChart hook={spChartHook} height={360} />
+                                                    </BcViewShot>
+                                                </View>
+                                            ) : (
+                                                <></>
+                                            )
+                                        }
+
+                                        {
+                                            (Object.keys(aqChart).length > 0) ? (
+                                                <View px={3} style={{ width: width }}>
+                                                    <BcViewShot title="Daily Air Quality Data">
+                                                        <BcApacheChart hook={aqChartHook} height={360} />
                                                     </BcViewShot>
                                                 </View>
                                             ) : (
@@ -467,10 +590,32 @@ function Index(props) {
 
                                         {
                                             (Object.keys(drData).length > 0) ? (
+                                                <View px={3} style={{ width: width }}>
+                                                    <BcViewShot title="Humidity Device Report">
+                                                        <DataAttribute data={[{
+                                                            "Absolute Humidity": 0,
+                                                            "Relative Humidity": 0,
+                                                            "Temperature": 0,
+                                                        }]} />
+                                                        <DashboardHumidityReport data={drData} />
+                                                    </BcViewShot>
+                                                </View>
+                                            ) : (
+                                                <></>
+                                            )
+                                        }
+
+                                        {
+                                            (Object.keys(drSpData).length > 0) ? (
                                                 <>
                                                     <View px={3} style={{ width: width }}>
-                                                        <BcViewShot title="Humidity Device Report">
-                                                            <DashboardHumidityReport data={drData} />
+                                                        <BcViewShot title="Smart Plug Device Report">
+                                                            <DataAttribute data={[{
+                                                                "Current": 0,
+                                                                "Power": 0,
+                                                                "Voltage": 0,
+                                                            }]} />
+                                                            <DashboardVoltageReport data={drSpData} />
                                                         </BcViewShot>
                                                     </View>
                                                 </>

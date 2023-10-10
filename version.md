@@ -20,3 +20,30 @@
     3. Charting Issue. Fixed X Axis Data Issue.
     4. Added OTP Notification to indicate Email is send on the way.
 </en-US>
+
+### Version 1.2.3
+---------------------
+<en-US>
+    Features Update:
+    1. Added New Chart Controls. Able to Zoom In On Chart, And Select Chart Attribute
+</en-US>
+
+#### Version 1.2.4
+---------------------
+<en-US>
+    Features Update:
+    1. Chart Update. Added Scroll To Legend
+    2. Added Smart Plug Data Type for Devices
+    3. Device Info Update. Added Online Status. Added Icons for Data Attributes.
+    4. Fixed Null Data Issue For Device Info Page.
+</en-US>
+
+#### Version 1.2.5
+---------------------
+<en-US>
+    Features Update:
+    1. Chart Update: Update All Charts to Advance Charting
+    2. Link Device Flow. Added Rollback Error to prevent Server from crashing
+    3. Sync Update. Device Status, Home Info, List of Devices will be updated per hour.
+    4. Device Support Update. Unsupported Device will be unable to be added into the server.
+</en-US>

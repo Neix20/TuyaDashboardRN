@@ -151,23 +151,23 @@ function Index(default_key) {
                     max_dt = arr.at(-1);
 
                     // Get Start Dt
-                    const s_dt = DateTime.fromISO(min_dt);
+                    // const s_dt = DateTime.fromISO(min_dt);
 
-                    const s_hr = s_dt.hour;
-                    let s_arr = genDefArr(0, s_hr);
+                    // const s_hr = s_dt.hour;
+                    // let s_arr = genDefArr(0, s_hr);
 
-                    let s_dt_arr = gen_ts_arr(`${s_dt.toFormat("yyyy-MM-dd")}T00:00:00`, s_dt.toISO(), 5);
+                    // let s_dt_arr = gen_ts_arr(`${s_dt.toFormat("yyyy-MM-dd")}T00:00:00`, s_dt.toISO(), 5);
             
-                    // Get End Dt
-                    const e_dt = DateTime.fromISO(max_dt);
+                    // // Get End Dt
+                    // const e_dt = DateTime.fromISO(max_dt);
 
-                    const e_hr = e_dt.hour;
-                    let e_arr = genDefArr(e_hr, 23);
+                    // const e_hr = e_dt.hour;
+                    // let e_arr = genDefArr(e_hr, 23);
 
-                    let e_dt_arr = gen_ts_arr(e_dt.toISO(), `${e_dt.plus({ days: 1}).toFormat("yyyy-MM-dd")}T00:00:00`, 5);
+                    // let e_dt_arr = gen_ts_arr(e_dt.toISO(), `${e_dt.plus({ days: 1}).toFormat("yyyy-MM-dd")}T00:00:00`, 5);
 
-                    val = [...s_arr, ...val, ...e_arr];
-                    label = [...s_dt_arr, ...arr, ...e_dt_arr];
+                    // val = [...s_arr, ...val, ...e_arr];
+                    // label = [...s_dt_arr, ...arr, ...e_dt_arr];
                 }
             }
 

@@ -108,21 +108,26 @@ function ItemPanel(props) {
 }
 
 function DeviceDataPanel(props) {
-    const { Title, IsTempHumd = 1, MetaData = {} } = props;
+    const { Title, IsTempHumd = 1, IsSmartPlug = 1, MetaData = {}, Device_Model } = props;
 
-    if (IsTempHumd == 0) {
+    if (IsSmartPlug == 1) {
 
         const { Current, Power, Voltage } = MetaData;
 
         return (
             <VStack space={5} height={"100%"}
                 alignItems={"center"} justifyContent={"flex-end"}>
-                <View>
+                <View alignItems={"center"}>
                     <Text style={{
                         fontSize: 24,
                         fontFamily: "Roboto-Medium",
                         color: "#FFF"
                     }}>{Title}</Text>
+                    <Text style={{
+                        fontSize: 18,
+                        fontFamily: "Roboto-Medium",
+                        color: "#FFF"
+                    }}>Model: {Device_Model}</Text>
                 </View>
                 <HStack width={"90%"}
                     alignItems={"center"} justifyContent={"space-between"}>
@@ -172,64 +177,89 @@ function DeviceDataPanel(props) {
         )
     }
 
-    const AH_Humidity = MetaData["Absolute Humidity"];
-    const RH_Humidity = MetaData["Relative Humidity"];
-    const Temperature = MetaData["Temperature"];
+    if (IsTempHumd == 1) {
+        const AH_Humidity = MetaData["Absolute Humidity"] || 0;
+        const RH_Humidity = MetaData["Relative Humidity"] || 0;
+        const Temperature = MetaData["Temperature"] || 0;
+
+        return (
+            <VStack space={5} height={"100%"}
+                alignItems={"center"} justifyContent={"flex-end"}>
+                <View alignItems={"center"}>
+                    <Text style={{
+                        fontSize: 24,
+                        fontFamily: "Roboto-Medium",
+                        color: "#FFF"
+                    }}>{Title}</Text>
+                    <Text style={{
+                        fontSize: 18,
+                        fontFamily: "Roboto-Medium",
+                        color: "#FFF"
+                    }}>Model: {Device_Model}</Text>
+                </View>
+                <HStack width={"90%"}
+                    alignItems={"center"} justifyContent={"space-between"}>
+                    <VStack alignItems={"center"} flex={1.2}>
+                        <Text style={{
+                            fontSize: 20,
+                            fontFamily: "Roboto-Medium",
+                            color: "#FFF",
+                            textAlign: "center",
+                        }}>Temperature</Text>
+                        <Text style={{
+                            fontSize: 28,
+                            fontFamily: "Roboto-Bold",
+                            color: "#FFF"
+                        }}>{(Temperature * 1).toFixed(1)} ℃</Text>
+                    </VStack>
+                    <Divider orientation={"vertical"} style={{ width: 3 }} bgColor={"#FFF"} />
+                    <VStack alignItems={"center"} flex={1}>
+                        <Text style={{
+                            fontSize: 20,
+                            fontFamily: "Roboto-Medium",
+                            color: "#FFF",
+                            textAlign: "center",
+                        }}>Relative Humidity</Text>
+                        <Text style={{
+                            fontSize: 28,
+                            fontFamily: "Roboto-Bold",
+                            color: "#FFF"
+                        }}>{RH_Humidity} %</Text>
+                    </VStack>
+                    <Divider orientation={"vertical"} style={{ width: 3 }} bgColor={"#FFF"} />
+                    <VStack alignItems={"center"} flex={1}>
+                        <Text style={{
+                            fontSize: 20,
+                            fontFamily: "Roboto-Medium",
+                            color: "#FFF",
+                            textAlign: "center",
+                        }}>Absolute Humidity</Text>
+                        <Text style={{
+                            fontSize: 28,
+                            fontFamily: "Roboto-Bold",
+                            color: "#FFF"
+                        }}>{AH_Humidity} %</Text>
+                    </VStack>
+                </HStack>
+            </VStack>
+        )
+    }
 
     return (
         <VStack space={5} height={"100%"}
             alignItems={"center"} justifyContent={"flex-end"}>
-            <View>
+            <View alignItems={"center"}>
                 <Text style={{
                     fontSize: 24,
                     fontFamily: "Roboto-Medium",
                     color: "#FFF"
                 }}>{Title}</Text>
+                <Text style={{
+                    fontSize: 18,
+                    fontFamily: "Roboto-Medium",
+                    color: "#FFF"
+                }}>Model: {Device_Model}</Text>
             </View>
-            <HStack width={"90%"}
-                alignItems={"center"} justifyContent={"space-between"}>
-                <VStack alignItems={"center"} flex={1.2}>
-                    <Text style={{
-                        fontSize: 20,
-                        fontFamily: "Roboto-Medium",
-                        color: "#FFF",
-                        textAlign: "center",
-                    }}>Temperature</Text>
-                    <Text style={{
-                        fontSize: 28,
-                        fontFamily: "Roboto-Bold",
-                        color: "#FFF"
-                    }}>{(Temperature / 10).toFixed(1)} ℃</Text>
-                </VStack>
-                <Divider orientation={"vertical"} style={{ width: 3 }} bgColor={"#FFF"} />
-                <VStack alignItems={"center"} flex={1}>
-                    <Text style={{
-                        fontSize: 20,
-                        fontFamily: "Roboto-Medium",
-                        color: "#FFF",
-                        textAlign: "center",
-                    }}>Relative Humidity</Text>
-                    <Text style={{
-                        fontSize: 28,
-                        fontFamily: "Roboto-Bold",
-                        color: "#FFF"
-                    }}>{RH_Humidity} %</Text>
-                </VStack>
-                <Divider orientation={"vertical"} style={{ width: 3 }} bgColor={"#FFF"} />
-                <VStack alignItems={"center"} flex={1}>
-                    <Text style={{
-                        fontSize: 20,
-                        fontFamily: "Roboto-Medium",
-                        color: "#FFF",
-                        textAlign: "center",
-                    }}>Absolute Humidity</Text>
-                    <Text style={{
-                        fontSize: 28,
-                        fontFamily: "Roboto-Bold",
-                        color: "#FFF"
-                    }}>{AH_Humidity} %</Text>
-                </VStack>
-            </HStack>
         </VStack>
     )
 }
@@ -286,9 +316,10 @@ function Index(props) {
 
     // #endregion
 
-    const { Online_Status = 0, IsTempHumd = 0 } = deviceInfo;
+    const { Online_Status = 0, IsTempHumd = 0, IsSmartPlug = 0 } = deviceInfo;
 
-    const ind = (IsTempHumd == 0) ? 1 : 3;
+    let ind = (IsTempHumd == 1) ? 2 : 3;
+    ind = (IsSmartPlug == 1) ? 1 : 3;
 
     return (
         <>
@@ -325,7 +356,8 @@ function Index(props) {
                                 </View>
                                 <VStack
                                     flex={.75} space={5} width={"100%"} alignItems={"center"}>
-                                    <ItemPanel Icon={FontAwesome5} name={"power-off"} onPress={() => { }}>
+                                    <ItemPanel Icon={FontAwesome5} name={"power-off"} disabled={true}
+                                        onPress={() => { }}>
                                         <Text style={{
                                             fontSize: 18,
                                             fontFamily: "Roboto-Medium",
@@ -339,8 +371,14 @@ function Index(props) {
                                     <ItemPanel Icon={FontAwesome5} name={"info-circle"} onPress={GoToInfo}>Device Info</ItemPanel>
                                     <ItemPanel Icon={FontAwesome5} name={"clipboard-list"} onPress={GoToRules}>Device Rules</ItemPanel>
                                     {/* <ItemPanel Icon={FontAwesome5} name={"bell"} onPress={GoToAlert}>Device Alert</ItemPanel> */}
-                                    <ItemPanel Icon={FontAwesome5} name={"chart-area"} onPress={GoToChart}>Data Chart</ItemPanel>
-                                    <ItemPanel Icon={FontAwesome5} name={"table"} onPress={GoToTable}>Data Table</ItemPanel>
+                                    {
+                                        (IsTempHumd == 1 || IsSmartPlug == 1) ? (
+                                            <>
+                                                <ItemPanel Icon={FontAwesome5} name={"chart-area"} onPress={GoToChart}>Data Chart</ItemPanel>
+                                                <ItemPanel Icon={FontAwesome5} name={"table"} onPress={GoToTable}>Data Table</ItemPanel>
+                                            </>
+                                        ) : (<></>)
+                                    }
                                 </VStack>
                             </VStack>
                         </ScrollView>

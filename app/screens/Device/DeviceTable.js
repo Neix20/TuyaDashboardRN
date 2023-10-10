@@ -72,7 +72,7 @@ function DataTable(props) {
 
         // #region Render
         const renderData = (key, jnd) => {
-            const val = item[key];
+            const val = item[key] || 0;
             return (
                 <View key={jnd} alignItems={"center"} style={{ width: 60 }}>
                     <Text>{val}</Text>
@@ -95,7 +95,7 @@ function DataTable(props) {
     // #endregion
 
     return (
-        <VStack alignItems={"center"}>
+        <VStack alignItems={"center"} bgColor={"#FFF"}>
             {/* Data Header */}
             <HStack width={"90%"}
                 alignItems={"center"} justifyContent={"space-between"}>
@@ -203,7 +203,6 @@ function Index(props) {
                 param: {
                     UserId: userId,
                     DeviceId: deviceId,
-                    DataCount: 100,
                     StartDate: startDt,
                     EndDate: `${endDt} 23:59:59`
                 },
@@ -236,25 +235,24 @@ function Index(props) {
 
                     <View style={{ height: 10 }} />
 
-                    <DataAttribute data={data} />
-
-                    <View style={{ height: 10 }} />
-
-                    <View py={3}
-                        alignItems={"center"}
-                        bgColor={"#FFF"}>
-                        <View w={'90%'}>
-                            <Text style={{
-                                fontFamily: "Roboto-Bold",
-                                fontSize: 18
-                            }}>Device Data</Text>
-                        </View>
-                    </View>
-
                     {/* Body */}
                     <ScrollView showsVerticalScrollIndicator={false} keyboardShouldPersistTaps={"handled"}
                         contentContainerStyle={{ flexGrow: 1 }}>
-                        <View flexGrow={1} bgColor={"#FFF"}>
+                        <View flexGrow={1}>
+                            <DataAttribute data={data} />
+
+                            <View style={{ height: 10 }} />
+
+                            <View py={3}
+                                alignItems={"center"}
+                                bgColor={"#FFF"}>
+                                <View w={'90%'}>
+                                    <Text style={{
+                                        fontFamily: "Roboto-Bold",
+                                        fontSize: 18
+                                    }}>Device Data</Text>
+                                </View>
+                            </View>
                             <DataTable data={data} />
                         </View>
                     </ScrollView>

@@ -13,7 +13,7 @@ import { Logger, Utility } from "@utility";
 
 import { DateTime } from "luxon";
 
-import { BcLoading, BcHeader, BcDateRange, BcLineChart, BcSvgIcon } from "@components";
+import { BcLoading, BcHeader, BcDateRange, BcLineChart, BcSvgIcon, BcApacheChart } from "@components";
 
 import { Tab, TabView } from "@rneui/themed";
 
@@ -60,17 +60,19 @@ function useChart() {
     useEffect(() => {
         if (chart.length > 1) {
 
-            const ind = Utility.genRandomInt(0, 10);
-
             const obj = { ...chart[0] };
 
             delete obj["Device_Id"];
 
             const ts = chart.map(x => x["Timestamp"]);
-            
+
             delete obj["Timestamp"];
 
-            const keys = Object.keys(obj);
+            let keys = Object.keys(obj);
+
+            const svg_key = Object.keys(Svg["MetaData_Header"]);
+
+            keys = keys.filter(x => svg_key.includes(x));
 
             let dict = {};
 
@@ -90,28 +92,30 @@ function useChart() {
                     min_dt = ts[0];
                     max_dt = ts.at(-1);
 
-                    // Get Start Dt
-                    const s_hr = DateTime.fromISO(min_dt).hour;
+                    // // Get Start Dt
+                    // const s_hr = DateTime.fromISO(min_dt).hour;
 
-                    let s_arr = genDefArr(0, s_hr);
+                    // let s_arr = genDefArr(0, s_hr);
 
-                    // Get End Dt
-                    const e_hr = DateTime.fromISO(max_dt).hour;
+                    // // Get End Dt
+                    // const e_hr = DateTime.fromISO(max_dt).hour;
 
-                    let e_arr = genDefArr(e_hr, 23);
+                    // let e_arr = genDefArr(e_hr, 23);
 
-                    val = [...s_arr, ...val, ...e_arr]
+                    // val = [...s_arr, ...val, ...e_arr]
                 }
 
+                let label = ts.map(x => DateTime.fromISO(x).toFormat("yyyy-MM-dd T"))
+
                 let dataset = [{
-                    data: val,
-                    svg: { stroke: init.colors[ind] },
-                    strokeWidth: 2,
+                    name: key,
+                    type: "line",
+                    data: val
                 }]
 
                 dict[key] = {
+                    label,
                     dataset,
-                    name: key,
                     min: min_val,
                     max: max_val,
                 };
@@ -198,17 +202,21 @@ function DataChart(props) {
     }
 
     const renderTabViewItem = (item, ind) => {
+
+        const hook = [null, null, null, null, item, null, [], null, null];
         return (
             <TabView.Item key={ind} style={{ width: "100%" }}>
-                <View px={3} pt={3} bgColor={"#FFF"}>
-                    <BcLineChart labels={label} {...item} />
+                <View pt={3} bgColor={"#FFF"} alignItems={"center"}>
+                    <BcApacheChart hook={hook} height={360} />
                 </View>
             </TabView.Item>
         )
     }
 
     return (
-        <TabView value={tabPaneInd} onChange={(e) => setTabPaneInd(e)}>
+        <TabView  disableSwipe={true}
+            value={tabPaneInd} 
+            onChange={(e) => setTabPaneInd(e)}>
             {dataset.map(renderTabViewItem)}
         </TabView>
     )
@@ -266,7 +274,6 @@ function Index(props) {
                 param: {
                     UserId: userId,
                     DeviceId: deviceId,
-                    DataCount: 100,
                     StartDate: startDt,
                     EndDate: `${endDt} 23:59:59`
                 },
@@ -333,11 +340,11 @@ function Index(props) {
                                         }
                                     </Tab>
                                 </View>
-
                                 {/* Body */}
                                 <ScrollView showsVerticalScrollIndicator={false} keyboardShouldPersistTaps={"handled"}
                                     contentContainerStyle={{ flexGrow: 1 }}>
                                     <View flexGrow={1} bgColor={"#FFF"}>
+
                                         <DataChart
                                             tabPaneInd={tabPaneInd} setTabPaneInd={setTabPaneInd}
                                             label={label} dataset={dataset} />
