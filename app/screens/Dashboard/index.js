@@ -1,14 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { Text, TouchableOpacity, Image, TextInput, Dimensions, SafeAreaView, ImageBackground, ScrollView } from "react-native";
+import { Text, TouchableOpacity, Image, TextInput, SafeAreaView, ImageBackground, ScrollView } from "react-native";
 import { View, VStack, HStack, useToast } from "native-base";
 
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 
 import { useNavigation, useIsFocused } from "@react-navigation/native";
-
-const screen = Dimensions.get("screen");
-const { width, height } = screen;
 
 import { Logger, Utility } from "@utility";
 
@@ -20,7 +17,7 @@ import { DateTime } from "luxon";
 
 import { fetchDashboardInfo, fetchReportData } from "@api";
 
-import { useChart, useDate, useToggle, useEChart } from "@hooks";
+import { useDate, useToggle, useEChart, useOrientation } from "@hooks";
 
 import { useDispatch, useSelector } from 'react-redux';
 import { Actions, Selectors } from '@redux';
@@ -408,6 +405,8 @@ function Index(props) {
     const [drAqData, setDrAqData] = useState([]);
 
     const [loading, setLoading, toggleLoading] = useToggle(false);
+
+    const [width, height, isPort, isLand, c_width, c_height] = useOrientation();
     // #endregion
 
     // #region UseEffect
@@ -525,9 +524,16 @@ function Index(props) {
 
                     <View style={{ height: 10 }} />
 
-                    <BcDateRange hook={dateHook} prevHook={cmpDateHook} flagHook={chartCompareHook} />
-
-                    <View style={{ height: 10 }} />
+                    {
+                        (isPort) ? (
+                            <>
+                                <BcDateRange hook={dateHook} prevHook={cmpDateHook} flagHook={chartCompareHook} />
+                                <View style={{ height: 10 }} />
+                            </>
+                        ) : (
+                            <></>
+                        )
+                    }
 
                     {/* Body */}
                     <ScrollView showsVerticalScrollIndicator={false} keyboardShouldPersistTaps={"handled"}
@@ -590,7 +596,7 @@ function Index(props) {
 
                                         {
                                             (Object.keys(drData).length > 0) ? (
-                                                <View px={3} style={{ width: width }}>
+                                                <View px={3} style={{ width: c_width }}>
                                                     <BcViewShot title="Humidity Device Report">
                                                         <DataAttribute data={[{
                                                             "Absolute Humidity": 0,
@@ -608,7 +614,7 @@ function Index(props) {
                                         {
                                             (Object.keys(drSpData).length > 0) ? (
                                                 <>
-                                                    <View px={3} style={{ width: width }}>
+                                                    <View px={3} style={{ width: c_width }}>
                                                         <BcViewShot title="Smart Plug Device Report">
                                                             <DataAttribute data={[{
                                                                 "Current": 0,

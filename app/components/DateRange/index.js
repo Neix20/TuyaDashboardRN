@@ -40,7 +40,7 @@ function Index(props) {
                                     <Text style={{
                                         fontFamily: "Roboto-Bold",
                                         fontSize: 16,
-                                    }}>{Utility.formatDt(startDt, "EEEE, d MMMM")}</Text>
+                                    }}>{Utility.formatDt(startDt, "EEEE, d MMMM yyyy")}</Text>
                                 </VStack>
                             </HStack>
 

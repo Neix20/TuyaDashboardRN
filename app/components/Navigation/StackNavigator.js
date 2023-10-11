@@ -20,13 +20,13 @@ function Index(props) {
             }}>
             {
                 StackScreenArr.map((screen, ind) => {
-                    const { title, component } = screen;
+                    const { title, component, option = {} } = screen;
                     return (
                         <Stack.Screen 
                             key={ind}
                             name={title}
                             component={component}
-                            options={{ animation: 'slide_from_right' }}
+                            options={{ animation: 'slide_from_right', ...option }}
                         />
                     );
                 })

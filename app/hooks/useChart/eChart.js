@@ -47,37 +47,6 @@ function Index(default_key) {
 
         return dataDict;
     }
-
-    const genDefArr = (start_num = 0, end_num = 0, data_point = 12) => {
-
-        start_num = start_num * 60;
-        end_num = end_num * 60;
-    
-        let arr = [];
-    
-        let step = 60 / data_point; 
-    
-        for(let ind = start_num; ind < end_num; ind += step) {
-            arr.push(null);
-        }
-    
-        return arr;
-    }
-
-    const gen_ts_arr = (start_dt, end_dt, interval = 5) => {
-        
-        start_dt = DateTime.fromISO(start_dt);
-        end_dt = DateTime.fromISO(end_dt);
-    
-        let arr = [];
-    
-        while (start_dt < end_dt) {
-            arr.push(start_dt.toISO({ includeOffset: false }));
-            start_dt = start_dt.plus({ minutes: interval });
-        }
-    
-        return arr;
-    }
     // #endregion
 
     useEffect(() => {
@@ -120,11 +89,16 @@ function Index(default_key) {
         let dataset = [];
         let label = [];
 
+        let ts = [];
+
         let min_val = Number.MAX_VALUE;
         let max_val = Number.MIN_VALUE;
 
-        let min_dt = "2021-01-01";
-        let max_dt = DateTime.now().toFormat("yyyy-MM-dd");
+        let min_dt = DateTime.now().toSeconds();
+        let max_dt = DateTime.fromFormat("2021-01-01", "yyyy-MM-dd").toSeconds();
+
+        min_dt = Math.floor(min_dt * 1000);
+        max_dt = Math.floor(max_dt * 1000);
 
         let ind = 0;
         for (const key in chartII) {
@@ -142,36 +116,21 @@ function Index(default_key) {
             max_val = Math.max(...val, max_val);
 
             if ("Timestamp" in device_log) {
-                let arr = device_log["Timestamp"];
+                ts = device_log["Timestamp"];
+                label = [...ts];
 
-                label = [...arr];
+                ts = ts.map(x => DateTime.fromISO(x).toSeconds());
+                ts = ts.map(x => Math.floor(x * 1000));
 
-                if (arr.length > 0) {
-                    min_dt = arr[0];
-                    max_dt = arr.at(-1);
-
-                    // Get Start Dt
-                    // const s_dt = DateTime.fromISO(min_dt);
-
-                    // const s_hr = s_dt.hour;
-                    // let s_arr = genDefArr(0, s_hr);
-
-                    // let s_dt_arr = gen_ts_arr(`${s_dt.toFormat("yyyy-MM-dd")}T00:00:00`, s_dt.toISO(), 5);
-            
-                    // // Get End Dt
-                    // const e_dt = DateTime.fromISO(max_dt);
-
-                    // const e_hr = e_dt.hour;
-                    // let e_arr = genDefArr(e_hr, 23);
-
-                    // let e_dt_arr = gen_ts_arr(e_dt.toISO(), `${e_dt.plus({ days: 1}).toFormat("yyyy-MM-dd")}T00:00:00`, 5);
-
-                    // val = [...s_arr, ...val, ...e_arr];
-                    // label = [...s_dt_arr, ...arr, ...e_dt_arr];
-                }
+                min_dt = Math.min(...ts, min_dt);
+                max_dt = Math.max(...ts, max_dt);
             }
 
-            label = label.map(x => DateTime.fromISO(x).toFormat("yyyy-MM-dd T"))
+            label = label.map(x => DateTime.fromISO(x).toFormat("T"))
+
+            val = val.map((x, ind) => ({
+                value: [ts[ind], x]
+            }));
 
             let obj = {
                 name: key,
@@ -184,7 +143,7 @@ function Index(default_key) {
             ind += 1;
         }
 
-        setChartData(() => ({ label, dataset, min: min_val, max: max_val }));
+        setChartData(() => ({ label, dataset, min: min_val, max: max_val, min_dt, max_dt }));
 
         const legend = Object.keys(chartII);
         setChartLegend(() => legend);

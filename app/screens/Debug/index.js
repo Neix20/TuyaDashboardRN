@@ -1,17 +1,15 @@
 import React, { useState, useEffect } from "react";
-import { Text, TouchableOpacity, Image, TextInput, Dimensions, SafeAreaView, ScrollView } from "react-native";
+import { Text, TouchableOpacity, Image, TextInput, Dimensions, SafeAreaView, ScrollView, useWindowDimensions } from "react-native";
 import { View, VStack, HStack, useToast } from "native-base";
 
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 import { useNavigation, useIsFocused } from "@react-navigation/native";
 
-const { width, height } = Dimensions.get("screen");
-
 import { Logger, Utility } from "@utility";
 
 import { iRData, clsConst, DowntimeData, Images, iRDataReal } from "@config";
 
-import { useChart, useToggle, useDate, useEChart } from "@hooks";
+import { useChart, useToggle, useDate, useEChart, useOrientation } from "@hooks";
 
 import { BcViewShot, BcLineChartFull, BcDateRange, BcLineChart, BcLineLegend, BcApacheChart } from "@components";
 
@@ -187,6 +185,9 @@ function Index(props) {
     const flagHook = useToggle(false);
     const [flag, setFlag, toggleFlag] = flagHook;
 
+    const [width, height, isPort, isLand, c_width, c_height] = useOrientation();
+
+
     return (
         <>
             <SafeAreaView style={{ flex: 1 }}>
@@ -218,9 +219,16 @@ function Index(props) {
                                 </View>
                             </HStack>
 
-                            <BcDateRange flagHook={flagHook} showCompare={false}
-                                hook={dateHook} prevHook={prevHook}
-                            />
+                            {
+                                (isPort) ? (
+                                    <BcDateRange showCompare={false}
+                                        hook={dateHook}
+                                        flagHook={flagHook}
+                                        prevHook={prevHook} />
+                                ) : (
+                                    <></>
+                                )
+                            }
 
                             <View>
                                 <Text>Start Date: {startDt}</Text>
@@ -261,7 +269,7 @@ function DeviceChart(props) {
 
     return (
         <SafeAreaView style={{ flex: 1 }}>
-            <View flexGrow={1} 
+            <View flexGrow={1}
                 alignItems={"center"}
                 justifyContent={"center"}>
                 <BcApacheChart hook={chartHook} height={320} />
@@ -270,4 +278,4 @@ function DeviceChart(props) {
     )
 }
 
-export default DeviceChart;
+export default Index;

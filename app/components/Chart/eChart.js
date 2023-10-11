@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Dimensions, SafeAreaView, ScrollView, useWindowDimensions } from "react-native";
+import { Dimensions, SafeAreaView, ScrollView, useWindowDimensions, Text } from "react-native";
 
 import * as echarts from 'echarts/core';
 import { SVGRenderer, SkiaChart } from '@wuba/react-native-echarts';
@@ -52,7 +52,9 @@ function Index(props) {
 
 	const [chart, setChart, chartKey, setChartKey, chartData, setChartData, chartLegend, chartKeyOption, setChartKeyOption] = hook;
 
-	const { label = [], dataset = [] } = chartData;
+	const { label = [], dataset = [], min_dt = 0, max_dt = 0 } = chartData;
+
+	console.log("Where it matters", min_dt, max_dt)
 
 	const { width } = useWindowDimensions();
 
@@ -65,44 +67,71 @@ function Index(props) {
 		},
 		toolbox: {
 			feature: {
-				restore: {}
+				restore: {
+				}
 			},
-			top: 20,
+			top: 40,
 			right: 10,
 		},
 		legend: {
 			data: chartLegend,
-			type: "scroll"
+			bottom: 10,
 		},
 		xAxis: {
-			type: 'category',
-			boundaryGap: false,
-			data: label
+			type: "time",
+			min: min_dt,
+			max: max_dt,
+			axisLabel: {
+				formatter: '{HH}:{mm}',
+				rotate: 45,
+				showMinLabel: true,
+				showMaxLabel: true
+			},
+			hideOverlap: true,
+			animation: false
 		},
+		// xAxis: {
+		// 	type: "category",
+		// 	axisLabel: {
+		// 		rotate: 45,
+		// 		showMinLabel: true,
+		// 		showMaxLabel: true
+		// 	},
+		// 	boundaryGap: false,
+		// 	data: label,
+		// },
 		yAxis: {
 			type: 'value',
 			renderMode: "richText",
+			animation: false,
 		},
 		dataZoom: [
 			{
 				start: 0,
 				end: 100,
-				bottom: 30,
+				top: 0,
 			}
 		],
 		grid: {
-			left: 10,
-			right: 10,
+			left: 5,
+			right: 5,
 			containLabel: true,
 		},
 		series: dataset
 	};
 
 	return (
-		<ChartComponent 
-			option={option} 
-			width={width * 0.8}
+		<>
+		<Text style={{
+				fontStyle: 'italic'
+			}}>
+				Hint: You can use the bottom bar to zoom in on graph
+			</Text>
+			<ChartComponent
+			option={option}
+			width={width * 0.85}
 			{...props} />
+		</>
 	)
 }
 

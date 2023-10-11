@@ -18,7 +18,7 @@ import { Logger, Utility } from "@utility";
 
 import { BcBoxShadow, BcLoading, BcYatuHome, BaseModal, BcPhotoGalleryModal } from "@components";
 
-import { Devices, Images, Animation } from "@config";
+import { Devices, Images, Animation, clsConst } from "@config";
 
 import { Tab, TabView } from "@rneui/themed";
 
@@ -131,25 +131,28 @@ function LinkDeviceModal(props) {
     const [subLoadFlag, setSubLoadFlag, toggleSubLoadFlag] = useToggle(false);
     const [curDeviceInd, setCurDeviceInd] = useState(0);
     const [percentage, setPercentage] = useState(0);
-    const [duration, setDuration] = useState(0);
+    const [overallPercentage, setOverallPercentage] = useState(0);
     // #endregion
 
     useEffect(() => {
         setLoading(true);
-        fetchGetLinkedDevice({
-            param: {
-                UserId: userId,
-                HomeId: homeId
-            },
-            onSetLoading: setLoading
-        })
-            .then(data => {
-                setData(data);
+        const timeout = setTimeout(() => {
+            fetchGetLinkedDevice({
+                param: {
+                    UserId: userId,
+                    HomeId: homeId
+                },
+                onSetLoading: setLoading
             })
-            .catch(err => {
-                setLoading(false);
-                console.log(`Error: ${err}`);
-            })
+                .then(data => {
+                    setData(data);
+                })
+                .catch(err => {
+                    setLoading(false);
+                    console.log(`Error: ${err}`);
+                })
+        }, 2000);
+        return () => clearTimeout(timeout);
 
     }, [userId, homeId])
 
@@ -195,16 +198,23 @@ function LinkDeviceModal(props) {
 
     const dev_to_update_len = data.filter(x => x.Status).length;
 
-    const time_to_wait = 225;
+    const time_to_wait = clsConst.TUYA_TIME_TO_WAIT_SYNC;
 
     useEffect(() => {
         if (timer > 0 && data.length > 0) {
+
+            let f_arr = data.filter(x => x.Status).filter(x => x.IsEmpty == 1);
 
             let ind = Math.floor((timer - 1) / time_to_wait);
             setCurDeviceInd(ind);
 
             let percent = (time_to_wait - (timer - ind * time_to_wait)) / time_to_wait * 100;
             setPercentage(percent);
+
+            const total_duration = f_arr.length * time_to_wait;
+
+            let overall_percent = (total_duration - timer) / total_duration * 100;
+            setOverallPercentage(overall_percent);
         }
 
         if (timer == 0) {
@@ -218,19 +228,17 @@ function LinkDeviceModal(props) {
         let arr = [];
 
         arr = data.map(obj => {
-            const { Id, Status } = obj;
-            return { Id, Status };
+            const { Id, Status, IsEmpty } = obj;
+            return { Id, Status, IsEmpty };
         })
-
-        let f_arr = arr.filter(x => x.Status);
 
         setLoading(true);
         setSubLoadFlag(true);
 
+        let f_arr = arr.filter(x => x.Status).filter(x => x.IsEmpty == 1);
+
         let duration = f_arr.length * time_to_wait;
         setTimer(duration);
-
-        setDuration(duration);
 
         fetchLinkDevice({
             param: {
@@ -258,23 +266,30 @@ function LinkDeviceModal(props) {
             showModal={showModal || loading && subLoadFlag}>
             {
                 (loading) ? (
-                    <View flexGrow={1} alignItems={"center"} justifyContent={"center"} pt={5}>
+                    <View flexGrow={1} alignItems={"center"} justifyContent={"center"} pt={1}>
                         {
                             (subLoadFlag) ? (
                                 <VStack px={3}>
-                                    <Text style={{
+                                <Text style={{
                                         fontFamily: "Roboto-Bold",
                                         fontSize: 20,
                                         textAlign: "center"
                                     }}>
-                                        Now Syncing With {data.filter(x => x.Status)[dev_to_update_len - curDeviceInd - 1]?.Title} <Text style={{ color: "#F00" }}>{dev_to_update_len - curDeviceInd}</Text>/{dev_to_update_len}
+                                        Sync Data
                                     </Text>
                                     <Text style={{
                                         fontFamily: "Roboto-Bold",
                                         fontSize: 20,
                                         textAlign: "center"
                                     }}>
-                                        Loading: <Text style={{ color: "#F00" }}>{percentage.toFixed(2)}</Text>%
+                                        <Text>{data.filter(x => x.Status).sort((a, b) => a.IsEmpty - b.IsEmpty)[dev_to_update_len - curDeviceInd - 1]?.Title}</Text> <Text style={{ color: "#F00" }}>{dev_to_update_len - curDeviceInd}</Text>/{dev_to_update_len}
+                                    </Text>
+                                    <Text style={{
+                                        fontFamily: "Roboto-Bold",
+                                        fontSize: 20,
+                                        textAlign: "center"
+                                    }}>
+                                        Overall Loading: <Text style={{ color: "#F00" }}>{overallPercentage.toFixed(2)}</Text>%
                                     </Text>
                                     <Text style={{
                                         fontFamily: "Roboto-Bold",
@@ -296,8 +311,7 @@ function LinkDeviceModal(props) {
                                 width: 320,
                                 height: 320
                             }} />
-                        <VStack space={3}>
-                            <View>
+                        <View>
                                 <Text style={{
                                     fontFamily: "Roboto-Bold",
                                     fontSize: 18,
@@ -312,8 +326,14 @@ function LinkDeviceModal(props) {
                                 }}>
                                     (It may take upwards to 15 minutes)
                                 </Text>
+                                <Text style={{
+                                    fontFamily: "Roboto-Bold",
+                                    fontSize: 18,
+                                    textAlign: "center"
+                                }}>
+                                    Please be patient. Your data is being sync!
+                                </Text>
                             </View>
-                        </VStack>
                     </View>
                 ) : (
                     <VStack py={3} space={3} w={"100%"}
@@ -602,7 +622,7 @@ function DeviceItem(props) {
     const { Title, img, Description, Tuya_Id = "", Id: deviceId, Online_Status } = props;
     const { loading, setLoading = () => { } } = props;
     const { onSelect = () => { } } = props;
-    const { toggleRefresh = () => { } } = props;
+    const { toggleRefresh = () => { }, viewMode } = props;
     // #endregion
 
     const userId = useSelector(Selectors.userIdSelect);
@@ -637,6 +657,54 @@ function DeviceItem(props) {
 
     const borderRadius = 8;
 
+    if (viewMode == "List") {
+        return (
+            <>
+                <DeviceRemoveModal onPress={onRemoveDevice}
+                    showModal={showRdModal} setShowModal={setShowRdModal} />
+                <TouchableOpacity
+                    onPress={onSelect}
+                    onLongPress={toggleRdModal}>
+                    <BcBoxShadow
+                        style={{
+                            borderRadius: borderRadius,
+                            width: "100%",
+                        }}>
+                        <VStack
+                            p={2} space={2}
+                            style={{
+                                backgroundColor: "#FFF",
+                                borderRadius: borderRadius,
+                            }}>
+                            <Image
+                                source={img}
+                                style={{
+                                    height: 60,
+                                    width: 60,
+                                }}
+                                resizeMode={"cover"}
+                                alt={Title} />
+                            <VStack>
+                                <Text style={{
+                                    fontSize: 14,
+                                    fontFamily: 'Roboto-Bold',
+                                    color: "#000",
+                                }}>{Title}</Text>
+                                <Text style={{
+                                    fontSize: 12,
+                                    fontFamily: 'Roboto-Bold',
+                                    color: (Online_Status === 1) ? "#0F0" : "#F00",
+                                }}>
+                                    {Online_Status === 1 ? "Online" : "Offline"}
+                                </Text>
+                            </VStack>
+                        </VStack>
+                    </BcBoxShadow>
+                </TouchableOpacity>
+            </>
+        )
+    }
+
     return (
         <>
             <DeviceRemoveModal onPress={onRemoveDevice}
@@ -647,11 +715,9 @@ function DeviceItem(props) {
                 <BcBoxShadow
                     style={{
                         borderRadius: borderRadius,
-                        minWidth: 160,
-                        width: "100%",
+                        width: 160,
                     }}>
-                    <VStack
-                        p={2} space={2}
+                    <VStack p={2} space={2}
                         style={{
                             backgroundColor: "#FFF",
                             borderRadius: borderRadius,
@@ -664,7 +730,7 @@ function DeviceItem(props) {
                             }}
                             resizeMode={"cover"}
                             alt={Title} />
-                        <VStack>
+                        <VStack style={{ width: 160 }}>
                             <Text style={{
                                 fontSize: 14,
                                 fontFamily: 'Roboto-Bold',
@@ -914,7 +980,7 @@ function Index(props) {
     const renderDeviceItem = ({ item, index }) => {
         const onSelect = () => GoToDetail(item);
         return (
-            <DeviceItem key={index}
+            <DeviceItem key={index} viewMode={viewMode}
                 toggleRefresh={toggleRefresh}
                 loading={loading} setLoading={setLoading}
                 onSelect={onSelect} {...item} />
@@ -1020,8 +1086,8 @@ function Index(props) {
                                                 flexGrow: 1,
                                                 flexDirection: (viewMode === "List") ? "column" : "row",
                                                 flexWrap: (viewMode === "List") ? "nowrap" : "wrap",
-                                                justifyContent: (viewMode === "List") ? "flex-start" : "space-between",
-                                                padding: 5, rowGap: 8,
+                                                justifyContent: "flex-start",
+                                                padding: 5, rowGap: 8, columnGap: 8,
                                             }}
                                             ListEmptyComponent={<EmptyList lang={lang} />}
                                         />

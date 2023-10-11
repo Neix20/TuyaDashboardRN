@@ -47,3 +47,12 @@
     3. Sync Update. Device Status, Home Info, List of Devices will be updated per hour.
     4. Device Support Update. Unsupported Device will be unable to be added into the server.
 </en-US>
+
+#### Version 1.2.6
+---------------------
+<en-US>
+    Features Update:
+    1. Orientation Update: Now able to support Landscape View and Portrait View for Graphs
+    2. Link Device Flow. Enhance Functionality, added overall progress
+    3. Chart Update: Enhance Chart for timestamp view, instead of date time.
+</en-US>

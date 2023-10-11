@@ -8,12 +8,15 @@ import useEChart from "./useChart/eChart";
 
 import useDate from "./useDate";
 
+import useOrientation from "./useOrientation";
+
 export {
     useTimer,
     useWifi,
     useToggle,
     useModalToast,
-    useDate
+    useDate,
+    useOrientation,
 }
 
 export {

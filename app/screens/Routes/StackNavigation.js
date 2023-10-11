@@ -47,6 +47,13 @@ let StackScreens = {};
 
 StackScreens = {
     ...StackScreens,
+    Login: {
+        component: Login,
+        title: "Login",
+        option: {
+            orientation: "portrait"
+        }
+    },
     Debug: {
         component: Debug,
         title: "Debug"
@@ -55,101 +62,163 @@ StackScreens = {
         component: TabNavigation,
         title: "TabNavigation"
     },
-    Login: {
-        component: Login,
-        title: "Login"
-    },
     DeviceChart: {
         component: DeviceChart,
-        title: "DeviceChart"
+        title: "DeviceChart",
     },
     UsageInfo: {
         component: UsageInfo,
-        title: "UsageInfo"
+        title: "UsageInfo",
+        option: {
+            orientation: "portrait"
+        }
     },
     WelcomeInfo: {
         component: WelcomeInfo,
-        title: "WelcomeInfo"
+        title: "WelcomeInfo",
+        option: {
+            orientation: "portrait"
+        }
     },
     TuyaPanel: {
         component: TuyaPanel,
-        title: "TuyaPanel"
+        title: "TuyaPanel",
+        option: {
+            orientation: "portrait"
+        }
     },
     HomeManagement: {
         component: HomeManagement,
-        title: "HomeManagement"
+        title: "HomeManagement",
+        option: {
+            orientation: "portrait"
+        }
     },
     HomeInfo: {
         component: HomeInfo,
-        title: "HomeInfo"
+        title: "HomeInfo",
+        option: {
+            orientation: "portrait"
+        }
     },
     AddHome: {
         component: AddHome,
-        title: "AddHome"
+        title: "AddHome",
+        option: {
+            orientation: "portrait"
+        }
     },
     RoomManagement: {
         component: RoomManagement,
-        title: "RoomManagement"
+        title: "RoomManagement",
+        option: {
+            orientation: "portrait"
+        }
     },
     RoomInfo: {
         component: RoomInfo,
-        title: "RoomInfo"
+        title: "RoomInfo",
+        option: {
+            orientation: "portrait"
+        }
     },
     AddRoom: {
         component: AddRoom,
-        title: "AddRoom"
+        title: "AddRoom",
+        option: {
+            orientation: "portrait"
+        }
     },
     DeviceScan: {
         component: DeviceScan,
-        title: "DeviceScan"
+        title: "DeviceScan",
+        option: {
+            orientation: "portrait"
+        }
     },
     DeviceLanding: {
         component: DeviceLanding,
-        title: "DeviceLanding"
+        title: "DeviceLanding",
+        option: {
+            orientation: "portrait"
+        }
     },
     DeviceInfo: {
         component: DeviceInfo,
-        title: "DeviceInfo"
+        title: "DeviceInfo",
+        option: {
+            orientation: "portrait"
+        }
     },
     DeviceAlert: {
         component: DeviceAlert,
-        title: "DeviceAlert"
+        title: "DeviceAlert",
+        option: {
+            orientation: "portrait"
+        }
     },
     DeviceTable: {
         component: DeviceTable,
-        title: "DeviceTable"
+        title: "DeviceTable",
+        option: {
+            orientation: "portrait"
+        }
     },
     Alert: {
         component: Alert,
-        title: "Alert"
+        title: "Alert",
+        option: {
+            orientation: "portrait"
+        }
     },
     ProfileInfo: {
         component: ProfileInfo,
-        title: "ProfileInfo"
+        title: "ProfileInfo",
+        option: {
+            orientation: "portrait"
+        }
     },
     AuthTuya: {
         component: AuthTuya,
-        title: "AuthTuya"
+        title: "AuthTuya",
+        option: {
+            orientation: "portrait"
+        }
     },
     DeviceRulesInfo: {
         component: DeviceRulesInfo,
-        title: "DeviceRulesInfo"
+        title: "DeviceRulesInfo",
+        option: {
+            orientation: "portrait"
+        }
     },
     AddDeviceRules: {
         component: AddDeviceRules,
-        title: "AddDeviceRules"
+        title: "AddDeviceRules",
+        option: {
+            orientation: "portrait"
+        }
     },
     ReportSchedule: {
         component: ReportSchedule,
-        title: "ReportSchedule"
+        title: "ReportSchedule",
+        option: {
+            orientation: "portrait"
+        }
     },
     UpdateDeviceRules: {
         component: UpdateDeviceRules,
-        title: "UpdateDeviceRules"
+        title: "UpdateDeviceRules",
+        option: {
+            orientation: "portrait"
+        }
     },
     AboutUs: {
         component: AboutUs,
-        title: "AboutUs"
+        title: "AboutUs",
+        option: {
+            orientation: "portrait"
+        }
     }
 };
 
