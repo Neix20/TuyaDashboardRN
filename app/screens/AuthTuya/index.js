@@ -22,13 +22,72 @@ import { useModalToast, useToggle, useTimer } from "@hooks";
 
 import { BcPhotoGalleryModal } from "@components";
 
+function GenQrLoading(props) {
+    const [timer, setTimer, totalDuration, setTotalDuration, progress] = useTimer(45);
+    return (
+        <View mt={3}>
+            <Text style={{
+                fontFamily: "Roboto-Bold",
+                fontSize: 18,
+                textAlign: "center"
+            }}>
+                Overall Loading: <Text style={{ color: "#F00" }}>{progress.toFixed(2)}</Text>%
+            </Text>
+            <Text style={{
+                fontFamily: "Roboto-Bold",
+                fontSize: 18,
+                textAlign: "center"
+            }}>
+                Time Left: <Text style={{ color: "#F00" }}>{timer}</Text> seconds
+            </Text>
+        </View>
+    )
+}
+
+function SyncWithSmartLife(props) {
+    const [timer, setTimer, totalDuration, setTotalDuration, progress] = useTimer(180);
+    return (
+        <>
+            <Text style={{
+                fontFamily: "Roboto-Bold",
+                fontSize: 18,
+                textAlign: "center"
+            }}>(It May take 1 to 5 Minutes to Sync Data)</Text>
+            <View mt={3}>
+                <Text style={{
+                    fontFamily: "Roboto-Bold",
+                    fontSize: 18,
+                    textAlign: "center"
+                }}>
+                    Overall Loading: <Text style={{ color: "#F00" }}>{progress.toFixed(2)}</Text>%
+                </Text>
+                <Text style={{
+                    fontFamily: "Roboto-Bold",
+                    fontSize: 18,
+                    textAlign: "center"
+                }}>
+                    Time Left: <Text style={{ color: "#F00" }}>{timer}</Text> seconds
+                </Text>
+            </View>
+        </>
+    )
+}
+
 function Loading(props) {
 
     const { children } = props;
+
+    const LoadingTxt = (children === "Syncing Data With Smart Life App...") ? SyncWithSmartLife : GenQrLoading;
+
     return (
         <View flexGrow={1}
             alignItems={"center"}
             justifyContent={"center"}>
+            <Text style={{
+                fontFamily: "Roboto-Bold",
+                fontSize: 20,
+                textAlign: "center"
+            }}>Please Refrain from Closing the App</Text>
             <Lottie
                 autoPlay
                 source={Animation.YatuLoader}
@@ -37,29 +96,12 @@ function Loading(props) {
                     width: 360,
                     height: 360
                 }} />
-
             <Text style={{
                 fontFamily: "Roboto-Bold",
-                fontSize: 18,
-                textAlign: "center"
-            }}>Please Refrain from Closing the App...</Text>
-            <Text style={{
-                fontFamily: "Roboto-Bold",
-                fontSize: 18,
+                fontSize: 20,
                 textAlign: "center"
             }}>{children}</Text>
-
-            {
-                (children === "Syncing Data With Smart Life App...") ? (
-                    <Text style={{
-                        fontFamily: "Roboto-Bold",
-                        fontSize: 18,
-                        textAlign: "center"
-                    }}>(It May take 1 to 5 Minutes to Sync Data)</Text>
-                ) : (
-                    <></>
-                )
-            }
+            <LoadingTxt />
         </View>
     )
 }
@@ -182,8 +224,6 @@ function Index(props) {
 
     // #region Api
     const authTuyaCode = () => {
-
-
         setLoading(true);
         setLoadingTxt("Generating Smart Home QR Code...");
         fetchAuthTuyaCode({

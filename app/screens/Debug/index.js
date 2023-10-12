@@ -9,7 +9,7 @@ import { Logger, Utility } from "@utility";
 
 import { iRData, clsConst, DowntimeData, Images, iRDataReal } from "@config";
 
-import { useChart, useToggle, useDate, useEChart, useOrientation } from "@hooks";
+import { useChart, useToggle, useDate, useEChart, useOrientation, useTimer } from "@hooks";
 
 import { BcViewShot, BcLineChartFull, BcDateRange, BcLineChart, BcLineLegend, BcApacheChart } from "@components";
 
@@ -187,6 +187,7 @@ function Index(props) {
 
     const [width, height, isPort, isLand, c_width, c_height] = useOrientation();
 
+    const [timer, setTimer, totalDuration, setTotalDuration, progress] = useTimer(30);
 
     return (
         <>
@@ -245,6 +246,9 @@ function Index(props) {
                                     )
                                 }
                             </View>
+
+                            <Text>{progress.toFixed(2)}</Text>
+                            <Text>{timer}</Text>
                         </VStack>
                     </ScrollView>
 

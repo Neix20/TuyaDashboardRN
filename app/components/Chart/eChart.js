@@ -3,18 +3,19 @@ import { Dimensions, SafeAreaView, ScrollView, useWindowDimensions, Text } from 
 
 import * as echarts from 'echarts/core';
 import { SVGRenderer, SkiaChart } from '@wuba/react-native-echarts';
-import { LineChart } from 'echarts/charts';
+import { LineChart, BarChart } from 'echarts/charts';
 import { TitleComponent, TooltipComponent, GridComponent, LegendComponent, ToolboxComponent, DataZoomComponent } from 'echarts/components';
 
 import { Logger, Utility } from "@utility";
 
 // Register extensions
 echarts.use([
+	SVGRenderer,
+	LineChart,
+	BarChart,
 	TitleComponent,
 	TooltipComponent,
 	GridComponent,
-	SVGRenderer,
-	LineChart,
 	LegendComponent,
 	ToolboxComponent,
 	DataZoomComponent
@@ -40,7 +41,7 @@ function ChartComponent(props) {
 		}
 
 		return () => chart?.dispose();
-	}, [option]);
+	}, [option]);1
 
 	return <SkiaChart ref={chartRef} />;
 }
@@ -54,13 +55,10 @@ function Index(props) {
 
 	const { label = [], dataset = [], min_dt = 0, max_dt = 0 } = chartData;
 
-	console.log("Where it matters", min_dt, max_dt)
-
 	const { width } = useWindowDimensions();
 
 	const option = {
-		// animation: false,
-		animationDuration: 10,
+		animation: false,
 		tooltip: {
 			trigger: 'axis',
 			renderMode: "richText"
@@ -75,7 +73,8 @@ function Index(props) {
 		},
 		legend: {
 			data: chartLegend,
-			bottom: 10,
+			type: "scroll",
+			bottom: 20,
 		},
 		xAxis: {
 			type: "time",
@@ -102,14 +101,16 @@ function Index(props) {
 		// },
 		yAxis: {
 			type: 'value',
-			renderMode: "richText",
-			animation: false,
+			renderMode: "richText"
 		},
 		dataZoom: [
 			{
 				start: 0,
 				end: 100,
 				top: 0,
+			},
+			{
+				type: "inside"
 			}
 		],
 		grid: {

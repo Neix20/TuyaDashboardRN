@@ -127,11 +127,10 @@ function LinkDeviceModal(props) {
     const [loading, setLoading, toggleLoading] = useToggle(false);
     const [tabPaneInd, setTabPaneInd] = useState(0);
 
-    const [timer, setTimer] = useTimer(-1);
+    const [timer, setTimer, totalDuration, setTotalDuration, overallPercent] = useTimer(-1, () => onTimerEnd());
     const [subLoadFlag, setSubLoadFlag, toggleSubLoadFlag] = useToggle(false);
     const [curDeviceInd, setCurDeviceInd] = useState(0);
     const [percentage, setPercentage] = useState(0);
-    const [overallPercentage, setOverallPercentage] = useState(0);
     // #endregion
 
     useEffect(() => {
@@ -202,25 +201,11 @@ function LinkDeviceModal(props) {
 
     useEffect(() => {
         if (timer > 0 && data.length > 0) {
-
-            let f_arr = data.filter(x => x.Status).filter(x => x.IsEmpty == 1);
-
             let ind = Math.floor((timer - 1) / time_to_wait);
             setCurDeviceInd(ind);
 
             let percent = (time_to_wait - (timer - ind * time_to_wait)) / time_to_wait * 100;
             setPercentage(percent);
-
-            const total_duration = f_arr.length * time_to_wait;
-
-            let overall_percent = (total_duration - timer) / total_duration * 100;
-            setOverallPercentage(overall_percent);
-        }
-
-        if (timer == 0) {
-            setLoading(false);
-            setSubLoadFlag(false);
-            toggleRefresh();
         }
     }, [timer]);
 
@@ -239,6 +224,7 @@ function LinkDeviceModal(props) {
 
         let duration = f_arr.length * time_to_wait;
         setTimer(duration);
+        setTotalDuration(duration);
 
         fetchLinkDevice({
             param: {
@@ -260,6 +246,12 @@ function LinkDeviceModal(props) {
             })
     }
 
+    const onTimerEnd = () => {
+        setLoading(false);
+        setSubLoadFlag(false);
+        toggleRefresh();
+    }
+
     return (
         <BaseModal {...props} cusToast={cusToast}
             showCross={!loading}
@@ -270,7 +262,7 @@ function LinkDeviceModal(props) {
                         {
                             (subLoadFlag) ? (
                                 <VStack px={3}>
-                                <Text style={{
+                                    <Text style={{
                                         fontFamily: "Roboto-Bold",
                                         fontSize: 20,
                                         textAlign: "center"
@@ -289,7 +281,7 @@ function LinkDeviceModal(props) {
                                         fontSize: 20,
                                         textAlign: "center"
                                     }}>
-                                        Overall Loading: <Text style={{ color: "#F00" }}>{overallPercentage.toFixed(2)}</Text>%
+                                        Overall Loading: <Text style={{ color: "#F00" }}>{overallPercent.toFixed(2)}</Text>%
                                     </Text>
                                     <Text style={{
                                         fontFamily: "Roboto-Bold",
@@ -311,29 +303,43 @@ function LinkDeviceModal(props) {
                                 width: 320,
                                 height: 320
                             }} />
-                        <View>
-                                <Text style={{
-                                    fontFamily: "Roboto-Bold",
-                                    fontSize: 18,
-                                    textAlign: "center"
-                                }}>
-                                    Syncing Data with Smart Home Server
-                                </Text>
-                                <Text style={{
-                                    fontFamily: "Roboto-Bold",
-                                    fontSize: 16,
-                                    textAlign: "center"
-                                }}>
-                                    (It may take upwards to 15 minutes)
-                                </Text>
-                                <Text style={{
-                                    fontFamily: "Roboto-Bold",
-                                    fontSize: 18,
-                                    textAlign: "center"
-                                }}>
-                                    Please be patient. Your data is being sync!
-                                </Text>
-                            </View>
+                        {
+                            (subLoadFlag) ? (
+                                <View>
+                                    <Text style={{
+                                        fontFamily: "Roboto-Bold",
+                                        fontSize: 18,
+                                        textAlign: "center"
+                                    }}>
+                                        Syncing Data with Smart Home Server
+                                    </Text>
+                                    <Text style={{
+                                        fontFamily: "Roboto-Bold",
+                                        fontSize: 16,
+                                        textAlign: "center"
+                                    }}>
+                                        (It may take upwards to 15 minutes)
+                                    </Text>
+                                    <Text style={{
+                                        fontFamily: "Roboto-Bold",
+                                        fontSize: 18,
+                                        textAlign: "center"
+                                    }}>
+                                        Please be patient. Your data is being sync!
+                                    </Text>
+                                </View>
+                            ) : (
+                                <View>
+                                    <Text style={{
+                                        fontFamily: "Roboto-Bold",
+                                        fontSize: 18,
+                                        textAlign: "center"
+                                    }}>
+                                        Loading Device List...
+                                    </Text>
+                                </View>
+                            )
+                        }
                     </View>
                 ) : (
                     <VStack py={3} space={3} w={"100%"}
@@ -413,7 +419,7 @@ function LinkDeviceModal(props) {
                     </VStack>
                 )
             }
-        </BaseModal>
+        </BaseModal >
     )
 }
 // #endregion

@@ -4,11 +4,14 @@ function Index(duration = 15, onTimerEnd = () => { }) {
 
     const [timer, setTimer] = useState(duration);
 
+    const [totalDuration, setTotalDuration] = useState(duration);
+
+    const progress = (totalDuration - timer) / totalDuration * 100;
+
     useEffect(() => {
         if (timer === 0) {
             onTimerEnd();
-        }
-        else {
+        } else {
             const timeout = setTimeout(() => {
                 setTimer((timer) => timer - 1);
             }, 1000);
@@ -16,7 +19,7 @@ function Index(duration = 15, onTimerEnd = () => { }) {
         }
     }, [timer]);
 
-    return [timer, setTimer];
+    return [timer, setTimer, totalDuration, setTotalDuration, progress];
 }
 
 export default Index;

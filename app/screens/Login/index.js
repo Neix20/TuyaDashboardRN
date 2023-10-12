@@ -207,6 +207,8 @@ function Index(props) {
 
                     const { Data: { User_Id, FirstTimeUserId, ResponseMessage } } = data;
 
+                    Utility.OneSignalSubscribe(email);
+
                     dispatch(Actions.onChangeUserId(User_Id));
 
                     if (FirstTimeUserId == 1) {

@@ -54,5 +54,5 @@
     Features Update:
     1. Orientation Update: Now able to support Landscape View and Portrait View for Graphs
     2. Link Device Flow. Enhance Functionality, added overall progress
-    3. Chart Update: Enhance Chart for timestamp view, instead of date time.
+    3. Chart Update: Enhance Chart for timestamp view, instead of date time. Moved Zoom Bar on Top, Legend Bottom.
 </en-US>

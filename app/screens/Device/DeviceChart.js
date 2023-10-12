@@ -395,8 +395,7 @@ function Index(props) {
                                     contentContainerStyle={{ flexGrow: 1 }}>
                                     <View flexGrow={1} bgColor={"#FFF"}>
                                         <View pt={3} alignItems={"center"}>
-                                            <BcApacheChart 
-                                                hook={eChartHook} height={360} />
+                                            <BcApacheChart hook={eChartHook} height={360} />
                                         </View>
                                     </View>
                                 </ScrollView>
