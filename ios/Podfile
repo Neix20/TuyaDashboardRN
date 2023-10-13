@@ -22,8 +22,9 @@ if linkage != nil
 end
 
 source 'https://github.com/CocoaPods/Specs'
-source 'https://github.com/tuya/TuyaPublicSpecs.git'
-source 'https://github.com/tuya/tuya-pod-specs.git'
+
+#source 'https://github.com/tuya/TuyaPublicSpecs.git'
+#source 'https://github.com/tuya/tuya-pod-specs.git'
 
 target 'YatuDashboard' do
   config = use_native_modules!
@@ -56,8 +57,8 @@ target 'YatuDashboard' do
     pod 'OneSignalXCFramework', '>= 3.0', '< 4.0'
   end  
   
-  pod "ThingSmartCryption", :path =>'./TuyaSDK'
-  pod 'ThingSmartHomeKit','~> 5.1.0'
+#  pod "ThingSmartCryption", :path =>'./TuyaSDK'
+#  pod 'ThingSmartHomeKit','~> 5.1.0'
 
   post_install do |installer|
     react_native_post_install(
@@ -73,6 +74,7 @@ target 'YatuDashboard' do
       target.build_configurations.each do |config|
         # 消除文档警告
         config.build_settings['CLANG_WARN_DOCUMENTATION_COMMENTS'] = 'NO'
+        
         # iOS 模拟器去除 arm64
         config.build_settings["EXCLUDED_ARCHS[sdk=iphonesimulator*]"] = "arm64"
 

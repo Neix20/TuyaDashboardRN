@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-import { TouchableOpacity, Dimensions, SafeAreaView } from "react-native";
+import { TouchableOpacity, Dimensions, Text } from "react-native";
 import { View } from "native-base";
 import { GlobalColors } from "@config";
 
@@ -8,6 +8,8 @@ import Modal from 'react-native-modal';
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 
 import CustomToast from "./CustomToast";
+
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 const { width, height } = Dimensions.get("screen");
 
@@ -44,6 +46,10 @@ function Index(props) {
     const { showModal, setShowModal } = props;
     const { cusToast = init.toast } = props;
     // #endregion
+
+    const insets = useSafeAreaInsets();
+
+    const pt_top = (insets.top <= 0) ? 10 : insets.top
 
     return (
         <Modal isVisible={showModal}
@@ -97,7 +103,10 @@ function Index(props) {
 
                 {/* Content */}
 
-                <View alignItems={"center"} py={5}>
+                <View alignItems={"center"} style={{
+                    paddingTop: pt_top,
+                    paddingBottom: 10,
+                }}>
                     {children}
                 </View>
             </View>

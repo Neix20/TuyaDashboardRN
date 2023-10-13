@@ -266,8 +266,6 @@ function useChart() {
                 dataset.push(obj);
             }
 
-            console.log(min_dt, max_dt);
-
             let dict = {
                 label,
                 dataset,

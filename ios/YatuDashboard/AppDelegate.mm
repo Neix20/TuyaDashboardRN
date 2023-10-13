@@ -11,12 +11,12 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
   // Initialize ThingSmartSDK
-  [[ThingSmartSDK sharedInstance] startWithAppKey:APP_KEY secretKey:APP_SECRET_KEY];
-  
-  #ifdef DEBUG
-      [[ThingSmartSDK sharedInstance] setDebugMode:YES];
-  #else
-  #endif
+  // [[ThingSmartSDK sharedInstance] startWithAppKey:APP_KEY secretKey:APP_SECRET_KEY];
+  // 
+  // #ifdef DEBUG
+  //     [[ThingSmartSDK sharedInstance] setDebugMode:YES];
+  // #else
+  // #endif
   
   self.moduleName = @"YatuDashboard";
   // You can add your custom initial props in the dictionary below.

@@ -297,7 +297,6 @@ function Index(props) {
                 onSetLoading: setLoading,
             })
                 .then(data => {
-                    console.log(data);
                     setDeviceInfo(data)
                 })
                 .catch(err => {

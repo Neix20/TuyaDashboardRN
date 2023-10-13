@@ -7,11 +7,15 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
 import { BcBoxShadow } from "@components";
 
+import { useSafeAreaInsets } from "react-native-safe-area-context";
+
 const Tab = createBottomTabNavigator();
 
 function MyTabBar(props) {
     const { state, descriptors, navigation } = props;
     const borderRadius = 30;
+
+    const insets = useSafeAreaInsets();
 
     // #region Render
     const renderTabItem = (route, ind) => {
@@ -48,7 +52,7 @@ function MyTabBar(props) {
     // #endregion
 
     return (
-        <View style={{ position: "absolute", bottom: 0, left: 0, right: 0 }}>
+        <View style={{ position: "absolute", bottom: insets.bottom, left: 0, right: 0 }}>
             <BcBoxShadow style={{ width: "100%" }}>
                 <HStack bgColor={"#fff"}
                     justifyContent={"space-between"}
@@ -79,7 +83,7 @@ function Index(props) {
     return (
         <Tab.Navigator
             initialRouteName={defaultScreen}
-            tabBar={MyTabBar}
+            tabBar={props => <MyTabBar {...props} />}
             screenOptions={{
                 headerShown: false,
                 tabBarActiveTintColor: "#2898FF",

@@ -201,7 +201,6 @@ function Index(props) {
             onSetLoading: setLoading
         })
             .then(res => {
-                console.log(res);
                 setData(res);
             })
             .catch(err => {

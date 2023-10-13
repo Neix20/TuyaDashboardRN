@@ -16,7 +16,9 @@ import { Logger, Utility } from "@utility";
 
 import { BcHeader, BcTimer, BaseModal, BcLoading } from "@components";
 
-import { startBluetoothScan, initBluetoothDualModeActivator } from "@volst/react-native-tuya";
+// import { startBluetoothScan, initBluetoothDualModeActivator } from "@volst/react-native-tuya";
+const startBluetoothScan = async () => {};
+const initBluetoothDualModeActivator = async () => {};
 
 import { DeviceInfoDict, Animation } from "@config";
 
@@ -527,7 +529,6 @@ function Index(props) {
     }
 
     const onBlueToothScan = () => {
-        console.log(startBluetoothScan);
         setLoading(true);
         requestPermission()
             .then(flag => {

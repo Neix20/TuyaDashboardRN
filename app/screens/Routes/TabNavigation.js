@@ -89,7 +89,7 @@ TabScreens = {
 
 function Index(props) {
 
-    const defaultScreen = "Dashboard";
+    const defaultScreen = "Device";
 
     // const navigation = useNavigation();
 

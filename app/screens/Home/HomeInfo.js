@@ -225,7 +225,6 @@ function Index(props) {
                 onSetLoading: setLoading
             })
                 .then(data => {
-                    console.log(data);
                     setHome(data)
                 })
                 .catch(err => {

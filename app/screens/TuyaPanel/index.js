@@ -4,7 +4,17 @@ import { View, Text, TouchableOpacity, Image, ScrollView, Dimensions, SafeAreaVi
 const screen = Dimensions.get("screen");
 const { width, height } = screen;
 
-import { loginWithEmail, initBluetoothDualModeActivator, queryHomeList, getHomeDetail, removeDevice, logout, registerAnonymousAccount, startBluetoothScan, createHome } from '@volst/react-native-tuya';
+// import { loginWithEmail, initBluetoothDualModeActivator, queryHomeList, getHomeDetail, removeDevice, logout, registerAnonymousAccount, startBluetoothScan, createHome } from '@volst/react-native-tuya';
+
+const loginWithEmail = async () => {};
+const initBluetoothDualModeActivator = async () => {};
+const queryHomeList = async () => {};
+const getHomeDetail = async () => {};
+const removeDevice = async () => {};
+const logout = async () => {};
+const registerAnonymousAccount = async () => {};
+const startBluetoothScan = async () => {};
+const createHome = async () => {};
 
 import { Logger } from "@utility";
 

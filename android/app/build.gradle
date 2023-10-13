@@ -98,17 +98,17 @@ android {
         applicationId "com.yatudashboard"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 10205
-        versionName "1.2.5"
+        versionCode 10206
+        versionName "1.2.6"
 
-        ndk {
-            abiFilters "armeabi-v7a", "arm64-v8a"
-        }
+//        ndk {
+//            abiFilters "armeabi-v7a", "arm64-v8a"
+//        }
     }
 
-    packagingOptions {
-        merge 'libs/*/libc++_shared.so' // An Android Archive (AAR) file contains an Android library. If the .so file exists in multiple AAR files, select the first AAR file.
-    }
+//    packagingOptions {
+//        merge 'libs/*/libc++_shared.so' // An Android Archive (AAR) file contains an Android library. If the .so file exists in multiple AAR files, select the first AAR file.
+//    }
 
     splits {
         abi {
@@ -179,9 +179,9 @@ android {
     }
 }
 
-configurations.all {
-    exclude group: "com.thingclips.smart" ,module: 'thingsmart-modularCampAnno'
-}
+//configurations.all {
+//    exclude group: "com.thingclips.smart" ,module: 'thingsmart-modularCampAnno'
+//}
 
 dependencies {
     // The version of react-native is set by the React Native Gradle Plugin
@@ -204,13 +204,15 @@ dependencies {
     // For animated GIF support
     implementation 'com.facebook.fresco:animated-gif:2.5.0'
 
-    implementation fileTree(dir: 'libs', include: ['*.aar'])
-    implementation 'com.alibaba:fastjson:1.1.67.android'
-    implementation 'com.squareup.okhttp3:okhttp-urlconnection:3.14.9'
-
-    // The latest stable App SDK for Android.
+//    implementation fileTree(dir: 'libs', include: ['*.aar'])
+//
+//    implementation 'com.alibaba:fastjson:1.1.67.android'
+//    implementation 'com.squareup.okhttp3:okhttp-urlconnection:3.14.9'
+//
+//    // The latest stable App SDK for Android.
     implementation 'com.facebook.soloader:soloader:0.10.4+'
-    implementation 'com.thingclips.smart:thingsmart:5.1.0'
+
+//    implementation 'com.thingclips.smart:thingsmart:5.1.0'
 
 //    implementation 'com.onesignal:OneSignal:[5.0.0, 5.99.99]'
 }
