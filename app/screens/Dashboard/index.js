@@ -11,7 +11,7 @@ import { Logger, Utility } from "@utility";
 
 import { Images, Svg } from "@config";
 
-import { BcBoxShadow, BcSvgIcon, BcDateRange, BcViewShot, BcLoading, BcYatuHome, BcLineChartFull, BcApacheChart } from "@components";
+import { BcBoxShadow, BcSvgIcon, BcDateRange, BcViewShot, BcLoading, BcYatuHome, BcLineChartFull, BcApacheChart, BcApacheChartFull } from "@components";
 
 import { DateTime } from "luxon";
 
@@ -539,7 +539,7 @@ function Index(props) {
                     <ScrollView showsVerticalScrollIndicator={false} keyboardShouldPersistTaps={"handled"}
                         contentContainerStyle={{ flexGrow: 1 }}>
                         {
-                            (Object.keys(chart).length > 0 || Object.keys(spChart).length > 0) ? (
+                            (Object.keys(chart).length > 0) ? (
                                 <View flexGrow={1}>
                                     <HStack
                                         flexWrap={"wrap"}
@@ -550,7 +550,7 @@ function Index(props) {
                                             (Object.keys(chart).length > 0) ? (
                                                 <View px={3} style={{ width: width }}>
                                                     <BcViewShot title="Daily Humidity Device Report">
-                                                        <BcApacheChart hook={chartHook} height={360} />
+                                                        <BcApacheChartFull hook={chartHook} height={360} />
                                                     </BcViewShot>
                                                 </View>
                                             ) : (
@@ -562,7 +562,7 @@ function Index(props) {
                                             (Object.keys(spChart).length > 0) ? (
                                                 <View px={3} style={{ width: width }}>
                                                     <BcViewShot title="Daily Smart Plug Data">
-                                                        <BcApacheChart hook={spChartHook} height={360} />
+                                                        <BcApacheChartFull hook={spChartHook} height={360} />
                                                     </BcViewShot>
                                                 </View>
                                             ) : (
@@ -574,7 +574,7 @@ function Index(props) {
                                             (Object.keys(aqChart).length > 0) ? (
                                                 <View px={3} style={{ width: width }}>
                                                     <BcViewShot title="Daily Air Quality Data">
-                                                        <BcApacheChart hook={aqChartHook} height={360} />
+                                                        <BcApacheChartFull hook={aqChartHook} height={360} />
                                                     </BcViewShot>
                                                 </View>
                                             ) : (
@@ -586,7 +586,7 @@ function Index(props) {
                                             (compare && Object.keys(prevChart).length > 0) ? (
                                                 <View px={3} style={{ width: width }}>
                                                     <BcViewShot title="Comparison">
-                                                        <BcApacheChart hook={prevChartHook} height={360} />
+                                                        <BcApacheChartFull hook={prevChartHook} height={360} />
                                                     </BcViewShot>
                                                 </View>
                                             ) : (

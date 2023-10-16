@@ -259,7 +259,6 @@ function useChart() {
 
                 let obj = {
                     name: key,
-                    type: "line",
                     data: val
                 }
 

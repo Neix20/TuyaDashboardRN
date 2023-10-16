@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Dimensions, SafeAreaView, ScrollView, useWindowDimensions, Text } from "react-native";
+import { Dimensions, SafeAreaView, ScrollView, Text } from "react-native";
 
 import * as echarts from 'echarts/core';
 import { SVGRenderer, SkiaChart } from '@wuba/react-native-echarts';
@@ -7,6 +7,8 @@ import { LineChart, BarChart } from 'echarts/charts';
 import { TitleComponent, TooltipComponent, GridComponent, LegendComponent, ToolboxComponent, DataZoomComponent } from 'echarts/components';
 
 import { Logger, Utility } from "@utility";
+
+import { useOrientation } from "@hooks";
 
 // Register extensions
 echarts.use([
@@ -55,7 +57,7 @@ function Index(props) {
 
 	const { label = [], dataset = [], min_dt = 0, max_dt = 0 } = chartData;
 
-	const { width } = useWindowDimensions();
+	const [width] = useOrientation();
 
 	const option = {
 		animation: false,
@@ -65,8 +67,7 @@ function Index(props) {
 		},
 		toolbox: {
 			feature: {
-				restore: {
-				}
+				restore: {}
 			},
 			top: 40,
 			right: 10,
@@ -118,7 +119,12 @@ function Index(props) {
 			right: 5,
 			containLabel: true,
 		},
-		series: dataset
+		series: dataset.map(x => ({
+			...x,
+			type: "line",
+			symbol: "circle",
+			symbolSize: 5
+		}))
 	};
 
 	return (

@@ -88,16 +88,12 @@ export {
     BcGradient
 }
 
-import BcSvgChart from "./Chart";
-
-export {
-    BcSvgChart,
-}
-
 import BcApacheChart from "./Chart/eChart";
+import BcApacheChartFull from "./Chart/full";
 
 export {
-    BcApacheChart
+    BcApacheChart,
+    BcApacheChartFull
 }
 
 import BcLineChart from "./LineChart";

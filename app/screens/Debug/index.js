@@ -11,7 +11,7 @@ import { iRData, clsConst, DowntimeData, Images, iRDataReal } from "@config";
 
 import { useChart, useToggle, useDate, useEChart, useOrientation, useTimer } from "@hooks";
 
-import { BcViewShot, BcLineChartFull, BcDateRange, BcLineChart, BcLineLegend, BcApacheChart } from "@components";
+import { BcViewShot, BcLineChartFull, BcDateRange, BcLineChart, BcLineLegend, BcApacheChart, BcApacheChartFull } from "@components";
 
 
 function TestSvgChart(props) {
@@ -276,10 +276,10 @@ function DeviceChart(props) {
             <View flexGrow={1}
                 alignItems={"center"}
                 justifyContent={"center"}>
-                <BcApacheChart hook={chartHook} height={320} />
+                <BcApacheChartFull hook={chartHook} height={320} />
             </View>
         </SafeAreaView>
     )
 }
 
-export default Index;
+export default DeviceChart;

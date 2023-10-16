@@ -134,7 +134,6 @@ function Index(default_key) {
 
             let obj = {
                 name: key,
-                type: "line",
                 data: val
             }
 
