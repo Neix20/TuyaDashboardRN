@@ -341,85 +341,104 @@ function LinkDeviceModal(props) {
                             )
                         }
                     </View>
-                ) : (
-                    <VStack py={3} space={3} w={"100%"}
-                        bgColor={"#FFF"} alignItems={"center"}>
-
-                        <View>
-                            <Text style={{
-                                fontFamily: "Roboto-Bold",
-                                fontSize: 18
-                            }}>Device List</Text>
-                        </View>
-
-                        <FlatList
-                            data={data.filter(obj => obj.flag && obj.Supported == 1)}
-                            renderItem={renderItem}
-                            style={{ width: "90%", maxHeight: 300 }}
-                            contentContainerStyle={{
-                                flexDirection: "column",
-                                padding: 5,
-                                rowGap: 8,
-                            }}
-                            ListEmptyComponent={<></>}
-                        />
-
-                        <FlatList
-                            data={data.filter(obj => !obj.flag && obj.Supported == 1)}
-                            renderItem={renderItem}
-                            style={{ width: "90%", maxHeight: 300 }}
-                            contentContainerStyle={{
-                                flexDirection: "column",
-                                padding: 5,
-                                rowGap: 8,
-                            }}
-                            ListEmptyComponent={<></>}
-                        />
-
-                        {
-                            (data.filter(obj => obj.Supported == 0).length > 0) ? (
-                                <>
-                                    <View width={"90%"} style={{ paddingHorizontal: 5 }}>
-                                        <Text style={{
-                                            fontFamily: "Roboto-Bold",
-                                            fontSize: 16
-                                        }}>Not Supported</Text>
-                                    </View>
-
-                                    <FlatList
-                                        data={data.filter(obj => obj.Supported == 0)}
-                                        renderItem={renderUnsupportItem}
-                                        style={{ width: "90%", maxHeight: 300 }}
-                                        contentContainerStyle={{
-                                            flexDirection: "column",
-                                            padding: 5,
-                                            rowGap: 8,
-                                        }}
-                                        ListEmptyComponent={<></>}
-                                    />
-                                </>
-                            ) : (
-                                <></>
-                            )
-                        }
-
-                        <TouchableOpacity onPress={onSubmit} style={{ width: "60%" }}>
-                            <View backgroundColor={"#ff0000"}
-                                alignItems={"center"} justifyContent={"center"}
-                                borderRadius={8}
-                                style={{ height: 48 }}
-                            >
-                                <Text style={[{
-                                    fontSize: 14,
-                                    fontWeight: "bold",
-                                    color: "white",
-                                }]}>Submit</Text>
-                            </View>
-                        </TouchableOpacity>
-                    </VStack>
                 )
+                    : (
+                        <VStack py={3} space={3} w={"100%"}
+                            bgColor={"#FFF"} alignItems={"center"}>
+
+                            <View>
+                                <Text style={{
+                                    fontFamily: "Roboto-Bold",
+                                    fontSize: 18
+                                }}>Sync Devices</Text>
+                            </View>
+
+                            {
+                                (data.length > 0) ? (
+                                    <>
+                                        <FlatList
+                                            data={data.filter(obj => obj.flag && obj.Supported == 1)}
+                                            renderItem={renderItem}
+                                            style={{ width: "90%", maxHeight: 300 }}
+                                            contentContainerStyle={{
+                                                flexDirection: "column",
+                                                padding: 5,
+                                                rowGap: 8,
+                                            }}
+                                            ListEmptyComponent={<></>}
+                                        />
+
+                                        <FlatList
+                                            data={data.filter(obj => !obj.flag && obj.Supported == 1)}
+                                            renderItem={renderItem}
+                                            style={{ width: "90%", maxHeight: 300 }}
+                                            contentContainerStyle={{
+                                                flexDirection: "column",
+                                                padding: 5,
+                                                rowGap: 8,
+                                            }}
+                                            ListEmptyComponent={<></>}
+                                        />
+
+                                        {
+                                            (data.filter(obj => obj.Supported == 0).length > 0) ? (
+                                                <>
+                                                    <View width={"90%"} style={{ paddingHorizontal: 5 }}>
+                                                        <Text style={{
+                                                            fontFamily: "Roboto-Bold",
+                                                            fontSize: 16
+                                                        }}>Not Supported</Text>
+                                                    </View>
+
+                                                    <FlatList
+                                                        data={data.filter(obj => obj.Supported == 0)}
+                                                        renderItem={renderUnsupportItem}
+                                                        style={{ width: "90%", maxHeight: 300 }}
+                                                        contentContainerStyle={{
+                                                            flexDirection: "column",
+                                                            padding: 5,
+                                                            rowGap: 8,
+                                                        }}
+                                                        ListEmptyComponent={<></>}
+                                                    />
+                                                </>
+                                            ) : (
+                                                <></>
+                                            )
+                                        }
+
+                                        <TouchableOpacity onPress={onSubmit} style={{ width: "60%" }}>
+                                            <View backgroundColor={"#ff0000"}
+                                                alignItems={"center"} justifyContent={"center"}
+                                                borderRadius={8}
+                                                style={{ height: 48 }}
+                                            >
+                                                <Text style={[{
+                                                    fontSize: 14,
+                                                    fontWeight: "bold",
+                                                    color: "white",
+                                                }]}>Sync Now</Text>
+                                            </View>
+                                        </TouchableOpacity>
+                                    </>
+                                ) : (
+                                    <VStack space={2} alignItems={"center"}>
+                                            <FontAwesome name={"check-circle"}
+                                                color={"#26cd14"}
+                                                size={80} />
+
+                                            <Text style={{
+                                                fontSize: 18,
+                                                fontFamily: 'Roboto-Medium',
+                                                fontWeight: "700"
+                                            }}>All devices have been synced</Text>
+                                        </VStack>
+                                )
+                            }
+                        </VStack>
+                    )
             }
-        </BaseModal >
+        </BaseModal>
     )
 }
 // #endregion

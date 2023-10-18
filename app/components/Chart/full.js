@@ -5,7 +5,7 @@ import { View, VStack, HStack, useToast } from "native-base";
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 import { useNavigation, useIsFocused } from "@react-navigation/native";
 
-import { BaseModal, BcApacheChart } from "@components";
+import { BaseModal, BcApacheChart, BcDropdown } from "@components";
 
 import { useToggle, useModalToast } from "@hooks";
 import { CheckBox } from "@rneui/base";
@@ -99,11 +99,13 @@ function DataAttributeModal(props) {
 
 function Index(props) {
 
-    const { hook = [] } = props;
+    const { hook = []  } = props;
 
-    const [chart, setChart, chartKey, setChartKey, chartData, setChartData, chartLegend, chartKeyOption, setChartKeyOption] = hook;
+    const [chart, setChart, chartKey, setChartKey, chartData, setChartData, chartLegend, chartKeyOption = [], setChartKeyOption] = hook;
 
     const [showDaModal, setShowDaModal, toggleDaModal] = useToggle(false);
+
+    const dropdownLs = chartKeyOption.map(x => ({ label: x, value: x }));
 
     return (
         <>
@@ -113,23 +115,24 @@ function Index(props) {
                 chartKey={chartKey} setChartKey={setChartKey}
             />
             <VStack space={2}>
-                <TouchableOpacity onPress={toggleDaModal}>
-                    <VStack px={3} borderWidth={1} justifyContent={"space-between"} style={{ height: 44 }}>
-                        <View>
-                            <Text style={{
-                                fontFamily: "Roboto-Bold",
-                                fontSize: 16
-                            }}>Data Attributes</Text>
-                        </View>
-                        <View alignItems={"flex-end"}>
-                            <Text style={{
-                                fontFamily: "Roboto-Medium",
-                                fontSize: 14
-                            }}>{chartKey}</Text>
-                        </View>
-                    </VStack>
-                </TouchableOpacity>
-                <BcApacheChart hook={hook} height={360} />
+                <HStack py={1} zIndex={5}
+                    alignItems={"center"} style={{ height: 40 }}>
+                    <View flex={.4} >
+                        <Text style={{
+                            fontFamily: "Roboto-Bold",
+                            fontSize: 16
+                        }}>Data Attributes</Text>
+                    </View>
+                    <View flex={.6}>
+                    <BcDropdown key={chartKeyOption.length}
+                        items={dropdownLs}
+                        value={chartKey} setValue={setChartKey}
+                        placeholder={chartKey}
+                        width={"100%"} height={"100%"}
+                    />
+                    </View>
+                </HStack>
+                <BcApacheChart {...props} />
             </VStack>
         </>
     )

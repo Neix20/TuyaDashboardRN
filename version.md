@@ -56,3 +56,12 @@
     2. Link Device Flow. Enhance Functionality, added overall progress
     3. Chart Update: Enhance Chart for timestamp view, instead of date time. Moved Zoom Bar on Top, Legend Bottom.
 </en-US>
+
+#### Version 1.2.7
+---------------------
+<en-US>
+    Features Update:
+    1. Chart Controls: Improve Data Navigation, Added Zoom Support
+    2. Widget Update: Added Smart Plug Widget & Air Quality Widget.
+    3. Chart Update: Enhance Chart for timestamp view, instead of date time. Moved Zoom Bar on Top, Legend Bottom.
+</en-US>

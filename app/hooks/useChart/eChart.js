@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 
 import { DateTime } from "luxon";
 
+import { Svg } from "@config";
+
 function Index(default_key) {
 
     const init = {
@@ -11,6 +13,8 @@ function Index(default_key) {
             max: 0,
         }
     }
+
+    const svg_key = Object.keys(Svg["MetaData_Header"]);
 
     // #region Use State
     const [chart, setChart] = useState({});
@@ -79,6 +83,7 @@ function Index(default_key) {
             break;
         }
 
+        ck_arr = ck_arr.filter(x => svg_key.includes(x));
         setChartKeyOption(ck_arr);
     }, [chart]);
 

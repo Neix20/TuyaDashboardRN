@@ -1,6 +1,6 @@
 {
   "name": "yatudashboard",
-  "version": "1.2.61",
+  "version": "1.2.7",
   "private": true,
   "scripts": {
     "android": "react-native run-android --variant yatuDebug",

@@ -31,8 +31,24 @@ function Index(props) {
                         width: 360,
                         height: 360
                     }} /> */}
-                <VStack space={3}>
+                {/* <VStack space={3}>
                     <Spinner size={128} color={"#2898FF"} />
+
+                    <Text style={{
+                        fontFamily: "Roboto-Bold",
+                        fontSize: 24,
+                        color: "#2898FF"
+                    }}>Loading ...</Text>
+                </VStack> */}
+                <VStack space={3} alignItems={"center"}>
+                    <Lottie
+                        autoPlay
+                        source={Animation.YatuLoader}
+                        loop={true}
+                        style={{
+                            width: 360,
+                            height: 360
+                        }} />
 
                     <Text style={{
                         fontFamily: "Roboto-Bold",

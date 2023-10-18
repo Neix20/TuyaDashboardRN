@@ -196,6 +196,8 @@ function useChart() {
 
     const [chartLegend, setChartLegend] = useState([]);
 
+    const svg_key = Object.keys(Svg["MetaData_Header"]);
+
     const init = {
         colors: [
             "#DB7D86", "#E7E005", "#188B9A",
@@ -223,8 +225,6 @@ function useChart() {
             delete obj["Timestamp"];
 
             let keys = Object.keys(obj);
-
-            const svg_key = Object.keys(Svg["MetaData_Header"]);
 
             keys = keys.filter(x => svg_key.includes(x));
 

@@ -98,8 +98,8 @@ android {
         applicationId "com.yatudashboard"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 10206
-        versionName "1.2.6"
+        versionCode 10207
+        versionName "1.2.7"
 
 //        ndk {
 //            abiFilters "armeabi-v7a", "arm64-v8a"
@@ -211,7 +211,7 @@ dependencies {
 //
 //    // The latest stable App SDK for Android.
     implementation 'com.facebook.soloader:soloader:0.10.4+'
-
+3
 //    implementation 'com.thingclips.smart:thingsmart:5.1.0'
 
 //    implementation 'com.onesignal:OneSignal:[5.0.0, 5.99.99]'

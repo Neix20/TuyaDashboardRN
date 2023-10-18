@@ -4,8 +4,6 @@ import { View, VStack, HStack, useToast } from "native-base";
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 import { useNavigation, useIsFocused } from "@react-navigation/native";
 
-const screen = Dimensions.get("screen");
-
 import DropDownPicker from "react-native-dropdown-picker";
 
 const colors = {
@@ -24,7 +22,6 @@ const styles = StyleSheet.create({
     },
     dropDownContainer: {
         borderColor: colors.gray,
-        backgroundColor: "#FFF",
         alignSelf: "center",
         zIndex: 100,
     },
@@ -67,9 +64,9 @@ function Index(props) {
             style={[styles.container, { width: width, height: height }]}
             containerStyle={{ width: width, height: height }}
             dropDownContainerStyle={[styles.dropDownContainer, { width: width }]}
-            placeholderStyle={[styles.placeHolder]}
-            labelStyle={[styles.label]}
-            textStyle={[styles.text]}
+            placeholderStyle={styles.placeHolder}
+            labelStyle={styles.label}
+            textStyle={styles.text}
         />
     );
 

@@ -60,7 +60,7 @@ function DataTable(props) {
     // #region Render Item
     const renderHeader = (item, ind) => {
         return (
-            <View key={ind} alignItems={"center"} style={{ width: 60 }}>
+            <View key={ind} alignItems={"center"} flex={1}>
                 <BcSvgIcon name={item} />
             </View>
         )
@@ -74,7 +74,7 @@ function DataTable(props) {
         const renderData = (key, jnd) => {
             const val = item[key] || 0;
             return (
-                <View key={jnd} alignItems={"center"} style={{ width: 60 }}>
+                <View key={jnd} alignItems={"center"} flex={1}>
                     <Text>{val}</Text>
                 </View>
             )
@@ -83,8 +83,8 @@ function DataTable(props) {
 
         return (
             <HStack key={index} width={"90%"} alignItems={"center"} justifyContent={"space-between"}>
-                <View style={{ width: 140 }}>
-                    <Text>{Utility.formatDt(ts, "yyyy-MM-dd HH:mm:ss")}</Text>
+                <View style={{ width: 90 }}>
+                    <Text>{Utility.formatDt(ts, "hh:mm a")}</Text>
                 </View>
                 {
                     keys.slice(1).map(renderData)
@@ -99,7 +99,7 @@ function DataTable(props) {
             {/* Data Header */}
             <HStack width={"90%"}
                 alignItems={"center"} justifyContent={"space-between"}>
-                <View style={{ width: 140 }}>
+                <View style={{ width: 90 }}>
                     <Text style={{
                         fontFamily: "Roboto-Bold",
                         fontSize: 16
@@ -125,7 +125,6 @@ function DataAttribute(props) {
     let keys = Object.keys(data[0]);
 
     const svg_key = Object.keys(Svg["MetaData_Header"]);
-
     keys = keys.filter(x => svg_key.includes(x));
 
     const renderItem = (item, index) => {
@@ -133,7 +132,9 @@ function DataAttribute(props) {
             <HStack key={index} space={3}
                 width={"90%"}
                 alignItems={"center"}>
-                <BcSvgIcon name={item} />
+                <View style={{ width: 48 }}>
+                    <BcSvgIcon name={item} />
+                </View>
                 <Text style={{
                     fontFamily: "Roboto-Bold",
                     fontSize: 16
@@ -209,6 +210,7 @@ function Index(props) {
                 onSetLoading: setLoading,
             })
                 .then(data => {
+                    console.log(data.slice(0, 5))
                     setData(data);
                 })
                 .catch(err => {

@@ -317,8 +317,15 @@ function Index(props) {
 
     const { Online_Status = 0, IsTempHumd = 0, IsSmartPlug = 0 } = deviceInfo;
 
-    let ind = (IsTempHumd == 1) ? 2 : 3;
-    ind = (IsSmartPlug == 1) ? 1 : 3;
+    let ind = 2;
+
+    if (IsTempHumd == 1) {
+        ind = 3;
+    }
+
+    if (IsSmartPlug == 1) {
+        ind = 1;
+    }
 
     return (
         <>

@@ -226,12 +226,16 @@ function Index(props) {
                             description: ResponseMessage
                         })
                     }
+
+                    clearForm();
                 } else {
                     toast.show({
                         description: "Account / otp is incorrect!"
                     })
+
+                    setOtp("");
                 }
-                clearForm();
+                
             })
             .catch(err => {
                 setLoading(false);

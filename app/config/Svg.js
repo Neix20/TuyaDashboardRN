@@ -22,6 +22,10 @@ import Temperature from "@assets/svg/Temperature";
 import AbsoluteHumidity from "@assets/svg/Absolute_Humidity.svg";
 import RelativeHumidity from "@assets/svg/Relative_Humidity.svg";
 
+import Formaldehyde from "@assets/svg/Formaldehyde.svg";
+import ParticleMatter from "@assets/svg/Particle_Matter.svg";
+import CarbonDioxide from "@assets/svg/Carbon_Dioxide.svg";
+
 Data = {
     AppLogo: AppLogo,
     Yatu: Yatu,
@@ -52,6 +56,10 @@ Data = {
     Power: Power,
     Current: Current,
     Voltage: Voltage,
+    Formaldehyde: Formaldehyde,
+    "Particle Matter": ParticleMatter,
+    "Carbon Dioxide": CarbonDioxide,
+    "KWh": Power,
 }
 
 Data = {
@@ -63,6 +71,10 @@ Data = {
         Power: Power,
         Current: Current,
         Voltage: Voltage,
+        Formaldehyde: Formaldehyde,
+        "Particle Matter": ParticleMatter,
+        "Carbon Dioxide": CarbonDioxide,
+        KWh: Power,
     }
 }
 
