@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Text, TouchableOpacity, Image, TextInput, Dimensions, SafeAreaView, ScrollView, useWindowDimensions } from "react-native";
+import { Text, TouchableOpacity, Image, TextInput, SafeAreaView, ScrollView } from "react-native";
 import { View, VStack, HStack, useToast } from "native-base";
 
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
@@ -11,76 +11,8 @@ import { iRData, clsConst, DowntimeData, Images, iRDataReal } from "@config";
 
 import { useChart, useToggle, useDate, useEChart, useOrientation, useTimer } from "@hooks";
 
-import { BcViewShot, BcLineChartFull, BcDateRange, BcLineChart, BcLineLegend, BcApacheChart, BcApacheChartFull } from "@components";
+import { BcViewShot, BcLineChartFull, BcDateRange, BcLineChart, BcLineLegend, BcApacheChart, BcApacheChartFull, BcDropdown } from "@components";
 
-
-function TestSvgChart(props) {
-
-    const chartHook = useChart("Absolute Humidity");
-    const [chart, setChart, chartKey, setChartKey, chartData, setChartData, chartLegend, setChartLegend, chartKeyOption, setChartKeyOption] = chartHook;
-
-    const legendHook = useToggle(false);
-    const [showLegend, setShowLegend, toggleShowLegend] = legendHook;
-
-    const labels = Utility.genLabel("2023-09-28", "2023-09-29", 5);
-
-    useEffect(() => {
-        setChart(iRData);
-    }, []);
-
-    const updateLegend = (pos) => {
-        let arr = [...chartLegend];
-
-        const { flag } = arr[pos];
-        arr[pos].flag = !flag;
-
-        setChartLegend(arr);
-    };
-
-    const funcLs = [
-        {
-            Title: showLegend ? "Hide Legend" : "Show Legend",
-            onPress: toggleShowLegend,
-            Icon: FontAwesome5,
-            IconName: showLegend ? "eye-slash" : "eye"
-        }
-    ]
-
-    return (
-        <SafeAreaView style={{ flex: 1 }}>
-            <View style={{ flex: 1 }}>
-
-                {/* Header */}
-                <View style={{ height: 80 }} />
-
-                <View style={{ height: 10 }} />
-
-                {/* Body */}
-                <ScrollView showsVerticalScrollIndicator={false} keyboardShouldPersistTaps={"handled"}
-                    contentContainerStyle={{ flexGrow: 1 }}>
-                    <View flexGrow={1} justifyContent={"center"}>
-                        <View px={3}>
-                            <BcViewShot title={"Daily Device Report"} functionLs={funcLs}>
-                                {/* <BcLineChart key={chartKey} labels={labels} {...chartData} />
-                                {
-                                    (showLegend) ? (
-                                        <BcLineLegend legend={chartLegend} onUpdateLegend={updateLegend} />
-                                    ) : (
-                                        <></>
-                                    )
-                                } */}
-                                <BcLineChartFull hook={chartHook} legendHook={legendHook} labels={labels} />
-                            </BcViewShot>
-                        </View>
-                    </View>
-                </ScrollView>
-
-                {/* Footer */}
-                <View style={{ height: 60 }} />
-            </View>
-        </SafeAreaView>
-    );
-}
 
 function DownTimeTable(props) {
 
@@ -273,17 +205,22 @@ function DeviceChart(props) {
 
     return (
         <SafeAreaView style={{ flex: 1 }}>
-            <ScrollView 
-                showsVerticalScrollIndicator={false} 
+
+            <ScrollView
+                showsVerticalScrollIndicator={false}
                 keyboardShouldPersistTaps={"handled"}
                 contentContainerStyle={{ flexGrow: 1 }}>
                 <VStack py={3} space={3} alignItems={"center"}>
                     <BcApacheChartFull hook={chartHook} height={480} />
-
-                    <View style={{ height: 600, width: 360, backgroundColor: "#F00"}}></View>
                 </VStack>
             </ScrollView>
         </SafeAreaView>
+    )
+}
+
+function Test(props) {
+    return (
+        <BcDropdown />
     )
 }
 

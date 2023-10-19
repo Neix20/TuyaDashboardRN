@@ -4,6 +4,8 @@ import { DateTime } from "luxon";
 
 import { Svg } from "@config";
 
+import { Utility } from "@utility";
+
 function Index(default_key) {
 
     const init = {
@@ -91,6 +93,9 @@ function Index(default_key) {
     // This is Based on Which Chart Key is Selected
     // TODO: Change This Shit
     useEffect(() => {
+
+        const unit = Utility.genUnit(chartKey);
+
         let dataset = [];
         let label = [];
 

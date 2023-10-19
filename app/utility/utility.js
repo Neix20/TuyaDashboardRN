@@ -366,6 +366,26 @@ function OneSignalSubscribe(email) {
 	OneSignal.setExternalUserId(email);
 }
 
+function genUnit(key) {
+	let dict = {
+		"Temperature": "℃",
+		"Absolute Humidity": "",
+		"Relative Humidity": "%",
+		"Voltage": "V",
+		"Power": "W",
+		"Current": "mA",
+		"Formaldehyde": "mg/m3",
+		"Carbon Dioxide": "ppm",
+		"Particle Matter": "ug/m3"
+	}
+
+	if(key in dict) {
+		return " " + dict[key]
+	}
+
+	return "";
+}
+
 export {
 	checkAppVersion,
 	OneSignalSubscribe
@@ -387,7 +407,8 @@ export {
 	genDt,
 	genTs,
 	genLabel,
-	genTsLabel
+	genTsLabel,
+	genUnit
 }
 
 export {

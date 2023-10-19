@@ -18,6 +18,8 @@ import Power from "@assets/svg/Power.svg";
 import Current from "@assets/svg/Current.svg";
 import Voltage from "@assets/svg/Voltage.svg";
 
+import KWh from "@assets/svg/KWh.svg";
+
 import Temperature from "@assets/svg/Temperature";
 import AbsoluteHumidity from "@assets/svg/Absolute_Humidity.svg";
 import RelativeHumidity from "@assets/svg/Relative_Humidity.svg";
@@ -59,7 +61,7 @@ Data = {
     Formaldehyde: Formaldehyde,
     "Particle Matter": ParticleMatter,
     "Carbon Dioxide": CarbonDioxide,
-    "KWh": Power,
+    KWh: KWh,
 }
 
 Data = {
@@ -74,7 +76,7 @@ Data = {
         Formaldehyde: Formaldehyde,
         "Particle Matter": ParticleMatter,
         "Carbon Dioxide": CarbonDioxide,
-        KWh: Power,
+        KWh: KWh,
     }
 }
 

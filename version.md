@@ -61,7 +61,8 @@
 ---------------------
 <en-US>
     Features Update:
-    1. Chart Controls: Improve Data Navigation, Added Zoom Support
-    2. Widget Update: Added Smart Plug Widget & Air Quality Widget.
-    3. Chart Update: Enhance Chart for timestamp view, instead of date time. Moved Zoom Bar on Top, Legend Bottom.
+    1. Chart Controls: Improve Data Navigation, Added Zoom Support. Added 3 Different Data Interval Points. Added Dropdown to select based on Existing Attribute.
+    2. Widget Update: Added Smart Plug Widget & Air Quality Widget. KWh represents total electrical usage for the past day.
+    3. Fixed Missing Gap Data for interval points.
+    4. Fixed Chart Scale. Chart now automatically scales based on min and max points.
 </en-US>

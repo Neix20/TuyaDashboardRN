@@ -10,9 +10,8 @@ import { LineChart, BarChart } from 'echarts/charts';
 import { TitleComponent, TooltipComponent, GridComponent, LegendComponent, ToolboxComponent, DataZoomComponent } from 'echarts/components';
 
 import { useOrientation } from "@hooks";
-import { Logger, Utility } from "@utility";
 
-import { GestureHandlerRootView } from "react-native-gesture-handler";
+import { Logger, Utility } from "@utility";
 
 // Register extensions
 echarts.use([
@@ -30,24 +29,21 @@ echarts.use([
 // Initialize
 function ChartComponent(props) {
 
-	const { height = 480, width = 320, option } = props;
-
-	const chartRef = useRef(null);
+	const { height = 480, width = 320 } = props;
+	const { option = {}, coor = {}, chartRef = null } = props;
 
 	useEffect(() => {
-		let chart;
 
 		if (chartRef.current) {
-			chart = echarts.init(chartRef.current, 'light', {
+			const chart = echarts.getInstanceByDom(chartRef.current) || echarts.init(chartRef.current, 'light', {
 				renderer: 'svg',
 				width: width,
 				height: height
 			});
+
 			chart.setOption(option);
 		}
-
-		return () => chart?.dispose();
-	}, [option]);
+	}, [coor]);
 
 	return (
 		<SkiaChart ref={chartRef} />
@@ -63,26 +59,40 @@ function Index(props) {
 
 	const { label = [], dataset = [], min_dt = 0, max_dt = 0, min = 0, max = 25 } = chartData;
 
+	const chartRef = useRef(null);
+
 	const init = {
-		coor: { start: 0, end: 100 }
+		coor: { start: 75, end: 100 }
 	}
 
 	const [width] = useOrientation();
 
 	const [coor, setCoor] = useState(init.coor);
-	const isFocused = useIsFocused();
+
+	const [unit, setUnit] = useState("");
 
 	useEffect(() => {
-		if (isFocused) {
-			setCoor(_ => init.coor)
+		if (chartRef.current) {
+			const { start, end } = echarts.getInstanceByDom(chartRef.current).getOption()?.dataZoom[0] || coor;
+			setCoor(_ => ({ start, end }));
 		}
-	}, [isFocused]);
+
+		let ut = Utility.genUnit(chartKey);
+		setUnit(_ => ut);
+	}, [chartKey]);
+
+	useEffect(() => {
+		if (dataset.length > 0) {
+			setCoor(_ => ({ ...coor }));
+		}
+	}, [dataset]);
 
 	const option = {
 		animation: false,
 		tooltip: {
-			trigger: 'item',
-			renderMode: "richText"
+			trigger: 'axis',
+			renderMode: "richText",
+			valueFormatter: (value) => `${value}${unit}`
 		},
 		toolbox: {
 			feature: {
@@ -195,7 +205,6 @@ function Index(props) {
 			// 	type: 'inside',
 			// 	yAxisIndex: [0]
 			// }
-
 		],
 		grid: {
 			left: 5,
@@ -217,7 +226,12 @@ function Index(props) {
 					Hint: Drag the bar to zoom out graph
 				</Text>
 			</View>
-			<ChartComponent width={width * 0.85} option={option} {...props} />
+			<ChartComponent width={width * 0.85}
+				option={option}
+				chartRef={chartRef}
+				coor={coor}
+				{...props}
+			/>
 		</>
 	)
 }

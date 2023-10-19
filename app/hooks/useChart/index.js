@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 
 import { DateTime } from "luxon";
 
+import { Utility } from "@utility";
+
 function genDefArr(start_num = 0, end_num = 0, data_point = 12) {
 
     start_num = start_num * 60;
@@ -108,6 +110,9 @@ function Index(default_key = "") {
     // Generate Dataset and Legend
     // This is Based on Which Chart Key is Selected
     useEffect(() => {
+
+        const unit = Utility.genUnit(chartKey);
+
         let dataset = [];
         let legend = [];
 
@@ -150,6 +155,8 @@ function Index(default_key = "") {
                     val = [...s_arr, ...val, ...e_arr]
                 }
             }
+
+            val = val.map(x => x + unit);
 
             let obj = {
                 data: val,

@@ -99,7 +99,7 @@ function DataAttributeModal(props) {
 
 function Index(props) {
 
-    const { hook = []  } = props;
+    const { hook = [] } = props;
 
     const [chart, setChart, chartKey, setChartKey, chartData, setChartData, chartLegend, chartKeyOption = [], setChartKeyOption] = hook;
 
@@ -115,21 +115,19 @@ function Index(props) {
                 chartKey={chartKey} setChartKey={setChartKey}
             />
             <VStack space={2}>
-                <HStack py={1} zIndex={5}
-                    alignItems={"center"} style={{ height: 40 }}>
-                    <View flex={.4} >
+                <HStack py={1}
+                    alignItems={"center"} style={{ height: 48 }}>
+                    <View flex={.4}>
                         <Text style={{
                             fontFamily: "Roboto-Bold",
                             fontSize: 16
-                        }}>Data Attributes</Text>
+                        }}>Data Attribute</Text>
                     </View>
                     <View flex={.6}>
-                    <BcDropdown key={chartKeyOption.length}
-                        items={dropdownLs}
-                        value={chartKey} setValue={setChartKey}
-                        placeholder={chartKey}
-                        width={"100%"} height={"100%"}
-                    />
+                        <BcDropdown key={chartKeyOption.length}
+                            items={dropdownLs} placeholder={"Select Data Attribute"}
+                            value={chartKey} setValue={setChartKey}
+                        />
                     </View>
                 </HStack>
                 <BcApacheChart {...props} />

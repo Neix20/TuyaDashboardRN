@@ -1,5 +1,19 @@
 import { genLogUrl } from "./utility";
 
+const getCircularReplacer = () => {
+    const seen = new WeakSet();
+    return (key, value) => {
+    if (typeof value === "object" && value !== null) {
+        if (seen.has(value)) {
+            return;
+        }
+        seen.add(value);
+    }
+    return value;
+    };
+};
+
+
 // #region API
 const fetchInfoLogData = async (param) => {
     const action = "InfoLog";
@@ -21,7 +35,7 @@ const fetchInfoLogData = async (param) => {
         headers: {
             "Content-Type": "application/json",
         },
-        body: JSON.stringify(obj),
+        body: JSON.stringify(obj, getCircularReplacer()),
     });
 
     const data = await resp.json();
@@ -53,7 +67,7 @@ const fetchErrorLogData = async (param) => {
         headers: {
             "Content-Type": "application/json",
         },
-        body: JSON.stringify(obj),
+        body: JSON.stringify(obj, getCircularReplacer()),
     });
 
     const data = await resp.json();
@@ -68,12 +82,7 @@ const fetchErrorLogData = async (param) => {
 
 class Log {
     info(param) {
-        const obj = JSON.stringify({
-            ...param,
-            app: "Buah Cinta",
-        });
-
-        console.log(obj);
+        console.log(param);
 
         fetchInfoLogData(param)
         .then(res => {
@@ -85,12 +94,7 @@ class Log {
     }
 
     error(param) {
-        const obj = JSON.stringify({
-            ...param,
-            app: "Buah Cinta",
-        });
-
-        console.log(obj);
+        console.log(param);
 
         fetchErrorLogData(param)
         .then(res => {

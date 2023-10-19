@@ -126,7 +126,7 @@ function DataAttribute(props) {
         return (
             <HStack key={index} space={3}
                 alignItems={"center"}>
-                <View style={{ width: 48 }}>
+                <View style={{ width: 60 }}>
                     <BcSvgIcon name={item} />
                 </View>
                 <Text style={{
@@ -174,9 +174,13 @@ function DashboardVoltageReport(props) {
     // #region Render
     const renderValues = (item, index) => {
 
-        const { Device_Name, Count } = item;
+        if (item == undefined) {
+            return (<></>)
+        }
 
-        const { KWh = 0 } = item;
+        const { Device_Name = "", Count = 0 } = item;
+
+        const { Current = 0, Power = 0, Voltage = 0, KWh = 0 } = item;
 
         const getColor = (val) => {
             const { green, yellow, red } = init.colors;
@@ -197,6 +201,18 @@ function DashboardVoltageReport(props) {
                     <Text style={{
                         fontFamily: "Roboto-Bold"
                     }}>{Device_Name}</Text>
+                </View>
+                <View alignItems={"center"}
+                    flex={1}>
+                    <Text>{Current}</Text>
+                </View>
+                <View alignItems={"center"}
+                    flex={1}>
+                    <Text>{Power}</Text>
+                </View>
+                <View alignItems={"center"}
+                    flex={1}>
+                    <Text>{Voltage}</Text>
                 </View>
                 <View
                     bgColor={getColor(KWh)}
@@ -220,6 +236,9 @@ function DashboardVoltageReport(props) {
                 <View style={{ width: 100 }}>
                     <Text style={{ fontFamily: "Roboto-Bold" }}>Name</Text>
                 </View>
+                <View alignItems={"center"} flex={1}><BcSvgIcon name={"Current"} /></View>
+                <View alignItems={"center"} flex={1}><BcSvgIcon name={"Power"} /></View>
+                <View alignItems={"center"} flex={1}><BcSvgIcon name={"Voltage"} /></View>
                 <View alignItems={"center"} flex={1}><BcSvgIcon name={"KWh"} /></View>
                 <View alignItems={"flex-end"} flex={1}>
                     <Text style={{ fontFamily: "Roboto-Bold" }}>Count</Text>
@@ -716,6 +735,9 @@ function Index(props) {
                                                     <View px={3} style={{ width: c_width }}>
                                                         <BcViewShot title="Smart Plug Device Report">
                                                             <DataAttribute data={[{
+                                                                "Current": 0,
+                                                                "Power": 0,
+                                                                "Voltage": 0,
                                                                 "KWh": 0
                                                             }]} />
                                                             <DashboardVoltageReport data={drSpData} />
