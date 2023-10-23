@@ -14,9 +14,9 @@ import { BcBoxShadow } from "@components";
 
 function Index(props) {
     const { children, onBack = () => { } } = props;
+    const { color = "#2898FF", txtColor = "#000", bgColor = "#FFF" } = props;
 
     const navigation = useNavigation();
-
     const toast = useToast();
 
     // #region Helper Functions
@@ -31,7 +31,7 @@ function Index(props) {
             <View
                 style={{
                     height: 60,
-                    backgroundColor: "#fff",
+                    backgroundColor: bgColor,
                 }}>
                 {/* Front Layer */}
                 <TouchableOpacity
@@ -46,7 +46,7 @@ function Index(props) {
                         top: -19,
                         zIndex: 1,
                     }}>
-                    <FontAwesome5 name={"chevron-left"} size={20} color={"#2898FF"} />
+                    <FontAwesome5 name={"chevron-left"} size={20} color={color} />
                 </TouchableOpacity>
 
                 <View style={{
@@ -60,7 +60,7 @@ function Index(props) {
                     <Text style={{
                         fontSize: 20,
                         fontWeight: "bold",
-                        color: "#000",
+                        color: txtColor,
                     }}>{children}</Text>
                 </View>
             </View>

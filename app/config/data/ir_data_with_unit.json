@@ -1,0 +1,2045 @@
+{
+  "DCH-AHUX": [
+    {
+      "Timestamp": "2023-10-17T00:00:00",
+      "Device_Id": 1,
+      "Absolute Humidity": "17.19",
+      "Relative Humidity %": "49",
+      "Temperature ℃": "49"
+    },
+    {
+      "Timestamp": "2023-10-17T00:15:00",
+      "Device_Id": 1,
+      "Absolute Humidity": "17.1",
+      "Relative Humidity %": "49",
+      "Temperature ℃": "49"
+    },
+    {
+      "Timestamp": "2023-10-17T00:30:00",
+      "Device_Id": 1,
+      "Absolute Humidity": "17.8",
+      "Relative Humidity %": "51",
+      "Temperature ℃": "51"
+    },
+    {
+      "Timestamp": "2023-10-17T00:45:00",
+      "Device_Id": 1,
+      "Absolute Humidity": "17.36",
+      "Relative Humidity %": "50",
+      "Temperature ℃": "50"
+    },
+    {
+      "Timestamp": "2023-10-17T01:00:00",
+      "Device_Id": 1,
+      "Absolute Humidity": "16.92",
+      "Relative Humidity %": "49",
+      "Temperature ℃": "49"
+    },
+    {
+      "Timestamp": "2023-10-17T01:15:00",
+      "Device_Id": 1,
+      "Absolute Humidity": "16.92",
+      "Relative Humidity %": "49",
+      "Temperature ℃": "49"
+    },
+    {
+      "Timestamp": "2023-10-17T01:30:00",
+      "Device_Id": 1,
+      "Absolute Humidity": "17.61",
+      "Relative Humidity %": "51",
+      "Temperature ℃": "51"
+    },
+    {
+      "Timestamp": "2023-10-17T01:45:00",
+      "Device_Id": 1,
+      "Absolute Humidity": "16.83",
+      "Relative Humidity %": "49",
+      "Temperature ℃": "49"
+    },
+    {
+      "Timestamp": "2023-10-17T02:00:00",
+      "Device_Id": 1,
+      "Absolute Humidity": "16.83",
+      "Relative Humidity %": "49",
+      "Temperature ℃": "49"
+    },
+    {
+      "Timestamp": "2023-10-17T02:15:00",
+      "Device_Id": 1,
+      "Absolute Humidity": "18.2",
+      "Relative Humidity %": "53",
+      "Temperature ℃": "53"
+    },
+    {
+      "Timestamp": "2023-10-17T02:30:00",
+      "Device_Id": 1,
+      "Absolute Humidity": "17.42",
+      "Relative Humidity %": "51",
+      "Temperature ℃": "51"
+    },
+    {
+      "Timestamp": "2023-10-17T02:45:00",
+      "Device_Id": 1,
+      "Absolute Humidity": "16.74",
+      "Relative Humidity %": "49",
+      "Temperature ℃": "49"
+    },
+    {
+      "Timestamp": "2023-10-17T03:00:00",
+      "Device_Id": 1,
+      "Absolute Humidity": "18.69",
+      "Relative Humidity %": "55",
+      "Temperature ℃": "55"
+    },
+    {
+      "Timestamp": "2023-10-17T03:15:00",
+      "Device_Id": 1,
+      "Absolute Humidity": "17.67",
+      "Relative Humidity %": "52",
+      "Temperature ℃": "52"
+    },
+    {
+      "Timestamp": "2023-10-17T03:30:00",
+      "Device_Id": 1,
+      "Absolute Humidity": "17.58",
+      "Relative Humidity %": "52",
+      "Temperature ℃": "52"
+    },
+    {
+      "Timestamp": "2023-10-17T03:45:00",
+      "Device_Id": 1,
+      "Absolute Humidity": "18.25",
+      "Relative Humidity %": "54",
+      "Temperature ℃": "54"
+    },
+    {
+      "Timestamp": "2023-10-17T04:00:00",
+      "Device_Id": 1,
+      "Absolute Humidity": "18.49",
+      "Relative Humidity %": "55",
+      "Temperature ℃": "55"
+    },
+    {
+      "Timestamp": "2023-10-17T04:15:00",
+      "Device_Id": 1,
+      "Absolute Humidity": "18.49",
+      "Relative Humidity %": "55",
+      "Temperature ℃": "55"
+    },
+    {
+      "Timestamp": "2023-10-17T04:30:00",
+      "Device_Id": 1,
+      "Absolute Humidity": "18.06",
+      "Relative Humidity %": "54",
+      "Temperature ℃": "54"
+    },
+    {
+      "Timestamp": "2023-10-17T04:45:00",
+      "Device_Id": 1,
+      "Absolute Humidity": "19.4",
+      "Relative Humidity %": "58",
+      "Temperature ℃": "58"
+    },
+    {
+      "Timestamp": "2023-10-17T05:00:00",
+      "Device_Id": 1,
+      "Absolute Humidity": "18.06",
+      "Relative Humidity %": "54",
+      "Temperature ℃": "54"
+    },
+    {
+      "Timestamp": "2023-10-17T05:15:00",
+      "Device_Id": 1,
+      "Absolute Humidity": "16.54",
+      "Relative Humidity %": "50",
+      "Temperature ℃": "50"
+    },
+    {
+      "Timestamp": "2023-10-17T05:30:00",
+      "Device_Id": 1,
+      "Absolute Humidity": "17.11",
+      "Relative Humidity %": "52",
+      "Temperature ℃": "52"
+    },
+    {
+      "Timestamp": "2023-10-17T05:45:00",
+      "Device_Id": 1,
+      "Absolute Humidity": "17.58",
+      "Relative Humidity %": "54",
+      "Temperature ℃": "54"
+    },
+    {
+      "Timestamp": "2023-10-17T06:00:00",
+      "Device_Id": 1,
+      "Absolute Humidity": "17.49",
+      "Relative Humidity %": "54",
+      "Temperature ℃": "54"
+    },
+    {
+      "Timestamp": "2023-10-17T06:15:00",
+      "Device_Id": 1,
+      "Absolute Humidity": "16.25",
+      "Relative Humidity %": "51",
+      "Temperature ℃": "51"
+    },
+    {
+      "Timestamp": "2023-10-17T06:30:00",
+      "Device_Id": 1,
+      "Absolute Humidity": "15.53",
+      "Relative Humidity %": "49",
+      "Temperature ℃": "49"
+    },
+    {
+      "Timestamp": "2023-10-17T06:45:00",
+      "Device_Id": 1,
+      "Absolute Humidity": "15.45",
+      "Relative Humidity %": "49",
+      "Temperature ℃": "49"
+    },
+    {
+      "Timestamp": "2023-10-17T07:00:00",
+      "Device_Id": 1,
+      "Absolute Humidity": "15.99",
+      "Relative Humidity %": "51",
+      "Temperature ℃": "51"
+    },
+    {
+      "Timestamp": "2023-10-17T07:15:00",
+      "Device_Id": 1,
+      "Absolute Humidity": "15.82",
+      "Relative Humidity %": "51",
+      "Temperature ℃": "51"
+    },
+    {
+      "Timestamp": "2023-10-17T07:30:00",
+      "Device_Id": 1,
+      "Absolute Humidity": "16.13",
+      "Relative Humidity %": "52",
+      "Temperature ℃": "52"
+    },
+    {
+      "Timestamp": "2023-10-17T07:45:00",
+      "Device_Id": 1,
+      "Absolute Humidity": "16.13",
+      "Relative Humidity %": "52",
+      "Temperature ℃": "52"
+    },
+    {
+      "Timestamp": "2023-10-17T08:00:00",
+      "Device_Id": 1,
+      "Absolute Humidity": "16.75",
+      "Relative Humidity %": "54",
+      "Temperature ℃": "54"
+    },
+    {
+      "Timestamp": "2023-10-17T08:15:00",
+      "Device_Id": 1,
+      "Absolute Humidity": "16.97",
+      "Relative Humidity %": "55",
+      "Temperature ℃": "55"
+    },
+    {
+      "Timestamp": "2023-10-17T08:30:00",
+      "Device_Id": 1,
+      "Absolute Humidity": "16.66",
+      "Relative Humidity %": "54",
+      "Temperature ℃": "54"
+    },
+    {
+      "Timestamp": "2023-10-17T08:45:00",
+      "Device_Id": 1,
+      "Absolute Humidity": "16.35",
+      "Relative Humidity %": "53",
+      "Temperature ℃": "53"
+    },
+    {
+      "Timestamp": "2023-10-17T09:00:00",
+      "Device_Id": 1,
+      "Absolute Humidity": "16.35",
+      "Relative Humidity %": "53",
+      "Temperature ℃": "53"
+    },
+    {
+      "Timestamp": "2023-10-17T09:15:00",
+      "Device_Id": 1,
+      "Absolute Humidity": "15.82",
+      "Relative Humidity %": "51",
+      "Temperature ℃": "51"
+    },
+    {
+      "Timestamp": "2023-10-17T09:30:00",
+      "Device_Id": 1,
+      "Absolute Humidity": "15.91",
+      "Relative Humidity %": "51",
+      "Temperature ℃": "51"
+    },
+    {
+      "Timestamp": "2023-10-17T09:45:00",
+      "Device_Id": 1,
+      "Absolute Humidity": "15.45",
+      "Relative Humidity %": "49",
+      "Temperature ℃": "49"
+    },
+    {
+      "Timestamp": "2023-10-17T10:00:00",
+      "Device_Id": 1,
+      "Absolute Humidity": "15.3",
+      "Relative Humidity %": "48",
+      "Temperature ℃": "48"
+    },
+    {
+      "Timestamp": "2023-10-17T10:15:00",
+      "Device_Id": 1,
+      "Absolute Humidity": "14.9",
+      "Relative Humidity %": "46",
+      "Temperature ℃": "46"
+    },
+    {
+      "Timestamp": "2023-10-17T10:30:00",
+      "Device_Id": 1,
+      "Absolute Humidity": "14.17",
+      "Relative Humidity %": "44",
+      "Temperature ℃": "44"
+    },
+    {
+      "Timestamp": "2023-10-17T10:45:00",
+      "Device_Id": 1,
+      "Absolute Humidity": "14.65",
+      "Relative Humidity %": "45",
+      "Temperature ℃": "45"
+    },
+    {
+      "Timestamp": "2023-10-17T11:00:00",
+      "Device_Id": 1,
+      "Absolute Humidity": "14.73",
+      "Relative Humidity %": "45",
+      "Temperature ℃": "45"
+    },
+    {
+      "Timestamp": "2023-10-17T11:15:00",
+      "Device_Id": 1,
+      "Absolute Humidity": "14.73",
+      "Relative Humidity %": "45",
+      "Temperature ℃": "45"
+    },
+    {
+      "Timestamp": "2023-10-17T11:30:00",
+      "Device_Id": 1,
+      "Absolute Humidity": "15.3",
+      "Relative Humidity %": "46",
+      "Temperature ℃": "46"
+    },
+    {
+      "Timestamp": "2023-10-17T11:45:00",
+      "Device_Id": 1,
+      "Absolute Humidity": "15.8",
+      "Relative Humidity %": "47",
+      "Temperature ℃": "47"
+    },
+    {
+      "Timestamp": "2023-10-17T12:00:00",
+      "Device_Id": 1,
+      "Absolute Humidity": "16.4",
+      "Relative Humidity %": "48",
+      "Temperature ℃": "48"
+    },
+    {
+      "Timestamp": "2023-10-17T12:15:00",
+      "Device_Id": 1,
+      "Absolute Humidity": "16.14",
+      "Relative Humidity %": "47",
+      "Temperature ℃": "47"
+    },
+    {
+      "Timestamp": "2023-10-17T12:30:00",
+      "Device_Id": 1,
+      "Absolute Humidity": "17.01",
+      "Relative Humidity %": "49",
+      "Temperature ℃": "49"
+    },
+    {
+      "Timestamp": "2023-10-17T12:45:00",
+      "Device_Id": 1,
+      "Absolute Humidity": "16.49",
+      "Relative Humidity %": "47",
+      "Temperature ℃": "47"
+    },
+    {
+      "Timestamp": "2023-10-17T13:00:00",
+      "Device_Id": 1,
+      "Absolute Humidity": "15.87",
+      "Relative Humidity %": "45",
+      "Temperature ℃": "45"
+    },
+    {
+      "Timestamp": "2023-10-17T13:15:00",
+      "Device_Id": 1,
+      "Absolute Humidity": "17.11",
+      "Relative Humidity %": "48",
+      "Temperature ℃": "48"
+    },
+    {
+      "Timestamp": "2023-10-17T13:30:00",
+      "Device_Id": 1,
+      "Absolute Humidity": "17.11",
+      "Relative Humidity %": "48",
+      "Temperature ℃": "48"
+    },
+    {
+      "Timestamp": "2023-10-17T13:45:00",
+      "Device_Id": 1,
+      "Absolute Humidity": "17.29",
+      "Relative Humidity %": "48",
+      "Temperature ℃": "48"
+    },
+    {
+      "Timestamp": "2023-10-17T14:00:00",
+      "Device_Id": 1,
+      "Absolute Humidity": "17.39",
+      "Relative Humidity %": "48",
+      "Temperature ℃": "48"
+    },
+    {
+      "Timestamp": "2023-10-17T14:15:00",
+      "Device_Id": 1,
+      "Absolute Humidity": "17.48",
+      "Relative Humidity %": "48",
+      "Temperature ℃": "48"
+    },
+    {
+      "Timestamp": "2023-10-17T14:30:00",
+      "Device_Id": 1,
+      "Absolute Humidity": "17.21",
+      "Relative Humidity %": "47",
+      "Temperature ℃": "47"
+    },
+    {
+      "Timestamp": "2023-10-17T14:45:00",
+      "Device_Id": 1,
+      "Absolute Humidity": "16.84",
+      "Relative Humidity %": "46",
+      "Temperature ℃": "46"
+    },
+    {
+      "Timestamp": "2023-10-17T15:00:00",
+      "Device_Id": 1,
+      "Absolute Humidity": "16.84",
+      "Relative Humidity %": "46",
+      "Temperature ℃": "46"
+    },
+    {
+      "Timestamp": "2023-10-17T15:15:00",
+      "Device_Id": 1,
+      "Absolute Humidity": "16.93",
+      "Relative Humidity %": "46",
+      "Temperature ℃": "46"
+    },
+    {
+      "Timestamp": "2023-10-17T15:30:00",
+      "Device_Id": 1,
+      "Absolute Humidity": "16.56",
+      "Relative Humidity %": "45",
+      "Temperature ℃": "45"
+    },
+    {
+      "Timestamp": "2023-10-17T15:45:00",
+      "Device_Id": 1,
+      "Absolute Humidity": "17.02",
+      "Relative Humidity %": "46",
+      "Temperature ℃": "46"
+    },
+    {
+      "Timestamp": "2023-10-17T16:00:00",
+      "Device_Id": 1,
+      "Absolute Humidity": "16.65",
+      "Relative Humidity %": "45",
+      "Temperature ℃": "45"
+    },
+    {
+      "Timestamp": "2023-10-17T16:15:00",
+      "Device_Id": 1,
+      "Absolute Humidity": "16.28",
+      "Relative Humidity %": "44",
+      "Temperature ℃": "44"
+    },
+    {
+      "Timestamp": "2023-10-17T16:30:00",
+      "Device_Id": 1,
+      "Absolute Humidity": "17.02",
+      "Relative Humidity %": "46",
+      "Temperature ℃": "46"
+    },
+    {
+      "Timestamp": "2023-10-17T16:45:00",
+      "Device_Id": 1,
+      "Absolute Humidity": "17.11",
+      "Relative Humidity %": "46",
+      "Temperature ℃": "46"
+    },
+    {
+      "Timestamp": "2023-10-17T17:00:00",
+      "Device_Id": 1,
+      "Absolute Humidity": "17.95",
+      "Relative Humidity %": "48",
+      "Temperature ℃": "48"
+    },
+    {
+      "Timestamp": "2023-10-17T17:15:00",
+      "Device_Id": 1,
+      "Absolute Humidity": "16.45",
+      "Relative Humidity %": "44",
+      "Temperature ℃": "44"
+    },
+    {
+      "Timestamp": "2023-10-17T17:30:00",
+      "Device_Id": 1,
+      "Absolute Humidity": "17.29",
+      "Relative Humidity %": "46",
+      "Temperature ℃": "46"
+    },
+    {
+      "Timestamp": "2023-10-17T17:45:00",
+      "Device_Id": 1,
+      "Absolute Humidity": "16.91",
+      "Relative Humidity %": "45",
+      "Temperature ℃": "45"
+    },
+    {
+      "Timestamp": "2023-10-17T18:00:00",
+      "Device_Id": 1,
+      "Absolute Humidity": "16.45",
+      "Relative Humidity %": "44",
+      "Temperature ℃": "44"
+    },
+    {
+      "Timestamp": "2023-10-17T18:15:00",
+      "Device_Id": 1,
+      "Absolute Humidity": "16.19",
+      "Relative Humidity %": "44",
+      "Temperature ℃": "44"
+    },
+    {
+      "Timestamp": "2023-10-17T18:30:00",
+      "Device_Id": 1,
+      "Absolute Humidity": "17.21",
+      "Relative Humidity %": "47",
+      "Temperature ℃": "47"
+    },
+    {
+      "Timestamp": "2023-10-17T18:45:00",
+      "Device_Id": 1,
+      "Absolute Humidity": "16.75",
+      "Relative Humidity %": "46",
+      "Temperature ℃": "46"
+    },
+    {
+      "Timestamp": "2023-10-17T19:00:00",
+      "Device_Id": 1,
+      "Absolute Humidity": "16.3",
+      "Relative Humidity %": "45",
+      "Temperature ℃": "45"
+    },
+    {
+      "Timestamp": "2023-10-17T19:15:00",
+      "Device_Id": 1,
+      "Absolute Humidity": "17.48",
+      "Relative Humidity %": "48",
+      "Temperature ℃": "48"
+    },
+    {
+      "Timestamp": "2023-10-17T19:30:00",
+      "Device_Id": 1,
+      "Absolute Humidity": "17.02",
+      "Relative Humidity %": "47",
+      "Temperature ℃": "47"
+    },
+    {
+      "Timestamp": "2023-10-17T19:45:00",
+      "Device_Id": 1,
+      "Absolute Humidity": "16.21",
+      "Relative Humidity %": "45",
+      "Temperature ℃": "45"
+    },
+    {
+      "Timestamp": "2023-10-17T20:00:00",
+      "Device_Id": 1,
+      "Absolute Humidity": "17.2",
+      "Relative Humidity %": "48",
+      "Temperature ℃": "48"
+    },
+    {
+      "Timestamp": "2023-10-17T20:15:00",
+      "Device_Id": 1,
+      "Absolute Humidity": "18.18",
+      "Relative Humidity %": "51",
+      "Temperature ℃": "51"
+    },
+    {
+      "Timestamp": "2023-10-17T20:30:00",
+      "Device_Id": 1,
+      "Absolute Humidity": "17.83",
+      "Relative Humidity %": "50",
+      "Temperature ℃": "50"
+    },
+    {
+      "Timestamp": "2023-10-17T20:45:00",
+      "Device_Id": 1,
+      "Absolute Humidity": "17.83",
+      "Relative Humidity %": "50",
+      "Temperature ℃": "50"
+    },
+    {
+      "Timestamp": "2023-10-17T21:00:00",
+      "Device_Id": 1,
+      "Absolute Humidity": "18.09",
+      "Relative Humidity %": "51",
+      "Temperature ℃": "51"
+    },
+    {
+      "Timestamp": "2023-10-17T21:15:00",
+      "Device_Id": 1,
+      "Absolute Humidity": "16.93",
+      "Relative Humidity %": "48",
+      "Temperature ℃": "48"
+    },
+    {
+      "Timestamp": "2023-10-17T21:30:00",
+      "Device_Id": 1,
+      "Absolute Humidity": "16.93",
+      "Relative Humidity %": "48",
+      "Temperature ℃": "48"
+    },
+    {
+      "Timestamp": "2023-10-17T21:45:00",
+      "Device_Id": 1,
+      "Absolute Humidity": "17.19",
+      "Relative Humidity %": "49",
+      "Temperature ℃": "49"
+    },
+    {
+      "Timestamp": "2023-10-17T22:00:00",
+      "Device_Id": 1,
+      "Absolute Humidity": "18.25",
+      "Relative Humidity %": "52",
+      "Temperature ℃": "52"
+    },
+    {
+      "Timestamp": "2023-10-17T22:15:00",
+      "Device_Id": 1,
+      "Absolute Humidity": "17.1",
+      "Relative Humidity %": "49",
+      "Temperature ℃": "49"
+    },
+    {
+      "Timestamp": "2023-10-17T22:30:00",
+      "Device_Id": 1,
+      "Absolute Humidity": "17.45",
+      "Relative Humidity %": "50",
+      "Temperature ℃": "50"
+    },
+    {
+      "Timestamp": "2023-10-17T22:45:00",
+      "Device_Id": 1,
+      "Absolute Humidity": "17.71",
+      "Relative Humidity %": "51",
+      "Temperature ℃": "51"
+    },
+    {
+      "Timestamp": "2023-10-17T23:00:00",
+      "Device_Id": 1,
+      "Absolute Humidity": "18.4",
+      "Relative Humidity %": "53",
+      "Temperature ℃": "53"
+    },
+    {
+      "Timestamp": "2023-10-17T23:15:00",
+      "Device_Id": 1,
+      "Absolute Humidity": "18.05",
+      "Relative Humidity %": "52",
+      "Temperature ℃": "52"
+    },
+    {
+      "Timestamp": "2023-10-17T23:30:00",
+      "Device_Id": 1,
+      "Absolute Humidity": "17.96",
+      "Relative Humidity %": "52",
+      "Temperature ℃": "52"
+    },
+    {
+      "Timestamp": "2023-10-17T23:45:00",
+      "Device_Id": 1,
+      "Absolute Humidity": "17.61",
+      "Relative Humidity %": "51",
+      "Temperature ℃": "51"
+    },
+    {
+      "Timestamp": "2023-10-18T00:00:00",
+      "Device_Id": 1,
+      "Absolute Humidity": "17.61",
+      "Relative Humidity %": "51",
+      "Temperature ℃": "51"
+    }
+  ],
+  "DCH-CRYS": [
+    {
+      "Timestamp": "2023-10-17T00:00:00",
+      "Device_Id": 8,
+      "Absolute Humidity": "16.29",
+      "Relative Humidity %": "42",
+      "Temperature ℃": "42"
+    },
+    {
+      "Timestamp": "2023-10-17T00:15:00",
+      "Device_Id": 8,
+      "Absolute Humidity": "16.29",
+      "Relative Humidity %": "42",
+      "Temperature ℃": "42"
+    },
+    {
+      "Timestamp": "2023-10-17T00:30:00",
+      "Device_Id": 8,
+      "Absolute Humidity": "16.29",
+      "Relative Humidity %": "42",
+      "Temperature ℃": "42"
+    },
+    {
+      "Timestamp": "2023-10-17T00:45:00",
+      "Device_Id": 8,
+      "Absolute Humidity": "16.29",
+      "Relative Humidity %": "42",
+      "Temperature ℃": "42"
+    },
+    {
+      "Timestamp": "2023-10-17T01:00:00",
+      "Device_Id": 8,
+      "Absolute Humidity": "16.29",
+      "Relative Humidity %": "42",
+      "Temperature ℃": "42"
+    },
+    {
+      "Timestamp": "2023-10-17T01:15:00",
+      "Device_Id": 8,
+      "Absolute Humidity": "16.21",
+      "Relative Humidity %": "42",
+      "Temperature ℃": "42"
+    },
+    {
+      "Timestamp": "2023-10-17T01:30:00",
+      "Device_Id": 8,
+      "Absolute Humidity": "16.21",
+      "Relative Humidity %": "42",
+      "Temperature ℃": "42"
+    },
+    {
+      "Timestamp": "2023-10-17T01:45:00",
+      "Device_Id": 8,
+      "Absolute Humidity": "16.59",
+      "Relative Humidity %": "43",
+      "Temperature ℃": "43"
+    },
+    {
+      "Timestamp": "2023-10-17T02:00:00",
+      "Device_Id": 8,
+      "Absolute Humidity": "16.59",
+      "Relative Humidity %": "43",
+      "Temperature ℃": "43"
+    },
+    {
+      "Timestamp": "2023-10-17T02:15:00",
+      "Device_Id": 8,
+      "Absolute Humidity": "16.21",
+      "Relative Humidity %": "42",
+      "Temperature ℃": "42"
+    },
+    {
+      "Timestamp": "2023-10-17T02:30:00",
+      "Device_Id": 8,
+      "Absolute Humidity": "16.21",
+      "Relative Humidity %": "42",
+      "Temperature ℃": "42"
+    },
+    {
+      "Timestamp": "2023-10-17T02:45:00",
+      "Device_Id": 8,
+      "Absolute Humidity": "16.59",
+      "Relative Humidity %": "43",
+      "Temperature ℃": "43"
+    },
+    {
+      "Timestamp": "2023-10-17T03:00:00",
+      "Device_Id": 8,
+      "Absolute Humidity": "16.59",
+      "Relative Humidity %": "43",
+      "Temperature ℃": "43"
+    },
+    {
+      "Timestamp": "2023-10-17T03:15:00",
+      "Device_Id": 8,
+      "Absolute Humidity": "16.59",
+      "Relative Humidity %": "43",
+      "Temperature ℃": "43"
+    },
+    {
+      "Timestamp": "2023-10-17T03:30:00",
+      "Device_Id": 8,
+      "Absolute Humidity": "16.59",
+      "Relative Humidity %": "43",
+      "Temperature ℃": "43"
+    },
+    {
+      "Timestamp": "2023-10-17T03:45:00",
+      "Device_Id": 8,
+      "Absolute Humidity": "16.59",
+      "Relative Humidity %": "43",
+      "Temperature ℃": "43"
+    },
+    {
+      "Timestamp": "2023-10-17T04:00:00",
+      "Device_Id": 8,
+      "Absolute Humidity": "16.5",
+      "Relative Humidity %": "43",
+      "Temperature ℃": "43"
+    },
+    {
+      "Timestamp": "2023-10-17T04:15:00",
+      "Device_Id": 8,
+      "Absolute Humidity": "16.5",
+      "Relative Humidity %": "43",
+      "Temperature ℃": "43"
+    },
+    {
+      "Timestamp": "2023-10-17T04:30:00",
+      "Device_Id": 8,
+      "Absolute Humidity": "16.5",
+      "Relative Humidity %": "43",
+      "Temperature ℃": "43"
+    },
+    {
+      "Timestamp": "2023-10-17T04:45:00",
+      "Device_Id": 8,
+      "Absolute Humidity": "16.5",
+      "Relative Humidity %": "43",
+      "Temperature ℃": "43"
+    },
+    {
+      "Timestamp": "2023-10-17T05:00:00",
+      "Device_Id": 8,
+      "Absolute Humidity": "16.5",
+      "Relative Humidity %": "43",
+      "Temperature ℃": "43"
+    },
+    {
+      "Timestamp": "2023-10-17T05:15:00",
+      "Device_Id": 8,
+      "Absolute Humidity": "16.5",
+      "Relative Humidity %": "43",
+      "Temperature ℃": "43"
+    },
+    {
+      "Timestamp": "2023-10-17T05:30:00",
+      "Device_Id": 8,
+      "Absolute Humidity": "16.5",
+      "Relative Humidity %": "43",
+      "Temperature ℃": "43"
+    },
+    {
+      "Timestamp": "2023-10-17T05:45:00",
+      "Device_Id": 8,
+      "Absolute Humidity": "16.42",
+      "Relative Humidity %": "43",
+      "Temperature ℃": "43"
+    },
+    {
+      "Timestamp": "2023-10-17T06:00:00",
+      "Device_Id": 8,
+      "Absolute Humidity": "16.42",
+      "Relative Humidity %": "43",
+      "Temperature ℃": "43"
+    },
+    {
+      "Timestamp": "2023-10-17T06:15:00",
+      "Device_Id": 8,
+      "Absolute Humidity": "16.42",
+      "Relative Humidity %": "43",
+      "Temperature ℃": "43"
+    },
+    {
+      "Timestamp": "2023-10-17T06:30:00",
+      "Device_Id": 8,
+      "Absolute Humidity": "16.33",
+      "Relative Humidity %": "43",
+      "Temperature ℃": "43"
+    },
+    {
+      "Timestamp": "2023-10-17T06:45:00",
+      "Device_Id": 8,
+      "Absolute Humidity": "16.25",
+      "Relative Humidity %": "43",
+      "Temperature ℃": "43"
+    },
+    {
+      "Timestamp": "2023-10-17T07:00:00",
+      "Device_Id": 8,
+      "Absolute Humidity": "16.16",
+      "Relative Humidity %": "43",
+      "Temperature ℃": "43"
+    },
+    {
+      "Timestamp": "2023-10-17T07:15:00",
+      "Device_Id": 8,
+      "Absolute Humidity": "15.79",
+      "Relative Humidity %": "42",
+      "Temperature ℃": "42"
+    },
+    {
+      "Timestamp": "2023-10-17T07:30:00",
+      "Device_Id": 8,
+      "Absolute Humidity": "15.79",
+      "Relative Humidity %": "42",
+      "Temperature ℃": "42"
+    },
+    {
+      "Timestamp": "2023-10-17T07:45:00",
+      "Device_Id": 8,
+      "Absolute Humidity": "15.7",
+      "Relative Humidity %": "42",
+      "Temperature ℃": "42"
+    },
+    {
+      "Timestamp": "2023-10-17T08:00:00",
+      "Device_Id": 8,
+      "Absolute Humidity": "15.7",
+      "Relative Humidity %": "42",
+      "Temperature ℃": "42"
+    },
+    {
+      "Timestamp": "2023-10-17T08:15:00",
+      "Device_Id": 8,
+      "Absolute Humidity": "15.7",
+      "Relative Humidity %": "42",
+      "Temperature ℃": "42"
+    },
+    {
+      "Timestamp": "2023-10-17T08:30:00",
+      "Device_Id": 8,
+      "Absolute Humidity": "15.7",
+      "Relative Humidity %": "42",
+      "Temperature ℃": "42"
+    },
+    {
+      "Timestamp": "2023-10-17T08:45:00",
+      "Device_Id": 8,
+      "Absolute Humidity": "15.79",
+      "Relative Humidity %": "42",
+      "Temperature ℃": "42"
+    },
+    {
+      "Timestamp": "2023-10-17T09:00:00",
+      "Device_Id": 8,
+      "Absolute Humidity": "15.79",
+      "Relative Humidity %": "42",
+      "Temperature ℃": "42"
+    },
+    {
+      "Timestamp": "2023-10-17T09:15:00",
+      "Device_Id": 8,
+      "Absolute Humidity": "15.79",
+      "Relative Humidity %": "42",
+      "Temperature ℃": "42"
+    },
+    {
+      "Timestamp": "2023-10-17T09:30:00",
+      "Device_Id": 8,
+      "Absolute Humidity": "15.41",
+      "Relative Humidity %": "41",
+      "Temperature ℃": "41"
+    },
+    {
+      "Timestamp": "2023-10-17T09:45:00",
+      "Device_Id": 8,
+      "Absolute Humidity": "15.49",
+      "Relative Humidity %": "41",
+      "Temperature ℃": "41"
+    },
+    {
+      "Timestamp": "2023-10-17T10:00:00",
+      "Device_Id": 8,
+      "Absolute Humidity": "15.57",
+      "Relative Humidity %": "41",
+      "Temperature ℃": "41"
+    },
+    {
+      "Timestamp": "2023-10-17T10:15:00",
+      "Device_Id": 8,
+      "Absolute Humidity": "15.43",
+      "Relative Humidity %": "40",
+      "Temperature ℃": "40"
+    },
+    {
+      "Timestamp": "2023-10-17T10:30:00",
+      "Device_Id": 8,
+      "Absolute Humidity": "15.6",
+      "Relative Humidity %": "40",
+      "Temperature ℃": "40"
+    },
+    {
+      "Timestamp": "2023-10-17T10:45:00",
+      "Device_Id": 8,
+      "Absolute Humidity": "15.76",
+      "Relative Humidity %": "40",
+      "Temperature ℃": "40"
+    },
+    {
+      "Timestamp": "2023-10-17T11:00:00",
+      "Device_Id": 8,
+      "Absolute Humidity": "15.93",
+      "Relative Humidity %": "40",
+      "Temperature ℃": "40"
+    },
+    {
+      "Timestamp": "2023-10-17T11:15:00",
+      "Device_Id": 8,
+      "Absolute Humidity": "16.09",
+      "Relative Humidity %": "40",
+      "Temperature ℃": "40"
+    },
+    {
+      "Timestamp": "2023-10-17T11:30:00",
+      "Device_Id": 8,
+      "Absolute Humidity": "16.26",
+      "Relative Humidity %": "40",
+      "Temperature ℃": "40"
+    },
+    {
+      "Timestamp": "2023-10-17T11:45:00",
+      "Device_Id": 8,
+      "Absolute Humidity": "16.35",
+      "Relative Humidity %": "40",
+      "Temperature ℃": "40"
+    },
+    {
+      "Timestamp": "2023-10-17T12:00:00",
+      "Device_Id": 8,
+      "Absolute Humidity": "16.43",
+      "Relative Humidity %": "40",
+      "Temperature ℃": "40"
+    },
+    {
+      "Timestamp": "2023-10-17T12:15:00",
+      "Device_Id": 8,
+      "Absolute Humidity": "16.6",
+      "Relative Humidity %": "40",
+      "Temperature ℃": "40"
+    },
+    {
+      "Timestamp": "2023-10-17T12:30:00",
+      "Device_Id": 8,
+      "Absolute Humidity": "16.6",
+      "Relative Humidity %": "40",
+      "Temperature ℃": "40"
+    },
+    {
+      "Timestamp": "2023-10-17T12:45:00",
+      "Device_Id": 8,
+      "Absolute Humidity": "16.52",
+      "Relative Humidity %": "40",
+      "Temperature ℃": "40"
+    },
+    {
+      "Timestamp": "2023-10-17T13:00:00",
+      "Device_Id": 8,
+      "Absolute Humidity": "16.1",
+      "Relative Humidity %": "39",
+      "Temperature ℃": "39"
+    },
+    {
+      "Timestamp": "2023-10-17T13:15:00",
+      "Device_Id": 8,
+      "Absolute Humidity": "16.19",
+      "Relative Humidity %": "39",
+      "Temperature ℃": "39"
+    },
+    {
+      "Timestamp": "2023-10-17T13:30:00",
+      "Device_Id": 8,
+      "Absolute Humidity": "16.19",
+      "Relative Humidity %": "39",
+      "Temperature ℃": "39"
+    },
+    {
+      "Timestamp": "2023-10-17T13:45:00",
+      "Device_Id": 8,
+      "Absolute Humidity": "16.27",
+      "Relative Humidity %": "39",
+      "Temperature ℃": "39"
+    },
+    {
+      "Timestamp": "2023-10-17T14:00:00",
+      "Device_Id": 8,
+      "Absolute Humidity": "16.27",
+      "Relative Humidity %": "39",
+      "Temperature ℃": "39"
+    },
+    {
+      "Timestamp": "2023-10-17T14:15:00",
+      "Device_Id": 8,
+      "Absolute Humidity": "16.27",
+      "Relative Humidity %": "39",
+      "Temperature ℃": "39"
+    },
+    {
+      "Timestamp": "2023-10-17T14:30:00",
+      "Device_Id": 8,
+      "Absolute Humidity": "16.27",
+      "Relative Humidity %": "39",
+      "Temperature ℃": "39"
+    },
+    {
+      "Timestamp": "2023-10-17T14:45:00",
+      "Device_Id": 8,
+      "Absolute Humidity": "16.19",
+      "Relative Humidity %": "39",
+      "Temperature ℃": "39"
+    },
+    {
+      "Timestamp": "2023-10-17T15:00:00",
+      "Device_Id": 8,
+      "Absolute Humidity": "16.19",
+      "Relative Humidity %": "39",
+      "Temperature ℃": "39"
+    },
+    {
+      "Timestamp": "2023-10-17T15:15:00",
+      "Device_Id": 8,
+      "Absolute Humidity": "16.19",
+      "Relative Humidity %": "39",
+      "Temperature ℃": "39"
+    },
+    {
+      "Timestamp": "2023-10-17T15:30:00",
+      "Device_Id": 8,
+      "Absolute Humidity": "16.19",
+      "Relative Humidity %": "39",
+      "Temperature ℃": "39"
+    },
+    {
+      "Timestamp": "2023-10-17T15:45:00",
+      "Device_Id": 8,
+      "Absolute Humidity": "16.19",
+      "Relative Humidity %": "39",
+      "Temperature ℃": "39"
+    },
+    {
+      "Timestamp": "2023-10-17T16:00:00",
+      "Device_Id": 8,
+      "Absolute Humidity": "16.19",
+      "Relative Humidity %": "39",
+      "Temperature ℃": "39"
+    },
+    {
+      "Timestamp": "2023-10-17T16:15:00",
+      "Device_Id": 8,
+      "Absolute Humidity": "16.19",
+      "Relative Humidity %": "39",
+      "Temperature ℃": "39"
+    },
+    {
+      "Timestamp": "2023-10-17T16:30:00",
+      "Device_Id": 8,
+      "Absolute Humidity": "16.1",
+      "Relative Humidity %": "39",
+      "Temperature ℃": "39"
+    },
+    {
+      "Timestamp": "2023-10-17T16:45:00",
+      "Device_Id": 8,
+      "Absolute Humidity": "16.19",
+      "Relative Humidity %": "39",
+      "Temperature ℃": "39"
+    },
+    {
+      "Timestamp": "2023-10-17T17:00:00",
+      "Device_Id": 8,
+      "Absolute Humidity": "16.1",
+      "Relative Humidity %": "39",
+      "Temperature ℃": "39"
+    },
+    {
+      "Timestamp": "2023-10-17T17:15:00",
+      "Device_Id": 8,
+      "Absolute Humidity": "16.1",
+      "Relative Humidity %": "39",
+      "Temperature ℃": "39"
+    },
+    {
+      "Timestamp": "2023-10-17T17:30:00",
+      "Device_Id": 8,
+      "Absolute Humidity": "16.1",
+      "Relative Humidity %": "39",
+      "Temperature ℃": "39"
+    },
+    {
+      "Timestamp": "2023-10-17T17:45:00",
+      "Device_Id": 8,
+      "Absolute Humidity": "16.43",
+      "Relative Humidity %": "40",
+      "Temperature ℃": "40"
+    },
+    {
+      "Timestamp": "2023-10-17T18:00:00",
+      "Device_Id": 8,
+      "Absolute Humidity": "16.43",
+      "Relative Humidity %": "40",
+      "Temperature ℃": "40"
+    },
+    {
+      "Timestamp": "2023-10-17T18:15:00",
+      "Device_Id": 8,
+      "Absolute Humidity": "16.43",
+      "Relative Humidity %": "40",
+      "Temperature ℃": "40"
+    },
+    {
+      "Timestamp": "2023-10-17T18:30:00",
+      "Device_Id": 8,
+      "Absolute Humidity": "16.43",
+      "Relative Humidity %": "40",
+      "Temperature ℃": "40"
+    },
+    {
+      "Timestamp": "2023-10-17T18:45:00",
+      "Device_Id": 8,
+      "Absolute Humidity": "16.35",
+      "Relative Humidity %": "40",
+      "Temperature ℃": "40"
+    },
+    {
+      "Timestamp": "2023-10-17T19:00:00",
+      "Device_Id": 8,
+      "Absolute Humidity": "16.26",
+      "Relative Humidity %": "40",
+      "Temperature ℃": "40"
+    },
+    {
+      "Timestamp": "2023-10-17T19:15:00",
+      "Device_Id": 8,
+      "Absolute Humidity": "16.26",
+      "Relative Humidity %": "40",
+      "Temperature ℃": "40"
+    },
+    {
+      "Timestamp": "2023-10-17T19:30:00",
+      "Device_Id": 8,
+      "Absolute Humidity": "16.67",
+      "Relative Humidity %": "41",
+      "Temperature ℃": "41"
+    },
+    {
+      "Timestamp": "2023-10-17T19:45:00",
+      "Device_Id": 8,
+      "Absolute Humidity": "16.58",
+      "Relative Humidity %": "41",
+      "Temperature ℃": "41"
+    },
+    {
+      "Timestamp": "2023-10-17T20:00:00",
+      "Device_Id": 8,
+      "Absolute Humidity": "16.58",
+      "Relative Humidity %": "41",
+      "Temperature ℃": "41"
+    },
+    {
+      "Timestamp": "2023-10-17T20:15:00",
+      "Device_Id": 8,
+      "Absolute Humidity": "16.5",
+      "Relative Humidity %": "41",
+      "Temperature ℃": "41"
+    },
+    {
+      "Timestamp": "2023-10-17T20:30:00",
+      "Device_Id": 8,
+      "Absolute Humidity": "16.5",
+      "Relative Humidity %": "41",
+      "Temperature ℃": "41"
+    },
+    {
+      "Timestamp": "2023-10-17T20:45:00",
+      "Device_Id": 8,
+      "Absolute Humidity": "16.9",
+      "Relative Humidity %": "42",
+      "Temperature ℃": "42"
+    },
+    {
+      "Timestamp": "2023-10-17T21:00:00",
+      "Device_Id": 8,
+      "Absolute Humidity": "16.9",
+      "Relative Humidity %": "42",
+      "Temperature ℃": "42"
+    },
+    {
+      "Timestamp": "2023-10-17T21:15:00",
+      "Device_Id": 8,
+      "Absolute Humidity": "16.81",
+      "Relative Humidity %": "42",
+      "Temperature ℃": "42"
+    },
+    {
+      "Timestamp": "2023-10-17T21:30:00",
+      "Device_Id": 8,
+      "Absolute Humidity": "16.81",
+      "Relative Humidity %": "42",
+      "Temperature ℃": "42"
+    },
+    {
+      "Timestamp": "2023-10-17T21:45:00",
+      "Device_Id": 8,
+      "Absolute Humidity": "16.72",
+      "Relative Humidity %": "42",
+      "Temperature ℃": "42"
+    },
+    {
+      "Timestamp": "2023-10-17T22:00:00",
+      "Device_Id": 8,
+      "Absolute Humidity": "16.72",
+      "Relative Humidity %": "42",
+      "Temperature ℃": "42"
+    },
+    {
+      "Timestamp": "2023-10-17T22:15:00",
+      "Device_Id": 8,
+      "Absolute Humidity": "16.72",
+      "Relative Humidity %": "42",
+      "Temperature ℃": "42"
+    },
+    {
+      "Timestamp": "2023-10-17T22:30:00",
+      "Device_Id": 8,
+      "Absolute Humidity": "16.72",
+      "Relative Humidity %": "42",
+      "Temperature ℃": "42"
+    },
+    {
+      "Timestamp": "2023-10-17T22:45:00",
+      "Device_Id": 8,
+      "Absolute Humidity": "16.64",
+      "Relative Humidity %": "42",
+      "Temperature ℃": "42"
+    },
+    {
+      "Timestamp": "2023-10-17T23:00:00",
+      "Device_Id": 8,
+      "Absolute Humidity": "16.64",
+      "Relative Humidity %": "42",
+      "Temperature ℃": "42"
+    },
+    {
+      "Timestamp": "2023-10-17T23:15:00",
+      "Device_Id": 8,
+      "Absolute Humidity": "16.64",
+      "Relative Humidity %": "42",
+      "Temperature ℃": "42"
+    },
+    {
+      "Timestamp": "2023-10-17T23:30:00",
+      "Device_Id": 8,
+      "Absolute Humidity": "16.64",
+      "Relative Humidity %": "42",
+      "Temperature ℃": "42"
+    },
+    {
+      "Timestamp": "2023-10-17T23:45:00",
+      "Device_Id": 8,
+      "Absolute Humidity": "16.64",
+      "Relative Humidity %": "42",
+      "Temperature ℃": "42"
+    },
+    {
+      "Timestamp": "2023-10-18T00:00:00",
+      "Device_Id": 8,
+      "Absolute Humidity": "16.64",
+      "Relative Humidity %": "42",
+      "Temperature ℃": "42"
+    }
+  ],
+  "DCH-DEPA": [
+    {
+      "Timestamp": "2023-10-17T00:00:00",
+      "Device_Id": 9,
+      "Absolute Humidity": "22.26",
+      "Relative Humidity %": "58",
+      "Temperature ℃": "58"
+    },
+    {
+      "Timestamp": "2023-10-17T00:15:00",
+      "Device_Id": 9,
+      "Absolute Humidity": "22.15",
+      "Relative Humidity %": "58",
+      "Temperature ℃": "58"
+    },
+    {
+      "Timestamp": "2023-10-17T00:30:00",
+      "Device_Id": 9,
+      "Absolute Humidity": "22.03",
+      "Relative Humidity %": "58",
+      "Temperature ℃": "58"
+    },
+    {
+      "Timestamp": "2023-10-17T00:45:00",
+      "Device_Id": 9,
+      "Absolute Humidity": "22.41",
+      "Relative Humidity %": "59",
+      "Temperature ℃": "59"
+    },
+    {
+      "Timestamp": "2023-10-17T01:00:00",
+      "Device_Id": 9,
+      "Absolute Humidity": "22.29",
+      "Relative Humidity %": "59",
+      "Temperature ℃": "59"
+    },
+    {
+      "Timestamp": "2023-10-17T01:15:00",
+      "Device_Id": 9,
+      "Absolute Humidity": "22.29",
+      "Relative Humidity %": "59",
+      "Temperature ℃": "59"
+    },
+    {
+      "Timestamp": "2023-10-17T01:30:00",
+      "Device_Id": 9,
+      "Absolute Humidity": "22.17",
+      "Relative Humidity %": "59",
+      "Temperature ℃": "59"
+    },
+    {
+      "Timestamp": "2023-10-17T01:45:00",
+      "Device_Id": 9,
+      "Absolute Humidity": "22.17",
+      "Relative Humidity %": "59",
+      "Temperature ℃": "59"
+    },
+    {
+      "Timestamp": "2023-10-17T02:00:00",
+      "Device_Id": 9,
+      "Absolute Humidity": "22.17",
+      "Relative Humidity %": "59",
+      "Temperature ℃": "59"
+    },
+    {
+      "Timestamp": "2023-10-17T02:15:00",
+      "Device_Id": 9,
+      "Absolute Humidity": "22.06",
+      "Relative Humidity %": "59",
+      "Temperature ℃": "59"
+    },
+    {
+      "Timestamp": "2023-10-17T02:30:00",
+      "Device_Id": 9,
+      "Absolute Humidity": "22.43",
+      "Relative Humidity %": "60",
+      "Temperature ℃": "60"
+    },
+    {
+      "Timestamp": "2023-10-17T02:45:00",
+      "Device_Id": 9,
+      "Absolute Humidity": "22.43",
+      "Relative Humidity %": "60",
+      "Temperature ℃": "60"
+    },
+    {
+      "Timestamp": "2023-10-17T03:00:00",
+      "Device_Id": 9,
+      "Absolute Humidity": "22.31",
+      "Relative Humidity %": "60",
+      "Temperature ℃": "60"
+    },
+    {
+      "Timestamp": "2023-10-17T03:15:00",
+      "Device_Id": 9,
+      "Absolute Humidity": "22.31",
+      "Relative Humidity %": "60",
+      "Temperature ℃": "60"
+    },
+    {
+      "Timestamp": "2023-10-17T03:30:00",
+      "Device_Id": 9,
+      "Absolute Humidity": "22.31",
+      "Relative Humidity %": "60",
+      "Temperature ℃": "60"
+    },
+    {
+      "Timestamp": "2023-10-17T03:45:00",
+      "Device_Id": 9,
+      "Absolute Humidity": "22.57",
+      "Relative Humidity %": "61",
+      "Temperature ℃": "61"
+    },
+    {
+      "Timestamp": "2023-10-17T04:00:00",
+      "Device_Id": 9,
+      "Absolute Humidity": "22.57",
+      "Relative Humidity %": "61",
+      "Temperature ℃": "61"
+    },
+    {
+      "Timestamp": "2023-10-17T04:15:00",
+      "Device_Id": 9,
+      "Absolute Humidity": "22.2",
+      "Relative Humidity %": "60",
+      "Temperature ℃": "60"
+    },
+    {
+      "Timestamp": "2023-10-17T04:30:00",
+      "Device_Id": 9,
+      "Absolute Humidity": "22.2",
+      "Relative Humidity %": "60",
+      "Temperature ℃": "60"
+    },
+    {
+      "Timestamp": "2023-10-17T04:45:00",
+      "Device_Id": 9,
+      "Absolute Humidity": "22.08",
+      "Relative Humidity %": "60",
+      "Temperature ℃": "60"
+    },
+    {
+      "Timestamp": "2023-10-17T05:00:00",
+      "Device_Id": 9,
+      "Absolute Humidity": "22.08",
+      "Relative Humidity %": "60",
+      "Temperature ℃": "60"
+    },
+    {
+      "Timestamp": "2023-10-17T05:15:00",
+      "Device_Id": 9,
+      "Absolute Humidity": "22.08",
+      "Relative Humidity %": "60",
+      "Temperature ℃": "60"
+    },
+    {
+      "Timestamp": "2023-10-17T05:30:00",
+      "Device_Id": 9,
+      "Absolute Humidity": "21.73",
+      "Relative Humidity %": "60",
+      "Temperature ℃": "60"
+    },
+    {
+      "Timestamp": "2023-10-17T05:45:00",
+      "Device_Id": 9,
+      "Absolute Humidity": "21.5",
+      "Relative Humidity %": "60",
+      "Temperature ℃": "60"
+    },
+    {
+      "Timestamp": "2023-10-17T06:00:00",
+      "Device_Id": 9,
+      "Absolute Humidity": "21.28",
+      "Relative Humidity %": "60",
+      "Temperature ℃": "60"
+    },
+    {
+      "Timestamp": "2023-10-17T06:15:00",
+      "Device_Id": 9,
+      "Absolute Humidity": "20.83",
+      "Relative Humidity %": "60",
+      "Temperature ℃": "60"
+    },
+    {
+      "Timestamp": "2023-10-17T06:30:00",
+      "Device_Id": 9,
+      "Absolute Humidity": "20.61",
+      "Relative Humidity %": "60",
+      "Temperature ℃": "60"
+    },
+    {
+      "Timestamp": "2023-10-17T06:45:00",
+      "Device_Id": 9,
+      "Absolute Humidity": "20.16",
+      "Relative Humidity %": "59",
+      "Temperature ℃": "59"
+    },
+    {
+      "Timestamp": "2023-10-17T07:00:00",
+      "Device_Id": 9,
+      "Absolute Humidity": "19.61",
+      "Relative Humidity %": "58",
+      "Temperature ℃": "58"
+    },
+    {
+      "Timestamp": "2023-10-17T07:15:00",
+      "Device_Id": 9,
+      "Absolute Humidity": "19.5",
+      "Relative Humidity %": "58",
+      "Temperature ℃": "58"
+    },
+    {
+      "Timestamp": "2023-10-17T07:30:00",
+      "Device_Id": 9,
+      "Absolute Humidity": "19.4",
+      "Relative Humidity %": "58",
+      "Temperature ℃": "58"
+    },
+    {
+      "Timestamp": "2023-10-17T07:45:00",
+      "Device_Id": 9,
+      "Absolute Humidity": "18.96",
+      "Relative Humidity %": "57",
+      "Temperature ℃": "57"
+    },
+    {
+      "Timestamp": "2023-10-17T08:00:00",
+      "Device_Id": 9,
+      "Absolute Humidity": "19.29",
+      "Relative Humidity %": "58",
+      "Temperature ℃": "58"
+    },
+    {
+      "Timestamp": "2023-10-17T08:15:00",
+      "Device_Id": 9,
+      "Absolute Humidity": "19.29",
+      "Relative Humidity %": "58",
+      "Temperature ℃": "58"
+    },
+    {
+      "Timestamp": "2023-10-17T08:30:00",
+      "Device_Id": 9,
+      "Absolute Humidity": "19.29",
+      "Relative Humidity %": "58",
+      "Temperature ℃": "58"
+    },
+    {
+      "Timestamp": "2023-10-17T08:45:00",
+      "Device_Id": 9,
+      "Absolute Humidity": "18.96",
+      "Relative Humidity %": "57",
+      "Temperature ℃": "57"
+    },
+    {
+      "Timestamp": "2023-10-17T09:00:00",
+      "Device_Id": 9,
+      "Absolute Humidity": "18.96",
+      "Relative Humidity %": "57",
+      "Temperature ℃": "57"
+    },
+    {
+      "Timestamp": "2023-10-17T09:15:00",
+      "Device_Id": 9,
+      "Absolute Humidity": "18.69",
+      "Relative Humidity %": "55",
+      "Temperature ℃": "55"
+    },
+    {
+      "Timestamp": "2023-10-17T09:30:00",
+      "Device_Id": 9,
+      "Absolute Humidity": "18.85",
+      "Relative Humidity %": "54",
+      "Temperature ℃": "54"
+    },
+    {
+      "Timestamp": "2023-10-17T09:45:00",
+      "Device_Id": 9,
+      "Absolute Humidity": "19.1",
+      "Relative Humidity %": "53",
+      "Temperature ℃": "53"
+    },
+    {
+      "Timestamp": "2023-10-17T10:00:00",
+      "Device_Id": 9,
+      "Absolute Humidity": "18.97",
+      "Relative Humidity %": "51",
+      "Temperature ℃": "51"
+    },
+    {
+      "Timestamp": "2023-10-17T10:15:00",
+      "Device_Id": 9,
+      "Absolute Humidity": "19.19",
+      "Relative Humidity %": "50",
+      "Temperature ℃": "50"
+    },
+    {
+      "Timestamp": "2023-10-17T10:30:00",
+      "Device_Id": 9,
+      "Absolute Humidity": "19.21",
+      "Relative Humidity %": "49",
+      "Temperature ℃": "49"
+    },
+    {
+      "Timestamp": "2023-10-17T10:45:00",
+      "Device_Id": 9,
+      "Absolute Humidity": "19.01",
+      "Relative Humidity %": "48",
+      "Temperature ℃": "48"
+    },
+    {
+      "Timestamp": "2023-10-17T11:00:00",
+      "Device_Id": 9,
+      "Absolute Humidity": "19.41",
+      "Relative Humidity %": "48",
+      "Temperature ℃": "48"
+    },
+    {
+      "Timestamp": "2023-10-17T11:15:00",
+      "Device_Id": 9,
+      "Absolute Humidity": "19.21",
+      "Relative Humidity %": "47",
+      "Temperature ℃": "47"
+    },
+    {
+      "Timestamp": "2023-10-17T11:30:00",
+      "Device_Id": 9,
+      "Absolute Humidity": "19.31",
+      "Relative Humidity %": "47",
+      "Temperature ℃": "47"
+    },
+    {
+      "Timestamp": "2023-10-17T11:45:00",
+      "Device_Id": 9,
+      "Absolute Humidity": "19.41",
+      "Relative Humidity %": "47",
+      "Temperature ℃": "47"
+    },
+    {
+      "Timestamp": "2023-10-17T12:00:00",
+      "Device_Id": 9,
+      "Absolute Humidity": "19.92",
+      "Relative Humidity %": "47",
+      "Temperature ℃": "47"
+    },
+    {
+      "Timestamp": "2023-10-17T12:15:00",
+      "Device_Id": 9,
+      "Absolute Humidity": "19.8",
+      "Relative Humidity %": "46",
+      "Temperature ℃": "46"
+    },
+    {
+      "Timestamp": "2023-10-17T12:30:00",
+      "Device_Id": 9,
+      "Absolute Humidity": "20.21",
+      "Relative Humidity %": "46",
+      "Temperature ℃": "46"
+    },
+    {
+      "Timestamp": "2023-10-17T12:45:00",
+      "Device_Id": 9,
+      "Absolute Humidity": "19.97",
+      "Relative Humidity %": "45",
+      "Temperature ℃": "45"
+    },
+    {
+      "Timestamp": "2023-10-17T13:00:00",
+      "Device_Id": 9,
+      "Absolute Humidity": "20.28",
+      "Relative Humidity %": "45",
+      "Temperature ℃": "45"
+    },
+    {
+      "Timestamp": "2023-10-17T13:15:00",
+      "Device_Id": 9,
+      "Absolute Humidity": "20.04",
+      "Relative Humidity %": "44",
+      "Temperature ℃": "44"
+    },
+    {
+      "Timestamp": "2023-10-17T13:30:00",
+      "Device_Id": 9,
+      "Absolute Humidity": "20.24",
+      "Relative Humidity %": "44",
+      "Temperature ℃": "44"
+    },
+    {
+      "Timestamp": "2023-10-17T13:45:00",
+      "Device_Id": 9,
+      "Absolute Humidity": "20.35",
+      "Relative Humidity %": "44",
+      "Temperature ℃": "44"
+    },
+    {
+      "Timestamp": "2023-10-17T14:00:00",
+      "Device_Id": 9,
+      "Absolute Humidity": "20.24",
+      "Relative Humidity %": "44",
+      "Temperature ℃": "44"
+    },
+    {
+      "Timestamp": "2023-10-17T14:15:00",
+      "Device_Id": 9,
+      "Absolute Humidity": "20.6",
+      "Relative Humidity %": "45",
+      "Temperature ℃": "45"
+    },
+    {
+      "Timestamp": "2023-10-17T14:30:00",
+      "Device_Id": 9,
+      "Absolute Humidity": "20.49",
+      "Relative Humidity %": "45",
+      "Temperature ℃": "45"
+    },
+    {
+      "Timestamp": "2023-10-17T14:45:00",
+      "Device_Id": 9,
+      "Absolute Humidity": "20.84",
+      "Relative Humidity %": "46",
+      "Temperature ℃": "46"
+    },
+    {
+      "Timestamp": "2023-10-17T15:00:00",
+      "Device_Id": 9,
+      "Absolute Humidity": "20.63",
+      "Relative Humidity %": "46",
+      "Temperature ℃": "46"
+    },
+    {
+      "Timestamp": "2023-10-17T15:15:00",
+      "Device_Id": 9,
+      "Absolute Humidity": "20.52",
+      "Relative Humidity %": "46",
+      "Temperature ℃": "46"
+    },
+    {
+      "Timestamp": "2023-10-17T15:30:00",
+      "Device_Id": 9,
+      "Absolute Humidity": "20.97",
+      "Relative Humidity %": "47",
+      "Temperature ℃": "47"
+    },
+    {
+      "Timestamp": "2023-10-17T15:45:00",
+      "Device_Id": 9,
+      "Absolute Humidity": "20.86",
+      "Relative Humidity %": "47",
+      "Temperature ℃": "47"
+    },
+    {
+      "Timestamp": "2023-10-17T16:00:00",
+      "Device_Id": 9,
+      "Absolute Humidity": "20.86",
+      "Relative Humidity %": "47",
+      "Temperature ℃": "47"
+    },
+    {
+      "Timestamp": "2023-10-17T16:15:00",
+      "Device_Id": 9,
+      "Absolute Humidity": "20.86",
+      "Relative Humidity %": "47",
+      "Temperature ℃": "47"
+    },
+    {
+      "Timestamp": "2023-10-17T16:30:00",
+      "Device_Id": 9,
+      "Absolute Humidity": "20.86",
+      "Relative Humidity %": "47",
+      "Temperature ℃": "47"
+    },
+    {
+      "Timestamp": "2023-10-17T16:45:00",
+      "Device_Id": 9,
+      "Absolute Humidity": "20.86",
+      "Relative Humidity %": "47",
+      "Temperature ℃": "47"
+    },
+    {
+      "Timestamp": "2023-10-17T17:00:00",
+      "Device_Id": 9,
+      "Absolute Humidity": "20.76",
+      "Relative Humidity %": "47",
+      "Temperature ℃": "47"
+    },
+    {
+      "Timestamp": "2023-10-17T17:15:00",
+      "Device_Id": 9,
+      "Absolute Humidity": "21.09",
+      "Relative Humidity %": "48",
+      "Temperature ℃": "48"
+    },
+    {
+      "Timestamp": "2023-10-17T17:30:00",
+      "Device_Id": 9,
+      "Absolute Humidity": "21.31",
+      "Relative Humidity %": "49",
+      "Temperature ℃": "49"
+    },
+    {
+      "Timestamp": "2023-10-17T17:45:00",
+      "Device_Id": 9,
+      "Absolute Humidity": "21.95",
+      "Relative Humidity %": "51",
+      "Temperature ℃": "51"
+    },
+    {
+      "Timestamp": "2023-10-17T18:00:00",
+      "Device_Id": 9,
+      "Absolute Humidity": "22.15",
+      "Relative Humidity %": "52",
+      "Temperature ℃": "52"
+    },
+    {
+      "Timestamp": "2023-10-17T18:15:00",
+      "Device_Id": 9,
+      "Absolute Humidity": "22.34",
+      "Relative Humidity %": "53",
+      "Temperature ℃": "53"
+    },
+    {
+      "Timestamp": "2023-10-17T18:30:00",
+      "Device_Id": 9,
+      "Absolute Humidity": "22.95",
+      "Relative Humidity %": "55",
+      "Temperature ℃": "55"
+    },
+    {
+      "Timestamp": "2023-10-17T18:45:00",
+      "Device_Id": 9,
+      "Absolute Humidity": "22.3",
+      "Relative Humidity %": "54",
+      "Temperature ℃": "54"
+    },
+    {
+      "Timestamp": "2023-10-17T19:00:00",
+      "Device_Id": 9,
+      "Absolute Humidity": "22.48",
+      "Relative Humidity %": "55",
+      "Temperature ℃": "55"
+    },
+    {
+      "Timestamp": "2023-10-17T19:15:00",
+      "Device_Id": 9,
+      "Absolute Humidity": "22.36",
+      "Relative Humidity %": "55",
+      "Temperature ℃": "55"
+    },
+    {
+      "Timestamp": "2023-10-17T19:30:00",
+      "Device_Id": 9,
+      "Absolute Humidity": "22.53",
+      "Relative Humidity %": "56",
+      "Temperature ℃": "56"
+    },
+    {
+      "Timestamp": "2023-10-17T19:45:00",
+      "Device_Id": 9,
+      "Absolute Humidity": "22.3",
+      "Relative Humidity %": "56",
+      "Temperature ℃": "56"
+    },
+    {
+      "Timestamp": "2023-10-17T20:00:00",
+      "Device_Id": 9,
+      "Absolute Humidity": "22.18",
+      "Relative Humidity %": "56",
+      "Temperature ℃": "56"
+    },
+    {
+      "Timestamp": "2023-10-17T20:15:00",
+      "Device_Id": 9,
+      "Absolute Humidity": "22.46",
+      "Relative Humidity %": "57",
+      "Temperature ℃": "57"
+    },
+    {
+      "Timestamp": "2023-10-17T20:30:00",
+      "Device_Id": 9,
+      "Absolute Humidity": "22.34",
+      "Relative Humidity %": "57",
+      "Temperature ℃": "57"
+    },
+    {
+      "Timestamp": "2023-10-17T20:45:00",
+      "Device_Id": 9,
+      "Absolute Humidity": "22.22",
+      "Relative Humidity %": "57",
+      "Temperature ℃": "57"
+    },
+    {
+      "Timestamp": "2023-10-17T21:00:00",
+      "Device_Id": 9,
+      "Absolute Humidity": "22.38",
+      "Relative Humidity %": "58",
+      "Temperature ℃": "58"
+    },
+    {
+      "Timestamp": "2023-10-17T21:15:00",
+      "Device_Id": 9,
+      "Absolute Humidity": "22.11",
+      "Relative Humidity %": "57",
+      "Temperature ℃": "57"
+    },
+    {
+      "Timestamp": "2023-10-17T21:30:00",
+      "Device_Id": 9,
+      "Absolute Humidity": "21.99",
+      "Relative Humidity %": "57",
+      "Temperature ℃": "57"
+    },
+    {
+      "Timestamp": "2023-10-17T21:45:00",
+      "Device_Id": 9,
+      "Absolute Humidity": "21.99",
+      "Relative Humidity %": "57",
+      "Temperature ℃": "57"
+    },
+    {
+      "Timestamp": "2023-10-17T22:00:00",
+      "Device_Id": 9,
+      "Absolute Humidity": "22.26",
+      "Relative Humidity %": "58",
+      "Temperature ℃": "58"
+    },
+    {
+      "Timestamp": "2023-10-17T22:15:00",
+      "Device_Id": 9,
+      "Absolute Humidity": "22.26",
+      "Relative Humidity %": "58",
+      "Temperature ℃": "58"
+    },
+    {
+      "Timestamp": "2023-10-17T22:30:00",
+      "Device_Id": 9,
+      "Absolute Humidity": "22.15",
+      "Relative Humidity %": "58",
+      "Temperature ℃": "58"
+    },
+    {
+      "Timestamp": "2023-10-17T22:45:00",
+      "Device_Id": 9,
+      "Absolute Humidity": "22.03",
+      "Relative Humidity %": "58",
+      "Temperature ℃": "58"
+    },
+    {
+      "Timestamp": "2023-10-17T23:00:00",
+      "Device_Id": 9,
+      "Absolute Humidity": "22.03",
+      "Relative Humidity %": "58",
+      "Temperature ℃": "58"
+    },
+    {
+      "Timestamp": "2023-10-17T23:15:00",
+      "Device_Id": 9,
+      "Absolute Humidity": "21.91",
+      "Relative Humidity %": "58",
+      "Temperature ℃": "58"
+    },
+    {
+      "Timestamp": "2023-10-17T23:30:00",
+      "Device_Id": 9,
+      "Absolute Humidity": "21.91",
+      "Relative Humidity %": "58",
+      "Temperature ℃": "58"
+    },
+    {
+      "Timestamp": "2023-10-17T23:45:00",
+      "Device_Id": 9,
+      "Absolute Humidity": "21.8",
+      "Relative Humidity %": "58",
+      "Temperature ℃": "58"
+    },
+    {
+      "Timestamp": "2023-10-18T00:00:00",
+      "Device_Id": 9,
+      "Absolute Humidity": "21.8",
+      "Relative Humidity %": "58",
+      "Temperature ℃": "58"
+    }
+  ]
+}

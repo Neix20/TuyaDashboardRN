@@ -5,17 +5,19 @@ import Svg from "./Svg";
 import * as clsConst from "./clsConst";
 
 // Data
-import iRData from "./data/iRData";
-import iRDataReal from "./data/ir_data_real.json";
 import Devices from "./data/devices";
 import OriDevices from "./data/ori_devices";
 import DeviceInfoDict from "./data/device_info_dict.json";
-import AlertDataList from "./data/alert_data_v2.json";
-import SmartPlugData from "./data/smart_plug.json";
-import DashboardReportData from "./data/dashboard_report_data.json";
-import DowntimeData from "./data/downtime_data.json";
 
-import DCHAhux from "./data/DCH-AHUX.json";
+import iRData from "./data/ir_data";
+import iRDataUnit from "./data/ir_data_with_unit.json";
+
+import AlertDataList from "./data/alert_data_v2.json";
+import DashboardReportData from "./data/dashboard_report_data.json";
+
+import DashboardSmartPlugData from "./data/dashboard_smart_plug.json";
+import SmartPlugIIData from "./data/smart_plug_ii.json";
+import AirConData from "./data/air_con.json";
 
 export {
     Animation,
@@ -24,16 +26,22 @@ export {
 };
 
 export {
-    iRData,
-    iRDataReal,
     Devices,
     OriDevices,
     DeviceInfoDict,
+}
+
+export {
+    iRData,
+    iRDataUnit,
+}
+
+export {
     AlertDataList,
-    SmartPlugData,
     DashboardReportData,
-    DCHAhux,
-    DowntimeData,
+    DashboardSmartPlugData,
+    SmartPlugIIData,
+    AirConData,
 };
 
 export {

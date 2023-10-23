@@ -196,6 +196,7 @@ function Index(props) {
 				top: 0,
 				left: 5,
 				right: 5,
+				realtime: true
 			},
 			{
 				type: 'inside',

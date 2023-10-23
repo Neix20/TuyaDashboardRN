@@ -322,8 +322,8 @@ function Index(props) {
         })
     }
 
-    const defaultScreen = (userId == -1 || firstTimeLink) ? "Login" : "TabNavigation";
-    // const defaultScreen = "Debug";
+    // const defaultScreen = (userId == -1 || firstTimeLink) ? "Login" : "TabNavigation";
+    const defaultScreen = "Debug";
 
     return (
         <>

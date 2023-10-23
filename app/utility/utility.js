@@ -368,15 +368,23 @@ function OneSignalSubscribe(email) {
 
 function genUnit(key) {
 	let dict = {
-		"Temperature": "℃",
 		"Absolute Humidity": "",
+		"Temperature": "℃",
 		"Relative Humidity": "%",
+		"Temperature ℃": "℃",
+		"Relative Humidity %": "%",
 		"Voltage": "V",
 		"Power": "W",
 		"Current": "mA",
+		"Voltage (V)": "V",
+		"Power (W)": "W",
+		"Current (mA)": "mA",
 		"Formaldehyde": "mg/m3",
 		"Carbon Dioxide": "ppm",
-		"Particle Matter": "ug/m3"
+		"Particle Matter": "ug/m3",
+		"Formaldehyde (mg/m3)": "mg/m3",
+		"Carbon Dioxide (ppm)": "ppm",
+		"Particle Matter (ug/m3)": "ug/m3"
 	}
 
 	if(key in dict) {

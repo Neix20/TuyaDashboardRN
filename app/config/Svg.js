@@ -50,32 +50,49 @@ Data = {
     PhoneBook: PhoneBook,
 }
 
+// FIXME: Temporarily Store Everything in MetaData
 Data = {
     ...Data,
-    Temperature: Temperature,
     "Absolute Humidity": AbsoluteHumidity,
+    "Temperature": Temperature,
     "Relative Humidity": RelativeHumidity,
+    "Temperature ℃": Temperature,
+    "Relative Humidity %": RelativeHumidity,
     Power: Power,
     Current: Current,
     Voltage: Voltage,
+    "Voltage (V)": "V",
+    "Power (W)": "W",
+    "Current (mA)": "mA",
     Formaldehyde: Formaldehyde,
     "Particle Matter": ParticleMatter,
     "Carbon Dioxide": CarbonDioxide,
+    "Formaldehyde (mg/m3)": "mg/m3",
+    "Carbon Dioxide (ppm)": "ppm",
+    "Particle Matter (ug/m3)": "ug/m3",
     KWh: KWh,
 }
 
 Data = {
     ...Data,
     MetaData_Header: {
-        Temperature: Temperature,
         "Absolute Humidity": AbsoluteHumidity,
+        "Temperature": Temperature,
         "Relative Humidity": RelativeHumidity,
+        "Temperature ℃": Temperature,
+        "Relative Humidity %": RelativeHumidity,
         Power: Power,
         Current: Current,
         Voltage: Voltage,
+        "Voltage (V)": Voltage,
+        "Power (W)": Power,
+        "Current (mA)": Current,
         Formaldehyde: Formaldehyde,
         "Particle Matter": ParticleMatter,
         "Carbon Dioxide": CarbonDioxide,
+        "Formaldehyde (mg/m3)": Formaldehyde,
+        "Carbon Dioxide (ppm)": ParticleMatter,
+        "Particle Matter (ug/m3)": CarbonDioxide,
         KWh: KWh,
     }
 }

@@ -89,10 +89,12 @@ export {
 }
 
 import BcApacheChart from "./Chart/eChart";
+import BcApacheBarChart from "./Chart/bar";
 import BcApacheChartFull from "./Chart/full";
 
 export {
     BcApacheChart,
+    BcApacheBarChart,
     BcApacheChartFull
 }
 

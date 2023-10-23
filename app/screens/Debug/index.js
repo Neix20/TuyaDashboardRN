@@ -7,7 +7,7 @@ import { useNavigation, useIsFocused } from "@react-navigation/native";
 
 import { Logger, Utility } from "@utility";
 
-import { iRData, clsConst, DowntimeData, Images, iRDataReal } from "@config";
+import { iRData, iRDataUnit, DowntimeData, clsConst, Images } from "@config";
 
 import { useChart, useToggle, useDate, useEChart, useOrientation, useTimer } from "@hooks";
 
@@ -200,7 +200,7 @@ function DeviceChart(props) {
     const [chart, setChart] = chartHook.slice(0, 2);
 
     useEffect(() => {
-        setChart(iRDataReal);
+        setChart(iRDataUnit);
     }, []);
 
     return (
@@ -218,10 +218,7 @@ function DeviceChart(props) {
     )
 }
 
-function Test(props) {
-    return (
-        <BcDropdown />
-    )
-}
+import SmartPlug from "./SmartPlug";
+import AirCon from "./AirCon";
 
-export default DeviceChart;
+export default SmartPlug;

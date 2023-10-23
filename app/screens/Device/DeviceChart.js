@@ -190,23 +190,12 @@ function Index_Chart(props) {
 
 function useChart() {
 
+    
     const [chart, setChart] = useState([]);
-
     const [chartData, setChartData] = useState({});
-
     const [chartLegend, setChartLegend] = useState([]);
 
     const svg_key = Object.keys(Svg["MetaData_Header"]);
-
-    const init = {
-        colors: [
-            "#DB7D86", "#E7E005", "#188B9A",
-            "#DB2E54", "#A53202", "#82EB20",
-            "#75368B", "#395DAD", "#EC259F",
-            "#0FA1AF", "#ADAC72", "#7FD106",
-            "#6AC237", "#C5F022", "#76862A"
-        ]
-    }
 
     useEffect(() => {
         if (chart.length > 1) {
