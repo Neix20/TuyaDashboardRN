@@ -66,13 +66,15 @@ function Index(props) {
 
 	const [ chart, setChart, chartKey, setChartKey, chartData, setChartData, chartLegend, chartKeyOption, setChartKeyOption ] = hook;
 
-	const { label = [], dataset = [], min = 0, max = 25 } = chartData;
+	const { label = [], dataset = [] } = chartData;
 
 	const chartRef = useRef(null);
 
 	const [width] = useOrientation();
 
 	const [unit, setUnit] = useState("");
+
+	const optDataSet = [...dataset.map(x => ({ ...x, type: "bar" }))]
 
 	useEffect(() => {
 		let ut = Utility.genUnit(chartKey);
@@ -130,8 +132,12 @@ function Index(props) {
 		yAxis: {
 			type: 'value',
 			renderMode: "richText",
-			min: Math.ceil(min * 0.9),
-			max: Math.floor(max * 1.1),
+			min: (val) => {
+				return Math.floor(val.min * 0.9);
+			},
+			max: (val) => {
+				return Math.ceil(val.max * 1.1);
+			}
 		},
 		dataZoom: [
 			{
@@ -151,10 +157,7 @@ function Index(props) {
 			bottom: 50,
 			containLabel: true,
 		},
-		series: dataset.map(x => ({
-			...x,
-			type: "bar"
-		}))
+		series: optDataSet
 	};
 
 	return (

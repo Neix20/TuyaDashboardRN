@@ -30,12 +30,14 @@ echarts.use([
 function ChartComponent(props) {
 
 	const { height = 480, width = 320 } = props;
-	const { option = {}, coor = {}, chartRef = null } = props;
+	const { option = {}, chartRef = null } = props;
+	const { dataset = [], coor = {}} = props;
 
 	useEffect(() => {
+		let chart;
 
 		if (chartRef.current) {
-			const chart = echarts.getInstanceByDom(chartRef.current) || echarts.init(chartRef.current, 'light', {
+			chart = echarts.init(chartRef.current, 'light', {
 				renderer: 'svg',
 				width: width,
 				height: height
@@ -43,7 +45,9 @@ function ChartComponent(props) {
 
 			chart.setOption(option);
 		}
-	}, [coor]);
+
+		return () => chart?.dispose();
+	}, [coor, dataset, width]);
 
 	return (
 		<SkiaChart ref={chartRef} />
@@ -57,7 +61,7 @@ function Index(props) {
 
 	const [chart, setChart, chartKey, setChartKey, chartData, setChartData, chartLegend, chartKeyOption, setChartKeyOption] = hook;
 
-	const { label = [], dataset = [], min_dt = 0, max_dt = 0, min = 0, max = 25 } = chartData;
+	const { label = [], dataset = [], min_dt = 0, max_dt = 0 } = chartData;
 
 	const chartRef = useRef(null);
 
@@ -86,6 +90,16 @@ function Index(props) {
 			setCoor(_ => ({ ...coor }));
 		}
 	}, [dataset]);
+
+	useEffect(() => {
+		if (width > 530) {
+			setCoor(_ => ({ start: 0, end: 100 }));
+		} else {
+			setCoor(_ => init.coor);
+		}
+	}, [width]);
+
+	const optDataSet = dataset.map(x => ({ ...x, type: "line", symbol: "circle", symbolSize: 5 }));
 
 	const option = {
 		animation: false,
@@ -141,8 +155,6 @@ function Index(props) {
 		},
 		xAxis: {
 			type: "time",
-			min: min_dt,
-			max: max_dt,
 			axisLabel: {
 				formatter: '{HH}:{mm}',
 				rotate: 45,
@@ -171,7 +183,8 @@ function Index(props) {
 					size: [48, 48]
 				},
 				zlevel: 0,
-			}
+			},
+			boundaryGap: false,
 		},
 		// xAxis: {
 		// 	type: "category",
@@ -186,8 +199,12 @@ function Index(props) {
 		yAxis: {
 			type: 'value',
 			renderMode: "richText",
-			min: Math.ceil(min * 0.9),
-			max: Math.floor(max * 1.1)
+			min: (val) => {
+				return Math.floor(val.min * 0.9);
+			},
+			max: (val) => {
+				return Math.ceil(val.max * 1.1);
+			}
 		},
 		dataZoom: [
 			{
@@ -212,12 +229,7 @@ function Index(props) {
 			right: 5,
 			containLabel: true,
 		},
-		series: dataset.map(x => ({
-			...x,
-			type: "line",
-			symbol: "circle",
-			symbolSize: 5
-		}))
+		series: optDataSet
 	};
 
 	return (
@@ -231,6 +243,7 @@ function Index(props) {
 				option={option}
 				chartRef={chartRef}
 				coor={coor}
+				dataset={dataset}
 				{...props}
 			/>
 		</>

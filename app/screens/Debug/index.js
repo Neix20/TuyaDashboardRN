@@ -11,7 +11,7 @@ import { iRData, iRDataUnit, DowntimeData, clsConst, Images } from "@config";
 
 import { useChart, useToggle, useDate, useEChart, useOrientation, useTimer } from "@hooks";
 
-import { BcViewShot, BcLineChartFull, BcDateRange, BcLineChart, BcLineLegend, BcApacheChart, BcApacheChartFull, BcDropdown } from "@components";
+import { BcViewShot, BcLineChartFull, BcDateRange, BcLineChart, BcLineLegend, BcApacheChart, BcApacheChartFull, BcDropdown, BcApacheChartDebug } from "@components";
 
 
 function DownTimeTable(props) {
@@ -195,13 +195,13 @@ function Index(props) {
 
 function DeviceChart(props) {
 
-    const chartHook = useEChart("Absolute Humidity");
+    // const chartHook = useEChart("Absolute Humidity");
 
-    const [chart, setChart] = chartHook.slice(0, 2);
+    // const [chart, setChart] = chartHook.slice(0, 2);
 
-    useEffect(() => {
-        setChart(iRDataUnit);
-    }, []);
+    // useEffect(() => {
+    //     setChart(iRDataUnit);
+    // }, []);
 
     return (
         <SafeAreaView style={{ flex: 1 }}>
@@ -211,14 +211,12 @@ function DeviceChart(props) {
                 keyboardShouldPersistTaps={"handled"}
                 contentContainerStyle={{ flexGrow: 1 }}>
                 <VStack py={3} space={3} alignItems={"center"}>
-                    <BcApacheChartFull hook={chartHook} height={480} />
+                    {/* <BcApacheChartFull hook={chartHook} height={480} /> */}
+                    <BcApacheChartDebug />
                 </VStack>
             </ScrollView>
         </SafeAreaView>
     )
 }
 
-import SmartPlug from "./SmartPlug";
-import AirCon from "./AirCon";
-
-export default SmartPlug;
+export default DeviceChart;

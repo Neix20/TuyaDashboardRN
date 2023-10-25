@@ -13,19 +13,18 @@ import { Logger, Utility } from "@utility";
 
 import { DateTime } from "luxon";
 
-import { BcLoading, BcHeader, BcDateRange, BcLineChart, BcSvgIcon, BcApacheChart } from "@components";
-
-import { Tab, TabView } from "@rneui/themed";
+import { BcLoading, BcHeader, BcDateRange, BcApacheChart, BcApacheBarChart } from "@components";
 
 import { useToggle, useDate, useOrientation } from "@hooks";
 
-import { fetchDeviceDataChart } from "@api";
+import { fetchDeviceDataChart, fetchDeviceSpChart } from "@api";
 
-import { Svg } from "@config";
+import { Svg, DashboardSmartPlugData } from "@config";
 
 import { useDispatch, useSelector } from 'react-redux';
 import { Actions, Selectors } from '@redux';
 
+// #region Custom Hooks
 function useChart() {
 
     const [chart, setChart] = useState([]);
@@ -107,6 +106,58 @@ function useChart() {
     return [chart, setChart, chartData, setChartData, chartLegend];
 }
 
+function useBarChart() {
+
+    const [chart, setChart] = useState([]);
+    const [chartData, setChartData] = useState({});
+
+    const [chartLegend, setChartLegend] = useState([])
+
+    useEffect(() => {
+        if (chart.length > 1) {
+
+            const obj = { ...chart[0] };
+            delete obj["Device_Id"];
+
+            let ts = chart.map(x => x["Timestamp"]);
+
+            const label = ts.map(x => DateTime.fromISO(x).toFormat("MM-dd"));
+
+            delete obj["Timestamp1"];
+
+            const keys = Object.keys(obj);
+            setChartLegend(keys);
+
+            let dataset = [];
+
+            for (const key of keys) {
+                let val = chart.map(x => x[key]);
+                val = val.map(x => +x);
+
+                if (val.length == 0) continue;
+
+                let obj = {
+                    name: key,
+                    data: val
+                }
+
+                dataset.push(obj);
+            }
+
+            let dict = {
+                label,
+                dataset
+            };
+
+            setChartData(dict);
+        }
+    }, [chart]);
+
+    return [chart, setChart, chartData, setChartData, chartLegend];
+}
+// #endregion
+
+// #region Components
 function EmptyList(props) {
     return (
         <View flexGrow={1} justifyContent={"center"} alignItems={"center"} bgColor={"#FFF"}>
@@ -122,6 +173,7 @@ function EmptyList(props) {
         </View>
     )
 }
+// #endregion
 
 function Index(props) {
 
@@ -155,6 +207,10 @@ function Index(props) {
     const prevDateHook = useDate(init.cmpDateObj);
 
     const [chart, setChart, chartData, setChartData, chartLegend] = useChart();
+    const eChartHook = [chart, setChart, null, null, chartData, setChartData, chartLegend, null, null];
+
+    const [barChart, setBarChart, barChartData, setBarChartData, barChartLegend] = useBarChart();
+    const barChartHook = [barChart, setBarChart, "KWh", null, barChartData, setBarChartData, barChartLegend, null, null];
 
     const [width, height, isPort, isLand] = useOrientation();
     // #endregion
@@ -167,7 +223,7 @@ function Index(props) {
         if (isFocused) {
             setLoading(true);
 
-            fetchDeviceDataChart({
+            fetchDeviceSpChart({
                 param: {
                     UserId: userId,
                     DeviceId: deviceId,
@@ -177,7 +233,13 @@ function Index(props) {
                 onSetLoading: setLoading,
             })
                 .then(data => {
-                    setChart(data);
+
+                    const { Data = [], DataKWh = [] } = data;
+
+                    console.log(Data, DataKWh)
+
+                    setChart(Data);
+                    setBarChart(DataKWh)
                 })
                 .catch(err => {
                     setLoading(false);
@@ -185,8 +247,6 @@ function Index(props) {
                 })
         }
     }, [isFocused, JSON.stringify(startDt + endDt + deviceId)]);
-
-    const eChartHook = [chart, setChart, null, null, chartData, setChartData, chartLegend, null, null]
 
     return (
         <>
@@ -216,11 +276,14 @@ function Index(props) {
                                 {/* Body */}
                                 <ScrollView showsVerticalScrollIndicator={false} keyboardShouldPersistTaps={"handled"}
                                     contentContainerStyle={{ flexGrow: 1 }}>
-                                    <View flexGrow={1} bgColor={"#FFF"}>
+                                    <VStack flexGrow={1} bgColor={"#FFF"}>
+                                    <View pt={3} alignItems={"center"}>
+                                            <BcApacheBarChart hook={barChartHook} height={360} />
+                                        </View>
                                         <View pt={3} alignItems={"center"}>
                                             <BcApacheChart hook={eChartHook} height={360} />
                                         </View>
-                                    </View>
+                                    </VStack>
                                 </ScrollView>
                             </>
                         ) : (

@@ -14,6 +14,8 @@ import fetchUsageInfo from "./fetchUsageInfo";
 import fetchGetNotification from "./fetchGetNotification";
 
 import fetchDeviceChart from "./fetchDeviceChart";
+import fetchDeviceSpChart from "./fetchDeviceSpChart";
+
 import fetchDeviceList from "./fetchDeviceList";
 import fetchDeviceNotification from "./fetchDeviceNotification";
 import fetchDeviceInfo from "./fetchDeviceInfo";
@@ -63,6 +65,7 @@ export {
 
 export {
     fetchDeviceChart,
+    fetchDeviceSpChart,
     fetchDeviceList,
     fetchDeviceNotification,
     fetchDeviceInfo,

@@ -423,16 +423,16 @@ function LinkDeviceModal(props) {
                                     </>
                                 ) : (
                                     <VStack space={2} alignItems={"center"}>
-                                            <FontAwesome name={"check-circle"}
-                                                color={"#26cd14"}
-                                                size={80} />
+                                        <FontAwesome name={"check-circle"}
+                                            color={"#26cd14"}
+                                            size={80} />
 
-                                            <Text style={{
-                                                fontSize: 18,
-                                                fontFamily: 'Roboto-Medium',
-                                                fontWeight: "700"
-                                            }}>All devices have been synced</Text>
-                                        </VStack>
+                                        <Text style={{
+                                            fontSize: 18,
+                                            fontFamily: 'Roboto-Medium',
+                                            fontWeight: "700"
+                                        }}>All devices have been synced</Text>
+                                    </VStack>
                                 )
                             }
                         </VStack>
@@ -998,7 +998,21 @@ function Index(props) {
     const [showTGModal, setShowTGModal, toggleTGModal] = useToggle(false);
 
     // #region Navigation
-    const GoToDetail = (item) => navigation.navigate("DeviceLanding", item);
+    const GoToDetail = (item) => {
+        const { IsTempHumd = 0, IsSmartPlug = 0, IsAirQuality = 0, IsAirCon = 0, IsSmartCamera = 0 } = item;
+
+        if (IsSmartPlug == 1) {
+            navigation.navigate("DeviceLandingSmartPlug", item);    
+        }
+
+        else if (IsAirCon == 1) {
+            navigation.navigate("DeviceLandingAirCon", item);
+        }
+
+        else {
+            navigation.navigate("DeviceLanding", item);
+        }
+    };
     // #endregion
 
     // #region Render

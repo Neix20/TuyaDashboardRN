@@ -47,6 +47,8 @@ function RequestOtpBtn(props) {
 
     const { flag = true, onPress = () => { } } = props;
 
+    const [oFlag, setOFlag, toggleOFlag] = useToggle(false);
+
     const Item = () => {
         return (
             <View backgroundColor={"#fff"}
@@ -55,9 +57,14 @@ function RequestOtpBtn(props) {
                 <Text style={[{
                     fontSize: 14,
                     fontWeight: "bold",
-                }]}>Request OTP</Text>
+                }]}>{oFlag ? "Resend" : "Request"} OTP</Text>
             </View>
         )
+    }
+
+    const onSelect = () => {
+        onPress();
+        setOFlag(_ => true);
     }
 
     if (!flag) {
@@ -69,7 +76,7 @@ function RequestOtpBtn(props) {
     }
 
     return (
-        <TouchableOpacity onPress={onPress}>
+        <TouchableOpacity onPress={onSelect}>
             <Item />
         </TouchableOpacity>
     )

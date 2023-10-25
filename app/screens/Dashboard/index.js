@@ -9,18 +9,69 @@ import { useNavigation, useIsFocused } from "@react-navigation/native";
 
 import { Logger, Utility } from "@utility";
 
-import { Images, Svg } from "@config";
+import { Images, Svg, iRDataUnit, DashboardSmartPlugData } from "@config";
 
-import { BcBoxShadow, BcSvgIcon, BcDateRange, BcViewShot, BcLoading, BcYatuHome, BcLineChartFull, BcApacheChart, BcApacheChartFull } from "@components";
+import { BcBoxShadow, BcSvgIcon, BcDateRange, BcViewShot, BcLoading, BcYatuHome, BcApacheBarChart, BcApacheChartFull } from "@components";
 
 import { DateTime } from "luxon";
 
 import { fetchDashboardInfo, fetchReportData } from "@api";
-
 import { useDate, useToggle, useEChart, useOrientation } from "@hooks";
 
 import { useDispatch, useSelector } from 'react-redux';
 import { Actions, Selectors } from '@redux';
+
+// #region Custom Hooks
+function useBarChart() {
+
+    const [chart, setChart] = useState([]);
+    const [chartData, setChartData] = useState({});
+
+    const [chartLegend, setChartLegend] = useState([])
+
+    useEffect(() => {
+        if (chart.length > 1) {
+
+            const obj = { ...chart[0] };
+            delete obj["Device_Id"];
+
+            let ts = chart.map(x => x["Timestamp"]);
+
+            const label = ts.map(x => DateTime.fromISO(x).toFormat("MM-dd"));
+
+            delete obj["Timestamp"];
+
+            const keys = Object.keys(obj);
+            setChartLegend(keys);
+
+            let dataset = [];
+
+            for (const key of keys) {
+                let val = chart.map(x => x[key]);
+                val = val.map(x => +x);
+
+                if (val.length == 0) continue;
+
+                let obj = {
+                    name: key,
+                    data: val
+                }
+
+                dataset.push(obj);
+            }
+
+            let dict = {
+                label,
+                dataset
+            };
+
+            setChartData(dict);
+        }
+    }, [chart]);
+
+    return [chart, setChart, chartData, setChartData, chartLegend];
+}
+// #endregion
 
 // #region Components
 function Header(props) {
@@ -180,7 +231,10 @@ function DashboardVoltageReport(props) {
 
         const { Device_Name = "", Count = 0 } = item;
 
-        const { Current = 0, Power = 0, Voltage = 0, KWh = 0 } = item;
+        const Current = item["Current (mA)"];
+        const Power = item["Power (W)"];
+        const Voltage = item["Voltage (V)"];
+        const KWh = item["KWh"];
 
         const getColor = (val) => {
             const { green, yellow, red } = init.colors;
@@ -275,9 +329,9 @@ function DashboardAirQualityReport(props) {
 
         const { Device_Name, Count } = item;
 
-        const pm25 = item["Particle Matter"];
-        const co2 = item["Carbon Dioxide"];
-        const ch20 = item["Formaldehyde"];
+        const pm25 = item["Particle Matter (ug/m3)"];
+        const co2 = item["Carbon Dioxide (ppm)"];
+        const ch20 = item["Formaldehyde (mg/m3)"];
 
         const getColor = (val) => {
             const { green, yellow, red } = init.colors;
@@ -367,8 +421,8 @@ function DashboardHumidityReport(props) {
 
         const { Device_Name, Count } = item;
 
-        const Temperature = item["Temperature"];
-        const Relative_Humidity = item["Relative Humidity"] || 0;
+        const Temperature = item["Temperature (℃)"];
+        const Relative_Humidity = item["Relative Humidity (%)"];
         const Absolute_Humidity = item["Absolute Humidity"];
 
         const getColor = (val) => {
@@ -481,10 +535,13 @@ function Index(props) {
     const chartHook = useEChart("Absolute Humidity");
     const [chart, setChart] = chartHook.slice(0, 6);
 
-    const spChartHook = useEChart("Voltage");
+    const spChartHook = useEChart("Voltage (V)");
     const [spChart, setSpChart] = spChartHook.slice(0, 2);
 
-    const aqChartHook = useEChart("Particle Matter");
+    const [barChart, setBarChart, barChartData, setBarChartData, barChartLegend] = useBarChart();
+    const barChartHook = [barChart, setBarChart, "KWh", null, barChartData, setBarChartData, barChartLegend, null, null];
+
+    const aqChartHook = useEChart("Particle Matter (ug/m3)");
     const [aqChart, setAqChart] = aqChartHook.slice(0, 2);
 
     const prevChartHook = useEChart("Absolute Humidity");
@@ -512,7 +569,42 @@ function Index(props) {
     // Update Data
     useEffect(() => {
         if (isFocused) {
-            getDashboard(startDt, endDt, setChart);
+            setLoading(true);
+            fetchDashboardInfo({
+                param: {
+                    UserId: userId,
+                    HomeId: homeId,
+                    StartDate: startDt,
+                    EndDate: `${endDt} 23:59:59`
+                },
+                onSetLoading: setLoading,
+            })
+                .then(res => {
+                    if ("IR Temperature" in res) {
+                        const Data = res["IR Temperature"]
+                        setChart(Data);
+                    } else {
+                        setChart({})
+                    }
+
+                    if ("Smart Plug" in res) {
+                        const Data = res["Smart Plug"];
+                        setSpChart(Data);
+                    } else {
+                        setSpChart({});
+                    }
+
+                    if ("Air Quality" in res) {
+                        const Data = res["Air Quality"];
+                        setAqChart(Data);
+                    } else {
+                        setAqChart({});
+                    }
+                })
+                .catch(err => {
+                    setLoading(false);
+                    console.log(`Error: ${err}`);
+                })
 
             fetchReportData({
                 param: {
@@ -566,50 +658,34 @@ function Index(props) {
     useEffect(() => {
         if (isFocused) {
             setTimeout(() => {
-                getDashboard(cmpStartDt, cmpEndDt, setPrevChart);
-            }, 2000);
+                fetchDashboardInfo({
+                    param: {
+                        UserId: userId,
+                        HomeId: homeId,
+                        StartDate: cmpStartDt,
+                        EndDate: `${cmpEndDt} 23:59:59`
+                    },
+                    onSetLoading: () => { },
+                })
+                    .then(res => {
+                        if ("IR Temperature" in res) {
+                            const Data = res["IR Temperature"]
+                            setPrevChart(Data);
+                        } else {
+                            setPrevChart({})
+                        }
+                    })
+                    .catch(err => {
+                        setLoading(false);
+                        console.log(`Error: ${err}`);
+                    })
+            }, 5000);
         }
-    }, [isFocused, JSON.stringify(cmpStartDt + cmpEndDt + homeId)])
+    }, [isFocused, JSON.stringify(cmpStartDt + cmpEndDt + homeId)]);
 
-    // #region API
-    const getDashboard = (start_date, end_date, setFunc = () => { }) => {
-        setLoading(true);
-        fetchDashboardInfo({
-            param: {
-                UserId: userId,
-                HomeId: homeId,
-                StartDate: start_date,
-                EndDate: `${end_date} 23:59:59`
-            },
-            onSetLoading: setLoading,
-        })
-            .then(res => {
-                if ("IR Temperature" in res) {
-                    const Data = res["IR Temperature"]
-                    setFunc(Data);
-                } else {
-                    setFunc({})
-                }
-
-                if ("Smart Plug" in res) {
-                    const Data = res["Smart Plug"];
-                    setSpChart(Data);
-                } else {
-                    setSpChart({});
-                }
-
-                if ("Air Quality" in res) {
-                    const Data = res["Air Quality"];
-                    setAqChart(Data);
-                } else {
-                    setAqChart({});
-                }
-            })
-            .catch(err => {
-                setLoading(false);
-                console.log(`Error: ${err}`);
-            })
-    }
+    useEffect(() => {
+        setBarChart(DashboardSmartPlugData);
+    }, []);
     // #endregion
 
     return (
@@ -635,7 +711,9 @@ function Index(props) {
                     }
 
                     {/* Body */}
-                    <ScrollView showsVerticalScrollIndicator={false} keyboardShouldPersistTaps={"handled"}
+                    <ScrollView
+                        showsVerticalScrollIndicator={false}
+                        keyboardShouldPersistTaps={"handled"}
                         contentContainerStyle={{ flexGrow: 1 }}>
                         {
                             (Object.keys(chart).length > 0) ? (
@@ -662,6 +740,7 @@ function Index(props) {
                                                 <View px={3} style={{ width: width }}>
                                                     <BcViewShot title="Daily Smart Plug Data">
                                                         <BcApacheChartFull hook={spChartHook} height={400} />
+                                                        {/* <BcApacheBarChart hook={barChartHook} height={400} /> */}
                                                     </BcViewShot>
                                                 </View>
                                             ) : (
@@ -699,8 +778,8 @@ function Index(props) {
                                                     <BcViewShot title="Humidity Device Report">
                                                         <DataAttribute data={[{
                                                             "Absolute Humidity": 0,
-                                                            "Relative Humidity": 0,
-                                                            "Temperature": 0,
+                                                            "Relative Humidity (%)": 0,
+                                                            "Temperature (℃)": 0,
                                                         }]} />
                                                         <DashboardHumidityReport data={drData} />
                                                     </BcViewShot>
@@ -716,9 +795,9 @@ function Index(props) {
                                                     <View px={3} style={{ width: c_width }}>
                                                         <BcViewShot title="Air Quality Device Report">
                                                             <DataAttribute data={[{
-                                                                Formaldehyde: 0,
-                                                                "Particle Matter": 0,
-                                                                "Carbon Dioxide": 0,
+                                                                "Formaldehyde (mg/m3)": 0,
+                                                                "Particle Matter (ug/m3)": 0,
+                                                                "Carbon Dioxide (ppm)": 0,
                                                             }]} />
                                                             <DashboardAirQualityReport data={drAqData} />
                                                         </BcViewShot>
@@ -735,9 +814,9 @@ function Index(props) {
                                                     <View px={3} style={{ width: c_width }}>
                                                         <BcViewShot title="Smart Plug Device Report">
                                                             <DataAttribute data={[{
-                                                                "Current": 0,
-                                                                "Power": 0,
-                                                                "Voltage": 0,
+                                                                "Current (mA)": 0,
+                                                                "Power (W)": 0,
+                                                                "Voltage (V)": 0,
                                                                 "KWh": 0
                                                             }]} />
                                                             <DashboardVoltageReport data={drSpData} />

@@ -12,10 +12,15 @@ import AboutUs from "@screens/AboutUs";
 import DeviceScan from "@screens/Device/DeviceScan";
 
 import DeviceLanding from "@screens/Device/DeviceLanding";
+import DeviceLandingSmartPlug from "@screens/Device/DeviceLanding/SmartPlug";
+import DeviceLandingAirCon from "@screens/Device/DeviceLanding/AirCon";
+
 import DeviceInfo from "@screens/Device/DeviceInfo";
 import DeviceAlert from "@screens/Device/DeviceAlert";
 import DeviceTable from "@screens/Device/DeviceTable";
+
 import DeviceChart from "@screens/Device/DeviceChart";
+import DeviceSPChart from "@screens/Device/DeviceSPChart";
 
 import DeviceRulesInfo from "@screens/DeviceRules/DeviceRulesInfo";
 import AddDeviceRules from "@screens/DeviceRules/AddDeviceRules";
@@ -65,6 +70,10 @@ StackScreens = {
     DeviceChart: {
         component: DeviceChart,
         title: "DeviceChart",
+    },
+    DeviceSPChart: {
+        component: DeviceSPChart,
+        title: "DeviceSPChart",
     },
     UsageInfo: {
         component: UsageInfo,
@@ -219,6 +228,20 @@ StackScreens = {
         option: {
             orientation: "portrait"
         }
+    },
+    DeviceLandingSmartPlug: {
+        component: DeviceLandingSmartPlug,
+        title: "DeviceLandingSmartPlug",
+        option: {
+            orientation: "portrait"
+        }
+    },
+    DeviceLandingAirCon: {
+        component: DeviceLandingAirCon,
+        title: "DeviceLandingAirCon",
+        option: {
+            orientation: "portrait"
+        }
     }
 };
 
@@ -322,8 +345,8 @@ function Index(props) {
         })
     }
 
-    // const defaultScreen = (userId == -1 || firstTimeLink) ? "Login" : "TabNavigation";
-    const defaultScreen = "Debug";
+    const defaultScreen = (userId == -1 || firstTimeLink) ? "Login" : "TabNavigation";
+    // const defaultScreen = "Debug";
 
     return (
         <>

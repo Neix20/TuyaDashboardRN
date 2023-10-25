@@ -91,11 +91,13 @@ export {
 import BcApacheChart from "./Chart/eChart";
 import BcApacheBarChart from "./Chart/bar";
 import BcApacheChartFull from "./Chart/full";
+import BcApacheChartDebug from "./Chart/debug";
 
 export {
     BcApacheChart,
     BcApacheBarChart,
-    BcApacheChartFull
+    BcApacheChartFull,
+    BcApacheChartDebug
 }
 
 import BcLineChart from "./LineChart";

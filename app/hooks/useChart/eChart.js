@@ -38,6 +38,22 @@ function Index(default_key) {
 
             delete obj["Device_Id"];
 
+            // [
+            //     {
+            //         "Temperature": 1,
+            //         "Humidity": 1
+            //     },
+            //     {
+            //         "Temperature": 2,
+            //         "Humidity": 2
+            //     }
+            // ]
+
+            // {
+            //     "Temperature": [1, 2, 3],
+            //     "Humidity": [1, 2, 3]
+            // }
+
             for (const o_key in obj) {
                 const o_val = obj[o_key];
 
@@ -48,7 +64,6 @@ function Index(default_key) {
                     dataDict[o_key] = [o_val];
                 }
             }
-
         }
 
         return dataDict;
@@ -76,9 +91,11 @@ function Index(default_key) {
             const ck_obj = chart[key][0];
 
             for (const ck_key in ck_obj) {
+
                 if (ck_key === "Timestamp") {
                     continue;
                 }
+
                 ck_arr.push(ck_key);
             }
 
@@ -126,6 +143,7 @@ function Index(default_key) {
             max_val = Math.max(...val, max_val);
 
             if ("Timestamp" in device_log) {
+                
                 ts = device_log["Timestamp"];
                 label = [...ts];
 
@@ -151,7 +169,6 @@ function Index(default_key) {
 
             ind += 1;
         }
-
         setChartData(() => ({ label, dataset, min: min_val, max: max_val, min_dt, max_dt }));
 
         const legend = Object.keys(chartII);

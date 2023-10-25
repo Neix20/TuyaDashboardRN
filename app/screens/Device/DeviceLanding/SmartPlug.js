@@ -9,13 +9,20 @@ import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 import { Logger, Utility } from "@utility";
 
 import { Images, Svg } from "@config";
+
 import { SmartPlugIIData, DashboardSmartPlugData } from "@config";
 
-import { BcApacheBarChart } from "@components";
+import { BcLoading } from "@components";
 
 import { useOrientation } from "@hooks";
+import { fetchDeviceInfo } from "@api";
 
 import { DateTime } from "luxon";
+
+import { useDispatch, useSelector } from 'react-redux';
+import { Actions, Selectors } from '@redux';
+
+import ItemPanel from "./ItemPanel";
 
 // #region Hooks
 function useBarChart() {
@@ -40,9 +47,6 @@ function useBarChart() {
             const keys = Object.keys(obj);
             setChartLegend(keys);
 
-            let min_val = Number.MAX_VALUE;
-            let max_val = Number.MIN_VALUE;
-
             let dataset = [];
 
             for (const key of keys) {
@@ -50,9 +54,6 @@ function useBarChart() {
                 val = val.map(x => +x);
 
                 if (val.length == 0) continue;
-
-                min_val = Math.min(...val, min_val);
-                max_val = Math.max(...val, max_val);
 
                 let obj = {
                     name: key,
@@ -64,9 +65,7 @@ function useBarChart() {
 
             let dict = {
                 label,
-                dataset,
-                min: min_val,
-                max: max_val
+                dataset
             };
 
             setChartData(dict);
@@ -118,7 +117,6 @@ function LandingInfo(props) {
                     width: width * 0.76,
                     height: width * 0.76
                 }}>
-
             </View>
 
             <View>
@@ -188,7 +186,16 @@ function Index(props) {
     const navigation = useNavigation();
     const isFocused = useIsFocused();
 
-    const { Current, Power, Voltage, KWh } = SmartPlugIIData;
+    const userId = useSelector(Selectors.userIdSelect);
+
+    // #region Props
+    const item = props.route.params;
+    const { Id: deviceId, Title } = item;
+    // #endregion
+
+    // #region UseState
+    const [deviceInfo, setDeviceInfo] = useState({});
+    const [loading, setLoading] = useState(false);
 
     const color = ["#392c44", "#b2d9c8"];
 
@@ -196,49 +203,102 @@ function Index(props) {
     const [width, height] = orientHook.slice(0, 2);
 
     const [chart, setChart, chartData, setChartData, chartLegend] = useBarChart();
+    const barChartHook = [chart, setChart, "", null, chartData, setChartData, chartLegend, null, null];
+    // #endregion
+
+    // #region UseEffect
+    useEffect(() => {
+        if (isFocused) {
+            setLoading(true);
+            fetchDeviceInfo({
+                param: {
+                    UserId: userId,
+                    DeviceId: deviceId,
+                },
+                onSetLoading: setLoading,
+            })
+                .then(data => {
+                    setDeviceInfo(data)
+                })
+                .catch(err => {
+                    setLoading(false);
+                    console.log(`Error: ${err}`);
+                })
+        }
+    }, [deviceId]);
 
     useEffect(() => {
         if (isFocused) {
             setChart(DashboardSmartPlugData);
         }
     }, [isFocused]);
+    // #endregion
 
-    const barChartHook = [chart, setChart, "", null, chartData, setChartData, chartLegend, null, null];
+    const { MetaData = {}, Online_Status = 0 } = deviceInfo;
+
+    const Current = MetaData["Current (mA)"];
+    const Power = MetaData["Power (W)"];
+    const Voltage = MetaData["Voltage (V)"];
+    const KWh = MetaData["KWh"];
+
+    // #region Navigation
+    const GoToInfo = () => navigation.navigate("DeviceInfo", deviceInfo);
+    const GoToChart = () => navigation.navigate("DeviceSPChart", deviceInfo);
+    const GoToTable = () => navigation.navigate("DeviceTable", deviceInfo);
+    const GoToRules = () => navigation.navigate("DeviceRulesInfo", deviceInfo);
+    // #endregion
 
     return (
-        <SafeAreaView style={{ flex: 1 }}>
-            <View style={{ flex: 1 }} bgColor={"#392c44"}>
+        <>
+            <BcLoading loading={loading} />
+            <SafeAreaView style={{ flex: 1 }}>
+                <View style={{ flex: 1 }} bgColor={"#392c44"}>
 
-                {/* Header */}
-                <Header>Smart Plug</Header>
+                    {/* Header */}
+                    <Header>{Title}</Header>
 
-                {/* Body */}
-                <ScrollView showsVerticalScrollIndicator={false}
-                    contentContainerStyle={{ flexGrow: 1 }}>
-                    <VStack flexGrow={1} space={3}>
-                        <View alignItems={"center"}>
-                            <LandingInfo Title={"Total (KWh)"} Value={KWh} width={width} />
-                        </View>
+                    {/* Body */}
+                    <ScrollView showsVerticalScrollIndicator={false}
+                        contentContainerStyle={{ flexGrow: 1 }}>
+                        <VStack flexGrow={1} space={3}>
+                            <View alignItems={"center"}>
+                                <LandingInfo Title={"Total (KWh)"} Value={KWh} width={width} />
+                            </View>
 
-                        <View alignItems={"center"}>
-                            <HStack width={"90%"} alignItems={"center"} justifyContent={"space-between"}>
-                                <LandingHeaderTxt Title={"Current(mA)"} Value={Current} />
-                                <LandingHeaderTxt Title={"Power(W)"} Value={Power} />
-                                <LandingHeaderTxt Title={"Voltage(V)"} Value={Voltage} />
-                                <LandingHeaderTxt Title={"Total(KWh)"} Value={KWh} />
-                            </HStack>
-                        </View>
+                            <View alignItems={"center"}>
+                                <HStack width={"90%"} alignItems={"center"} justifyContent={"space-between"}>
+                                    <LandingHeaderTxt Title={"Current (mA)"} Value={Current} />
+                                    <LandingHeaderTxt Title={"Power (W)"} Value={Power} />
+                                    <LandingHeaderTxt Title={"Voltage (V)"} Value={Voltage} />
+                                    <LandingHeaderTxt Title={"Total (KWh)"} Value={KWh} />
+                                </HStack>
+                            </View>
 
-                        <View alignItems={"center"} bgColor={"#FFF"} py={3}>
-                            <BcApacheBarChart hook={barChartHook} height={240} />
-                        </View>
-                    </VStack>
-                </ScrollView>
+                            <VStack space={3} alignItems={"center"}>
+                                <ItemPanel Icon={FontAwesome5} name={"power-off"} disabled={true} onPress={() => { }}>
+                                    <Text style={{
+                                        fontSize: 18,
+                                        fontFamily: "Roboto-Medium",
+                                    }}>
+                                        <Text>Status: </Text>
+                                        <Text key={Online_Status} style={{
+                                            color: (Online_Status == 1) ? "#0F0" : "#F00"
+                                        }}>{Online_Status == 1 ? "Online" : "Offline"}</Text>
+                                    </Text>
+                                </ItemPanel>
+                                <ItemPanel Icon={FontAwesome5} name={"clipboard-list"} onPress={GoToRules}>Device Rules</ItemPanel>
+                                <ItemPanel Icon={FontAwesome5} name={"chart-area"} onPress={GoToChart}>Data Chart</ItemPanel>
+                                <ItemPanel Icon={FontAwesome5} name={"table"} onPress={GoToTable}>Data Table</ItemPanel>
+                            </VStack>
 
-                {/* Footer */}
-                <View style={{ height: 60 }} />
-            </View>
-        </SafeAreaView>
+                        </VStack>
+                    </ScrollView>
+
+                    {/* Footer */}
+                    <View style={{ height: 60 }} />
+                </View>
+            </SafeAreaView>
+        </>
     );
 }
 

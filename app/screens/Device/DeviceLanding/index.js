@@ -19,6 +19,8 @@ import { fetchDeviceInfo } from "@api";
 import { useDispatch, useSelector } from 'react-redux';
 import { Actions, Selectors } from '@redux';
 
+import ItemPanel from "./ItemPanel";
+
 // #region Components
 function Header(props) {
 
@@ -78,31 +80,6 @@ function Header(props) {
             {/* <TouchableOpacity onPress={onSelectEdit}>
                 <FontAwesome5 name={"edit"} size={24} color={"#FFF"} />
             </TouchableOpacity> */}
-        </View>
-    )
-}
-
-function ItemPanel(props) {
-
-    const { Icon, name } = props;
-
-    const { children } = props;
-
-    return (
-        <View
-            width={"90%"} bgColor={"#FFF"}
-            alignItems={"center"} justifyContent={"center"}
-            borderRadius={12} style={{ height: 60 }}>
-            <TouchableOpacity {...props} style={{ width: "90%" }}>
-                <HStack alignItems={"center"} space={3}>
-                    <Icon name={name} color={"#000"} size={24} />
-                    <Text style={[{
-                        fontSize: 18,
-                        color: "#000",
-                        fontFamily: "Roboto-Medium",
-                    }]}>{children}</Text>
-                </HStack>
-            </TouchableOpacity>
         </View>
     )
 }
@@ -178,9 +155,10 @@ function DeviceDataPanel(props) {
     }
 
     if (IsTempHumd == 1) {
-        const AH_Humidity = MetaData["Absolute Humidity"] || 0;
-        const RH_Humidity = MetaData["Relative Humidity"] || 0;
-        const Temperature = MetaData["Temperature"] || 0;
+
+        const Temperature = MetaData["Temperature (℃)"];
+        const RH_Humidity = MetaData["Relative Humidity (%)"];
+        const AH_Humidity = MetaData["Absolute Humidity"];
 
         return (
             <VStack space={5} height={"100%"}
@@ -308,23 +286,20 @@ function Index(props) {
 
     // #region Navigation
     const GoToInfo = () => navigation.navigate("DeviceInfo", deviceInfo);
-    const GoToAlert = () => navigation.navigate("DeviceAlert", deviceInfo);
     const GoToChart = () => navigation.navigate("DeviceChart", deviceInfo);
     const GoToTable = () => navigation.navigate("DeviceTable", deviceInfo);
     const GoToRules = () => navigation.navigate("DeviceRulesInfo", deviceInfo);
-
     // #endregion
 
-    const { Online_Status = 0, IsTempHumd = 0, IsSmartPlug = 0 } = deviceInfo;
+    const { Online_Status = 0 } = deviceInfo;
+    const { IsTempHumd = 0, IsSmartPlug = 0, IsAirQuality = 0, IsAirCon = 0, IsSmartCamera = 0 } = deviceInfo;
 
-    let ind = 2;
+    let ind = -1;
 
-    if (IsTempHumd == 1) {
+    if (IsTempHumd != 1) {
+        ind = 2;
+    } else {
         ind = 3;
-    }
-
-    if (IsSmartPlug == 1) {
-        ind = 1;
     }
 
     return (
@@ -362,8 +337,7 @@ function Index(props) {
                                 </View>
                                 <VStack
                                     flex={.75} space={5} width={"100%"} alignItems={"center"}>
-                                    <ItemPanel Icon={FontAwesome5} name={"power-off"} disabled={true}
-                                        onPress={() => { }}>
+                                    <ItemPanel Icon={FontAwesome5} name={"power-off"} disabled={true} onPress={() => { }}>
                                         <Text style={{
                                             fontSize: 18,
                                             fontFamily: "Roboto-Medium",
@@ -376,14 +350,17 @@ function Index(props) {
                                     </ItemPanel>
                                     <ItemPanel Icon={FontAwesome5} name={"info-circle"} onPress={GoToInfo}>Device Info</ItemPanel>
                                     <ItemPanel Icon={FontAwesome5} name={"clipboard-list"} onPress={GoToRules}>Device Rules</ItemPanel>
+
                                     {/* <ItemPanel Icon={FontAwesome5} name={"bell"} onPress={GoToAlert}>Device Alert</ItemPanel> */}
                                     {
-                                        (IsTempHumd == 1 || IsSmartPlug == 1) ? (
+                                        (IsTempHumd == 1) ? (
                                             <>
                                                 <ItemPanel Icon={FontAwesome5} name={"chart-area"} onPress={GoToChart}>Data Chart</ItemPanel>
                                                 <ItemPanel Icon={FontAwesome5} name={"table"} onPress={GoToTable}>Data Table</ItemPanel>
                                             </>
-                                        ) : (<></>)
+                                        ) : (
+                                            <></>
+                                        )
                                     }
                                 </VStack>
                             </VStack>
