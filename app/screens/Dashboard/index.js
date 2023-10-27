@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { Text, TouchableOpacity, Image, TextInput, SafeAreaView, ImageBackground, ScrollView } from "react-native";
 import { View, VStack, HStack, useToast } from "native-base";
 
-import FontAwesome from "react-native-vector-icons/FontAwesome";
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 
 import { useNavigation, useIsFocused } from "@react-navigation/native";
@@ -11,67 +10,15 @@ import { Logger, Utility } from "@utility";
 
 import { Images, Svg, iRDataUnit, DashboardSmartPlugData } from "@config";
 
-import { BcBoxShadow, BcSvgIcon, BcDateRange, BcViewShot, BcLoading, BcYatuHome, BcApacheBarChart, BcApacheChartFull } from "@components";
+import { BcBoxShadow, BcSvgIcon, BcDateRange, BcViewShot, BcLoading, BcYatuHome, BcApacheChartFull, BcDataAttribute, BcApacheBarChart, BcApacheBarChartFull } from "@components";
 
 import { DateTime } from "luxon";
 
 import { fetchDashboardInfo, fetchReportData } from "@api";
-import { useDate, useToggle, useEChart, useOrientation } from "@hooks";
+import { useDate, useToggle, useEChart, useOrientation, useBarChart } from "@hooks";
 
 import { useDispatch, useSelector } from 'react-redux';
 import { Actions, Selectors } from '@redux';
-
-// #region Custom Hooks
-function useBarChart() {
-
-    const [chart, setChart] = useState([]);
-    const [chartData, setChartData] = useState({});
-
-    const [chartLegend, setChartLegend] = useState([])
-
-    useEffect(() => {
-        if (chart.length > 1) {
-
-            const obj = { ...chart[0] };
-            delete obj["Device_Id"];
-
-            let ts = chart.map(x => x["Timestamp"]);
-
-            const label = ts.map(x => DateTime.fromISO(x).toFormat("MM-dd"));
-
-            delete obj["Timestamp"];
-
-            const keys = Object.keys(obj);
-            setChartLegend(keys);
-
-            let dataset = [];
-
-            for (const key of keys) {
-                let val = chart.map(x => x[key]);
-                val = val.map(x => +x);
-
-                if (val.length == 0) continue;
-
-                let obj = {
-                    name: key,
-                    data: val
-                }
-
-                dataset.push(obj);
-            }
-
-            let dict = {
-                label,
-                dataset
-            };
-
-            setChartData(dict);
-        }
-    }, [chart]);
-
-    return [chart, setChart, chartData, setChartData, chartLegend];
-}
-// #endregion
 
 // #region Components
 function Header(props) {
@@ -160,49 +107,6 @@ function CardGradientItem(props) {
     )
 }
 
-function DataAttribute(props) {
-
-    const { data = [] } = props;
-
-    if (data.length == 0) {
-        return (<></>)
-    }
-
-    let keys = Object.keys(data[0]);
-
-    const svg_key = Object.keys(Svg["MetaData_Header"]);
-    keys = keys.filter(x => svg_key.includes(x));
-
-    const renderItem = (item, index) => {
-        return (
-            <HStack key={index} space={3}
-                alignItems={"center"}>
-                <View style={{ width: 60 }}>
-                    <BcSvgIcon name={item} />
-                </View>
-                <Text style={{
-                    fontFamily: "Roboto-Bold",
-                    fontSize: 16
-                }}>{item}</Text>
-            </HStack>
-        )
-    }
-
-    return (
-        <>
-            {/* <View bgColor={"#FFF"}>
-                <Text style={{
-                    fontFamily: "Roboto-Bold",
-                    fontSize: 18
-                }}>Data Attributes</Text>
-            </View> */}
-            <VStack bgColor={"#FFF"} space={2} pb={2}>
-                {keys.map(renderItem)}
-            </VStack>
-        </>
-    )
-}
-
 function DashboardVoltageReport(props) {
     // #region Initial
     const init = {
@@ -231,10 +135,10 @@ function DashboardVoltageReport(props) {
 
         const { Device_Name = "", Count = 0 } = item;
 
-        const Current = item["Current (mA)"];
-        const Power = item["Power (W)"];
-        const Voltage = item["Voltage (V)"];
-        const KWh = item["KWh"];
+        const Current = item["Current (mA)"] || 0;
+        const Power = item["Power (W)"] || 0;
+        const Voltage = item["Voltage (V)"] || 0;
+        const KWh = item["KWh"] || 0;
 
         const getColor = (val) => {
             const { green, yellow, red } = init.colors;
@@ -274,7 +178,7 @@ function DashboardVoltageReport(props) {
                     flex={1}>
                     <Text style={{
                         fontFamily: "Roboto-Bold"
-                    }}>{(KWh / 1000).toFixed(2)}</Text>
+                    }}>{KWh}</Text>
                 </View>
                 <View alignItems={"flex-end"} flex={1}>
                     <Text>{Count}</Text>
@@ -538,8 +442,8 @@ function Index(props) {
     const spChartHook = useEChart("Voltage (V)");
     const [spChart, setSpChart] = spChartHook.slice(0, 2);
 
-    const [barChart, setBarChart, barChartData, setBarChartData, barChartLegend] = useBarChart();
-    const barChartHook = [barChart, setBarChart, "KWh", null, barChartData, setBarChartData, barChartLegend, null, null];
+    const spBarChartHook = useBarChart("Total KiloWatt (KWh)");
+    const [spBarChart, setSpBarChart] = spBarChartHook.slice(0, 2);
 
     const aqChartHook = useEChart("Particle Matter (ug/m3)");
     const [aqChart, setAqChart] = aqChartHook.slice(0, 2);
@@ -581,7 +485,7 @@ function Index(props) {
             })
                 .then(res => {
                     if ("IR Temperature" in res) {
-                        const Data = res["IR Temperature"]
+                        const Data = res["IR Temperature"];
                         setChart(Data);
                     } else {
                         setChart({})
@@ -592,6 +496,13 @@ function Index(props) {
                         setSpChart(Data);
                     } else {
                         setSpChart({});
+                    }
+
+                    if ("Smart Plug KWh" in res) {
+                        const Data = res["Smart Plug KWh"];
+                        setSpBarChart(Data);
+                    } else {
+                        setSpBarChart({});
                     }
 
                     if ("Air Quality" in res) {
@@ -679,13 +590,9 @@ function Index(props) {
                         setLoading(false);
                         console.log(`Error: ${err}`);
                     })
-            }, 5000);
+            }, 10 * 1000);
         }
     }, [isFocused, JSON.stringify(cmpStartDt + cmpEndDt + homeId)]);
-
-    useEffect(() => {
-        setBarChart(DashboardSmartPlugData);
-    }, []);
     // #endregion
 
     return (
@@ -738,9 +645,9 @@ function Index(props) {
                                         {
                                             (Object.keys(spChart).length > 0) ? (
                                                 <View px={3} style={{ width: width }}>
-                                                    <BcViewShot title="Daily Smart Plug Data">
-                                                        <BcApacheChartFull hook={spChartHook} height={400} />
-                                                        {/* <BcApacheBarChart hook={barChartHook} height={400} /> */}
+                                                    <BcViewShot title="Total KiloWatt (KWh) Report">
+                                                        {/* <BcApacheChartFull hook={spChartHook} height={400} /> */}
+                                                        <BcApacheBarChartFull hook={spBarChartHook} height={400} />
                                                     </BcViewShot>
                                                 </View>
                                             ) : (
@@ -776,7 +683,7 @@ function Index(props) {
                                             (Object.keys(drData).length > 0) ? (
                                                 <View px={3} style={{ width: c_width }}>
                                                     <BcViewShot title="Humidity Device Report">
-                                                        <DataAttribute data={[{
+                                                        <BcDataAttribute data={[{
                                                             "Absolute Humidity": 0,
                                                             "Relative Humidity (%)": 0,
                                                             "Temperature (℃)": 0,
@@ -794,10 +701,10 @@ function Index(props) {
                                                 <>
                                                     <View px={3} style={{ width: c_width }}>
                                                         <BcViewShot title="Air Quality Device Report">
-                                                            <DataAttribute data={[{
-                                                                "Formaldehyde (mg/m3)": 0,
+                                                            <BcDataAttribute data={[{
                                                                 "Particle Matter (ug/m3)": 0,
                                                                 "Carbon Dioxide (ppm)": 0,
+                                                                "Formaldehyde (mg/m3)": 0,
                                                             }]} />
                                                             <DashboardAirQualityReport data={drAqData} />
                                                         </BcViewShot>
@@ -813,11 +720,11 @@ function Index(props) {
                                                 <>
                                                     <View px={3} style={{ width: c_width }}>
                                                         <BcViewShot title="Smart Plug Device Report">
-                                                            <DataAttribute data={[{
+                                                            <BcDataAttribute data={[{
                                                                 "Current (mA)": 0,
                                                                 "Power (W)": 0,
                                                                 "Voltage (V)": 0,
-                                                                "KWh": 0
+                                                                "Total KiloWatt (KWh)": 0
                                                             }]} />
                                                             <DashboardVoltageReport data={drSpData} />
                                                         </BcViewShot>

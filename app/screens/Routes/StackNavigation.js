@@ -20,7 +20,7 @@ import DeviceAlert from "@screens/Device/DeviceAlert";
 import DeviceTable from "@screens/Device/DeviceTable";
 
 import DeviceChart from "@screens/Device/DeviceChart";
-import DeviceSPChart from "@screens/Device/DeviceSPChart";
+import DeviceSPChart from "@screens/Device/DeviceChart/SmartPlug";
 
 import DeviceRulesInfo from "@screens/DeviceRules/DeviceRulesInfo";
 import AddDeviceRules from "@screens/DeviceRules/AddDeviceRules";

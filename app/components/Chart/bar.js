@@ -9,7 +9,7 @@ import { SVGRenderer, SkiaChart } from '@wuba/react-native-echarts';
 import { LineChart, BarChart } from 'echarts/charts';
 import { TitleComponent, TooltipComponent, GridComponent, LegendComponent, ToolboxComponent, DataZoomComponent } from 'echarts/components';
 
-import { useOrientation } from "@hooks";
+import { useOrientation, useCoor } from "@hooks";
 
 import { Logger, Utility } from "@utility";
 
@@ -74,7 +74,7 @@ function Index(props) {
 
 	const [unit, setUnit] = useState("");
 
-	const optDataSet = [...dataset.map(x => ({ ...x, type: "bar" }))]
+	const optDataSet = dataset.map(x => ({ ...x, type: "bar" }));
 
 	useEffect(() => {
 		let ut = Utility.genUnit(chartKey);
@@ -92,7 +92,7 @@ function Index(props) {
 			feature: {
                 restore: {}
             },
-			top: 40,
+			top: 0,
 			right: 5,
 		},
 		legend: {
@@ -141,20 +141,15 @@ function Index(props) {
 		},
 		dataZoom: [
 			{
-				type: 'slider',
-				top: 0,
-				left: 5,
-				right: 5,
-			},
-			{
 				type: 'inside',
 				xAxisIndex: [0]
 			}
 		],
 		grid: {
+			top: 10,
 			left: 5,
 			right: 5,
-			bottom: 50,
+			bottom: 60,
 			containLabel: true,
 		},
 		series: optDataSet
@@ -164,7 +159,7 @@ function Index(props) {
 		<>
 			<View alignItems={"center"}>
 				<Text style={{ fontStyle: 'italic' }}>
-					Hint: Drag the bar to zoom out graph
+					Hint: Use Finger Gesture to Zoom in on graph
 				</Text>
 			</View>
 			<ChartComponent 

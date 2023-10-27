@@ -2,30 +2,17 @@ import { useState, useEffect } from "react";
 
 import { DateTime } from "luxon";
 
-import { Svg } from "@config";
-
-import { Utility } from "@utility";
-
 function Index(default_key) {
 
-    const init = {
-        chartData: {
-            dataset: [0],
-            min: 0,
-            max: 0,
-        }
-    }
-
-    const svg_key = Object.keys(Svg["MetaData_Header"]);
-
-    // #region Use State
-    const [chart, setChart] = useState({});
-    const [chartKey, setChartKey] = useState(default_key);
-
+    // #region UseState
+    const [chart, setChart] = useState([]);
     const [chartII, setChartII] = useState({});
 
-    const [chartData, setChartData] = useState(init.chartData);
+    const [chartData, setChartData] = useState({});
+
     const [chartLegend, setChartLegend] = useState([]);
+
+    const [chartKey, setChartKey] = useState(default_key);
     const [chartKeyOption, setChartKeyOption] = useState([]);
     // #endregion
 
@@ -75,12 +62,11 @@ function Index(default_key) {
         let data_dict = {};
 
         for (const key in chart) {
-            // DCH-CRYS
             const val = chart[key];
             data_dict[key] = gen_device_log(val);
         }
 
-        setChartII(data_dict);
+        setChartII(_ => data_dict);
 
         let ck_arr = [];
 
@@ -102,33 +88,16 @@ function Index(default_key) {
             break;
         }
 
-        ck_arr = ck_arr.filter(x => svg_key.includes(x));
         setChartKeyOption(ck_arr);
     }, [chart]);
 
-    // Generate Dataset and Legend
-    // This is Based on Which Chart Key is Selected
-    // TODO: Change This Shit
     useEffect(() => {
-
-        const unit = Utility.genUnit(chartKey);
 
         let dataset = [];
         let label = [];
 
-        let ts = [];
-
-        let min_val = Number.MAX_VALUE;
-        let max_val = Number.MIN_VALUE;
-
-        let min_dt = DateTime.now().toSeconds();
-        let max_dt = DateTime.fromFormat("2021-01-01", "yyyy-MM-dd").toSeconds();
-
-        min_dt = Math.floor(min_dt * 1000);
-        max_dt = Math.floor(max_dt * 1000);
-
-        let ind = 0;
         for (const key in chartII) {
+            console.log(key, chartKey)
             const device_log = chartII[key];
 
             let val = [0];
@@ -138,27 +107,11 @@ function Index(default_key) {
                 val = val.map(x => +x);
             }
 
-            // Get Min, Max value
-            min_val = Math.min(...val, min_val);
-            max_val = Math.max(...val, max_val);
+            label = device_log["Timestamp"].map(x => DateTime.fromISO(x).toFormat("yyyy-MM-dd"));
 
-            if ("Timestamp" in device_log) {
-                
-                ts = device_log["Timestamp"];
-                label = [...ts];
+            val = val.map(x => +x);
 
-                ts = ts.map(x => DateTime.fromISO(x).toSeconds());
-                ts = ts.map(x => Math.floor(x * 1000));
-
-                min_dt = Math.min(...ts, min_dt);
-                max_dt = Math.max(...ts, max_dt);
-            }
-
-            label = label.map(x => DateTime.fromISO(x).toFormat("T"))
-
-            val = val.map((x, ind) => ({
-                value: [ts[ind], x]
-            }));
+            if (val.length == 0) continue;
 
             let obj = {
                 name: key,
@@ -166,10 +119,11 @@ function Index(default_key) {
             }
 
             dataset.push(obj);
-
-            ind += 1;
         }
-        setChartData(() => ({ label, dataset, min: min_val, max: max_val, min_dt, max_dt }));
+
+        console.log(JSON.stringify(dataset))
+
+        setChartData(() => ({ label, dataset }));
 
         const legend = Object.keys(chartII);
         setChartLegend(() => legend);

@@ -66,3 +66,27 @@
     3. Fixed Missing Gap Data for interval points.
     4. Fixed Chart Scale. Chart now automatically scales based on min and max points.
 </en-US>
+
+#### Version 1.2.7
+---------------------
+<en-US>
+    Features Update:
+    1. Chart Controls: Improve Data Navigation, Added Zoom Support. Added 3 Different Data Interval Points. Added Dropdown to select based on Existing Attribute.
+    2. Widget Update: Added Smart Plug Widget & Air Quality Widget. KWh represents total electrical usage for the past day.
+    3. Fixed Missing Gap Data for interval points.
+    4. Fixed Chart Scale. Chart now automatically scales based on min and max points.
+</en-US>
+
+#### Version 1.2.8
+---------------------
+<en-US>
+    Features Update:
+    1. Bug Fixes: 
+        i. Fixed Chart Timestamp refresh error when changing attributes.
+        ii. Change "Request OTP" to "Resend OTP" after user has requested OTP
+        iii. Fixed Chart Data Refreshing Twice on load.
+        iv. Update Chart Attribute Dropdown
+    2. Widget Update: Added Smart Plug & Air Con Device Landing Page. Total Electrical Usage of Smart Plug are grouped by date and shown within Smart Plug Device Chart.
+    3. Used Data Compression Technique to Store Data Point
+    4. Chart Update: Added Attribute Unit to all Chart Data Type.
+</en-US>

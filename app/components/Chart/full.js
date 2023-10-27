@@ -108,31 +108,24 @@ function Index(props) {
     const dropdownLs = chartKeyOption.map(x => ({ label: x, value: x }));
 
     return (
-        <>
-            <DataAttributeModal key={chartKeyOption.length}
-                data={chartKeyOption}
-                showModal={showDaModal} setShowModal={setShowDaModal}
-                chartKey={chartKey} setChartKey={setChartKey}
-            />
-            <VStack space={2}>
-                <HStack py={1}
-                    alignItems={"center"} style={{ height: 48 }}>
-                    <View flex={.4}>
-                        <Text style={{
-                            fontFamily: "Roboto-Bold",
-                            fontSize: 16
-                        }}>Data Attribute</Text>
-                    </View>
-                    <View flex={.6}>
-                        <BcDropdown key={chartKeyOption.length}
-                            items={dropdownLs} placeholder={"Select Data Attribute"}
-                            value={chartKey} setValue={setChartKey}
-                        />
-                    </View>
-                </HStack>
-                <BcApacheChart {...props} />
-            </VStack>
-        </>
+        <VStack space={2}>
+            <HStack py={1}
+                alignItems={"center"} style={{ height: 48 }}>
+                <View flex={.4}>
+                    <Text style={{
+                        fontFamily: "Roboto-Bold",
+                        fontSize: 16
+                    }}>Data Attribute</Text>
+                </View>
+                <View flex={.6}>
+                    <BcDropdown key={chartKeyOption.length}
+                        items={dropdownLs} placeholder={"Select Data Attribute"}
+                        value={chartKey} setValue={setChartKey}
+                    />
+                </View>
+            </HStack>
+            <BcApacheChart {...props} />
+        </VStack>
     )
 }
 

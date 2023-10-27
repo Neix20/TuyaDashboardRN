@@ -1,13 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { Text, TouchableOpacity, Image, TextInput, Dimensions, SafeAreaView, ImageBackground, ScrollView } from "react-native";
+import { Text, TouchableOpacity, Image, TextInput, SafeAreaView, ImageBackground, ScrollView } from "react-native";
 import { View, VStack, HStack, useToast } from "native-base";
 
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 import { useNavigation, useIsFocused } from "@react-navigation/native";
-
-const screen = Dimensions.get("screen");
-const { width, height } = screen;
 
 import { Logger, Utility } from "@utility";
 
@@ -15,97 +12,14 @@ import { DateTime } from "luxon";
 
 import { BcLoading, BcHeader, BcDateRange, BcLineChart, BcSvgIcon, BcApacheChart } from "@components";
 
-import { Tab, TabView } from "@rneui/themed";
-
 import { useToggle, useDate, useOrientation } from "@hooks";
 
 import { fetchDeviceDataChart } from "@api";
 
-import { Svg } from "@config";
-
 import { useDispatch, useSelector } from 'react-redux';
 import { Actions, Selectors } from '@redux';
 
-function useChart() {
-
-    const [chart, setChart] = useState([]);
-    const [chartData, setChartData] = useState({});
-    const [chartLegend, setChartLegend] = useState([]);
-
-    const svg_key = Object.keys(Svg["MetaData_Header"]);
-
-    useEffect(() => {
-        if (chart.length > 1) {
-
-            const obj = { ...chart[0] };
-
-            delete obj["Device_Id"];
-
-            let ts = chart.map(x => x["Timestamp"]);
-
-            const label = ts.map(x => DateTime.fromISO(x).toFormat("T"));
-
-            ts = ts.map(x => DateTime.fromISO(x).toSeconds());
-            ts = ts.map(x => Math.floor(x * 1000));
-
-            delete obj["Timestamp"];
-
-            let keys = Object.keys(obj);
-
-            keys = keys.filter(x => svg_key.includes(x));
-
-            setChartLegend(keys);
-
-            let min_val = Number.MAX_VALUE;
-            let max_val = Number.MIN_VALUE;
-
-            let min_dt = DateTime.now().toSeconds();
-            let max_dt = DateTime.fromFormat("2021-01-01", "yyyy-MM-dd").toSeconds();
-
-            min_dt = Math.floor(min_dt * 1000);
-            max_dt = Math.floor(max_dt * 1000);
-
-            min_dt = Math.min(...ts, min_dt);
-            max_dt = Math.max(...ts, max_dt);
-
-            let dataset = [];
-
-            for (const key of keys) {
-                let val = chart.map(x => x[key]);
-                val = val.map(x => +x);
-
-                if (val.length == 0) continue;
-
-                min_val = Math.min(...val, min_val);
-                max_val = Math.max(...val, max_val);
-
-                val = val.map((x, ind) => ({
-                    value: [ts[ind], x]
-                }));
-
-                let obj = {
-                    name: key,
-                    data: val
-                }
-
-                dataset.push(obj);
-            }
-
-            let dict = {
-                label,
-                dataset,
-                min: min_val,
-                max: max_val,
-                min_dt,
-                max_dt
-            };
-
-            setChartData(dict);
-        }
-    }, [chart]);
-
-    return [chart, setChart, chartData, setChartData, chartLegend];
-}
+import { useChartSimple } from "@hooks";
 
 function EmptyList(props) {
     return (
@@ -154,7 +68,7 @@ function Index(props) {
 
     const prevDateHook = useDate(init.cmpDateObj);
 
-    const [chart, setChart, chartData, setChartData, chartLegend] = useChart();
+    const [chart, setChart, chartData, setChartData, chartLegend] = useChartSimple();
 
     const [width, height, isPort, isLand] = useOrientation();
     // #endregion

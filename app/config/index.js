@@ -16,6 +16,8 @@ import AlertDataList from "./data/alert_data_v2.json";
 import DashboardReportData from "./data/dashboard_report_data.json";
 
 import DashboardSmartPlugData from "./data/dashboard_smart_plug.json";
+import DashboardSmartPlugFullData from "./data/dashboard_smart_plug_full.json";
+
 import SmartPlugIIData from "./data/smart_plug_ii.json";
 import AirConData from "./data/air_con.json";
 
@@ -40,6 +42,7 @@ export {
     AlertDataList,
     DashboardReportData,
     DashboardSmartPlugData,
+    DashboardSmartPlugFullData,
     SmartPlugIIData,
     AirConData,
 };

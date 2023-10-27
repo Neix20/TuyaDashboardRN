@@ -11,7 +11,7 @@ const { width, height } = screen;
 
 import { Logger, Utility } from "@utility";
 
-import { BcHeader, BcLoading, BcDateRange, BcSvgIcon } from "@components";
+import { BcHeader, BcLoading, BcDateRange, BcSvgIcon, BcDataAttribute } from "@components";
 
 import { fetchDeviceDataChart } from "@api";
 
@@ -54,7 +54,6 @@ function DataTable(props) {
 
     // Only Filter Keys That Are In Svg
     const svg_key = Object.keys(Svg["MetaData_Header"]);
-
     keys = keys.filter(x => [...svg_key, "Timestamp"].includes(x));
 
     // #region Render Item
@@ -122,43 +121,21 @@ function DataAttribute(props) {
         return (<></>)
     }
 
-    let keys = Object.keys(data[0]);
-
-    const svg_key = Object.keys(Svg["MetaData_Header"]);
-    keys = keys.filter(x => svg_key.includes(x));
-
-    const renderItem = (item, index) => {
-        return (
-            <HStack key={index} space={3}
-                width={"90%"}
-                alignItems={"center"}>
-                <View style={{ width: 48 }}>
-                    <BcSvgIcon name={item} />
-                </View>
-                <Text style={{
-                    fontFamily: "Roboto-Bold",
-                    fontSize: 16
-                }}>{item}</Text>
-            </HStack>
-        )
-    }
 
     return (
-        <>
-            <View py={3}
-                alignItems={"center"}
-                bgColor={"#FFF"}>
-                <View w={'90%'}>
-                    <Text style={{
-                        fontFamily: "Roboto-Bold",
-                        fontSize: 18
-                    }}>Data Attributes</Text>
-                </View>
+        <VStack pt={3} space={2}
+            alignItems={"center"}
+            bgColor={"#FFF"}>
+            <View w={'90%'}>
+                <Text style={{
+                    fontFamily: "Roboto-Bold",
+                    fontSize: 18
+                }}>Data Attributes</Text>
             </View>
-            <VStack alignItems={"center"} bgColor={"#FFF"} space={2} pb={2}>
-                {keys.map(renderItem)}
-            </VStack>
-        </>
+            <View w={'90%'}>
+                <BcDataAttribute {...props} />
+            </View>
+        </VStack>
     )
 }
 

@@ -7,11 +7,11 @@ import { useNavigation, useIsFocused } from "@react-navigation/native";
 
 import { Logger, Utility } from "@utility";
 
-import { iRData, iRDataUnit, DowntimeData, clsConst, Images } from "@config";
+import { iRData, iRDataUnit, DowntimeData, clsConst, Images, DashboardSmartPlugFullData } from "@config";
 
-import { useChart, useToggle, useDate, useEChart, useOrientation, useTimer } from "@hooks";
+import { useToggle, useDate, useEChart, useOrientation, useTimer, useBarChart, useCoor } from "@hooks";
 
-import { BcViewShot, BcLineChartFull, BcDateRange, BcLineChart, BcLineLegend, BcApacheChart, BcApacheChartFull, BcDropdown, BcApacheChartDebug } from "@components";
+import { BcViewShot, BcLineChartFull, BcDateRange, BcLineChart, BcLineLegend, BcApacheChart, BcApacheChartFull, BcDropdown, BcApacheChartDebug, BcApacheBarChart } from "@components";
 
 
 function DownTimeTable(props) {
@@ -195,24 +195,44 @@ function Index(props) {
 
 function DeviceChart(props) {
 
-    // const chartHook = useEChart("Absolute Humidity");
+    const isFocused = useIsFocused();
 
-    // const [chart, setChart] = chartHook.slice(0, 2);
+    const chartHook = useEChart("Absolute Humidity");
+    const [chart, setChart] = chartHook.slice(0, 2);
 
-    // useEffect(() => {
-    //     setChart(iRDataUnit);
-    // }, []);
+    const barChartHook = useBarChart("Total KiloWatt (KWh)");
+    const [barChart, setBarChart] = barChartHook.slice(0, 2);
+
+    const [coor, updateCoor] = useCoor();
+
+    useEffect(() => {
+        if (isFocused) {
+            setBarChart(DashboardSmartPlugFullData);
+            setChart(iRDataUnit);
+        }
+    }, [isFocused]);
+
 
     return (
         <SafeAreaView style={{ flex: 1 }}>
-
             <ScrollView
                 showsVerticalScrollIndicator={false}
                 keyboardShouldPersistTaps={"handled"}
                 contentContainerStyle={{ flexGrow: 1 }}>
                 <VStack py={3} space={3} alignItems={"center"}>
                     {/* <BcApacheChartFull hook={chartHook} height={480} /> */}
-                    <BcApacheChartDebug />
+                    {/* <BcApacheChartDebug /> */}
+                    {/* <BcApacheBarChart hook={barChartHook} height={480} /> */}
+                    <Text>{JSON.stringify(coor)}</Text>
+                    <TouchableOpacity onPress={updateCoor}>
+                        <View bgColor={"#F00"} p={3}>
+                            <Text style={{
+                                fontFamily: "Roboto-Bold",
+                                color: "#FFF",
+                                fontSize: 24,
+                            }}>Coor</Text>
+                        </View>
+                    </TouchableOpacity>
                 </VStack>
             </ScrollView>
         </SafeAreaView>

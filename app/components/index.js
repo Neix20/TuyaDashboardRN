@@ -88,14 +88,22 @@ export {
     BcGradient
 }
 
+import BcDataAttribute from "./DataAttribute";
+
+export {
+    BcDataAttribute
+}
+
 import BcApacheChart from "./Chart/eChart";
 import BcApacheBarChart from "./Chart/bar";
+import BcApacheBarChartFull from "./Chart/barFull";
 import BcApacheChartFull from "./Chart/full";
 import BcApacheChartDebug from "./Chart/debug";
 
 export {
     BcApacheChart,
     BcApacheBarChart,
+    BcApacheBarChartFull,
     BcApacheChartFull,
     BcApacheChartDebug
 }

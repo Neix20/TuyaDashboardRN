@@ -3,10 +3,13 @@ import useWifi from "./useWifi";
 import useToggle from "./useToggle";
 import useModalToast from "./useModalToast";
 
-import useChart from "./useChart";
-import useEChart from "./useChart/eChart";
+import useEChart from "./useChart";
+import useChartSimple from "./useChart/chartSimple";
+import useBarChartSimple from "./useChart/barChartSimple";
+import useBarChart from "./useChart/bar";
 
 import useDate from "./useDate";
+import useCoor from "./useCoor";
 
 import useOrientation from "./useOrientation";
 
@@ -17,9 +20,12 @@ export {
     useModalToast,
     useDate,
     useOrientation,
+    useCoor,
 }
 
 export {
-    useChart,
     useEChart,
+    useBarChart,
+    useChartSimple,
+    useBarChartSimple
 }

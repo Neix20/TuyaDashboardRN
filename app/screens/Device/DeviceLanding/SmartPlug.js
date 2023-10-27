@@ -10,8 +10,6 @@ import { Logger, Utility } from "@utility";
 
 import { Images, Svg } from "@config";
 
-import { SmartPlugIIData, DashboardSmartPlugData } from "@config";
-
 import { BcLoading } from "@components";
 
 import { useOrientation } from "@hooks";
@@ -23,58 +21,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Actions, Selectors } from '@redux';
 
 import ItemPanel from "./ItemPanel";
-
-// #region Hooks
-function useBarChart() {
-
-    const [chart, setChart] = useState([]);
-    const [chartData, setChartData] = useState({});
-
-    const [chartLegend, setChartLegend] = useState([])
-
-    useEffect(() => {
-        if (chart.length > 1) {
-
-            const obj = { ...chart[0] };
-            delete obj["Device_Id"];
-
-            let ts = chart.map(x => x["Timestamp"]);
-
-            const label = ts.map(x => DateTime.fromISO(x).toFormat("MM-dd"));
-
-            delete obj["Timestamp"];
-
-            const keys = Object.keys(obj);
-            setChartLegend(keys);
-
-            let dataset = [];
-
-            for (const key of keys) {
-                let val = chart.map(x => x[key]);
-                val = val.map(x => +x);
-
-                if (val.length == 0) continue;
-
-                let obj = {
-                    name: key,
-                    data: val
-                }
-
-                dataset.push(obj);
-            }
-
-            let dict = {
-                label,
-                dataset
-            };
-
-            setChartData(dict);
-        }
-    }, [chart]);
-
-    return [chart, setChart, chartData, setChartData, chartLegend];
-}
-// #endregion
 
 // #region Components
 function LandingHeaderTxt(props) {
@@ -201,9 +147,6 @@ function Index(props) {
 
     const orientHook = useOrientation();
     const [width, height] = orientHook.slice(0, 2);
-
-    const [chart, setChart, chartData, setChartData, chartLegend] = useBarChart();
-    const barChartHook = [chart, setChart, "", null, chartData, setChartData, chartLegend, null, null];
     // #endregion
 
     // #region UseEffect
@@ -226,12 +169,6 @@ function Index(props) {
                 })
         }
     }, [deviceId]);
-
-    useEffect(() => {
-        if (isFocused) {
-            setChart(DashboardSmartPlugData);
-        }
-    }, [isFocused]);
     // #endregion
 
     const { MetaData = {}, Online_Status = 0 } = deviceInfo;

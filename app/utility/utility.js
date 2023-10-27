@@ -389,6 +389,8 @@ function genUnit(key) {
 		"Carbon Dioxide (CO2)": "ppm",
 		"Particle Matter (PM2.5)": "ug/m3",
 		"KWh": "KWh",
+		"Total KiloWatt": "KWh",
+		"Total KiloWatt (KWh)": "KWh",
 	}
 
 	if(key in dict) {
