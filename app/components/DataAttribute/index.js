@@ -20,7 +20,7 @@ function Index(props) {
         return (
             <HStack key={index} space={3}
                 alignItems={"center"}>
-                <View style={{ width: 60 }}>
+                <View style={{ width: 48 }}>
                     <BcSvgIcon name={item} />
                 </View>
                 <Text style={{

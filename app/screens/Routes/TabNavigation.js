@@ -10,6 +10,9 @@ import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 
 import { useIsFocused, useNavigation } from "@react-navigation/native";
 
+import { useDispatch, useSelector } from 'react-redux';
+import { Actions, Selectors } from '@redux';
+
 function TabIconFontAwesome(props) {
     const { icon, title, color, focused } = props;
 
@@ -89,7 +92,9 @@ TabScreens = {
 
 function Index(props) {
 
-    const defaultScreen = "Dashboard";
+    const linkTimer = useSelector(Selectors.linkTimerSelect);
+
+    const defaultScreen = (linkTimer > 0) ? "Device" : "Dashboard";
 
     // const navigation = useNavigation();
 

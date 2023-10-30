@@ -47,6 +47,34 @@ const onChangeFirstTimeLink = (firstTimeLink) => {
     }
 };
 
+const onChangeLinkTimer = (linkTimer) => {
+    return {
+        type: "SET_LINK_TIMER",
+        linkTimer: linkTimer,
+    }
+};
+
+const onChangeLinkTotalDuration = (linkTotalDuration) => {
+    return {
+        type: "SET_LINK_TOTAL_DURATION",
+        linkTotalDuration: linkTotalDuration,
+    }
+};
+
+const onChangeLinkDeviceLs = (linkDeviceLs) => {
+    return {
+        type: "SET_LINK_DEVICE_LS",
+        linkDeviceLs: linkDeviceLs,
+    }
+};
+
+const onChangeLinkTsStart = (linkTsStart) => {
+    return {
+        type: "SET_LINK_TS_START",
+        linkTsStart: linkTsStart,
+    }
+};
+
 export {
     onChangeDefaultValue,
     onChangeUserId,
@@ -54,5 +82,9 @@ export {
     onChangeRoomId,
     onChangeWifi,
     onChangeTuyaHomeId,
-    onChangeFirstTimeLink
+    onChangeFirstTimeLink,
+    onChangeLinkTimer,
+    onChangeLinkTotalDuration,
+    onChangeLinkDeviceLs,
+    onChangeLinkTsStart
 }

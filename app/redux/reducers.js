@@ -9,6 +9,10 @@ const initialState = {
         password: null,
     },
     firstTimeLink: true,
+    linkDeviceLs: [],
+    linkTimer: -1,
+    linkTsStart: -1,
+    linkTotalDuration: 0,
 };
 
 function setReducer(state = initialState, action = {}) {
@@ -47,6 +51,26 @@ function setReducer(state = initialState, action = {}) {
             return {
                 ...state,
                 firstTimeLink: action.firstTimeLink,
+            };
+        case "SET_LINK_TIMER":
+            return {
+                ...state,
+                linkTimer: action.linkTimer,
+            };
+        case "SET_LINK_TOTAL_DURATION":
+            return {
+                ...state,
+                linkTotalDuration: action.linkTotalDuration,
+            };
+        case "SET_LINK_DEVICE_LS":
+            return {
+                ...state,
+                linkDeviceLs: action.linkDeviceLs,
+            };
+        case "SET_LINK_TS_START":
+            return {
+                ...state,
+                linkTsStart: action.linkTsStart,
             };
         default: {
             return {

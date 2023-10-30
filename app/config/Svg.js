@@ -53,6 +53,7 @@ Data = {
 // FIXME: Temporarily Store Everything in MetaData
 Data = {
     ...Data,
+    
     "Absolute Humidity": AbsoluteHumidity,
     "Temperature": Temperature,
     "Relative Humidity": RelativeHumidity,
@@ -60,6 +61,7 @@ Data = {
     "Current": Current,
     "Voltage": Voltage,
     "KWh": KWh,
+    "Total KiloWatt": KWh,
     "Formaldehyde": Formaldehyde,
     "Particle Matter": ParticleMatter,
     "Carbon Dioxide": CarbonDioxide,
@@ -75,7 +77,19 @@ Data = {
     "Carbon Dioxide (CO2)": ParticleMatter,
     "Particle Matter (PM2.5)": CarbonDioxide,
     "Total KiloWatt (KWh)": KWh,
-    "Total KiloWatt": KWh,
+    "Average Absolute Humidity": AbsoluteHumidity,
+    "Average Temperature (℃)": Temperature,
+    "Average Relative Humidity (%)": RelativeHumidity,
+    "Average Voltage (V)": Voltage,
+    "Average Power (W)": Power,
+    "Average Current (mA)": Current,
+    "Average Formaldehyde (mg/m3)": Formaldehyde,
+    "Average Carbon Dioxide (ppm)": CarbonDioxide,
+    "Average Particle Matter (ug/m3)": ParticleMatter,
+    "Average Formaldehyde (CH2O)": Formaldehyde,
+    "Average Carbon Dioxide (CO2)": ParticleMatter,
+    "Average Particle Matter (PM2.5)": CarbonDioxide,
+    "Average Total KiloWatt (KWh)": KWh,
 }
 
 Data = {
@@ -88,6 +102,7 @@ Data = {
         "Current": Current,
         "Voltage": Voltage,
         "KWh": KWh,
+        "Total KiloWatt": KWh,
         "Formaldehyde": Formaldehyde,
         "Particle Matter": ParticleMatter,
         "Carbon Dioxide": CarbonDioxide,
@@ -103,7 +118,19 @@ Data = {
         "Carbon Dioxide (CO2)": ParticleMatter,
         "Particle Matter (PM2.5)": CarbonDioxide,
         "Total KiloWatt (KWh)": KWh,
-        "Total KiloWatt": KWh,
+        "Average Absolute Humidity": AbsoluteHumidity,
+        "Average Temperature (℃)": Temperature,
+        "Average Relative Humidity (%)": RelativeHumidity,
+        "Average Voltage (V)": Voltage,
+        "Average Power (W)": Power,
+        "Average Current (mA)": Current,
+        "Average Formaldehyde (mg/m3)": Formaldehyde,
+        "Average Carbon Dioxide (ppm)": CarbonDioxide,
+        "Average Particle Matter (ug/m3)": ParticleMatter,
+        "Average Formaldehyde (CH2O)": Formaldehyde,
+        "Average Carbon Dioxide (CO2)": ParticleMatter,
+        "Average Particle Matter (PM2.5)": CarbonDioxide,
+        "Average Total KiloWatt (KWh)": KWh,
     }
 }
 

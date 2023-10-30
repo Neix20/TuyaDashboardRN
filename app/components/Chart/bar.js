@@ -94,6 +94,7 @@ function Index(props) {
             },
 			top: 0,
 			right: 5,
+			itemSize: 18,
 		},
 		legend: {
 			data: chartLegend,

@@ -6,6 +6,11 @@ const wifiSelect = (state) => state.wifi;
 const tuyaHomeIdSelect = (state) => state.tuyaHomeId;
 const firstTimeLinkSelect = (state) => state.firstTimeLink;
 
+const linkTimerSelect = (state) => state.linkTimer;
+const linkTotalDurationSelect = (state) => state.linkTotalDuration;
+const linkDeviceLsSelect = (state) => state.linkDeviceLs;
+const linkTsStartSelect = (state) => state.linkTsStart;
+
 export {
     defaultValueSelect,
     userIdSelect,
@@ -13,5 +18,9 @@ export {
     roomIdSelect,
     wifiSelect,
     tuyaHomeIdSelect,
-    firstTimeLinkSelect
+    firstTimeLinkSelect,
+    linkTimerSelect,
+    linkTotalDurationSelect,
+    linkDeviceLsSelect,
+    linkTsStartSelect
 }

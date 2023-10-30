@@ -34,6 +34,8 @@ import { useToggle, useModalToast, useTimer } from "@hooks";
 
 import { CheckBox } from "@rneui/base";
 
+import { DateTime } from "luxon";
+
 import Lottie from "lottie-react-native";
 
 // #region Hooks
@@ -49,6 +51,7 @@ function useViewMode(val = "list") {
 }
 
 function useLinkDevice(val = []) {
+
     const [ls, setLs] = useState(val);
 
     const toggleItem = (item) => {
@@ -109,7 +112,9 @@ function LinkDeviceModal(props) {
         bgActive: "#FFF",
         bgInActive: "#EDEEEF",
         tabLs: ["Inactive", "Active"]
-    }
+    };
+
+    const dispatch = useDispatch();
 
     const { tabLs = [] } = init;
 
@@ -119,6 +124,9 @@ function LinkDeviceModal(props) {
     // #region Redux
     const userId = useSelector(Selectors.userIdSelect);
     const homeId = useSelector(Selectors.homeIdSelect);
+    const linkTimer = useSelector(Selectors.linkTimerSelect);
+    const linkDeviceLs = useSelector(Selectors.linkDeviceLsSelect);
+    const linkTsStart = useSelector(Selectors.linkTsStartSelect);
     // #endregion
 
     // #region UseState
@@ -127,7 +135,7 @@ function LinkDeviceModal(props) {
     const [loading, setLoading, toggleLoading] = useToggle(false);
     const [tabPaneInd, setTabPaneInd] = useState(0);
 
-    const [timer, setTimer, totalDuration, setTotalDuration, overallPercent] = useTimer(-1, () => onTimerEnd());
+    const [timer, setTimer, totalDuration, setTotalDuration, overallPercent] = useTimer(linkTimer, () => onTimerEnd());
     const [subLoadFlag, setSubLoadFlag, toggleSubLoadFlag] = useToggle(false);
     const [curDeviceInd, setCurDeviceInd] = useState(0);
     const [percentage, setPercentage] = useState(0);
@@ -135,23 +143,38 @@ function LinkDeviceModal(props) {
 
     useEffect(() => {
         setLoading(true);
-        const timeout = setTimeout(() => {
-            fetchGetLinkedDevice({
-                param: {
-                    UserId: userId,
-                    HomeId: homeId
-                },
-                onSetLoading: setLoading
+        // const timeout = setTimeout(() => {
+        //     fetchGetLinkedDevice({
+        //         param: {
+        //             UserId: userId,
+        //             HomeId: homeId
+        //         },
+        //         onSetLoading: setLoading
+        //     })
+        //         .then(data => {
+        //             setData(data);
+        //         })
+        //         .catch(err => {
+        //             setLoading(false);
+        //             console.log(`Error: ${err}`);
+        //         })
+        // }, 2000);
+        // return () => clearTimeout(timeout);
+
+        fetchGetLinkedDevice({
+            param: {
+                UserId: userId,
+                HomeId: homeId
+            },
+            onSetLoading: setLoading
+        })
+            .then(data => {
+                setData(data);
             })
-                .then(data => {
-                    setData(data);
-                })
-                .catch(err => {
-                    setLoading(false);
-                    console.log(`Error: ${err}`);
-                })
-        }, 2000);
-        return () => clearTimeout(timeout);
+            .catch(err => {
+                setLoading(false);
+                console.log(`Error: ${err}`);
+            })
 
     }, [userId, homeId])
 
@@ -209,8 +232,28 @@ function LinkDeviceModal(props) {
         }
     }, [timer]);
 
+    useEffect(() => {
+
+        const ts = Math.floor(DateTime.now().toMillis() / 1000);
+        
+        if (linkTimer > -1 && (linkTsStart + linkTimer) > ts) {
+            let duration = linkTimer  + linkTsStart - ts;
+            setTimer(duration);
+            setTotalDuration(duration);
+
+            setSubLoadFlag(true);
+
+            dispatch(Actions.onChangeLinkTsStart(ts));
+        }
+    }, [])
+
     const onSubmit = () => {
         let arr = [];
+
+        dispatch(Actions.onChangeLinkDeviceLs(data));
+
+        const link_ts = Math.floor(DateTime.now().toMillis() / 1000);
+        dispatch(Actions.onChangeLinkTsStart(link_ts));
 
         arr = data.map(obj => {
             const { Id, Status, IsEmpty } = obj;
@@ -223,6 +266,7 @@ function LinkDeviceModal(props) {
         let f_arr = arr.filter(x => x.Status).filter(x => x.IsEmpty == 1);
 
         let duration = f_arr.length * time_to_wait;
+
         setTimer(duration);
         setTotalDuration(duration);
 
@@ -254,10 +298,10 @@ function LinkDeviceModal(props) {
 
     return (
         <BaseModal {...props} cusToast={cusToast}
-            showCross={!loading}
-            showModal={showModal || loading && subLoadFlag}>
+            showCross={!loading && !subLoadFlag}
+            showModal={showModal || subLoadFlag}>
             {
-                (loading) ? (
+                (loading || subLoadFlag) ? (
                     <View flexGrow={1} alignItems={"center"} justifyContent={"center"} pt={1}>
                         {
                             (subLoadFlag) ? (
@@ -269,13 +313,19 @@ function LinkDeviceModal(props) {
                                     }}>
                                         Sync Data
                                     </Text>
-                                    <Text style={{
-                                        fontFamily: "Roboto-Bold",
-                                        fontSize: 20,
-                                        textAlign: "center"
-                                    }}>
-                                        <Text>{data.filter(x => x.Status).sort((a, b) => a.IsEmpty - b.IsEmpty)[dev_to_update_len - curDeviceInd - 1]?.Title}</Text> <Text style={{ color: "#F00" }}>{dev_to_update_len - curDeviceInd}</Text>/{dev_to_update_len}
-                                    </Text>
+                                    {
+                                        (data.filter(x => x.Status).length > 0) ? (
+                                            <Text style={{
+                                                fontFamily: "Roboto-Bold",
+                                                fontSize: 20,
+                                                textAlign: "center"
+                                            }}>
+                                                <Text>{data.filter(x => x.Status).sort((a, b) => a.IsEmpty - b.IsEmpty)[dev_to_update_len - curDeviceInd - 1]?.Title}</Text> <Text style={{ color: "#F00" }}>{dev_to_update_len - curDeviceInd}</Text>/{dev_to_update_len}
+                                            </Text>
+                                        ) : (
+                                            <></>
+                                        )
+                                    }
                                     <Text style={{
                                         fontFamily: "Roboto-Bold",
                                         fontSize: 20,
@@ -1002,7 +1052,7 @@ function Index(props) {
         const { IsTempHumd = 0, IsSmartPlug = 0, IsAirQuality = 0, IsAirCon = 0, IsSmartCamera = 0 } = item;
 
         if (IsSmartPlug == 1) {
-            navigation.navigate("DeviceLandingSmartPlug", item);    
+            navigation.navigate("DeviceLandingSmartPlug", item);
         }
 
         else if (IsAirCon == 1) {

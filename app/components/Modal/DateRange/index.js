@@ -389,8 +389,6 @@ function Index(props) {
             setEndDt(fEndDt);
         }
 
-        console.log(fStartDt, fEndDt, fPrevStartDt, fPrevEndDt);
-
         if (fPrevStartDt !== undefined && fPrevEndDt !== undefined) {
             setPStartDt(fPrevStartDt);
             setPEndDt(fPrevEndDt);

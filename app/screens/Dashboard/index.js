@@ -153,12 +153,35 @@ function DashboardVoltageReport(props) {
             return red;
         }
 
+        const getTxtcolor = (val) => {
+            val = +val;
+
+            const { green, yellow, red } = init.colors;
+
+            if (val <= 30) {
+                return red;
+            }
+            else if (val > 30 && val <= 75) {
+                return yellow;
+            }
+            
+            return green;
+        }
+
         return (
             <HStack key={index} alignItems={"center"} justifyContent={"space-between"}>
-                <View style={{ width: 100 }}>
+                <View style={{ width: 80 }}>
                     <Text style={{
                         fontFamily: "Roboto-Bold"
                     }}>{Device_Name}</Text>
+                </View>
+                <View
+                    bgColor={getColor(KWh)}
+                    alignItems={"center"}
+                    flex={1}>
+                    <Text style={{
+                        fontFamily: "Roboto-Bold"
+                    }}>{(KWh*1).toFixed(2)}</Text>
                 </View>
                 <View alignItems={"center"}
                     flex={1}>
@@ -173,15 +196,11 @@ function DashboardVoltageReport(props) {
                     <Text>{Voltage}</Text>
                 </View>
                 <View
-                    bgColor={getColor(KWh)}
-                    alignItems={"center"}
-                    flex={1}>
+                    bgColor={getTxtcolor(Count)}
+                    alignItems={"flex-end"} flex={1.5}>
                     <Text style={{
                         fontFamily: "Roboto-Bold"
-                    }}>{KWh}</Text>
-                </View>
-                <View alignItems={"flex-end"} flex={1}>
-                    <Text>{Count}</Text>
+                    }}>{(Count * 1).toFixed(2)}</Text>
                 </View>
             </HStack>
         )
@@ -191,15 +210,15 @@ function DashboardVoltageReport(props) {
     return (
         <VStack space={1}>
             <HStack alignItems={"center"} justifyContent={"space-between"}>
-                <View style={{ width: 100 }}>
+                <View style={{ width: 80 }}>
                     <Text style={{ fontFamily: "Roboto-Bold" }}>Name</Text>
                 </View>
+                <View alignItems={"center"} flex={1}><BcSvgIcon name={"KWh"} /></View>
                 <View alignItems={"center"} flex={1}><BcSvgIcon name={"Current"} /></View>
                 <View alignItems={"center"} flex={1}><BcSvgIcon name={"Power"} /></View>
                 <View alignItems={"center"} flex={1}><BcSvgIcon name={"Voltage"} /></View>
-                <View alignItems={"center"} flex={1}><BcSvgIcon name={"KWh"} /></View>
-                <View alignItems={"flex-end"} flex={1}>
-                    <Text style={{ fontFamily: "Roboto-Bold" }}>Count</Text>
+                <View alignItems={"flex-end"} flex={1.5}>
+                    <Text style={{ fontFamily: "Roboto-Bold" }}>Uptime %</Text>
                 </View>
 
             </HStack>
@@ -231,7 +250,7 @@ function DashboardAirQualityReport(props) {
     // #region Render
     const renderValues = (item, index) => {
 
-        const { Device_Name, Count } = item;
+        const { Device_Name, Count = 0 } = item;
 
         const pm25 = item["Particle Matter (ug/m3)"];
         const co2 = item["Carbon Dioxide (ppm)"];
@@ -250,20 +269,27 @@ function DashboardAirQualityReport(props) {
             return red;
         }
 
+        const getTxtcolor = (val) => {
+            const { green, yellow, red } = init.colors;
+
+            val = +val;
+
+            if (val <= 30) {
+                return red;
+            }
+            else if (val > 30 && val <= 75) {
+                return yellow;
+            }
+            
+            return green;
+        }
+
         return (
             <HStack key={index} alignItems={"center"} justifyContent={"space-between"}>
-                <View style={{ width: 100 }}>
+                <View style={{ width: 80 }}>
                     <Text style={{
                         fontFamily: "Roboto-Bold"
                     }}>{Device_Name}</Text>
-                </View>
-                <View alignItems={"center"}
-                    flex={1}>
-                    <Text>{pm25}</Text>
-                </View>
-                <View alignItems={"center"}
-                    flex={1}>
-                    <Text>{co2}</Text>
                 </View>
                 <View
                     bgColor={getColor(ch20)}
@@ -273,8 +299,21 @@ function DashboardAirQualityReport(props) {
                         fontFamily: "Roboto-Bold"
                     }}>{ch20}</Text>
                 </View>
-                <View alignItems={"flex-end"} flex={1}>
-                    <Text>{Count}</Text>
+                <View alignItems={"center"}
+                    flex={1}>
+                    <Text>{pm25}</Text>
+                </View>
+                <View alignItems={"center"}
+                    flex={1}>
+                    <Text>{co2}</Text>
+                </View>
+                
+                <View
+                    bgColor={getTxtcolor(Count)}
+                    alignItems={"flex-end"} flex={1}>
+                    <Text style={{
+                        fontFamily: "Roboto-Bold"
+                    }}>{(Count * 1).toFixed(2)}</Text>
                 </View>
             </HStack>
         )
@@ -284,14 +323,14 @@ function DashboardAirQualityReport(props) {
     return (
         <VStack space={1}>
             <HStack alignItems={"center"} justifyContent={"space-between"}>
-                <View style={{ width: 100 }}>
+                <View style={{ width: 80 }}>
                     <Text style={{ fontFamily: "Roboto-Bold" }}>Name</Text>
                 </View>
+                <View alignItems={"center"} flex={1}><BcSvgIcon name={"Formaldehyde"} /></View>
                 <View alignItems={"center"} flex={1}><BcSvgIcon name={"Particle Matter"} /></View>
                 <View alignItems={"center"} flex={1}><BcSvgIcon name={"Carbon Dioxide"} /></View>
-                <View alignItems={"center"} flex={1}><BcSvgIcon name={"Formaldehyde"} /></View>
                 <View alignItems={"flex-end"} flex={1}>
-                    <Text style={{ fontFamily: "Roboto-Bold" }}>Count</Text>
+                    <Text style={{ fontFamily: "Roboto-Bold" }}>Uptime %</Text>
                 </View>
 
             </HStack>
@@ -323,7 +362,7 @@ function DashboardHumidityReport(props) {
     // #region Render
     const renderValues = (item, index) => {
 
-        const { Device_Name, Count } = item;
+        const { Device_Name, Count = 0 } = item;
 
         const Temperature = item["Temperature (℃)"];
         const Relative_Humidity = item["Relative Humidity (%)"];
@@ -342,20 +381,27 @@ function DashboardHumidityReport(props) {
             return red;
         }
 
+        const getTxtcolor = (val) => {
+            const { green, yellow, red } = init.colors;
+
+            val = +val;
+
+            if (val <= 30) {
+                return red;
+            }
+            else if (val > 30 && val <= 75) {
+                return yellow;
+            }
+            
+            return green;
+        }
+
         return (
             <HStack key={index} alignItems={"center"} justifyContent={"space-between"}>
-                <View style={{ width: 100 }}>
+                <View style={{ width: 80 }}>
                     <Text style={{
                         fontFamily: "Roboto-Bold"
                     }}>{Device_Name}</Text>
-                </View>
-                <View alignItems={"center"}
-                    flex={1}>
-                    <Text>{Temperature}</Text>
-                </View>
-                <View alignItems={"center"}
-                    flex={1}>
-                    <Text>{Relative_Humidity}</Text>
                 </View>
                 <View
                     bgColor={getColor(Absolute_Humidity)}
@@ -365,9 +411,22 @@ function DashboardHumidityReport(props) {
                         fontFamily: "Roboto-Bold"
                     }}>{Absolute_Humidity}</Text>
                 </View>
+                <View alignItems={"center"}
+                    flex={1}>
+                    <Text>{Temperature}</Text>
+                </View>
+                <View alignItems={"center"}
+                    flex={1}>
+                    <Text>{Relative_Humidity}</Text>
+                </View>
+                
 
-                <View alignItems={"flex-end"} flex={1}>
-                    <Text>{Count}</Text>
+                <View
+                    bgColor={getTxtcolor(Count)}
+                    alignItems={"flex-end"} flex={1}>
+                    <Text style={{
+                        fontFamily: "Roboto-Bold"
+                    }}>{(Count * 1).toFixed(2)}</Text>
                 </View>
             </HStack>
         )
@@ -377,14 +436,14 @@ function DashboardHumidityReport(props) {
     return (
         <VStack space={1}>
             <HStack alignItems={"center"} justifyContent={"space-between"}>
-                <View style={{ width: 100 }}>
+                <View style={{ width: 80 }}>
                     <Text style={{ fontFamily: "Roboto-Bold" }}>Name</Text>
                 </View>
+                <View alignItems={"center"} flex={1}><BcSvgIcon name={"Absolute Humidity"} /></View>
                 <View alignItems={"center"} flex={1}><BcSvgIcon name={"Temperature"} /></View>
                 <View alignItems={"center"} flex={1}><BcSvgIcon name={"Relative Humidity"} /></View>
-                <View alignItems={"center"} flex={1}><BcSvgIcon name={"Absolute Humidity"} /></View>
                 <View alignItems={"flex-end"} flex={1}>
-                    <Text style={{ fontFamily: "Roboto-Bold" }}>Count</Text>
+                    <Text style={{ fontFamily: "Roboto-Bold" }}>Uptime %</Text>
                 </View>
             </HStack>
             {data.map(renderValues)}
@@ -623,7 +682,7 @@ function Index(props) {
                         keyboardShouldPersistTaps={"handled"}
                         contentContainerStyle={{ flexGrow: 1 }}>
                         {
-                            (Object.keys(chart).length > 0) ? (
+                            (Object.keys(chart).length > 0 || Object.keys(spChart).length > 0 || Object.keys(aqChart).length > 0) ? (
                                 <View flexGrow={1}>
                                     <HStack
                                         flexWrap={"wrap"}
@@ -682,11 +741,11 @@ function Index(props) {
                                         {
                                             (Object.keys(drData).length > 0) ? (
                                                 <View px={3} style={{ width: c_width }}>
-                                                    <BcViewShot title="Humidity Device Report">
+                                                    <BcViewShot title="Daily Humidity Average Report">
                                                         <BcDataAttribute data={[{
-                                                            "Absolute Humidity": 0,
-                                                            "Relative Humidity (%)": 0,
-                                                            "Temperature (℃)": 0,
+                                                            "Average Absolute Humidity": 0,
+                                                            "Average Temperature (℃)": 0,
+                                                            "Average Relative Humidity (%)": 0,
                                                         }]} />
                                                         <DashboardHumidityReport data={drData} />
                                                     </BcViewShot>
@@ -700,11 +759,11 @@ function Index(props) {
                                             (Object.keys(drAqData).length > 0) ? (
                                                 <>
                                                     <View px={3} style={{ width: c_width }}>
-                                                        <BcViewShot title="Air Quality Device Report">
+                                                        <BcViewShot title="Daily Air Quality Average Report">
                                                             <BcDataAttribute data={[{
-                                                                "Particle Matter (ug/m3)": 0,
-                                                                "Carbon Dioxide (ppm)": 0,
-                                                                "Formaldehyde (mg/m3)": 0,
+                                                                "Average Formaldehyde (mg/m3)": 0,
+                                                                "Average Particle Matter (ug/m3)": 0,
+                                                                "Average Carbon Dioxide (ppm)": 0,
                                                             }]} />
                                                             <DashboardAirQualityReport data={drAqData} />
                                                         </BcViewShot>
@@ -719,12 +778,12 @@ function Index(props) {
                                             (Object.keys(drSpData).length > 0) ? (
                                                 <>
                                                     <View px={3} style={{ width: c_width }}>
-                                                        <BcViewShot title="Smart Plug Device Report">
+                                                        <BcViewShot title="Daily Smart Plug Average Report">
                                                             <BcDataAttribute data={[{
-                                                                "Current (mA)": 0,
-                                                                "Power (W)": 0,
-                                                                "Voltage (V)": 0,
-                                                                "Total KiloWatt (KWh)": 0
+                                                                "Average Total KiloWatt (KWh)": 0,
+                                                                "Average Current (mA)": 0,
+                                                                "Average Power (W)": 0,
+                                                                "Average Voltage (V)": 0,
                                                             }]} />
                                                             <DashboardVoltageReport data={drSpData} />
                                                         </BcViewShot>
@@ -740,8 +799,6 @@ function Index(props) {
                                 <EmptyList />
                             )
                         }
-
-
                     </ScrollView>
 
                     {/* Footer */}

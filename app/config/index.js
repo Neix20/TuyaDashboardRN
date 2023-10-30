@@ -21,10 +21,16 @@ import DashboardSmartPlugFullData from "./data/dashboard_smart_plug_full.json";
 import SmartPlugIIData from "./data/smart_plug_ii.json";
 import AirConData from "./data/air_con.json";
 
+import DataIntervalSvg from "./data/data_interval_svg.json";
+
 export {
     Animation,
     Images,
     Svg,
+};
+
+export {
+    DataIntervalSvg
 };
 
 export {

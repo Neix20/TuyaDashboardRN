@@ -90,3 +90,16 @@
     3. Used Data Compression Technique to Store Data Point
     4. Chart Update: Added Attribute Unit to all Chart Data Type.
 </en-US>
+
+#### Version 1.2.9
+---------------------
+<en-US>
+    Features Update:
+    1. UI Fixes: 
+        i. Remove "Absolute Humidity", "Relative Humidity" Icon, Use "AH", "RH" to represent icon instead
+        ii. Fixed Synchronize Issue. Download now continues even after app is shut down.
+        iii. Fixed Empty Device List Issue. Improve Device List Loading Speed.
+        iv. Change Log Count to Device Uptime status.
+    2. Smart Plug Report Update: Use Average Current, Power & Voltage based on device count. (Device Updats every 30 minutes.)
+    3. Chart Update: Show total KWh (Electrical usage) for smart plug devices in same home.
+</en-US>

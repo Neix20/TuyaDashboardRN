@@ -97,7 +97,6 @@ function Index(default_key) {
         let label = [];
 
         for (const key in chartII) {
-            console.log(key, chartKey)
             const device_log = chartII[key];
 
             let val = [0];
