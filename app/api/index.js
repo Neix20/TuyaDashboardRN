@@ -49,6 +49,8 @@ import fetchUpdateDeviceRules from "./fetchUpdateDeviceRules";
 import fetchGetAppVersion from "./fetchGetAppVersion";
 import fetchGetServerStatus from "./fetchGetServerStatus";
 
+import fetchGetDeviceDistribution from "./fetchDeviceDistribution";
+
 export {
     fetchHomeList,
     fetchHomeInfo,
@@ -81,6 +83,7 @@ export {
 export {
     fetchDashboardInfo,
     fetchReportData,
+    fetchGetDeviceDistribution,
     fetchGetNotification,
 }
 
@@ -99,7 +102,7 @@ export {
 export {
     fetchLinkDevice,
     fetchGetLinkedDevice,
-    fetchDeviceDataChart,
+    fetchDeviceDataChart
 }
 
 export {

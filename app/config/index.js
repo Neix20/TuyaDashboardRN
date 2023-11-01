@@ -23,6 +23,8 @@ import AirConData from "./data/air_con.json";
 
 import DataIntervalSvg from "./data/data_interval_svg.json";
 
+import DeviceDistributionData from "./data/dev_distri.json";
+
 export {
     Animation,
     Images,
@@ -51,6 +53,7 @@ export {
     DashboardSmartPlugFullData,
     SmartPlugIIData,
     AirConData,
+    DeviceDistributionData
 };
 
 export {

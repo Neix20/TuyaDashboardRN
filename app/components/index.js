@@ -99,13 +99,15 @@ import BcApacheBarChart from "./Chart/bar";
 import BcApacheBarChartFull from "./Chart/barFull";
 import BcApacheChartFull from "./Chart/full";
 import BcApacheChartDebug from "./Chart/debug";
+import BcApachePieChart from "./Chart/pie";
 
 export {
     BcApacheChart,
     BcApacheBarChart,
     BcApacheBarChartFull,
     BcApacheChartFull,
-    BcApacheChartDebug
+    BcApacheChartDebug,
+    BcApachePieChart
 }
 
 import BcLineChart from "./LineChart";

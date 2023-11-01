@@ -7,6 +7,7 @@ import useEChart from "./useChart";
 import useChartSimple from "./useChart/chartSimple";
 import useBarChartSimple from "./useChart/barChartSimple";
 import useBarChart from "./useChart/bar";
+import useDevDistChart from "./useChart/devDist";
 
 import useDate from "./useDate";
 import useCoor from "./useCoor";
@@ -27,5 +28,6 @@ export {
     useEChart,
     useBarChart,
     useChartSimple,
-    useBarChartSimple
+    useBarChartSimple,
+    useDevDistChart
 }

@@ -7,12 +7,11 @@ import { useNavigation, useIsFocused } from "@react-navigation/native";
 
 import { Logger, Utility } from "@utility";
 
-import { iRData, iRDataUnit, DowntimeData, clsConst, Images, DashboardSmartPlugFullData } from "@config";
+import { iRData, iRDataUnit, DowntimeData, clsConst, Images, DashboardSmartPlugFullData, DeviceDistributionData } from "@config";
 
-import { useToggle, useDate, useEChart, useOrientation, useTimer, useBarChart, useCoor } from "@hooks";
+import { useToggle, useDate, useEChart, useOrientation, useTimer, useBarChart, useCoor, useDevDistChart } from "@hooks";
 
 import { BcViewShot, BcLineChartFull, BcDateRange, BcLineChart, BcLineLegend, BcApacheChart, BcApacheChartFull, BcDropdown, BcApacheChartDebug, BcApacheBarChart } from "@components";
-
 
 function DownTimeTable(props) {
 
@@ -193,6 +192,10 @@ function Index(props) {
     )
 }
 
+import BcPie from "./pie";
+import BcCalendar from "./Calendar";
+import { fetchGetDeviceDistribution } from "@api";
+
 function DeviceChart(props) {
 
     const isFocused = useIsFocused();
@@ -205,13 +208,48 @@ function DeviceChart(props) {
 
     const [coor, updateCoor] = useCoor();
 
+    const devDistChartHook = useDevDistChart();
+    const [devDistChart, setDevDistChart, devDistChartData, devDistChartLegend] = devDistChartHook;
+
+    const [width] = useOrientation();
+
+    const [timer, setTimer] = useTimer(0);
+    const [kaTimer, setKATimer] = useTimer(0);
+
     useEffect(() => {
         if (isFocused) {
-            setBarChart(DashboardSmartPlugFullData);
-            setChart(iRDataUnit);
+            // setBarChart(DashboardSmartPlugFullData);
+            // setChart(iRDataUnit);
+
+            // setDevDistChart(DeviceDistributionData);
+            fetchGetDeviceDistribution({
+                param: {
+                    UserId: 2,
+                    HomeId: 85
+                },
+                onSetLoading: () => { }
+            })
+                .then(data => {
+                    setDevDistChart(data);
+                })
+                .catch(err => {
+                    console.log(`Error: ${err}`);
+                })
         }
     }, [isFocused]);
 
+    const updateTimer = () => {
+        setTimer(30);
+    }
+
+    const updateKATimer = () => {
+        setKATimer(30);
+    }
+
+    const reset = () => {
+        setTimer(0);
+        setKATimer(0);
+    }
 
     return (
         <SafeAreaView style={{ flex: 1 }}>
@@ -223,7 +261,7 @@ function DeviceChart(props) {
                     {/* <BcApacheChartFull hook={chartHook} height={480} /> */}
                     {/* <BcApacheChartDebug /> */}
                     {/* <BcApacheBarChart hook={barChartHook} height={480} /> */}
-                    <Text>{JSON.stringify(coor)}</Text>
+                    {/* <Text>{JSON.stringify(coor)}</Text>
                     <TouchableOpacity onPress={updateCoor}>
                         <View bgColor={"#F00"} p={3}>
                             <Text style={{
@@ -232,11 +270,134 @@ function DeviceChart(props) {
                                 fontSize: 24,
                             }}>Coor</Text>
                         </View>
-                    </TouchableOpacity>
+                    </TouchableOpacity> */}
+                    <View px={3} style={{ width: width }} >
+                        <BcViewShot title={"Total Device Distribution"}>
+                            <BcPie hook={devDistChartHook} />
+                        </BcViewShot>
+                    </View>
+
+                    <HStack space={5}>
+                        <Text>{timer}</Text>
+                        <Text>{kaTimer}</Text>
+                    </HStack>
+
+                    <HStack space={3}>
+                        <TouchableOpacity onPress={updateTimer}>
+                            <View bgColor={"#F00"} p={3}>
+                                <Text style={{
+                                    fontFamily: "Roboto-Bold",
+                                    color: "#FFF",
+                                    fontSize: 16,
+                                }}>Set Timer</Text>
+                            </View>
+                        </TouchableOpacity>
+                        <TouchableOpacity onPress={updateKATimer}>
+                            <View bgColor={"#F00"} p={3}>
+                                <Text style={{
+                                    fontFamily: "Roboto-Bold",
+                                    color: "#FFF",
+                                    fontSize: 16,
+                                }}>Set Timer (Keep Awake)</Text>
+                            </View>
+                        </TouchableOpacity>
+                        <TouchableOpacity onPress={reset}>
+                            <View bgColor={"#F00"} p={3}>
+                                <Text style={{
+                                    fontFamily: "Roboto-Bold",
+                                    color: "#FFF",
+                                    fontSize: 16,
+                                }}>Reset</Text>
+                            </View>
+                        </TouchableOpacity>
+                    </HStack>
                 </VStack>
             </ScrollView>
         </SafeAreaView>
     )
 }
 
-export default DeviceChart;
+import { DateTime } from "luxon";
+function useCalendarDate(init = "2023-10-01") {
+
+    // yyyy-MM-dd: 2023-10-01
+    const [dt, setDt] = useState(init);
+
+    const [luxonDt, setLuxonDt] = useState(DateTime.now());
+
+    useEffect(() => {
+        if (dt.length > 0) {
+            const t_dt = DateTime.fromFormat(dt, "yyyy-MM-dd");
+            setLuxonDt(t_dt);
+        }
+    }, [dt]);
+
+    const addDay = (duration = 1, delimiter = "days") => {
+
+        const next_state = {};
+        next_state[delimiter] = duration;
+
+        const t_dt = luxonDt.plus(next_state);
+        setLuxonDt(_ => t_dt);
+
+        const t_dt_str = t_dt.toFormat("yyyy-MM-dd");
+        setDt(_ => t_dt_str);
+    }
+
+    const minusDay = (duration = 1, delimiter = "days") => {
+        const next_state = {};
+        next_state[delimiter] = duration;
+
+        const t_dt = luxonDt.plus(next_state);
+        setLuxonDt(_ => t_dt);
+        
+        const t_dt_str = t_dt.toFormat("yyyy-MM-dd");
+        setDt(_ => t_dt_str);
+    }
+
+    const setDay = (duration = 1, delimiter = "days") => {
+        const next_state = {};
+        next_state[delimiter] = duration;
+
+        const t_dt = luxonDt.set(next_state);
+        setLuxonDt(_ => t_dt);
+        
+        const t_dt_str = t_dt.toFormat("yyyy-MM-dd");
+        setDt(_ => t_dt_str);
+    }
+
+    const updateCalendarDay = (day) => {
+        const { dateString } = day;
+        setDt(dateString);
+    }
+
+    return [dt, luxonDt, addDay, minusDay, setDay, updateCalendarDay];
+}
+
+function CalendarDiv(props) {
+
+    const calHook = useCalendarDate();
+    const [dt, parseDt] = calHook
+
+    return (
+        <SafeAreaView style={{ flex: 1 }}>
+            <ScrollView
+                showsVerticalScrollIndicator={false}
+                keyboardShouldPersistTaps={"handled"}
+                contentContainerStyle={{ flexGrow: 1 }}>
+                <VStack flexGrow={1} alignItems={"center"} justifyContent={"center"} space={3}>
+                    <View bgColor={"#FFF"}
+                        style={{
+                            width: "90%",
+                            height: 360,
+                        }}>
+                        <BcCalendar calHook={calHook} />
+                    </View>
+                    <Text>{parseDt.toFormat("yyyy-MM-dd")}</Text>
+                </VStack>
+            </ScrollView>
+        </SafeAreaView>
+    )
+}
+
+export default CalendarDiv;

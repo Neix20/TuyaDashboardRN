@@ -187,7 +187,6 @@ function Index(props) {
                 onSetLoading: setLoading,
             })
                 .then(data => {
-                    console.log(data.slice(0, 5))
                     setData(data);
                 })
                 .catch(err => {

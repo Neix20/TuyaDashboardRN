@@ -10,12 +10,15 @@ import { Logger, Utility } from "@utility";
 
 import { Images, Svg, iRDataUnit, DashboardSmartPlugData } from "@config";
 
-import { BcBoxShadow, BcSvgIcon, BcDateRange, BcViewShot, BcLoading, BcYatuHome, BcApacheChartFull, BcDataAttribute, BcApacheBarChart, BcApacheBarChartFull } from "@components";
+import {
+    BcBoxShadow, BcSvgIcon, BcDateRange, BcViewShot, BcLoading, BcYatuHome, BcApacheChartFull, BcDataAttribute,
+    BcApacheBarChart, BcApacheBarChartFull, BcApachePieChart
+} from "@components";
 
 import { DateTime } from "luxon";
 
-import { fetchDashboardInfo, fetchReportData } from "@api";
-import { useDate, useToggle, useEChart, useOrientation, useBarChart } from "@hooks";
+import { fetchDashboardInfo, fetchReportData, fetchGetDeviceDistribution } from "@api";
+import { useDate, useToggle, useEChart, useOrientation, useBarChart, useDevDistChart } from "@hooks";
 
 import { useDispatch, useSelector } from 'react-redux';
 import { Actions, Selectors } from '@redux';
@@ -164,7 +167,7 @@ function DashboardVoltageReport(props) {
             else if (val > 30 && val <= 75) {
                 return yellow;
             }
-            
+
             return green;
         }
 
@@ -181,7 +184,7 @@ function DashboardVoltageReport(props) {
                     flex={1}>
                     <Text style={{
                         fontFamily: "Roboto-Bold"
-                    }}>{(KWh*1).toFixed(2)}</Text>
+                    }}>{(KWh * 1).toFixed(2)}</Text>
                 </View>
                 <View alignItems={"center"}
                     flex={1}>
@@ -280,7 +283,7 @@ function DashboardAirQualityReport(props) {
             else if (val > 30 && val <= 75) {
                 return yellow;
             }
-            
+
             return green;
         }
 
@@ -307,7 +310,7 @@ function DashboardAirQualityReport(props) {
                     flex={1}>
                     <Text>{co2}</Text>
                 </View>
-                
+
                 <View
                     bgColor={getTxtcolor(Count)}
                     alignItems={"flex-end"} flex={1}>
@@ -392,7 +395,7 @@ function DashboardHumidityReport(props) {
             else if (val > 30 && val <= 75) {
                 return yellow;
             }
-            
+
             return green;
         }
 
@@ -419,7 +422,7 @@ function DashboardHumidityReport(props) {
                     flex={1}>
                     <Text>{Relative_Humidity}</Text>
                 </View>
-                
+
 
                 <View
                     bgColor={getTxtcolor(Count)}
@@ -526,6 +529,9 @@ function Index(props) {
     const [loading, setLoading, toggleLoading] = useToggle(false);
 
     const [width, height, isPort, isLand, c_width, c_height] = useOrientation();
+
+    const devDistChartHook = useDevDistChart();
+    const [devDistChart, setDevDistChart, devDistChartData, devDistChartLegend] = devDistChartHook;
     // #endregion
 
     // #region UseEffect
@@ -617,6 +623,20 @@ function Index(props) {
                         setDrAqData([])
                     }
 
+                })
+                .catch(err => {
+                    console.log(`Error: ${err}`);
+                })
+
+            fetchGetDeviceDistribution({
+                param: {
+                    UserId: userId,
+                    HomeId: homeId,
+                },
+                onSetLoading: () => { }
+            })
+                .then(data => {
+                    setDevDistChart(data);
                 })
                 .catch(err => {
                     console.log(`Error: ${err}`);
@@ -739,6 +759,18 @@ function Index(props) {
                                         }
 
                                         {
+                                            (devDistChart.length > 0) ? (
+                                                <View px={3} style={{ width: width }}>
+                                                    <BcViewShot title={"Total Device Distribution"}>
+                                                        <BcApachePieChart hook={devDistChartHook} />
+                                                    </BcViewShot>
+                                                </View>
+                                            ) : (
+                                                <></>
+                                            )
+                                        }
+
+                                        {
                                             (Object.keys(drData).length > 0) ? (
                                                 <View px={3} style={{ width: c_width }}>
                                                     <BcViewShot title="Daily Humidity Average Report">
@@ -757,18 +789,16 @@ function Index(props) {
 
                                         {
                                             (Object.keys(drAqData).length > 0) ? (
-                                                <>
-                                                    <View px={3} style={{ width: c_width }}>
-                                                        <BcViewShot title="Daily Air Quality Average Report">
-                                                            <BcDataAttribute data={[{
-                                                                "Average Formaldehyde (mg/m3)": 0,
-                                                                "Average Particle Matter (ug/m3)": 0,
-                                                                "Average Carbon Dioxide (ppm)": 0,
-                                                            }]} />
-                                                            <DashboardAirQualityReport data={drAqData} />
-                                                        </BcViewShot>
-                                                    </View>
-                                                </>
+                                                <View px={3} style={{ width: c_width }}>
+                                                    <BcViewShot title="Daily Air Quality Average Report">
+                                                        <BcDataAttribute data={[{
+                                                            "Average Formaldehyde (mg/m3)": 0,
+                                                            "Average Particle Matter (ug/m3)": 0,
+                                                            "Average Carbon Dioxide (ppm)": 0,
+                                                        }]} />
+                                                        <DashboardAirQualityReport data={drAqData} />
+                                                    </BcViewShot>
+                                                </View>
                                             ) : (
                                                 <></>
                                             )
@@ -776,19 +806,17 @@ function Index(props) {
 
                                         {
                                             (Object.keys(drSpData).length > 0) ? (
-                                                <>
-                                                    <View px={3} style={{ width: c_width }}>
-                                                        <BcViewShot title="Daily Smart Plug Average Report">
-                                                            <BcDataAttribute data={[{
-                                                                "Average Total KiloWatt (KWh)": 0,
-                                                                "Average Current (mA)": 0,
-                                                                "Average Power (W)": 0,
-                                                                "Average Voltage (V)": 0,
-                                                            }]} />
-                                                            <DashboardVoltageReport data={drSpData} />
-                                                        </BcViewShot>
-                                                    </View>
-                                                </>
+                                                <View px={3} style={{ width: c_width }}>
+                                                    <BcViewShot title="Daily Smart Plug Average Report">
+                                                        <BcDataAttribute data={[{
+                                                            "Average Total KiloWatt (KWh)": 0,
+                                                            "Average Current (mA)": 0,
+                                                            "Average Power (W)": 0,
+                                                            "Average Voltage (V)": 0,
+                                                        }]} />
+                                                        <DashboardVoltageReport data={drSpData} />
+                                                    </BcViewShot>
+                                                </View>
                                             ) : (
                                                 <></>
                                             )

@@ -135,7 +135,6 @@ function Index(props) {
                 };
                 Share.open(shareOptions)
                     .then(res => {
-                        console.log('res:', res);
                         closeModal();
                     }).catch(err => {
                         throw new Error("An Error has occurred", err.message);

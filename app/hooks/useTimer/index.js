@@ -3,6 +3,8 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { Actions, Selectors } from '@redux';
 
+import { activateKeepAwake, deactivateKeepAwake} from "@sayem314/react-native-keep-awake";
+
 function Index(duration = 15, onTimerEnd = () => { }) {
 
     const [timer, setTimer] = useState(duration);
@@ -26,7 +28,9 @@ function Index(duration = 15, onTimerEnd = () => { }) {
         if (timer === 0) {
             onTimerEnd();
             dispatch(Actions.onChangeLinkTimer(-1));
+            deactivateKeepAwake();
         } else {
+            activateKeepAwake();
             const timeout = setTimeout(() => {
                 setTimer((timer) => timer - 1);
                 dispatch(Actions.onChangeLinkTimer(timer - 1));

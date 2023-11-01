@@ -1,0 +1,26 @@
+[
+    {
+        "Name": "Temp_Humd",
+        "Active": 3,
+        "Inactive": 9,
+        "Total": 12
+    },
+    {
+        "Name": "Smart_Plug",
+        "Active": 1,
+        "Inactive": 3,
+        "Total": 3
+    },
+    {
+        "Name": "Air_Quality",
+        "Active": 1,
+        "Inactive": 0,
+        "Total": 1
+    },
+    {
+        "Name": "Total",
+        "Active": 5,
+        "Inactive": 12,
+        "Total": 1
+    }
+]

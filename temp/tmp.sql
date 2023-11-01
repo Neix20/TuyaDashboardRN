@@ -1,0 +1,2 @@
+USE Sandbox_Yatu;
+EXEC sp_helptext NSP_TMerchantBuilding_GetDeviceDistribution;

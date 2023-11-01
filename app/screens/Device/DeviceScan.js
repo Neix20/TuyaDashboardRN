@@ -292,8 +292,6 @@ function AddDeviceModal(props) {
             flag = flag && ssid != null;
             flag = flag && password != null;
 
-            console.log(flag);
-
             setWFlag(flag);
         }
     }, [showModal]);

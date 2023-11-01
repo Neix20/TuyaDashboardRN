@@ -120,8 +120,6 @@ function Index(default_key) {
             dataset.push(obj);
         }
 
-        console.log(JSON.stringify(dataset))
-
         setChartData(() => ({ label, dataset }));
 
         const legend = Object.keys(chartII);

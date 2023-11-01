@@ -1,9 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Text, TouchableOpacity, Dimensions } from "react-native";
 import { View, VStack, HStack, useToast } from "native-base";
-
-const screen = Dimensions.get("screen");
-const { width, height } = screen;
 
 import { Calendar } from 'react-native-calendars';
 
