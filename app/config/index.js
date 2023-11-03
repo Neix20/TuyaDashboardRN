@@ -25,6 +25,8 @@ import DataIntervalSvg from "./data/data_interval_svg.json";
 
 import DeviceDistributionData from "./data/dev_distri.json";
 
+import SubUserData from "./data/sub_user_list.json";
+
 export {
     Animation,
     Images,
@@ -53,7 +55,8 @@ export {
     DashboardSmartPlugFullData,
     SmartPlugIIData,
     AirConData,
-    DeviceDistributionData
+    DeviceDistributionData,
+    SubUserData
 };
 
 export {

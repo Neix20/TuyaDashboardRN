@@ -10,7 +10,7 @@ const { width, height } = screen;
 
 import { Logger, Utility } from "@utility";
 
-import { BcDisable, BcLoading, BcBoxShadow } from "@components"
+import { BcDisable, BcLoading, BcBoxShadow, BcHeaderWithCancel } from "@components"
 
 import { fetchAddRoom } from "@api";
 
@@ -18,61 +18,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Actions, Selectors } from '@redux';
 
 // #region Components
-function Header(props) {
-
-    // #region Props
-    const { children, onBack = () => { }, onSave = () => { } } = props;
-    const { flag = false } = props;
-    // #endregion
-
-    const navigation = useNavigation();
-
-    // #region Helper Functions
-    const GoBack = () => {
-        onBack();
-        navigation.goBack();
-    }
-    // #endregion
-
-    return (
-        <View bgColor={"#FFF"}
-            alignItems={"center"}>
-            <HStack alignItems={"center"}
-                justifyContent={"space-between"}
-                style={{ height: 60, width: "90%" }}>
-                <TouchableOpacity onPress={GoBack}>
-                    <Text style={{
-                        fontSize: 20,
-                        color: "#ccc",
-                    }}>Cancel</Text>
-                </TouchableOpacity>
-                <Text style={{
-                    fontSize: 20,
-                    fontWeight: "bold",
-                    color: "#000",
-                }}>{children}</Text>
-                {
-                    (flag) ? (
-                        <TouchableOpacity onPress={onSave}>
-                            <Text style={{
-                                fontSize: 20,
-                                color: "#2898FF"
-                            }}>Save</Text>
-                        </TouchableOpacity>
-                    ) : (
-                        <BcDisable>
-                            <Text style={{
-                                fontSize: 20,
-                                color: "#2898FF"
-                            }}>Save</Text>
-                        </BcDisable>
-                    )
-                }
-            </HStack>
-        </View>
-    )
-}
-
 function HomeForm(props) {
 
     const isFocused = useIsFocused();
@@ -250,7 +195,7 @@ function Index(props) {
                 <View style={{ flex: 1 }}>
 
                     {/* Header */}
-                    <Header flag={flag} onSave={save}>Add Room</Header>
+                    <BcHeaderWithCancel flag={flag} onSelect={save}>Add Room</BcHeaderWithCancel>
 
                     <View style={{ height: 10 }} />
 

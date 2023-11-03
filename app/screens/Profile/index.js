@@ -25,11 +25,10 @@ import { BcLoading, BaseModal } from "@components";
 import { useToggle } from "@hooks";
 
 // #region Components
-
 function LogoutModal(props) {
 
     const { showModal, setShowModal } = props;
-    const { onLogout = () => {} } = props;
+    const { onLogout = () => { } } = props;
 
     const closeModal = () => setShowModal(false);
 
@@ -43,10 +42,10 @@ function LogoutModal(props) {
         <BaseModal {...props}>
             {/* Content */}
             <VStack
-                py={3}
-                width={"90%"}
-                alignItems={"center"} space={3}>
+                py={3} space={3}
+                width={"90%"} alignItems={"center"}>
                 <Text style={{ fontFamily: "Roboto-Bold", fontSize: 20 }}>Confirm Log Out</Text>
+
                 <Text style={{
                     fontFamily: "Roboto-Bold",
                     fontSize: 16,
@@ -62,11 +61,7 @@ function LogoutModal(props) {
                             borderRadius={8}
                             alignItems={"center"}
                             justifyContent={"center"}
-                            style={{
-                                width: 120,
-                                height: 40
-                            }}
-                        >
+                            style={{ width: 120, height: 40 }}>
                             <Text style={{
                                 fontFamily: "Roboto-Bold",
                                 fontSize: 20,
@@ -81,11 +76,7 @@ function LogoutModal(props) {
                             bgColor={"#E6E6E6"}
                             alignItems={"center"}
                             justifyContent={"center"}
-                            style={{
-                                width: 120,
-                                height: 40
-                            }}
-                        >
+                            style={{ width: 120, height: 40 }}>
                             <Text style={{
                                 fontFamily: "Roboto-Bold",
                                 fontSize: 20,
@@ -97,7 +88,6 @@ function LogoutModal(props) {
                 </HStack>
             </VStack>
         </BaseModal>
-
     )
 }
 
@@ -140,16 +130,15 @@ function Profile(props) {
                 </HStack>
 
                 {/* Angle-Right */}
-                <View>
-                    <FontAwesome name={"angle-right"} color={"#000"} size={32} />
-                </View>
+                <FontAwesome name={"angle-right"} color={"#000"} size={32} />
             </HStack>
         </TouchableOpacity>
     )
 }
 
 function PanelBtn(props) {
-    const { icon, title, Btn } = props;
+    const { Btn, icon, showRight = true } = props;
+    const { title = "", color = "#111111" } = props;
     const { onPress = () => { } } = props;
 
     return (
@@ -160,18 +149,22 @@ function PanelBtn(props) {
                 style={{ height: 60 }}>
                 {/* Icon & Title */}
                 <HStack alignItems={"center"} space={3}>
-                    <Btn name={icon} color={"#111111"} size={24} />
-                    <View>
-                        <Text style={{
-                            fontFamily: "Roboto-Medium",
-                            fontSize: 18,
-                            color: "#111111"
-                        }}>{title}</Text>
-                    </View>
+                    <Btn name={icon} color={color} size={24} />
+                    <Text style={{
+                        fontFamily: "Roboto-Medium",
+                        fontSize: 18,
+                        color: color
+                    }}>{title}</Text>
                 </HStack>
 
                 {/* FontAwesome */}
-                <FontAwesome name={"angle-right"} color={"#000"} size={32} />
+                {
+                    (showRight) ? (
+                        <FontAwesome name={"angle-right"} color={color} size={32} />
+                    ) : (
+                        <></>
+                    )
+                }
 
             </HStack>
         </TouchableOpacity>
@@ -185,17 +178,14 @@ function NavPanel(props) {
     const GoToHomeManagement = () => navigation.navigate("HomeManagement");
     const GoToAlert = () => navigation.navigate("Alert");
     const GoToReportSchedule = () => navigation.navigate("ReportSchedule");
+    const GoToSubUser = () => navigation.navigate("SubUser");
 
     return (
-        <VStack py={2}
-            bgColor={"#FFF"}
-            borderRadius={8}
-            width={"90%"}
-            alignItems={"center"}>
-
+        <VStack bgColor={"#FFF"} borderRadius={8} width={"90%"} alignItems={"center"}>
             <PanelBtn onPress={GoToHomeManagement} Btn={FontAwesome} icon={"home"} title={"Home Management"} />
             <PanelBtn onPress={GoToAlert} Btn={MaterialCommunityIcons} icon={"message-text-outline"} title={"Message Center"} />
             <PanelBtn onPress={GoToReportSchedule} Btn={FontAwesome5} icon={"clipboard-list"} title={"Report Schedule"} />
+            <PanelBtn onPress={GoToSubUser} Btn={FontAwesome5} icon={"users"} title={"Manage Users"} />
             {/* <PanelBtn Btn={SimpleLineIcons} icon={"question"} title={"FAQ & Feedback"} /> */}
         </VStack>
     )
@@ -203,44 +193,26 @@ function NavPanel(props) {
 
 function AppInfoPanel(props) {
     const navigation = useNavigation();
-
     const GoToAboutUs = () => navigation.navigate("AboutUs");
+
     return (
-        <VStack bgColor={"#FFF"} borderRadius={8}
-            width={"90%"} alignItems={"center"}>
+        <VStack bgColor={"#FFF"} borderRadius={8} width={"90%"} alignItems={"center"}>
             <PanelBtn onPress={GoToAboutUs} Btn={FontAwesome5} icon={"info-circle"} title={"About Us"} />
         </VStack>
     )
 }
 
 function LogoutPanel(props) {
-
     const [showLgModal, setShowLgModal, toggleLgModal] = useToggle(false);
 
     return (
         <>
             <LogoutModal showModal={showLgModal} setShowModal={setShowLgModal} {...props} />
-            <View
-                py={3}
-                width={"90%"}
-                alignItems={"center"}
-                bgColor={"#FFF"}
-                borderRadius={12}>
-                <TouchableOpacity onPress={toggleLgModal}
-                    style={{ width: "90%" }}>
-                    <HStack alignItems={"center"} space={3}>
-                        <MaterialIcons name={"logout"} color={"#2898FF"} size={24} />
-                        <View>
-                            <Text style={[{
-                                fontSize: 18,
-                                color: "#2898FF",
-                                fontFamily: "Roboto-Medium",
-                            }]}>Log Out</Text>
-                        </View>
-                    </HStack>
-                </TouchableOpacity>
-            </View>
-
+            <VStack bgColor={"#FFF"} borderRadius={8} width={"90%"} alignItems={"center"}>
+                <PanelBtn onPress={toggleLgModal} title={"Log Out"}
+                    Btn={MaterialIcons} icon={"logout"}
+                    color={"#2898FF"} showRight={false} />
+            </VStack>
         </>
     )
 }
@@ -315,12 +287,10 @@ function Index(props) {
                     {/* Body */}
                     <ScrollView showsVerticalScrollIndicator={false} keyboardShouldPersistTaps={"handled"}
                         contentContainerStyle={{ flexGrow: 1 }}>
-                        <VStack flexGrow={1}
-                            alignItems={"center"}
-                            space={5}>
+                        <VStack flexGrow={1} 
+                            alignItems={"center"} space={5}>
                             {/* User */}
-                            <View width={"90%"} alignItems={"center"}
-                                style={{ height: 80 }}>
+                            <View width={"90%"} alignItems={"center"} style={{ height: 60 }}>
                                 <Profile {...profileInfo} onPress={GoToProfileInfo} />
                             </View>
 
@@ -330,9 +300,6 @@ function Index(props) {
 
                             {/* Logout */}
                             <LogoutPanel onLogout={SignOut} />
-
-
-
                         </VStack>
 
                         <VStack space={2}

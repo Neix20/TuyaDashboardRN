@@ -48,6 +48,10 @@ import AddRoom from "@screens/Room/AddRoom";
 
 import Alert from "@screens/Alert";
 
+import SubUser from "@screens/SubUser";
+import AddSubUser from "@screens/SubUser/AddSubUser";
+import SubUserInfo from "@screens/SubUser/SubUserInfo";
+
 let StackScreens = {};
 
 StackScreens = {
@@ -242,6 +246,27 @@ StackScreens = {
         option: {
             orientation: "portrait"
         }
+    },
+    SubUser: {
+        component: SubUser,
+        title: "SubUser",
+        option: {
+            orientation: "portrait"
+        }
+    },
+    AddSubUser: {
+        component: AddSubUser,
+        title: "AddSubUser",
+        option: {
+            orientation: "portrait"
+        }
+    },
+    SubUserInfo: {
+        component: SubUserInfo,
+        title: "SubUserInfo",
+        option: {
+            orientation: "portrait"
+        }
     }
 };
 
@@ -345,8 +370,8 @@ function Index(props) {
         })
     }
 
-    const defaultScreen = (userId == -1 || firstTimeLink) ? "Login" : "TabNavigation";
-    // const defaultScreen = "Debug";
+    // const defaultScreen = (userId == -1 || firstTimeLink) ? "Login" : "TabNavigation";
+    const defaultScreen = "SubUser";
 
     return (
         <>

@@ -51,6 +51,11 @@ import fetchGetServerStatus from "./fetchGetServerStatus";
 
 import fetchGetDeviceDistribution from "./fetchDeviceDistribution";
 
+import fetchSubUserList from "./fetchSubUserList";
+import fetchAddSubUser from "./fetchAddSubUser";
+import fetchDeleteSubUser from "./fetchDeleteSubUser";
+import fetchUpdateSubUser from "./fetchUpdateSubUser";
+
 export {
     fetchHomeList,
     fetchHomeInfo,
@@ -120,4 +125,11 @@ export {
 export {
     fetchGetAppVersion,
     fetchGetServerStatus
+}
+
+export {
+    fetchSubUserList,
+    fetchAddSubUser,
+    fetchDeleteSubUser,
+    fetchUpdateSubUser
 }

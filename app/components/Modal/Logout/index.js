@@ -100,6 +100,7 @@ function Index(props) {
                 style={{width: width - 100}}
                 alignItems={"center"} space={3}>
                 <Text style={[GlobalStyles.txtTitle, { fontSize: 20 }]}>{Utility.translate("Confirm Log Out", lang)}</Text>
+
                 <Text style={{
                     fontFamily: "Roboto-Bold",
                     fontSize: 16,
@@ -148,6 +149,7 @@ function Index(props) {
                         </HStack>
                     </TouchableOpacity>
                 </HStack>
+                
             </VStack>
         </BaseModal>
     )

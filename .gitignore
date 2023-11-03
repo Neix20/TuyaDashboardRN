@@ -69,3 +69,4 @@ android/app/yatu/*
 android/app/yatuDeveloper/*
 
 *.zip
+temp/*

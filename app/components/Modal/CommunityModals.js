@@ -27,6 +27,7 @@ function CloseBtn(props) {
             <FontAwesome name={"close"} size={15} color={"#fff"} />
         </View>
     );
+    
     // return (
     //     <BcSvgIcon name={"Cross"} width={24} height={24} fill={"#C6C6C6"} />
     // )

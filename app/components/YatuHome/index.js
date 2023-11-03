@@ -81,11 +81,11 @@ function Index(props) {
     const navigation = useNavigation();
     const isFocused = useIsFocused();
 
-    const userId = useSelector(Selectors.userIdSelect);
-    const homeId = useSelector(Selectors.homeIdSelect)
-    
     const dispatch = useDispatch();
 
+    const userId = useSelector(Selectors.userIdSelect);
+    const homeId = useSelector(Selectors.homeIdSelect);
+    
     // #region Initial
     const init = {
         home: {

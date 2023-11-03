@@ -134,8 +134,7 @@ function Index(props) {
                     {/* Body */}
                     <ScrollView showsVerticalScrollIndicator={false} keyboardShouldPersistTaps={"handled"}
                         contentContainerStyle={{ flexGrow: 1 }}>
-                        <VStack space={3}
-                            flexGrow={1}>
+                        <VStack space={3} flexGrow={1}>
                             {/* Home List Panel */}
                             <HomeList data={homeLs} onItemSelect={GoToHomeInfo} />
 

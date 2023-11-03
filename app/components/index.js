@@ -46,10 +46,14 @@ export {
 
 // #region Layout
 import BcHeader from "./Header/Normal";
+import BcHeaderWithAdd from "./Header/Add";
+import BcHeaderWithCancel from "./Header/Cancel";
 import BcFooter from "./Footer";
 
 export {
     BcHeader,
+    BcHeaderWithAdd,
+    BcHeaderWithCancel,
     BcFooter
 }
 // #endregion
@@ -71,6 +75,8 @@ import BcServerMainModal from "./Modal/ServerMaintenance";
 
 import BcPhotoGalleryModal from "./Modal/PhotoGallery";
 
+import BcYesNoModal from "./Modal/YesNo";
+
 export {
     BaseModal,
     BcGenderModal,
@@ -79,7 +85,8 @@ export {
     BcDateRangeModal,
     BcAppUpdateModal,
     BcServerMainModal,
-    BcPhotoGalleryModal
+    BcPhotoGalleryModal,
+    BcYesNoModal
 }
 
 import BcGradient from "./Gradient";

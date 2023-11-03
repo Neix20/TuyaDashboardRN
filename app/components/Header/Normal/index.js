@@ -1,10 +1,7 @@
 import React from "react";
 
-import { Text, TouchableOpacity, Dimensions } from "react-native";
+import { Text, TouchableOpacity } from "react-native";
 import { View, HStack, useToast } from "native-base";
-
-const screen = Dimensions.get("screen");
-const { width, height } = screen;
 
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 
