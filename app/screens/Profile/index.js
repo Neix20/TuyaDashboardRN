@@ -38,7 +38,6 @@ function LogoutModal(props) {
     }
 
     return (
-
         <BaseModal {...props}>
             {/* Content */}
             <VStack
@@ -110,66 +109,114 @@ function Header(props) {
     )
 }
 
-function Profile(props) {
-    const { Email = "Nickname" } = props;
-    const { Created_Date = null, DataAvailableDate = null } = props;
-    return (
-        <TouchableOpacity {...props}>
-            <HStack
-                alignItems={"center"}
-                justifyContent={"space-between"}>
-                {/* Btn */}
-                <HStack alignItems={"center"} space={5}>
-                    <FontAwesome name={"user-o"} color={"#000"} size={48} />
-                    <VStack width={"70%"}>
-                        <Text style={{
-                            fontFamily: "Roboto-Bold",
-                            fontSize: 18
-                        }}>{Email}</Text>
-                        <HStack alignItems={"center"} space={1}>
-                            <Text style={{
-                                fontFamily: "Roboto-Medium",
-                                fontSize: 14
-                            }}>Signed up at</Text>
-                            <Text style={{
-                                fontFamily: "Roboto-Medium",
-                                fontSize: 14
-                            }}>{Utility.formatDt(Created_Date, "yyyy-MM-dd")}</Text>
-                        </HStack>
-                        <HStack alignItems={"center"} space={1}>
-                            <Text style={{
-                                fontFamily: "Roboto-Medium",
-                                fontSize: 14
-                            }}>Data available from</Text>
-                            <Text style={{
-                                fontFamily: "Roboto-Medium",
-                                fontSize: 14
-                            }}>{Utility.formatDt(DataAvailableDate, "yyyy-MM-dd")}</Text>
-                        </HStack>
-                    </VStack>
-                </HStack>
+function ProfilePremium(props) {
+    const { AccountType = 1 } = props;
 
-                {/* Angle-Right */}
-                <FontAwesome name={"angle-right"} color={"#000"} size={32} />
-            </HStack>
-        </TouchableOpacity>
+    const AccountStatus = (val = 1) => {
+        val = +val;
+
+        let dict = {
+            1: {
+                color: "#000",
+                term: "Free"
+            },
+            2: {
+                color: "#FFAA00",
+                term: "Premium"
+            }
+        }
+
+        if (val in dict) {
+            return dict[val];
+        }
+
+        return {
+            color: "#000",
+            term: ""
+        };
+    }
+
+    const { color, term } = AccountStatus(AccountType);
+
+    return (
+        <HStack alignItems={"center"} space={1.5}>
+            <FontAwesome5 name={"crown"} color={color} size={18} />
+            <Text style={{
+                fontFamily: "Roboto-Bold",
+                fontSize: 18,
+                color: color
+            }}>{term}</Text>
+        </HStack>
+    )
+}
+
+function Profile(props) {
+
+    const { Email = "temp@gmail.com" } = props;
+
+    const { Created_Date = "2023-07-01", DataAvailableDate = "2023-07-01" } = props;
+    
+    const subUserAccess = useSelector(Selectors.subUserAccessSelect);
+    const { AccountType = -1 } = subUserAccess;
+
+    return (
+        <View width={"90%"} alignItems={"center"} style={{ minHeight: 60 }}>
+            <TouchableOpacity {...props} style={{ width: "90%" }}>
+                <HStack
+                    alignItems={"center"}
+                    justifyContent={"space-between"}>
+                    {/* Btn */}
+                    <HStack space={5}>
+                        <FontAwesome name={"user-o"} color={"#000"} size={48} />
+                        <VStack width={"70%"}>
+                            <Text style={{
+                                fontFamily: "Roboto-Bold",
+                                fontSize: 18
+                            }}>{Email}</Text>
+
+                            <ProfilePremium AccountType={AccountType} />
+                        </VStack>
+                    </HStack>
+
+                    {/* Angle-Right */}
+                    <FontAwesome name={"angle-right"} color={"#000"} size={32} />
+                </HStack>
+            </TouchableOpacity>
+        </View>
+    )
+}
+
+function ProfileInfo(props) {
+
+    const { Created_Date = "2023-07-01", DataAvailableDate = "2023-07-01" } = props;
+
+    return (
+        <VStack bgColor={"#FFF"} borderRadius={8} width={"90%"} alignItems={"center"}>
+            <PanelBtnII
+                Btn={FontAwesome} icon={"user"} title={"Joined in " + Utility.formatDt(Created_Date, "yyyy-MM-dd")} />
+            <PanelBtnII
+                Btn={FontAwesome5} icon={"database"} title={"Data available from " + Utility.formatDt(DataAvailableDate, "yyyy-MM-dd")} />
+        </VStack>
     )
 }
 
 function PanelBtn(props) {
-    const { Btn, icon, showRight = true } = props;
+    const { Btn, icon } = props;
+    const { showRight = true, disabled = false } = props;
     const { title = "", color = "#111111" } = props;
     const { onPress = () => { } } = props;
 
     return (
-        <TouchableOpacity onPress={onPress} style={{ width: "90%" }}>
+        <TouchableOpacity onPress={onPress} disabled={disabled} style={{ width: "90%" }}>
             <HStack
                 alignItems={"center"}
                 justifyContent={"space-between"}
                 style={{ height: 60 }}>
                 {/* Icon & Title */}
-                <HStack alignItems={"center"} space={3}>
-                    <Btn name={icon} color={color} size={24} />
+                <HStack alignItems={"center"}>
+                    <View alignItems={"flex-start"} style={{ width: 40 }}>
+                        <Btn name={icon} color={color} size={24} />
+                    </View>
                     <Text style={{
                         fontFamily: "Roboto-Medium",
                         fontSize: 18,
@@ -188,6 +235,27 @@ function PanelBtn(props) {
 
             </HStack>
         </TouchableOpacity>
+    )
+}
+
+function PanelBtnII(props) {
+    const { Btn, icon } = props;
+    const { title = "", color = "#111111" } = props;
+
+    return (
+        <HStack
+            width={"90%"}
+            alignItems={"center"}
+            style={{ height: 40 }}>
+            <View alignItems={"flex-start"} style={{ width: 40 }}>
+                <Btn name={icon} color={color} size={24} />
+            </View>
+            <Text style={{
+                fontFamily: "Roboto-Medium",
+                fontSize: 16,
+                color: color
+            }}>{title}</Text>
+        </HStack>
     )
 }
 
@@ -312,14 +380,12 @@ function Index(props) {
                     {/* Body */}
                     <ScrollView showsVerticalScrollIndicator={false} keyboardShouldPersistTaps={"handled"}
                         contentContainerStyle={{ flexGrow: 1 }}>
-                        <VStack flexGrow={1}
-                            alignItems={"center"} space={3}>
+                        <VStack flexGrow={1} alignItems={"center"} space={4}>
                             {/* User */}
-                            <View width={"90%"} alignItems={"center"} style={{ minHeight: 60 }}>
-                                <Profile {...profileInfo} onPress={GoToProfileInfo} />
-                            </View>
+                            <Profile {...profileInfo} onPress={GoToProfileInfo} />
 
                             {/* Join Information */}
+                            <ProfileInfo {...profileInfo} />
 
                             <NavPanel {...profileInfo} />
 

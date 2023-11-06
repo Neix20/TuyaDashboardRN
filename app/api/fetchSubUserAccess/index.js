@@ -24,7 +24,7 @@ const Index = async (props) => {
 
     if (data["ResponseCode"] === "00") {
         const { Data = {} } = data;
-        return Data[0];
+        return Data;
     }
     else {
         console.log(`GetSubUserAccess - Request - ${JSON.stringify(obj)}`);

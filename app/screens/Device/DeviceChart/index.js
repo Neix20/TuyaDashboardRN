@@ -78,7 +78,8 @@ function Index(props) {
     const { Id: deviceId } = props.route.params;
 
     useEffect(() => {
-        if (isFocused) {
+        const flag = isFocused && startDt != undefined && endDt != undefined;
+        if (flag) {
             setLoading(true);
 
             fetchDeviceDataChart({

@@ -12,7 +12,7 @@ import { Images, Svg, iRDataUnit, DashboardSmartPlugData } from "@config";
 
 import {
     BcBoxShadow, BcSvgIcon, BcDateRange, BcViewShot, BcLoading, BcYatuHome, BcApacheChartFull, BcDataAttribute,
-    BcApacheBarChart, BcApacheBarChartFull, BcApachePieChart
+    BcApacheBarChart, BcApacheBarChartFull, BcApachePieChart, BcApacheChartDebug
 } from "@components";
 
 import { DateTime } from "luxon";
@@ -537,7 +537,11 @@ function Index(props) {
     // #region UseEffect
     // Update Data
     useEffect(() => {
-        if (isFocused) {
+
+        const flag = isFocused && startDt != undefined && endDt != undefined;
+
+        if (flag) {
+
             setLoading(true);
             fetchDashboardInfo({
                 param: {
@@ -645,33 +649,33 @@ function Index(props) {
         }
     }, [isFocused, JSON.stringify(startDt + endDt + homeId)]);
 
-    useEffect(() => {
-        if (isFocused) {
-            setTimeout(() => {
-                fetchDashboardInfo({
-                    param: {
-                        UserId: userId,
-                        HomeId: homeId,
-                        StartDate: cmpStartDt,
-                        EndDate: `${cmpEndDt} 23:59:59`
-                    },
-                    onSetLoading: () => { },
-                })
-                    .then(res => {
-                        if ("IR Temperature" in res) {
-                            const Data = res["IR Temperature"]
-                            setPrevChart(Data);
-                        } else {
-                            setPrevChart({})
-                        }
-                    })
-                    .catch(err => {
-                        setLoading(false);
-                        console.log(`Error: ${err}`);
-                    })
-            }, 10 * 1000);
-        }
-    }, [isFocused, JSON.stringify(cmpStartDt + cmpEndDt + homeId)]);
+    // useEffect(() => {
+    //     if (isFocused) {
+    //         setTimeout(() => {
+    //             fetchDashboardInfo({
+    //                 param: {
+    //                     UserId: userId,
+    //                     HomeId: homeId,
+    //                     StartDate: cmpStartDt,
+    //                     EndDate: `${cmpEndDt} 23:59:59`
+    //                 },
+    //                 onSetLoading: () => { },
+    //             })
+    //                 .then(res => {
+    //                     if ("IR Temperature" in res) {
+    //                         const Data = res["IR Temperature"]
+    //                         setPrevChart(Data);
+    //                     } else {
+    //                         setPrevChart({})
+    //                     }
+    //                 })
+    //                 .catch(err => {
+    //                     setLoading(false);
+    //                     console.log(`Error: ${err}`);
+    //                 })
+    //         }, 10 * 1000);
+    //     }
+    // }, [isFocused, JSON.stringify(cmpStartDt + cmpEndDt + homeId)]);
     // #endregion
 
     return (
@@ -688,7 +692,8 @@ function Index(props) {
                     {
                         (isPort) ? (
                             <>
-                                <BcDateRange hook={dateHook} prevHook={cmpDateHook} flagHook={chartCompareHook} />
+                                <BcDateRange showCompare={false}
+                                    hook={dateHook} prevHook={cmpDateHook} flagHook={chartCompareHook} />
                                 <View style={{ height: 10 }} />
                             </>
                         ) : (
@@ -702,7 +707,7 @@ function Index(props) {
                         keyboardShouldPersistTaps={"handled"}
                         contentContainerStyle={{ flexGrow: 1 }}>
                         {
-                            (Object.keys(chart).length > 0 || Object.keys(spChart).length > 0 || Object.keys(aqChart).length > 0) ? (
+                            (Object.keys(chart).length > 0 || Object.keys(spBarChart).length > 0 || Object.keys(aqChart).length > 0) ? (
                                 <View flexGrow={1}>
                                     <HStack
                                         flexWrap={"wrap"}
@@ -722,7 +727,7 @@ function Index(props) {
                                         }
 
                                         {
-                                            (Object.keys(spChart).length > 0) ? (
+                                            (Object.keys(spBarChart).length > 0) ? (
                                                 <View px={3} style={{ width: width }}>
                                                     <BcViewShot title="Total KiloWatt (KWh) Report">
                                                         {/* <BcApacheChartFull hook={spChartHook} height={400} /> */}
@@ -788,23 +793,6 @@ function Index(props) {
                                         }
 
                                         {
-                                            (Object.keys(drAqData).length > 0) ? (
-                                                <View px={3} style={{ width: c_width }}>
-                                                    <BcViewShot title="Daily Air Quality Average Report">
-                                                        <BcDataAttribute data={[{
-                                                            "Average Formaldehyde (mg/m3)": 0,
-                                                            "Average Particle Matter (ug/m3)": 0,
-                                                            "Average Carbon Dioxide (ppm)": 0,
-                                                        }]} />
-                                                        <DashboardAirQualityReport data={drAqData} />
-                                                    </BcViewShot>
-                                                </View>
-                                            ) : (
-                                                <></>
-                                            )
-                                        }
-
-                                        {
                                             (Object.keys(drSpData).length > 0) ? (
                                                 <View px={3} style={{ width: c_width }}>
                                                     <BcViewShot title="Daily Smart Plug Average Report">
@@ -815,6 +803,23 @@ function Index(props) {
                                                             "Average Voltage (V)": 0,
                                                         }]} />
                                                         <DashboardVoltageReport data={drSpData} />
+                                                    </BcViewShot>
+                                                </View>
+                                            ) : (
+                                                <></>
+                                            )
+                                        }
+
+                                        {
+                                            (Object.keys(drAqData).length > 0) ? (
+                                                <View px={3} style={{ width: c_width }}>
+                                                    <BcViewShot title="Daily Air Quality Average Report">
+                                                        <BcDataAttribute data={[{
+                                                            "Average Formaldehyde (mg/m3)": 0,
+                                                            "Average Particle Matter (ug/m3)": 0,
+                                                            "Average Carbon Dioxide (ppm)": 0,
+                                                        }]} />
+                                                        <DashboardAirQualityReport data={drAqData} />
                                                     </BcViewShot>
                                                 </View>
                                             ) : (

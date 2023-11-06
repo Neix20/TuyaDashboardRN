@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 
 import { DateTime } from "luxon";
 
-function Index() {
+function Index(onSetLoading = () => {}) {
 
     const [chart, setChart] = useState([]);
     const [chartData, setChartData] = useState({});
@@ -11,6 +11,8 @@ function Index() {
 
     useEffect(() => {
         if (chart.length > 1) {
+
+            onSetLoading(true);
 
             const obj = { ...chart[0] };
             delete obj["Device_Id"];
@@ -46,6 +48,8 @@ function Index() {
             };
 
             setChartData(dict);
+
+            onSetLoading(false);
         }
     }, [chart]);
 

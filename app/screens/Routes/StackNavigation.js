@@ -391,7 +391,7 @@ function Index(props) {
     // #endregion
 
     const defaultScreen = (userId == -1 || firstTimeLink) ? "Login" : "TabNavigation";
-    // const defaultScreen = "SubUser";
+    // const defaultScreen = "Debug";
 
     return (
         <>

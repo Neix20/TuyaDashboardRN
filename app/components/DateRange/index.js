@@ -11,14 +11,20 @@ import { BcDateRangeModal, BcBoxShadow } from "@components";
 
 import { useToggle } from "@hooks";
 
+import { useDispatch, useSelector } from 'react-redux';
+import { Actions, Selectors } from '@redux';
+
 function Index(props) {
 
     const { hook = [] } = props;
-    const [startDt, setStartDt, endDt, setEndDt, addDt, minusDt] = hook;
+    const [startDt, setStartDt, endDt, setEndDt, addDt, minusDt, diff] = hook;
 
     // #region UseState
     const [showDtModal, setShowDtModal, toggleDateModal] = useToggle(false);
     // #endregion
+
+    const subUserAccess = useSelector(Selectors.subUserAccessSelect);
+    const { AccountType = -1 } = subUserAccess;
 
     return (
         <>
@@ -46,7 +52,7 @@ function Index(props) {
 
                             {/* Controls */}
                             <HStack>
-                                <TouchableOpacity onPress={minusDt}>
+                                <TouchableOpacity onPress={minusDt} disabled={AccountType <= 1 && diff > 7}>
                                     <View
                                         justifyContent={"center"}
                                         alignItems={"center"}

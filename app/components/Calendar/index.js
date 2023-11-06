@@ -6,71 +6,10 @@ import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 import { Calendar } from 'react-native-calendars';
 
 import { DateTime } from "luxon";
+import { useToggle } from "@hooks";
 
-
-function useToggle(value = false) {
-    const [flag, setFlag] = useState(value);
-
-    const toggleFlag = () => setFlag((val) => !val);
-
-    return [flag, setFlag, toggleFlag];
-}
-
-function useCalendarDate(init = "2023-10-01") {
-
-    // yyyy-MM-dd: 2023-10-01
-    const [dt, setDt] = useState(init);
-
-    const [luxonDt, setLuxonDt] = useState(DateTime.now());
-
-    useEffect(() => {
-        if (dt.length > 0) {
-            const t_dt = DateTime.fromFormat(dt, "yyyy-MM-dd");
-            setLuxonDt(t_dt);
-        }
-    }, [dt]);
-
-    const addDay = (duration = 1, delimiter = "days") => {
-
-        const next_state = {};
-        next_state[delimiter] = duration;
-
-        const t_dt = luxonDt.plus(next_state);
-        setLuxonDt(_ => t_dt);
-
-        const t_dt_str = t_dt.toFormat("yyyy-MM-dd");
-        setDt(_ => t_dt_str);
-    }
-
-    const minusDay = (duration = 1, delimiter = "days") => {
-        const next_state = {};
-        next_state[delimiter] = duration;
-
-        const t_dt = luxonDt.plus(next_state);
-        setLuxonDt(_ => t_dt);
-        
-        const t_dt_str = t_dt.toFormat("yyyy-MM-dd");
-        setDt(_ => t_dt_str);
-    }
-
-    const setDay = (duration = 1, delimiter = "days") => {
-        const next_state = {};
-        next_state[delimiter] = duration;
-
-        const t_dt = luxonDt.set(next_state);
-        setLuxonDt(_ => t_dt);
-        
-        const t_dt_str = t_dt.toFormat("yyyy-MM-dd");
-        setDt(_ => t_dt_str);
-    }
-
-    const updateCalendarDay = (day) => {
-        const { dateString } = day;
-        setDt(dateString);
-    }
-
-    return [dt, luxonDt, addDay, minusDay, setDay, updateCalendarDay];
-}
+import { useDispatch, useSelector } from 'react-redux';
+import { Actions, Selectors } from '@redux';
 
 function CalendarHeader(props) {
 
@@ -107,18 +46,21 @@ function CalendarHeader(props) {
 
 function Index(props) {
 
-    const { calHook = [] } = props;
+    const { calHook = [], onUpdateDay = () => {} } = props;
     const flagHook = useToggle(true);
 
     const [dt, parseDt, addDay, minusDay, setDay, updateCalendarDay] = calHook;
     const [mFlag, setMFlag, toggleMFlag] = flagHook;
+
+    const subUserAccess = useSelector(Selectors.subUserAccessSelect);
+    const { AccountType = -1 } = subUserAccess;
 
     // Dynamic
     const genYearArr = (year = 2023, num = 12) => {
         let arr = [];
 
         for(let ind = 0; ind < num; ind += 1) {
-            let c_year = year - (ind + 1);
+            let c_year = year - ind;
 
             let obj = {
                 name: c_year + "",
@@ -137,12 +79,13 @@ function Index(props) {
     const [termArr, setTermArr] = useState([]);
 
     useEffect(() => {
-        const year = +DateTime.now().toFormat("yyyy");
+        const year = DateTime.now().toFormat("yyyy") * 1;
         const arr = genYearArr(year, 15);
         setTermArr(arr);
     }, []);
 
     if (!mFlag) {
+        // Fix This
         const renderItem = (item, index) => {
 
             const { name, value } = item;
@@ -182,10 +125,19 @@ function Index(props) {
         )
     }
 
+    const onDayPress = (day) => {
+        updateCalendarDay(day);
+        onUpdateDay();
+    }
+
+    const minDt = (AccountType <= 1) ? DateTime.now().plus({ days: -7 }).toFormat("yyyy-MM-dd") : DateTime.now().plus({ months: -3 }).toFormat("yyyy-MM-dd");
+
     return (
         <Calendar
             key={dt} current={dt}
-            onDayPress={updateCalendarDay}
+            onDayPress={onDayPress}
+            minDate={minDt}
+            maxDate={DateTime.now().toFormat("yyyy-MM-dd")}
             markedDates={{
                 [dt]: { selected: true, disableTouchEvent: true }
             }}

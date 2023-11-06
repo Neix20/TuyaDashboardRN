@@ -4,7 +4,7 @@ import { DateTime } from "luxon";
 
 import { Svg } from "@config";
 
-function Index() {
+function Index(onSetLoading = () => {}) {
 
     const [chart, setChart] = useState([]);
     const [chartData, setChartData] = useState({});
@@ -14,6 +14,8 @@ function Index() {
 
     useEffect(() => {
         if (chart.length > 1) {
+
+            onSetLoading(true);
 
             const obj = { ...chart[0] };
 
@@ -52,6 +54,8 @@ function Index() {
             }
 
             setChartData(() => ({ label, dataset }));
+
+            onSetLoading(false);
         }
     }, [chart]);
 

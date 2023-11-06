@@ -15,10 +15,6 @@ function Index() {
     const toggleFlag = () => setFlag(val => !val);
 
     useEffect(() => {
-        console.log(coor);
-    }, [coor])
-
-    useEffect(() => {
         const { start, end } = coor;
 
         let next_state = {};

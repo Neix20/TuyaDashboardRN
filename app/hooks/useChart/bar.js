@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 
 import { DateTime } from "luxon";
 
-function Index(default_key) {
+function Index(default_key, onSetLoading = () => {}) {
 
     // #region UseState
     const [chart, setChart] = useState([]);
@@ -93,6 +93,8 @@ function Index(default_key) {
 
     useEffect(() => {
 
+        onSetLoading(true);
+
         let dataset = [];
         let label = [];
 
@@ -124,6 +126,8 @@ function Index(default_key) {
 
         const legend = Object.keys(chartII);
         setChartLegend(() => legend);
+
+        onSetLoading(false);
     }, [chartKey, chartII]);
 
     return [

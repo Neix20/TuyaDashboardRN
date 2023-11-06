@@ -9,9 +9,12 @@ import { Logger, Utility } from "@utility";
 
 import { iRData, iRDataUnit, DowntimeData, clsConst, Images, DashboardSmartPlugFullData, DeviceDistributionData } from "@config";
 
-import { useToggle, useDate, useEChart, useOrientation, useTimer, useBarChart, useCoor, useDevDistChart } from "@hooks";
+import { useToggle, useDate, useEChart, useOrientation, useTimer, useBarChart, useCoor, useDevDistChart, useCalendarDate } from "@hooks";
 
-import { BcViewShot, BcLineChartFull, BcDateRange, BcLineChart, BcLineLegend, BcApacheChart, BcApacheChartFull, BcDropdown, BcApacheChartDebug, BcApacheBarChart } from "@components";
+import { BcViewShot, BcLineChartFull, BcDateRange, BcLineChart, BcLineLegend, BcApacheChart, BcApacheChartFull, BcDropdown, BcApacheChartDebug, BcApacheBarChart, BcApachePieChart, BcCalendar } from "@components";
+
+import { fetchGetDeviceDistribution } from "@api";
+import { DateTime } from "luxon";
 
 function DownTimeTable(props) {
 
@@ -192,10 +195,6 @@ function Index(props) {
     )
 }
 
-import BcPie from "./pie";
-import BcCalendar from "./Calendar";
-import { fetchGetDeviceDistribution } from "@api";
-
 function DeviceChart(props) {
 
     const isFocused = useIsFocused();
@@ -273,7 +272,7 @@ function DeviceChart(props) {
                     </TouchableOpacity> */}
                     <View px={3} style={{ width: width }} >
                         <BcViewShot title={"Total Device Distribution"}>
-                            <BcPie hook={devDistChartHook} />
+                            <BcApachePieChart hook={devDistChartHook} />
                         </BcViewShot>
                     </View>
 
@@ -317,67 +316,34 @@ function DeviceChart(props) {
     )
 }
 
-import { DateTime } from "luxon";
-function useCalendarDate(init = "2023-10-01") {
-
-    // yyyy-MM-dd: 2023-10-01
-    const [dt, setDt] = useState(init);
-
-    const [luxonDt, setLuxonDt] = useState(DateTime.now());
-
-    useEffect(() => {
-        if (dt.length > 0) {
-            const t_dt = DateTime.fromFormat(dt, "yyyy-MM-dd");
-            setLuxonDt(t_dt);
-        }
-    }, [dt]);
-
-    const addDay = (duration = 1, delimiter = "days") => {
-
-        const next_state = {};
-        next_state[delimiter] = duration;
-
-        const t_dt = luxonDt.plus(next_state);
-        setLuxonDt(_ => t_dt);
-
-        const t_dt_str = t_dt.toFormat("yyyy-MM-dd");
-        setDt(_ => t_dt_str);
-    }
-
-    const minusDay = (duration = 1, delimiter = "days") => {
-        const next_state = {};
-        next_state[delimiter] = duration;
-
-        const t_dt = luxonDt.plus(next_state);
-        setLuxonDt(_ => t_dt);
-        
-        const t_dt_str = t_dt.toFormat("yyyy-MM-dd");
-        setDt(_ => t_dt_str);
-    }
-
-    const setDay = (duration = 1, delimiter = "days") => {
-        const next_state = {};
-        next_state[delimiter] = duration;
-
-        const t_dt = luxonDt.set(next_state);
-        setLuxonDt(_ => t_dt);
-        
-        const t_dt_str = t_dt.toFormat("yyyy-MM-dd");
-        setDt(_ => t_dt_str);
-    }
-
-    const updateCalendarDay = (day) => {
-        const { dateString } = day;
-        setDt(dateString);
-    }
-
-    return [dt, luxonDt, addDay, minusDay, setDay, updateCalendarDay];
-}
-
 function CalendarDiv(props) {
 
-    const calHook = useCalendarDate();
-    const [dt, parseDt] = calHook
+    const calHook = useCalendarDate(DateTime.now().toFormat("yyyy-MM-dd"));
+    const [dt, parseDt] = calHook;
+
+    const init = {
+        dateObj: {
+            startDt: "2023-08-18",
+            endDt: "2023-08-19"
+        },
+        prevDateObj: {
+            startDt: "2023-07-18",
+            endDt: "2023-07-19"
+        }
+    }
+
+    const dateHook = useDate(init.dateObj);
+
+    const startDt = dateHook[0];
+    const endDt = dateHook[2];
+
+    const prevHook = useDate(init.prevDateObj);
+
+    const pStartDt = prevHook[0];
+    const pEndDt = prevHook[2];
+
+    const flagHook = useToggle(false);
+    const [flag, setFlag, toggleFlag] = flagHook;
 
     return (
         <SafeAreaView style={{ flex: 1 }}>
@@ -386,14 +352,13 @@ function CalendarDiv(props) {
                 keyboardShouldPersistTaps={"handled"}
                 contentContainerStyle={{ flexGrow: 1 }}>
                 <VStack flexGrow={1} alignItems={"center"} justifyContent={"center"} space={3}>
-                    <View bgColor={"#FFF"}
-                        style={{
-                            width: "90%",
-                            height: 360,
-                        }}>
+                    <View bgColor={"#FFF"} style={{ width: "90%", height: 360 }}>
                         <BcCalendar calHook={calHook} />
                     </View>
                     <Text>{parseDt.toFormat("yyyy-MM-dd")}</Text>
+                    
+                    <BcDateRange hook={dateHook} flagHook={flagHook} prevHook={prevHook} /> 
+                    <Text>{startDt} {endDt}</Text>
                 </VStack>
             </ScrollView>
         </SafeAreaView>
