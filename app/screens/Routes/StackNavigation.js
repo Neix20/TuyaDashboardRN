@@ -286,16 +286,21 @@ const init = {
 // #endregion
 
 import { BcAppUpdateModal, BcServerMainModal } from "@components";
-import { fetchGetAppVersion, fetchGetServerStatus } from "@api";
+import { fetchGetAppVersion, fetchGetServerStatus, fetchSubUserAccess } from "@api";
 
 import { useToggle } from "@hooks";
 
 function Index(props) {
 
+    // #region UseState
     const dispatch = useDispatch();
 
     const userId = useSelector(Selectors.userIdSelect);
     const firstTimeLink = useSelector(Selectors.firstTimeLinkSelect);
+
+    const [appFlag, setAppFlag, toggleAppFlag] = useToggle(false);
+    const [serverFlag, setServerFlag, toggleServerFlag] = useToggle(false);
+    // #endregion
 
     useEffect(() => {
         // Hide Splash Screen
@@ -335,11 +340,10 @@ function Index(props) {
 
         getAppVersion();
         getServerStatus();
+        RequestAccess(userId);
     }, []);
 
-    const [appFlag, setAppFlag, toggleAppFlag] = useToggle(false);
-    const [serverFlag, setServerFlag, toggleServerFlag] = useToggle(false);
-
+    // #region Helper
     const getAppVersion = () => {
         fetchGetAppVersion({
             param: {
@@ -370,8 +374,24 @@ function Index(props) {
         })
     }
 
-    // const defaultScreen = (userId == -1 || firstTimeLink) ? "Login" : "TabNavigation";
-    const defaultScreen = "SubUser";
+    const RequestAccess = (userId) => {
+        fetchSubUserAccess({
+            param: {
+                UserId: userId
+            },
+            onSetLoading: () => {},
+        })
+        .then(data => {
+            dispatch(Actions.onChangeSubUserAccess(data));
+        })
+        .catch(err => {
+            console.log(`Error: ${err}`);
+        })
+    }
+    // #endregion
+
+    const defaultScreen = (userId == -1 || firstTimeLink) ? "Login" : "TabNavigation";
+    // const defaultScreen = "SubUser";
 
     return (
         <>

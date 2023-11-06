@@ -48,6 +48,8 @@ function Index() {
             const active = val["Active"];
             const inactive = val["Inactive"];
 
+            const color = val["Color"];
+
             const total = active + inactive;
 
             let obj = [
@@ -65,7 +67,8 @@ function Index() {
                     data: [
                         { name: 'Active', value: active },
                         { name: 'Inactive', value: inactive },
-                    ]
+                    ],
+                    tCol: color,
                 }
             ]
 

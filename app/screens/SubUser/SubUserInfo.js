@@ -24,7 +24,7 @@ function UserInfoDiv(props) {
                     fontSize: 18
                 }}>{title}</Text>
             </View>
-            <View flex={.7}>
+            <View flex={.7} alignItems={"flex-end"}>
                 <Text style={{
                     fontFamily: "Roboto-Medium",
                     fontSize: 18,
@@ -38,13 +38,13 @@ function UserInfoDiv(props) {
 function UserInfo(props) {
 
     const { data = {} } = props;
-    const { Email = "" } = data;
+    const { Email = "", IsManager = -1 } = data;
 
     return (
         <BcBoxShadow>
             <VStack alignItems={"center"} bgColor={"#FFF"}>
                 <UserInfoDiv title={"Email"} value={Email} />
-                <UserInfoDiv title={"Role"} value={"Member"} />
+                <UserInfoDiv title={"Role"} value={(IsManager == -1) ? "Member" : "Admin"} />
             </VStack>
         </BcBoxShadow>
     )
@@ -181,6 +181,8 @@ function Index(props) {
     const [refresh, setRefresh, toggleRefresh] = useToggle(false);
     // #endregion
 
+    const { Email = "" } = user;
+
     useEffect(() => {
         if (isFocused) {
             setLoading(true);
@@ -228,6 +230,12 @@ function Index(props) {
         })
         .then(data => {
             toggleRefresh();
+
+            navigation.goBack();
+
+            toast.show({
+                description: `Successfully Deleted ${Email}!`
+            });
         })
         .catch(err => {
             setLoading(false);

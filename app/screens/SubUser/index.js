@@ -21,6 +21,25 @@ import { Actions, Selectors } from '@redux';
 import { SubUserData } from "@config";
 
 // #region Components
+function EmptyList(props) {
+    return (
+        <View flexGrow={1} justifyContent={"center"} alignItems={"center"}>
+            <VStack space={2} width={"90%"} alignItems={"center"}>
+                <FontAwesome5 name={"users"} color={"#e6e6e6"} size={80} />
+                <Text style={{
+                    fontFamily: "Roboto-Medium",
+                    fontSize: 18,
+                    color: "#d3d3d3",
+                    textAlign: "center",
+                    fontWeight: "700"
+                }}>
+                    Tap "+" to add new members to manage your home
+                </Text>
+            </VStack>
+        </View>
+    )
+}
+
 function SubUserList(props) {
 
     const navigation = useNavigation();
@@ -28,7 +47,9 @@ function SubUserList(props) {
     const { data = [] } = props;
 
     if (data.length <= 0) {
-        return (<></>)
+        return (
+            <EmptyList />
+        )
     }
 
     const renderItem = ({ item, index }) => {
@@ -73,36 +94,28 @@ function Index(props) {
     const dispatch = useDispatch();
 
     const userId = useSelector(Selectors.userIdSelect);
-    const homeId = useSelector(Selectors.homeIdSelect);
 
     const [subUserLs, setSubUserLs] = useState([]);
     const [loading, setLoading, toggleLoading] = useToggle(false);
 
     const GoToAddSubUser = () => navigation.navigate("AddSubUser");
 
-    // useEffect(() => {
-    //     if (isFocused) {
-    //         setLoading(true);
-    //         fetchSubUserList({
-    //             param: {
-    //                 UserId: userId,
-    //                 HomeId: homeId
-    //             },
-    //             onSetLoading: setLoading
-    //         })
-    //         .then(data => {
-    //             setSubUserLs(data);
-    //         })
-    //         .catch(err => {
-    //             setLoading(false);
-    //             console.log(`Error: ${err}`);
-    //         })
-    //     }
-    // }, [isFocused]);
-
     useEffect(() => {
         if (isFocused) {
-            setSubUserLs(SubUserData);
+            setLoading(true);
+            fetchSubUserList({
+                param: {
+                    UserId: userId
+                },
+                onSetLoading: setLoading
+            })
+            .then(data => {
+                setSubUserLs(data);
+            })
+            .catch(err => {
+                setLoading(false);
+                console.log(`Error: ${err}`);
+            })
         }
     }, [isFocused]);
 
@@ -121,7 +134,7 @@ function Index(props) {
                     <ScrollView showsVerticalScrollIndicator={false}
                         keyboardShouldPersistTaps={"handled"}
                         contentContainerStyle={{ flexGrow: 1 }}>
-                        <View bgColor={"#FFF"} alignItems={"center"}>
+                        <View flexGrow={1} bgColor={"#FFF"} alignItems={"center"}>
                             <SubUserList data={subUserLs} />
                         </View>
                     </ScrollView>

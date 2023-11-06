@@ -64,8 +64,6 @@ function ChartComponent(props) {
 // Component usage
 function Index(props) {
 
-    const colorLs = ["rgba(255, 0, 0, 1)", "rgba(0, 0, 255, 1)", "rgba(0, 255, 0, 1)", "rgba(0, 255, 255, 1)", "rgba(255, 255, 0, 1)", "rgba(255, 0, 255, 1)", "rgba(0, 0, 0, 1)", "rgba(255, 255, 255, 1)"];
-
     const { hook = [] } = props;
 
     const [chart, setChart, chartData, chartLegend] = hook;
@@ -75,7 +73,11 @@ function Index(props) {
 
     const renderItem = (item, ind) => {
 
-        const { name } = item[0];
+        const { name = "", tCol = "" } = item[0];
+
+        const colorLs = ["rgba(0, 0, 0, 1)", "rgba(0, 0, 255, 1)", "rgba(0, 255, 0, 1)", "rgba(0, 255, 255, 1)", "rgba(255, 0, 0, 1)", "rgba(255, 0, 255, 1)", "rgba(255, 255, 0, 1)", "rgba(255, 255, 255, 1)"];
+
+        // console.log(color, color.slice(0, -2) + "0.25)");
 
         const option = {
             animation: false,
@@ -93,7 +95,7 @@ function Index(props) {
                 left: 5,
                 right: 5,
             },
-            color: [colorLs[ind], colorLs[ind].slice(0, -2) + "0.25)"],
+            color: [tCol, tCol.slice(0, -2) + "0.25)"],
             series: item,
         };
 

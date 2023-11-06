@@ -13,6 +13,7 @@ const initialState = {
     linkTimer: -1,
     linkTsStart: -1,
     linkTotalDuration: 0,
+    subUserAccess: {}
 };
 
 function setReducer(state = initialState, action = {}) {
@@ -71,6 +72,11 @@ function setReducer(state = initialState, action = {}) {
             return {
                 ...state,
                 linkTsStart: action.linkTsStart,
+            };
+        case "SET_SUB_USER_ACCESS":
+            return {
+                ...state,
+                subUserAccess: action.subUserAccess,
             };
         default: {
             return {

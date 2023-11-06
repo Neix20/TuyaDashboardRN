@@ -11,6 +11,8 @@ const linkTotalDurationSelect = (state) => state.linkTotalDuration;
 const linkDeviceLsSelect = (state) => state.linkDeviceLs;
 const linkTsStartSelect = (state) => state.linkTsStart;
 
+const subUserAccessSelect = (state) => state.subUserAccess;
+
 export {
     defaultValueSelect,
     userIdSelect,
@@ -22,5 +24,6 @@ export {
     linkTimerSelect,
     linkTotalDurationSelect,
     linkDeviceLsSelect,
-    linkTsStartSelect
+    linkTsStartSelect,
+    subUserAccessSelect
 }

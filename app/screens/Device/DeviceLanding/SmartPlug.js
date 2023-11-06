@@ -185,6 +185,9 @@ function Index(props) {
     const GoToRules = () => navigation.navigate("DeviceRulesInfo", deviceInfo);
     // #endregion
 
+    const subUserAccess = useSelector(Selectors.subUserAccessSelect);
+    const { ManageDeviceRules = -1} = subUserAccess;
+
     return (
         <>
             <BcLoading loading={loading} />
@@ -223,7 +226,7 @@ function Index(props) {
                                         }}>{Online_Status == 1 ? "Online" : "Offline"}</Text>
                                     </Text>
                                 </ItemPanel>
-                                <ItemPanel Icon={FontAwesome5} name={"clipboard-list"} onPress={GoToRules}>Device Rules</ItemPanel>
+                                { (ManageDeviceRules == 1) ? <ItemPanel Icon={FontAwesome5} name={"clipboard-list"} onPress={GoToRules}>Device Rules</ItemPanel> : <></>}
                                 <ItemPanel Icon={FontAwesome5} name={"chart-area"} onPress={GoToChart}>Data Chart</ItemPanel>
                                 <ItemPanel Icon={FontAwesome5} name={"table"} onPress={GoToTable}>Data Table</ItemPanel>
                             </VStack>

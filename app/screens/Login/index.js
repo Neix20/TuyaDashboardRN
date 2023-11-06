@@ -14,7 +14,7 @@ import { clsConst } from "@config";
 
 import { BcSvgIcon, BcLoading, BcDisable } from "@components";
 
-import { fetchRequestOtp, fetchLogin } from "@api";
+import { fetchRequestOtp, fetchLogin, fetchSubUserAccess } from "@api";
 
 import { useDispatch, useSelector } from 'react-redux';
 import { Actions, Selectors } from '@redux';
@@ -199,6 +199,21 @@ function Index(props) {
             })
     }
 
+    const RequestAccess = (userId) => {
+        fetchSubUserAccess({
+            param: {
+                UserId: userId
+            },
+            onSetLoading: () => {},
+        })
+        .then(data => {
+            dispatch(Actions.onChangeSubUserAccess(data));
+        })
+        .catch(err => {
+            console.log(`Error: ${err}`);
+        })
+    }
+
     const Login = () => {
         setLoading(true);
         fetchLogin({
@@ -215,8 +230,9 @@ function Index(props) {
                     const { Data: { User_Id, FirstTimeUserId, ResponseMessage } } = data;
 
                     Utility.OneSignalSubscribe(email);
-
                     dispatch(Actions.onChangeUserId(User_Id));
+
+                    RequestAccess(User_Id);
 
                     if (FirstTimeUserId == 1) {
                         dispatch(Actions.onChangeFirstTimeLink(true));

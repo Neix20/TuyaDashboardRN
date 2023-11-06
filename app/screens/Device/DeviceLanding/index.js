@@ -291,6 +291,9 @@ function Index(props) {
     const GoToRules = () => navigation.navigate("DeviceRulesInfo", deviceInfo);
     // #endregion
 
+    const subUserAccess = useSelector(Selectors.subUserAccessSelect);
+    const { ManageDeviceRules = -1} = subUserAccess;
+
     const { Online_Status = 0 } = deviceInfo;
     const { IsTempHumd = 0, IsSmartPlug = 0, IsAirQuality = 0, IsAirCon = 0, IsSmartCamera = 0 } = deviceInfo;
 
@@ -349,7 +352,7 @@ function Index(props) {
                                         </Text>
                                     </ItemPanel>
                                     <ItemPanel Icon={FontAwesome5} name={"info-circle"} onPress={GoToInfo}>Device Info</ItemPanel>
-                                    <ItemPanel Icon={FontAwesome5} name={"clipboard-list"} onPress={GoToRules}>Device Rules</ItemPanel>
+                                    { (ManageDeviceRules == 1) ? <ItemPanel Icon={FontAwesome5} name={"clipboard-list"} onPress={GoToRules}>Device Rules</ItemPanel> : <></>}
 
                                     {/* <ItemPanel Icon={FontAwesome5} name={"bell"} onPress={GoToAlert}>Device Alert</ItemPanel> */}
                                     {

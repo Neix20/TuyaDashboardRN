@@ -185,6 +185,9 @@ function Index(props) {
     const GoToRules = () => navigation.navigate("DeviceRulesInfo", deviceInfo);
     // #endregion
 
+    const subUserAccess = useSelector(Selectors.subUserAccessSelect);
+    const { ManageDeviceRules = -1} = subUserAccess;
+
     return (
         <>
             <BcLoading loading={loading} />
@@ -224,7 +227,7 @@ function Index(props) {
                                     </Text>
                                 </ItemPanel>
                                 <ItemPanel Icon={FontAwesome5} name={"info-circle"} onPress={GoToInfo}>Device Info</ItemPanel>
-                                <ItemPanel Icon={FontAwesome5} name={"clipboard-list"} onPress={GoToRules}>Device Rules</ItemPanel>
+                                { (ManageDeviceRules == 1) ? <ItemPanel Icon={FontAwesome5} name={"clipboard-list"} onPress={GoToRules}>Device Rules</ItemPanel> : <></>}
                             </VStack>
                         </VStack>
                     </ScrollView>

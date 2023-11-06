@@ -106,7 +106,7 @@ function Index(default_key) {
                 val = val.map(x => +x);
             }
 
-            label = device_log["Timestamp"].map(x => DateTime.fromISO(x).toFormat("yyyy-MM-dd"));
+            label = device_log["Timestamp"].map(x => DateTime.fromISO(x).toFormat("MM-dd"));
 
             val = val.map(x => +x);
 

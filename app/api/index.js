@@ -56,6 +56,8 @@ import fetchAddSubUser from "./fetchAddSubUser";
 import fetchDeleteSubUser from "./fetchDeleteSubUser";
 import fetchUpdateSubUser from "./fetchUpdateSubUser";
 
+import fetchSubUserAccess from "./fetchSubUserAccess";
+
 export {
     fetchHomeList,
     fetchHomeInfo,
@@ -131,5 +133,6 @@ export {
     fetchSubUserList,
     fetchAddSubUser,
     fetchDeleteSubUser,
-    fetchUpdateSubUser
+    fetchUpdateSubUser,
+    fetchSubUserAccess
 }

@@ -112,21 +112,41 @@ function Header(props) {
 
 function Profile(props) {
     const { Email = "Nickname" } = props;
+    const { Created_Date = null, DataAvailableDate = null } = props;
     return (
-        <TouchableOpacity {...props} style={{ width: "90%" }}>
+        <TouchableOpacity {...props}>
             <HStack
                 alignItems={"center"}
-                justifyContent={"space-between"}
-                style={{ height: 60 }}>
+                justifyContent={"space-between"}>
                 {/* Btn */}
-                <HStack space={5}>
+                <HStack alignItems={"center"} space={5}>
                     <FontAwesome name={"user-o"} color={"#000"} size={48} />
-                    <View width={"70%"}>
+                    <VStack width={"70%"}>
                         <Text style={{
                             fontFamily: "Roboto-Bold",
                             fontSize: 18
                         }}>{Email}</Text>
-                    </View>
+                        <HStack alignItems={"center"} space={1}>
+                            <Text style={{
+                                fontFamily: "Roboto-Medium",
+                                fontSize: 14
+                            }}>Signed up at</Text>
+                            <Text style={{
+                                fontFamily: "Roboto-Medium",
+                                fontSize: 14
+                            }}>{Utility.formatDt(Created_Date, "yyyy-MM-dd")}</Text>
+                        </HStack>
+                        <HStack alignItems={"center"} space={1}>
+                            <Text style={{
+                                fontFamily: "Roboto-Medium",
+                                fontSize: 14
+                            }}>Data available from</Text>
+                            <Text style={{
+                                fontFamily: "Roboto-Medium",
+                                fontSize: 14
+                            }}>{Utility.formatDt(DataAvailableDate, "yyyy-MM-dd")}</Text>
+                        </HStack>
+                    </VStack>
                 </HStack>
 
                 {/* Angle-Right */}
@@ -180,12 +200,17 @@ function NavPanel(props) {
     const GoToReportSchedule = () => navigation.navigate("ReportSchedule");
     const GoToSubUser = () => navigation.navigate("SubUser");
 
+    const subUserAccess = useSelector(Selectors.subUserAccessSelect);
+    const { ManageUserList = -1 } = subUserAccess;
+
     return (
         <VStack bgColor={"#FFF"} borderRadius={8} width={"90%"} alignItems={"center"}>
             <PanelBtn onPress={GoToHomeManagement} Btn={FontAwesome} icon={"home"} title={"Home Management"} />
             <PanelBtn onPress={GoToAlert} Btn={MaterialCommunityIcons} icon={"message-text-outline"} title={"Message Center"} />
             <PanelBtn onPress={GoToReportSchedule} Btn={FontAwesome5} icon={"clipboard-list"} title={"Report Schedule"} />
-            <PanelBtn onPress={GoToSubUser} Btn={FontAwesome5} icon={"users"} title={"Manage Users"} />
+            {
+                (ManageUserList == 1) ? (<PanelBtn onPress={GoToSubUser} Btn={FontAwesome5} icon={"users"} title={"Manage Users"} />) : (<></>)
+            }
             {/* <PanelBtn Btn={SimpleLineIcons} icon={"question"} title={"FAQ & Feedback"} /> */}
         </VStack>
     )
@@ -287,14 +312,16 @@ function Index(props) {
                     {/* Body */}
                     <ScrollView showsVerticalScrollIndicator={false} keyboardShouldPersistTaps={"handled"}
                         contentContainerStyle={{ flexGrow: 1 }}>
-                        <VStack flexGrow={1} 
-                            alignItems={"center"} space={5}>
+                        <VStack flexGrow={1}
+                            alignItems={"center"} space={3}>
                             {/* User */}
-                            <View width={"90%"} alignItems={"center"} style={{ height: 60 }}>
+                            <View width={"90%"} alignItems={"center"} style={{ minHeight: 60 }}>
                                 <Profile {...profileInfo} onPress={GoToProfileInfo} />
                             </View>
 
-                            <NavPanel />
+                            {/* Join Information */}
+
+                            <NavPanel {...profileInfo} />
 
                             {/* <AppInfoPanel /> */}
 

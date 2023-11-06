@@ -235,9 +235,9 @@ function LinkDeviceModal(props) {
     useEffect(() => {
 
         const ts = Math.floor(DateTime.now().toMillis() / 1000);
-        
+
         if (linkTimer > -1 && (linkTsStart + linkTimer) > ts) {
-            let duration = linkTimer  + linkTsStart - ts;
+            let duration = linkTimer + linkTsStart - ts;
             setTimer(duration);
             setTotalDuration(duration);
 
@@ -730,13 +730,16 @@ function DeviceItem(props) {
     }
     // #endregion
 
+    const subUserAccess = useSelector(Selectors.subUserAccessSelect);
+    const { UnlinkDevice = -1 } = subUserAccess;
+
     const borderRadius = 8;
 
     if (viewMode == "List") {
         return (
             <>
                 <DeviceRemoveModal onPress={onRemoveDevice}
-                    showModal={showRdModal} setShowModal={setShowRdModal} />
+                    showModal={showRdModal && UnlinkDevice == 1} setShowModal={setShowRdModal} />
                 <TouchableOpacity
                     onPress={onSelect}
                     onLongPress={toggleRdModal}>
@@ -783,7 +786,7 @@ function DeviceItem(props) {
     return (
         <>
             <DeviceRemoveModal onPress={onRemoveDevice}
-                showModal={showRdModal} setShowModal={setShowRdModal} />
+                showModal={showRdModal && UnlinkDevice == 1} setShowModal={setShowRdModal} />
             <TouchableOpacity
                 onPress={onSelect}
                 onLongPress={toggleRdModal}>
@@ -829,6 +832,10 @@ function DeviceItem(props) {
 
 // #region Components
 function Header(props) {
+
+    const subUserAccess = useSelector(Selectors.subUserAccessSelect);
+    const { LinkDevice = -1 } = subUserAccess;
+
     return (
         <BcBoxShadow>
             <View bgColor={"#FFF"}
@@ -843,12 +850,17 @@ function Header(props) {
                     {/* Logo */}
                     <BcYatuHome />
 
-                    <HStack alignItems={"center"} space={3}>
-                        {/* Button */}
-                        <TutorialGuideBtn />
-                        <AddDeviceBtn {...props} />
-                    </HStack>
-
+                    {
+                        (LinkDevice == 1) ? (
+                            <HStack alignItems={"center"} space={3}>
+                                {/* Button */}
+                                <TutorialGuideBtn />
+                                <AddDeviceBtn {...props} />
+                            </HStack>
+                        ) : (
+                            <></>
+                        )
+                    }
                 </HStack>
             </View>
         </BcBoxShadow>

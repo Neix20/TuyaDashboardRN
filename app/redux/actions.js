@@ -75,6 +75,13 @@ const onChangeLinkTsStart = (linkTsStart) => {
     }
 };
 
+const onChangeSubUserAccess = (subUserAccess) => {
+    return {
+        type: "SET_SUB_USER_ACCESS",
+        subUserAccess: subUserAccess,
+    }
+};
+
 export {
     onChangeDefaultValue,
     onChangeUserId,
@@ -86,5 +93,6 @@ export {
     onChangeLinkTimer,
     onChangeLinkTotalDuration,
     onChangeLinkDeviceLs,
-    onChangeLinkTsStart
+    onChangeLinkTsStart,
+    onChangeSubUserAccess
 }

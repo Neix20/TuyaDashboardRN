@@ -25,9 +25,7 @@ function useForm(props) {
 
     const init = {
         form: {
-            email: "",
-            password: "",
-            name: "",
+            email: ""
         }
     }
 
@@ -51,7 +49,7 @@ function useForm(props) {
         }
 
         setSubmitFlag(_ => flag);
-    }, [form]);
+    }, [JSON.stringify(form)]);
 
     const clearForm = () => {
         setForm(init.form);
@@ -101,6 +99,7 @@ function AddSubUserForm(props) {
 // #endregion
 
 function Index(props) {
+
     const toast = useToast();
     const navigation = useNavigation();
     const isFocused = useIsFocused();
@@ -124,7 +123,11 @@ function Index(props) {
         })
         .then(res => {
             clearForm();
+
             navigation.goBack();
+            toast.show({
+                description: `Successfully Added ${email}!`
+            });
         })
         .catch(err => {
             setLoading(false);
@@ -134,27 +137,27 @@ function Index(props) {
 
     return (
         <>
-        <BcLoading loading={loading} />
-        <SafeAreaView style={{ flex: 1 }}>
-            <View style={{ flex: 1 }}>
+            <BcLoading loading={loading} />
+            <SafeAreaView style={{ flex: 1 }}>
+                <View style={{ flex: 1 }}>
 
-                {/* Header */}
-                <BcHeaderWithCancel flag={flag} onSelect={save}>Add Sub User</BcHeaderWithCancel>
+                    {/* Header */}
+                    <BcHeaderWithCancel flag={flag} onSelect={save}>Add Sub User</BcHeaderWithCancel>
 
-                <View style={{ height: 10 }} />
+                    <View style={{ height: 10 }} />
 
-                {/* Body */}
-                <ScrollView showsVerticalScrollIndicator={false}
-                    keyboardShouldPersistTaps={"handled"}
-                    contentContainerStyle={{ flexGrow: 1 }}>
-                    <View flexGrow={1}>
-                        <AddSubUserForm hook={formHook} />
-                    </View>
-                </ScrollView>
+                    {/* Body */}
+                    <ScrollView showsVerticalScrollIndicator={false}
+                        keyboardShouldPersistTaps={"handled"}
+                        contentContainerStyle={{ flexGrow: 1 }}>
+                        <View flexGrow={1}>
+                            <AddSubUserForm hook={formHook} />
+                        </View>
+                    </ScrollView>
 
-            </View>
-        </SafeAreaView>
-    
+                </View>
+            </SafeAreaView>
+
         </>
     );
 }
