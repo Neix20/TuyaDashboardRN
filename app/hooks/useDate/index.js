@@ -33,9 +33,10 @@ function Index(props = {}) {
         setEndDt(tEndDt);
     }
 
-    const diff = Math.abs(DateTime.now().diff(luxStartDt).as("days"));
+    const stDiff = Math.abs(DateTime.now().diff(luxStartDt).as("days"));
+    const endDiff = DateTime.now().diff(luxEndDt).as("days");
 
-    return [startDt, setStartDt, endDt, setEndDt, addDt, minusDt, diff];
+    return [startDt, setStartDt, endDt, setEndDt, addDt, minusDt, stDiff, endDiff];
 }
 
 export default Index;

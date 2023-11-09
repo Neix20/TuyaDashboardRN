@@ -12,6 +12,7 @@ const linkDeviceLsSelect = (state) => state.linkDeviceLs;
 const linkTsStartSelect = (state) => state.linkTsStart;
 
 const subUserAccessSelect = (state) => state.subUserAccess;
+const dashboardReportFlagSelect = (state) => state.dashboardReportFlag;
 
 export {
     defaultValueSelect,
@@ -25,5 +26,6 @@ export {
     linkTotalDurationSelect,
     linkDeviceLsSelect,
     linkTsStartSelect,
-    subUserAccessSelect
+    subUserAccessSelect,
+    dashboardReportFlagSelect
 }

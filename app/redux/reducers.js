@@ -13,7 +13,8 @@ const initialState = {
     linkTimer: -1,
     linkTsStart: -1,
     linkTotalDuration: 0,
-    subUserAccess: {}
+    subUserAccess: {},
+    dashboardReportFlag: {}
 };
 
 function setReducer(state = initialState, action = {}) {
@@ -77,6 +78,11 @@ function setReducer(state = initialState, action = {}) {
             return {
                 ...state,
                 subUserAccess: action.subUserAccess,
+            };
+        case "SET_DASHBOARD_REPORT_FLAG":
+            return {
+                ...state,
+                dashboardReportFlag: action.dashboardReportFlag,
             };
         default: {
             return {

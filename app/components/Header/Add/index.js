@@ -13,8 +13,8 @@ import { BcBoxShadow, BcDisable } from "@components";
 function Index(props) {
 
     // #region Props
-    const { children, onBack = () => { }, onSelect = () => { } } = props;
-    const { flag = false } = props;
+    const { children, onBack = () => { } } = props;
+    const { flag = false, onSelect = () => { }, RightChild = () => (<></>) } = props;
     // #endregion
 
     const navigation = useNavigation();
@@ -28,47 +28,51 @@ function Index(props) {
 
     return (
         <BcBoxShadow>
-            <View bgColor={"#FFF"}
-                alignItems={"center"}
-                justifyContent={"center"}>
-                <HStack pb={2} alignItems={"flex-end"}
-                    justifyContent={"space-between"}
-                    style={{ height: 60, width: "90%" }}>
-
-                    <TouchableOpacity onPress={GoBack}>
-                        <HStack alignItems={"center"} space={2} >
-                            <FontAwesome5 name={"chevron-left"} size={20} color={"#2898FF"} />
-                            <Text style={{
-                                fontSize: 20,
-                                fontWeight: "bold",
-                                color: "#000",
-                            }}>{children}</Text>
-                        </HStack>
-                    </TouchableOpacity>
-
-
-                    {
-                        (flag) ? (
-                            <TouchableOpacity onPress={onSelect}>
-                                <View borderRadius={20}
-                                    bgColor={"#2898FF"}
-                                    alignItems={"center"} justifyContent={"center"}
-                                    style={{ width: 32, height: 32 }}>
-                                    <FontAwesome name={"plus"} size={16} color={"#FFF"} />
-                                </View>
-                            </TouchableOpacity>
-                        ) : (
-                            <BcDisable>
-                                <View borderRadius={20}
-                                    bgColor={"#2898FF"}
-                                    alignItems={"center"} justifyContent={"center"}
-                                    style={{ width: 32, height: 32 }}>
-                                    <FontAwesome name={"plus"} size={16} color={"#FFF"} />
-                                </View>
-                            </BcDisable>
-                        )
-                    }
-                </HStack>
+            <View px={3} pb={2}
+                bgColor={"#FFF"}
+                alignItems={"flex-end"}
+                justifyContent={"flex-end"}
+                style={{ height: 60 }}>
+                {/* Front Layer */}
+                <TouchableOpacity
+                    onPress={GoBack}
+                    style={{
+                        alignItems: "center",
+                        justifyContent: "center",
+                        width: 120,
+                        height: 120,
+                        position: "absolute",
+                        left: -30,
+                        top: -19,
+                        zIndex: 1,
+                    }}>
+                    <FontAwesome5 name={"chevron-left"} size={20} color={"#2898FF"} />
+                </TouchableOpacity>
+                <View style={{
+                    position: "absolute",
+                    height: 120,
+                    left: 45,
+                    top: -20,
+                    alignItems: "center",
+                    justifyContent: "center",
+                }}>
+                    <Text style={{
+                        fontSize: 20,
+                        fontWeight: "bold",
+                        color: "#000",
+                    }}>{children}</Text>
+                </View>
+                {
+                    (flag) ? (
+                        <TouchableOpacity onPress={onSelect}>
+                            <RightChild />
+                        </TouchableOpacity>
+                    ) : (
+                        <BcDisable>
+                            <RightChild />
+                        </BcDisable>
+                    )
+                }
             </View>
         </BcBoxShadow>
     )

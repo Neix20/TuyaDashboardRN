@@ -9,7 +9,7 @@ import { Logger, Utility } from "@utility";
 
 import { fetchProfileInfo, fetchUpdateProfile } from "@api";
 
-import { BcLoading, BcBoxShadow, BcDisable } from "@components";
+import { BcLoading, BcBoxShadow, BcDisable, BcHeaderWithAdd } from "@components";
 
 import { useDispatch, useSelector } from 'react-redux';
 import { Actions, Selectors } from '@redux';
@@ -17,79 +17,6 @@ import { Actions, Selectors } from '@redux';
 import { useToggle } from "@hooks";
 
 // #region Components
-function Header(props) {
-
-    const toast = useToast();
-    const navigation = useNavigation();
-
-    const { children, onBack = () => { } } = props;
-    const { flag = false, onSave = () => { } } = props;
-
-    // #region Helper Functions
-    const GoBack = () => {
-        onBack();
-        navigation.goBack();
-    }
-    // #endregion
-
-    return (
-        <BcBoxShadow>
-            <View p={2}
-                bgColor={"#FFF"}
-                alignItems={"flex-end"}
-                justifyContent={"flex-end"}
-                style={{ height: 60 }}>
-                {/* Front Layer */}
-                <TouchableOpacity
-                    onPress={GoBack}
-                    style={{
-                        alignItems: "center",
-                        justifyContent: "center",
-                        width: 120,
-                        height: 120,
-                        position: "absolute",
-                        left: -30,
-                        top: -19,
-                        zIndex: 1,
-                    }}>
-                    <FontAwesome5 name={"chevron-left"} size={20} color={"#2898FF"} />
-                </TouchableOpacity>
-                <View style={{
-                    position: "absolute",
-                    height: 120,
-                    left: 45,
-                    top: -20,
-                    alignItems: "center",
-                    justifyContent: "center",
-                }}>
-                    <Text style={{
-                        fontSize: 20,
-                        fontWeight: "bold",
-                        color: "#000",
-                    }}>{children}</Text>
-                </View>
-                {
-                    (flag) ? (
-                        <TouchableOpacity onPress={onSave}>
-                            <Text style={{
-                                fontSize: 20,
-                                color: "#2898FF"
-                            }}>Save</Text>
-                        </TouchableOpacity>
-                    ) : (
-                        <BcDisable>
-                            <Text style={{
-                                fontSize: 20,
-                                color: "#2898FF"
-                            }}>Save</Text>
-                        </BcDisable>
-                    )
-                }
-            </View>
-        </BcBoxShadow>
-    )
-}
-
 function InfoItem(props) {
     const { Title, Value, Placeholder = "", onChangeValue = () => { } } = props;
     return (
@@ -115,6 +42,15 @@ function InfoItem(props) {
                     }} />
             </View>
         </HStack>
+    )
+}
+
+function HeaderRight() {
+    return (
+        <Text style={{
+            fontSize: 20,
+            color: "#2898FF"
+        }}>Save</Text>
     )
 }
 
@@ -242,11 +178,11 @@ function Index(props) {
             },
             onSetLoading: setLoading
         })
-        .then(data => {})
-        .catch(err => {
-            setLoading(false);
-            console.log(`Error: ${err}`);
-        })
+            .then(data => { })
+            .catch(err => {
+                setLoading(false);
+                console.log(`Error: ${err}`);
+            })
     }
 
     return (
@@ -256,7 +192,7 @@ function Index(props) {
                 <View style={{ flex: 1 }}>
 
                     {/* Header */}
-                    <Header flag={flag} onSave={updateProfile}>Profile Info</Header>
+                    <BcHeaderWithAdd flag={flag} onSelect={updateProfile} RightChild={HeaderRight}>Profile Info</BcHeaderWithAdd>
 
                     <View style={{ height: 10 }} />
 

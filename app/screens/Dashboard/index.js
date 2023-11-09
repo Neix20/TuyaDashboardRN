@@ -454,6 +454,86 @@ function DashboardHumidityReport(props) {
     )
 }
 
+function useCusToggle(init_val, onToggle = () => { }) {
+    const [flag, setFlag] = useState(init_val);
+
+    const toggleFlag = () => {
+        setFlag(val => !val);
+        onToggle();
+    }
+
+    return [flag, setFlag, toggleFlag];
+}
+
+function DashboardReport(props) {
+
+    const dispatch = useDispatch();
+
+    const { title = "", daData = [] } = props;
+    const { Report, rptData = [] } = props;
+
+    // #region Helper
+    const dashboardReportFlag = useSelector(Selectors.dashboardReportFlagSelect);
+    const { humidity = false, voltage = false, airQuality = false } = dashboardReportFlag;
+
+    const onChangeHumidity = () => {
+        const next_state = { 
+            ...dashboardReportFlag, 
+            humidity: !humidity 
+        };
+        dispatch(Actions.onChangeDashboardReportFlag(next_state));
+    }
+
+    const onChangeVoltage = () => {
+        const next_state = { 
+            ...dashboardReportFlag, 
+            voltage: !voltage 
+        };
+        dispatch(Actions.onChangeDashboardReportFlag(next_state));
+    }
+
+    const onChangeAirQuality = () => {
+        const next_state = { 
+            ...dashboardReportFlag, 
+            airQuality: !airQuality 
+        };
+        dispatch(Actions.onChangeDashboardReportFlag(next_state));
+    }
+
+    const dict = {
+        "Daily Humidity Average Report": {
+            flag: humidity,
+            func: onChangeHumidity
+        },
+        "Daily Smart Plug Average Report": {
+            flag: voltage,
+            func: onChangeVoltage
+        },
+        "Daily Air Quality Average Report": {
+            flag: airQuality,
+            func: onChangeAirQuality
+        },
+    }
+    // #endregion
+
+    const { flag, func = () => {}} = dict[title];
+    const [showDaInfo, setShowDaInfo, toggleDaInfo] = useCusToggle(flag, func);
+
+    return (
+        <BcViewShot title={title}
+            showInfo={true} onPressInfo={toggleDaInfo}>
+            {
+                (showDaInfo) ? (
+                    <TouchableOpacity onPress={toggleDaInfo}>
+                        <BcDataAttribute data={daData} />
+                    </TouchableOpacity>
+                ) : (<></>)
+            }
+            <Report data={rptData} />
+        </BcViewShot>
+    )
+}
+
 function EmptyList(props) {
     return (
         <View flexGrow={1} justifyContent={"center"} alignItems={"center"} bgColor={"#FFF"}>
@@ -778,14 +858,14 @@ function Index(props) {
                                         {
                                             (Object.keys(drData).length > 0) ? (
                                                 <View px={3} style={{ width: c_width }}>
-                                                    <BcViewShot title="Daily Humidity Average Report">
-                                                        <BcDataAttribute data={[{
+                                                    <DashboardReport
+                                                        title={"Daily Humidity Average Report"}
+                                                        daData={[{
                                                             "Average Absolute Humidity": 0,
                                                             "Average Temperature (℃)": 0,
                                                             "Average Relative Humidity (%)": 0,
-                                                        }]} />
-                                                        <DashboardHumidityReport data={drData} />
-                                                    </BcViewShot>
+                                                        }]}
+                                                        Report={DashboardHumidityReport} rptData={drData} />
                                                 </View>
                                             ) : (
                                                 <></>
@@ -795,15 +875,15 @@ function Index(props) {
                                         {
                                             (Object.keys(drSpData).length > 0) ? (
                                                 <View px={3} style={{ width: c_width }}>
-                                                    <BcViewShot title="Daily Smart Plug Average Report">
-                                                        <BcDataAttribute data={[{
+                                                    <DashboardReport
+                                                        title={"Daily Smart Plug Average Report"}
+                                                        daData={[{
                                                             "Average Total KiloWatt (KWh)": 0,
                                                             "Average Current (mA)": 0,
                                                             "Average Power (W)": 0,
                                                             "Average Voltage (V)": 0,
-                                                        }]} />
-                                                        <DashboardVoltageReport data={drSpData} />
-                                                    </BcViewShot>
+                                                        }]}
+                                                        Report={DashboardVoltageReport} rptData={drSpData} />
                                                 </View>
                                             ) : (
                                                 <></>
@@ -813,14 +893,14 @@ function Index(props) {
                                         {
                                             (Object.keys(drAqData).length > 0) ? (
                                                 <View px={3} style={{ width: c_width }}>
-                                                    <BcViewShot title="Daily Air Quality Average Report">
-                                                        <BcDataAttribute data={[{
+                                                    <DashboardReport
+                                                        title={"Daily Air Quality Average Report"}
+                                                        daData={[{
                                                             "Average Formaldehyde (mg/m3)": 0,
                                                             "Average Particle Matter (ug/m3)": 0,
                                                             "Average Carbon Dioxide (ppm)": 0,
-                                                        }]} />
-                                                        <DashboardAirQualityReport data={drAqData} />
-                                                    </BcViewShot>
+                                                        }]}
+                                                        Report={DashboardAirQualityReport} rptData={drAqData} />
                                                 </View>
                                             ) : (
                                                 <></>

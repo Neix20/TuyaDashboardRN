@@ -84,6 +84,7 @@ function AddSubUserForm(props) {
                             defaultValue={email}
                             onChangeText={onChangeEmail}
                             placeholder={"User Email"}
+                            keyboardType={"email-address"}
                             autoCapitalize={"none"}
                             style={{
                                 fontFamily: "Roboto-Medium",

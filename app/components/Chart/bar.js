@@ -85,8 +85,30 @@ function Index(props) {
 		animation: false,
 		tooltip: {
 			trigger: 'axis',
-			renderMode: "richText",
-			valueFormatter: (value) => `${value}${unit}`
+			renderMode: `richText`,
+			formatter: function (params) {
+
+				if (params.length > 0) {
+					const { axisValueLabel: header } = params[0];
+
+					let resArr = [header];
+
+					params.forEach(obj => {
+						const { marker, value } = obj;
+
+						const res = `${marker} ${value.toFixed(2)}${unit}`;
+						resArr.push(res);
+					})
+
+					return resArr.join("\n");
+				}
+				
+				return "";
+			},
+			textStyle: {
+				color: "rgba(0, 0, 0, 1)",
+			},
+			backgroundColor: "rgba(255, 255, 255, 1)",
 		},
 		toolbox: {
 			feature: {

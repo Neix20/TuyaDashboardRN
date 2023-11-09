@@ -101,8 +101,8 @@ function Index(props) {
 
         return (
             <ChartComponent key={ind}
-                height={180}
-                width={160}
+                height={170}
+                width={150}
                 option={option} />
         )
     }

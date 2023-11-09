@@ -82,6 +82,13 @@ const onChangeSubUserAccess = (subUserAccess) => {
     }
 };
 
+const onChangeDashboardReportFlag = (dashboardReportFlag) => {
+    return {
+        type: "SET_DASHBOARD_REPORT_FLAG",
+        dashboardReportFlag: dashboardReportFlag,
+    }
+};
+
 export {
     onChangeDefaultValue,
     onChangeUserId,
@@ -94,5 +101,6 @@ export {
     onChangeLinkTotalDuration,
     onChangeLinkDeviceLs,
     onChangeLinkTsStart,
-    onChangeSubUserAccess
+    onChangeSubUserAccess,
+    onChangeDashboardReportFlag
 }

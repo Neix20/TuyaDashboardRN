@@ -85,6 +85,16 @@ function SubUserList(props) {
 }
 // #endregion
 
+function HeaderRight() {
+    return (
+        <View bgColor={"#2898FF"} borderRadius={20}
+            alignItems={"center"} justifyContent={"center"}
+            style={{ width: 32, height: 32 }}>
+            <FontAwesome name={"plus"} size={16} color={"#FFF"} />
+        </View>
+    )
+}
+
 function Index(props) {
 
     const toast = useToast();
@@ -109,13 +119,13 @@ function Index(props) {
                 },
                 onSetLoading: setLoading
             })
-            .then(data => {
-                setSubUserLs(data);
-            })
-            .catch(err => {
-                setLoading(false);
-                console.log(`Error: ${err}`);
-            })
+                .then(data => {
+                    setSubUserLs(data);
+                })
+                .catch(err => {
+                    setLoading(false);
+                    console.log(`Error: ${err}`);
+                })
         }
     }, [isFocused]);
 
@@ -126,7 +136,7 @@ function Index(props) {
                 <View style={{ flex: 1 }}>
 
                     {/* Header */}
-                    <BcHeaderWithAdd flag={true} onSelect={GoToAddSubUser}>Member List</BcHeaderWithAdd>
+                    <BcHeaderWithAdd flag={true} onSelect={GoToAddSubUser} RightChild={HeaderRight}>Member List</BcHeaderWithAdd>
 
                     <View style={{ height: 10 }} />
 

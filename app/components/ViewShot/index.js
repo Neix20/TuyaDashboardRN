@@ -50,7 +50,7 @@ function VSItem(props) {
 function VSModal(props) {
 
     // #region Props
-    const { setShowModal = () => {} } = props;
+    const { setShowModal = () => { } } = props;
     const { functionLs = [] } = props;
     const { onDownload = () => { }, onShare = () => { }, onExpand = () => { } } = props;
     // #endregion
@@ -79,8 +79,9 @@ function VSModal(props) {
     ]
 
     const renderDefaultItem = (item, index) => (<VSItem key={index} {...item} />);
+
     const renderItem = (item, index) => {
-        const { onPress = () => {} } = item;
+        const { onPress = () => { } } = item;
 
         const wrapper = () => {
             onPress();
@@ -106,6 +107,7 @@ function Index(props) {
 
     // #region Props
     const { title, children } = props;
+    const { showInfo = false, onPressInfo = () => { } } = props;
     // #endregion
 
     // #region UseState
@@ -159,10 +161,12 @@ function Index(props) {
 
     return (
         <>
-            <VSModal showModal={showVsModal} 
+            <VSModal showModal={showVsModal}
                 setShowModal={setShowVsModal}
-                onShare={shareFunc} onDownload={dlFunc} 
-                onExpand={expandFunc} {...props}
+                onShare={shareFunc}
+                onDownload={dlFunc}
+                onExpand={expandFunc}
+                {...props}
             />
             <ExpandModal showModal={showExModal} setShowModal={setShowExModal}>{children}</ExpandModal>
             <BcBoxShadow>
@@ -174,11 +178,21 @@ function Index(props) {
                             fontFamily: "Roboto-Bold",
                             fontSize: 18,
                         }}>{title}</Text>
-                        <TouchableOpacity onPress={toggleVsModal}>
-                            <FontAwesome5 name={"ellipsis-v"} size={27} />
-                        </TouchableOpacity>
+                        <HStack space={3}>
+                            {
+                                (showInfo) ? (
+                                    <TouchableOpacity onPress={onPressInfo}>
+                                        <FontAwesome5 name={"info-circle"} color={"#98A0A8"} size={24} />
+                                    </TouchableOpacity>
+                                ) : (
+                                    <></>
+                                )
+                            }
+                            <TouchableOpacity onPress={toggleVsModal}>
+                                <FontAwesome5 name={"ellipsis-v"} size={24} />
+                            </TouchableOpacity>
+                        </HStack>
                     </HStack>
-
                     <ViewShot ref={itemRef}
                         options={{ fileName: "test", format: "jpg", quality: 0.9 }}
                         style={{ width: "90%" }}>

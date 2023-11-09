@@ -7,7 +7,7 @@ import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 
 import { Logger, Utility } from "@utility";
 
-import { BcDateRangeModal, BcBoxShadow } from "@components";
+import { BcDateRangeModal, BcBoxShadow, BcDisable } from "@components";
 
 import { useToggle } from "@hooks";
 
@@ -17,7 +17,7 @@ import { Actions, Selectors } from '@redux';
 function Index(props) {
 
     const { hook = [] } = props;
-    const [startDt, setStartDt, endDt, setEndDt, addDt, minusDt, diff] = hook;
+    const [startDt, setStartDt, endDt, setEndDt, addDt, minusDt, stDiff, endDiff] = hook;
 
     // #region UseState
     const [showDtModal, setShowDtModal, toggleDateModal] = useToggle(false);
@@ -46,28 +46,56 @@ function Index(props) {
                                     <Text style={{
                                         fontFamily: "Roboto-Bold",
                                         fontSize: 16,
-                                    }}>{Utility.formatDt(startDt, "EEEE, d MMMM yyyy")}</Text>
+                                    }}>{Utility.formatDt(startDt, "EEE, d MMMM yyyy")}</Text>
                                 </VStack>
                             </HStack>
 
                             {/* Controls */}
                             <HStack>
-                                <TouchableOpacity onPress={minusDt} disabled={AccountType <= 1 && diff > 7}>
-                                    <View
-                                        justifyContent={"center"}
-                                        alignItems={"center"}
-                                        style={{ height: 40, width: 40 }}>
-                                        <FontAwesome name={"angle-left"} size={27} />
-                                    </View>
-                                </TouchableOpacity>
-                                <TouchableOpacity onPress={addDt}>
-                                    <View
-                                        justifyContent={"center"}
-                                        alignItems={"center"}
-                                        style={{ height: 40, width: 40 }}>
-                                        <FontAwesome name={"angle-right"} size={27} />
-                                    </View>
-                                </TouchableOpacity>
+
+                                {
+                                    (AccountType <= 1 && stDiff > 7) ? (
+                                        <BcDisable>
+                                            <View
+                                                justifyContent={"center"}
+                                                alignItems={"center"}
+                                                style={{ height: 40, width: 40 }}>
+                                                <FontAwesome name={"angle-left"} size={27} />
+                                            </View>
+                                        </BcDisable>
+                                    ) : (
+                                        <TouchableOpacity onPress={minusDt}>
+                                            <View
+                                                justifyContent={"center"}
+                                                alignItems={"center"}
+                                                style={{ height: 40, width: 40 }}>
+                                                <FontAwesome name={"angle-left"} size={27} />
+                                            </View>
+                                        </TouchableOpacity>
+                                    )
+                                }
+
+                                {
+                                    (endDiff <= 1) ? (
+                                        <BcDisable>
+                                            <View
+                                                justifyContent={"center"}
+                                                alignItems={"center"}
+                                                style={{ height: 40, width: 40 }}>
+                                                <FontAwesome name={"angle-right"} size={27} />
+                                            </View>
+                                        </BcDisable>
+                                    ) : (
+                                        <TouchableOpacity onPress={addDt}>
+                                            <View
+                                                justifyContent={"center"}
+                                                alignItems={"center"}
+                                                style={{ height: 40, width: 40 }}>
+                                                <FontAwesome name={"angle-right"} size={27} />
+                                            </View>
+                                        </TouchableOpacity>
+                                    )
+                                }
                             </HStack>
                         </HStack>
                     </View>

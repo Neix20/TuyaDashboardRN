@@ -121,6 +121,10 @@ function ProfilePremium(props) {
                 term: "Free"
             },
             2: {
+                color: "#2898FF",
+                term: "Standard"
+            },
+            3: {
                 color: "#FFAA00",
                 term: "Premium"
             }
@@ -155,7 +159,7 @@ function Profile(props) {
     const { Email = "temp@gmail.com" } = props;
 
     const { Created_Date = "2023-07-01", DataAvailableDate = "2023-07-01" } = props;
-    
+
     const subUserAccess = useSelector(Selectors.subUserAccessSelect);
     const { AccountType = -1 } = subUserAccess;
 
@@ -274,8 +278,8 @@ function NavPanel(props) {
     return (
         <VStack bgColor={"#FFF"} borderRadius={8} width={"90%"} alignItems={"center"}>
             <PanelBtn onPress={GoToHomeManagement} Btn={FontAwesome} icon={"home"} title={"Home Management"} />
-            <PanelBtn onPress={GoToAlert} Btn={MaterialCommunityIcons} icon={"message-text-outline"} title={"Message Center"} />
-            <PanelBtn onPress={GoToReportSchedule} Btn={FontAwesome5} icon={"clipboard-list"} title={"Report Schedule"} />
+            {/* <PanelBtn onPress={GoToAlert} Btn={MaterialCommunityIcons} icon={"message-text-outline"} title={"Message Center"} />
+            <PanelBtn onPress={GoToReportSchedule} Btn={FontAwesome5} icon={"clipboard-list"} title={"Email Alert"} /> */}
             {
                 (ManageUserList == 1) ? (<PanelBtn onPress={GoToSubUser} Btn={FontAwesome5} icon={"users"} title={"Manage Users"} />) : (<></>)
             }
@@ -295,9 +299,24 @@ function AppInfoPanel(props) {
     )
 }
 
+function PaymentSubscriptionPanel(props) {
+
+    const navigation = useNavigation();
+    const GoToPayment = () => navigation.navigate("PaymentSubscription");
+
+    return (
+        <VStack bgColor={"#FFF"} borderRadius={8}
+            width={"90%"} alignItems={"center"}>
+            <PanelBtn
+                onPress={GoToPayment} title={"Subscribe to Pro Edition"}
+                Btn={FontAwesome5} icon={"crown"}
+                color={"#FFAA00"} showRight={false} />
+        </VStack>
+    )
+}
+
 function LogoutPanel(props) {
     const [showLgModal, setShowLgModal, toggleLgModal] = useToggle(false);
-
     return (
         <>
             <LogoutModal showModal={showLgModal} setShowModal={setShowLgModal} {...props} />
@@ -366,6 +385,8 @@ function Index(props) {
     }
     // #endregion
 
+    const subUserAccess = useSelector(Selectors.subUserAccessSelect);
+    const { AccountType = -1 } = subUserAccess;
     return (
         <>
             <BcLoading loading={loading} />
@@ -390,6 +411,8 @@ function Index(props) {
                             <NavPanel {...profileInfo} />
 
                             {/* <AppInfoPanel /> */}
+
+                            {(AccountType <= 1) ? <PaymentSubscriptionPanel /> : <></>}
 
                             {/* Logout */}
                             <LogoutPanel onLogout={SignOut} />

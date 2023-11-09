@@ -111,12 +111,8 @@
     1. UI Fixes: 
         i. Fixed Chart Toggle Issue. Added New "SE" toggle button, to switch between first-half and last-half of graph.
         ii. Fixed Synchronize II Issue. App no longer sleeps when synchronizing data between devices.
-        iii. Fixed Bar Chart Date. Changed Date from "yyyy-MM-dd" to "MM-dd" format.
-        iv. Profile Update. Added Date Joined, Earliest Data Available and Account Type.
+        iii. Profile Update. Added Date Joined, Earliest Data Available and Account Type.
     2. New Chart Widget. Added Total Device Distribution to show all available device types under current account.
     3. Sub-Member User Update. Managers are now able to add new or existing sub-users to current home to help manage account. Managers can control the access of sub-users account.
-       1. Non-Manager users are unable to link, unlink devices.
-       2. Non-Manager users are unable to modify device rules.
-       3. Non-Manager users are unable to manage existing sub user list.
     4. Account Type Update. Account Types now have "Free" and "Premium". Both account types have varying access to available data (7-day and 90-day period).
 </en-US>

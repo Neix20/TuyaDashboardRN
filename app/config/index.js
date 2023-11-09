@@ -21,11 +21,11 @@ import DashboardSmartPlugFullData from "./data/dashboard_smart_plug_full.json";
 import SmartPlugIIData from "./data/smart_plug_ii.json";
 import AirConData from "./data/air_con.json";
 
-import DataIntervalSvg from "./data/data_interval_svg.json";
-
 import DeviceDistributionData from "./data/dev_distri.json";
 
 import SubUserData from "./data/sub_user_list.json";
+
+import ChartSvg from "./data/chart_svg.json";
 
 export {
     Animation,
@@ -34,7 +34,7 @@ export {
 };
 
 export {
-    DataIntervalSvg
+    ChartSvg
 };
 
 export {

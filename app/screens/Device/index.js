@@ -125,7 +125,6 @@ function LinkDeviceModal(props) {
     const userId = useSelector(Selectors.userIdSelect);
     const homeId = useSelector(Selectors.homeIdSelect);
     const linkTimer = useSelector(Selectors.linkTimerSelect);
-    const linkDeviceLs = useSelector(Selectors.linkDeviceLsSelect);
     const linkTsStart = useSelector(Selectors.linkTsStartSelect);
     // #endregion
 
@@ -244,6 +243,8 @@ function LinkDeviceModal(props) {
             setSubLoadFlag(true);
 
             dispatch(Actions.onChangeLinkTsStart(ts));
+        } else {
+            dispatch(Actions.onChangeLinkTimer(-1));
         }
     }, [])
 
