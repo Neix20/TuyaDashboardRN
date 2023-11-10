@@ -18,7 +18,7 @@ import { useToggle } from "@hooks";
 
 // #region Components
 function InfoItem(props) {
-    const { Title, Value, Placeholder = "", onChangeValue = () => { } } = props;
+    const { Title, Value, Placeholder = "", onChangeValue = () => { }, Editable = true } = props;
     return (
         <HStack width={"90%"}
             alignItems={"center"}
@@ -31,6 +31,7 @@ function InfoItem(props) {
             </View>
             <View flex={.7}>
                 <TextInput
+                    editable={Editable}
                     defaultValue={Value}
                     onChangeText={onChangeValue}
                     placeholder={Placeholder}
@@ -90,13 +91,46 @@ function InfoPanel(props) {
 
     const { Username, MobileNo, Email, Address } = profile;
 
+    const subUserAccess = useSelector(Selectors.subUserAccessSelect);
+    const { AccountType = -1 } = subUserAccess;
+
+    const AccountStatus = (val = 1) => {
+        val = +val;
+
+        let dict = {
+            1: {
+                color: "#000",
+                term: "Free"
+            },
+            2: {
+                color: "#2898FF",
+                term: "Standard"
+            },
+            3: {
+                color: "#FFAA00",
+                term: "Premium"
+            }
+        }
+
+        if (val in dict) {
+            return dict[val];
+        }
+
+        return {
+            color: "#000",
+            term: "Free"
+        };
+    }
+
+    const { color, term } = AccountStatus(AccountType);
+
     return (
         <BcBoxShadow>
             <View bgColor={"#FFF"} alignItems={"center"}>
-                <InfoItem Title={"Name"} Value={Username} onChangeValue={onChangeUsername} />
-                <InfoItem Title={"MobileNo"} Value={MobileNo} onChangeValue={onChangeMobileNo} />
-                <InfoItem Title={"Email"} Value={Email} />
-                <InfoItem Title={"Address"} Value={Address} onChangeValue={onChangeAddress} />
+                <InfoItem Title={"Email"} Value={Email} Placeholder={"xxx@gmail.com"} />
+                <InfoItem Title={"Name"} Value={Username} onChangeValue={onChangeUsername} Placeholder={"Name"} />
+                <InfoItem Title={"MobileNo"} Value={MobileNo} onChangeValue={onChangeMobileNo} Placeholder={"+60 XXX-XXXX"} />
+                <InfoItem Title={"Account"} Value={term} Editable={false} />
             </View>
         </BcBoxShadow>
     )

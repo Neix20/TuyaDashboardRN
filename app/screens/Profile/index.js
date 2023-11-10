@@ -136,7 +136,7 @@ function ProfilePremium(props) {
 
         return {
             color: "#000",
-            term: ""
+            term: "Free"
         };
     }
 
@@ -281,7 +281,7 @@ function NavPanel(props) {
             {/* <PanelBtn onPress={GoToAlert} Btn={MaterialCommunityIcons} icon={"message-text-outline"} title={"Message Center"} />
             <PanelBtn onPress={GoToReportSchedule} Btn={FontAwesome5} icon={"clipboard-list"} title={"Email Alert"} /> */}
             {
-                (ManageUserList == 1) ? (<PanelBtn onPress={GoToSubUser} Btn={FontAwesome5} icon={"users"} title={"Manage Users"} />) : (<></>)
+                (ManageUserList == 1) ? (<PanelBtn onPress={GoToSubUser} Btn={FontAwesome5} icon={"users"} title={"Manage Members"} />) : (<></>)
             }
             {/* <PanelBtn Btn={SimpleLineIcons} icon={"question"} title={"FAQ & Feedback"} /> */}
         </VStack>
@@ -302,7 +302,13 @@ function AppInfoPanel(props) {
 function PaymentSubscriptionPanel(props) {
 
     const navigation = useNavigation();
-    const GoToPayment = () => navigation.navigate("PaymentSubscription");
+    const toast = useToast();
+    const GoToPayment = () => {
+        // navigation.navigate("PaymentSubscription");
+        toast.show({
+            description: "Work In-Progress!"
+        });
+    };
 
     return (
         <VStack bgColor={"#FFF"} borderRadius={8}

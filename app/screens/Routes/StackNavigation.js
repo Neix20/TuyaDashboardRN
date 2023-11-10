@@ -407,8 +407,8 @@ function Index(props) {
     }
     // #endregion
 
-    // const defaultScreen = (userId == -1 || firstTimeLink) ? "Login" : "TabNavigation";
-    const defaultScreen = "Payment";
+    const defaultScreen = (userId == -1 || firstTimeLink) ? "Login" : "TabNavigation";
+    // const defaultScreen = "Payment";
 
     return (
         <>

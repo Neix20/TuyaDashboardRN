@@ -9,9 +9,11 @@ import { SVGRenderer, SkiaChart } from '@wuba/react-native-echarts';
 import { LineChart, BarChart } from 'echarts/charts';
 import { TitleComponent, TooltipComponent, GridComponent, LegendComponent, ToolboxComponent, DataZoomComponent } from 'echarts/components';
 
-import { useOrientation, useCoor } from "@hooks";
+import { useOrientation, useToggle } from "@hooks";
 
 import { Logger, Utility } from "@utility";
+
+import { ChartSvg } from "@config";
 
 // Register extensions
 echarts.use([
@@ -64,7 +66,7 @@ function Index(props) {
 
 	const { hook = [] } = props;
 
-	const [ chart, setChart, chartKey, setChartKey, chartData, setChartData, chartLegend, chartKeyOption, setChartKeyOption ] = hook;
+	const [chart, setChart, chartKey, setChartKey, chartData, setChartData, chartLegend, chartKeyOption, setChartKeyOption] = hook;
 
 	const { label = [], dataset = [] } = chartData;
 
@@ -76,47 +78,35 @@ function Index(props) {
 
 	const optDataSet = dataset.map(x => ({ ...x, type: "bar" }));
 
+	const [toolTip, setToolTip, toggleToolTip] = useToggle(true);
+
+	const ttColor = toolTip ? "#39B54A" : "#98A0A8";
+
 	useEffect(() => {
 		let ut = Utility.genUnit(chartKey);
 		setUnit(_ => ut);
 	}, [chartKey]);
 
-	const option = {
+	let option = {
 		animation: false,
-		tooltip: {
-			trigger: 'axis',
-			renderMode: `richText`,
-			formatter: function (params) {
-
-				if (params.length > 0) {
-					const { axisValueLabel: header } = params[0];
-
-					let resArr = [header];
-
-					params.forEach(obj => {
-						const { marker, value } = obj;
-
-						const res = `${marker} ${value.toFixed(2)}${unit}`;
-						resArr.push(res);
-					})
-
-					return resArr.join("\n");
-				}
-				
-				return "";
-			},
-			textStyle: {
-				color: "rgba(0, 0, 0, 1)",
-			},
-			backgroundColor: "rgba(255, 255, 255, 1)",
-		},
 		toolbox: {
 			feature: {
-                restore: {}
-            },
+				myToggleToolTip: {
+					show: true,
+					title: "Toggle Tooltip",
+					iconStyle: {
+						color: ttColor,
+						borderColor: ttColor
+					},
+					icon: `path://${ChartSvg["tooltip"]}`,
+					onclick: toggleToolTip,
+				},
+				restore: {}
+			},
 			top: 0,
 			right: 5,
-			itemSize: 18,
+			itemSize: 24,
+			itemGap: 10,
 		},
 		legend: {
 			data: chartLegend,
@@ -178,6 +168,40 @@ function Index(props) {
 		series: optDataSet
 	};
 
+	if (toolTip) {
+		option = {
+			...option,
+			tooltip: {
+				show: true,
+				trigger: 'axis',
+				renderMode: `richText`,
+				formatter: function (params) {
+	
+					if (params.length > 0) {
+						const { axisValueLabel: header } = params[0];
+	
+						let resArr = [header];
+	
+						params.forEach(obj => {
+							const { marker, value } = obj;
+	
+							const res = `${marker} ${value.toFixed(2)}${unit}`;
+							resArr.push(res);
+						})
+	
+						return resArr.join("\n");
+					}
+	
+					return "";
+				},
+				textStyle: {
+					color: "rgba(0, 0, 0, 1)",
+				},
+				backgroundColor: "rgba(255, 255, 255, 1)",
+			},
+		}
+	}
+
 	return (
 		<>
 			<View alignItems={"center"}>
@@ -185,8 +209,8 @@ function Index(props) {
 					Hint: Use Finger Gesture to Zoom in on graph
 				</Text>
 			</View>
-			<ChartComponent 
-                width={width * 0.85}
+			<ChartComponent
+				width={width * 0.85}
 				option={option}
 				chartRef={chartRef}
 				{...props}

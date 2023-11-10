@@ -76,7 +76,7 @@ target 'YatuDashboard' do
         config.build_settings['CLANG_WARN_DOCUMENTATION_COMMENTS'] = 'NO'
         
         # iOS 模拟器去除 1386
-        config.build_settings["EXCLUDED_ARCHS[sdk=iphonesimulator*]"] = "arm64 i386"
+        config.build_settings["EXCLUDED_ARCHS[sdk=iphonesimulator*]"] = "arm64"
 
         config.build_settings['ARCHS[sdk=iphonesimulator*]'] = 'x86_64'
         

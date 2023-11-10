@@ -89,7 +89,7 @@ function Index(props) {
 
 	const [unit, setUnit] = useState("");
 
-	const [toolTip, setToolTip, toggleToolTip] = useToggle(false);
+	const [toolTip, setToolTip, toggleToolTip] = useToggle(true);
 	// #endregion
 
 	// #region UseEffect
@@ -129,7 +129,7 @@ function Index(props) {
 	const mtgColor = flag ? "#F01421" : "#2898FF";
 	const mtgTitle = flag ? "Toggle End" : "Toggle Start";
 
-	const ttColor = toolTip ? "#FFAA00" : "#A6A6A6";
+	const ttColor = toolTip ? "#39B54A" : "#98A0A8";
 	// #endregion
 
 	let option = {
@@ -143,7 +143,7 @@ function Index(props) {
 						color: ttColor,
 						borderColor: ttColor
 					},
-					icon: `path://${ChartSvg["info"]}`,
+					icon: `path://${ChartSvg["tooltip"]}`,
 					onclick: toggleToolTip,
 				},
 				myToggleZoom: {
