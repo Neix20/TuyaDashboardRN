@@ -28,6 +28,10 @@ import Formaldehyde from "@assets/svg/Formaldehyde.svg";
 import ParticleMatter from "@assets/svg/Particle_Matter.svg";
 import CarbonDioxide from "@assets/svg/Carbon_Dioxide.svg";
 
+import ECard from "@assets/svg/ECard.svg";
+import Fpx from "@assets/svg/Fpx.svg";
+import EWallet from "@assets/svg/EWallet.svg";
+
 Data = {
     AppLogo: AppLogo,
     Yatu: Yatu,
@@ -50,10 +54,16 @@ Data = {
     PhoneBook: PhoneBook,
 }
 
+Data = {
+    ...Data,
+    ECard: ECard,
+    Fpx: Fpx,
+    EWallet: EWallet,
+}
+
 // FIXME: Temporarily Store Everything in MetaData
 Data = {
     ...Data,
-    
     "Absolute Humidity": AbsoluteHumidity,
     "Temperature": Temperature,
     "Relative Humidity": RelativeHumidity,

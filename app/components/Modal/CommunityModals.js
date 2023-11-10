@@ -95,7 +95,7 @@ function Index(props) {
                 </View>
 
                 {/* Content */}
-                <View alignItems={"center"} py={5}>
+                <View alignItems={"center"} py={5} maxHeight={"90%"}>
                     {children}
                 </View>
             </View>

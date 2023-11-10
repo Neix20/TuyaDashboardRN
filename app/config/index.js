@@ -27,6 +27,8 @@ import SubUserData from "./data/sub_user_list.json";
 
 import ChartSvg from "./data/chart_svg.json";
 
+import PaymentTypeData from "./data/payment_type_data.json";
+
 export {
     Animation,
     Images,
@@ -56,7 +58,8 @@ export {
     SmartPlugIIData,
     AirConData,
     DeviceDistributionData,
-    SubUserData
+    SubUserData,
+    PaymentTypeData
 };
 
 export {

@@ -41,7 +41,9 @@ import TuyaPanel from "@screens/TuyaPanel";
 
 import ProfileInfo from "@screens/Profile/ProfileInfo";
 import ReportSchedule from "@screens/ReportSchedule";
-import PaymentSubscription from "@screens/PaymentSubscription";
+
+import PaymentSubscription from "@screens/Payment/Subscription";
+import Payment from "@screens/Payment";
 
 import RoomManagement from "@screens/Room/RoomManagement";
 import RoomInfo from "@screens/Room/RoomInfo";
@@ -275,6 +277,13 @@ StackScreens = {
         option: {
             orientation: "portrait"
         }
+    },
+    Payment: {
+        component: Payment,
+        title: "Payment",
+        option: {
+            orientation: "portrait"
+        }
     }
 };
 
@@ -399,7 +408,7 @@ function Index(props) {
     // #endregion
 
     // const defaultScreen = (userId == -1 || firstTimeLink) ? "Login" : "TabNavigation";
-    const defaultScreen = "PaymentSubscription";
+    const defaultScreen = "Payment";
 
     return (
         <>
