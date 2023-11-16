@@ -1,7 +1,7 @@
 require_relative '../node_modules/react-native/scripts/react_native_pods'
 require_relative '../node_modules/@react-native-community/cli-platform-ios/native_modules'
 
-platform :ios, min_ios_version_supported
+platform :ios, '13.0'
 prepare_react_native_project!
 
 # If you are using a `react-native-flipper` your iOS build will fail when `NO_FLIPPER=1` is set.
@@ -54,7 +54,7 @@ target 'YatuDashboard' do
   end
   
   target 'OneSignalNotificationServiceExtension' do
-    pod 'OneSignalXCFramework', '>= 3.0', '< 4.0'
+    pod 'OneSignalXCFramework', '>= 3.4.3', '< 4.0'
   end  
   
 #  pod "ThingSmartCryption", :path =>'./TuyaSDK'
@@ -76,7 +76,7 @@ target 'YatuDashboard' do
         config.build_settings['CLANG_WARN_DOCUMENTATION_COMMENTS'] = 'NO'
         
         # iOS 模拟器去除 1386
-        config.build_settings["EXCLUDED_ARCHS[sdk=iphonesimulator*]"] = "arm64"
+        config.build_settings["EXCLUDED_ARCHS[sdk=iphonesimulator*]"] = "arm64 1386"
 
         config.build_settings['ARCHS[sdk=iphonesimulator*]'] = 'x86_64'
         

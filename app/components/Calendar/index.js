@@ -15,38 +15,44 @@ function CalendarHeader(props) {
 
     const { calHook = [], flagHook = [] } = props;
 
-    const [dt, parseDt, addDay, minusDay] = calHook.slice(0, 4);
+    const [dt, parseDt] = calHook.slice(0, 2);
     const [mFlag, setMFlag, toggleMFlag] = flagHook;
-
-    const onPressLeft = () => minusDay(-1, "months");
-    const onPressRight = () => addDay(1, "months");
 
     return (
         <TouchableOpacity onPress={toggleMFlag}>
-            <HStack alignItems={"center"} justifyContent={"space-between"} style={{ height: 40 }}>
-                <TouchableOpacity onPress={onPressLeft}>
-                    <View alignItems={"center"} justifyContent={"center"}
-                        style={{ width: 40, height: 40 }}>
-                        <FontAwesome5 name={"angle-left"} size={24} />
-                    </View>
-                </TouchableOpacity>
-                <View alignItems={"center"}>
-                    <Text>{parseDt.toFormat("MMMM yyyy")}</Text>
-                </View>
-                <TouchableOpacity onPress={onPressRight}>
-                    <View alignItems={"center"} justifyContent={"center"}
-                        style={{ width: 40, height: 40 }}>
-                        <FontAwesome5 name={"angle-right"} size={24} />
-                    </View>
-                </TouchableOpacity>
-            </HStack>
+            <View alignItems={"center"} justifyContent={"center"}
+                style={{ height: 40 }}>
+                <Text style={{
+                    fontSize: 16
+                }}>{parseDt.toFormat("MMMM yyyy")}</Text>
+            </View>
         </TouchableOpacity>
     )
 }
 
+// Dynamic
+function genYearArr(year = 2023, num = 12) {
+    let arr = [];
+
+    for (let ind = 0; ind < num; ind += 1) {
+        let c_year = year - ind;
+
+        let obj = {
+            name: c_year + "",
+            value: c_year
+        };
+        arr.push(obj);
+    }
+
+    // Sort By Ascending
+    arr.sort((objA, objB) => objA.value - objB.value);
+
+    return arr;
+};
+
 function Index(props) {
 
-    const { calHook = [], onUpdateDay = () => {} } = props;
+    const { calHook = [], onUpdateDay = () => { } } = props;
     const flagHook = useToggle(true);
 
     const [dt, parseDt, addDay, minusDay, setDay, updateCalendarDay] = calHook;
@@ -54,26 +60,6 @@ function Index(props) {
 
     const subUserAccess = useSelector(Selectors.subUserAccessSelect);
     const { AccountType = -1 } = subUserAccess;
-
-    // Dynamic
-    const genYearArr = (year = 2023, num = 12) => {
-        let arr = [];
-
-        for(let ind = 0; ind < num; ind += 1) {
-            let c_year = year - ind;
-
-            let obj = {
-                name: c_year + "",
-                value: c_year
-            };
-            arr.push(obj);
-        }
-
-        // Sort By Ascending
-        arr.sort((objA, objB) => objA.value - objB.value);
-
-        return arr;
-    };
 
     // [{ "name": "2012", "value": 2012 }]
     const [termArr, setTermArr] = useState([]);
@@ -98,9 +84,7 @@ function Index(props) {
             return (
                 <TouchableOpacity key={index} onPress={onSelectTerm}
                     style={{ width: "33%", height: "100%" }}>
-                    <View
-                        alignItems={"center"} justifyContent={"center"}
-                        height={"100%"}>
+                    <View height={"100%"} alignItems={"center"} justifyContent={"center"}>
                         <Text style={{ fontSize: 18 }}>{name}</Text>
                     </View>
                 </TouchableOpacity>
@@ -108,16 +92,16 @@ function Index(props) {
         }
 
         return (
-            <VStack alignItems={"center"} space={5}>
+            <VStack alignItems={"center"}>
                 <View py={1.5}>
                     <CalendarHeader calHook={calHook} flagHook={flagHook} />
                 </View>
                 <HStack
                     alignItems={"center"}
                     flexWrap={"wrap"}
-                    style={{ 
+                    style={{
                         height: 48,
-                        rowGap: 5,
+                        rowGap: 5
                     }}>
                     {termArr.map(renderItem)}
                 </HStack>
@@ -130,6 +114,9 @@ function Index(props) {
         onUpdateDay();
     }
 
+    const onPressLeft = () => minusDay(-1, "months");
+    const onPressRight = () => addDay(1, "months");
+
     const minDt = (AccountType <= 1) ? DateTime.now().plus({ days: -7 }).toFormat("yyyy-MM-dd") : DateTime.now().plus({ months: -3 }).toFormat("yyyy-MM-dd");
 
     return (
@@ -141,9 +128,12 @@ function Index(props) {
             markedDates={{
                 [dt]: { selected: true, disableTouchEvent: true }
             }}
-            style={{ width: "100%" }}
-            hideArrows={true}
+            onPressArrowLeft={onPressLeft}
+            onPressArrowRight={onPressRight}
+            // hideArrows={true}
             renderHeader={_ => <CalendarHeader calHook={calHook} flagHook={flagHook} />}
+            enableSwipeMonths={true}
+            style={{ width: "100%" }}
         />
     )
 }

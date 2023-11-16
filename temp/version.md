@@ -116,3 +116,12 @@
     3. Sub-Member User Update. Managers are now able to add new or existing sub-users to current home to help manage account. Managers can control the access of sub-users account.
     4. Account Type Update. Account Types now have "Free" and "Premium". Both account types have varying access to available data (7-day and 90-day period).
 </en-US>
+
+#### Version 1.2.11
+------------------------
+<en-US>
+    Features Update:
+    1. Chart Widget Update: User are now able to selectively toggle tooltip 
+    2. Change Weekday Terms to Short Form. I.e. "Wednesday" => "Wed"
+    3. Hide Label from tooltip, Place Color Dot Instead.
+</en-US>

@@ -13,6 +13,8 @@ import { Images, Svg, PaymentTypeData } from "@config";
 import { BcHeader, BcBoxShadow, BcDisable, BcFooter, BaseModal, BcSvgIcon } from "@components";
 import { useToggle } from "@hooks";
 
+import { CheckBox } from "@rneui/base";
+
 // #region Custom Hooks
 function usePaymentLs(data = []) {
 
@@ -110,45 +112,7 @@ function usePaymentTerm() {
 }
 // #endregion
 
-// #region Components
-function PaymentBtn(props) {
-
-    const { flag = false, onPress = () => { } } = props;
-    const { children = "" } = props;
-
-    const Item = (props) => {
-        return (
-            <View bgColor={"#F01421"}
-                borderRadius={12}
-                alignItems={"center"}
-                justifyContent={"center"}
-                style={{ height: 48 }}>
-                <Text style={{
-                    fontFamily: "Roboto-Bold",
-                    fontSize: 16,
-                    color: "#FFF"
-                }}>{children}</Text>
-            </View>
-        )
-    }
-
-    if (flag) {
-        return (
-            <TouchableOpacity style={{ width: "90%" }} onPress={onPress}>
-                <Item />
-            </TouchableOpacity>
-        )
-    }
-
-    return (
-        <View width={"90%"}>
-            <BcDisable>
-                <Item />
-            </BcDisable>
-        </View>
-    )
-}
-
+// #region Payment Type Components
 function PaymentTypeItem(props) {
     const { flag = false, onPress = () => { } } = props;
     const { Name, img } = props;
@@ -181,7 +145,7 @@ function PaymentTypeItem(props) {
                     }
                 </HStack>
             </TouchableOpacity>
-            <Divider my={2} />
+            <Divider my={2} bgColor={"#EBEBEB"} />
         </>
     )
 }
@@ -224,7 +188,7 @@ function PaymentTypeBtn(props) {
 
     const { children = null, flag = false } = props;
     const { onPress = () => { } } = props;
-    const { Icon, name, img } = props;
+    const { Icon, name, item = {} } = props;
 
     const color = {
         active: "#F01421",
@@ -232,27 +196,28 @@ function PaymentTypeBtn(props) {
         txt: "#000"
     }
 
+    const { img: sImg, Name: sName } = item;
+
     const clr = flag ? color.active : color.inactive;
     const txtClr = flag ? color.txt : color.inactive;
 
     return (
-        <TouchableOpacity onPress={onPress}
-            style={{ flex: 1 }}>
+        <TouchableOpacity onPress={onPress} style={{ flex: 1 }}>
             <VStack space={2}>
                 <BcBoxShadow>
-                    <View py={1}
+                    <View py={1} bgColor={"#FFF"}
                         borderRadius={8}
-                        bgColor={"#FFF"}
-                        alignItems={"center"} justifyContent={"center"}>
+                        alignItems={"center"} justifyContent={"center"}
+                        style={{ height: 48 }}>
                         {
                             (flag) ? (
                                 <Image
-                                    source={img}
+                                    source={sImg}
                                     style={{
                                         width: 80,
                                         height: 40
                                     }}
-                                    alt={name} />
+                                    alt={sName} />
                             ) : (
                                 <Icon name={name} color={clr} size={36} />
                             )
@@ -260,8 +225,7 @@ function PaymentTypeBtn(props) {
                     </View>
                 </BcBoxShadow>
                 <View alignItems={"center"}>
-                    <HStack space={1}
-                        alignItems={"center"}>
+                    <HStack space={1} alignItems={"center"}>
                         <Text style={{
                             fontSize: 12,
                             fontFamily: "Roboto-Bold",
@@ -304,8 +268,7 @@ function PaymentType(props) {
 
     return (
         <>
-            <PaymentTypeModal
-                showModal={showModal} setShowModal={setShowModal}
+            <PaymentTypeModal showModal={showModal} setShowModal={setShowModal}
                 term={term} data={ls} onSelect={toggleItem} />
             <BcBoxShadow>
                 <VStack py={3} space={3}
@@ -316,21 +279,21 @@ function PaymentType(props) {
                     <View width={"90%"}>
                         <Text style={{
                             fontFamily: "Roboto-Bold",
-                            fontSize: 14,
+                            fontSize: 16,
                         }}>Select Payment Method</Text>
                     </View>
 
                     {/* Payment */}
                     <HStack space={3} width={"90%"}
                         alignItems={"center"} justifyContent={"space-between"}>
-                        <PaymentTypeBtn onPress={onSelWallet} 
-                            flag={selItem.TypeId == 1} img={selItem.img}
+                        <PaymentTypeBtn onPress={onSelWallet}
+                            flag={selItem.TypeId == 1} item={selItem}
                             Icon={BcSvgIcon} name={"EWallet"}>E-Wallet</PaymentTypeBtn>
-                        <PaymentTypeBtn onPress={onSelFpx} 
-                            flag={selItem.TypeId == 2} img={selItem.img}
+                        <PaymentTypeBtn onPress={onSelFpx}
+                            flag={selItem.TypeId == 2} item={selItem}
                             Icon={BcSvgIcon} name={"Fpx"}>Online Banking</PaymentTypeBtn>
-                        <PaymentTypeBtn onPress={onSelCard} 
-                            flag={selItem.TypeId == 3} img={selItem.img}
+                        <PaymentTypeBtn onPress={onSelCard}
+                            flag={selItem.TypeId == 3} item={selItem}
                             Icon={BcSvgIcon} name={"ECard"}>Credit Card</PaymentTypeBtn>
                     </HStack>
                 </VStack>
@@ -340,11 +303,223 @@ function PaymentType(props) {
 }
 // #endregion
 
+// #region Components
+function PaymentBtn(props) {
+
+    const { flag = false, onPress = () => { } } = props;
+    const { children = "" } = props;
+
+    const Item = (props) => {
+        return (
+            <View bgColor={"#F01421"}
+                borderRadius={12}
+                alignItems={"center"}
+                justifyContent={"center"}
+                style={{ height: 48 }}>
+                <Text style={{
+                    fontFamily: "Roboto-Bold",
+                    fontSize: 16,
+                    color: "#FFF"
+                }}>{children}</Text>
+            </View>
+        )
+    }
+
+    if (flag) {
+        return (
+            <TouchableOpacity style={{ width: "90%" }} onPress={onPress}>
+                <Item />
+            </TouchableOpacity>
+        )
+    }
+
+    return (
+        <View width={"90%"}>
+            <BcDisable>
+                <Item />
+            </BcDisable>
+        </View>
+    )
+}
+
+function PaymentBodyItem(props) {
+    const { data = {} } = props;
+    const { title, description, img: t_img, flag = true } = data;
+
+    const img = { uri: t_img };
+
+    const borderRadius = 8;
+
+    return (
+        <>
+            <BcBoxShadow style={{ borderRadius, width: "100%" }}>
+                <HStack bgColor={"#FFF"}
+                    borderRadius={borderRadius}
+                    alignItems={"center"}>
+                    <Image
+                        source={img}
+                        style={{
+                            height: 100,
+                            width: 100,
+                            borderTopLeftRadius: borderRadius,
+                            borderBottomLeftRadius: borderRadius,
+                        }}
+                        alt={title}
+                    />
+                    <VStack px={3} flex={1}
+                        space={2}
+                        style={{
+                            height: 80
+                        }}>
+                        <Text style={{
+                            fontFamily: "Roboto-Bold",
+                            fontSize: 16,
+                        }}>{title}</Text>
+                        <Text>{description}</Text>
+                    </VStack>
+                    <CheckBox
+                        containerStyle={{
+                            paddingHorizontal: 5,
+                            paddingVertical: 0,
+                        }}
+                        iconType={"material-community"}
+                        checkedIcon={"checkbox-marked"}
+                        uncheckedIcon={"checkbox-blank-outline"}
+                        checked={flag}
+                        checkedColor={"#F01421"} />
+                </HStack>
+            </BcBoxShadow>
+            <View style={{ height: 10 }} />
+        </>
+    )
+}
+
+function PaymentBody(props) {
+    const { data = [] } = props;
+
+    const renderItem = ({ item, index }) => {
+        return <PaymentBodyItem key={index} data={item} />
+    }
+
+    return (
+        <VStack flex={1} py={3} space={3}
+            bgColor={"#FFF"} alignItems={"center"}>
+            <View width={"90%"} style={{ paddingHorizontal: 2 }}>
+                <Text style={{
+                    fontFamily: "Roboto-Bold",
+                    fontSize: 16,
+                }}>Add-On</Text>
+            </View>
+            <FlatList
+                data={data} renderItem={renderItem}
+                style={{ width: "90%" }}
+                contentContainerStyle={{ padding: 2 }} />
+        </VStack>
+    );
+}
+
+
+
+function PaymentDetailItem(props) {
+
+    const { title = "", value = "" } = props;
+
+    return (
+        <HStack width={"90%"}
+            alignItems={"center"} justifyContent={"space-between"}>
+            <Text style={{
+                fontFamily: "Roboto-Medium",
+                fontSize: 16
+            }}>{title}</Text>
+            <Text style={{
+                fontFamily: "Roboto-Medium",
+                fontSize: 16
+            }}>{value}</Text>
+        </HStack>
+    )
+}
+
+function PaymentDetail(props) {
+    return (
+        <BcBoxShadow>
+            <VStack py={3}
+                bgColor={"#FFF"}
+                alignItems={"center"}>
+
+                {/* Title */}
+                <View width={"90%"}>
+                    <Text style={{
+                        fontFamily: "Roboto-Bold",
+                        fontSize: 16,
+                    }}>Details</Text>
+                </View>
+
+                {/* Body */}
+                <Divider mt={3} mb={2} bgColor={"#EBEBEB"} width={"90%"} />
+
+                <PaymentDetailItem title={"Price"} value={"RM" + 69.99.toFixed(2)} />
+                <Divider my={2} bgColor={"#EBEBEB"} width={"90%"} />
+
+                <PaymentDetailItem title={"Promo Code"} value={""} />
+                <Divider my={2} bgColor={"#EBEBEB"} width={"90%"} />
+
+                <PaymentDetailItem title={"Total"} value={"RM" + 69.99.toFixed(2)} />
+                <Divider my={2} bgColor={"#EBEBEB"} width={"90%"} />
+            </VStack>
+        </BcBoxShadow>
+    )
+}
+// #endregion
+
 function Index(props) {
 
     const toast = useToast();
     const navigation = useNavigation();
     const isFocused = useIsFocused();
+
+    // const { data = [] } = props.route.params;
+    const data = [
+        {
+            "title": "Storage Module",
+            "description": "Storage Fee 1 Year Data Keeping",
+            "img": "https://i.imgur.com/dQDxXYa.png"
+        },
+        {
+            "title": "Email Module",
+            "description": "Archive Report Using Email",
+            "img": "https://i.imgur.com/nQCj6ea.png"
+        },
+        {
+            "title": "Real-Time Data Module",
+            "description": "Real-Time Data Module",
+            "img": "https://i.imgur.com/Y8RQ5pQ.png"
+        },
+        {
+            "title": "User Module",
+            "description": "User Module",
+            "img": "https://i.imgur.com/q8FTn1s.png"
+        },
+        {
+            "title": "Storage Module",
+            "description": "Storage Fee 1 Year Data Keeping",
+            "img": "https://i.imgur.com/dQDxXYa.png"
+        },
+        {
+            "title": "Email Module",
+            "description": "Archive Report Using Email",
+            "img": "https://i.imgur.com/nQCj6ea.png"
+        },
+        {
+            "title": "Real-Time Data Module",
+            "description": "Real-Time Data Module",
+            "img": "https://i.imgur.com/Y8RQ5pQ.png"
+        },
+        {
+            "title": "User Module",
+            "description": "User Module",
+            "img": "https://i.imgur.com/q8FTn1s.png"
+        },
+    ];
 
     const paymentHook = usePaymentLs(PaymentTypeData);
     const [ls, setLs, selItem, toggleItem] = paymentHook;
@@ -359,27 +534,17 @@ function Index(props) {
                 <View style={{ height: 10 }} />
 
                 {/* Body */}
-                <ScrollView showsVerticalScrollIndicator={false}
-                    keyboardShouldPersistTaps={"handled"}
-                    contentContainerStyle={{ flexGrow: 1 }}>
+                <VStack space={3} flexGrow={1}>
+                    <PaymentBody data={data} />
 
-                    <VStack space={3} flexGrow={1}>
-                        <BcBoxShadow>
-                            <View bgColor={"#FFF"} style={{ height: 200 }} />
-                        </BcBoxShadow>
+                    <PaymentType hook={paymentHook} />
 
-                        <PaymentType hook={paymentHook} />
-
-                        <BcBoxShadow>
-                            <View bgColor={"#FFF"} style={{ height: 600 }} />
-                        </BcBoxShadow>
-                    </VStack>
-
-                </ScrollView>
+                    <PaymentDetail />
+                </VStack>
 
                 {/* Footer */}
                 <BcFooter>
-                    <PaymentBtn flag={selItem.TypeId >= 1}>Confirm & Pay</PaymentBtn>
+                    <PaymentBtn flag={selItem.TypeId != -1}>Confirm & Pay</PaymentBtn>
                 </BcFooter>
             </View>
         </SafeAreaView>

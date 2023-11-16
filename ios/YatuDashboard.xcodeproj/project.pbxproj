@@ -20,7 +20,6 @@
 		B51682E18F914F14AA360F16 /* Roboto-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 17499A7A6686441B9FBA4D4A /* Roboto-Bold.ttf */; };
 		CB8CBB9B54104389A14AABB8 /* Roboto-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4EF1D35055E64008A4D629CC /* Roboto-Medium.ttf */; };
 		D08F33352AC3DC7500965385 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D08F33342AC3DC7500965385 /* NotificationService.swift */; };
-		D08F33392AC3DC7500965385 /* OneSignalNotificationServiceExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = D08F33322AC3DC7500965385 /* OneSignalNotificationServiceExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		F1865D799E5341BBA9994445 /* Montserrat-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 50CB2493226644A0B920A325 /* Montserrat-Medium.ttf */; };
 /* End PBXBuildFile section */
 
@@ -48,7 +47,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				D08F33392AC3DC7500965385 /* OneSignalNotificationServiceExtension.appex in Embed Foundation Extensions */,
 			);
 			name = "Embed Foundation Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -750,7 +748,7 @@
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
-				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = i386;
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "arm64 1386";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -822,7 +820,7 @@
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = i386;
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "i386 arm64";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;

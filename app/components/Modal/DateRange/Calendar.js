@@ -33,9 +33,7 @@ function Index(props) {
             onBackButtonPress={closeModal}
             onBackdropPress={closeModal}
             backdropOpacity={.5}>
-            <View
-                alignItems={"center"}
-                justifyContent={"center"}>
+            <View alignItems={"center"} justifyContent={"center"}>
                 <View bgColor={"#FFF"} style={{ width: "90%", height: 360 }}>
                     <BcCalendar calHook={calHook} onUpdateDay={closeModal} />
                 </View>

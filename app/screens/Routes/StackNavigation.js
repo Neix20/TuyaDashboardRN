@@ -290,8 +290,9 @@ StackScreens = {
 import { useDispatch, useSelector } from 'react-redux';
 import { Actions, Selectors } from '@redux';
 
-import OneSignal from "react-native-onesignal";
 import { clsConst } from "@config";
+
+import OneSignal from "react-native-onesignal";
 
 // #region Initial
 const init = {
@@ -408,7 +409,7 @@ function Index(props) {
     // #endregion
 
     const defaultScreen = (userId == -1 || firstTimeLink) ? "Login" : "TabNavigation";
-    // const defaultScreen = "Payment";
+    // const defaultScreen = "Debug";
 
     return (
         <>
