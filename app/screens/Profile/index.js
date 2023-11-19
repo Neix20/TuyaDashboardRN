@@ -270,7 +270,9 @@ function NavPanel(props) {
     const GoToHomeManagement = () => navigation.navigate("HomeManagement");
     const GoToAlert = () => navigation.navigate("Alert");
     const GoToReportSchedule = () => navigation.navigate("ReportSchedule");
+
     const GoToSubUser = () => navigation.navigate("SubUser");
+    const GoToAddSubUser = () => navigation.navigate("AddSubUserWithCode");
 
     const subUserAccess = useSelector(Selectors.subUserAccessSelect);
     const { ManageUserList = -1 } = subUserAccess;
@@ -281,7 +283,7 @@ function NavPanel(props) {
             {/* <PanelBtn onPress={GoToAlert} Btn={MaterialCommunityIcons} icon={"message-text-outline"} title={"Message Center"} />
             <PanelBtn onPress={GoToReportSchedule} Btn={FontAwesome5} icon={"clipboard-list"} title={"Email Alert"} /> */}
             {
-                (ManageUserList == 1) ? (<PanelBtn onPress={GoToSubUser} Btn={FontAwesome5} icon={"users"} title={"Manage Members"} />) : (<></>)
+                (ManageUserList == 1) ? (<PanelBtn onPress={GoToSubUser} Btn={FontAwesome5} icon={"users"} title={"Manage Members"} />) : (<PanelBtn onPress={GoToAddSubUser} Btn={FontAwesome5} icon={"house-user"} title={"Join a Home"} />)
             }
             {/* <PanelBtn Btn={SimpleLineIcons} icon={"question"} title={"FAQ & Feedback"} /> */}
         </VStack>
@@ -418,7 +420,8 @@ function Index(props) {
 
                             {/* <AppInfoPanel /> */}
 
-                            {(AccountType <= 1) ? <PaymentSubscriptionPanel /> : <></>}
+                            {/* {(AccountType <= 1) ? <PaymentSubscriptionPanel /> : <></>} */}
+                            <PaymentSubscriptionPanel />
 
                             {/* Logout */}
                             <LogoutPanel onLogout={SignOut} />

@@ -1144,7 +1144,7 @@ function Index(props) {
 
                     {/* Card Gradient */}
                     {/* <View alignItems={"center"}>
-                        <BcCarousel images={imgLs} renderItem={renderGradientItem} />
+                        <BcCarousel data={imgLs} renderItem={renderGradientItem} />
                     </View> */}
 
                     <View style={{ height: 5 }} />

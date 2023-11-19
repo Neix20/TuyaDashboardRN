@@ -8,15 +8,16 @@ import FontAwesome from "react-native-vector-icons/FontAwesome";
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 
 import { Logger, Utility } from "@utility";
-import { Images, Svg, PaymentTypeData } from "@config";
 
-import { BcHeader, BcBoxShadow, BcDisable, BcFooter, BaseModal, BcSvgIcon } from "@components";
+import { BcHeader, BcBoxShadow, BcDisable, BcFooter, BaseModal, BcSvgIcon, BcLoading } from "@components";
 import { useToggle } from "@hooks";
 
 import { CheckBox } from "@rneui/base";
 
+import { fetchPaymentTypeList } from "@api";
+
 // #region Custom Hooks
-function usePaymentLs(data = []) {
+function usePaymentLs() {
 
     const init = {
         selItem: {
@@ -25,6 +26,7 @@ function usePaymentLs(data = []) {
     }
 
     // #region UseState
+    const [data, setData] = useState([]);
     const [ls, setLs] = useState([]);
     const [selItem, setSelItem] = useState(init.selItem);
     // #endregion
@@ -44,7 +46,7 @@ function usePaymentLs(data = []) {
         });
 
         setLs(_ => arr);
-    }, []);
+    }, [JSON.stringify(data)]);
 
     useEffect(() => {
         const arr = ls.filter(x => x.flag);
@@ -68,7 +70,7 @@ function usePaymentLs(data = []) {
         setLs(_ => arr);
     }
 
-    return [ls, setLs, selItem, toggleItem];
+    return [ls, setLs, selItem, toggleItem, setData];
 }
 
 function usePaymentTerm() {
@@ -344,9 +346,7 @@ function PaymentBtn(props) {
 
 function PaymentBodyItem(props) {
     const { data = {} } = props;
-    const { title, description, img: t_img, flag = true } = data;
-
-    const img = { uri: t_img };
+    const { Name, Description, img, flag = true } = data
 
     const borderRadius = 8;
 
@@ -364,7 +364,7 @@ function PaymentBodyItem(props) {
                             borderTopLeftRadius: borderRadius,
                             borderBottomLeftRadius: borderRadius,
                         }}
-                        alt={title}
+                        alt={Name}
                     />
                     <VStack px={3} flex={1}
                         space={2}
@@ -374,19 +374,9 @@ function PaymentBodyItem(props) {
                         <Text style={{
                             fontFamily: "Roboto-Bold",
                             fontSize: 16,
-                        }}>{title}</Text>
-                        <Text>{description}</Text>
+                        }}>{Name}</Text>
+                        <Text>{Description}</Text>
                     </VStack>
-                    <CheckBox
-                        containerStyle={{
-                            paddingHorizontal: 5,
-                            paddingVertical: 0,
-                        }}
-                        iconType={"material-community"}
-                        checkedIcon={"checkbox-marked"}
-                        uncheckedIcon={"checkbox-blank-outline"}
-                        checked={flag}
-                        checkedColor={"#F01421"} />
                 </HStack>
             </BcBoxShadow>
             <View style={{ height: 10 }} />
@@ -477,77 +467,68 @@ function Index(props) {
     const navigation = useNavigation();
     const isFocused = useIsFocused();
 
-    // const { data = [] } = props.route.params;
-    const data = [
-        {
-            "title": "Storage Module",
-            "description": "Storage Fee 1 Year Data Keeping",
-            "img": "https://i.imgur.com/dQDxXYa.png"
-        },
-        {
-            "title": "Email Module",
-            "description": "Archive Report Using Email",
-            "img": "https://i.imgur.com/nQCj6ea.png"
-        },
-        {
-            "title": "Real-Time Data Module",
-            "description": "Real-Time Data Module",
-            "img": "https://i.imgur.com/Y8RQ5pQ.png"
-        },
-        {
-            "title": "User Module",
-            "description": "User Module",
-            "img": "https://i.imgur.com/q8FTn1s.png"
-        },
-        {
-            "title": "Storage Module",
-            "description": "Storage Fee 1 Year Data Keeping",
-            "img": "https://i.imgur.com/dQDxXYa.png"
-        },
-        {
-            "title": "Email Module",
-            "description": "Archive Report Using Email",
-            "img": "https://i.imgur.com/nQCj6ea.png"
-        },
-        {
-            "title": "Real-Time Data Module",
-            "description": "Real-Time Data Module",
-            "img": "https://i.imgur.com/Y8RQ5pQ.png"
-        },
-        {
-            "title": "User Module",
-            "description": "User Module",
-            "img": "https://i.imgur.com/q8FTn1s.png"
-        },
-    ];
+    const { data = [] } = props.route.params;
+    // const data = [
+    //     {
+    //         "title": "Storage Module",
+    //         "description": "Storage Fee 1 Year Data Keeping",
+    //         "img": "https://i.imgur.com/dQDxXYa.png"
+    //     }
+    // ];
 
-    const paymentHook = usePaymentLs(PaymentTypeData);
-    const [ls, setLs, selItem, toggleItem] = paymentHook;
+    const paymentHook = usePaymentLs();
+    const [ls, setLs, selItem, toggleItem, setData] = paymentHook;
+
+    const [loading, setLoading, toggleLoading] = useToggle(false);
+
+    useEffect(() => {
+        if (isFocused) {
+            fetchPaymentTypeList({
+                param: {
+                    UserId: 25,
+                },
+                onSetLoading: setLoading
+            })
+            .then(data => {
+                setData(data)
+            })
+            .catch(res => {
+                console.log(`Error: ${res}`);
+            })
+        }
+    }, [isFocused]);
+
+    const GoToWebPayment = () => {
+        navigation.navigate("WebPayment");
+    }
 
     return (
-        <SafeAreaView style={{ flex: 1 }}>
-            <View style={{ flex: 1 }}>
+        <>
+            <BcLoading loading={loading} />
+            <SafeAreaView style={{ flex: 1 }}>
+                <View style={{ flex: 1 }}>
 
-                {/* Header */}
-                <BcHeader>Payment</BcHeader>
+                    {/* Header */}
+                    <BcHeader>Payment</BcHeader>
 
-                <View style={{ height: 10 }} />
+                    <View style={{ height: 10 }} />
 
-                {/* Body */}
-                <VStack space={3} flexGrow={1}>
-                    <PaymentBody data={data} />
+                    {/* Body */}
+                    <VStack space={3} flexGrow={1}>
+                        <PaymentBody data={data} />
 
-                    <PaymentType hook={paymentHook} />
+                        <PaymentType hook={paymentHook} />
 
-                    <PaymentDetail />
-                </VStack>
+                        <PaymentDetail />
+                    </VStack>
 
-                {/* Footer */}
-                <BcFooter>
-                    <PaymentBtn flag={selItem.TypeId != -1}>Confirm & Pay</PaymentBtn>
-                </BcFooter>
-            </View>
-        </SafeAreaView>
+                    {/* Footer */}
+                    <BcFooter>
+                        <PaymentBtn flag={selItem.TypeId != -1} onPress={GoToWebPayment}>Confirm & Pay</PaymentBtn>
+                    </BcFooter>
+                </View>
+            </SafeAreaView>
+        </>
     );
 }
 

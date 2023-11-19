@@ -13,7 +13,7 @@ import { Logger, Utility } from "@utility";
 import { Images, Svg } from "@config";
 
 import { BcHeaderWithCancel, BcHeaderWithAdd, BcBoxShadow, BcLoading } from "@components";
-import { fetchAddSubUser } from "@api";
+import { fetchSubUserJoinHome } from "@api";
 
 import { useToggle } from "@hooks";
 
@@ -25,7 +25,7 @@ function useForm(props) {
 
     const init = {
         form: {
-            email: ""
+            refCode: ""
         }
     }
 
@@ -38,7 +38,7 @@ function useForm(props) {
         setForm(() => nextState);
     }
 
-    const onChangeEmail = (val) => onChange("email", val);
+    const onChangeRefCode = (val) => onChange("refCode", val);
 
     useEffect(() => {
         let flag = true;
@@ -55,7 +55,7 @@ function useForm(props) {
         setForm(init.form);
     }
 
-    return [form, clearForm, onChangeEmail, submitFlag];
+    return [form, clearForm, onChangeRefCode, submitFlag];
 }
 // #endregion
 
@@ -64,8 +64,8 @@ function AddSubUserForm(props) {
 
     const { hook = [] } = props;
 
-    const [form, clearForm, onChangeEmail, submitFlag] = hook;
-    const { email } = form;
+    const [form, clearForm, onChangeRefCode, submitFlag] = hook;
+    const { refCode } = form;
 
     return (
         <BcBoxShadow>
@@ -77,14 +77,14 @@ function AddSubUserForm(props) {
                     <View flex={.3}>
                         <Text style={{
                             fontSize: 18
-                        }}>User Email</Text>
+                        }}>Referral Code</Text>
                     </View>
                     <View flex={.7}>
                         <TextInput
-                            defaultValue={email}
-                            onChangeText={onChangeEmail}
-                            placeholder={"User Email"}
-                            keyboardType={"email-address"}
+                            defaultValue={refCode}
+                            onChangeText={onChangeRefCode}
+                            placeholder={"Ref. Code"}
+                            keyboardType={"number-pad"}
                             autoCapitalize={"none"}
                             style={{
                                 fontFamily: "Roboto-Medium",
@@ -119,15 +119,15 @@ function Index(props) {
 
     const [loading, setLoading, toggleLoading] = useToggle(false);
 
-    const { email } = form;
+    const { refCode } = form;
     const userId = useSelector(Selectors.userIdSelect);
 
     const save = () => {
         setLoading(true);
-        fetchAddSubUser({
+        fetchSubUserJoinHome({
             param: {
                 UserId: userId,
-                Email: email
+                AccessCode: refCode
             },
             onSetLoading: setLoading,
         })
@@ -136,7 +136,7 @@ function Index(props) {
 
             navigation.goBack();
             toast.show({
-                description: `Successfully Added ${email}!`
+                description: `Successfully Applied to Join Home!`
             });
         })
         .catch(err => {

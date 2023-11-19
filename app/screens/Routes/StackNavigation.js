@@ -44,6 +44,10 @@ import ReportSchedule from "@screens/ReportSchedule";
 
 import PaymentSubscription from "@screens/Payment/Subscription";
 import Payment from "@screens/Payment";
+import WebPayment from "@screens/Payment/WebPayment";
+import PaymentFailed from "@screens/Payment/PaymentFailed";
+
+import ThankYou from "@screens/ThankYou";
 
 import RoomManagement from "@screens/Room/RoomManagement";
 import RoomInfo from "@screens/Room/RoomInfo";
@@ -54,6 +58,7 @@ import Alert from "@screens/Alert";
 import SubUser from "@screens/SubUser";
 import AddSubUser from "@screens/SubUser/AddSubUser";
 import SubUserInfo from "@screens/SubUser/SubUserInfo";
+import AddSubUserWithCode from "@screens/SubUser/AddSubUserWithCode";
 
 let StackScreens = {};
 
@@ -264,6 +269,13 @@ StackScreens = {
             orientation: "portrait"
         }
     },
+    AddSubUserWithCode: {
+        component: AddSubUserWithCode,
+        title: "AddSubUserWithCode",
+        option: {
+            orientation: "portrait"
+        }
+    },
     SubUserInfo: {
         component: SubUserInfo,
         title: "SubUserInfo",
@@ -284,8 +296,94 @@ StackScreens = {
         option: {
             orientation: "portrait"
         }
+    },
+    WebPayment: {
+        component: WebPayment,
+        title: "WebPayment",
+        option: {
+            orientation: "portrait"
+        }
+    },
+    PaymentFailed: {
+        component: PaymentFailed,
+        title: "PaymentFailed",
+        option: {
+            orientation: "portrait"
+        }
+    },
+    ThankYou: {
+        component: ThankYou,
+        title: "ThankYou",
+        option: {
+            orientation: "portrait"
+        }
     }
 };
+
+import LoginII from "@screens/Login/LoginII";
+
+
+import PaymentSubscriptionAddOn from "@screens/Payment/Addon";
+
+import PaymentSubscriptionStorage from "@screens/Payment/Addon/storage.js";
+import PaymentSubscriptionEmail from "@screens/Payment/Addon/email.js";
+import PaymentSubscriptionUser from "@screens/Payment/Addon/user.js";
+import PaymentSubscriptionRealTimeData from "@screens/Payment/Addon/realTimeData.js";
+
+import PaymentSubscriptionDetail from "@screens/Payment/Addon/detail.js";
+
+StackScreens = {
+    ...StackScreens,
+    LoginII: {
+        component: LoginII,
+        title: "LoginII",
+        option: {
+            orientation: "portrait"
+        }
+    },
+    PaymentSubscriptionAddOn: {
+        component: PaymentSubscriptionAddOn,
+        title: "PaymentSubscriptionAddOn",
+        option: {
+            orientation: "portrait"
+        }
+    },
+    PaymentSubscriptionStorage: {
+        component: PaymentSubscriptionStorage,
+        title: "PaymentSubscriptionStorage",
+        option: {
+            orientation: "portrait"
+        }
+    },
+    PaymentSubscriptionEmail: {
+        component: PaymentSubscriptionEmail,
+        title: "PaymentSubscriptionEmail",
+        option: {
+            orientation: "portrait"
+        }
+    },
+    PaymentSubscriptionUser: {
+        component: PaymentSubscriptionUser,
+        title: "PaymentSubscriptionUser",
+        option: {
+            orientation: "portrait"
+        }
+    },
+    PaymentSubscriptionRealTimeData: {
+        component: PaymentSubscriptionRealTimeData,
+        title: "PaymentSubscriptionRealTimeData",
+        option: {
+            orientation: "portrait"
+        }
+    },
+    PaymentSubscriptionDetail: {
+        component: PaymentSubscriptionDetail,
+        title: "PaymentSubscriptionDetail",
+        option: {
+            orientation: "portrait"
+        }
+    }
+}
 
 import { useDispatch, useSelector } from 'react-redux';
 import { Actions, Selectors } from '@redux';
@@ -408,8 +506,8 @@ function Index(props) {
     }
     // #endregion
 
-    const defaultScreen = (userId == -1 || firstTimeLink) ? "Login" : "TabNavigation";
-    // const defaultScreen = "Debug";
+    // const defaultScreen = (userId == -1 || firstTimeLink) ? "Login" : "TabNavigation";
+    const defaultScreen = "PaymentSubscriptionAddOn";
 
     return (
         <>
