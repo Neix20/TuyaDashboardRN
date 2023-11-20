@@ -35,7 +35,7 @@ function useSubLs(data = []) {
 
 function PaymentBodyItem(props) {
     const { data = {}, onPress = () => { } } = props;
-    const { title, description, img, flag, pos } = data;
+    const { Name, Description, img, flag, pos } = data;
 
     const borderRadius = 8;
 
@@ -54,7 +54,7 @@ function PaymentBodyItem(props) {
                                 borderTopLeftRadius: borderRadius,
                                 borderBottomLeftRadius: borderRadius,
                             }}
-                            alt={title}
+                            alt={Name}
                         />
                         <VStack px={3} flex={1}
                             space={2}
@@ -64,8 +64,8 @@ function PaymentBodyItem(props) {
                             <Text style={{
                                 fontFamily: "Roboto-Bold",
                                 fontSize: 16,
-                            }}>{title}</Text>
-                            <Text>{description}</Text>
+                            }}>{Name}</Text>
+                            <Text>{Description}</Text>
                         </VStack>
                     </HStack>
                 </BcBoxShadow>
@@ -156,26 +156,26 @@ function Index(props) {
     // TODO: Use API
     const data = [
         {
-            "title": "Storage Module",
-            "description": "Storage Fee 1 Year Data Keeping",
+            "Name": "Storage Module",
+            "Description": "Storage Fee 1 Year Data Keeping",
             "img": "https://i.imgur.com/dQDxXYa.png",
             goToFunc: GoToStorage,
         },
         {
-            "title": "Email Module",
-            "description": "Archive Report Using Email",
+            "Name": "Email Module",
+            "Description": "Archive Report Using Email",
             "img": "https://i.imgur.com/nQCj6ea.png",
             goToFunc: GoToEmail,
         },
         {
-            "title": "Real-Time Data Module",
-            "description": "Real-Time Data Module",
+            "Name": "Real-Time Data Module",
+            "Description": "Real-Time Data Module",
             "img": "https://i.imgur.com/Y8RQ5pQ.png",
             goToFunc: GoToRealTimeData,
         },
         {
-            "title": "User Module",
-            "description": "User Module",
+            "Name": "User Module",
+            "Description": "User Module",
             "img": "https://i.imgur.com/q8FTn1s.png",
             goToFunc: GoToUser,
         }
@@ -193,11 +193,7 @@ function Index(props) {
                 <View style={{ height: 10 }} />
 
                 {/* Body */}
-                <VStack flexGrow={1}
-                    space={2}
-                    alignItems={"center"}>
-
-
+                <VStack flexGrow={1} space={2} alignItems={"center"}>
                     {/* Body */}
                     <PaymentBody hook={dataHook} />
                 </VStack>
