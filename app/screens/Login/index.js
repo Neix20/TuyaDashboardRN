@@ -205,14 +205,14 @@ function Index(props) {
             param: {
                 UserId: userId
             },
-            onSetLoading: () => {},
+            onSetLoading: () => { },
         })
-        .then(data => {
-            dispatch(Actions.onChangeSubUserAccess(data));
-        })
-        .catch(err => {
-            console.log(`Error: ${err}`);
-        })
+            .then(data => {
+                dispatch(Actions.onChangeSubUserAccess(data));
+            })
+            .catch(err => {
+                console.log(`Error: ${err}`);
+            })
     }
 
     const Login = () => {
@@ -259,7 +259,7 @@ function Index(props) {
 
                     setOtp("");
                 }
-                
+
             })
             .catch(err => {
                 setLoading(false);
@@ -302,7 +302,7 @@ function Index(props) {
                         contentContainerStyle={{ flexGrow: 1 }}>
                         <View justifyContent={"center"}
                             style={{ flexGrow: 1 }}>
-                            
+
                             <VStack alignItems={"center"}
                                 justifyContent={"space-between"}
                                 style={{ height: 500 }}>
@@ -324,13 +324,15 @@ function Index(props) {
                                             fontWeight: "bold"
                                         }}>Email</Text>
 
-                                        <HStack px={1} bgColor={"#EEF3F6"} 
+                                        <HStack px={1} bgColor={"#EEF3F6"}
                                             alignItems={"center"} justifyContent={"space-between"}>
                                             <View flex={1}>
                                                 <TextInput
                                                     defaultValue={email}
                                                     onChangeText={setEmail}
                                                     autoCapitalize={"none"}
+                                                    placeholder={"xxx@gmail.com"}
+                                                    keyboardType={"email-address"}
                                                     multiline={true}
                                                     style={{
                                                         fontFamily: "Roboto-Medium",
@@ -362,8 +364,7 @@ function Index(props) {
                                                     fontFamily: "Roboto-Medium",
                                                     fontSize: 20,
                                                     color: "#000",
-                                                    height: 50,
-                                                    placeholder: "Enter OTP"
+                                                    height: 50
                                                 }} />
                                         </View>
                                     </View>

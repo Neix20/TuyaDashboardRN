@@ -1,15 +1,12 @@
 import React, { useState, useEffect } from "react";
 
-import { TouchableOpacity, Dimensions, SafeAreaView } from "react-native";
+import { TouchableOpacity, SafeAreaView } from "react-native";
 import { View } from "native-base";
-import { GlobalColors } from "@config";
 
 import Modal from 'react-native-modal';
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 
 import CustomToast from "./CustomToast";
-
-const { width, height } = Dimensions.get("screen");
 
 function CloseBtn(props) {
     return (
@@ -62,6 +59,7 @@ function Index(props) {
                     borderTopLeftRadius: 15,
                     borderTopEndRadius: 15,
                 }}>
+                
                 {/* Front Layer */}
                 {
                     (showCross) ? (

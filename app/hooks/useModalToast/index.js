@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 
 function Index(props) {
+
     const init = {
         toast: {
             msg: "",
@@ -11,18 +12,20 @@ function Index(props) {
     const [toast, setToast] = useState(init.toast);
 
     const setToastFlag = (val) => {
-        setToast(() => ({
+        const next_state = {
             ...toast,
             flag: val
-        }));
+        };
+        setToast(() => next_state);
     }
 
     const showMsg = (val) => {
-        setToast(() => ({
+        const next_state = {
             ...toast,
             msg: val,
             flag: true
-        }))
+        };
+        setToast(() => next_state);
     }
 
     useEffect(() => {

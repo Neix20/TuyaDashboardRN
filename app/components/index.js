@@ -55,6 +55,8 @@ export {
 
 // #region Modals
 import BaseModal from "./Modal";
+import BottomModal from "./Modal/BottomModal";
+import TopModal from "./Modal/TopModal";
 
 // import BcReferralModal from "./Modal/Referral";
 import BcBirthdayModal from "./Modal/Birthday";
@@ -73,6 +75,11 @@ import BcYesNoModal from "./Modal/YesNo";
 
 export {
     BaseModal,
+    BottomModal,
+    TopModal,
+}
+
+export {
     BcGenderModal,
     BcBirthdayModal,
     BcLogoutModal,

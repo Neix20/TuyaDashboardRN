@@ -10,16 +10,16 @@ const { width, height } = screen;
 
 import { Logger, Utility } from "@utility";
 
-import { Animation, clsConst } from "@config";
+import { Animation, clsConst, Images } from "@config";
 
-import { BcSvgIcon, BcLoading, BcDisable, BcCarousel } from "@components";
+import { BcSvgIcon, BcLoading, BcDisable, BcCarousel, BottomModal } from "@components";
 
 import { fetchRequestOtp, fetchLogin, fetchSubUserAccess } from "@api";
 
 import { useDispatch, useSelector } from 'react-redux';
 import { Actions, Selectors } from '@redux';
 
-import { useTimer, useToggle } from "@hooks";
+import { useTimer, useToggle, useModalToast } from "@hooks";
 
 import Lottie from 'lottie-react-native';
 
@@ -117,8 +117,8 @@ function LoginBtn(props) {
 }
 // #endregion
 
-// #region Login
-function useLoginForm() {
+// #region Existing User Login
+function useExistLoginForm() {
     const init = {
         form: {
             email: "",
@@ -130,7 +130,7 @@ function useLoginForm() {
     const [form, setForm] = useState(init.form);
     const [loginFlag, setLoginFlag, toggleLoginFlag] = useToggle(false);
 
-    const { email, otp, sessionId } = form;
+    const { email, otp } = form;
 
     useEffect(() => {
         let flag = email.length > 0 && otp.length >= 6;
@@ -152,9 +152,13 @@ function useLoginForm() {
     return [form, clearForm, setEmail, setOtp, setSessionId, loginFlag];
 }
 
-function LoginForm(props) {
+function ExistLoginForm(props) {
 
-    const { loading, setLoading = () => { } } = props;
+    // const { loading, setLoading = () => { } } = props;
+
+    const { toastHook = [] } = props;
+
+    const [mToast, showMsg] = toastHook;
 
     const toast = useToast();
     const navigation = useNavigation();
@@ -169,9 +173,10 @@ function LoginForm(props) {
     // #endregion
 
     // #region UseState
-    const [form, clearForm, setEmail, setOtp, setSessionId, loginFlag] = useLoginForm();
+    const [form, clearForm, setEmail, setOtp, setSessionId, loginFlag] = useExistLoginForm();
     const [timer, setTimer] = useTimer(0);
     const [otpFlag, setOtpFlag, toggleOtpFlag] = useToggle(false);
+    const [loading, setLoading, toggleLoading] = useToggle(false);
     // #endregion
 
     const { email, otp, sessionId } = form;
@@ -299,28 +304,183 @@ function LoginForm(props) {
         // clearForm();
         // setTimer(0);
     }
+
+    const testLogin = () => {
+        showMsg("This is Testing Login");
+    }
+
+    const testOtp = () => {
+        setLoading(true);
+    }
     // #endregion
 
     return (
-        <VStack width={"80%"} space={3}>
-            <Text style={{
-                fontSize: 18,
-                fontWeight: "bold"
-            }}>Login</Text>
-
-            {/* Email */}
-            <View>
+        <>
+            <BcLoading loading={loading} />
+            <VStack width={"80%"} space={3}>
                 <Text style={{
-                    fontSize: 14,
+                    fontSize: 20,
                     fontWeight: "bold"
-                }}>Email</Text>
+                }}>Login</Text>
 
-                <HStack px={1} bgColor={"#EEF3F6"}
-                    alignItems={"center"} justifyContent={"space-between"}>
-                    <View flex={1}>
+                {/* Email */}
+                <View>
+                    <Text style={{
+                        fontSize: 14,
+                        fontWeight: "bold"
+                    }}>Email</Text>
+
+                    <HStack px={1} bgColor={"#EEF3F6"}
+                        alignItems={"center"} justifyContent={"space-between"}>
+                        <View flex={1}>
+                            <TextInput
+                                defaultValue={email}
+                                onChangeText={setEmail}
+                                autoCapitalize={"none"}
+                                placeholder={"xxx@gmail.com"}
+                                keyboardType={"email-address"}
+                                multiline={true}
+                                style={{
+                                    fontFamily: "Roboto-Medium",
+                                    fontSize: 16,
+                                    color: "#000"
+                                }} />
+                        </View>
+                        <RequestOtpBtn flag={otpFlag} onPress={RequestOtp} />
+                    </HStack>
+
+                    <View alignItems={"flex-end"}>
+                        <Timer timer={timer} />
+                    </View>
+                </View>
+
+                {/* Enter OTP */}
+                <View>
+                    <Text style={{
+                        fontSize: 14,
+                        fontWeight: "bold"
+                    }}>OTP</Text>
+                    <View bgColor={"#EEF3F6"}>
+                        <TextInput
+                            defaultValue={otp}
+                            onChangeText={setOtp}
+                            autoCapitalize={"none"}
+                            keyboardType={"numeric"}
+                            // placeholder={"Enter OTP"}
+                            style={{
+                                fontFamily: "Roboto-Medium",
+                                fontSize: 20,
+                                color: "#000",
+                                height: 50,
+                            }} />
+                    </View>
+                </View>
+
+                {/* Login Btn */}
+                <LoginBtn flag={loginFlag} onPress={Login} />
+            </VStack>
+        </>
+    )
+}
+
+function ExistLoginModal(props) {
+
+    const toastHook = useModalToast();
+    const [toast, showMsg] = toastHook;
+
+    return (
+        <BottomModal {...props} cusToast={toast}>
+            <ExistLoginForm toastHook={toastHook} />
+        </BottomModal>
+    )
+}
+// #endregion
+
+function useSubLoginForm() {
+    const init = {
+        form: {
+            email: "",
+            password: "",
+        }
+    }
+
+    const [form, setForm] = useState(init.form);
+    const [loginFlag, setLoginFlag, toggleLoginFlag] = useToggle(false);
+
+    const { email, password } = form;
+
+    useEffect(() => {
+        let flag = email.length > 0 && password.length >= 6;
+        flag = flag && Utility.validateEmail(email);
+        setLoginFlag(flag);
+    }, [email, password])
+
+    const onChangeForm = (name, val) => {
+        let obj = { ...form };
+        obj[name] = val;
+        setForm(obj);
+    }
+    const clearForm = () => setForm(init.form);
+
+    const setEmail = (val) => onChangeForm("email", val);
+    const setPassword = (val) => onChangeForm("password", val);
+
+    return [form, clearForm, setEmail, setPassword, loginFlag];
+}
+
+function SubLoginForm(props) {
+
+    const { toastHook = [] } = props;
+
+    const [mToast, showMsg] = toastHook;
+
+    const toast = useToast();
+    const navigation = useNavigation();
+    const isFocused = useIsFocused();
+
+    const dispatch = useDispatch();
+
+    // #region UseState
+    const [form, clearForm, setEmail, setPassword, loginFlag] = useSubLoginForm();
+    const [loading, setLoading, toggleLoading] = useToggle(false);
+    // #endregion
+
+    const { email, password } = form;
+
+    // #region UseEffect
+    useEffect(() => {
+        if (isFocused) {
+            clearForm();
+        }
+    }, [isFocused]);
+    // #endregion
+
+    const testLogin = () => {
+        showMsg("This is to Test Login")
+    }
+
+    return (
+        <>
+            <BcLoading loading={loading} />
+            <VStack width={"80%"} space={3}>
+                <Text style={{
+                    fontSize: 20,
+                    fontWeight: "bold"
+                }}>Sub-User Login</Text>
+
+                {/* Email */}
+                <View>
+                    <Text style={{
+                        fontSize: 14,
+                        fontWeight: "bold"
+                    }}>Email</Text>
+
+                    <View px={1} bgColor={"#EEF3F6"}>
                         <TextInput
                             defaultValue={email}
                             onChangeText={setEmail}
+                            placeholder={"xxx@gmail.com"}
+                            keyboardType={"email-address"}
                             autoCapitalize={"none"}
                             multiline={true}
                             style={{
@@ -329,42 +489,49 @@ function LoginForm(props) {
                                 color: "#000"
                             }} />
                     </View>
-                    <RequestOtpBtn flag={otpFlag} onPress={RequestOtp} />
-                </HStack>
-
-                <View alignItems={"flex-end"}>
-                    <Timer timer={timer} />
                 </View>
-            </View>
 
-            {/* Enter OTP */}
-            <View>
-                <Text style={{
-                    fontSize: 14,
-                    fontWeight: "bold"
-                }}>OTP</Text>
-                <View bgColor={"#EEF3F6"}>
-                    <TextInput
-                        defaultValue={otp}
-                        onChangeText={setOtp}
-                        autoCapitalize={"none"}
-                        keyboardType={"numeric"}
-                        style={{
-                            fontFamily: "Roboto-Medium",
-                            fontSize: 20,
-                            color: "#000",
-                            height: 50,
-                            placeholder: "Enter OTP"
-                        }} />
+                {/* Enter Password */}
+                <View>
+                    <Text style={{
+                        fontSize: 14,
+                        fontWeight: "bold"
+                    }}>Password</Text>
+                    <View bgColor={"#EEF3F6"}>
+                        <TextInput
+                            secureTextEntry
+                            defaultValue={password}
+                            onChangeText={setPassword}
+                            autoCapitalize={"none"}
+                            style={{
+                                fontFamily: "Roboto-Medium",
+                                fontSize: 16,
+                            }} />
+                    </View>
                 </View>
-            </View>
 
-            {/* Login Btn */}
-            <LoginBtn flag={loginFlag} onPress={Login} />
-        </VStack>
+
+
+                {/* Login Btn */}
+                {/* <LoginBtn flag={loginFlag} onPress={Login} /> */}
+                <LoginBtn flag={loginFlag} onPress={testLogin} />
+            </VStack>
+        </>
     )
 }
-// #endregion
+
+function SubLoginModal(props) {
+    const [loading, setLoading] = useState(false);
+
+    const toastHook = useModalToast();
+    const [toast, showMsg] = toastHook;
+
+    return (
+        <BottomModal {...props} cusToast={toast}>
+            <SubLoginForm toastHook={toastHook} loading={loading} setLoading={setLoading} />
+        </BottomModal>
+    )
+}
 
 function Trash() {
     const init = {
@@ -441,14 +608,21 @@ function Index(props) {
 
     const dispatch = useDispatch();
 
-    const [loading, setLoading] = useState(false);
+    const [showExLoginModal, setShowExLoginModal, toggleExLoginModal] = useToggle(false);
+    const [showSubLoginModal, setShowSubLoginModal, toggleSubLoginModal] = useToggle(false);
 
     return (
         <>
-            <BcLoading loading={loading} />
+            <ExistLoginModal showModal={showExLoginModal} setShowModal={setShowExLoginModal} />
+            <SubLoginModal showModal={showSubLoginModal} setShowModal={setShowSubLoginModal} />
             <SafeAreaView style={{ flex: 1 }}>
-                <View bgColor={"#F6F6F6"} style={{ flex: 1 }}>
+                <ImageBackground
+                    source={Images.sunsetBg}
+                    resizeMode={"cover"}
+                    style={{ flex: 1, opacity: 0.4 }} />
 
+                <View position={"absolute"}
+                    style={{ top: 0, bottom: 0, left: 0, right: 0 }}>
                     <View style={{ height: 40 }} />
 
                     {/* Body */}
@@ -469,7 +643,8 @@ function Index(props) {
                                 {/* <LoginForm loading={loading} setLoading={setLoading} /> */}
 
                                 <VStack width={"100%"} space={5} alignItems={"center"}>
-                                    <TouchableOpacity style={{ width: "80%", height: 48 }}>
+                                    <TouchableOpacity onPress={toggleExLoginModal}
+                                        style={{ width: "80%", height: 48 }}>
                                         <View flex={1} alignItems={"center"} justifyContent={"center"} bgColor={"#2898FF"}>
                                             <Text style={{
                                                 fontFamily: "Roboto-Bold",
@@ -478,7 +653,8 @@ function Index(props) {
                                             }}>Log In as Existing User</Text>
                                         </View>
                                     </TouchableOpacity>
-                                    <TouchableOpacity style={{ width: "80%", height: 48 }}>
+                                    <TouchableOpacity onPress={toggleSubLoginModal}
+                                        style={{ width: "80%", height: 48 }}>
                                         <View flex={1} alignItems={"center"} justifyContent={"center"} bgColor={"#FFF"}>
                                             <Text style={{
                                                 fontFamily: "Roboto-Bold",

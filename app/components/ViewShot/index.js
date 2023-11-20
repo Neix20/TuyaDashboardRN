@@ -11,8 +11,8 @@ import { BcBoxShadow } from "@components";
 
 import ViewShot from "react-native-view-shot";
 
-import BottomModal from "@components/Modal/BottomModals";
-import Modal from "@components/Modal/CommunityModals";
+import BottomModal from "@components/Modal/BottomModal";
+import Modal from "@components/Modal/CommunityModal";
 
 import Share from "react-native-share";
 

@@ -324,12 +324,6 @@ import LoginII from "@screens/Login/LoginII";
 
 
 import PaymentSubscriptionAddOn from "@screens/Payment/Addon";
-
-import PaymentSubscriptionStorage from "@screens/Payment/Addon/storage.js";
-import PaymentSubscriptionEmail from "@screens/Payment/Addon/email.js";
-import PaymentSubscriptionUser from "@screens/Payment/Addon/user.js";
-import PaymentSubscriptionRealTimeData from "@screens/Payment/Addon/realTimeData.js";
-
 import PaymentSubscriptionDetail from "@screens/Payment/Addon/detail.js";
 
 StackScreens = {
@@ -344,34 +338,6 @@ StackScreens = {
     PaymentSubscriptionAddOn: {
         component: PaymentSubscriptionAddOn,
         title: "PaymentSubscriptionAddOn",
-        option: {
-            orientation: "portrait"
-        }
-    },
-    PaymentSubscriptionStorage: {
-        component: PaymentSubscriptionStorage,
-        title: "PaymentSubscriptionStorage",
-        option: {
-            orientation: "portrait"
-        }
-    },
-    PaymentSubscriptionEmail: {
-        component: PaymentSubscriptionEmail,
-        title: "PaymentSubscriptionEmail",
-        option: {
-            orientation: "portrait"
-        }
-    },
-    PaymentSubscriptionUser: {
-        component: PaymentSubscriptionUser,
-        title: "PaymentSubscriptionUser",
-        option: {
-            orientation: "portrait"
-        }
-    },
-    PaymentSubscriptionRealTimeData: {
-        component: PaymentSubscriptionRealTimeData,
-        title: "PaymentSubscriptionRealTimeData",
         option: {
             orientation: "portrait"
         }
@@ -507,7 +473,7 @@ function Index(props) {
     // #endregion
 
     // const defaultScreen = (userId == -1 || firstTimeLink) ? "Login" : "TabNavigation";
-    const defaultScreen = "PaymentSubscriptionAddOn";
+    const defaultScreen = "LoginII";
 
     return (
         <>

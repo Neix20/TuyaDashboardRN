@@ -64,5 +64,12 @@ data = {
     LinkDeviceV: require("@assets/images/Tutorial/LinkDevice/V.jpeg")
 }
 
+data = {
+    ...data,
+    sunsetBg: require("@assets/images/Bg/sunset_bg.jpg"),
+    sunsetBgII: require("@assets/images/Bg/sunset_bg_ii.jpg"),
+    sunsetBgIII: require("@assets/images/Bg/sunset_bg_iii.jpg"),
+}
+
 
 export default data;

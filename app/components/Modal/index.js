@@ -1,5 +1,5 @@
 
-import CommunityModals from "./CommunityModals";
-import BottomModal from "./BottomModals";
+import CommunityModal from "./CommunityModal";
+import BottomModal from "./BottomModal";
 
-export default CommunityModals;
+export default CommunityModal;
