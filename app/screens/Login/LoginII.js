@@ -199,9 +199,10 @@ function ExistLoginForm(props) {
     // #region Helper
     const RequestOtp = () => {
         setTimer(init.duration);
-        toast.show({
-            description: "OTP Requested. Please Check your Email for OTP Code"
-        })
+        // toast.show({
+        //     description: "OTP Requested. Please Check your Email for OTP Code"
+        // })
+        showMsg("OTP Requested. Please Check your Email for OTP Code")
         Keyboard.dismiss();
 
         fetchRequestOtp({
@@ -294,23 +295,12 @@ function ExistLoginForm(props) {
 
     // #region Navigation
     const GoToHome = () => {
-        toast.show({
-            description: "Now Loading"
-        })
-        // navigation.navigate("TabNavigation", {
-        //     screen: "Dashboard",
-        // });
+        navigation.navigate("TabNavigation", {
+            screen: "Dashboard",
+        });
 
-        // clearForm();
-        // setTimer(0);
-    }
-
-    const testLogin = () => {
-        showMsg("This is Testing Login");
-    }
-
-    const testOtp = () => {
-        setLoading(true);
+        clearForm();
+        setTimer(0);
     }
     // #endregion
 
@@ -396,6 +386,7 @@ function ExistLoginModal(props) {
 }
 // #endregion
 
+// #region Sub User Login
 function useSubLoginForm() {
     const init = {
         form: {
@@ -532,6 +523,7 @@ function SubLoginModal(props) {
         </BottomModal>
     )
 }
+// #endregion
 
 function Trash() {
     const init = {
@@ -650,7 +642,7 @@ function Index(props) {
                                                 fontFamily: "Roboto-Bold",
                                                 fontSize: 16,
                                                 color: "#FFF"
-                                            }}>Log In as Existing User</Text>
+                                            }}>Login as Existing User</Text>
                                         </View>
                                     </TouchableOpacity>
                                     <TouchableOpacity onPress={toggleSubLoginModal}
@@ -659,29 +651,38 @@ function Index(props) {
                                             <Text style={{
                                                 fontFamily: "Roboto-Bold",
                                                 fontSize: 16
-                                            }}>Log In as Sub-User</Text>
+                                            }}>Login as Sub-User</Text>
+                                        </View>
+                                    </TouchableOpacity>
+
+                                    <TouchableOpacity style={{ width: "80%" }}>
+                                        <View alignItems={"center"}>
+                                            <Text style={{
+                                                fontFamily: "Roboto-Bold",
+                                                fontSize: 16
+                                            }}>Try As Guest</Text>
                                         </View>
                                     </TouchableOpacity>
                                 </VStack>
 
                             </VStack>
                         </View>
-
-                        {/* Footer */}
-                        <View
-                            justifyContent={"center"}
-                            alignItems={"center"}
-                            style={{ height: 60 }}>
-                            <Text style={{
-                                fontFamily: "Roboto-Medium",
-                                fontSize: 16
-                            }}>Powered By {clsConst.ORG_NAME}</Text>
-                            <Text style={{
-                                fontFamily: "Roboto-Medium",
-                                fontSize: 14
-                            }}>© Version {clsConst.APP_VERSION}</Text>
-                        </View>
                     </ScrollView>
+
+                    {/* Footer */}
+                    <View
+                        justifyContent={"center"}
+                        alignItems={"center"}
+                        style={{ height: 80 }}>
+                        <Text style={{
+                            fontFamily: "Roboto-Medium",
+                            fontSize: 16
+                        }}>Powered By {clsConst.ORG_NAME}</Text>
+                        <Text style={{
+                            fontFamily: "Roboto-Medium",
+                            fontSize: 14
+                        }}>© Version {clsConst.APP_VERSION}</Text>
+                    </View>
 
                 </View>
             </SafeAreaView>

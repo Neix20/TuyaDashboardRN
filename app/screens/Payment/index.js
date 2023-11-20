@@ -10,11 +10,11 @@ import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 import { Logger, Utility } from "@utility";
 
 import { BcHeader, BcBoxShadow, BcDisable, BcFooter, BaseModal, BcSvgIcon, BcLoading } from "@components";
-import { useToggle } from "@hooks";
+import { useToggle, useModalToast } from "@hooks";
 
 import { CheckBox } from "@rneui/base";
 
-import { fetchPaymentTypeList } from "@api";
+import { fetchPaymentTypeList, fetchVerifyPromoCode } from "@api";
 
 // #region Custom Hooks
 function usePaymentLs() {
@@ -306,10 +306,10 @@ function PaymentType(props) {
 // #endregion
 
 // #region Components
-function PaymentBtn(props) {
+function CusBtn(props) {
 
     const { flag = false, onPress = () => { } } = props;
-    const { children = "" } = props;
+    const { children = "", width = "90%" } = props;
 
     const Item = (props) => {
         return (
@@ -329,14 +329,14 @@ function PaymentBtn(props) {
 
     if (flag) {
         return (
-            <TouchableOpacity style={{ width: "90%" }} onPress={onPress}>
+            <TouchableOpacity style={{ width: width }} onPress={onPress}>
                 <Item />
             </TouchableOpacity>
         )
     }
 
     return (
-        <View width={"90%"}>
+        <View width={width}>
             <BcDisable>
                 <Item />
             </BcDisable>
@@ -398,7 +398,7 @@ function PaymentBody(props) {
                 <Text style={{
                     fontFamily: "Roboto-Bold",
                     fontSize: 16,
-                }}>Add-On</Text>
+                }}>Product</Text>
             </View>
             <FlatList
                 data={data} renderItem={renderItem}
@@ -407,8 +407,6 @@ function PaymentBody(props) {
         </VStack>
     );
 }
-
-
 
 function PaymentDetailItem(props) {
 
@@ -429,9 +427,140 @@ function PaymentDetailItem(props) {
     )
 }
 
-function PaymentDetail(props) {
+function usePromoCode() {
+
+
+    const init = {
+        promo: {
+            code: "",
+            val: 0
+        }
+    };
+
+    const [promo, setPromo] = useState(init.promo);
+
+    const onChangePromo = (name, val) => {
+        const next_state = {...promo};
+        next_state[name] = val;
+        setPromo(_ => next_state);
+    }
+
+    const setPromoCode = (val) => onChangePromo("code", val);
+    const setPromoVal = (val) => onChangePromo("val", val);
+
+    
+    const flag = promo.code.length > 0;
+    return [promo, setPromoCode, setPromoVal, flag];
+}
+
+function PromoCodeModal(props) {
+
+    const { hook = [], SubscriptionCode = "" } = props;
+    const { showModal = false, setShowModal = () => {} } = props;
+
+    const [promo, setPromoCode, setPromoVal, flag] = hook;
+    const { code: promoCode, val: promoVal} = promo;
+
+    const [cusToast, showMsg] = useModalToast();
+
+    const VerifyPromoCode = () => {
+        fetchVerifyPromoCode({
+            param: {
+                PromoCode: promoCode,
+                SubscriptionCode: SubscriptionCode
+            },
+            onSetLoading: () => {}
+        })
+        .then(data => {
+            const { DiscountCode = 1 } = data;
+            setPromoVal(DiscountCode);
+            setShowModal(false);
+        })
+        .catch(err => {
+            console.log(`Error: ${err}`)
+        })
+    }
+
     return (
-        <BcBoxShadow>
+        <BaseModal {...props} cusToast={cusToast}>
+            <VStack alignItems={"center"} space={3} width={"100%"}>
+                {/* Title */}
+                <Text style={{
+                    fontFamily: "Roboto-Bold",
+                    fontSize: 16
+                }}>Enter Promo Code</Text>
+
+                <View px={1} bgColor={"#EEF3F6"} width={"80%"}>
+                    <TextInput
+                        onChangeText={setPromoCode}
+                        autoCapitalize={"none"}
+                        placeholder={"XXX"}
+                        style={{
+                            fontFamily: "Roboto-Medium",
+                            fontSize: 16,
+                            color: "#000"
+                        }} />
+                </View>
+
+                {/* Button */}
+                <CusBtn flag={flag} width={"80%"} onPress={VerifyPromoCode}>Submit Promo Code</CusBtn>
+            </VStack>
+        </BaseModal>
+    )
+}
+
+function PromoCode(props) {
+
+    const { data = "" } = props;
+
+    if (data.length > 0) {
+        return (
+            <TouchableOpacity {...props}>
+            <Text style={{
+                fontFamily: "Roboto-Medium",
+                fontSize: 16,
+                textDecorationLine: 'underline',
+                color: "#A6AFB8"
+            }}>Code: {data}</Text>
+            </TouchableOpacity>
+        )
+    }
+    
+    return (
+        <TouchableOpacity {...props}>
+            <Text style={{
+                fontFamily: "Roboto-Medium",
+                fontSize: 16,
+                textDecorationLine: 'underline',
+                color: "#A6AFB8"
+            }}>Enter Promo Code</Text>
+        </TouchableOpacity>
+    )
+}
+
+function PaymentDetail(props) {
+
+    const { data = [] } = props;
+
+    const [showPcModal, setShowPcModal, togglePcModal] = useToggle(false);
+
+    const promoHook = usePromoCode();
+    const [promo, setPromoCode, setPromoVal, flag] = promoHook;
+    const { code: promoCode, val: promoVal} = promo;
+
+    const SubTotal = data.map(x => +x.Price).reduce((a, b) => a + b);
+    const Promo = SubTotal * promoVal / 100;
+    const Total = SubTotal - Promo;
+
+    if (data.length <= 0) {
+        return (<></>)
+    }
+
+    return (
+        <>
+            <PromoCodeModal hook={promoHook} SubscriptionCode={data[0]?.Code}
+                showModal={showPcModal} 
+                setShowModal={setShowPcModal} />
             <VStack py={3}
                 bgColor={"#FFF"}
                 alignItems={"center"}>
@@ -447,16 +576,28 @@ function PaymentDetail(props) {
                 {/* Body */}
                 <Divider mt={3} mb={2} bgColor={"#EBEBEB"} width={"90%"} />
 
-                <PaymentDetailItem title={"Price"} value={"RM" + 69.99.toFixed(2)} />
+                <PaymentDetailItem title={"Price"} value={`RM ${SubTotal.toFixed(2)}`} />
                 <Divider my={2} bgColor={"#EBEBEB"} width={"90%"} />
 
-                <PaymentDetailItem title={"Promo Code"} value={""} />
+                <HStack width={"90%"} alignItems={"center"} justifyContent={"space-between"}>
+                    <HStack alignItems={"center"} space={3}>
+                        <Text style={{
+                            fontFamily: "Roboto-Medium",
+                            fontSize: 16
+                        }}>Promo</Text>
+                        <PromoCode onPress={togglePcModal} data={promoCode} />
+                    </HStack>
+                    <Text style={{
+                        fontFamily: "Roboto-Medium",
+                        fontSize: 16
+                    }}>{`RM ${Promo.toFixed(2)}`}</Text>
+                </HStack>
                 <Divider my={2} bgColor={"#EBEBEB"} width={"90%"} />
 
-                <PaymentDetailItem title={"Total"} value={"RM" + 69.99.toFixed(2)} />
+                <PaymentDetailItem title={"Total"} value={`RM ${Total.toFixed(2)}`} />
                 <Divider my={2} bgColor={"#EBEBEB"} width={"90%"} />
             </VStack>
-        </BcBoxShadow>
+        </>
     )
 }
 // #endregion
@@ -489,12 +630,12 @@ function Index(props) {
                 },
                 onSetLoading: setLoading
             })
-            .then(data => {
-                setData(data)
-            })
-            .catch(res => {
-                console.log(`Error: ${res}`);
-            })
+                .then(data => {
+                    setData(data)
+                })
+                .catch(res => {
+                    console.log(`Error: ${res}`);
+                })
         }
     }, [isFocused]);
 
@@ -519,12 +660,12 @@ function Index(props) {
 
                         <PaymentType hook={paymentHook} />
 
-                        <PaymentDetail />
+                        <PaymentDetail data={data} />
                     </VStack>
 
                     {/* Footer */}
                     <BcFooter>
-                        <PaymentBtn flag={selItem.TypeId != -1} onPress={GoToWebPayment}>Confirm & Pay</PaymentBtn>
+                        <CusBtn flag={selItem.TypeId != -1} onPress={GoToWebPayment}>Confirm & Pay</CusBtn>
                     </BcFooter>
                 </View>
             </SafeAreaView>

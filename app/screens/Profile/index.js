@@ -306,7 +306,7 @@ function PaymentSubscriptionPanel(props) {
     const navigation = useNavigation();
     const toast = useToast();
     const GoToPayment = () => {
-        navigation.navigate("PaymentSubscription");
+        navigation.navigate("PaymentSubscriptionAddOn");
         // toast.show({
         //     description: "Work In-Progress!"
         // });

@@ -15,6 +15,52 @@ import { Images } from "@config";
 
 import { useToggle } from "@hooks";
 
+function Header(props) {
+    const { children, onBack = () => { } } = props;
+    const { color = "#2898FF", txtColor = "#000", bgColor = "#FFF" } = props;
+
+    return (
+        <BcBoxShadow>
+            <View
+                style={{
+                    height: 60,
+                    backgroundColor: bgColor,
+                }}>
+                {/* Front Layer */}
+                <TouchableOpacity
+                    onPress={onBack}
+                    style={{
+                        alignItems: "center",
+                        justifyContent: "center",
+                        width: 120,
+                        height: 120,
+                        position: "absolute",
+                        left: -30,
+                        top: -19,
+                        zIndex: 1,
+                    }}>
+                    <FontAwesome5 name={"chevron-left"} size={20} color={color} />
+                </TouchableOpacity>
+
+                <View style={{
+                    position: "absolute",
+                    height: 120,
+                    left: 45,
+                    top: -20,
+                    alignItems: "center",
+                    justifyContent: "center",
+                }}>
+                    <Text style={{
+                        fontSize: 20,
+                        fontWeight: "bold",
+                        color: txtColor,
+                    }}>{children}</Text>
+                </View>
+            </View>
+        </BcBoxShadow>
+    )
+}
+
 function Index(props) {
 
     const toast = useToast();
@@ -107,10 +153,11 @@ function Index(props) {
             <BcYesNoModal showModal={showExitModal} setShowModal={setShowExitModal} 
                 title={"Warning"} showCross={false}
                 onPressYes={GoToPaymentFailed}
+                onPressNo={toggleExitModal}
                 description={"Are you sure you want to exit this page?"} />
             <SafeAreaView style={{ flex: 1 }}>
                 <View style={{ flex: 1 }}>
-                    <BcHeader onBack={onBack}>Payment</BcHeader>
+                    <Header onBack={onBack}>Payment</Header>
                     <View style={{ height: 5 }} />
                     {
                         (showWebView) ? (

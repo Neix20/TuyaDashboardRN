@@ -70,3 +70,4 @@ android/app/yatuDeveloper/*
 
 *.zip
 temp/*
+OneSignal/*

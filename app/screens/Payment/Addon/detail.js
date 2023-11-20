@@ -64,7 +64,7 @@ function useSubLs() {
 // #region Components
 function PaymentBodyItem(props) {
     const { data = {}, onPress = () => { } } = props;
-    const { Name, Description, img, flag, pos } = data;
+    const { Name, Description, Price, img, flag, pos } = data;
 
     const borderRadius = 8;
 
@@ -95,6 +95,7 @@ function PaymentBodyItem(props) {
                                 fontSize: 16,
                             }}>{Name}</Text>
                             <Text>{Description}</Text>
+                            <Text>Price: <Text style={{ fontFamily: "Roboto-Bold" }}>RM {Price.toFixed(2)}</Text></Text>
                         </VStack>
                         <CheckBox
                             containerStyle={{

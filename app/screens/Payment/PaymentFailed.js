@@ -11,6 +11,37 @@ import { Images, Svg } from "@config";
 
 import { BcHeader, BcBoxShadow, BcFooter } from "@components";
 
+function Header(props) {
+    const { children, onBack = () => { } } = props;
+    const { color = "#2898FF", txtColor = "#000", bgColor = "#FFF" } = props;
+
+    return (
+        <BcBoxShadow>
+            <View
+                style={{
+                    height: 60,
+                    backgroundColor: bgColor,
+                }}>
+
+                <View style={{
+                    position: "absolute",
+                    height: 120,
+                    left: 45,
+                    top: -20,
+                    alignItems: "center",
+                    justifyContent: "center",
+                }}>
+                    <Text style={{
+                        fontSize: 20,
+                        fontWeight: "bold",
+                        color: txtColor,
+                    }}>{children}</Text>
+                </View>
+            </View>
+        </BcBoxShadow>
+    )
+}
+
 function Index(props) {
     const toast = useToast();
     const navigation = useNavigation();
@@ -27,7 +58,7 @@ function Index(props) {
             <View style={{ flex: 1 }}>
 
                 {/* Header */}
-                <BcHeader>Payment Failed</BcHeader>
+                <Header>Payment Failed</Header>
 
                 <View style={{ height: 10 }} />
 
@@ -55,7 +86,7 @@ function Index(props) {
                                 fontFamily: "Roboto-Bold",
                                 fontSize: 16,
                                 color: "#FFF"
-                            }}>Go Back</Text>
+                            }}>Go To Dashboard</Text>
                         </View>
                     </TouchableOpacity>
                 </BcFooter>
