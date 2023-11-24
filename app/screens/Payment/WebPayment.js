@@ -68,8 +68,8 @@ function Index(props) {
     const isFocused = useIsFocused();
 
     // #region Props
-    // const { url } = props.route.params;
-    const url = "https://google.com";
+    const { Url = "" } = props.route.params;
+    // const Url = "https://google.com";
     // #endregion
 
     // #region UseState
@@ -120,18 +120,18 @@ function Index(props) {
 
         if (!url) return;
 
-        if(url.includes("google")) {
+        // if(url.includes("google")) {
 
-        }
-        else {
-            let term = url.includes("youtube") ? "successful" : "fail";
-    
-            setResp(term);
-        }
+        // }
+        // else {
+        //     let term = url.includes("youtube") ? "successful" : "fail";
+        //     setResp(term);
+        // }
 
-        // const rgx = /.*wrap2rap.*transaction(.*)\..*/g;
-            // const term = url.replace(rgx, "$1");
-        
+        const rgx = /.*wrap2rap.*transaction(.*)\..*/g;
+        const term = url.replace(rgx, "$1");
+
+        setResp(term);
     }
 
     // #region Navigation Function
@@ -163,7 +163,7 @@ function Index(props) {
                         (showWebView) ? (
                             <WebView
                                 ref={webView}
-                                source={{ uri: url }}
+                                source={{ uri: Url }}
                                 onNavigationStateChange={onChangeUrl}
                                 scalesPageToFit={true}
                             />

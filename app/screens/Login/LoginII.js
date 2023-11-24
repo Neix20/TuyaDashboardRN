@@ -14,7 +14,7 @@ import { Animation, clsConst, Images } from "@config";
 
 import { BcSvgIcon, BcLoading, BcDisable, BcCarousel, BottomModal } from "@components";
 
-import { fetchRequestOtp, fetchLogin, fetchSubUserAccess } from "@api";
+import { fetchRequestOtp, fetchLogin, fetchSubUserAccess, fetchSubUserLogin } from "@api";
 
 import { useDispatch, useSelector } from 'react-redux';
 import { Actions, Selectors } from '@redux';
@@ -22,6 +22,31 @@ import { Actions, Selectors } from '@redux';
 import { useTimer, useToggle, useModalToast } from "@hooks";
 
 import Lottie from 'lottie-react-native';
+
+// #region Custom Hooks
+function useChangeBg() {
+    
+    const imgLs = [Images.sunsetBg, Images.sunsetBgII, Images.sunsetBgIII];
+
+    const [img, setImg] = useState(imgLs[0]);
+
+    const [ind, setInd] = useState(0);
+
+    useEffect(() => {
+        setImg(_ => imgLs[ind])
+    }, [ind])
+
+    useEffect(() => {
+        const tick = () => setInd(val => (val + 1) % imgLs.length);
+        const delay = 15 * 1000;
+
+        const timer = setInterval(tick, delay);
+        return () => clearInterval(timer);
+    }, []);
+
+    return [img];
+}
+// #endregion
 
 // #region Components
 function Timer(props) {
@@ -156,7 +181,7 @@ function ExistLoginForm(props) {
 
     // const { loading, setLoading = () => { } } = props;
 
-    const { toastHook = [] } = props;
+    const { toastHook = [], formHook = [] } = props;
 
     const [mToast, showMsg] = toastHook;
 
@@ -173,7 +198,9 @@ function ExistLoginForm(props) {
     // #endregion
 
     // #region UseState
-    const [form, clearForm, setEmail, setOtp, setSessionId, loginFlag] = useExistLoginForm();
+    // const [form, clearForm, setEmail, setOtp, setSessionId, loginFlag] = useExistLoginForm();
+    const [form, clearForm, setEmail, setOtp, setSessionId, loginFlag] = formHook;
+
     const [timer, setTimer] = useTimer(0);
     const [otpFlag, setOtpFlag, toggleOtpFlag] = useToggle(false);
     const [loading, setLoading, toggleLoading] = useToggle(false);
@@ -182,12 +209,12 @@ function ExistLoginForm(props) {
     const { email, otp, sessionId } = form;
 
     // #region UseEffect
-    useEffect(() => {
-        if (isFocused) {
-            clearForm();
-            setTimer(0);
-        }
-    }, [isFocused]);
+    // useEffect(() => {
+    //     if (isFocused) {
+    //         clearForm();
+    //         setTimer(0);
+    //     }
+    // }, [isFocused]);
 
     useEffect(() => {
         let flag = email.length > 0 && timer == 0;
@@ -214,9 +241,10 @@ function ExistLoginForm(props) {
             .then(data => {
                 const { Otp, SessionId, MsgTemplate, ShowDebugFlag = false } = data;
                 if (ShowDebugFlag) {
-                    toast.show({
-                        description: MsgTemplate
-                    })
+                    // toast.show({
+                    //     description: MsgTemplate
+                    // })
+                    showMsg(MsgTemplate);
                 }
                 setSessionId(SessionId);
             })
@@ -271,16 +299,18 @@ function ExistLoginForm(props) {
                     }
 
                     if (ResponseMessage != "") {
-                        toast.show({
-                            description: ResponseMessage
-                        })
+                        // toast.show({
+                        //     description: ResponseMessage
+                        // })
+                        showMsg(ResponseMessage);
                     }
 
                     clearForm();
                 } else {
-                    toast.show({
-                        description: "Account / otp is incorrect!"
-                    })
+                    // toast.show({
+                    //     description: "Account / otp is incorrect!"
+                    // })
+                    showMsg("Account / otp is incorrect!");
 
                     setOtp("");
                 }
@@ -375,12 +405,14 @@ function ExistLoginForm(props) {
 
 function ExistLoginModal(props) {
 
+    const { formHook = [] } = props;
+
     const toastHook = useModalToast();
     const [toast, showMsg] = toastHook;
 
     return (
         <BottomModal {...props} cusToast={toast}>
-            <ExistLoginForm toastHook={toastHook} />
+            <ExistLoginForm toastHook={toastHook} formHook={formHook} />
         </BottomModal>
     )
 }
@@ -390,7 +422,7 @@ function ExistLoginModal(props) {
 function useSubLoginForm() {
     const init = {
         form: {
-            email: "",
+            username: "",
             password: "",
         }
     }
@@ -398,13 +430,13 @@ function useSubLoginForm() {
     const [form, setForm] = useState(init.form);
     const [loginFlag, setLoginFlag, toggleLoginFlag] = useToggle(false);
 
-    const { email, password } = form;
+    const { username, password } = form;
 
     useEffect(() => {
-        let flag = email.length > 0 && password.length >= 6;
-        flag = flag && Utility.validateEmail(email);
+        let flag = username.length > 0 && password.length >= 6;
+        // flag = flag && Utility.validateEmail(email);
         setLoginFlag(flag);
-    }, [email, password])
+    }, [username, password])
 
     const onChangeForm = (name, val) => {
         let obj = { ...form };
@@ -413,15 +445,15 @@ function useSubLoginForm() {
     }
     const clearForm = () => setForm(init.form);
 
-    const setEmail = (val) => onChangeForm("email", val);
+    const setUsername = (val) => onChangeForm("username", val);
     const setPassword = (val) => onChangeForm("password", val);
 
-    return [form, clearForm, setEmail, setPassword, loginFlag];
+    return [form, clearForm, setUsername, setPassword, loginFlag];
 }
 
 function SubLoginForm(props) {
 
-    const { toastHook = [] } = props;
+    const { toastHook = [], formHook = [] } = props;
 
     const [mToast, showMsg] = toastHook;
 
@@ -432,22 +464,77 @@ function SubLoginForm(props) {
     const dispatch = useDispatch();
 
     // #region UseState
-    const [form, clearForm, setEmail, setPassword, loginFlag] = useSubLoginForm();
+    // const [form, clearForm, setUsername, setPassword, loginFlag] = useSubLoginForm();
+    const [form, clearForm, setUsername, setPassword, loginFlag] = formHook;
     const [loading, setLoading, toggleLoading] = useToggle(false);
     // #endregion
 
-    const { email, password } = form;
+    const { username, password } = form;
 
-    // #region UseEffect
-    useEffect(() => {
-        if (isFocused) {
-            clearForm();
-        }
-    }, [isFocused]);
+    // #region Helper
+    const RequestAccess = (userId) => {
+        fetchSubUserAccess({
+            param: {
+                UserId: userId
+            },
+            onSetLoading: () => { },
+        })
+            .then(data => {
+                dispatch(Actions.onChangeSubUserAccess(data));
+            })
+            .catch(err => {
+                console.log(`Error: ${err}`);
+            })
+    }
+
+    const SubUserLogin = () => {
+        fetchSubUserLogin({
+            param: {
+                Username: username,
+                Password: password,
+            },
+            onSetLoading: setLoading,
+        })
+        .then(data => {
+            if (data !== null) {
+
+                const { UserId, FirstTimeUserId } = data;
+
+                Utility.OneSignalSubscribe(username);
+                dispatch(Actions.onChangeUserId(UserId));
+
+                RequestAccess(UserId);
+
+                // if (FirstTimeUserId == 1) {
+                //     dispatch(Actions.onChangeFirstTimeLink(true));
+                //     navigation.navigate("AuthTuya", {
+                //         Email: email,
+                //     })
+                // } else {
+                //     dispatch(Actions.onChangeFirstTimeLink(false));
+                //     GoToHome();
+                // }
+
+                GoToHome();
+
+            } else {
+                showMsg("Username / Password is incorrect!");
+                setPassword("");
+            }
+        })
+        .catch(err => {
+            setLoading(false);
+            console.log(`Error: ${err}`);
+        })
+    }
     // #endregion
 
-    const testLogin = () => {
-        showMsg("This is to Test Login")
+    const GoToHome = () => {
+        navigation.navigate("TabNavigation", {
+            screen: "Dashboard",
+        });
+
+        clearForm();
     }
 
     return (
@@ -464,14 +551,13 @@ function SubLoginForm(props) {
                     <Text style={{
                         fontSize: 14,
                         fontWeight: "bold"
-                    }}>Email</Text>
+                    }}>Username</Text>
 
                     <View px={1} bgColor={"#EEF3F6"}>
                         <TextInput
-                            defaultValue={email}
-                            onChangeText={setEmail}
-                            placeholder={"xxx@gmail.com"}
-                            keyboardType={"email-address"}
+                            defaultValue={username}
+                            onChangeText={setUsername}
+                            placeholder={"XXX"}
                             autoCapitalize={"none"}
                             multiline={true}
                             style={{
@@ -505,21 +591,22 @@ function SubLoginForm(props) {
 
                 {/* Login Btn */}
                 {/* <LoginBtn flag={loginFlag} onPress={Login} /> */}
-                <LoginBtn flag={loginFlag} onPress={testLogin} />
+                <LoginBtn flag={loginFlag} onPress={SubUserLogin} />
             </VStack>
         </>
     )
 }
 
 function SubLoginModal(props) {
-    const [loading, setLoading] = useState(false);
+
+    const { formHook = [] } = props;
 
     const toastHook = useModalToast();
     const [toast, showMsg] = toastHook;
 
     return (
         <BottomModal {...props} cusToast={toast}>
-            <SubLoginForm toastHook={toastHook} loading={loading} setLoading={setLoading} />
+            <SubLoginForm toastHook={toastHook} formHook={formHook} />
         </BottomModal>
     )
 }
@@ -603,13 +690,18 @@ function Index(props) {
     const [showExLoginModal, setShowExLoginModal, toggleExLoginModal] = useToggle(false);
     const [showSubLoginModal, setShowSubLoginModal, toggleSubLoginModal] = useToggle(false);
 
+    const existLoginFormHook = useExistLoginForm();
+    const subLoginFormHook = useSubLoginForm();
+
+    const [img] = useChangeBg();
+    
     return (
         <>
-            <ExistLoginModal showModal={showExLoginModal} setShowModal={setShowExLoginModal} />
-            <SubLoginModal showModal={showSubLoginModal} setShowModal={setShowSubLoginModal} />
+            <ExistLoginModal formHook={existLoginFormHook} showModal={showExLoginModal} setShowModal={setShowExLoginModal} />
+            <SubLoginModal formHook={subLoginFormHook} showModal={showSubLoginModal} setShowModal={setShowSubLoginModal} />
             <SafeAreaView style={{ flex: 1 }}>
                 <ImageBackground
-                    source={Images.sunsetBg}
+                    source={img}
                     resizeMode={"cover"}
                     style={{ flex: 1, opacity: 0.4 }} />
 
@@ -655,14 +747,14 @@ function Index(props) {
                                         </View>
                                     </TouchableOpacity>
 
-                                    <TouchableOpacity style={{ width: "80%" }}>
+                                    {/* <TouchableOpacity style={{ width: "80%" }}>
                                         <View alignItems={"center"}>
                                             <Text style={{
                                                 fontFamily: "Roboto-Bold",
                                                 fontSize: 16
                                             }}>Try As Guest</Text>
                                         </View>
-                                    </TouchableOpacity>
+                                    </TouchableOpacity> */}
                                 </VStack>
 
                             </VStack>

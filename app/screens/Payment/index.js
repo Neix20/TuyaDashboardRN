@@ -14,7 +14,10 @@ import { useToggle, useModalToast } from "@hooks";
 
 import { CheckBox } from "@rneui/base";
 
-import { fetchPaymentTypeList, fetchVerifyPromoCode } from "@api";
+import { fetchPaymentTypeList, fetchVerifyPromoCode, fetchCreateSubscriptionOrder } from "@api";
+
+import { useDispatch, useSelector } from 'react-redux';
+import { Actions, Selectors } from '@redux';
 
 // #region Custom Hooks
 function usePaymentLs() {
@@ -367,16 +370,13 @@ function PaymentBodyItem(props) {
                         alt={Name}
                     />
                     <VStack px={3} flex={1}
-                        space={2}
-                        style={{
-                            height: 80
-                        }}>
-                        <Text style={{
-                            fontFamily: "Roboto-Bold",
-                            fontSize: 16,
-                        }}>{Name}</Text>
-                        <Text>{Description}</Text>
-                    </VStack>
+                            space={2} style={{ height: 80 }}>
+                            <Text style={{
+                                fontFamily: "Roboto-Bold",
+                                fontSize: 16,
+                            }}>{Name}</Text>
+                            <Text>{Description}</Text>
+                        </VStack>
                 </HStack>
             </BcBoxShadow>
             <View style={{ height: 10 }} />
@@ -392,7 +392,7 @@ function PaymentBody(props) {
     }
 
     return (
-        <VStack flex={1} py={3} space={3}
+        <VStack py={3} space={3}
             bgColor={"#FFF"} alignItems={"center"}>
             <View width={"90%"} style={{ paddingHorizontal: 2 }}>
                 <Text style={{
@@ -433,33 +433,38 @@ function usePromoCode() {
     const init = {
         promo: {
             code: "",
-            val: 0
+            val: 0,
+            resCode: ""
         }
     };
 
     const [promo, setPromo] = useState(init.promo);
 
     const onChangePromo = (name, val) => {
-        const next_state = {...promo};
+        const next_state = { ...promo };
         next_state[name] = val;
         setPromo(_ => next_state);
     }
 
     const setPromoCode = (val) => onChangePromo("code", val);
     const setPromoVal = (val) => onChangePromo("val", val);
+    const setPromoResCode = (val) => onChangePromo("resCode", val);
 
-    
+    const clearPromo = () => {
+        setPromo(_ => init.promo);
+    }
+
     const flag = promo.code.length > 0;
-    return [promo, setPromoCode, setPromoVal, flag];
+    return [promo, setPromoCode, setPromoVal, setPromoResCode, clearPromo, setPromo, flag];
 }
 
 function PromoCodeModal(props) {
 
     const { hook = [], SubscriptionCode = "" } = props;
-    const { showModal = false, setShowModal = () => {} } = props;
+    const { showModal = false, setShowModal = () => { } } = props;
 
-    const [promo, setPromoCode, setPromoVal, flag] = hook;
-    const { code: promoCode, val: promoVal} = promo;
+    const [promo, setPromoCode, setPromoVal, setPromoResCode, clearPromo, setPromo, flag] = hook;
+    const { code: promoCode, val: promoVal, resCode: promoResCode } = promo;
 
     const [cusToast, showMsg] = useModalToast();
 
@@ -469,16 +474,30 @@ function PromoCodeModal(props) {
                 PromoCode: promoCode,
                 SubscriptionCode: SubscriptionCode
             },
-            onSetLoading: () => {}
+            onSetLoading: () => { }
         })
-        .then(data => {
-            const { DiscountCode = 1 } = data;
-            setPromoVal(DiscountCode);
-            setShowModal(false);
-        })
-        .catch(err => {
-            console.log(`Error: ${err}`)
-        })
+            .then(data => {
+                const { Discount = 0, ResponseCode = 99 } = data;
+
+                console.log(Discount);
+
+                if (ResponseCode == 99) {
+                    clearPromo();
+                    showMsg("Promo Code does not exists!");
+                }
+                else {
+                    const next_state = {
+                        ...promo,
+                        val: Discount,
+                        resCode: promoCode
+                    }
+                    setPromo(_ => next_state);
+                    setShowModal(false);
+                }
+            })
+            .catch(err => {
+                console.log(`Error: ${err}`)
+            })
     }
 
     return (
@@ -492,6 +511,7 @@ function PromoCodeModal(props) {
 
                 <View px={1} bgColor={"#EEF3F6"} width={"80%"}>
                     <TextInput
+                        defaultValue={promoCode}
                         onChangeText={setPromoCode}
                         autoCapitalize={"none"}
                         placeholder={"XXX"}
@@ -516,16 +536,16 @@ function PromoCode(props) {
     if (data.length > 0) {
         return (
             <TouchableOpacity {...props}>
-            <Text style={{
-                fontFamily: "Roboto-Medium",
-                fontSize: 16,
-                textDecorationLine: 'underline',
-                color: "#A6AFB8"
-            }}>Code: {data}</Text>
+                <Text style={{
+                    fontFamily: "Roboto-Medium",
+                    fontSize: 16,
+                    textDecorationLine: 'underline',
+                    color: "#A6AFB8"
+                }}>Code: {data}</Text>
             </TouchableOpacity>
         )
     }
-    
+
     return (
         <TouchableOpacity {...props}>
             <Text style={{
@@ -540,16 +560,15 @@ function PromoCode(props) {
 
 function PaymentDetail(props) {
 
-    const { data = [] } = props;
+    const { data = [], promoHook = [] } = props;
 
     const [showPcModal, setShowPcModal, togglePcModal] = useToggle(false);
 
-    const promoHook = usePromoCode();
-    const [promo, setPromoCode, setPromoVal, flag] = promoHook;
-    const { code: promoCode, val: promoVal} = promo;
+    const promo = promoHook[0];
+    const { code: promoCode, val: promoVal, resCode: promoResCode } = promo;
 
     const SubTotal = data.map(x => +x.Price).reduce((a, b) => a + b);
-    const Promo = SubTotal * promoVal / 100;
+    const Promo = promoVal;
     const Total = SubTotal - Promo;
 
     if (data.length <= 0) {
@@ -559,7 +578,7 @@ function PaymentDetail(props) {
     return (
         <>
             <PromoCodeModal hook={promoHook} SubscriptionCode={data[0]?.Code}
-                showModal={showPcModal} 
+                showModal={showPcModal}
                 setShowModal={setShowPcModal} />
             <VStack py={3}
                 bgColor={"#FFF"}
@@ -585,7 +604,7 @@ function PaymentDetail(props) {
                             fontFamily: "Roboto-Medium",
                             fontSize: 16
                         }}>Promo</Text>
-                        <PromoCode onPress={togglePcModal} data={promoCode} />
+                        <PromoCode onPress={togglePcModal} data={promoResCode} />
                     </HStack>
                     <Text style={{
                         fontFamily: "Roboto-Medium",
@@ -609,6 +628,9 @@ function Index(props) {
     const isFocused = useIsFocused();
 
     const { data = [] } = props.route.params;
+
+    const { Code: SubscriptionCode } = data[0];
+
     // const data = [
     //     {
     //         "title": "Storage Module",
@@ -617,16 +639,21 @@ function Index(props) {
     //     }
     // ];
 
+    const userId = useSelector(Selectors.userIdSelect);
+
     const paymentHook = usePaymentLs();
     const [ls, setLs, selItem, toggleItem, setData] = paymentHook;
 
     const [loading, setLoading, toggleLoading] = useToggle(false);
 
+    const promoHook = usePromoCode();
+    const promo = promoHook[0];
+
     useEffect(() => {
         if (isFocused) {
             fetchPaymentTypeList({
                 param: {
-                    UserId: 25,
+                    UserId: userId,
                 },
                 onSetLoading: setLoading
             })
@@ -639,8 +666,31 @@ function Index(props) {
         }
     }, [isFocused]);
 
-    const GoToWebPayment = () => {
-        navigation.navigate("WebPayment");
+    const CreateSubscriptionOrder = () => {
+
+        const { SpecialCode } = selItem;
+
+        const { code: promoCode, val: promoVal, resCode: promoResCode = "" } = promo;
+
+        fetchCreateSubscriptionOrder({
+            param: {
+                UserId: userId,
+                PromoCode: promoResCode,
+                SubscriptionCode: SubscriptionCode,
+                ServiceId: SpecialCode,
+            },
+            onSetLoading: setLoading
+        })
+        .then(data => {
+            const { Url = "" } = data;
+            navigation.navigate("WebPayment", {
+                Url: Url
+            });
+        })
+        .catch(res => {
+            setLoading(false);
+            console.log(`Error: ${res}`);
+        })
     }
 
     return (
@@ -660,12 +710,12 @@ function Index(props) {
 
                         <PaymentType hook={paymentHook} />
 
-                        <PaymentDetail data={data} />
+                        <PaymentDetail data={data} promoHook={promoHook} />
                     </VStack>
 
                     {/* Footer */}
                     <BcFooter>
-                        <CusBtn flag={selItem.TypeId != -1} onPress={GoToWebPayment}>Confirm & Pay</CusBtn>
+                        <CusBtn flag={selItem.TypeId != -1} onPress={CreateSubscriptionOrder}>Confirm & Pay</CusBtn>
                     </BcFooter>
                 </View>
             </SafeAreaView>

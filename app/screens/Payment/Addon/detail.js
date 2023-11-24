@@ -25,7 +25,6 @@ function useSubLs() {
     const [ls, setLs] = useState([]);
     const [data, setData] = useState([]);
 
-
     useEffect(() => {
         let arr = [...data];
 
@@ -47,7 +46,7 @@ function useSubLs() {
 
         let arr = [...ls];
 
-        for(let ind in arr) {
+        for (let ind in arr) {
             arr[ind].flag = false;
         }
 
@@ -85,11 +84,8 @@ function PaymentBodyItem(props) {
                             }}
                             alt={Name}
                         />
-                        <VStack px={3} flex={1}
-                            space={2}
-                            style={{
-                                height: 80
-                            }}>
+                        <VStack px={3} flex={1} justifyContent={"center"}
+                            space={2} style={{ height: 100 }}>
                             <Text style={{
                                 fontFamily: "Roboto-Bold",
                                 fontSize: 16,
@@ -147,7 +143,57 @@ function PaymentBody(props) {
 }
 
 function PaymentHeader(props) {
-    const { Title = "", Description = "" } = props;
+    const { Title = "", Description = "", Align = "Left" } = props;
+
+    if (Align == "Left") {
+        return (
+            <HStack alignItems={"center"} justifyContent={"space-between"}
+                width={"90%"} style={{ paddingHorizontal: 2 }}>
+
+                <Image
+                    source={Images.paymentII}
+                    resizeMode={"cover"}
+                    style={{ width: 100, height: 100 }} />
+
+
+                <VStack flex={1}>
+                    {/* Title */}
+                    <Text style={{
+                        fontFamily: "Roboto-Bold",
+                        fontSize: 18,
+                        color: "#000"
+                    }}>{Title}</Text>
+
+                    {/* Description */}
+                    <Text>{Description}</Text>
+                </VStack>
+            </HStack>
+        )
+    }
+
+    return (
+        <HStack alignItems={"center"} justifyContent={"space-between"}
+            width={"90%"} style={{ paddingHorizontal: 2 }}>
+
+            <VStack flex={1}>
+                {/* Title */}
+                <Text style={{
+                    fontFamily: "Roboto-Bold",
+                    fontSize: 18,
+                    color: "#000"
+                }}>{Title}</Text>
+
+                {/* Description */}
+                <Text>{Description}</Text>
+            </VStack>
+
+            <Image
+                source={Images.paymentII}
+                resizeMode={"cover"}
+                style={{ width: 100, height: 100 }} />
+
+        </HStack>
+    )
     return (
         <VStack width={"90%"} space={1}>
             <View style={{ paddingHorizontal: 2 }}>
@@ -156,8 +202,8 @@ function PaymentHeader(props) {
                     fontSize: 16,
                 }}>{Title}</Text>
             </View>
-            <View style={{ paddingHorizontal: 2}}>
-            <Text style={{
+            <View style={{ paddingHorizontal: 2 }}>
+                <Text style={{
                     fontFamily: "Roboto-Medium",
                     fontSize: 14,
                 }}>{Description}</Text>
@@ -205,6 +251,57 @@ function PaymentBtn(props) {
 }
 // #endregion
 
+function getDetail(term = "MSP_SP") {
+    const detail = {
+        "MSP_EM": {
+            Detail: {
+                Title: "Email Module",
+                Description: "In est fugiat Lorem culpa elit labore elit exercitation. Deserunt elit eu ad aliquip esse eu labore cillum velit. Sit voluptate fugiat veniam Lorem magna ut sit et Lorem enim irure.",
+                Align: "Right",
+            },
+            Type: "MSP_EM"
+        },
+        "MSP_SP": {
+            Detail: {
+                Title: "Subscription Module",
+                Description: "In est fugiat Lorem culpa elit labore elit exercitation. Deserunt elit eu ad aliquip esse eu labore cillum velit. Sit voluptate fugiat veniam Lorem magna ut sit et Lorem enim irure.",
+                Align: "Left",
+            },
+            Type: "MSP_SP"
+        },
+        "MSP_SM": {
+            Detail: {
+                Title: "Storage Module",
+                Description: "In est fugiat Lorem culpa elit labore elit exercitation. Deserunt elit eu ad aliquip esse eu labore cillum velit. Sit voluptate fugiat veniam Lorem magna ut sit et Lorem enim irure.",
+                Align: "Right",
+            },
+            Type: "MSP_SM"
+        },
+        "MSP_RTM": {
+            Detail: {
+                Title: "Real-Time Data Module",
+                Description: "In est fugiat Lorem culpa elit labore elit exercitation. Deserunt elit eu ad aliquip esse eu labore cillum velit. Sit voluptate fugiat veniam Lorem magna ut sit et Lorem enim irure.",
+                Align: "Left",
+            },
+            Type: "MSP_RTM"
+        },
+        "MSP_UM": {
+            Detail: {
+                Title: "User Module",
+                Description: "In est fugiat Lorem culpa elit labore elit exercitation. Deserunt elit eu ad aliquip esse eu labore cillum velit. Sit voluptate fugiat veniam Lorem magna ut sit et Lorem enim irure.",
+                Align: "Right",
+            },
+            Type: "MSP_UM"
+        }
+    }
+
+    if (term in detail) {
+        return detail[term];
+    }
+
+    return detail["MSP_SP"];
+}
+
 function Index(props) {
 
     const toast = useToast();
@@ -213,7 +310,8 @@ function Index(props) {
 
     const userId = useSelector(Selectors.userIdSelect);
 
-    const { Detail = {}, Type = "" } = props.route.params;
+    const { Term = "" } = props.route.params;
+    console.log(Term);
 
     // #region Use State
     const dataHook = useSubLs();
@@ -231,13 +329,13 @@ function Index(props) {
                 },
                 onSetLoading: setLoading
             })
-            .then(data => {
-                setLs(data);
-            })
-            .catch(err => {
-                setLoading(false);
-                console.log(`Error: ${err}`);
-            })
+                .then(data => {
+                    setLs(data);
+                })
+                .catch(err => {
+                    setLoading(false);
+                    console.log(`Error: ${err}`);
+                })
         }
     }, [isFocused]);
 
@@ -246,6 +344,8 @@ function Index(props) {
             data: ls.filter(x => x.flag)
         });
     };
+
+    const { Type = "", Detail = {} } = getDetail(Term);
 
     return (
         <>
@@ -261,7 +361,7 @@ function Index(props) {
                     {/* Body */}
                     <VStack flexGrow={1} space={2}
                         alignItems={"center"}>
-                        {/* Header */}                        
+                        {/* Header */}
                         <PaymentHeader {...Detail} />
 
                         {/* Body */}

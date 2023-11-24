@@ -18,7 +18,7 @@ import { clsConst } from "@config";
 import { useDispatch, useSelector } from 'react-redux';
 import { Actions, Selectors } from '@redux';
 
-import { fetchProfileInfo } from "@api";
+import { fetchProfileInfo, fetchSubUserAccess } from "@api";
 
 import { BcLoading, BaseModal } from "@components";
 
@@ -275,15 +275,18 @@ function NavPanel(props) {
     const GoToAddSubUser = () => navigation.navigate("AddSubUserWithCode");
 
     const subUserAccess = useSelector(Selectors.subUserAccessSelect);
-    const { ManageUserList = -1 } = subUserAccess;
+    const { MS_Email = -1, MS_User = -1 } = subUserAccess;
 
     return (
         <VStack bgColor={"#FFF"} borderRadius={8} width={"90%"} alignItems={"center"}>
             <PanelBtn onPress={GoToHomeManagement} Btn={FontAwesome} icon={"home"} title={"Home Management"} />
             {/* <PanelBtn onPress={GoToAlert} Btn={MaterialCommunityIcons} icon={"message-text-outline"} title={"Message Center"} />
             <PanelBtn onPress={GoToReportSchedule} Btn={FontAwesome5} icon={"clipboard-list"} title={"Email Alert"} /> */}
+            {/* {
+                (MS_Email == 1) ? (<PanelBtn onPress={GoToReportSchedule} Btn={FontAwesome5} icon={"clipboard-list"} title={"Email Alert"} />) : (<></>)
+            } */}
             {
-                (ManageUserList == 1) ? (<PanelBtn onPress={GoToSubUser} Btn={FontAwesome5} icon={"users"} title={"Manage Members"} />) : (<PanelBtn onPress={GoToAddSubUser} Btn={FontAwesome5} icon={"house-user"} title={"Join a Home"} />)
+                (MS_User == 1) ? (<PanelBtn onPress={GoToSubUser} Btn={FontAwesome5} icon={"users"} title={"Manage Members"} />) : (<></>)
             }
             {/* <PanelBtn Btn={SimpleLineIcons} icon={"question"} title={"FAQ & Feedback"} /> */}
         </VStack>
@@ -316,9 +319,32 @@ function PaymentSubscriptionPanel(props) {
         <VStack bgColor={"#FFF"} borderRadius={8}
             width={"90%"} alignItems={"center"}>
             <PanelBtn
-                onPress={GoToPayment} title={"Subscribe to Pro Edition"}
+                onPress={GoToPayment} title={"Buy More Add-Ons"}
                 Btn={FontAwesome5} icon={"crown"}
                 color={"#FFAA00"} showRight={false} />
+        </VStack>
+    )
+}
+
+function SubscribedAddons(props) {
+
+    const navigation = useNavigation();
+    const toast = useToast();
+
+    const GoToPayment = () => {
+        navigation.navigate("Subscription");
+        // toast.show({
+        //     description: "Work In-Progress!"
+        // });
+    };
+
+    return (
+        <VStack bgColor={"#FFF"} borderRadius={8}
+            width={"90%"} alignItems={"center"}>
+            <PanelBtn
+                onPress={GoToPayment} title={"View Purchased Add-Ons"}
+                Btn={FontAwesome5} icon={"shopping-cart"}
+                color={"#000"} showRight={false} />
         </VStack>
     )
 }
@@ -369,6 +395,8 @@ function Index(props) {
                     setLoading(false);
                     console.log(`Error: ${err}`);
                 })
+
+            RequestAccess(userId);
         }
     }, [isFocused, userId]);
 
@@ -389,12 +417,25 @@ function Index(props) {
         // Reset Home Id
         dispatch(Actions.onChangeHomeId(-1));
 
-        navigation.navigate("Login");
+        navigation.navigate("LoginII");
     }
     // #endregion
 
-    const subUserAccess = useSelector(Selectors.subUserAccessSelect);
-    const { AccountType = -1 } = subUserAccess;
+    const RequestAccess = (userId) => {
+        fetchSubUserAccess({
+            param: {
+                UserId: userId
+            },
+            onSetLoading: () => {},
+        })
+        .then(data => {
+            dispatch(Actions.onChangeSubUserAccess(data));
+        })
+        .catch(err => {
+            console.log(`Error: ${err}`);
+        })
+    }
+
     return (
         <>
             <BcLoading loading={loading} />
@@ -423,9 +464,14 @@ function Index(props) {
                             {/* {(AccountType <= 1) ? <PaymentSubscriptionPanel /> : <></>} */}
                             <PaymentSubscriptionPanel />
 
+                            {/* View Subscription Order */}
+                            <SubscribedAddons />
+
                             {/* Logout */}
                             <LogoutPanel onLogout={SignOut} />
                         </VStack>
+
+                        <View style={{ height: 10 }} />
 
                         <VStack space={2}
                             alignItems={"center"}

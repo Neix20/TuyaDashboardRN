@@ -5,7 +5,7 @@ const Index = async (props) => {
     const { param } = props;
     const { onSetLoading } = props;
 
-    const action = "VerifyPromoCode";
+    const action = "LinkSubUser";
     const url = Utility.genServerUrl(action);
 
     // Static Data
@@ -24,14 +24,13 @@ const Index = async (props) => {
 
     if (data["ResponseCode"] === "00") {
         // return data;
-        return data;
     }
     else {
-        console.log(`VerifyPromoCode - Request - ${JSON.stringify(obj)}`);
-        console.log(`VerifyPromoCode - Response - ${JSON.stringify(data)}`);
+        console.log(`LinkSubUser - Request - ${JSON.stringify(obj)}`);
+        console.log(`LinkSubUser - Response - ${JSON.stringify(data)}`);
     }
 
-    return {}
+    return data;
 };
 
 export default Index;

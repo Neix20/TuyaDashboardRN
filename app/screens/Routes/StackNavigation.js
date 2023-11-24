@@ -60,6 +60,9 @@ import AddSubUser from "@screens/SubUser/AddSubUser";
 import SubUserInfo from "@screens/SubUser/SubUserInfo";
 import AddSubUserWithCode from "@screens/SubUser/AddSubUserWithCode";
 
+import Subscription from "@screens/Subscription";
+import SubscriptionInfo from "@screens/Subscription/SubscriptionInfo";
+
 let StackScreens = {};
 
 StackScreens = {
@@ -348,6 +351,20 @@ StackScreens = {
         option: {
             orientation: "portrait"
         }
+    },
+    Subscription: {
+        component: Subscription,
+        title: "Subscription",
+        option: {
+            orientation: "portrait"
+        }
+    },
+    SubscriptionInfo: {
+        component: SubscriptionInfo,
+        title: "SubscriptionInfo",
+        option: {
+            orientation: "portrait"
+        }
     }
 }
 
@@ -472,7 +489,7 @@ function Index(props) {
     }
     // #endregion
 
-    const defaultScreen = (userId == -1 || firstTimeLink) ? "Login" : "TabNavigation";
+    const defaultScreen = (userId == -1 || firstTimeLink) ? "LoginII" : "TabNavigation";
     // const defaultScreen = "Payment";
 
     return (

@@ -71,5 +71,21 @@ data = {
     sunsetBgIII: require("@assets/images/Bg/sunset_bg_iii.jpg"),
 }
 
+data = {
+    ...data,
+    payment: require("@assets/images/payment.png"),
+    paymentII: require("@assets/images/payment_ii.png"),
+}
+
+data = {
+    ...data,
+    person: require("@assets/images/Profile/person_I.png"),
+    personII: require("@assets/images/Profile/person_II.png"),
+    personIII: require("@assets/images/Profile/person_III.png"),
+    personIV: require("@assets/images/Profile/person_IV.png"),
+    personV: require("@assets/images/Profile/person_V.png"),
+    personVI: require("@assets/images/Profile/person_VI.png"),
+}
+
 
 export default data;

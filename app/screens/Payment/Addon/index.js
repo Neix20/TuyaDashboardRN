@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Text, TouchableOpacity, Image, SafeAreaView, FlatList } from "react-native";
+import { Text, TouchableOpacity, Image, ImageBackground, SafeAreaView, FlatList } from "react-native";
 import { View, VStack, HStack, useToast } from "native-base";
 
 import { useNavigation, useIsFocused } from "@react-navigation/native";
@@ -55,7 +55,7 @@ function useFlagLs(length = 1) {
 
         let arr = [...ls];
 
-        for(let ind = 0; ind < arr.length; ind += 1) {
+        for (let ind = 0; ind < arr.length; ind += 1) {
             arr[ind].flag = false;
         }
 
@@ -73,7 +73,7 @@ function PaymentHeaderItem(props) {
 
     const { flag = false, onPress = () => { } } = props;
     const { title, price, description } = props;
-    
+
     // const clr = flag ? "#F01421" : "#98A0A8";
     const clr = "#F01421";
 
@@ -127,26 +127,67 @@ function PaymentHeaderItem(props) {
 
 function PaymentHeader(props) {
 
-    const [flagLs, toggleFlag] = useFlagLs(3);
+    // const [flagLs, toggleFlag] = useFlagLs(3);
 
-    if (flagLs.length <= 0) {
-        return <></>
+    // if (flagLs.length <= 0) {
+    //     return <></>
+    // }
+
+    const desc = {
+        title: "Get More Value with Add-Ons!",
+        description: "Transform your gadget into a powerhouse with our carefully crafted modules!",
+        caption: "Get the latest technology at your fingertips!"
     }
+
+    const { title, description, caption } = desc;
+
+    return (
+        <HStack alignItems={"center"} justifyContent={"space-between"}
+            width={"90%"} style={{ paddingHorizontal: 2 }}>
+
+
+            <VStack flex={1}>
+                {/* Title */}
+                <Text style={{
+                    fontFamily: "Roboto-Bold",
+                    fontSize: 18,
+                    color: "#000"
+                }}>{title}</Text>
+
+                {/* Description */}
+                <Text>{description}</Text>
+
+                {/* Caption */}
+                <Text style={{ fontStyle: "italic", fontSize: 16, textAlign: "center" }}>{caption}</Text>
+            </VStack>
+
+            <Image
+                source={Images.paymentII}
+                resizeMode={"cover"}
+                style={{ width: 100, height: 100 }} />
+
+        </HStack>
+    )
 
     return (
         <VStack space={2} width={"90%"}
             style={{ paddingHorizontal: 2 }}>
+
             {/* Title */}
             <Text style={{
                 fontFamily: "Roboto-Bold",
                 fontSize: 16,
             }}>Payment Plans</Text>
 
-            <HStack space={2}>
+            <View width={"100%"} style={{ height: 100 }}>
+                <PaymentHeaderItem flag={flagLs[2].flag} onPress={() => toggleFlag(flagLs[2])} title={"Free"} price={(69.99).toFixed(2)} description={`RM ${(69.99).toFixed(2)} billed annually`} />
+            </View>
+
+            {/* <HStack space={2}>
                 <PaymentHeaderItem flag={flagLs[0].flag} onPress={() => toggleFlag(flagLs[0])} title={"Free"} price={`0${(0).toFixed(2)}`} description={`RM ${(0).toFixed(2)} billed annually`} />
                 <PaymentHeaderItem flag={flagLs[1].flag} onPress={() => toggleFlag(flagLs[1])} title={"Standard"} price={(29.99).toFixed(2)} description={`RM ${(29.99).toFixed(2)} billed annually`} />
                 <PaymentHeaderItem flag={flagLs[2].flag} onPress={() => toggleFlag(flagLs[2])} title={"Premium"} price={(69.99).toFixed(2)} description={`RM ${(69.99).toFixed(2)} billed annually`} />
-            </HStack>
+            </HStack> */}
 
         </VStack>
     )
@@ -175,11 +216,8 @@ function PaymentBodyItem(props) {
                             }}
                             alt={Name}
                         />
-                        <VStack px={3} flex={1}
-                            space={2}
-                            style={{
-                                height: 80
-                            }}>
+                        <VStack px={3} flex={1} justifyContent={"center"}
+                            space={2} style={{ height: 100 }}>
                             <Text style={{
                                 fontFamily: "Roboto-Bold",
                                 fontSize: 16,
@@ -237,39 +275,29 @@ function Index(props) {
 
     const GoToStorage = () => {
         navigation.navigate("PaymentSubscriptionDetail", {
-            Detail: {
-                Title: "Storage Module",
-                Description: "In est fugiat Lorem culpa elit labore elit exercitation. Deserunt elit eu ad aliquip esse eu labore cillum velit. Sit voluptate fugiat veniam Lorem magna ut sit et Lorem enim irure."
-            },
-            Type: "MSP_SM"
+            Term: "MSP_SM"
         });
     }
     const GoToEmail = () => {
         navigation.navigate("PaymentSubscriptionDetail", {
-            Detail: {
-                Title: "Email Module",
-                Description: "In est fugiat Lorem culpa elit labore elit exercitation. Deserunt elit eu ad aliquip esse eu labore cillum velit. Sit voluptate fugiat veniam Lorem magna ut sit et Lorem enim irure."
-            },
-            Type: "MSP_EM"
+            Term: "MSP_EM"
         });
     }
     const GoToRealTimeData = () => {
         navigation.navigate("PaymentSubscriptionDetail", {
-            Detail: {
-                Title: "Real-Time Data Module",
-                Description: "In est fugiat Lorem culpa elit labore elit exercitation. Deserunt elit eu ad aliquip esse eu labore cillum velit. Sit voluptate fugiat veniam Lorem magna ut sit et Lorem enim irure."
-            },
-            Type: "MSP_RTM"
+            Term: "MSP_RTM",
         });
     }
 
     const GoToUser = () => {
         navigation.navigate("PaymentSubscriptionDetail", {
-            Detail: {
-                Title: "User Module",
-                Description: "In est fugiat Lorem culpa elit labore elit exercitation. Deserunt elit eu ad aliquip esse eu labore cillum velit. Sit voluptate fugiat veniam Lorem magna ut sit et Lorem enim irure."
-            },
-            Type: "MSP_UM"
+            Term: "MSP_UM",
+        });
+    }
+
+    const GoToSubscription = () => {
+        navigation.navigate("PaymentSubscriptionDetail", {
+            Term: "MSP_SP",
         });
     }
 
@@ -282,9 +310,15 @@ function Index(props) {
             goToFunc: GoToStorage,
         },
         {
+            "Name": "Subscription Module",
+            "Description": "Subscription Module",
+            "img": "https://i.imgur.com/nQCj6ea.png",
+            goToFunc: GoToSubscription,
+        },
+        {
             "Name": "Email Module",
             "Description": "Archive Report Using Email",
-            "img": "https://i.imgur.com/nQCj6ea.png",
+            "img": "https://i.imgur.com/Cxr2xHH.png",
             goToFunc: GoToEmail,
         },
         {

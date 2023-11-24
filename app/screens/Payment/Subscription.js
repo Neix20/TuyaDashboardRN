@@ -298,7 +298,7 @@ function Index(props) {
         {
             "title": "Email Module",
             "description": "Archive Report Using Email",
-            "img": "https://i.imgur.com/nQCj6ea.png"
+            "img": "https://i.imgur.com/Cxr2xHH.png"
         },
         {
             "title": "Real-Time Data Module",

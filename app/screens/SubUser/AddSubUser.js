@@ -1,12 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { Text, TouchableOpacity, Image, TextInput, Dimensions, SafeAreaView, ImageBackground, ScrollView } from "react-native";
+import { Text, TouchableOpacity, Image, TextInput, SafeAreaView, ImageBackground, ScrollView } from "react-native";
 import { View, VStack, HStack, useToast } from "native-base";
 
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 import { useNavigation, useIsFocused } from "@react-navigation/native";
-
-const screen = Dimensions.get("screen");
-const { width, height } = screen;
 
 import { Logger, Utility } from "@utility";
 
@@ -25,7 +22,7 @@ function useForm(props) {
 
     const init = {
         form: {
-            email: ""
+            username: "",
         }
     }
 
@@ -39,6 +36,7 @@ function useForm(props) {
     }
 
     const onChangeEmail = (val) => onChange("email", val);
+    const onChangeUsername = (val) => onChange("username", val);
 
     useEffect(() => {
         let flag = true;
@@ -55,7 +53,7 @@ function useForm(props) {
         setForm(init.form);
     }
 
-    return [form, clearForm, onChangeEmail, submitFlag];
+    return [form, clearForm, onChangeUsername, submitFlag];
 }
 // #endregion
 
@@ -64,8 +62,8 @@ function AddSubUserForm(props) {
 
     const { hook = [] } = props;
 
-    const [form, clearForm, onChangeEmail, submitFlag] = hook;
-    const { email } = form;
+    const [form, clearForm, onChangeUsername, submitFlag] = hook;
+    const { username } = form;
 
     return (
         <BcBoxShadow>
@@ -77,14 +75,13 @@ function AddSubUserForm(props) {
                     <View flex={.3}>
                         <Text style={{
                             fontSize: 18
-                        }}>User Email</Text>
+                        }}>Username</Text>
                     </View>
                     <View flex={.7}>
                         <TextInput
-                            defaultValue={email}
-                            onChangeText={onChangeEmail}
-                            placeholder={"User Email"}
-                            keyboardType={"email-address"}
+                            defaultValue={username}
+                            onChangeText={onChangeUsername}
+                            placeholder={"Username"}
                             autoCapitalize={"none"}
                             style={{
                                 fontFamily: "Roboto-Medium",
@@ -115,11 +112,13 @@ function Index(props) {
     const isFocused = useIsFocused();
 
     const formHook = useForm();
-    const [form, clearForm, flag] = [...formHook.slice(0, 2), formHook.at(-1)];
+    const [form, clearForm] = formHook.slice(0, 2);
+    const flag = formHook.at(-1);
 
     const [loading, setLoading, toggleLoading] = useToggle(false);
 
-    const { email } = form;
+    const { username } = form;
+    
     const userId = useSelector(Selectors.userIdSelect);
 
     const save = () => {
@@ -127,7 +126,7 @@ function Index(props) {
         fetchAddSubUser({
             param: {
                 UserId: userId,
-                Email: email
+                Username: username
             },
             onSetLoading: setLoading,
         })
