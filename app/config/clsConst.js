@@ -1,4 +1,4 @@
-const APP_VERSION = "1.2.11";
+const APP_VERSION = "1.2.13";
 const ORG_NAME = "VIGTECH LABS SDN BHD";
 
 // const SERVER_URL = "https://2452-103-26-251-251.ngrok-free.app";

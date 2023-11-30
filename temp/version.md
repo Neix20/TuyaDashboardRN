@@ -125,3 +125,12 @@
     2. Change Weekday Terms to Short Form. I.e. "Wednesday" => "Wed"
     3. Hide Label from tooltip, Place Color Dot Instead.
 </en-US>
+
+#### Version 1.2.12
+------------------------
+<en-US>
+    Features Update:
+    1. Login Update: Modified Onboarding Page.
+    2. Payment Subscription Support. Added Web Payment to facilitate Payment Services
+    3. Yatu Add-Ons. Added Yatu Module Add-Ons to Enhance User Experience
+</en-US>

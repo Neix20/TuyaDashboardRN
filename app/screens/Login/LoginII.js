@@ -183,6 +183,8 @@ function ExistLoginForm(props) {
 
     const { toastHook = [], formHook = [] } = props;
 
+    const { showModal, setShowModal = () => {}} = props;
+
     const [mToast, showMsg] = toastHook;
 
     const toast = useToast();
@@ -207,6 +209,7 @@ function ExistLoginForm(props) {
     // #endregion
 
     const { email, otp, sessionId } = form;
+
 
     // #region UseEffect
     // useEffect(() => {
@@ -290,10 +293,17 @@ function ExistLoginForm(props) {
 
                     if (FirstTimeUserId == 1) {
                         dispatch(Actions.onChangeFirstTimeLink(true));
+                        navigation.navigate("CheckTuyaEmail", {
+                            Email: email,
+                        })
+                    } 
+                    else if (FirstTimeUserId == 2) {
+                        dispatch(Actions.onChangeFirstTimeLink(true));
                         navigation.navigate("AuthTuya", {
                             Email: email,
                         })
-                    } else {
+                    }
+                    else {
                         dispatch(Actions.onChangeFirstTimeLink(false));
                         GoToHome();
                     }
@@ -306,6 +316,8 @@ function ExistLoginForm(props) {
                     }
 
                     clearForm();
+
+                    setShowModal(false);
                 } else {
                     // toast.show({
                     //     description: "Account / otp is incorrect!"
@@ -412,7 +424,7 @@ function ExistLoginModal(props) {
 
     return (
         <BottomModal {...props} cusToast={toast}>
-            <ExistLoginForm toastHook={toastHook} formHook={formHook} />
+            <ExistLoginForm toastHook={toastHook} formHook={formHook} {...props} />
         </BottomModal>
     )
 }
@@ -505,17 +517,17 @@ function SubLoginForm(props) {
 
                 RequestAccess(UserId);
 
-                // if (FirstTimeUserId == 1) {
-                //     dispatch(Actions.onChangeFirstTimeLink(true));
-                //     navigation.navigate("AuthTuya", {
-                //         Email: email,
-                //     })
-                // } else {
-                //     dispatch(Actions.onChangeFirstTimeLink(false));
-                //     GoToHome();
-                // }
+                if (FirstTimeUserId == 1) {
+                    dispatch(Actions.onChangeFirstTimeLink(true));
+                    navigation.navigate("CheckTuyaEmail", {
+                        Email: email,
+                    })
+                } else {
+                    dispatch(Actions.onChangeFirstTimeLink(false));
+                    GoToHome();
+                }
 
-                GoToHome();
+
 
             } else {
                 showMsg("Username / Password is incorrect!");
@@ -705,8 +717,7 @@ function Index(props) {
                     resizeMode={"cover"}
                     style={{ flex: 1, opacity: 0.4 }} />
 
-                <View position={"absolute"}
-                    style={{ top: 0, bottom: 0, left: 0, right: 0 }}>
+                <View position={"absolute"} style={{ top: 0, bottom: 0, left: 0, right: 0 }}>
                     <View style={{ height: 40 }} />
 
                     {/* Body */}
@@ -734,10 +745,11 @@ function Index(props) {
                                                 fontFamily: "Roboto-Bold",
                                                 fontSize: 16,
                                                 color: "#FFF"
-                                            }}>Login as Existing User</Text>
+                                            }}>Login</Text>
                                         </View>
                                     </TouchableOpacity>
-                                    <TouchableOpacity onPress={toggleSubLoginModal}
+
+                                    {/* <TouchableOpacity onPress={toggleSubLoginModal}
                                         style={{ width: "80%", height: 48 }}>
                                         <View flex={1} alignItems={"center"} justifyContent={"center"} bgColor={"#FFF"}>
                                             <Text style={{
@@ -745,7 +757,7 @@ function Index(props) {
                                                 fontSize: 16
                                             }}>Login as Sub-User</Text>
                                         </View>
-                                    </TouchableOpacity>
+                                    </TouchableOpacity> */}
 
                                     {/* <TouchableOpacity style={{ width: "80%" }}>
                                         <View alignItems={"center"}>

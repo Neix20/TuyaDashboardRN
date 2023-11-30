@@ -9,7 +9,7 @@ import LinearGradient from "react-native-linear-gradient";
 function Index(props) {
 
     const { children } = props;
-    const { startColor, endColor, style, orientation = "vertical" } = props;
+    const { startColor = "#F83946", endColor = "#CE172E", style, orientation = "vertical" } = props;
 
     const end = (orientation === "vertical") ? ({ x: 0, y: 1 }) : ({ x: 1, y: 0 });
 

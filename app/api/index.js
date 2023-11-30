@@ -1,3 +1,4 @@
+
 import fetchDashboardInfo from "./fetchDashboardInfo";
 
 import fetchProfileInfo from "./fetchProfile";
@@ -73,6 +74,7 @@ import fetchSubscription from "./fetchSubscription";
 import fetchSubUserInfo from "./fetchSubUserInfo";
 
 import fetchLinkSubUser from "./fetchLinkSubUser";
+import fetchCheckTuyaEmail from "./fetchCheckTuyaEmail";
 
 export {
     fetchHomeList,
@@ -171,5 +173,6 @@ export {
     fetchSubscriptionOrder,
     fetchSubscription,
     fetchSubUserInfo,
-    fetchLinkSubUser
+    fetchLinkSubUser,
+    fetchCheckTuyaEmail
 }

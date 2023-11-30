@@ -1,6 +1,9 @@
+
 import React, { useState, useEffect } from "react";
 import SplashScreen from "react-native-splash-screen";
 import { BcStackNavigator } from "@components";
+
+import { useNavigation } from "@react-navigation/native";
 
 // Screens
 import Debug from "@screens/Debug";
@@ -325,9 +328,11 @@ StackScreens = {
 
 import LoginII from "@screens/Login/LoginII";
 
-
 import PaymentSubscriptionAddOn from "@screens/Payment/Addon";
+import PaymentProSubscription from "@screens/Payment/ProSubscription";
 import PaymentSubscriptionDetail from "@screens/Payment/Addon/detail.js";
+
+import CheckTuyaEmail from "@screens/CheckTuyaEmail";
 
 StackScreens = {
     ...StackScreens,
@@ -365,6 +370,20 @@ StackScreens = {
         option: {
             orientation: "portrait"
         }
+    },
+    PaymentProSubscription: {
+        component: PaymentProSubscription,
+        title: "PaymentProSubscription",
+        option: {
+            orientation: "portrait"
+        }
+    },
+    CheckTuyaEmail: {
+        component: CheckTuyaEmail,
+        title: "CheckTuyaEmail",
+        option: {
+            orientation: "portrait"
+        }
     }
 }
 
@@ -388,6 +407,7 @@ import { BcAppUpdateModal, BcServerMainModal } from "@components";
 import { fetchGetAppVersion, fetchGetServerStatus, fetchSubUserAccess } from "@api";
 
 import { useToggle } from "@hooks";
+import { useToast } from "native-base";
 
 function Index(props) {
 
@@ -400,6 +420,9 @@ function Index(props) {
     const [appFlag, setAppFlag, toggleAppFlag] = useToggle(false);
     const [serverFlag, setServerFlag, toggleServerFlag] = useToggle(false);
     // #endregion
+
+    const navigation = useNavigation();
+    const toast = useToast();
 
     useEffect(() => {
         // Hide Splash Screen
@@ -418,10 +441,19 @@ function Index(props) {
             const notification = event.getNotification();
 
             const { additionalData = {} } = notification;
+            console.log(additionalData);
 
             // Check For Payment Success
             if ("Action" in additionalData && additionalData["Action"] == "Data_Controller") {
 
+            }
+
+            if ("Action" in additionalData && additionalData["Action"] == "Data_Auth") {
+                const { Message = "" } = additionalData;
+                toast.show({
+                    description: Message
+                });
+                navigation.navigate("LoginII");
             }
 
             // Complete with null means don't show a notification.
@@ -489,8 +521,10 @@ function Index(props) {
     }
     // #endregion
 
-    const defaultScreen = (userId == -1 || firstTimeLink) ? "LoginII" : "TabNavigation";
-    // const defaultScreen = "Payment";
+    // const defaultScreen = (userId == -1 || firstTimeLink) ? "LoginII" : "TabNavigation";
+    // const defaultScreen = "CheckTuyaEmail";
+
+    const defaultScreen = "ThankYou";
 
     return (
         <>

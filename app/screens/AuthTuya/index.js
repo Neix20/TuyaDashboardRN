@@ -242,7 +242,7 @@ function Index(props) {
                     toast.show({
                         description: AuthCode
                     });
-                    // navigation.goBack();
+                    navigation.navigate("LoginII");
                 }
             })
             .catch(err => {
@@ -321,7 +321,7 @@ function Index(props) {
                                             fontFamily: "Roboto-Bold",
                                             fontSize: 18
                                         }}>
-                                            Kindly utilize your Tuya or SmartLife app to scan the QR code provided through any web browser.
+                                            Please use your Tuya or SmartLife app to scan the QR code provided through any web browser.
                                         </Text>
                                     </View>
 

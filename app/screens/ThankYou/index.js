@@ -5,6 +5,7 @@ import { View, VStack, HStack, useToast } from "native-base";
 import { useNavigation, useIsFocused } from "@react-navigation/native";
 
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
+import FontAwesome from "react-native-vector-icons/FontAwesome";
 
 import { Logger, Utility } from "@utility";
 import { Images, Svg } from "@config";
@@ -55,7 +56,11 @@ function Index(props) {
 
     return (
         <SafeAreaView style={{ flex: 1 }}>
-            <View style={{ flex: 1 }}>
+            <ImageBackground
+                source={Images.sunsetBgIII}
+                resizeMode={"cover"}
+                style={{ flex: 1, opacity: 0.4 }} />
+            <View position={"absolute"} style={{ top: 0, bottom: 0, left: 0, right: 0 }}>
 
                 {/* Header */}
                 <Header>Payment Successful</Header>
@@ -68,12 +73,22 @@ function Index(props) {
                     contentContainerStyle={{ flexGrow: 1 }}>
                     <View flexGrow={1} justifyContent={"center"} alignItems={"center"}>
                         <BcBoxShadow>
-                            <View alignItems={"center"} justifyContent={"center"} width={"80%"} px={3} bgColor={"#FFF"} style={{ height: 120 }}>
+
+                            <VStack alignItems={"center"} justifyContent={"center"}
+                                width={"80%"} p={3} space={3}
+                                bgColor={"#FFF"} style={{ minHeight: 120 }}>
+                                <VStack alignItems={"center"} space={1}>
+                                    <Text style={{
+                                        fontFamily: "Roboto-Bold",
+                                        fontSize: 18
+                                    }}>Payment Success!</Text>
+                                    <FontAwesome name={"check-circle"} size={48} color={"#39B54A"} />
+                                </VStack>
                                 <Text style={{
                                     fontFamily: "Roboto-Bold",
                                     fontSize: 16
                                 }}>Thank you for making a purchase!</Text>
-                            </View>
+                            </VStack>
                         </BcBoxShadow>
 
                     </View>

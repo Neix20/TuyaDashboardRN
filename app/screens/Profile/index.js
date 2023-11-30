@@ -309,7 +309,8 @@ function PaymentSubscriptionPanel(props) {
     const navigation = useNavigation();
     const toast = useToast();
     const GoToPayment = () => {
-        navigation.navigate("PaymentSubscriptionAddOn");
+        // navigation.navigate("PaymentSubscriptionAddOn");
+        navigation.navigate("PaymentProSubscription");
         // toast.show({
         //     description: "Work In-Progress!"
         // });
@@ -319,7 +320,7 @@ function PaymentSubscriptionPanel(props) {
         <VStack bgColor={"#FFF"} borderRadius={8}
             width={"90%"} alignItems={"center"}>
             <PanelBtn
-                onPress={GoToPayment} title={"Buy More Add-Ons"}
+                onPress={GoToPayment} title={"Get Value with Pro Subscription"}
                 Btn={FontAwesome5} icon={"crown"}
                 color={"#FFAA00"} showRight={false} />
         </VStack>
