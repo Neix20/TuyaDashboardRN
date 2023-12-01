@@ -5,7 +5,7 @@ const Index = async (props) => {
     const { param } = props;
     const { onSetLoading } = props;
 
-    const action = "GetSubscriptionPlan";
+    const action = "GetSubscriptionProPlan";
     const url = Utility.genServerUrl(action);
 
     // Static Data
@@ -23,12 +23,14 @@ const Index = async (props) => {
     onSetLoading(false);
 
     if (data["ResponseCode"] === "00") {
+        // return data;
+
         const { Data = [] } = data;
         return Data;
     }
     else {
-        console.log(`GetSubscriptionPlan - Request - ${JSON.stringify(obj)}`);
-        console.log(`GetSubscriptionPlan - Response - ${JSON.stringify(data)}`);
+        console.log(`GetSubscriptionProPlan - Request - ${JSON.stringify(obj)}`);
+        console.log(`GetSubscriptionProPlan - Response - ${JSON.stringify(data)}`);
     }
 
     return [];

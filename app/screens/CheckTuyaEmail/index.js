@@ -13,6 +13,9 @@ import { BcHeader, BcLoading, BcBoxShadow, BcDisable } from "@components";
 import { useToggle } from "@hooks";
 import { fetchCheckTuyaEmail } from "@api";
 
+import { useDispatch, useSelector } from 'react-redux';
+import { Actions, Selectors } from '@redux';
+
 // #region Custom Hooks
 function useChangeBg() {
     const imgLs = [Images.sunsetBg, Images.sunsetBgII, Images.sunsetBgIII];
@@ -132,7 +135,7 @@ function CheckEmailBtn(props) {
 
 function EmailForm(props) {
 
-    const { emailInit = "", emailData = "" } = props;
+    const { emailInit = "" } = props;
 
     const toast = useToast();
     const navigation = useNavigation();
@@ -143,6 +146,8 @@ function EmailForm(props) {
     const [email, setEmail] = useState(emailInit);
     const [eFlag, setEFlag, toggleEFlag] = useToggle(false);
 
+    const userId = useSelector(Selectors.userIdSelect);
+
     useEffect(() => {
         let flag = email.length > 0 && Utility.validateEmail(email);
         setEFlag(_ => flag);
@@ -152,7 +157,7 @@ function EmailForm(props) {
         setLoading(true);
         fetchCheckTuyaEmail({
             param: {
-                Email: emailData,
+                UserId: userId,
                 TuyaEmail: email
             },
             onSetLoading: setLoading

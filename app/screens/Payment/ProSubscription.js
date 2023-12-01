@@ -8,13 +8,58 @@ import FontAwesome from "react-native-vector-icons/FontAwesome";
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 
 import { Logger, Utility } from "@utility";
-import { Images, Svg } from "@config";
+import { Images, Svg, Animation } from "@config";
 
 import { BcHeader, BcLoading, BcBoxShadow, BcSvgIcon } from "@components";
 import { useToggle } from "@hooks";
 
+import { fetchSubscriptionProPlan } from "@api";
+
 import { Tab, TabView } from "@rneui/themed";
 import LinearGradient from "react-native-linear-gradient";
+
+import { useDispatch, useSelector } from 'react-redux';
+import { Actions, Selectors } from '@redux';
+
+import Lottie from "lottie-react-native";
+
+function EmptyList(props) {
+
+    return (
+        <View flexGrow={1} justifyContent={"center"}>
+            <VStack space={3} alignItems={"center"}>
+                    <Lottie
+                        autoPlay
+                        source={Animation.YatuLoader}
+                        loop={true}
+                        style={{
+                            width: 360,
+                            height: 360
+                        }} />
+
+                    <Text style={{
+                        fontFamily: "Roboto-Bold",
+                        fontSize: 24,
+                        color: "#2898FF"
+                    }}>Loading ...</Text>
+                </VStack>
+        </View>
+    )
+
+    return (
+        <View flexGrow={1} justifyContent={"center"} alignItems={"center"}>
+            <VStack space={2} width={"90%"} alignItems={"center"}>
+                <FontAwesome5 name={"tools"} color={"#e6e6e6"} size={80} />
+                <Text style={{
+                    fontSize: 18,
+                    color: "#d3d3d3",
+                    fontFamily: 'Roboto-Medium',
+                    fontWeight: "700"
+                }}>No Ongoing Subscription</Text>
+            </VStack>
+        </View>
+    )
+}
 
 // #region Components
 function Footer(props) {
@@ -68,8 +113,14 @@ function Footer(props) {
 }
 
 function TPHeader(props) {
-    const { hook = [], colors = {}, borderRadius = 8 } = props;
+    const { hook = [], colors = {}, borderRadius = 8, payDictHook = [] } = props;
     const [tpInd, setTpInd, onChangeTpInd] = hook;
+    const [payDict, setPayDict, payDictKey] = payDictHook;
+
+    if (payDictKey.length == 0) {
+        return (<></>)
+    }
+
     return (
         <Tab dense
             value={tpInd}
@@ -80,34 +131,20 @@ function TPHeader(props) {
                 borderWidth: 1, borderRadius: borderRadius, borderColor: "#98A0A8",
                 backgroundColor: "#FFF"
             }}>
-            <Tab.Item
-                title={"Pro 1 Month"}
-                titleStyle={(active) => ({ color: (active) ? "#FFF" : "#000" })}
-                buttonStyle={(active) => ({
-                    width: "100%", height: "100%", borderRadius: borderRadius - 2,
-                    backgroundColor: (active) ? colors.activeColor : colors.inActiveColor
-                })} />
-            <Tab.Item
-                title={"Pro 3 Month"}
-                titleStyle={(active) => ({ color: (active) ? "#FFF" : "#000" })}
-                buttonStyle={(active) => ({
-                    width: "100%", height: "100%", borderRadius: borderRadius - 2,
-                    backgroundColor: (active) ? colors.activeColor : colors.inActiveColor
-                })} />
-            <Tab.Item
-                title={"Pro 6 Month"}
-                titleStyle={(active) => ({ color: (active) ? "#FFF" : "#000" })}
-                buttonStyle={(active) => ({
-                    width: "100%", height: "100%", borderRadius: borderRadius - 2,
-                    backgroundColor: (active) ? colors.activeColor : colors.inActiveColor
-                })} />
-            <Tab.Item
-                title={"Pro 1 Year"}
-                titleStyle={(active) => ({ color: (active) ? "#FFF" : "#000" })}
-                buttonStyle={(active) => ({
-                    width: "100%", height: "100%", borderRadius: borderRadius - 2,
-                    backgroundColor: (active) ? colors.activeColor : colors.inActiveColor
-                })} />
+            {
+                payDictKey.map((term, ind) => {
+                    return (
+                        <Tab.Item key={ind}
+                            title={term}
+                            titleStyle={(active) => ({ color: (active) ? "#FFF" : "#000" })}
+                            buttonStyle={(active) => ({
+                                width: "100%", height: "100%", borderRadius: borderRadius - 2,
+                                backgroundColor: (active) ? colors.activeColor : colors.inActiveColor
+                            })} />
+
+                    )
+                })
+            }
         </Tab>
     )
 }
@@ -159,145 +196,54 @@ function Detail(props) {
     )
 }
 
+function usePayDict() {
+    const [dict, setDict] = useState({});
+    const [data, setData] = useState([]);
+    const [key, setKey] = useState([]);
+
+    useEffect(() => {
+        if (data.length > 0) {
+            let arr = [...data];
+
+            arr = arr.map(obj => {
+
+                const { Image } = obj.data;
+                return {
+                    ...obj,
+                    data: {
+                        ...obj.data,
+                        img: { uri: Image }
+                    }
+                }
+            })
+
+            let aDict = {};
+
+            for (let obj of arr) {
+                const { key } = obj;
+                aDict[key] = obj;
+            }
+
+            let keys = Object.keys(aDict);
+            setKey(keys);
+
+            setDict(aDict);
+        }
+    }, [data]);
+
+    return [dict, setData, key];
+}
+
 function TPBody(props) {
 
     const navigation = useNavigation();
 
-    const { inverse = false, title = "Pro 1 Month" } = props;
+    const { inverse = false, title = "Pro 1 Month", hook = [] } = props;
 
-    const payDict = {
-        "Pro 1 Month": {
-            title: "Professional (1 Month)",
-            detail: [
-                "1 Hr Interval Data Retrieval",
-                "1 Month Secure Data Storage",
-                "24 Hr Support",
-                "20 Devices",
-                "Email Archiving",
-            ],
-            data: {
-                "Code": "MSPP0100",
-                "Name": "Pro Subscription",
-                "Description": "Pro Subscription for 1 Month",
-                "Duration": 1,
-                "Price": 39.99,
-                "GroupCode": null,
-                "TypeCode": "MSP_SP",
-                "DurationTypeCode": "DT_MM",
-                "ModuleCode": null,
-                "MetaData": null,
-                "Status": 1,
-                "Remark": "",
-                "Created_By": "System",
-                "Created_Date": "2023-11-08T15:10:45",
-                "Last_Updated_By": "System",
-                "Last_Updated_Date": "2023-11-08T15:10:45",
-                "Image": "https://i.imgur.com/nQCj6ea.png",
-                img: { uri: "https://i.imgur.com/nQCj6ea.png" }
-            },
-            price: 39.99,
-            priceTerm: "Monthly",
-            showBtn: true,
-        },
-        "Pro 3 Month": {
-            title: "Professional (3 Month)",
-            detail: [
-                "1 Hr Interval Data Retrieval",
-                "3 Month Secure Data Storage",
-                "24 Hr Support",
-                "20 Devices",
-                "Email Archiving",
-            ],
-            data: {
-                "Code": "MSPP0300",
-                "Name": "Pro Subscription",
-                "Description": "Pro Subscription for 3 Month",
-                "Duration": 3,
-                "Price": 39.99,
-                "GroupCode": null,
-                "TypeCode": "MSP_SP",
-                "DurationTypeCode": "DT_MM",
-                "ModuleCode": null,
-                "MetaData": null,
-                "Status": 1,
-                "Remark": "",
-                "Created_By": "System",
-                "Created_Date": "2023-11-08T15:10:45",
-                "Last_Updated_By": "System",
-                "Last_Updated_Date": "2023-11-08T15:10:45",
-                "Image": "https://i.imgur.com/nQCj6ea.png",
-                img: { uri: "https://i.imgur.com/nQCj6ea.png" }
-            },
-            price: 39.99 * 3,
-            priceTerm: "Quarterly",
-            showBtn: true,
-        },
-        "Pro 6 Month": {
-            title: "Professional (6 Month)",
-            detail: [
-                "Real-Time Data Analysis",
-                "6 Months Secure Data Storage",
-                "24 / 7 Live Support",
-                "50 Devices",
-                "Email Archiving",
-            ],
-            data: {
-                "Code": "MSPP0600",
-                "Name": "Pro Subscription",
-                "Description": "Pro Subscription for 6 Month",
-                "Duration": 6,
-                "Price": 39.99,
-                "GroupCode": null,
-                "TypeCode": "MSP_SP",
-                "DurationTypeCode": "DT_MM",
-                "ModuleCode": null,
-                "MetaData": null,
-                "Status": 1,
-                "Remark": "",
-                "Created_By": "System",
-                "Created_Date": "2023-11-08T15:10:45",
-                "Last_Updated_By": "System",
-                "Last_Updated_Date": "2023-11-08T15:10:45",
-                "Image": "https://i.imgur.com/nQCj6ea.png",
-                img: { uri: "https://i.imgur.com/nQCj6ea.png" }
-            },
-            price: 39.99 * 6,
-            priceTerm: "Half-Yearly",
-            showBtn: true,
-        },
-        "Pro 1 Year": {
-            title: "Professional (1 Year)",
-            detail: [
-                "Real-Time Data Analysis",
-                "1-Year Secure Data Storage",
-                "24 / 7 Live Support",
-                "50 Devices",
-                "Email Archiving",
-            ],
-            data: {
-                "Code": "MSPP1000",
-                "Name": "Pro Subscription",
-                "Description": "Pro Subscription for 1 Year",
-                "Duration": 1,
-                "Price": 39.99,
-                "GroupCode": null,
-                "TypeCode": "MSP_SP",
-                "DurationTypeCode": "DT_YY",
-                "ModuleCode": null,
-                "MetaData": null,
-                "Status": 1,
-                "Remark": "",
-                "Created_By": "System",
-                "Created_Date": "2023-11-08T15:10:45",
-                "Last_Updated_By": "System",
-                "Last_Updated_Date": "2023-11-08T15:10:45",
-                "Image": "https://i.imgur.com/nQCj6ea.png",
-                img: { uri: "https://i.imgur.com/nQCj6ea.png" }
-            },
-            price: 39.99 * 12,
-            priceTerm: "Annually",
-            showBtn: true,
-        }
+    const [payDict, setPayDict, payDictKey] = hook;
+
+    if (payDictKey.length == 0) {
+        return <></>
     }
 
     const obj = payDict[title];
@@ -486,10 +432,38 @@ function Index(props) {
     const navigation = useNavigation();
     const isFocused = useIsFocused();
 
+    const userId = useSelector(Selectors.userIdSelect);
+
     const [loading, setLoading, toggleLoading] = useToggle(false);
 
     const tpHook = useTabPane(0);
     const [tpInd, setTpInd, onChangeTpInd] = tpHook;
+
+    const payDictHook = usePayDict();
+    const [payDict, setPayDict, payDictKey] = payDictHook;
+
+    useEffect(() => {
+        if (isFocused) {
+            SubscriptionProPlan();
+        }
+    }, [isFocused]);
+
+    const SubscriptionProPlan = () => {
+        setLoading(true);
+        fetchSubscriptionProPlan({
+            param: {
+                UserId: userId
+            },
+            onSetLoading: setLoading
+        })
+            .then(data => {
+                setPayDict(data);
+            })
+            .catch(err => {
+                setLoading(false);
+                console.log(`Error: ${err}`);
+            })
+    }
 
     return (
         <>
@@ -506,20 +480,29 @@ function Index(props) {
                     <ScrollView showsVerticalScrollIndicator={false}
                         keyboardShouldPersistTaps={"handled"}
                         contentContainerStyle={{ flexGrow: 1 }}>
-                        <VStack space={3} flexGrow={1}>
-                            {/* Tab Header */}
-                            <View alignItems={"center"}>
-                                <TPHeader hook={tpHook} colors={colors} />
-                            </View>
+                        {
+                            (payDictKey.length > 0) ? (
+                                <VStack space={3} flexGrow={1}>
+                                    {/* Tab Header */}
+                                    <View alignItems={"center"}>
+                                        <TPHeader hook={tpHook} colors={colors} payDictHook={payDictHook} />
+                                    </View>
 
-                            {/* Tab Body */}
-                            <TabView value={tpInd} onChange={onChangeTpInd}>
-                                <TPBody title={"Pro 1 Month"} inverse={false} />
-                                <TPBody title={"Pro 3 Month"} inverse={true} />
-                                <TPBody title={"Pro 6 Month"} inverse={false} />
-                                <TPBody title={"Pro 1 Year"} inverse={true} />
-                            </TabView>
-                        </VStack>
+                                    {/* Tab Body */}
+                                    <TabView value={tpInd} onChange={onChangeTpInd}>
+                                        {
+                                            payDictKey.map((term, ind) => {
+                                                return (
+                                                    <TPBody key={ind} title={term} inverse={ind % 2 == 1} hook={payDictHook} />
+                                                )
+                                            })
+                                        }
+                                    </TabView>
+                                </VStack>
+                            ) : (
+                                <EmptyList />
+                            )
+                        }
                     </ScrollView>
 
                     {/* Footer */}

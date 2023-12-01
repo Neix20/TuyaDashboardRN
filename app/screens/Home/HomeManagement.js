@@ -2,7 +2,9 @@ import React, { useState, useEffect } from "react";
 import { Text, TouchableOpacity, SafeAreaView, ScrollView, FlatList } from "react-native";
 import { View, VStack, HStack, useToast } from "native-base";
 
+import FontAwesome from "react-native-vector-icons/FontAwesome";
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
+
 import { useNavigation, useIsFocused } from "@react-navigation/native";
 
 import { Logger, Utility } from "@utility";
@@ -15,6 +17,25 @@ import { fetchHomeList } from "@api";
 
 import { useDispatch, useSelector } from 'react-redux';
 import { Actions, Selectors } from '@redux';
+
+function EmptyList(props) {
+    return (
+        <View flexGrow={1} justifyContent={"center"} alignItems={"center"}>
+            <VStack space={2} width={"90%"} alignItems={"center"}>
+                <FontAwesome name={"home"} color={"#e6e6e6"} size={80} />
+                <Text style={{
+                    fontFamily: "Roboto-Medium",
+                    fontSize: 18,
+                    color: "#d3d3d3",
+                    textAlign: "center",
+                    fontWeight: "700"
+                }}>
+                    Please Add Home to your SmartLife Account
+                </Text>
+            </VStack>
+        </View>
+    )
+}
 
 // #region Components
 function HomeList(props) {
@@ -46,7 +67,7 @@ function HomeList(props) {
     // #endregion
 
     if (data.length == 0) {
-        return (<></>)
+        return (<EmptyList />)
     }
 
     return (
@@ -125,7 +146,7 @@ function Index(props) {
         <>
             <BcLoading loading={loading} />
             <SafeAreaView style={{ flex: 1 }}>
-                <View style={{ flex: 1 }}>
+                <View bgColor={"#F6F6F6"} style={{ flex: 1 }}>
                     {/* Header */}
                     <BcHeader>Home Management</BcHeader>
 

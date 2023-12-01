@@ -133,27 +133,27 @@ function Index(props) {
                                 textAlign: "justify"
                             }}>{data}</Text>
                         </View>
-
-                        <TouchableOpacity onPress={goBack}>
-                            <HStack
-                                bgColor={"#2898FF"}
-                                borderRadius={8}
-                                alignItems={"center"}
-                                justifyContent={"center"}
-                                style={{ width: 120, height: 40 }}>
-                                <Text style={{
-                                    fontFamily: "Roboto-Medium",
-                                    fontSize: 20,
-                                    textAlign: "center",
-                                    color: "#FFF",
-                                }}>Back</Text>
-                            </HStack>
-                        </TouchableOpacity>
                     </VStack>
                 </ScrollView>
 
                 {/* Footer */}
-                <View style={{ height: 60 }} />
+                <View alignItems={"center"} justifyContent={"center"} style={{ height: 60 }}>
+                    <TouchableOpacity onPress={goBack}>
+                        <HStack
+                            bgColor={"#2898FF"}
+                            borderRadius={8}
+                            alignItems={"center"}
+                            justifyContent={"center"}
+                            style={{ width: 120, height: 40 }}>
+                            <Text style={{
+                                fontFamily: "Roboto-Medium",
+                                fontSize: 20,
+                                textAlign: "center",
+                                color: "#FFF",
+                            }}>Back</Text>
+                        </HStack>
+                    </TouchableOpacity>
+                </View>
             </View>
         </SafeAreaView>
     );

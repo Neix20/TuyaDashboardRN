@@ -76,6 +76,8 @@ import fetchSubUserInfo from "./fetchSubUserInfo";
 import fetchLinkSubUser from "./fetchLinkSubUser";
 import fetchCheckTuyaEmail from "./fetchCheckTuyaEmail";
 
+import fetchSubscriptionProPlan from "./fetchSubscriptionProPlan";
+
 export {
     fetchHomeList,
     fetchHomeInfo,
@@ -174,5 +176,6 @@ export {
     fetchSubscription,
     fetchSubUserInfo,
     fetchLinkSubUser,
-    fetchCheckTuyaEmail
+    fetchCheckTuyaEmail,
+    fetchSubscriptionProPlan
 }
