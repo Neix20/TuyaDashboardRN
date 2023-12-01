@@ -122,7 +122,7 @@ function ProfilePremium(props) {
             },
             2: {
                 color: "#2898FF",
-                term: "Standard"
+                term: "Professional (Trial)"
             },
             3: {
                 color: "#FFAA00",
@@ -192,14 +192,13 @@ function Profile(props) {
 
 function ProfileInfo(props) {
 
-    const { Created_Date = "2023-07-01", DataAvailableDate = "2023-07-01" } = props;
+    const { Created_Date = "2023-07-01", DataAvailableDate = "2023-07-01", ExpiryDate = "2023-07-01" } = props;
 
     return (
         <VStack bgColor={"#FFF"} borderRadius={8} width={"90%"} alignItems={"center"}>
-            <PanelBtnII
-                Btn={FontAwesome} icon={"user"} title={"Joined in " + Utility.formatDt(Created_Date, "yyyy-MM-dd")} />
-            <PanelBtnII
-                Btn={FontAwesome5} icon={"database"} title={"Data available from " + Utility.formatDt(DataAvailableDate, "yyyy-MM-dd")} />
+            <PanelBtnII Btn={FontAwesome} icon={"user"} title={"Joined in " + Utility.formatDt(Created_Date, "yyyy-MM-dd")} />
+            <PanelBtnII Btn={FontAwesome5} icon={"user-alt-slash"} title={"Expires In " + Utility.formatDt(ExpiryDate, "yyyy-MM-dd")} />
+            <PanelBtnII Btn={FontAwesome5} icon={"database"} title={"Data available from " + Utility.formatDt(DataAvailableDate, "yyyy-MM-dd")} />
         </VStack>
     )
 }
@@ -375,6 +374,9 @@ function Index(props) {
 
     const userId = useSelector(Selectors.userIdSelect);
 
+    const subUserAccess = useSelector(Selectors.subUserAccessSelect);
+    const { AccountType = -1 } = subUserAccess;
+
     // #region UseState
     const [profileInfo, setProfileInfo] = useState({});
     const [loading, setLoading] = useState(false);
@@ -462,8 +464,7 @@ function Index(props) {
 
                             {/* <AppInfoPanel /> */}
 
-                            {/* {(AccountType <= 1) ? <PaymentSubscriptionPanel /> : <></>} */}
-                            <PaymentSubscriptionPanel />
+                            {(AccountType <= 2) ? <PaymentSubscriptionPanel /> : <></>}
 
                             {/* View Subscription Order */}
                             <SubscribedAddons />

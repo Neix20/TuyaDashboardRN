@@ -81,14 +81,28 @@ function TPHeader(props) {
                 backgroundColor: "#FFF"
             }}>
             <Tab.Item
-                title={"Basic"}
+                title={"Pro 1 Month"}
                 titleStyle={(active) => ({ color: (active) ? "#FFF" : "#000" })}
                 buttonStyle={(active) => ({
                     width: "100%", height: "100%", borderRadius: borderRadius - 2,
                     backgroundColor: (active) ? colors.activeColor : colors.inActiveColor
                 })} />
             <Tab.Item
-                title={"Professional"}
+                title={"Pro 3 Month"}
+                titleStyle={(active) => ({ color: (active) ? "#FFF" : "#000" })}
+                buttonStyle={(active) => ({
+                    width: "100%", height: "100%", borderRadius: borderRadius - 2,
+                    backgroundColor: (active) ? colors.activeColor : colors.inActiveColor
+                })} />
+            <Tab.Item
+                title={"Pro 6 Month"}
+                titleStyle={(active) => ({ color: (active) ? "#FFF" : "#000" })}
+                buttonStyle={(active) => ({
+                    width: "100%", height: "100%", borderRadius: borderRadius - 2,
+                    backgroundColor: (active) ? colors.activeColor : colors.inActiveColor
+                })} />
+            <Tab.Item
+                title={"Pro 1 Year"}
                 titleStyle={(active) => ({ color: (active) ? "#FFF" : "#000" })}
                 buttonStyle={(active) => ({
                     width: "100%", height: "100%", borderRadius: borderRadius - 2,
@@ -149,59 +163,150 @@ function TPBody(props) {
 
     const navigation = useNavigation();
 
-    const { inverse = false, title = "Basic" } = props;
+    const { inverse = false, title = "Pro 1 Month" } = props;
 
     const payDict = {
-        "Basic": {
+        "Pro 1 Month": {
+            title: "Professional (1 Month)",
             detail: [
-                "6 Hr Interval Data Retrieval",
-                "3 Months Data Storage",
-                "48 Hr Support",
+                "1 Hr Interval Data Retrieval",
+                "1 Month Secure Data Storage",
+                "24 Hr Support",
                 "20 Devices",
                 "Email Archiving",
             ],
-            price: 0,
+            data: {
+                "Code": "MSPP0100",
+                "Name": "Pro Subscription",
+                "Description": "Pro Subscription for 1 Month",
+                "Duration": 1,
+                "Price": 39.99,
+                "GroupCode": null,
+                "TypeCode": "MSP_SP",
+                "DurationTypeCode": "DT_MM",
+                "ModuleCode": null,
+                "MetaData": null,
+                "Status": 1,
+                "Remark": "",
+                "Created_By": "System",
+                "Created_Date": "2023-11-08T15:10:45",
+                "Last_Updated_By": "System",
+                "Last_Updated_Date": "2023-11-08T15:10:45",
+                "Image": "https://i.imgur.com/nQCj6ea.png",
+                img: { uri: "https://i.imgur.com/nQCj6ea.png" }
+            },
+            price: 39.99,
+            priceTerm: "Monthly",
+            showBtn: true,
         },
-        "Professional": {
+        "Pro 3 Month": {
+            title: "Professional (3 Month)",
+            detail: [
+                "1 Hr Interval Data Retrieval",
+                "3 Month Secure Data Storage",
+                "24 Hr Support",
+                "20 Devices",
+                "Email Archiving",
+            ],
+            data: {
+                "Code": "MSPP0300",
+                "Name": "Pro Subscription",
+                "Description": "Pro Subscription for 3 Month",
+                "Duration": 3,
+                "Price": 39.99,
+                "GroupCode": null,
+                "TypeCode": "MSP_SP",
+                "DurationTypeCode": "DT_MM",
+                "ModuleCode": null,
+                "MetaData": null,
+                "Status": 1,
+                "Remark": "",
+                "Created_By": "System",
+                "Created_Date": "2023-11-08T15:10:45",
+                "Last_Updated_By": "System",
+                "Last_Updated_Date": "2023-11-08T15:10:45",
+                "Image": "https://i.imgur.com/nQCj6ea.png",
+                img: { uri: "https://i.imgur.com/nQCj6ea.png" }
+            },
+            price: 39.99 * 3,
+            priceTerm: "Quarterly",
+            showBtn: true,
+        },
+        "Pro 6 Month": {
+            title: "Professional (6 Month)",
+            detail: [
+                "Real-Time Data Analysis",
+                "6 Months Secure Data Storage",
+                "24 / 7 Live Support",
+                "50 Devices",
+                "Email Archiving",
+            ],
+            data: {
+                "Code": "MSPP0600",
+                "Name": "Pro Subscription",
+                "Description": "Pro Subscription for 6 Month",
+                "Duration": 6,
+                "Price": 39.99,
+                "GroupCode": null,
+                "TypeCode": "MSP_SP",
+                "DurationTypeCode": "DT_MM",
+                "ModuleCode": null,
+                "MetaData": null,
+                "Status": 1,
+                "Remark": "",
+                "Created_By": "System",
+                "Created_Date": "2023-11-08T15:10:45",
+                "Last_Updated_By": "System",
+                "Last_Updated_Date": "2023-11-08T15:10:45",
+                "Image": "https://i.imgur.com/nQCj6ea.png",
+                img: { uri: "https://i.imgur.com/nQCj6ea.png" }
+            },
+            price: 39.99 * 6,
+            priceTerm: "Half-Yearly",
+            showBtn: true,
+        },
+        "Pro 1 Year": {
+            title: "Professional (1 Year)",
             detail: [
                 "Real-Time Data Analysis",
                 "1-Year Secure Data Storage",
                 "24 / 7 Live Support",
-                "Unlimited Devices",
+                "50 Devices",
                 "Email Archiving",
             ],
-            price: 69.99,
+            data: {
+                "Code": "MSPP1000",
+                "Name": "Pro Subscription",
+                "Description": "Pro Subscription for 1 Year",
+                "Duration": 1,
+                "Price": 39.99,
+                "GroupCode": null,
+                "TypeCode": "MSP_SP",
+                "DurationTypeCode": "DT_YY",
+                "ModuleCode": null,
+                "MetaData": null,
+                "Status": 1,
+                "Remark": "",
+                "Created_By": "System",
+                "Created_Date": "2023-11-08T15:10:45",
+                "Last_Updated_By": "System",
+                "Last_Updated_Date": "2023-11-08T15:10:45",
+                "Image": "https://i.imgur.com/nQCj6ea.png",
+                img: { uri: "https://i.imgur.com/nQCj6ea.png" }
+            },
+            price: 39.99 * 12,
+            priceTerm: "Annually",
+            showBtn: true,
         }
     }
 
     const obj = payDict[title];
 
-    const { price = 0, detail = [] } = obj;
+    const { price = 0, detail = [], priceTerm = "", title: oTitle = "", data: oData = {}, showBtn = false } = obj;
 
     const GoToPayment = () => {
         navigation.navigate("Payment", {
-            data: [
-                {
-                    "Code": "MSPP1000",
-                    "Name": "Pro Subscription",
-                    "Description": "Pro Subscription for 1 Year",
-                    "Duration": 1,
-                    "Price": 69.99,
-                    "GroupCode": null,
-                    "TypeCode": "MSP_SP",
-                    "DurationTypeCode": "DT_YY",
-                    "ModuleCode": null,
-                    "MetaData": null,
-                    "Status": 1,
-                    "Remark": "",
-                    "Created_By": "System",
-                    "Created_Date": "2023-11-08T15:10:45",
-                    "Last_Updated_By": "System",
-                    "Last_Updated_Date": "2023-11-08T15:10:45",
-                    "Image": "https://i.imgur.com/nQCj6ea.png",
-                    img: { uri: "https://i.imgur.com/nQCj6ea.png"}
-                }
-            ]
+            data: [oData]
         });
     }
 
@@ -219,7 +324,7 @@ function TPBody(props) {
                                 fontFamily: "Roboto-Bold",
                                 fontSize: 20,
                                 color: "#FFF"
-                            }}>{title}</Text>
+                            }}>{oTitle}</Text>
                         </View>
 
                         {/* Logo */}
@@ -237,31 +342,47 @@ function TPBody(props) {
 
                     {/* Price */}
                     <View alignItems={"center"}>
-                        <Text style={{
-                            fontFamily: "Roboto-Bold",
-                            fontSize: 24,
-                            color: "#FFF"
-                        }}>RM {price.toFixed(2)} | Monthly</Text>
+                        {
+                            (price == 0) ? (
+                                <Text style={{
+                                    fontFamily: "Roboto-Bold",
+                                    fontSize: 24,
+                                    color: "#FFF"
+                                }}>Free | {priceTerm}</Text>
+                            ) : (
+                                <Text style={{
+                                    fontFamily: "Roboto-Bold",
+                                    fontSize: 24,
+                                    color: "#FFF"
+                                }}>RM {price.toFixed(2)} | {priceTerm}</Text>
+                            )
+                        }
                     </View>
 
                     {/* Buy Now Button */}
-                    <View alignItems={"center"}>
-                        <TouchableOpacity onPress={GoToPayment}>
-                            <HStack
-                                bgColor={"#FFF"}
-                                borderRadius={8}
-                                alignItems={"center"}
-                                justifyContent={"center"}
-                                style={{ width: 120, height: 40 }}>
-                                <Text style={{
-                                    fontFamily: "Roboto-Medium",
-                                    fontSize: 20,
-                                    textAlign: "center",
-                                    color: "#000",
-                                }}>Buy Now</Text>
-                            </HStack>
-                        </TouchableOpacity>
-                    </View>
+                    {
+                        (showBtn) ? (
+                            <View alignItems={"center"}>
+                                <TouchableOpacity onPress={GoToPayment}>
+                                    <HStack
+                                        bgColor={"#FFF"}
+                                        borderRadius={8}
+                                        alignItems={"center"}
+                                        justifyContent={"center"}
+                                        style={{ width: 120, height: 40 }}>
+                                        <Text style={{
+                                            fontFamily: "Roboto-Medium",
+                                            fontSize: 20,
+                                            textAlign: "center",
+                                            color: "#000",
+                                        }}>Buy Now</Text>
+                                    </HStack>
+                                </TouchableOpacity>
+                            </View>
+                        ) : (
+                            <View style={{ height: 40 }} />
+                        )
+                    }
 
                 </VStack>
             </TabView.Item>
@@ -280,7 +401,7 @@ function TPBody(props) {
                         <Text style={{
                             fontFamily: "Roboto-Bold",
                             fontSize: 20
-                        }}>{title}</Text>
+                        }}>{oTitle}</Text>
                     </View>
 
                     {/* Logo */}
@@ -298,14 +419,45 @@ function TPBody(props) {
 
                 {/* Price */}
                 <View alignItems={"center"}>
-                    <Text style={{
-                        fontFamily: "Roboto-Bold",
-                        fontSize: 24
-                    }}>Free | Yearly</Text>
+                    {
+                        (price == 0) ? (
+                            <Text style={{
+                                fontFamily: "Roboto-Bold",
+                                fontSize: 24,
+                            }}>Free | {priceTerm}</Text>
+                        ) : (
+                            <Text style={{
+                                fontFamily: "Roboto-Bold",
+                                fontSize: 24
+                            }}>RM {price.toFixed(2)} | {priceTerm}</Text>
+                        )
+                    }
                 </View>
 
                 {/* Buy Now Button */}
-                <View style={{ height: 40 }} />
+                {
+                    (showBtn) ? (
+                        <View alignItems={"center"}>
+                            <TouchableOpacity onPress={GoToPayment}>
+                                <HStack
+                                    bgColor={"#2898FF"}
+                                    borderRadius={8}
+                                    alignItems={"center"}
+                                    justifyContent={"center"}
+                                    style={{ width: 120, height: 40 }}>
+                                    <Text style={{
+                                        fontFamily: "Roboto-Medium",
+                                        fontSize: 20,
+                                        textAlign: "center",
+                                        color: "#FFF",
+                                    }}>Buy Now</Text>
+                                </HStack>
+                            </TouchableOpacity>
+                        </View>
+                    ) : (
+                        <View style={{ height: 40 }} />
+                    )
+                }
 
             </VStack>
         </TabView.Item>
@@ -362,8 +514,10 @@ function Index(props) {
 
                             {/* Tab Body */}
                             <TabView value={tpInd} onChange={onChangeTpInd}>
-                                <TPBody title={"Basic"} />
-                                <TPBody title={"Professional"} inverse={true} />
+                                <TPBody title={"Pro 1 Month"} inverse={false} />
+                                <TPBody title={"Pro 3 Month"} inverse={true} />
+                                <TPBody title={"Pro 6 Month"} inverse={false} />
+                                <TPBody title={"Pro 1 Year"} inverse={true} />
                             </TabView>
                         </VStack>
                     </ScrollView>

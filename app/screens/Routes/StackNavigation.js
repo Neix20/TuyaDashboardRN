@@ -35,6 +35,7 @@ import AddHome from "@screens/Home/AddHome";
 
 import Login from "@screens/Login";
 import AuthTuya from "@screens/AuthTuya";
+import AuthTuyaHighTraffic from "@screens/AuthTuya/HighTraffic";
 
 import UsageInfo from "@screens/UsageInfo";
 
@@ -208,6 +209,13 @@ StackScreens = {
     AuthTuya: {
         component: AuthTuya,
         title: "AuthTuya",
+        option: {
+            orientation: "portrait"
+        }
+    },
+    AuthTuyaHighTraffic: {
+        component: AuthTuyaHighTraffic,
+        title: "AuthTuyaHighTraffic",
         option: {
             orientation: "portrait"
         }
@@ -521,10 +529,8 @@ function Index(props) {
     }
     // #endregion
 
-    // const defaultScreen = (userId == -1 || firstTimeLink) ? "LoginII" : "TabNavigation";
-    // const defaultScreen = "CheckTuyaEmail";
-
-    const defaultScreen = "ThankYou";
+    const defaultScreen = (userId == -1 || firstTimeLink) ? "LoginII" : "TabNavigation";
+    // const defaultScreen = "AuthTuyaHighTraffic";
 
     return (
         <>

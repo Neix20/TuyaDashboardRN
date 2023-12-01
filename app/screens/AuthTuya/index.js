@@ -239,10 +239,11 @@ function Index(props) {
                     setRefLink(AuthCode);
                     setTimer(60);
                 } else {
-                    toast.show({
-                        description: AuthCode
-                    });
-                    navigation.navigate("LoginII");
+                    // toast.show({
+                    //     description: AuthCode
+                    // });
+                    // navigation.navigate("LoginII");
+                    navigation.navigate("AuthTuyaHighTraffic", data)
                 }
             })
             .catch(err => {

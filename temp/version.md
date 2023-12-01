@@ -134,3 +134,12 @@
     2. Payment Subscription Support. Added Web Payment to facilitate Payment Services
     3. Yatu Add-Ons. Added Yatu Module Add-Ons to Enhance User Experience
 </en-US>
+
+#### Version 1.2.13
+------------------------
+<en-US>
+    Features Update:
+    1. Login Update: Improve User Authentication Flow
+    2. Payment Subscription Support. Modified Subscription to "Basic" & "Professional Packages"
+    3. Yatu Add-Ons. Added Yatu Module Add-Ons to Enhance User Experience
+</en-US>
