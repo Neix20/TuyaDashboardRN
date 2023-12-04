@@ -139,7 +139,13 @@
 ------------------------
 <en-US>
     Features Update:
-    1. Login Update: Improve User Authentication Flow
-    2. Payment Subscription Support. Modified Subscription to "Basic" & "Professional Packages"
-    3. Yatu Add-Ons. Added Yatu Module Add-Ons to Enhance User Experience
+    1. New User Fixes:
+       1. Improve Tuya User Authentication Flow. Ensures User whom joined Yatu App Are registered SmartLife Users
+       2. Implemented Tuya Queue System. Show "High Traffic Alert" when multiple user authenticate Server.
+       3. Profile Update. Added Subscription Expiry Date and Account Type.
+    2. Payment Subscription Support:
+       1. Modifed Subscription to "Basic", "Professional" Packages
+       2. Show 4 Time Based "Professional" Packages for User.
+    3. Yatu Add-Ons Support:
+       1. Added Yatu Module Add-Ons to Enhance User Experience.
 </en-US>

@@ -130,10 +130,10 @@ function InfoPanel(props) {
                 <InfoItem Title={"Auto-Renewal"} Value={autoRenewal} />
                 <Divider bgColor={"#EBEBEB"} my={2} width={"90%"} />
 
-                <InfoItem Title={"Date Purchased"} Value={Utility.formatDt(InitialDate, "yyyy-MM-dd HH:mm a")} />
+                <InfoItem Title={"Date Purchased"} Value={Utility.formatDt(InitialDate, "yyyy-MM-dd")} />
                 <Divider bgColor={"#EBEBEB"} my={2} width={"90%"} />
 
-                <InfoItem Title={"Date Expired"} Value={Utility.formatDt(ExpiryDate, "yyyy-MM-dd HH:mm a")} />
+                <InfoItem Title={"Date Expired"} Value={Utility.formatDt(ExpiryDate, "yyyy-MM-dd")} />
                 <Divider bgColor={"#EBEBEB"} my={2} width={"90%"} />
             </View>
         </BcBoxShadow>

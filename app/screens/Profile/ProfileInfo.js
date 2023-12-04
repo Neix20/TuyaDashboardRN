@@ -130,7 +130,6 @@ function InfoPanel(props) {
                 <InfoItem Title={"Email"} Value={Email} Placeholder={"xxx@gmail.com"} />
                 <InfoItem Title={"Name"} Value={Username} onChangeValue={onChangeUsername} Placeholder={"Name"} />
                 <InfoItem Title={"MobileNo"} Value={MobileNo} onChangeValue={onChangeMobileNo} Placeholder={"+60 XXX-XXXX"} />
-                <InfoItem Title={"Account"} Value={term} Editable={false} />
             </View>
         </BcBoxShadow>
     )

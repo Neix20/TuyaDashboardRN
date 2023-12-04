@@ -59,7 +59,7 @@ function useSubLs() {
 }
 
 function PaymentBodyItem(props) {
-    const { data = {}, onPress = () => {} } = props;
+    const { data = {}, onPress = () => { } } = props;
     const { Name, Description, img, flag = true } = data;
     const { InitialDate = "", ExpiryDate = "" } = data;
 
@@ -82,29 +82,31 @@ function PaymentBodyItem(props) {
                             }}
                             alt={Name}
                         />
-                        <VStack px={3} flex={1}
-                            space={2} style={{ height: 100 }}>
-                            <Text style={{
-                                fontFamily: "Roboto-Bold",
-                                fontSize: 16,
-                            }}>{Name}</Text>
-                            <Text>{Description}</Text>
+                        <VStack px={3} py={2} flex={1} 
+                            justifyContent={"space-between"}
+                            style={{ height: 100 }}>
+                            <VStack space={2}>
+                                <Text style={{
+                                    fontFamily: "Roboto-Bold",
+                                    fontSize: 16,
+                                }}>{Name}</Text>
+                                <Text>{Description}</Text>
+                            </VStack>
                             <VStack>
-                                <HStack alignItems={"center"} justifyContent={"space-between"}>
+                                {/* <HStack alignItems={"center"} justifyContent={"space-between"}>
                                     <Text style={{
                                         fontFamily: "Roboto-Bold",
                                         fontSize: 14
                                     }}>Purchase Date: </Text>
                                     <Text>{Utility.formatDt(InitialDate, "yyyy-MM-dd 00:00")}</Text>
-                                </HStack>
+                                </HStack> */}
                                 <HStack alignItems={"center"} justifyContent={"space-between"}>
                                     <Text style={{
                                         fontFamily: "Roboto-Bold",
                                         fontSize: 14
                                     }}>Expiry Date: </Text>
-                                    <Text>{Utility.formatDt(ExpiryDate, "yyyy-MM-dd hh:mm")}</Text>
+                                    <Text>{Utility.formatDt(ExpiryDate, "yyyy-MM-dd")}</Text>
                                 </HStack>
-
                             </VStack>
                         </VStack>
                     </HStack>
@@ -116,7 +118,7 @@ function PaymentBodyItem(props) {
 }
 
 function PaymentBody(props) {
-    
+
     const { data = [] } = props;
 
     const navigation = useNavigation();

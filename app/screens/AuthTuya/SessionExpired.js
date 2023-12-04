@@ -66,40 +66,14 @@ function Header(props) {
     )
 }
 
-function useAuthEmail() {
-    const [msg, setMsg] = useState("");
-    const [data, setData] = useState("");
-
-    useEffect(() => {
-        if (data.length > 0) {
-            let txt = data;
-            txt = txt.replace(/<br\/>/g, "\n");
-
-            setMsg(_ => txt);
-        }
-    }, [data]);
-
-    return [msg, setData];
-}
-
 function Index(props) {
+
     const toast = useToast();
     const navigation = useNavigation();
     const isFocused = useIsFocused();
 
-    let { AuthEmail = "" } = props.route.params;
-    // const AuthEmail = "";
-
-    const [data, setData] = useState("");
-
-    useEffect(() => {
-        if (AuthEmail.length > 0) {
-            let txt = AuthEmail;
-            txt = txt.replace(/<br\/>/g, "");
-
-            setData(_ => txt);
-        }
-    }, [AuthEmail])
+    const { Message = "" } = props.route.params;
+    // const Message = "";
 
     const goBack = () => {
         navigation.navigate("LoginII");
@@ -108,13 +82,13 @@ function Index(props) {
     return (
         <SafeAreaView style={{ flex: 1 }}>
             <ImageBackground
-                source={Images.sunsetBg}
+                source={Images.sunsetBgII}
                 resizeMode={"cover"}
                 style={{ flex: 1, opacity: 0.4 }} />
             <View position={"absolute"} style={{ top: 0, bottom: 0, left: 0, right: 0 }}>
 
                 {/* Header */}
-                <Header>High Traffic Queue System</Header>
+                <Header>Session Expired</Header>
 
                 <View style={{ height: 10 }} />
 
@@ -122,18 +96,28 @@ function Index(props) {
                 <ScrollView showsVerticalScrollIndicator={false}
                     keyboardShouldPersistTaps={"handled"}
                     contentContainerStyle={{ flexGrow: 1 }}>
-                    <VStack flexGrow={1}
-                        alignItems={"center"} justifyContent={"space-between"}
-                        width={"100%"} p={3} space={3}
-                        bgColor={"#FFF"}>
-                        <View flexGrow={1}>
-                            <Text style={{
-                                fontFamily: "Roboto-Medium",
-                                fontSize: 16,
-                                textAlign: "justify"
-                            }}>{data}</Text>
+                    <View flexGrow={1} justifyContent={"center"} alignItems={"center"}>
+                        <View width={"90%"}>
+                            <BcBoxShadow>
+                                <VStack alignItems={"center"} justifyContent={"center"}
+                                    p={3} space={3}
+                                    bgColor={"#FFF"} style={{ minHeight: 120 }}>
+                                    <VStack alignItems={"center"} space={1}>
+                                        <Text style={{
+                                            fontFamily: "Roboto-Bold",
+                                            fontSize: 18
+                                        }}>Your session has Expired!</Text>
+                                        <FontAwesome5 name={"user-clock"} color={"#F01421"} size={28} />
+                                    </VStack>
+                                    <Text style={{
+                                        fontFamily: "Roboto-Bold",
+                                        fontSize: 16,
+                                        textAlign: "justify"
+                                    }}>{Message}</Text>
+                                </VStack>
+                            </BcBoxShadow>
                         </View>
-                    </VStack>
+                    </View>
                 </ScrollView>
 
                 {/* Footer */}

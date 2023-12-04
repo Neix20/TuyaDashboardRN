@@ -74,24 +74,25 @@ function Index(props) {
                     keyboardShouldPersistTaps={"handled"}
                     contentContainerStyle={{ flexGrow: 1 }}>
                     <View flexGrow={1} justifyContent={"center"} alignItems={"center"}>
-                        <BcBoxShadow>
-                            <VStack alignItems={"center"} justifyContent={"center"}
-                                width={"80%"} p={3} space={3}
-                                bgColor={"#FFF"} style={{ minHeight: 120 }}>
-                                <VStack alignItems={"center"} space={1}>
+                        <View width={"90%"}>
+                            <BcBoxShadow>
+                                <VStack alignItems={"center"} justifyContent={"center"}
+                                    p={3} space={3}
+                                    bgColor={"#FFF"} style={{ minHeight: 120 }}>
+                                    <VStack alignItems={"center"} space={1}>
+                                        <Text style={{
+                                            fontFamily: "Roboto-Bold",
+                                            fontSize: 18
+                                        }}>Unsuccessful Payment</Text>
+                                        <FontAwesome name={"warning"} color={"#F01421"} size={28} />
+                                    </VStack>
                                     <Text style={{
                                         fontFamily: "Roboto-Bold",
-                                        fontSize: 18
-                                    }}>Unsuccessful Payment</Text>
-                                    <FontAwesome name={"warning"} color={"#F01421"} size={28} />
+                                        fontSize: 16
+                                    }}>Payment has Failed, Please Try Again</Text>
                                 </VStack>
-                                <Text style={{
-                                    fontFamily: "Roboto-Bold",
-                                    fontSize: 16
-                                }}>Payment has Failed, Please Try Again</Text>
-                            </VStack>
-                        </BcBoxShadow>
-
+                            </BcBoxShadow>
+                        </View>
                     </View>
                 </ScrollView>
 

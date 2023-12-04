@@ -36,6 +36,7 @@ import AddHome from "@screens/Home/AddHome";
 import Login from "@screens/Login";
 import AuthTuya from "@screens/AuthTuya";
 import AuthTuyaHighTraffic from "@screens/AuthTuya/HighTraffic";
+import AuthTuyaSessionExpired from "@screens/AuthTuya/SessionExpired";
 
 import UsageInfo from "@screens/UsageInfo";
 
@@ -216,6 +217,13 @@ StackScreens = {
     AuthTuyaHighTraffic: {
         component: AuthTuyaHighTraffic,
         title: "AuthTuyaHighTraffic",
+        option: {
+            orientation: "portrait"
+        }
+    },
+    AuthTuyaSessionExpired: {
+        component: AuthTuyaSessionExpired,
+        title: "AuthTuyaSessionExpired",
         option: {
             orientation: "portrait"
         }
@@ -457,11 +465,7 @@ function Index(props) {
             }
 
             if ("Action" in additionalData && additionalData["Action"] == "Data_Auth") {
-                const { Message = "" } = additionalData;
-                toast.show({
-                    description: Message
-                });
-                navigation.navigate("LoginII");
+                navigation.navigate("AuthTuyaSessionExpired", additionalData);
             }
 
             // Complete with null means don't show a notification.

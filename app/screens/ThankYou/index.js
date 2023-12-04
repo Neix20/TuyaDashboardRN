@@ -72,24 +72,25 @@ function Index(props) {
                     keyboardShouldPersistTaps={"handled"}
                     contentContainerStyle={{ flexGrow: 1 }}>
                     <View flexGrow={1} justifyContent={"center"} alignItems={"center"}>
-                        <BcBoxShadow>
-
-                            <VStack alignItems={"center"} justifyContent={"center"}
-                                width={"80%"} p={3} space={3}
-                                bgColor={"#FFF"} style={{ minHeight: 120 }}>
-                                <VStack alignItems={"center"} space={1}>
+                        <View width={"80%"}>
+                            <BcBoxShadow>
+                                <VStack alignItems={"center"} justifyContent={"center"}
+                                    p={3} space={3}
+                                    bgColor={"#FFF"} style={{ minHeight: 120 }}>
+                                    <VStack alignItems={"center"} space={1}>
+                                        <Text style={{
+                                            fontFamily: "Roboto-Bold",
+                                            fontSize: 18
+                                        }}>Payment Success!</Text>
+                                        <FontAwesome name={"check-circle"} size={48} color={"#39B54A"} />
+                                    </VStack>
                                     <Text style={{
                                         fontFamily: "Roboto-Bold",
-                                        fontSize: 18
-                                    }}>Payment Success!</Text>
-                                    <FontAwesome name={"check-circle"} size={48} color={"#39B54A"} />
+                                        fontSize: 16
+                                    }}>Thank you for making a purchase!</Text>
                                 </VStack>
-                                <Text style={{
-                                    fontFamily: "Roboto-Bold",
-                                    fontSize: 16
-                                }}>Thank you for making a purchase!</Text>
-                            </VStack>
-                        </BcBoxShadow>
+                            </BcBoxShadow>
+                        </View>
 
                     </View>
                 </ScrollView>
