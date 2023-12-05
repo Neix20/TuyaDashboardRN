@@ -71,3 +71,5 @@ android/app/yatuDeveloper/*
 *.zip
 temp/*
 OneSignal/*
+temp/session.sql
+temp/tmp.sql

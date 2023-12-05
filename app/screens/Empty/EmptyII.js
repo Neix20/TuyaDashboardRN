@@ -28,7 +28,6 @@ function Header(props) {
 }
 
 function Index(props) {
-
     const toast = useToast();
     const navigation = useNavigation();
     const isFocused = useIsFocused();
@@ -49,7 +48,7 @@ function Index(props) {
                     keyboardShouldPersistTaps={"handled"}
                     contentContainerStyle={{ flexGrow: 1 }}>
                     <VStack space={3} flexGrow={1} justifyContent={"center"} alignItems={"center"}>
-                        <Text>This is Empty Page</Text>
+                        <Text>This is Empty II Page</Text>
                         <TouchableOpacity onPress={openDrawer}
                             style={{ width: "60%", height: 40 }}>
                             <View flex={1} backgroundColor={"#F00"}

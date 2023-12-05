@@ -9,6 +9,7 @@ import { useNavigation } from "@react-navigation/native";
 import Debug from "@screens/Debug";
 
 import TabNavigation from "./TabNavigation";
+import DrawerNavigation from "./DrawerNavigation";
 
 import AboutUs from "@screens/AboutUs";
 
@@ -34,6 +35,8 @@ import HomeInfo from "@screens/Home/HomeInfo";
 import AddHome from "@screens/Home/AddHome";
 
 import Login from "@screens/Login";
+import LoginII from "@screens/Login/LoginII";
+
 import AuthTuya from "@screens/AuthTuya";
 import AuthTuyaHighTraffic from "@screens/AuthTuya/HighTraffic";
 import AuthTuyaSessionExpired from "@screens/AuthTuya/SessionExpired";
@@ -72,9 +75,9 @@ let StackScreens = {};
 
 StackScreens = {
     ...StackScreens,
-    Login: {
-        component: Login,
-        title: "Login",
+    LoginII: {
+        component: LoginII,
+        title: "LoginII",
         option: {
             orientation: "portrait"
         }
@@ -83,9 +86,12 @@ StackScreens = {
         component: Debug,
         title: "Debug"
     },
-    TabNavigation: {
-        component: TabNavigation,
-        title: "TabNavigation"
+    Login: {
+        component: Login,
+        title: "Login",
+        option: {
+            orientation: "portrait"
+        }
     },
     DeviceChart: {
         component: DeviceChart,
@@ -342,7 +348,17 @@ StackScreens = {
     }
 };
 
-import LoginII from "@screens/Login/LoginII";
+StackScreens = {
+    ...StackScreens,
+    TabNavigation: {
+        component: TabNavigation,
+        title: "TabNavigation"
+    },
+    DrawerNavigation: {
+        component: DrawerNavigation,
+        title: "DrawerNavigation"
+    }
+};
 
 import PaymentSubscriptionAddOn from "@screens/Payment/Addon";
 import PaymentProSubscription from "@screens/Payment/ProSubscription";
@@ -352,13 +368,6 @@ import CheckTuyaEmail from "@screens/CheckTuyaEmail";
 
 StackScreens = {
     ...StackScreens,
-    LoginII: {
-        component: LoginII,
-        title: "LoginII",
-        option: {
-            orientation: "portrait"
-        }
-    },
     PaymentSubscriptionAddOn: {
         component: PaymentSubscriptionAddOn,
         title: "PaymentSubscriptionAddOn",
@@ -533,15 +542,15 @@ function Index(props) {
     }
     // #endregion
 
-    const defaultScreen = (userId == -1 || firstTimeLink) ? "LoginII" : "TabNavigation";
-    // const defaultScreen = "AuthTuyaHighTraffic";
+    // const defaultScreen = (userId == -1 || firstTimeLink) ? "LoginII" : "TabNavigation";
+    const defaultScreen = "DrawerNavigation";
 
     return (
         <>
             <BcAppUpdateModal showModal={appFlag} />
             <BcServerMainModal showModal={serverFlag} />
-            <BcStackNavigator
-                StackScreens={StackScreens}
+            <BcStackNavigator 
+                screens={StackScreens} 
                 defaultScreen={defaultScreen} />
         </>
     )

@@ -14,7 +14,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Actions, Selectors } from '@redux';
 
 function TabIconFontAwesome(props) {
-    const { icon, title, color, focused } = props;
+    const { icon, title, color, focused, Btn } = props;
 
     const styles = {
         activeDot: {
@@ -32,7 +32,7 @@ function TabIconFontAwesome(props) {
 
     return (
         <VStack flex={1} space={.5} alignItems={"center"} justifyContent={"center"}>
-            <FontAwesome name={icon} color={color} size={20} />
+            <Btn name={icon} color={color} size={20} />
             <Text style={styles.textStyle}>{title}</Text>
             {
                 (focused) ? (
@@ -63,6 +63,7 @@ TabScreens = {
         title: "Dashboard",
         tabBarIcon: (props) => (
             <TabIconFontAwesome
+                Btn={FontAwesome}
                 icon={"area-chart"}
                 title={"Dashboard"}
                 {...props} />
@@ -73,6 +74,7 @@ TabScreens = {
         title: "Device",
         tabBarIcon: (props) => (
             <TabIconFontAwesome
+                Btn={FontAwesome}
                 icon={"plug"}
                 title={"Device"}
                 {...props} />
@@ -83,6 +85,7 @@ TabScreens = {
         title: "Profile",
         tabBarIcon: (props) => (
             <TabIconFontAwesome
+                Btn={FontAwesome}
                 icon={"user"}
                 title={"Profile"}
                 {...props} />
@@ -114,7 +117,7 @@ function Index(props) {
 
     return (
         <BcTabNavigator
-            TabScreens={TabScreens}
+            screens={TabScreens}
             defaultScreen={defaultScreen}
         />
     )

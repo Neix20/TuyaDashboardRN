@@ -66,11 +66,9 @@ function MyTabBar(props) {
 
 function Index(props) {
 
-    const { defaultScreen = "Home", TabScreens = {} } = props;
+    const { defaultScreen = "Home", screens = {} } = props;
+    const arr = Object.values(screens);
 
-    const TabScreensArr = Object.values(TabScreens);
-
-    // #region Render
     const renderScreen = ({ title, component, tabBarIcon }, ind) => (
         <Tab.Screen key={ind}
             name={title}
@@ -78,7 +76,6 @@ function Index(props) {
             options={{ title: title, tabBarIcon: tabBarIcon }}
         />
     )
-    // #endregion
 
     return (
         <Tab.Navigator
@@ -89,9 +86,8 @@ function Index(props) {
                 tabBarActiveTintColor: "#2898FF",
                 tabBarInactiveTintColor: "#98A0A8"
             }}
-            tabBarOptions={{ showLabel: false }}
-        >
-            {TabScreensArr.map(renderScreen)}
+            tabBarOptions={{ showLabel: false }}>
+            {arr.map(renderScreen)}
         </Tab.Navigator>
     );
 };

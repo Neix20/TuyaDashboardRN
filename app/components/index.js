@@ -1,10 +1,12 @@
 // #region Navigation
 import BcStackNavigator from "./Navigation/StackNavigator";
 import BcTabNavigator from "./Navigation/TabNavigator";
+import BcDrawerNavigator from "./Navigation/DrawerNavigator";
 
 export {
     BcStackNavigator,
     BcTabNavigator,
+    BcDrawerNavigator
 };
 // #endregion
 

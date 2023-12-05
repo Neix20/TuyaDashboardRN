@@ -6,9 +6,15 @@ const Stack = createNativeStackNavigator();
 
 function Index(props) {
 
-    const { defaultScreen = "Home", StackScreens = {} } = props;
+    const { defaultScreen = "Home", screens = {} } = props;
+    const arr = Object.values(screens);
 
-    const StackScreenArr = Object.values(StackScreens);
+    const renderItem = ({ title, component, option = {} }, ind) => (
+        <Stack.Screen key={ind}
+            name={title} component={component}
+            options={{ animation: 'slide_from_right', ...option }}
+        />
+    );
 
     return (
         <Stack.Navigator 
@@ -18,19 +24,7 @@ function Index(props) {
                 swipeEdgeWidth: 0,
                 gestureEnabled: false
             }}>
-            {
-                StackScreenArr.map((screen, ind) => {
-                    const { title, component, option = {} } = screen;
-                    return (
-                        <Stack.Screen 
-                            key={ind}
-                            name={title}
-                            component={component}
-                            options={{ animation: 'slide_from_right', ...option }}
-                        />
-                    );
-                })
-            }
+            {arr.map(renderItem)}
         </Stack.Navigator>
     );
 }
