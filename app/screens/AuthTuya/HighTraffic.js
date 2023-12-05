@@ -10,6 +10,7 @@ import { Logger, Utility } from "@utility";
 import { Images, Svg } from "@config";
 
 import { BcBoxShadow } from "@components";
+import RenderHtml from 'react-native-render-html';
 
 function Header(props) {
     const { children, onBack = () => { } } = props;
@@ -83,23 +84,23 @@ function useAuthEmail() {
 }
 
 function Index(props) {
+    
     const toast = useToast();
     const navigation = useNavigation();
     const isFocused = useIsFocused();
-
-    let { AuthEmail = "" } = props.route.params;
+    
+    const { AuthEmail = "" } = props.route.params;
     // const AuthEmail = "";
 
-    const [data, setData] = useState("");
+    const [data, setData] = useState({ html: "" });
 
     useEffect(() => {
         if (AuthEmail.length > 0) {
-            let txt = AuthEmail;
-            txt = txt.replace(/<br\/>/g, "");
-
-            setData(_ => txt);
+            const next_state = { html: AuthEmail };
+            setData(_ => next_state);
         }
-    }, [AuthEmail])
+    }, [AuthEmail]);
+    
 
     const goBack = () => {
         navigation.navigate("LoginII");
@@ -127,11 +128,7 @@ function Index(props) {
                         width={"100%"} p={3} space={3}
                         bgColor={"#FFF"}>
                         <View flexGrow={1}>
-                            <Text style={{
-                                fontFamily: "Roboto-Medium",
-                                fontSize: 16,
-                                textAlign: "justify"
-                            }}>{data}</Text>
+                            <RenderHtml source={data} />
                         </View>
                     </VStack>
                 </ScrollView>

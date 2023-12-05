@@ -1,6 +1,6 @@
 {
   "name": "yatudashboard",
-  "version": "1.2.13",
+  "version": "1.2.14",
   "private": true,
   "scripts": {
     "android": "react-native run-android --variant yatuDebug",
@@ -48,6 +48,7 @@
     "react-native-paper": "^5.9.1",
     "react-native-reanimated": "2.14.4",
     "react-native-reanimated-carousel": "^3.5.1",
+    "react-native-render-html": "^6.3.4",
     "react-native-safe-area-context": "^4.7.1",
     "react-native-screens": "^3.23.0",
     "react-native-shadow-2": "^7.0.8",

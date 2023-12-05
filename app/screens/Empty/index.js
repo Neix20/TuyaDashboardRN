@@ -27,8 +27,7 @@ function Header(props) {
                     height: 60,
                     backgroundColor: "#FFF",
                 }}>
-                <HStack
-                    style={{ width: "90%" }}>
+                <HStack style={{ width: "90%" }}>
                     <BcSvgIcon name={"Yatu"} width={80} height={40} />
                 </HStack>
             </View>

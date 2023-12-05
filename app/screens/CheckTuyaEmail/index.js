@@ -101,18 +101,17 @@ function CheckEmailBtn(props) {
 
     const Item = () => {
         return (
-            <HStack
+            <HStack px={3}
                 bgColor={"#2898FF"}
                 borderRadius={8}
                 alignItems={"center"}
-                justifyContent={"center"}
-                style={{ width: 160, height: 40 }}>
+                style={{ height: 40 }}>
                 <Text style={{
                     fontFamily: "Roboto-Bold",
                     fontSize: 20,
                     textAlign: "center",
                     color: "#fff",
-                }}>Check Email</Text>
+                }}>Link Tuya Email</Text>
             </HStack>
         )
     }

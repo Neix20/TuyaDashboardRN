@@ -3,7 +3,7 @@ import { Text, TouchableOpacity, Image, TextInput, SafeAreaView, ImageBackground
 import { View, VStack, HStack, useToast } from "native-base";
 
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
-import { useNavigation, useIsFocused } from "@react-navigation/native";
+import { useNavigation, useIsFocused, useRoute } from "@react-navigation/native";
 
 import { Logger, Utility } from "@utility";
 
@@ -107,6 +107,7 @@ function Loading(props) {
 }
 
 function TutorialGuideBtn(props) {
+
     const [showTGModal, setShowTGModal, toggleTGModal] = useToggle(false);
 
     useEffect(() => {
@@ -220,7 +221,18 @@ function Index(props) {
     const [refImg, setRefImg] = useState("");
     const [loadingTxt, setLoadingTxt] = useState("");
     const [timer, setTimer] = useTimer(0);
+
+    const [atcFlag, setAtcFlag] = useState(false);
     // #endregion
+
+    const upadteAtcFlag = () => {
+        const timeout = setTimeout(() => {
+            if (navigation.isFocused()) {
+                setAtcFlag(_ => true);
+            }
+        }, 1500)
+        return () => clearTimeout(timeout);
+    }
 
     // #region Api
     const authTuyaCode = () => {
@@ -233,7 +245,9 @@ function Index(props) {
             onSetLoading: setLoading,
         })
             .then(data => {
-                const { AuthCode, Flag, AuthImg } = data;
+                const { AuthCode, Flag = false, AuthImg } = data;
+                setAtcFlag(_ => Flag);
+
                 if (Flag) {
                     setRefImg(AuthImg);
                     setRefLink(AuthCode);
@@ -243,7 +257,7 @@ function Index(props) {
                     //     description: AuthCode
                     // });
                     // navigation.navigate("LoginII");
-                    navigation.navigate("AuthTuyaHighTraffic", data)
+                    navigation.navigate("AuthTuyaHighTraffic", data);
                 }
             })
             .catch(err => {
@@ -285,6 +299,7 @@ function Index(props) {
     useEffect(() => {
         if (isFocused) {
             authTuyaCode();
+            upadteAtcFlag();
         }
     }, [isFocused]);
 
@@ -301,6 +316,33 @@ function Index(props) {
         });
     }
 
+    // Shown at False
+    if (!atcFlag) {
+        return (
+            <SafeAreaView style={{ flex: 1 }}>
+                <View style={{ flex: 1 }}>
+                    <View style={{ height: 80 }} />
+                    <Loading>{loadingTxt}</Loading>
+                </View>
+
+                <View
+                    justifyContent={"center"}
+                    alignItems={"center"}
+                    style={{ height: 60 }}>
+                    <Text style={{
+                        fontFamily: "Roboto-Medium",
+                        fontSize: 16
+                    }}>Powered By {clsConst.ORG_NAME}</Text>
+                    <Text style={{
+                        fontFamily: "Roboto-Medium",
+                        fontSize: 14
+                    }}>© Version {clsConst.APP_VERSION}</Text>
+                </View>
+            </SafeAreaView>
+        )
+    }
+
+    // Never Show Not Once
     return (
         <SafeAreaView style={{ flex: 1 }}>
             <View style={{ flex: 1 }}>
@@ -387,7 +429,6 @@ function Index(props) {
                         </>
                     )
                 }
-
             </View>
 
             <View
