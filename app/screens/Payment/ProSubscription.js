@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Text, TouchableOpacity, Image, TextInput, SafeAreaView, ImageBackground, ScrollView, FlatList } from "react-native";
+import { Text, TouchableOpacity, Image, TextInput, SafeAreaView, ScrollView, FlatList } from "react-native";
 import { View, VStack, HStack, useToast } from "native-base";
 
 import { useNavigation, useIsFocused } from "@react-navigation/native";
@@ -10,7 +10,7 @@ import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 import { Logger, Utility } from "@utility";
 import { Images, Svg, Animation } from "@config";
 
-import { BcHeader, BcLoading, BcBoxShadow, BcSvgIcon } from "@components";
+import { BcHeader, BcLoading, BcBoxShadow, BcSvgIcon, BcTooltip } from "@components";
 import { useToggle } from "@hooks";
 
 import { fetchSubscriptionProPlan } from "@api";
@@ -23,45 +23,32 @@ import { Actions, Selectors } from '@redux';
 
 import Lottie from "lottie-react-native";
 
-function EmptyList(props) {
+import Tooltip from 'react-native-walkthrough-tooltip';
 
+// #region Components
+function EmptyList(props) {
     return (
         <View flexGrow={1} justifyContent={"center"}>
             <VStack space={3} alignItems={"center"}>
-                    <Lottie
-                        autoPlay
-                        source={Animation.YatuLoader}
-                        loop={true}
-                        style={{
-                            width: 360,
-                            height: 360
-                        }} />
+                <Lottie
+                    autoPlay
+                    source={Animation.YatuLoader}
+                    loop={true}
+                    style={{
+                        width: 360,
+                        height: 360
+                    }} />
 
-                    <Text style={{
-                        fontFamily: "Roboto-Bold",
-                        fontSize: 24,
-                        color: "#2898FF"
-                    }}>Loading ...</Text>
-                </VStack>
-        </View>
-    )
-
-    return (
-        <View flexGrow={1} justifyContent={"center"} alignItems={"center"}>
-            <VStack space={2} width={"90%"} alignItems={"center"}>
-                <FontAwesome5 name={"tools"} color={"#e6e6e6"} size={80} />
                 <Text style={{
-                    fontSize: 18,
-                    color: "#d3d3d3",
-                    fontFamily: 'Roboto-Medium',
-                    fontWeight: "700"
-                }}>No Ongoing Subscription</Text>
+                    fontFamily: "Roboto-Bold",
+                    fontSize: 24,
+                    color: "#2898FF"
+                }}>Loading ...</Text>
             </VStack>
         </View>
     )
 }
 
-// #region Components
 function Footer(props) {
     return (
         <VStack space={1} py={2}>
@@ -140,8 +127,8 @@ function TPHeader(props) {
                             buttonStyle={(active) => ({
                                 width: "100%", height: "100%", borderRadius: borderRadius - 2,
                                 backgroundColor: (active) ? colors.activeColor : colors.inActiveColor
-                            })} />
-
+                            })}
+                        />
                     )
                 })
             }
@@ -151,39 +138,59 @@ function TPHeader(props) {
 
 function Detail(props) {
 
-    const { inverse = false, data = [] } = props;
+    const { inverse = false, data = [], colors = {} } = props;
 
-    let renderItem = ({ item, index }) => {
-        return (
-            <>
-                <HStack key={index} alignItems={"center"} space={5}>
-                    <FontAwesome name={"check-circle"} color={"#2898FF"} size={24} />
-                    <Text style={{
-                        fontFamily: "Roboto-Bold",
-                        fontSize: 18
-                    }}>{item}</Text>
-                </HStack>
-                <View style={{ height: 5 }} />
-            </>
-        )
-    }
+    const iconColor = inverse ? colors.inActiveColor : colors.activeColor;
+    const txtColor = inverse ? "#FFF" : "#000";
+    const infoColor = inverse ? "#484848" : "#98A0A8";
 
-    if (inverse) {
-        renderItem = ({ item, index }) => {
+    const renderItem = ({ item, index }) => {
+
+        // To Remove
+        if (typeof(item) === "string") {
             return (
                 <>
                     <HStack key={index} alignItems={"center"} space={5}>
-                        <FontAwesome name={"check-circle"} color={"#FFF"} size={24} />
-                        <Text style={{
-                            fontFamily: "Roboto-Bold",
-                            fontSize: 18,
-                            color: "#FFF"
-                        }}>{item}</Text>
+                        <FontAwesome name={"check-circle"} color={iconColor} size={24} />
+                        <View flex={1}>
+                            <Text style={{
+                                fontFamily: "Roboto-Bold",
+                                fontSize: 18,
+                                color: txtColor
+                            }}>{item}</Text>
+                        </View>
+                        <View style={{ height: 24, width: 24 }} />
                     </HStack>
                     <View style={{ height: 5 }} />
                 </>
             )
         }
+
+        const { term = "", info = "", showInfo = false } = item;
+        return (
+            <>
+                <HStack key={index} alignItems={"center"} space={5}>
+                    <FontAwesome name={"check-circle"} color={iconColor} size={24} />
+                    <View flex={1}>
+                        <Text style={{
+                            fontFamily: "Roboto-Bold",
+                            fontSize: 18,
+                            color: txtColor
+                        }}>{term}</Text>
+                    </View>
+                    {
+                        (showInfo) ? (
+                            <BcTooltip content={<Text style={{ textAlign: "justify" }}>{info}</Text>}>
+                                <FontAwesome5 name={"info-circle"} color={infoColor} size={24} />
+                            </BcTooltip>
+                        ) : (
+                            <View style={{ height: 24, width: 24 }} />
+                        )
+                    }
+                </HStack>
+                <View style={{ height: 5 }} />
+            </>
+        )
     }
 
     return (
@@ -196,7 +203,122 @@ function Detail(props) {
     )
 }
 
+function TPBody(props) {
+
+    const navigation = useNavigation();
+
+    const { inverse = false, title = "Pro 1 Month", hook = [], colors = {} } = props;
+
+    const [payDict, setPayDict, payDictKey] = hook;
+
+    if (payDictKey.length == 0) {
+        return <></>
+    }
+
+    const obj = payDict[title];
+
+    const { price = 0, detail = [], priceTerm = "", title: oTitle = "", data: oData = {}, showBtn = false } = obj;
+
+    const GoToPayment = () => {
+        navigation.navigate("Payment", {
+            data: [oData]
+        });
+    }
+
+    const txtColor = inverse ? "#FFF" : "#000";
+    const txtInvColor = inverse ? "#000" : "#FFF";
+    const bgColor = inverse ? colors.activeColor : colors.inActiveColor;
+    const bgInvColor = inverse ? colors.inActiveColor : colors.activeColor;
+
+    return (
+        <TabView.Item style={{ width: "100%", alignItems: "center" }}>
+            <VStack flex={1} width={"90%"} space={3} py={3}
+                bgColor={bgColor} justifyContent={"space-between"}
+                borderWidth={2} borderRadius={12} borderColor={"#98A0A8"}>
+
+                <VStack space={3}>
+                    {/* Term */}
+                    <View alignItems={"center"}>
+                        <Text style={{
+                            fontFamily: "Roboto-Bold",
+                            fontSize: 20,
+                            color: txtColor
+                        }}>{oTitle}</Text>
+                    </View>
+
+                    {/* Logo */}
+                    <View alignItems={"center"}>
+                        <BcBoxShadow style={{ width: "100%", borderRadius: 40 }}>
+                            <View bgColor={"#FFF"} p={3} borderRadius={48}>
+                                <BcSvgIcon name={"AppLogo"} width={64} height={64} />
+                            </View>
+                        </BcBoxShadow>
+                    </View>
+                </VStack>
+
+                {/* Details */}
+                <Detail data={detail} {...props} />
+
+                {/* Price */}
+                <View alignItems={"center"}>
+                    {
+                        (price == 0) ? (
+                            <Text style={{
+                                fontFamily: "Roboto-Bold",
+                                fontSize: 24,
+                                color: txtColor
+                            }}>Free | {priceTerm}</Text>
+                        ) : (
+                            <Text style={{
+                                fontFamily: "Roboto-Bold",
+                                fontSize: 24,
+                                color: txtColor
+                            }}>RM {price.toFixed(2)} | {priceTerm}</Text>
+                        )
+                    }
+                </View>
+
+                {/* Buy Now Button */}
+                {
+                    (showBtn) ? (
+                        <View alignItems={"center"}>
+                            <TouchableOpacity onPress={GoToPayment}>
+                                <HStack
+                                    bgColor={bgInvColor}
+                                    borderRadius={8}
+                                    alignItems={"center"}
+                                    justifyContent={"center"}
+                                    style={{ width: 120, height: 40 }}>
+                                    <Text style={{
+                                        fontFamily: "Roboto-Medium",
+                                        fontSize: 20,
+                                        textAlign: "center",
+                                        color: txtInvColor,
+                                    }}>Buy Now</Text>
+                                </HStack>
+                            </TouchableOpacity>
+                        </View>
+                    ) : (
+                        <View style={{ height: 40 }} />
+                    )
+                }
+            </VStack>
+        </TabView.Item>
+    )
+}
+// #endregion
+
+// #region Custom Hooks
+function useTabPane(val = 0) {
+    const [ind, setInd] = useState(val);
+
+    const onChangeInd = (e) => setInd(_ => e);
+
+    return [ind, setInd, onChangeInd];
+}
+
 function usePayDict() {
+
     const [dict, setDict] = useState({});
     const [data, setData] = useState([]);
     const [key, setKey] = useState([]);
@@ -233,192 +355,6 @@ function usePayDict() {
 
     return [dict, setData, key];
 }
-
-function TPBody(props) {
-
-    const navigation = useNavigation();
-
-    const { inverse = false, title = "Pro 1 Month", hook = [] } = props;
-
-    const [payDict, setPayDict, payDictKey] = hook;
-
-    if (payDictKey.length == 0) {
-        return <></>
-    }
-
-    const obj = payDict[title];
-
-    const { price = 0, detail = [], priceTerm = "", title: oTitle = "", data: oData = {}, showBtn = false } = obj;
-
-    const GoToPayment = () => {
-        navigation.navigate("Payment", {
-            data: [oData]
-        });
-    }
-
-    if (inverse) {
-        return (
-            <TabView.Item style={{ width: "100%", alignItems: "center" }}>
-                <VStack flex={1} width={"90%"} space={3} py={3}
-                    bgColor={"#2898FF"} justifyContent={"space-between"}
-                    borderWidth={2} borderRadius={12} borderColor={"#98A0A8"}>
-
-                    <VStack space={3}>
-                        {/* Term */}
-                        <View alignItems={"center"}>
-                            <Text style={{
-                                fontFamily: "Roboto-Bold",
-                                fontSize: 20,
-                                color: "#FFF"
-                            }}>{oTitle}</Text>
-                        </View>
-
-                        {/* Logo */}
-                        <View alignItems={"center"}>
-                            <BcBoxShadow style={{ width: "100%", borderRadius: 40 }}>
-                                <View bgColor={"#FFF"} p={3} borderRadius={48}>
-                                    <BcSvgIcon name={"AppLogo"} width={64} height={64} />
-                                </View>
-                            </BcBoxShadow>
-                        </View>
-                    </VStack>
-
-                    {/* Details */}
-                    <Detail data={detail} {...props} />
-
-                    {/* Price */}
-                    <View alignItems={"center"}>
-                        {
-                            (price == 0) ? (
-                                <Text style={{
-                                    fontFamily: "Roboto-Bold",
-                                    fontSize: 24,
-                                    color: "#FFF"
-                                }}>Free | {priceTerm}</Text>
-                            ) : (
-                                <Text style={{
-                                    fontFamily: "Roboto-Bold",
-                                    fontSize: 24,
-                                    color: "#FFF"
-                                }}>RM {price.toFixed(2)} | {priceTerm}</Text>
-                            )
-                        }
-                    </View>
-
-                    {/* Buy Now Button */}
-                    {
-                        (showBtn) ? (
-                            <View alignItems={"center"}>
-                                <TouchableOpacity onPress={GoToPayment}>
-                                    <HStack
-                                        bgColor={"#FFF"}
-                                        borderRadius={8}
-                                        alignItems={"center"}
-                                        justifyContent={"center"}
-                                        style={{ width: 120, height: 40 }}>
-                                        <Text style={{
-                                            fontFamily: "Roboto-Medium",
-                                            fontSize: 20,
-                                            textAlign: "center",
-                                            color: "#000",
-                                        }}>Buy Now</Text>
-                                    </HStack>
-                                </TouchableOpacity>
-                            </View>
-                        ) : (
-                            <View style={{ height: 40 }} />
-                        )
-                    }
-
-                </VStack>
-            </TabView.Item>
-        )
-    }
-
-    return (
-        <TabView.Item style={{ width: "100%", alignItems: "center" }}>
-            <VStack flex={1} width={"90%"} space={3} py={3}
-                bgColor={"#FFF"} justifyContent={"space-between"}
-                borderWidth={2} borderRadius={12} borderColor={"#98A0A8"}>
-
-                <VStack space={3}>
-                    {/* Term */}
-                    <View alignItems={"center"}>
-                        <Text style={{
-                            fontFamily: "Roboto-Bold",
-                            fontSize: 20
-                        }}>{oTitle}</Text>
-                    </View>
-
-                    {/* Logo */}
-                    <View alignItems={"center"}>
-                        <BcBoxShadow style={{ width: "100%", borderRadius: 40 }}>
-                            <View bgColor={"#FFF"} p={3} borderRadius={48}>
-                                <BcSvgIcon name={"AppLogo"} width={64} height={64} />
-                            </View>
-                        </BcBoxShadow>
-                    </View>
-                </VStack>
-
-                {/* Details */}
-                <Detail data={detail} {...props} />
-
-                {/* Price */}
-                <View alignItems={"center"}>
-                    {
-                        (price == 0) ? (
-                            <Text style={{
-                                fontFamily: "Roboto-Bold",
-                                fontSize: 24,
-                            }}>Free | {priceTerm}</Text>
-                        ) : (
-                            <Text style={{
-                                fontFamily: "Roboto-Bold",
-                                fontSize: 24
-                            }}>RM {price.toFixed(2)} | {priceTerm}</Text>
-                        )
-                    }
-                </View>
-
-                {/* Buy Now Button */}
-                {
-                    (showBtn) ? (
-                        <View alignItems={"center"}>
-                            <TouchableOpacity onPress={GoToPayment}>
-                                <HStack
-                                    bgColor={"#2898FF"}
-                                    borderRadius={8}
-                                    alignItems={"center"}
-                                    justifyContent={"center"}
-                                    style={{ width: 120, height: 40 }}>
-                                    <Text style={{
-                                        fontFamily: "Roboto-Medium",
-                                        fontSize: 20,
-                                        textAlign: "center",
-                                        color: "#FFF",
-                                    }}>Buy Now</Text>
-                                </HStack>
-                            </TouchableOpacity>
-                        </View>
-                    ) : (
-                        <View style={{ height: 40 }} />
-                    )
-                }
-
-            </VStack>
-        </TabView.Item>
-    )
-}
-// #endregion
-
-// #region Custom Hooks
-function useTabPane(val = 0) {
-    const [ind, setInd] = useState(val);
-
-    const onChangeInd = (e) => setInd(_ => e);
-
-    return [ind, setInd, onChangeInd];
-}
 // #endregion
 
 function Index(props) {
@@ -434,6 +370,7 @@ function Index(props) {
 
     const userId = useSelector(Selectors.userIdSelect);
 
+    // #region UseState
     const [loading, setLoading, toggleLoading] = useToggle(false);
 
     const tpHook = useTabPane(0);
@@ -441,13 +378,17 @@ function Index(props) {
 
     const payDictHook = usePayDict();
     const [payDict, setPayDict, payDictKey] = payDictHook;
+    // #endregion
 
+    // #region UseEffect
     useEffect(() => {
         if (isFocused) {
             SubscriptionProPlan();
         }
     }, [isFocused]);
+    // #endregion
 
+    // #region Api
     const SubscriptionProPlan = () => {
         setLoading(true);
         fetchSubscriptionProPlan({
@@ -464,6 +405,17 @@ function Index(props) {
                 console.log(`Error: ${err}`);
             })
     }
+    // #endregion
+
+    // #region Render
+    const renderTabBody = (term, ind) => (
+        <TPBody key={ind}
+            title={term}
+            inverse={ind % 2 == 1}
+            hook={payDictHook}
+            colors={colors} />
+    )
+    // #endregion
 
     return (
         <>
@@ -490,13 +442,7 @@ function Index(props) {
 
                                     {/* Tab Body */}
                                     <TabView value={tpInd} onChange={onChangeTpInd}>
-                                        {
-                                            payDictKey.map((term, ind) => {
-                                                return (
-                                                    <TPBody key={ind} title={term} inverse={ind % 2 == 1} hook={payDictHook} />
-                                                )
-                                            })
-                                        }
+                                        {payDictKey.map(renderTabBody)}
                                     </TabView>
                                 </VStack>
                             ) : (

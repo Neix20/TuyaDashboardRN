@@ -7,9 +7,6 @@ import { useNavigation, useIsFocused } from "@react-navigation/native";
 import { BcSvgIcon, BcBoxShadow } from "@components";
 
 function Header(props) {
-
-    const { children } = props;
-
     return (
         <BcBoxShadow style={{ width: "100%" }}>
             <View

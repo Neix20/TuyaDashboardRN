@@ -23,6 +23,7 @@ import BcProgressBarLoading from "./Loading/ProgressBar";
 import BcSvgIcon from "./SvgIcon";
 import BcTimer from "./Timer/Normal";
 import BcViewShot from "./ViewShot";
+import BcTooltip from "./Tooltip";
 
 export {
     BcBoxShadow,
@@ -37,6 +38,7 @@ export {
     BcSvgIcon,
     BcTimer,
     BcViewShot,
+    BcTooltip
 }
 // #endregion
 

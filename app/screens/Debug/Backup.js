@@ -14,7 +14,6 @@ import { BcSvgChart, BcDateRangeModal, BcViewShot, BcBoxShadow, BcDropdown, BcSv
 
 import { iRData, Devices, Animation, Images } from "@config";
 
-import { Checkbox as PaperCheckbox } from "react-native-paper";
 import { CheckBox as ElemCheckbox } from '@rneui/base';
 import { Checkbox as NativeCheckbox } from "native-base";
 
@@ -116,16 +115,6 @@ function TestCheckbox(props) {
                             <HStack space={3} alignItems={"center"}>
                                 <NativeCheckbox defaultIsChecked />
                                 <Text>Native Checkbox: Checked</Text>
-                            </HStack>
-                        </VStack>
-                        <VStack space={1}>
-                            <HStack space={3} alignItems={"center"}>
-                                <PaperCheckbox status={paperFlag ? "checked" : "unchecked"} onPress={togglePaperFlag} />
-                                <Text>Paper Checkbox</Text>
-                            </HStack>
-                            <HStack space={3} alignItems={"center"}>
-                                <PaperCheckbox status={"checked"} />
-                                <Text>Paper Checkbox: Checked</Text>
                             </HStack>
                         </VStack>
                         <VStack space={1}>
