@@ -124,7 +124,7 @@ function Detail(props) {
             return (
                 <>
                     <HStack key={index} alignItems={"center"} space={5}>
-                        <FontAwesome name={"check-circle"} color={iconColor} size={24} />
+                        <FontAwesome name={"check-circle"} color={"#FFF"} size={24} />
                         <View flex={1}>
                             <Text style={{
                                 fontFamily: "Roboto-Bold",
@@ -143,7 +143,7 @@ function Detail(props) {
         return (
             <>
                 <HStack key={index} alignItems={"center"} space={5}>
-                    <BcSvgIcon name={icon} size={24} />
+                    <BcSvgIcon name={icon} size={24} color={iconColor} />
                     <View flex={1}>
                         <Text style={{
                             fontFamily: "Roboto-Bold",
@@ -184,7 +184,7 @@ function Detail(props) {
 function TPBody(props) {
 
     const navigation = useNavigation();
-    const { inverse = false, title = "Pro 1 Month", hook = [], colors = {} } = props;
+    const { inverse = false, title = "", hook = [], colors = {} } = props;
     const [payDict, setPayDict, payDictKey] = hook;
 
     if (payDictKey.length == 0) {
@@ -225,13 +225,13 @@ function TPBody(props) {
                             <Text style={{
                                 fontFamily: "Roboto-Bold",
                                 fontSize: 20,
-                                color: colors.activeColor,
+                                color: bgInvColor,
                             }}>RM {price.toFixed(2)}</Text>
 
                             <Text style={{
                                 fontFamily: "Roboto-Bold",
                                 fontSize: 20,
-                                color: colors.activeColor,
+                                color: bgInvColor,
                             }}>/ Month</Text>
                         </HStack>
                     </HStack>
@@ -447,8 +447,8 @@ function Index(props) {
     const renderTabBody = (term, ind) => (
         <TPBody key={ind}
             title={term}
-            // inverse={ind % 2 == 1}
-            inverse={false}
+            inverse={ind % 2 == 1}
+            // inverse={false}
             hook={payDictHook}
             colors={colors} />
     )
