@@ -32,6 +32,14 @@ import ECard from "@assets/svg/ECard.svg";
 import Fpx from "@assets/svg/Fpx.svg";
 import EWallet from "@assets/svg/EWallet.svg";
 
+import DataBackup from "@assets/svg/data-backup.svg";
+import DataAnalysis from "@assets/svg/data-analysis.svg";
+import LinkDevice from "@assets/svg/link-device.svg";
+import CustSupport from "@assets/svg/cust-support.svg";
+import InfoIcon from "@assets/svg/info-icon.svg";
+import DataStorage from "@assets/svg/data-storage.svg";
+import EmailArchive from "@assets/svg/email-archive.svg";
+
 Data = {
     AppLogo: AppLogo,
     Yatu: Yatu,
@@ -60,6 +68,17 @@ Data = {
     Fpx: Fpx,
     EWallet: EWallet,
 }
+
+Data = {
+    ...Data,
+    InfoIcon: InfoIcon,
+    DataAnalysis: DataAnalysis,
+    DataStorage: DataStorage,
+    DataBackup: DataBackup,
+    CustSupport: CustSupport,
+    LinkDevice: LinkDevice,
+    EmailArchive: EmailArchive,
+};
 
 // FIXME: Temporarily Store Everything in MetaData
 Data = {

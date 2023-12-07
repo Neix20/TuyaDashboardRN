@@ -1,0 +1,324 @@
+[
+    {
+        "key": "1 Month",
+        "title": "1 Month",
+        "detail": [
+            {
+                "title": "Real-Time Data Analysis",
+                "description": "Data sync across linked devices for real-time analysis.",
+                "icon": "DataAnalysis",
+                "showInfo": false,
+                "info": ""
+            },
+            {
+                "title": "Unlimited Secure Data Storage",
+                "description": "Store devices data safely & privately with unlimited storage",
+                "icon": "DataStorage",
+                "showInfo": false,
+                "info": ""
+            },
+            {
+                "title": "Offline Data Storage",
+                "description": "Enjoy 6-Months data backup, resume subscription anytime.",
+                "icon": "DataBackup",
+                "showInfo": false,
+                "info": "Esse ut ea sunt do cillum. Sint nostrud et et sint magna. Et aliquip veniam mollit est cupidatat aute laborum."
+            },
+            {
+                "title": "24-Hours Customer Support",
+                "description": "Get in touch for any help, but we're confident you don't have to.",
+                "icon": "CustSupport",
+                "showInfo": false,
+                "info": ""
+            },
+            {
+                "title": "Link up to 20 Devices",
+                "description": "Link Smart Life & Tuya smart devices up to 20 devices.",
+                "icon": "LinkDevice",
+                "showInfo": false,
+                "info": ""
+            },
+            {
+                "title": "Email Archiving",
+                "description": "Data analytics report will be generated & sent to your email",
+                "icon": "EmailArchive",
+                "showInfo": false,
+                "info": "Esse ut ea sunt do cillum. Sint nostrud et et sint magna. Et aliquip veniam mollit est cupidatat aute laborum."
+            },
+            {
+                "title": "Real-Time Data Analysis",
+                "description": "Data sync across linked devices for real-time analysis.",
+                "icon": "DataAnalysis",
+                "showInfo": false,
+                "info": ""
+            },
+            {
+                "title": "Unlimited Secure Data Storage",
+                "description": "Store devices data safely & privately with unlimited storage",
+                "icon": "DataStorage",
+                "showInfo": false,
+                "info": ""
+            },
+            {
+                "title": "Offline Data Storage",
+                "description": "Enjoy 6-Months data backup, resume subscription anytime.",
+                "icon": "DataBackup",
+                "showInfo": false,
+                "info": "Esse ut ea sunt do cillum. Sint nostrud et et sint magna. Et aliquip veniam mollit est cupidatat aute laborum."
+            },
+            {
+                "title": "24-Hours Customer Support",
+                "description": "Get in touch for any help, but we're confident you don't have to.",
+                "icon": "CustSupport",
+                "showInfo": false,
+                "info": ""
+            },
+            {
+                "title": "Link up to 20 Devices",
+                "description": "Link Smart Life & Tuya smart devices up to 20 devices.",
+                "icon": "LinkDevice",
+                "showInfo": false,
+                "info": ""
+            },
+            {
+                "title": "Email Archiving",
+                "description": "Data analytics report will be generated & sent to your email",
+                "icon": "EmailArchive",
+                "showInfo": false,
+                "info": "Esse ut ea sunt do cillum. Sint nostrud et et sint magna. Et aliquip veniam mollit est cupidatat aute laborum."
+            }
+        ],
+        "priceTerm": "Monthly",
+        "showBtn": true,
+        "data": {
+            "Code": "MSPP0100",
+            "Name": "Pro Subscription",
+            "Description": "Pro Subscription for 1 Month",
+            "Duration": 1,
+            "Price": 39.99,
+            "GroupCode": null,
+            "TypeCode": "MSP_PP",
+            "DurationTypeCode": "DT_MM",
+            "ModuleCode": null,
+            "MetaData": null,
+            "Status": 1,
+            "Remark": "",
+            "Created_By": "System",
+            "Created_Date": "2023-11-08T15:10:45",
+            "Last_Updated_By": "System",
+            "Last_Updated_Date": "2023-11-08T15:10:45",
+            "Image": "https://i.imgur.com/lwNqBtJ.png"
+        },
+        "price": 39.99
+    },
+    {
+        "key": "3 Month",
+        "title": "3 Month",
+        "detail": [
+            {
+                "title": "Real-Time Data Analysis",
+                "description": "Data sync across linked devices for real-time analysis.",
+                "icon": "DataAnalysis",
+                "showInfo": false,
+                "info": ""
+            },
+            {
+                "title": "Unlimited Secure Data Storage",
+                "description": "Store devices data safely & privately with unlimited storage",
+                "icon": "DataStorage",
+                "showInfo": false,
+                "info": ""
+            },
+            {
+                "title": "Offline Data Storage",
+                "description": "Enjoy 6-Months data backup, resume subscription anytime.",
+                "icon": "DataBackup",
+                "showInfo": false,
+                "info": "Esse ut ea sunt do cillum. Sint nostrud et et sint magna. Et aliquip veniam mollit est cupidatat aute laborum."
+            },
+            {
+                "title": "24-Hours Customer Support",
+                "description": "Get in touch for any help, but we're confident you don't have to.",
+                "icon": "CustSupport",
+                "showInfo": false,
+                "info": ""
+            },
+            {
+                "title": "Link up to 20 Devices",
+                "description": "Link Smart Life & Tuya smart devices up to 20 devices.",
+                "icon": "LinkDevice",
+                "showInfo": false,
+                "info": ""
+            },
+            {
+                "title": "Email Archiving",
+                "description": "Data analytics report will be generated & sent to your email",
+                "icon": "EmailArchive",
+                "showInfo": false,
+                "info": "Esse ut ea sunt do cillum. Sint nostrud et et sint magna. Et aliquip veniam mollit est cupidatat aute laborum."
+            }
+        ],
+        "priceTerm": "Quarterly",
+        "showBtn": true,
+        "data": {
+            "Code": "MSPP0300",
+            "Name": "Pro Subscription",
+            "Description": "Pro Subscription for 3 Month",
+            "Duration": 3,
+            "Price": 119.97,
+            "GroupCode": null,
+            "TypeCode": "MSP_PP",
+            "DurationTypeCode": "DT_MM",
+            "ModuleCode": null,
+            "MetaData": null,
+            "Status": 1,
+            "Remark": "",
+            "Created_By": "System",
+            "Created_Date": "2023-11-08T15:10:45",
+            "Last_Updated_By": "System",
+            "Last_Updated_Date": "2023-11-08T15:10:45",
+            "Image": "https://i.imgur.com/lwNqBtJ.png"
+        },
+        "price": 119.97
+    },
+    {
+        "key": "6 Month",
+        "title": "6 Month",
+        "detail": [
+            {
+                "title": "Real-Time Data Analysis",
+                "description": "Data sync across linked devices for real-time analysis.",
+                "icon": "DataAnalysis",
+                "showInfo": false,
+                "info": ""
+            },
+            {
+                "title": "Unlimited Secure Data Storage",
+                "description": "Store devices data safely & privately with unlimited storage",
+                "icon": "DataStorage",
+                "showInfo": false,
+                "info": ""
+            },
+            {
+                "title": "Offline Data Storage",
+                "description": "Enjoy 6-Months data backup, resume subscription anytime.",
+                "icon": "DataBackup",
+                "showInfo": false,
+                "info": "Esse ut ea sunt do cillum. Sint nostrud et et sint magna. Et aliquip veniam mollit est cupidatat aute laborum."
+            },
+            {
+                "title": "24-Hours Customer Support",
+                "description": "Get in touch for any help, but we're confident you don't have to.",
+                "icon": "CustSupport",
+                "showInfo": false,
+                "info": ""
+            },
+            {
+                "title": "Link up to 20 Devices",
+                "description": "Link Smart Life & Tuya smart devices up to 20 devices.",
+                "icon": "LinkDevice",
+                "showInfo": false,
+                "info": ""
+            },
+            {
+                "title": "Email Archiving",
+                "description": "Data analytics report will be generated & sent to your email",
+                "icon": "EmailArchive",
+                "showInfo": false,
+                "info": "Esse ut ea sunt do cillum. Sint nostrud et et sint magna. Et aliquip veniam mollit est cupidatat aute laborum."
+            }
+        ],
+        "priceTerm": "Half-yearly",
+        "showBtn": true,
+        "data": {
+            "Code": "MSPP0100",
+            "Name": "Pro Subscription",
+            "Description": "Pro Subscription for 1 Month",
+            "Duration": 1,
+            "Price": 39.99,
+            "GroupCode": null,
+            "TypeCode": "MSP_PP",
+            "DurationTypeCode": "DT_MM",
+            "ModuleCode": null,
+            "MetaData": null,
+            "Status": 1,
+            "Remark": "",
+            "Created_By": "System",
+            "Created_Date": "2023-11-08T15:10:45",
+            "Last_Updated_By": "System",
+            "Last_Updated_Date": "2023-11-08T15:10:45",
+            "Image": "https://i.imgur.com/lwNqBtJ.png"
+        },
+        "price": 39.99
+    },
+    {
+        "key": "Annual",
+        "title": "Annual",
+        "detail": [
+            {
+                "title": "Real-Time Data Analysis",
+                "description": "Data sync across linked devices for real-time analysis.",
+                "icon": "DataAnalysis",
+                "showInfo": false,
+                "info": ""
+            },
+            {
+                "title": "Unlimited Secure Data Storage",
+                "description": "Store devices data safely & privately with unlimited storage",
+                "icon": "DataStorage",
+                "showInfo": false,
+                "info": ""
+            },
+            {
+                "title": "Offline Data Storage",
+                "description": "Enjoy 6-Months data backup, resume subscription anytime.",
+                "icon": "DataBackup",
+                "showInfo": false,
+                "info": "Esse ut ea sunt do cillum. Sint nostrud et et sint magna. Et aliquip veniam mollit est cupidatat aute laborum."
+            },
+            {
+                "title": "24-Hours Customer Support",
+                "description": "Get in touch for any help, but we're confident you don't have to.",
+                "icon": "CustSupport",
+                "showInfo": false,
+                "info": ""
+            },
+            {
+                "title": "Link up to 20 Devices",
+                "description": "Link Smart Life & Tuya smart devices up to 20 devices.",
+                "icon": "LinkDevice",
+                "showInfo": false,
+                "info": ""
+            },
+            {
+                "title": "Email Archiving",
+                "description": "Data analytics report will be generated & sent to your email",
+                "icon": "EmailArchive",
+                "showInfo": false,
+                "info": "Esse ut ea sunt do cillum. Sint nostrud et et sint magna. Et aliquip veniam mollit est cupidatat aute laborum."
+            }
+        ],
+        "priceTerm": "Annually",
+        "showBtn": true,
+        "data": {
+            "Code": "MSPP0300",
+            "Name": "Pro Subscription",
+            "Description": "Pro Subscription for 3 Month",
+            "Duration": 3,
+            "Price": 119.97,
+            "GroupCode": null,
+            "TypeCode": "MSP_PP",
+            "DurationTypeCode": "DT_MM",
+            "ModuleCode": null,
+            "MetaData": null,
+            "Status": 1,
+            "Remark": "",
+            "Created_By": "System",
+            "Created_Date": "2023-11-08T15:10:45",
+            "Last_Updated_By": "System",
+            "Last_Updated_Date": "2023-11-08T15:10:45",
+            "Image": "https://i.imgur.com/lwNqBtJ.png"
+        },
+        "price": 119.97
+    }
+]

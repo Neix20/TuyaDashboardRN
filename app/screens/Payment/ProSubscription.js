@@ -10,7 +10,7 @@ import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 import { Logger, Utility } from "@utility";
 import { Images, Svg, Animation } from "@config";
 
-import { BcHeader, BcLoading, BcBoxShadow, BcSvgIcon, BcTooltip } from "@components";
+import { BcHeaderWithAdd, BcLoading, BcBoxShadow, BcSvgIcon, BcTooltip } from "@components";
 import { useToggle } from "@hooks";
 
 import { fetchSubscriptionProPlan } from "@api";
@@ -22,8 +22,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Actions, Selectors } from '@redux';
 
 import Lottie from "lottie-react-native";
-
-import Tooltip from 'react-native-walkthrough-tooltip';
+import { subProData } from "./data";
 
 // #region Components
 function EmptyList(props) {
@@ -51,56 +50,26 @@ function EmptyList(props) {
 
 function Footer(props) {
     return (
-        <VStack space={1} py={2}>
-            <View alignItems={"center"}>
-                <Text style={{
-                    fontFamily: "Roboto-Medium",
-                    fontSize: 14,
-                    color: "#98A0A8"
-                }}>Cancel Anytime</Text>
-            </View>
-
-            <View alignItems={"center"}>
-                <HStack space={3} alignItems={"center"} width={"60%"} justifyContent={"space-between"}>
-                    <TouchableOpacity disabled={true}>
-                        <View>
-                            <Text style={{
-                                fontFamily: "Roboto-Medium",
-                                fontSize: 16,
-                                textDecorationLine: "underline"
-                            }}>Terms of Use</Text>
-                        </View>
-                    </TouchableOpacity>
-                    <TouchableOpacity disabled={true}>
-                        <View>
-                            <Text style={{
-                                fontFamily: "Roboto-Medium",
-                                fontSize: 16,
-                                textDecorationLine: "underline"
-                            }}>Privacy Policy</Text>
-                        </View>
-                    </TouchableOpacity>
-                </HStack>
-            </View>
-
-            <View alignItems={"center"}>
-                <Text style={{
-                    width: "90%",
-                    textAlign: "justify",
-                    fontFamily: "Roboto-Medium",
-                    fontSize: 14,
-                    color: "#585858"
-                }}>
-                    Payment will be charged to your Payment Service at the confirmation of purchase. If you have paid for renewal service, your account will be charged for renewal within 24 hours prior to the end of the current period. You can cancel your subscriptions by cancelling via App or contact us at <Text style={{ color: "#00F", textDecorationLine: "underline" }}>app.vigtech@gmail.com</Text>
-                </Text>
-            </View>
-
-        </VStack>
+        <View alignItems={"center"}
+            justifyContent={"center"}
+            style={{ height: 60 }}>
+            <Text style={{
+                width: "90%",
+                textAlign: "center",
+                fontFamily: "Roboto-Medium",
+                fontSize: 14,
+                color: "#585858"
+            }}>
+                All Subscription are automatically renewed unless cancelled during the subscription period.
+            </Text>
+        </View>
     )
 }
 
 function TPHeader(props) {
-    const { hook = [], colors = {}, borderRadius = 8, payDictHook = [] } = props;
+
+    const { hook = [], colors = {}, borderRadius = 4, payDictHook = [] } = props;
+
     const [tpInd, setTpInd, onChangeTpInd] = hook;
     const [payDict, setPayDict, payDictKey] = payDictHook;
 
@@ -114,18 +83,22 @@ function TPHeader(props) {
             onChange={onChangeTpInd}
             disableIndicator={true}
             style={{
-                height: 60, width: "90%",
-                borderWidth: 1, borderRadius: borderRadius, borderColor: "#98A0A8",
-                backgroundColor: "#FFF"
+                height: 32,
+                width: "90%", columnGap: 5,
+
             }}>
             {
                 payDictKey.map((term, ind) => {
                     return (
                         <Tab.Item key={ind}
                             title={term}
-                            titleStyle={(active) => ({ color: (active) ? "#FFF" : "#000" })}
+                            titleStyle={(active) => ({
+                                color: (active) ? "#FFF" : "#ACB3BB",
+                                fontSize: 12
+                            })}
                             buttonStyle={(active) => ({
-                                width: "100%", height: "100%", borderRadius: borderRadius - 2,
+                                width: "100%", height: "100%",
+                                padding: 0, borderRadius: borderRadius,
                                 backgroundColor: (active) ? colors.activeColor : colors.inActiveColor
                             })}
                         />
@@ -147,7 +120,7 @@ function Detail(props) {
     const renderItem = ({ item, index }) => {
 
         // To Remove
-        if (typeof(item) === "string") {
+        if (typeof (item) === "string") {
             return (
                 <>
                     <HStack key={index} alignItems={"center"} space={5}>
@@ -166,17 +139,22 @@ function Detail(props) {
             )
         }
 
-        const { term = "", info = "", showInfo = false } = item;
+        const { title = "", description = "", icon = "", info = "", showInfo = false } = item;
         return (
             <>
                 <HStack key={index} alignItems={"center"} space={5}>
-                    <FontAwesome name={"check-circle"} color={iconColor} size={24} />
+                    <BcSvgIcon name={icon} size={24} />
                     <View flex={1}>
                         <Text style={{
                             fontFamily: "Roboto-Bold",
-                            fontSize: 18,
+                            fontSize: 16,
                             color: txtColor
-                        }}>{term}</Text>
+                        }}>{title}</Text>
+                        <Text style={{
+                            fontFamily: "Roboto-Medium",
+                            fontSize: 14,
+                            color: txtColor
+                        }}>{description}</Text>
                     </View>
                     {
                         (showInfo) ? (
@@ -188,27 +166,25 @@ function Detail(props) {
                         )
                     }
                 </HStack>
-                <View style={{ height: 5 }} />
+                <View style={{ height: 10 }} />
             </>
-        )
+        );
     }
 
     return (
-        <View alignItems={"center"}>
+        <View flexGrow={1} alignItems={"center"}>
             <FlatList
                 data={data}
                 renderItem={renderItem}
-                style={{ width: "90%" }} />
+                style={{ flex: 1, width: "90%" }} />
         </View>
-    )
+    );
 }
 
 function TPBody(props) {
 
     const navigation = useNavigation();
-
     const { inverse = false, title = "Pro 1 Month", hook = [], colors = {} } = props;
-
     const [payDict, setPayDict, payDictKey] = hook;
 
     if (payDictKey.length == 0) {
@@ -216,7 +192,6 @@ function TPBody(props) {
     }
 
     const obj = payDict[title];
-
     const { price = 0, detail = [], priceTerm = "", title: oTitle = "", data: oData = {}, showBtn = false } = obj;
 
     const GoToPayment = () => {
@@ -232,66 +207,52 @@ function TPBody(props) {
 
     return (
         <TabView.Item style={{ width: "100%", alignItems: "center" }}>
-            <VStack flex={1} width={"90%"} space={3} py={3}
-                bgColor={bgColor} justifyContent={"space-between"}
-                borderWidth={2} borderRadius={12} borderColor={"#98A0A8"}>
-
-                <VStack space={3}>
-                    {/* Term */}
-                    <View alignItems={"center"}>
-                        <Text style={{
-                            fontFamily: "Roboto-Bold",
-                            fontSize: 20,
-                            color: txtColor
-                        }}>{oTitle}</Text>
-                    </View>
-
-                    {/* Logo */}
-                    <View alignItems={"center"}>
-                        <BcBoxShadow style={{ width: "100%", borderRadius: 40 }}>
-                            <View bgColor={"#FFF"} p={3} borderRadius={48}>
-                                <BcSvgIcon name={"AppLogo"} width={64} height={64} />
-                            </View>
-                        </BcBoxShadow>
-                    </View>
-                </VStack>
-
-                {/* Details */}
-                <Detail data={detail} {...props} />
+            <VStack flexGrow={1} space={2} py={3}
+                width={"90%"} bgColor={bgColor}
+                justifyContent={"space-between"}
+                borderRadius={8}>
 
                 {/* Price */}
                 <View alignItems={"center"}>
-                    {
-                        (price == 0) ? (
+                    <HStack alignItems={"center"} justifyContent={"space-between"} width={"90%"}>
+                        <Text style={{
+                            fontFamily: "Roboto-Bold",
+                            fontSize: 20,
+                            textAlign: "center",
+                            color: txtColor,
+                        }}>Pro</Text>
+                        <HStack alignItems={"center"} space={1}>
                             <Text style={{
                                 fontFamily: "Roboto-Bold",
-                                fontSize: 24,
-                                color: txtColor
-                            }}>Free | {priceTerm}</Text>
-                        ) : (
+                                fontSize: 20,
+                                color: colors.activeColor,
+                            }}>RM {price.toFixed(2)}</Text>
+
                             <Text style={{
                                 fontFamily: "Roboto-Bold",
-                                fontSize: 24,
-                                color: txtColor
-                            }}>RM {price.toFixed(2)} | {priceTerm}</Text>
-                        )
-                    }
+                                fontSize: 20,
+                                color: colors.activeColor,
+                            }}>/ Month</Text>
+                        </HStack>
+                    </HStack>
                 </View>
+
+                {/* Details */}
+                <Detail data={detail} {...props} />
 
                 {/* Buy Now Button */}
                 {
                     (showBtn) ? (
                         <View alignItems={"center"}>
-                            <TouchableOpacity onPress={GoToPayment}>
-                                <HStack
+                            <TouchableOpacity onPress={GoToPayment} style={{ width: "90%", height: 48 }}>
+                                <HStack flex={1}
+                                    borderRadius={4}
                                     bgColor={bgInvColor}
-                                    borderRadius={8}
                                     alignItems={"center"}
-                                    justifyContent={"center"}
-                                    style={{ width: 120, height: 40 }}>
+                                    justifyContent={"center"}>
                                     <Text style={{
-                                        fontFamily: "Roboto-Medium",
-                                        fontSize: 20,
+                                        fontFamily: "Roboto-Bold",
+                                        fontSize: 18,
                                         textAlign: "center",
                                         color: txtInvColor,
                                     }}>Buy Now</Text>
@@ -304,6 +265,80 @@ function TPBody(props) {
                 }
             </VStack>
         </TabView.Item>
+    )
+}
+
+function Logo(props) {
+    return (
+        <VStack space={2} alignItems={"center"}>
+            {/* Term */}
+            <Text style={{
+                fontFamily: "Roboto-Bold",
+                fontSize: 20
+            }}>Yatu Pro</Text>
+
+            {/* Logo */}
+            <Image
+                source={Images.SubProIILogo}
+                resizeMode={"contain"}
+                style={{
+                    height: 100,
+                    width: 100,
+                    borderRadius: 8
+                }}
+                alt={"Yatu Pro Subscription"}
+            />
+        </VStack>
+    )
+}
+
+function InfoTooltip(props) {
+
+    const style = {
+        hyperlink: {
+            textDecorationLine: "underline",
+            fontFamily: "Roboto-Medium",
+            color: "#3366CC"
+        },
+        txt: {
+            fontFamily: "Roboto-Medium",
+            fontSize: 14,
+            color: "#484848"
+        }
+    }
+
+    const TAC = () => (
+        <TouchableOpacity>
+            <Text style={style.hyperlink}>Terms of use</Text>
+        </TouchableOpacity>
+    );
+
+    const PP = () => (
+        <TouchableOpacity>
+            <Text style={style.hyperlink}>Privacy Policy</Text>
+        </TouchableOpacity>
+    );
+
+    return (
+        <VStack>
+            <Text style={{ textAlign: "justify", ...style.txt }}>Payment will be charged to your Payment Service at the confirmation of purchase. If you have paid for renewal service, your account will be charged for renewal within 24 hours prior to the end of the current period. You can cancel your subscriptions at any time.</Text>
+            <HStack alignItems={"flex-start"} space={1.5}>
+                <Text style={style.txt}>Read Subscription:</Text>
+                <TAC />
+                <Text>&</Text>
+                <PP />
+            </HStack>
+        </VStack>
+    )
+}
+
+function InfoIcon(props) {
+    return (
+        <BcTooltip placement={"bottom"} bgColor={"#FFF"}
+            modalBgColor={"rgba(0, 0, 0, 0.25)"} borderWidth={0}
+            content={<InfoTooltip />}>
+            <BcSvgIcon name={"InfoIcon"} size={24} />
+        </BcTooltip>
     )
 }
 // #endregion
@@ -383,7 +418,8 @@ function Index(props) {
     // #region UseEffect
     useEffect(() => {
         if (isFocused) {
-            SubscriptionProPlan();
+            // SubscriptionProPlan();
+            setPayDict(subProData);
         }
     }, [isFocused]);
     // #endregion
@@ -411,7 +447,8 @@ function Index(props) {
     const renderTabBody = (term, ind) => (
         <TPBody key={ind}
             title={term}
-            inverse={ind % 2 == 1}
+            // inverse={ind % 2 == 1}
+            inverse={false}
             hook={payDictHook}
             colors={colors} />
     )
@@ -421,35 +458,34 @@ function Index(props) {
         <>
             <BcLoading loading={loading} />
             <SafeAreaView style={{ flex: 1 }}>
-                <View bgColor={"#F6F6F6"} style={{ flex: 1 }}>
+                <View bgColor={"#F3F8FC"} style={{ flex: 1 }}>
 
                     {/* Header */}
-                    <BcHeader>Member Subscription</BcHeader>
+                    <BcHeaderWithAdd Right={<InfoIcon />}>Subscription</BcHeaderWithAdd>
 
                     <View style={{ height: 10 }} />
 
                     {/* Body */}
-                    <ScrollView showsVerticalScrollIndicator={false}
-                        keyboardShouldPersistTaps={"handled"}
-                        contentContainerStyle={{ flexGrow: 1 }}>
-                        {
-                            (payDictKey.length > 0) ? (
-                                <VStack space={3} flexGrow={1}>
-                                    {/* Tab Header */}
-                                    <View alignItems={"center"}>
-                                        <TPHeader hook={tpHook} colors={colors} payDictHook={payDictHook} />
-                                    </View>
+                    {
+                        (payDictKey.length > 0) ? (
+                            <VStack space={3} flexGrow={1}>
+                                {/* Logo */}
+                                <Logo />
 
-                                    {/* Tab Body */}
-                                    <TabView value={tpInd} onChange={onChangeTpInd}>
-                                        {payDictKey.map(renderTabBody)}
-                                    </TabView>
-                                </VStack>
-                            ) : (
-                                <EmptyList />
-                            )
-                        }
-                    </ScrollView>
+                                {/* Tab Header */}
+                                <View alignItems={"center"}>
+                                    <TPHeader hook={tpHook} colors={colors} payDictHook={payDictHook} />
+                                </View>
+
+                                {/* Tab Body */}
+                                <TabView value={tpInd} onChange={onChangeTpInd}>
+                                    {payDictKey.map(renderTabBody)}
+                                </TabView>
+                            </VStack>
+                        ) : (
+                            <EmptyList />
+                        )
+                    }
 
                     {/* Footer */}
                     <Footer />

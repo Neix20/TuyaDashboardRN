@@ -210,7 +210,6 @@ function ExistLoginForm(props) {
 
     const { email, otp, sessionId } = form;
 
-
     // #region UseEffect
     // useEffect(() => {
     //     if (isFocused) {
@@ -706,6 +705,12 @@ function Index(props) {
     const subLoginFormHook = useSubLoginForm();
 
     const [img] = useChangeBg();
+
+    const TryASGuest = () => {
+        toast.show({
+            description: "Work in progress"
+        })
+    }
     
     return (
         <>
@@ -759,14 +764,15 @@ function Index(props) {
                                         </View>
                                     </TouchableOpacity> */}
 
-                                    {/* <TouchableOpacity style={{ width: "80%" }}>
+                                    <TouchableOpacity onPress={TryASGuest}
+                                        style={{ width: "80%" }}>
                                         <View alignItems={"center"}>
                                             <Text style={{
                                                 fontFamily: "Roboto-Bold",
                                                 fontSize: 16
                                             }}>Try As Guest</Text>
                                         </View>
-                                    </TouchableOpacity> */}
+                                    </TouchableOpacity>
                                 </VStack>
 
                             </VStack>

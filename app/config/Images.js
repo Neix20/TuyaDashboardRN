@@ -87,5 +87,14 @@ data = {
     personVI: require("@assets/images/Profile/person_VI.png"),
 }
 
+data = {
+    ...data,
+    SubFreetrialLogo: require("@assets/images/sub-freetrial.png"),
+    UserModuleLogo: require("@assets/images/user-module.png"),
+    SubStandardLogo: require("@assets/images/sub-standard.png"),
+    SubProLogo: require("@assets/images/sub-pro.png"),
+    SubProIILogo: require("@assets/images/sub-pro-ii.png"),
+}
+
 
 export default data;

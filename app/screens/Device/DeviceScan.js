@@ -576,8 +576,7 @@ function Index(props) {
                                 onRefresh={refreshScan} />
                         ) : (
                             <View flexGrow={1}>
-                                <DevicePanel
-                                    data={btScanArr} />
+                                <DevicePanel data={btScanArr} />
                             </View>
                         )
                     }

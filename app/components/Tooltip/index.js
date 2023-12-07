@@ -3,11 +3,25 @@ import { TouchableOpacity } from "react-native";
 
 import Tooltip from 'react-native-walkthrough-tooltip';
 
-import { useToggle } from "@hooks" ;
+import { useToggle } from "@hooks";
+
+const style = {
+    shadowStyle: {
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+        elevation: 5 
+    }
+}
 
 function Index(props) {
 
     const { content = () => (<></>), children } = props;
+    const { placement = "top", bgColor = "#F6F6F6", modalBgColor = "rgba(0, 0, 0, 0)", borderWidth = 1 } = props;
 
     const [open, setOpen, toggleOpen] = useToggle(false);
 
@@ -16,9 +30,14 @@ function Index(props) {
             isVisible={open}
             onClose={toggleOpen}
             content={content}
-            placement={"top"}
-            contentStyle={{ backgroundColor: "#d6d6d6"}}
-            backgroundColor={"rgba(0, 0, 0, 0)"}>
+            placement={placement}
+            showChildInTooltip={false}
+            contentStyle={{ 
+                backgroundColor: bgColor, 
+                borderWidth: borderWidth,
+            }}
+            backgroundColor={modalBgColor}
+            arrowStyle={{ top: 0 }}>
             <TouchableOpacity onPress={toggleOpen}>
                 {children}
             </TouchableOpacity>

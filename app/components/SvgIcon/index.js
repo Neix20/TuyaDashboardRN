@@ -10,7 +10,7 @@ function Index(props) {
     const Icon = Svg[name];
 
     return (
-        <Icon fill={color} {...props} />
+        <Icon fill={color} width={size} height={size} {...props} />
     )
 }
 

@@ -630,7 +630,6 @@ function Index(props) {
     const { data = [] } = props.route.params;
 
     const { Code: SubscriptionCode } = data[0];
-
     // const data = [
     //     {
     //         "title": "Storage Module",
