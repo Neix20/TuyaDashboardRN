@@ -201,7 +201,6 @@ function TPBody(props) {
     }
 
     const txtColor = inverse ? "#FFF" : "#000";
-    const txtInvColor = inverse ? "#000" : "#FFF";
     const bgColor = inverse ? colors.activeColor : colors.inActiveColor;
     const bgInvColor = inverse ? colors.inActiveColor : colors.activeColor;
 
@@ -254,7 +253,7 @@ function TPBody(props) {
                                         fontFamily: "Roboto-Bold",
                                         fontSize: 18,
                                         textAlign: "center",
-                                        color: txtInvColor,
+                                        color: bgColor,
                                     }}>Buy Now</Text>
                                 </HStack>
                             </TouchableOpacity>

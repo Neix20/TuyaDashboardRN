@@ -10,7 +10,7 @@ const ONESIGNAL_APP_ID = "c9ae1fae-6f45-4ec4-8d62-15947a7d9b52";
 
 const VIGTECH_PHONE_NUMBER = "017-776 8230";
 const VIGTECH_BUSINESS_PHONE_NUMBER = "013-910 0574";
-const VIGTECH_EMAIL = "buahcinta@jomvend.com";
+const VIGTECH_EMAIL = "app.vigtech@gmail.com";
 
 const TUYA_TIME_TO_WAIT_SYNC = 225;
 

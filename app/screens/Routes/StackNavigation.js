@@ -11,8 +11,6 @@ import Debug from "@screens/Debug";
 import TabNavigation from "./TabNavigation";
 import DrawerNavigation from "./DrawerNavigation";
 
-import AboutUs from "@screens/AboutUs";
-
 import DeviceScan from "@screens/Device/DeviceScan";
 
 import DeviceLanding from "@screens/Device/DeviceLanding";
@@ -262,13 +260,6 @@ StackScreens = {
             orientation: "portrait"
         }
     },
-    AboutUs: {
-        component: AboutUs,
-        title: "AboutUs",
-        option: {
-            orientation: "portrait"
-        }
-    },
     DeviceLandingSmartPlug: {
         component: DeviceLandingSmartPlug,
         title: "DeviceLandingSmartPlug",
@@ -412,6 +403,43 @@ StackScreens = {
     }
 }
 
+import AboutUs from "@screens/AboutUs";
+import TNC from "@screens/TNC";
+import Policy from "@screens/Policy";
+import Faq from "@screens/Faq";
+
+StackScreens = {
+    ...StackScreens,
+    AboutUs: {
+        component: AboutUs,
+        title: "AboutUs",
+        option: {
+            orientation: "portrait"
+        }
+    },
+    TNC: {
+        component: TNC,
+        title: "TNC",
+        option: {
+            orientation: "portrait"
+        }
+    },
+    Policy: {
+        component: Policy,
+        title: "Policy",
+        option: {
+            orientation: "portrait"
+        }
+    },
+    Faq: {
+        component: Faq,
+        title: "Faq",
+        option: {
+            orientation: "portrait"
+        }
+    }
+}
+
 import { useDispatch, useSelector } from 'react-redux';
 import { Actions, Selectors } from '@redux';
 
@@ -543,7 +571,7 @@ function Index(props) {
     // #endregion
 
     // const defaultScreen = (userId == -1 || firstTimeLink) ? "LoginII" : "TabNavigation";
-    const defaultScreen = "PaymentProSubscription";
+    const defaultScreen = "AboutUs";
 
     return (
         <>
