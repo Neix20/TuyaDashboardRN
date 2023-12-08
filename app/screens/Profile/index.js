@@ -294,21 +294,28 @@ function NavPanel(props) {
 
 function AppInfoPanel(props) {
     const navigation = useNavigation();
+
     const GoToAboutUs = () => navigation.navigate("AboutUs");
+    const GoToTnc = () => navigation.navigate("Tnc");
+    const GoToPolicy = () => navigation.navigate("Policy");
+    const GoToFaq = () => navigation.navigate("Faq");
 
     return (
         <VStack bgColor={"#FFF"} borderRadius={8} width={"90%"} alignItems={"center"}>
             <PanelBtn onPress={GoToAboutUs} Btn={FontAwesome5} icon={"info-circle"} title={"About Us"} />
+            <PanelBtn onPress={GoToTnc} Btn={FontAwesome5} icon={"clipboard-list"} title={"Terms & Conditions"} />
+            <PanelBtn onPress={GoToPolicy} Btn={FontAwesome5} icon={"unlock-alt"} title={"Privacy Policy"} />
+            <PanelBtn onPress={GoToFaq} Btn={FontAwesome5} icon={"question-circle"} title={"FAQ"} />
         </VStack>
     )
 }
 
 function PaymentSubscriptionPanel(props) {
 
-    const navigation = useNavigation();
     const toast = useToast();
+    const navigation = useNavigation();
+
     const GoToPayment = () => {
-        // navigation.navigate("PaymentSubscriptionAddOn");
         navigation.navigate("PaymentProSubscription");
         // toast.show({
         //     description: "Work In-Progress!"
@@ -462,12 +469,13 @@ function Index(props) {
 
                             <NavPanel {...profileInfo} />
 
-                            {/* <AppInfoPanel /> */}
-
+                            {/* Make Payment */}
                             {(AccountType <= 2) ? <PaymentSubscriptionPanel /> : <></>}
 
                             {/* View Subscription Order */}
                             <SubscribedAddons />
+
+                            <AppInfoPanel />
 
                             {/* Logout */}
                             <LogoutPanel onLogout={SignOut} />
@@ -495,10 +503,13 @@ function Index(props) {
                                 color: "#A6AFB8"
                             }}>Powered By {clsConst.ORG_NAME}</Text>
                         </VStack>
+
+                        <View style={{ height: 10 }} />
+
                     </ScrollView>
 
                     {/* Footer */}
-                    <View style={{ height: 70 }} />
+                    <View style={{ height: 60 }} />
                 </View>
             </SafeAreaView>
         </>

@@ -13,7 +13,7 @@ import { BcHeader } from "@components";
 
 import { BcVersion, BcFooter } from "./../components";
 import { useTextInfo } from "./../hooks";
-import { Faq as TestData } from "./../data";
+import { Policy as TestData } from "./../data";
 
 function Policy(props) {
     const { data = [] } = props;

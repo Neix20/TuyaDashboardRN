@@ -570,8 +570,8 @@ function Index(props) {
     }
     // #endregion
 
-    // const defaultScreen = (userId == -1 || firstTimeLink) ? "LoginII" : "TabNavigation";
-    const defaultScreen = "DrawerNavigation";
+    const defaultScreen = (userId == -1 || firstTimeLink) ? "LoginII" : "TabNavigation";
+    // const defaultScreen = "DrawerNavigation";
 
     
     return (

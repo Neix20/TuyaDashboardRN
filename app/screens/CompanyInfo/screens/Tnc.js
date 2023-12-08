@@ -13,7 +13,7 @@ import { BcHeader } from "@components";
 
 import { BcVersion, BcFooter } from "./../components";
 import { useTextInfo } from "./../hooks";
-import { Faq as TestData } from "./../data";
+import { Tnc as TestData } from "./../data";
 
 function TnC(props) {
     const { data = [] } = props;
