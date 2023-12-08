@@ -737,7 +737,7 @@ function Index(props) {
                                 style={{ height: 600 }}>
                                 {/* Logo Header */}
                                 <View alignItems={"center"}>
-                                    <BcSvgIcon name={"AppLogo"} width={160} height={160} />
+                                    <BcSvgIcon name={"AppLogo"} width={160} height={160} color={"#2898FF"} />
                                 </View>
 
                                 {/* <LoginForm loading={loading} setLoading={setLoading} /> */}

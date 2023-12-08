@@ -292,7 +292,7 @@ function NavPanel(props) {
     )
 }
 
-function AppInfoPanel(props) {
+function CompanyInfoPanel(props) {
     const navigation = useNavigation();
 
     const GoToAboutUs = () => navigation.navigate("AboutUs");
@@ -475,7 +475,7 @@ function Index(props) {
                             {/* View Subscription Order */}
                             <SubscribedAddons />
 
-                            <AppInfoPanel />
+                            <CompanyInfoPanel />
 
                             {/* Logout */}
                             <LogoutPanel onLogout={SignOut} />

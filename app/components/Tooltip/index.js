@@ -20,10 +20,10 @@ const style = {
 
 function Index(props) {
 
-    const { content = () => (<></>), children } = props;
+    const { content = () => (<></>), hook = [], children } = props;
     const { placement = "top", bgColor = "#F6F6F6", modalBgColor = "rgba(0, 0, 0, 0)", borderWidth = 1 } = props;
 
-    const [open, setOpen, toggleOpen] = useToggle(false);
+    const [open, setOpen, toggleOpen] = hook;
 
     return (
         <Tooltip

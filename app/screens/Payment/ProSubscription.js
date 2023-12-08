@@ -293,6 +293,11 @@ function Logo(props) {
 
 function InfoTooltip(props) {
 
+    const { hook = [] } = props;
+    const [open, setOpen, toggleOpen] = hook;
+
+    const navigation = useNavigation();
+
     const style = {
         hyperlink: {
             textDecorationLine: "underline",
@@ -306,14 +311,24 @@ function InfoTooltip(props) {
         }
     }
 
-    const TAC = () => (
-        <TouchableOpacity>
+    const GoToTnc = () => {
+        toggleOpen();
+        navigation.navigate("Tnc");
+    }
+
+    const GoToPolicy = () => {
+        toggleOpen();
+        navigation.navigate("Policy");
+    }
+    
+    const Tnc = () => (
+        <TouchableOpacity onPress={GoToTnc}>
             <Text style={style.hyperlink}>Terms of use</Text>
         </TouchableOpacity>
     );
 
-    const PP = () => (
-        <TouchableOpacity>
+    const Policy = () => (
+        <TouchableOpacity onPress={GoToPolicy}>
             <Text style={style.hyperlink}>Privacy Policy</Text>
         </TouchableOpacity>
     );
@@ -323,19 +338,23 @@ function InfoTooltip(props) {
             <Text style={{ textAlign: "justify", ...style.txt }}>Payment will be charged to your Payment Service at the confirmation of purchase. If you have paid for renewal service, your account will be charged for renewal within 24 hours prior to the end of the current period. You can cancel your subscriptions at any time.</Text>
             <HStack alignItems={"flex-start"} space={1.5}>
                 <Text style={style.txt}>Read Subscription:</Text>
-                <TAC />
+                <Tnc />
                 <Text>&</Text>
-                <PP />
+                <Policy />
             </HStack>
         </VStack>
     )
 }
 
 function InfoIcon(props) {
+
+    const openHook = useToggle(false);
+
     return (
-        <BcTooltip placement={"bottom"} bgColor={"#FFF"}
+        <BcTooltip hook={openHook}
+            placement={"bottom"} bgColor={"#FFF"}
             modalBgColor={"rgba(0, 0, 0, 0.25)"} borderWidth={0}
-            content={<InfoTooltip />}>
+            content={<InfoTooltip hook={openHook} />}>
             <BcSvgIcon name={"InfoIcon"} size={24} />
         </BcTooltip>
     )
