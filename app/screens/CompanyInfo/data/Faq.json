@@ -1,0 +1,72 @@
+{
+    "version": "2023-11-23T14:37:59.2",
+    "content": [
+        {
+            "title": "What is the process for purchasing a BC Gift ",
+            "description": "To learn how to purchase a BC Gift, you can check our tutorial screen for a step-by-step guide. "
+        },
+        {
+            "title": "What is the expiration date for the BC Gift?",
+            "description": "All the BC Gift have 30 days expiration day."
+        },
+        {
+            "title": "Is it possible to get a refund for the BC Gift?",
+            "description": "Please note that refunds are not available for the BC Gift. However, you may use it to purchase your preferred goods from our vending machines."
+        },
+        {
+            "title": "where I can go to redeem this? ",
+            "description": "To find out more information about the Gift, please click on the details and check our location. Additionally, you can also visit our website at www.jomvend.com to learn more about us."
+        },
+        {
+            "title": "Is it possible to receive multiple vouchers?",
+            "description": "Certainly, you can receive multiple gifts from others."
+        },
+        {
+            "title": "Is it possible to send multiple vouchers?",
+            "description": "Certainly, you can send multiple gifts to others."
+        },
+        {
+            "title": "Which items are eligible for redemption?",
+            "description": "The BC Gift Voucher can be used to purchase any item available in the vending machine."
+        },
+        {
+            "title": "Customer Support",
+            "description": "Please do not hesitate to contact us +60 13-910 0574 if you have any questions or concerns."
+        }
+    ],
+    "content12": [
+        {
+            "title": "What is the Pro Subscription for [App Name]?",
+            "description": "The Pro Subscription for [App Name] is a premium plan that provides enhanced features and benefits, offering an ad-free experience, exclusive content, and advanced functionalities for a seamless user experience."
+        },
+        {
+            "title": "How does the auto-renewal feature work?",
+            "description": "The auto-renewal feature ensures uninterrupted access to your Pro Subscription. Once activated, your subscription will automatically renew at the end of each billing cycle, ensuring continuous access to premium features. You can manage your subscription settings in the app or device settings."
+        },
+        {
+            "title": "Can I cancel the auto-renewal of my Pro Subscription?",
+            "description": "Yes, you can cancel the auto-renewal at any time. Simply go to your account settings in the app or your device settings, navigate to the subscription section, and follow the provided instructions to manage your subscription preferences."
+        },
+        {
+            "title": "What happens if I cancel my Pro Subscription before the end of the billing cycle?",
+            "description": "If you cancel your Pro Subscription before the end of the billing cycle, you will continue to have access to the premium features until the current subscription period expires. After that, your account will revert to the free version, and you can choose to resubscribe at any time."
+        },
+        {
+            "title": "How do I update my billing information for the Pro Subscription?",
+            "description": "To update your billing information, log in to your account on the app, go to the subscription or account settings, and select the option to update payment details. Follow the prompts to enter your new billing information securely."
+        },
+        {
+            "title": "Is my payment information secure with the Pro Subscription?",
+            "description": "Yes, we prioritize the security of your payment information. We use industry-standard encryption protocols to secure all financial transactions, ensuring that your data is handled with the utmost confidentiality."
+        },
+        {
+            "title": "Can I switch between subscription plans?",
+            "description": "Yes, you can switch between subscription plans within the app. If you wish to upgrade or downgrade your subscription, go to your account settings, select the subscription section, and follow the instructions to choose the plan that best suits your needs."
+        },
+        {
+            "title": "Will I be notified before the auto-renewal of my Pro Subscription?",
+            "description": "Yes, you will receive a notification before the auto-renewal of your Pro Subscription. This notification will remind you of the upcoming renewal and provide instructions on how to manage your subscription preferences."
+        }
+    ]
+    
+}

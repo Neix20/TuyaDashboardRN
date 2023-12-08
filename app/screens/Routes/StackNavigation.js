@@ -403,10 +403,10 @@ StackScreens = {
     }
 }
 
-import AboutUs from "@screens/AboutUs";
-import TNC from "@screens/TNC";
-import Policy from "@screens/Policy";
-import Faq from "@screens/Faq";
+import AboutUs from "@screens/CompanyInfo/screens/AboutUs.js";
+import Tnc from "@screens/CompanyInfo/screens/Tnc.js";
+import Policy from "@screens/CompanyInfo/screens/Policy.js";
+import Faq from "@screens/CompanyInfo/screens/Faq.js";
 
 StackScreens = {
     ...StackScreens,
@@ -417,9 +417,9 @@ StackScreens = {
             orientation: "portrait"
         }
     },
-    TNC: {
-        component: TNC,
-        title: "TNC",
+    Tnc: {
+        component: Tnc,
+        title: "Tnc",
         option: {
             orientation: "portrait"
         }
@@ -571,8 +571,9 @@ function Index(props) {
     // #endregion
 
     // const defaultScreen = (userId == -1 || firstTimeLink) ? "LoginII" : "TabNavigation";
-    const defaultScreen = "AboutUs";
+    const defaultScreen = "DrawerNavigation";
 
+    
     return (
         <>
             <BcAppUpdateModal showModal={appFlag} />

@@ -17,7 +17,7 @@ function MyDrawerContainerItem(props) {
     return (
         <HStack flex={1}
             alignItems={"center"} space={3}>
-            <FontAwesome name='chevron-right' color={"#2898FF"} size={18} />
+            <FontAwesome name={"chevron-right"} color={"#2898FF"} size={18} />
             <Text>{title}</Text>
         </HStack>
     )
@@ -74,7 +74,6 @@ function Index(props) {
         <Drawer.Navigator initialRouteName={defaultScreen}
             drawerContent={renderContainer}
             screenOptions={{
-                headerShown: false,
                 swipeEdgeWidth: 0,
             }}>
             {arr.map(renderItem)}

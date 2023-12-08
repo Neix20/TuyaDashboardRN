@@ -123,8 +123,12 @@ function requestObj(obj) {
 	return res;
 }
 
-function formatDt(dt, format = "yyyy-MM-dd") {
+function formatDt(dt = "2023-01-01T00:00:00", format = "yyyy-MM-dd") {
 	let res = "";
+
+	if (dt == "" || dt == null || dt == undefined) {
+		dt = "2023-01-01T00:00:00";
+	}
 
 	res = DateTime.fromISO(dt).toFormat(format);
 	return res;

@@ -5,38 +5,35 @@ import { BcDrawerNavigator } from "@components";
 import Empty from "@screens/Empty";
 import EmptyII from "@screens/Empty/EmptyII";
 
-import Dashboard from "@screens/Dashboard";
-import Device from "@screens/Device";
-import Profile from "@screens/Profile";
-
 let DrawerScreens = {};
+
+import AboutUs from "@screens/CompanyInfo/screens/AboutUs.js";
+import Tnc from "@screens/CompanyInfo/screens/Tnc.js";
+import Policy from "@screens/CompanyInfo/screens/Policy.js";
+import Faq from "@screens/CompanyInfo/screens/Faq.js";
 
 DrawerScreens = {
     ...DrawerScreens,
-    Empty: {
-        component: Empty,
-        title: "Empty"
+    AboutUs: {
+        component: AboutUs,
+        title: "AboutUs"
     },
-    EmptyII: {
-        component: EmptyII,
-        title: "EmptyII",
+    Tnc: {
+        component: Tnc,
+        title: "Tnc"
     },
-    Dashboard: {
-        component: Dashboard,
-        title: "Dashboard"
+    Policy: {
+        component: Policy,
+        title: "Policy"
     },
-    Device: {
-        component: Device,
-        title: "Device"
-    },
-    Profile: {
-        component: Profile,
-        title: "Profile"
+    Faq: {
+        component: Faq,
+        title: "Faq"
     }
-};
+}
 
 function Index(props) {
-    const defaultScreen = "Empty";
+    const defaultScreen = "Faq";
     return (
         <BcDrawerNavigator
             screens={DrawerScreens} 

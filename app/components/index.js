@@ -11,6 +11,7 @@ export {
 // #endregion
 
 // #region Utils
+import BcAccordion from "./Accordion";
 import BcBoxShadow from "./BoxShadow";
 import BcCalendar from "./Calendar";
 import BcCarousel from "./Carousel";
@@ -26,6 +27,7 @@ import BcViewShot from "./ViewShot";
 import BcTooltip from "./Tooltip";
 
 export {
+    BcAccordion,
     BcBoxShadow,
     BcCalendar,
     BcCarousel,

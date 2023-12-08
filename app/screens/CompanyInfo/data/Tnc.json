@@ -1,0 +1,21 @@
+{
+    "version": "2023-11-23T14:37:59.2",
+    "content": [
+        {
+            "title": "Subscription Access",
+            "description": "The subscription can only be utilized for the specified services as outlined in the subscription details.\nSubscription details must be entered at the time of sign-up or checkout as specified by the service provider."
+        },
+        {
+            "title": "Subscription Period",
+            "description": "The subscription is valid until the specified expiration date mentioned in the subscription details or as communicated by the issuer.\nExpired subscriptions will not grant access to the subscribed services."
+        },
+        {
+            "title": "Value and Access Restrictions",
+            "description": "The subscription provides access to a fixed set of services or offers a specified discount applicable to the total cost of eligible services.\nCertain restrictions may apply, including minimum usage requirements, specific service exclusions, or limitations on combining with other promotions.\nThe value of the subscription cannot be redeemed for cash or refunded, in part or in full, unless required by law."
+        },
+        {
+            "title": "Fraud and Misuse",
+            "description": "The issuer reserves the right to refuse access or cancel the subscription if there is a reasonable belief of fraud, misuse, or violation of the terms and conditions.\nAny attempt to tamper with, alter, or duplicate the subscription may be considered fraudulent and could lead to legal action."
+        }
+    ]
+}
