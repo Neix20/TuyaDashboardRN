@@ -54,7 +54,7 @@ function Index(props) {
                             <HStack>
 
                                 {
-                                    (AccountType <= 1 && stDiff > 7) ? (
+                                    (stDiff > 90) ? (
                                         <BcDisable>
                                             <View
                                                 justifyContent={"center"}

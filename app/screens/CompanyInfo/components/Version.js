@@ -12,7 +12,7 @@ function Index(props) {
                 fontFamily: "Roboto-Medium",
                 fontWeight: "500",
                 fontSize: 12,
-            }}>{Utility.translate("Version", lang)} {Utility.formatDt(version, "dd/MM/yyyy")}</Text>
+            }}>{Utility.translate("Version", lang)} {Utility.formatDt(version, "yyyy-MM-dd")}</Text>
         </View>
     )
 }

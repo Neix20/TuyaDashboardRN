@@ -12,10 +12,12 @@ import { Images, clsConst } from "@config";
 
 import { Linking } from "react-native";
 
-import { BcHeader, BcBoxShadow, BcSvgIcon } from "@components";
+import { BcHeader, BcBoxShadow, BcSvgIcon, BcLoading } from "@components";
+import { useToggle } from "@hooks";
 
 import { BcVersion, BcFooter } from "./../components";
 import { AboutUs as TestData } from "./../data";
+import { fetchAboutUs } from "./../api";
 
 // #region Components
 function AboutBtn(props) {
@@ -101,6 +103,8 @@ function Index(props) {
     };
 
     const [data, setData] = useTextInfo(init.data);
+    const [loading, setLoading, toggleLoading] = useToggle(false);
+
     const { version = "", info = [] } = data;
 
     // #region UseEffect
@@ -126,60 +130,63 @@ function Index(props) {
     // #endregion
 
     return (
-        <SafeAreaView style={{ flex: 1 }}>
-            <View style={{ flex: 1 }}>
+        <>
+            <BcLoading loading={loading} />
+            <SafeAreaView style={{ flex: 1 }}>
+                <View style={{ flex: 1 }}>
 
-                {/* Header */}
-                <BcHeader>{Utility.translate("About Us", lang)}</BcHeader>
+                    {/* Header */}
+                    <BcHeader>{Utility.translate("About Us", lang)}</BcHeader>
 
-                <View style={{ height: 10 }} />
+                    <View style={{ height: 10 }} />
 
-                {/* Body */}
-                <ScrollView showsVerticalScrollIndicator={false} keyboardShouldPersistTaps={"handled"}
-                    contentContainerStyle={{ flexGrow: 1 }}>
-                    <View flexGrow={1} bgColor={"#FFF"} alignItems={"center"}>
+                    {/* Body */}
+                    <ScrollView showsVerticalScrollIndicator={false} keyboardShouldPersistTaps={"handled"}
+                        contentContainerStyle={{ flexGrow: 1 }}>
+                        <View flexGrow={1} bgColor={"#FFF"} alignItems={"center"}>
 
-                        {/* Version */}
-                        <BcVersion {...data} />
+                            {/* Version */}
+                            <BcVersion {...data} />
 
-                        {/* Logo */}
-                        <View width={"90%"}>
-                            <BcSvgIcon name={"Yatu"} color={"#2898FF"} width={100} height={50} />
-                        </View>
-
-                        {/* Content */}
-                        <View width={"90%"}>
-                            <AboutUs data={info} />
-                        </View>
-
-                        <View style={{ height: 20 }} />
-
-                        {/* Buttons */}
-                        <VStack space={3}>
+                            {/* Logo */}
                             <View width={"90%"}>
-                                <Text style={{
-                                    fontFamily: "Roboto-Medium",
-                                    fontWeight: "500",
-                                }}>{Utility.translate("Reach Us", lang)}</Text>
+                                <BcSvgIcon name={"Yatu"} color={"#2898FF"} width={100} height={50} />
                             </View>
 
-                            <HStack width={"90%"} space={3}
-                                alignItems={"flex-start"} justifyContent={"space-between"}>
-                                <AboutBtn name={"PhoneBook"} onPress={contactVigTech}>{clsConst.VIGTECH_PHONE_NUMBER}</AboutBtn>
-                                <AboutBtn name={"WhatsApp"} onPress={whatsappVigTech}>{clsConst.VIGTECH_BUSINESS_PHONE_NUMBER}</AboutBtn>
-                                <AboutBtn name={"Envelope"} onPress={emailVigTech}>{clsConst.VIGTECH_EMAIL}</AboutBtn>
-                            </HStack>
-                        </VStack>
+                            {/* Content */}
+                            <View width={"90%"}>
+                                <AboutUs data={info} />
+                            </View>
 
+                            <View style={{ height: 20 }} />
+
+                            {/* Buttons */}
+                            <VStack space={3}>
+                                <View width={"90%"}>
+                                    <Text style={{
+                                        fontFamily: "Roboto-Medium",
+                                        fontWeight: "500",
+                                    }}>{Utility.translate("Reach Us", lang)}</Text>
+                                </View>
+
+                                <HStack width={"90%"} space={3}
+                                    alignItems={"flex-start"} justifyContent={"space-between"}>
+                                    <AboutBtn name={"PhoneBook"} onPress={contactVigTech}>{clsConst.VIGTECH_PHONE_NUMBER}</AboutBtn>
+                                    <AboutBtn name={"WhatsApp"} onPress={whatsappVigTech}>{clsConst.VIGTECH_BUSINESS_PHONE_NUMBER}</AboutBtn>
+                                    <AboutBtn name={"Envelope"} onPress={emailVigTech}>{clsConst.VIGTECH_EMAIL}</AboutBtn>
+                                </HStack>
+                            </VStack>
+
+                        </View>
+                    </ScrollView>
+
+                    {/* Footer */}
+                    <View alignItems={"center"} bgColor={"#FFF"}>
+                        <BcFooter lang={lang} />
                     </View>
-                </ScrollView>
-
-                {/* Footer */}
-                <View alignItems={"center"} bgColor={"#FFF"}>
-                    <BcFooter lang={lang} />
                 </View>
-            </View>
-        </SafeAreaView>
+            </SafeAreaView>
+        </>
     )
 }
 

@@ -48,13 +48,6 @@ import TuyaPanel from "@screens/TuyaPanel";
 import ProfileInfo from "@screens/Profile/ProfileInfo";
 import ReportSchedule from "@screens/ReportSchedule";
 
-import PaymentSubscription from "@screens/Payment/Subscription";
-import Payment from "@screens/Payment";
-import WebPayment from "@screens/Payment/WebPayment";
-import PaymentFailed from "@screens/Payment/PaymentFailed";
-
-import ThankYou from "@screens/ThankYou";
-
 import RoomManagement from "@screens/Room/RoomManagement";
 import RoomInfo from "@screens/Room/RoomInfo";
 import AddRoom from "@screens/Room/AddRoom";
@@ -68,6 +61,8 @@ import AddSubUserWithCode from "@screens/SubUser/AddSubUserWithCode";
 
 import Subscription from "@screens/Subscription";
 import SubscriptionInfo from "@screens/Subscription/SubscriptionInfo";
+
+import CheckTuyaEmail from "@screens/CheckTuyaEmail";
 
 let StackScreens = {};
 
@@ -301,14 +296,58 @@ StackScreens = {
         option: {
             orientation: "portrait"
         }
-    },
-    PaymentSubscription: {
-        component: PaymentSubscription,
-        title: "PaymentSubscription",
+    }
+};
+
+StackScreens = {
+    ...StackScreens,
+    Subscription: {
+        component: Subscription,
+        title: "Subscription",
         option: {
             orientation: "portrait"
         }
     },
+    SubscriptionInfo: {
+        component: SubscriptionInfo,
+        title: "SubscriptionInfo",
+        option: {
+            orientation: "portrait"
+        }
+    },
+    CheckTuyaEmail: {
+        component: CheckTuyaEmail,
+        title: "CheckTuyaEmail",
+        option: {
+            orientation: "portrait"
+        }
+    }
+}
+
+StackScreens = {
+    ...StackScreens,
+    TabNavigation: {
+        component: TabNavigation,
+        title: "TabNavigation"
+    },
+    DrawerNavigation: {
+        component: DrawerNavigation,
+        title: "DrawerNavigation"
+    }
+};
+
+import Payment from "@screens/PaymentModule/screens/Payment.js";
+import WebPayment from "@screens/PaymentModule/screens/WebPayment.js";
+import PaymentFailed from "@screens/PaymentModule/screens/PaymentFailed.js";
+import ThankYou from "@screens/PaymentModule/screens/ThankYou.js";
+import PaymentProSubscription from "@screens/PaymentModule/screens/ProSubscription";
+
+import PaymentSubscription from "@screens/PaymentModule/screens/Subscription.js";
+import PaymentSubscriptionAddOn from "@screens/PaymentModule/screens/Addon/index.js";
+import PaymentSubscriptionDetail from "@screens/PaymentModule/screens/Addon/detail.js";
+
+StackScreens = {
+    ...StackScreens,
     Payment: {
         component: Payment,
         title: "Payment",
@@ -336,29 +375,21 @@ StackScreens = {
         option: {
             orientation: "portrait"
         }
-    }
-};
-
-StackScreens = {
-    ...StackScreens,
-    TabNavigation: {
-        component: TabNavigation,
-        title: "TabNavigation"
     },
-    DrawerNavigation: {
-        component: DrawerNavigation,
-        title: "DrawerNavigation"
-    }
-};
-
-import PaymentSubscriptionAddOn from "@screens/Payment/Addon";
-import PaymentProSubscription from "@screens/Payment/ProSubscription";
-import PaymentSubscriptionDetail from "@screens/Payment/Addon/detail.js";
-
-import CheckTuyaEmail from "@screens/CheckTuyaEmail";
-
-StackScreens = {
-    ...StackScreens,
+    PaymentProSubscription: {
+        component: PaymentProSubscription,
+        title: "PaymentProSubscription",
+        option: {
+            orientation: "portrait"
+        }
+    },
+    PaymentSubscription: {
+        component: PaymentSubscription,
+        title: "PaymentSubscription",
+        option: {
+            orientation: "portrait"
+        }
+    },
     PaymentSubscriptionAddOn: {
         component: PaymentSubscriptionAddOn,
         title: "PaymentSubscriptionAddOn",
@@ -369,34 +400,6 @@ StackScreens = {
     PaymentSubscriptionDetail: {
         component: PaymentSubscriptionDetail,
         title: "PaymentSubscriptionDetail",
-        option: {
-            orientation: "portrait"
-        }
-    },
-    Subscription: {
-        component: Subscription,
-        title: "Subscription",
-        option: {
-            orientation: "portrait"
-        }
-    },
-    SubscriptionInfo: {
-        component: SubscriptionInfo,
-        title: "SubscriptionInfo",
-        option: {
-            orientation: "portrait"
-        }
-    },
-    PaymentProSubscription: {
-        component: PaymentProSubscription,
-        title: "PaymentProSubscription",
-        option: {
-            orientation: "portrait"
-        }
-    },
-    CheckTuyaEmail: {
-        component: CheckTuyaEmail,
-        title: "CheckTuyaEmail",
         option: {
             orientation: "portrait"
         }
@@ -571,9 +574,8 @@ function Index(props) {
     // #endregion
 
     const defaultScreen = (userId == -1 || firstTimeLink) ? "LoginII" : "TabNavigation";
-    // const defaultScreen = "DrawerNavigation";
+    // const defaultScreen = "PaymentProSubscription";
 
-    
     return (
         <>
             <BcAppUpdateModal showModal={appFlag} />

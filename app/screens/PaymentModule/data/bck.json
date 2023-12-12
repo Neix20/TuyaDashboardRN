@@ -2,6 +2,7 @@
     {
         "key": "1 Month",
         "title": "1 Month",
+        "showBtn": true,
         "detail": [
             {
                 "title": "Real-Time Data Analysis",
@@ -87,33 +88,12 @@
                 "showInfo": false,
                 "info": "Esse ut ea sunt do cillum. Sint nostrud et et sint magna. Et aliquip veniam mollit est cupidatat aute laborum."
             }
-        ],
-        "priceTerm": "Monthly",
-        "showBtn": true,
-        "data": {
-            "Code": "MSPP0100",
-            "Name": "Pro Subscription",
-            "Description": "Pro Subscription for 1 Month",
-            "Duration": 1,
-            "Price": 39.99,
-            "GroupCode": null,
-            "TypeCode": "MSP_PP",
-            "DurationTypeCode": "DT_MM",
-            "ModuleCode": null,
-            "MetaData": null,
-            "Status": 1,
-            "Remark": "",
-            "Created_By": "System",
-            "Created_Date": "2023-11-08T15:10:45",
-            "Last_Updated_By": "System",
-            "Last_Updated_Date": "2023-11-08T15:10:45",
-            "Image": "https://i.imgur.com/lwNqBtJ.png"
-        },
-        "price": 39.99
+        ]
     },
     {
         "key": "3 Month",
         "title": "3 Month",
+        "showBtn": true,
         "detail": [
             {
                 "title": "Real-Time Data Analysis",
@@ -157,33 +137,12 @@
                 "showInfo": false,
                 "info": "Esse ut ea sunt do cillum. Sint nostrud et et sint magna. Et aliquip veniam mollit est cupidatat aute laborum."
             }
-        ],
-        "priceTerm": "Quarterly",
-        "showBtn": true,
-        "data": {
-            "Code": "MSPP0300",
-            "Name": "Pro Subscription",
-            "Description": "Pro Subscription for 3 Month",
-            "Duration": 3,
-            "Price": 119.97,
-            "GroupCode": null,
-            "TypeCode": "MSP_PP",
-            "DurationTypeCode": "DT_MM",
-            "ModuleCode": null,
-            "MetaData": null,
-            "Status": 1,
-            "Remark": "",
-            "Created_By": "System",
-            "Created_Date": "2023-11-08T15:10:45",
-            "Last_Updated_By": "System",
-            "Last_Updated_Date": "2023-11-08T15:10:45",
-            "Image": "https://i.imgur.com/lwNqBtJ.png"
-        },
-        "price": 119.97
+        ]
     },
     {
         "key": "6 Month",
         "title": "6 Month",
+        "showBtn": true,
         "detail": [
             {
                 "title": "Real-Time Data Analysis",
@@ -227,33 +186,12 @@
                 "showInfo": false,
                 "info": "Esse ut ea sunt do cillum. Sint nostrud et et sint magna. Et aliquip veniam mollit est cupidatat aute laborum."
             }
-        ],
-        "priceTerm": "Half-yearly",
-        "showBtn": true,
-        "data": {
-            "Code": "MSPP0100",
-            "Name": "Pro Subscription",
-            "Description": "Pro Subscription for 1 Month",
-            "Duration": 1,
-            "Price": 39.99,
-            "GroupCode": null,
-            "TypeCode": "MSP_PP",
-            "DurationTypeCode": "DT_MM",
-            "ModuleCode": null,
-            "MetaData": null,
-            "Status": 1,
-            "Remark": "",
-            "Created_By": "System",
-            "Created_Date": "2023-11-08T15:10:45",
-            "Last_Updated_By": "System",
-            "Last_Updated_Date": "2023-11-08T15:10:45",
-            "Image": "https://i.imgur.com/lwNqBtJ.png"
-        },
-        "price": 39.99
+        ]
     },
     {
         "key": "Annual",
         "title": "Annual",
+        "showBtn": true,
         "detail": [
             {
                 "title": "Real-Time Data Analysis",
@@ -297,28 +235,6 @@
                 "showInfo": false,
                 "info": "Esse ut ea sunt do cillum. Sint nostrud et et sint magna. Et aliquip veniam mollit est cupidatat aute laborum."
             }
-        ],
-        "priceTerm": "Annually",
-        "showBtn": true,
-        "data": {
-            "Code": "MSPP0300",
-            "Name": "Pro Subscription",
-            "Description": "Pro Subscription for 3 Month",
-            "Duration": 3,
-            "Price": 119.97,
-            "GroupCode": null,
-            "TypeCode": "MSP_PP",
-            "DurationTypeCode": "DT_MM",
-            "ModuleCode": null,
-            "MetaData": null,
-            "Status": 1,
-            "Remark": "",
-            "Created_By": "System",
-            "Created_Date": "2023-11-08T15:10:45",
-            "Last_Updated_By": "System",
-            "Last_Updated_Date": "2023-11-08T15:10:45",
-            "Image": "https://i.imgur.com/lwNqBtJ.png"
-        },
-        "price": 119.97
+        ]
     }
 ]

@@ -9,11 +9,13 @@ import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 import { Logger, Utility } from "@utility";
 import { Images, Svg, clsConst } from "@config";
 
-import { BcHeader, BcAccordion } from "@components";
+import { BcHeader, BcAccordion, BcLoading } from "@components";
+import { useToggle } from "@hooks";
 
 import { BcVersion, BcFooter } from "./../components";
 import { useTextInfo } from "./../hooks";
 import { Faq as TestData } from "./../data";
+import { fetchFaq } from "./../api";
 
 function Index(props) {
 
@@ -29,6 +31,8 @@ function Index(props) {
     };
 
     const [data, setData] = useTextInfo(init.data);
+    const [loading, setLoading, toggleLoading] = useToggle(false);
+
     const { version = "", content = [] } = data;
 
     // #region UseEffect
@@ -40,35 +44,38 @@ function Index(props) {
     // #endregion
 
     return (
-        <SafeAreaView style={{ flex: 1 }}>
-            <View style={{ flex: 1 }}>
+        <>
+            <BcLoading loading={loading} />
+            <SafeAreaView style={{ flex: 1 }}>
+                <View style={{ flex: 1 }}>
 
-                {/* Header */}
-                <BcHeader>Frequently Asked Questions</BcHeader>
+                    {/* Header */}
+                    <BcHeader>Frequently Asked Questions</BcHeader>
 
-                <View style={{ height: 10 }} />
+                    <View style={{ height: 10 }} />
 
-                {/* Body */}
-                <ScrollView showsVerticalScrollIndicator={false}
-                    keyboardShouldPersistTaps={"handled"}
-                    contentContainerStyle={{ flexGrow: 1 }}>
-                    <VStack flexGrow={1} bgColor={"#FFF"} alignItems={"center"}>
-                        {/* Version */}
-                        <BcVersion {...data} />
+                    {/* Body */}
+                    <ScrollView showsVerticalScrollIndicator={false}
+                        keyboardShouldPersistTaps={"handled"}
+                        contentContainerStyle={{ flexGrow: 1 }}>
+                        <VStack flexGrow={1} bgColor={"#FFF"} alignItems={"center"}>
+                            {/* Version */}
+                            <BcVersion {...data} />
 
-                        {/* Content */}
-                        <View width={"90%"}>
-                            <BcAccordion data={content} />
-                        </View>
-                    </VStack>
-                </ScrollView>
+                            {/* Content */}
+                            <View width={"90%"}>
+                                <BcAccordion data={content} />
+                            </View>
+                        </VStack>
+                    </ScrollView>
 
-                {/* Footer */}
-                <View alignItems={"center"} bgColor={"#FFF"}>
-                    <BcFooter />
+                    {/* Footer */}
+                    <View alignItems={"center"} bgColor={"#FFF"}>
+                        <BcFooter />
+                    </View>
                 </View>
-            </View>
-        </SafeAreaView>
+            </SafeAreaView>
+        </>
     );
 }
 

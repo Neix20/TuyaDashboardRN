@@ -20,6 +20,9 @@ import DeviceForm from "./DeviceForm";
 
 function Header(props) {
 
+    const subUserAccess = useSelector(Selectors.subUserAccessSelect);
+    const { UpdateDeviceRules = -1 } = subUserAccess;
+
     // #region Props
     const { children, onBack = () => { }, onSave = () => { } } = props;
     const { flag = false } = props;
@@ -33,6 +36,32 @@ function Header(props) {
         navigation.goBack();
     }
     // #endregion
+
+    if (UpdateDeviceRules == -1) {
+        return (
+
+            <View bgColor={"#FFF"}
+                alignItems={"center"}>
+                <HStack alignItems={"center"}
+                    justifyContent={"space-between"}
+                    style={{ height: 60, width: "90%" }}>
+                    <TouchableOpacity onPress={GoBack}>
+                        <Text style={{
+                            fontSize: 20,
+                            color: "#ccc",
+                        }}>Cancel</Text>
+                    </TouchableOpacity>
+                    <Text style={{
+                        fontSize: 20,
+                        fontWeight: "bold",
+                        color: "#000",
+                    }}>{children}</Text>
+                    <View style={{ width: 32 }}></View>
+                </HStack>
+            </View>
+
+        )
+    }
 
     return (
         <View bgColor={"#FFF"}
@@ -89,7 +118,7 @@ function Index(props) {
 
     // #region Props
     const rules = props.route.params;
-    const { Id: DeviceRulesId, Title } = rules; 
+    const { Id: DeviceRulesId, Title } = rules;
     // #endregion
 
     useEffect(() => {
@@ -115,18 +144,18 @@ function Index(props) {
             },
             onSetLoading: setLoading
         })
-        .then(data => {
-            toast.show({
-                description: `Successfully Updated Formula ${Title}`
-            })
-            setForm({});
+            .then(data => {
+                toast.show({
+                    description: `Successfully Updated Formula ${Title}`
+                })
+                setForm({});
 
-            navigation.goBack();
-        })
-        .catch(err => {
-            setLoading(false);
-            console.log(`Error: ${err}`)
-        })
+                navigation.goBack();
+            })
+            .catch(err => {
+                setLoading(false);
+                console.log(`Error: ${err}`)
+            })
     }
 
     return (

@@ -9,11 +9,13 @@ import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 import { Logger, Utility } from "@utility";
 import { Images, Svg, clsConst } from "@config";
 
-import { BcHeader } from "@components";
+import { BcHeader, BcLoading } from "@components";
+import { useToggle } from "@hooks";
 
 import { BcVersion, BcFooter } from "./../components";
 import { useTextInfo } from "./../hooks";
 import { Tnc as TestData } from "./../data";
+import { fetchTnc } from "./../api";
 
 function TnC(props) {
     const { data = [] } = props;
@@ -66,43 +68,50 @@ function Index(props) {
     };
 
     const [data, setData] = useTextInfo(init.data);
+    const [loading, setLoading, toggleLoading] = useToggle(false);
+
     const { version = "", content = [] } = data;
 
+    // #region UseEffect
     useEffect(() => {
         if (isFocused) {
             setData(TestData)
         }
     }, [isFocused]);
+    // #endregion
 
     return (
-        <SafeAreaView style={{ flex: 1 }}>
-            <View style={{ flex: 1 }}>
+        <>
+            <BcLoading loading={false} />
+            <SafeAreaView style={{ flex: 1 }}>
+                <View style={{ flex: 1 }}>
 
-                {/* Header */}
-                <BcHeader>Terms & Conditions</BcHeader>
+                    {/* Header */}
+                    <BcHeader>Terms & Conditions</BcHeader>
 
-                <View style={{ height: 10 }} />
+                    <View style={{ height: 10 }} />
 
-                {/* Body */}
-                <ScrollView showsVerticalScrollIndicator={false}
-                    keyboardShouldPersistTaps={"handled"}
-                    contentContainerStyle={{ flexGrow: 1 }}>
-                    <View flexGrow={1} bgColor={"#FFF"} alignItems={"center"}>
-                        {/* Version */}
-                        <BcVersion {...data} />
+                    {/* Body */}
+                    <ScrollView showsVerticalScrollIndicator={false}
+                        keyboardShouldPersistTaps={"handled"}
+                        contentContainerStyle={{ flexGrow: 1 }}>
+                        <View flexGrow={1} bgColor={"#FFF"} alignItems={"center"}>
+                            {/* Version */}
+                            <BcVersion {...data} />
 
-                        {/* Content */}
-                        <View width={"90%"}>
-                            <TnC data={content} />
+                            {/* Content */}
+                            <View width={"90%"}>
+                                <TnC data={content} />
+                            </View>
                         </View>
-                    </View>
-                </ScrollView>
+                    </ScrollView>
 
-                <View bgColor={"#FFF"} alignItems={"center"}>
-                    <BcFooter />
+                    <View bgColor={"#FFF"} alignItems={"center"}>
+                        <BcFooter />
+                    </View>
                 </View>
-            </View>
-        </SafeAreaView>
+            </SafeAreaView>
+        </>
     );
 }
 

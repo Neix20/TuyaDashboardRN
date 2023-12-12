@@ -273,6 +273,8 @@ function NavPanel(props) {
     const GoToSubUser = () => navigation.navigate("SubUser");
     const GoToAddSubUser = () => navigation.navigate("AddSubUserWithCode");
 
+    const GoToSubscription = () => navigation.navigate("Subscription");
+
     const subUserAccess = useSelector(Selectors.subUserAccessSelect);
     const { MS_Email = -1, MS_User = -1 } = subUserAccess;
 
@@ -284,10 +286,11 @@ function NavPanel(props) {
             {/* {
                 (MS_Email == 1) ? (<PanelBtn onPress={GoToReportSchedule} Btn={FontAwesome5} icon={"clipboard-list"} title={"Email Alert"} />) : (<></>)
             } */}
-            {
+            {/* {
                 (MS_User == 1) ? (<PanelBtn onPress={GoToSubUser} Btn={FontAwesome5} icon={"users"} title={"Manage Members"} />) : (<></>)
-            }
+            } */}
             {/* <PanelBtn Btn={SimpleLineIcons} icon={"question"} title={"FAQ & Feedback"} /> */}
+            <PanelBtn onPress={GoToSubscription} Btn={FontAwesome5} icon={"shopping-cart"} title={"View Purchased Add-Ons"} />
         </VStack>
     )
 }
@@ -329,29 +332,6 @@ function PaymentSubscriptionPanel(props) {
                 onPress={GoToPayment} title={"Get Value with Pro Subscription"}
                 Btn={FontAwesome5} icon={"crown"}
                 color={"#FFAA00"} showRight={false} />
-        </VStack>
-    )
-}
-
-function SubscribedAddons(props) {
-
-    const navigation = useNavigation();
-    const toast = useToast();
-
-    const GoToPayment = () => {
-        navigation.navigate("Subscription");
-        // toast.show({
-        //     description: "Work In-Progress!"
-        // });
-    };
-
-    return (
-        <VStack bgColor={"#FFF"} borderRadius={8}
-            width={"90%"} alignItems={"center"}>
-            <PanelBtn
-                onPress={GoToPayment} title={"View Purchased Add-Ons"}
-                Btn={FontAwesome5} icon={"shopping-cart"}
-                color={"#000"} showRight={false} />
         </VStack>
     )
 }
@@ -471,9 +451,6 @@ function Index(props) {
 
                             {/* Make Payment */}
                             {(AccountType <= 2) ? <PaymentSubscriptionPanel /> : <></>}
-
-                            {/* View Subscription Order */}
-                            <SubscribedAddons />
 
                             <CompanyInfoPanel />
 

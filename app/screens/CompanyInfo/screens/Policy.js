@@ -9,11 +9,13 @@ import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 import { Logger, Utility } from "@utility";
 import { Images, Svg, clsConst } from "@config";
 
-import { BcHeader } from "@components";
+import { BcHeader, BcLoading } from "@components";
+import { useToggle } from "@hooks";
 
 import { BcVersion, BcFooter } from "./../components";
 import { useTextInfo } from "./../hooks";
 import { Policy as TestData } from "./../data";
+import { fetchPolicy } from "./../api";
 
 function Policy(props) {
     const { data = [] } = props;
@@ -66,6 +68,8 @@ function Index(props) {
     };
 
     const [data, setData] = useTextInfo(init.data);
+    const [loading, setLoading, toggleLoading] = useToggle(false);
+
     const { version = "", content = [] } = data;
 
     // #region UseEffect
@@ -77,35 +81,38 @@ function Index(props) {
     // #endregion
 
     return (
-        <SafeAreaView style={{ flex: 1 }}>
-            <View style={{ flex: 1 }}>
+        <>
+            <BcLoading loading={loading} />
+            <SafeAreaView style={{ flex: 1 }}>
+                <View style={{ flex: 1 }}>
 
-                {/* Header */}
-                <BcHeader>Privacy Policy</BcHeader>
+                    {/* Header */}
+                    <BcHeader>Privacy Policy</BcHeader>
 
-                <View style={{ height: 10 }} />
+                    <View style={{ height: 10 }} />
 
-                {/* Body */}
-                <ScrollView showsVerticalScrollIndicator={false}
-                    keyboardShouldPersistTaps={"handled"}
-                    contentContainerStyle={{ flexGrow: 1 }}>
-                    <View flexGrow={1} bgColor={"#FFF"} alignItems={"center"}>
-                        {/* Version */}
-                        <BcVersion {...data} />
+                    {/* Body */}
+                    <ScrollView showsVerticalScrollIndicator={false}
+                        keyboardShouldPersistTaps={"handled"}
+                        contentContainerStyle={{ flexGrow: 1 }}>
+                        <View flexGrow={1} bgColor={"#FFF"} alignItems={"center"}>
+                            {/* Version */}
+                            <BcVersion {...data} />
 
-                        {/* Content */}
-                        <View width={"90%"}>
-                            <Policy data={content} />
+                            {/* Content */}
+                            <View width={"90%"}>
+                                <Policy data={content} />
+                            </View>
                         </View>
-                    </View>
-                </ScrollView>
+                    </ScrollView>
 
-                {/* Footer */}
-                <View bgColor={"#FFF"} alignItems={"center"}>
-                    <BcFooter />
+                    {/* Footer */}
+                    <View bgColor={"#FFF"} alignItems={"center"}>
+                        <BcFooter />
+                    </View>
                 </View>
-            </View>
-        </SafeAreaView>
+            </SafeAreaView>
+        </>
     );
 }
 

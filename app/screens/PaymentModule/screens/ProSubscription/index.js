@@ -10,7 +10,7 @@ import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 import { Logger, Utility } from "@utility";
 import { Images, Svg, Animation } from "@config";
 
-import { BcHeaderWithAdd, BcLoading, BcBoxShadow, BcSvgIcon, BcTooltip } from "@components";
+import { BcHeaderWithAdd, BcLoading, BcSvgIcon, BcTooltip } from "@components";
 import { useToggle } from "@hooks";
 
 import { fetchSubscriptionProPlan } from "@api";
@@ -22,7 +22,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Actions, Selectors } from '@redux';
 
 import Lottie from "lottie-react-native";
-import { subProData } from "./data";
 
 // #region Components
 function EmptyList(props) {
@@ -49,10 +48,12 @@ function EmptyList(props) {
 }
 
 function Footer(props) {
+
+    const { height = 60 } = props;
     return (
         <View alignItems={"center"}
             justifyContent={"center"}
-            style={{ height: 60 }}>
+            style={{ height: height }}>
             <Text style={{
                 width: "90%",
                 textAlign: "center",
@@ -142,7 +143,7 @@ function Detail(props) {
         const { title = "", description = "", icon = "", info = "", showInfo = false } = item;
         return (
             <>
-                <HStack key={index} alignItems={"center"} space={5}>
+                <HStack key={index} alignItems={"center"} space={5} onStartShouldSetResponder={() => true}>
                     <BcSvgIcon name={icon} size={24} color={iconColor} />
                     <View flex={1}>
                         <Text style={{
@@ -176,6 +177,7 @@ function Detail(props) {
             <FlatList
                 data={data}
                 renderItem={renderItem}
+                keyboardShouldPersistTaps={"always"}
                 style={{ flex: 1, width: "90%" }} />
         </View>
     );
@@ -192,7 +194,7 @@ function TPBody(props) {
     }
 
     const obj = payDict[title];
-    const { price = 0, detail = [], priceTerm = "", title: oTitle = "", data: oData = {}, showBtn = false } = obj;
+    const { price = 0, detail = [], title: oTitle = "", data: oData = {}, showBtn = false } = obj;
 
     const GoToPayment = () => {
         navigation.navigate("Payment", {
@@ -206,8 +208,9 @@ function TPBody(props) {
 
     return (
         <TabView.Item style={{ width: "100%", alignItems: "center" }}>
-            <VStack flexGrow={1} space={2} py={3}
-                width={"90%"} bgColor={bgColor}
+
+            <VStack flexGrow={1} space={2} py={3} bgColor={bgColor}
+                width={"90%"}
                 justifyContent={"space-between"}
                 borderRadius={8}>
 
@@ -263,11 +266,15 @@ function TPBody(props) {
                     )
                 }
             </VStack>
+
         </TabView.Item>
     )
 }
 
 function Logo(props) {
+
+    const { img = {} } = props
+
     return (
         <VStack space={2} alignItems={"center"}>
             {/* Term */}
@@ -278,7 +285,7 @@ function Logo(props) {
 
             {/* Logo */}
             <Image
-                source={Images.SubProIILogo}
+                source={img}
                 resizeMode={"contain"}
                 style={{
                     height: 100,
@@ -320,7 +327,7 @@ function InfoTooltip(props) {
         toggleOpen();
         navigation.navigate("Policy");
     }
-    
+
     const Tnc = () => (
         <TouchableOpacity onPress={GoToTnc}>
             <Text style={style.hyperlink}>Terms of use</Text>
@@ -375,6 +382,9 @@ function usePayDict() {
     const [dict, setDict] = useState({});
     const [data, setData] = useState([]);
     const [key, setKey] = useState([]);
+    const [img, setImg] = useState({
+        uri: "https://i.imgur.com/lwNqBtJ.png"
+    });
 
     useEffect(() => {
         if (data.length > 0) {
@@ -382,15 +392,23 @@ function usePayDict() {
 
             arr = arr.map(obj => {
 
-                const { Image } = obj.data;
+                const { data: oData = {} } = obj
+                const { Image = "https://i.imgur.com/lwNqBtJ.png", Price = 0 } = oData;
+
                 return {
                     ...obj,
                     data: {
-                        ...obj.data,
+                        ...oData,
                         img: { uri: Image }
-                    }
+                    },
+                    price: Price,
                 }
             })
+
+            if (arr.length > 0) {
+                const { data: { img: oImg = {} } } = arr[0];
+                setImg(_ => oImg);
+            }
 
             let aDict = {};
 
@@ -406,9 +424,202 @@ function usePayDict() {
         }
     }, [data]);
 
-    return [dict, setData, key];
+    return [dict, setData, key, img];
 }
 // #endregion
+
+function Body(props) {
+
+    const { hook = [], colors = {} } = props;
+
+    const tpHook = useTabPane(0);
+    const [tpInd, setTpInd, onChangeTpInd] = tpHook;
+
+    const [payDict, setPayDict, payDictKey, payProImg] = hook;
+
+    const renderTabBody = (term, ind) => (
+        <TPBody key={ind}
+            title={term}
+            inverse={ind % 2 == 1}
+            hook={hook}
+            colors={colors} />
+    )
+
+    return (
+        <VStack space={3} flexGrow={1}>
+            {/* Tab Header */}
+            <View alignItems={"center"}>
+                <TPHeader hook={tpHook} colors={colors} payDictHook={hook} />
+            </View>
+
+            {/* Tab Body */}
+            <TabView value={tpInd} onChange={onChangeTpInd}>
+                {payDictKey.map(renderTabBody)}
+            </TabView>
+        </VStack>
+    )
+}
+
+import { useModalToast } from "@hooks";
+
+import Modal from 'react-native-modal';
+
+function CloseBtn(props) {
+    return (
+        <View
+            bgColor={"#c6c6c6"}
+            borderRadius={15}
+            alignItems={"center"}
+            justifyContent={"center"}
+            style={{
+                height: 24,
+                width: 24,
+            }}>
+            <FontAwesome name={"close"} size={15} color={"#fff"} />
+        </View>
+    );
+}
+
+function BaseModal(props) {
+
+    // #region Props
+    const { children } = props;
+    const { showModal, setShowModal } = props;
+    const { showCross = true } = props;
+    // #endregion
+
+    const closeModal = () => setShowModal(false);
+
+    return (
+        <Modal
+            isVisible={showModal}
+            animationIn={'slideInUp'}
+            animationOut={'slideOutDown'}
+            onBackButtonPress={closeModal}
+            onBackdropPress={closeModal}
+            style={{ margin: 0 }}>
+            <View bgColor={"#F3F8FC"} py={5} height={"90%"}>
+                {
+                    (showCross) ? (
+                        <View
+                            style={{
+                                position: "absolute",
+                                zIndex: 1,
+                                top: 20,
+                                right: 20,
+                            }}
+                        >
+                            <TouchableOpacity onPress={closeModal}>
+                                <CloseBtn />
+                            </TouchableOpacity>
+                        </View>
+                    ) : (<></>)
+                }
+                {children}
+            </View>
+        </Modal>
+    )
+}
+
+function ProSubModal(props) {
+    const { hook = [] } = props;
+
+    const [cusToast, showMsg] = useModalToast();
+    const [payDict, setPayDict, payDictKey, payProImg] = hook;
+
+    return (
+        <BaseModal cusToast={cusToast} {...props}>
+            <VStack space={3} flexGrow={1}>
+                {/* Logo */}
+                <Body {...props} />
+
+                <Footer height={40} />
+            </VStack>
+        </BaseModal>
+    )
+}
+
+function ProSubBtn(props) {
+
+    const colors = {
+        activeColor: "#2898FF",
+        inActiveColor: "#FFF",
+    }
+
+    const userId = useSelector(Selectors.userIdSelect);
+
+    // #region UseState
+    const [loading, setLoading, toggleLoading] = useToggle(false);
+
+    const payDictHook = usePayDict();
+    const [payDict, setPayDict, payDictKey, payProImg] = payDictHook;
+
+    const [showPsModal, setShowPsModal, togglePsModal] = useToggle(false);
+    // #endregion
+
+    // #region UseEffect
+    useEffect(() => {
+        SubscriptionProPlan();
+    }, []);
+    // #endregion
+
+    // #region Api
+    const SubscriptionProPlan = () => {
+        setLoading(true);
+        fetchSubscriptionProPlan({
+            param: {
+                UserId: userId
+            },
+            onSetLoading: setLoading
+        })
+            .then(data => {
+                setPayDict(data);
+            })
+            .catch(err => {
+                setLoading(false);
+                console.log(`Error: ${err}`);
+            })
+    }
+    // #endregion
+
+    return (
+        <>
+            <ProSubModal showModal={showPsModal} setShowModal={setShowPsModal} hook={payDictHook} colors={colors} />
+            <TouchableOpacity onPress={togglePsModal}>
+                <View backgroundColor={"#ff0000"}
+                    alignItems={"center"} justifyContent={"center"}
+                    style={{ width: 100, height: 48 }}>
+                    <Text style={[{
+                        fontSize: 14,
+                        fontWeight: "bold",
+                        color: "white",
+                    }]}>Show Modal</Text>
+                </View>
+            </TouchableOpacity>
+        </>
+    )
+}
+
+function Content(props) {
+
+    const { hook = [] } = props;
+    const [payDict, setPayDict, payDictKey, payProImg] = hook;
+
+    if (payDictKey.length <= 0) {
+        return (
+            <EmptyList />
+        )
+    }
+
+    return (
+        <VStack space={3} flexGrow={1}>
+            {/* Logo */}
+            <Logo img={payProImg} />
+
+            <Body {...props} />
+        </VStack>
+    )
+}
 
 function Index(props) {
 
@@ -426,18 +637,15 @@ function Index(props) {
     // #region UseState
     const [loading, setLoading, toggleLoading] = useToggle(false);
 
-    const tpHook = useTabPane(0);
-    const [tpInd, setTpInd, onChangeTpInd] = tpHook;
-
     const payDictHook = usePayDict();
-    const [payDict, setPayDict, payDictKey] = payDictHook;
+    const [payDict, setPayDict, payDictKey, payProImg] = payDictHook;
     // #endregion
 
     // #region UseEffect
     useEffect(() => {
         if (isFocused) {
-            // SubscriptionProPlan();
-            setPayDict(subProData);
+            SubscriptionProPlan();
+            // setPayDict(subProData);
         }
     }, [isFocused]);
     // #endregion
@@ -461,17 +669,6 @@ function Index(props) {
     }
     // #endregion
 
-    // #region Render
-    const renderTabBody = (term, ind) => (
-        <TPBody key={ind}
-            title={term}
-            inverse={ind % 2 == 1}
-            // inverse={false}
-            hook={payDictHook}
-            colors={colors} />
-    )
-    // #endregion
-
     return (
         <>
             <BcLoading loading={loading} />
@@ -484,26 +681,7 @@ function Index(props) {
                     <View style={{ height: 10 }} />
 
                     {/* Body */}
-                    {
-                        (payDictKey.length > 0) ? (
-                            <VStack space={3} flexGrow={1}>
-                                {/* Logo */}
-                                <Logo />
-
-                                {/* Tab Header */}
-                                <View alignItems={"center"}>
-                                    <TPHeader hook={tpHook} colors={colors} payDictHook={payDictHook} />
-                                </View>
-
-                                {/* Tab Body */}
-                                <TabView value={tpInd} onChange={onChangeTpInd}>
-                                    {payDictKey.map(renderTabBody)}
-                                </TabView>
-                            </VStack>
-                        ) : (
-                            <EmptyList />
-                        )
-                    }
+                    <Content hook={payDictHook} colors={colors} />
 
                     {/* Footer */}
                     <Footer />

@@ -8,6 +8,8 @@ import { Calendar } from 'react-native-calendars';
 import { DateTime } from "luxon";
 import { useToggle } from "@hooks";
 
+import { Logger, Utility } from "@utility";
+
 import { useDispatch, useSelector } from 'react-redux';
 import { Actions, Selectors } from '@redux';
 
@@ -59,7 +61,7 @@ function Index(props) {
     const [mFlag, setMFlag, toggleMFlag] = flagHook;
 
     const subUserAccess = useSelector(Selectors.subUserAccessSelect);
-    const { AccountType = -1 } = subUserAccess;
+    const { AccountType = -1, DataStartDate = "", DataEndDate = "" } = subUserAccess;
 
     // [{ "name": "2012", "value": 2012 }]
     const [termArr, setTermArr] = useState([]);
@@ -117,14 +119,12 @@ function Index(props) {
     const onPressLeft = () => minusDay(-1, "months");
     const onPressRight = () => addDay(1, "months");
 
-    const minDt = (AccountType <= 1) ? DateTime.now().plus({ days: -7 }).toFormat("yyyy-MM-dd") : DateTime.now().plus({ months: -3 }).toFormat("yyyy-MM-dd");
-
     return (
         <Calendar
             key={dt} current={dt}
             onDayPress={onDayPress}
-            minDate={minDt}
-            maxDate={DateTime.now().toFormat("yyyy-MM-dd")}
+            minDate={Utility.formatDt(DataStartDate, "yyyy-MM-dd")}
+            maxDate={Utility.formatDt(DataEndDate, "yyyy-MM-dd")}
             markedDates={{
                 [dt]: { selected: true, disableTouchEvent: true }
             }}

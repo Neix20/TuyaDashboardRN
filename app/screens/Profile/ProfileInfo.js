@@ -46,12 +46,28 @@ function InfoItem(props) {
     )
 }
 
-function HeaderRight() {
-    return (
+function HeaderRight(props) {
+    const { flag = true, showFlag = true, onSelect = () => { } } = props;
+
+    if (!flag) {
+        return (<></>)
+    }
+
+    const Item = () => (
         <Text style={{
             fontSize: 20,
             color: "#2898FF"
         }}>Save</Text>
+    )
+
+    return (showFlag) ? (
+        <TouchableOpacity onPress={onSelect}>
+            <Item />
+        </TouchableOpacity>
+    ) : (
+        <BcDisable>
+            <Item />
+        </BcDisable>
     )
 }
 
@@ -218,6 +234,9 @@ function Index(props) {
             })
     }
 
+    const subUserAccess = useSelector(Selectors.subUserAccessSelect);
+    const { UpdateProfile = -1 } = subUserAccess;
+
     return (
         <>
             <BcLoading loading={loading} />
@@ -225,7 +244,7 @@ function Index(props) {
                 <View style={{ flex: 1 }}>
 
                     {/* Header */}
-                    <BcHeaderWithAdd flag={flag} onSelect={updateProfile} RightChild={HeaderRight}>Profile Info</BcHeaderWithAdd>
+                    <BcHeaderWithAdd Right={<HeaderRight flag={UpdateProfile == 1} showFlag={flag} onSelect={updateProfile} />}>Profile Info</BcHeaderWithAdd>
 
                     <View style={{ height: 10 }} />
 

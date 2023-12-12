@@ -27,6 +27,9 @@ function Header(props) {
     const GoBack = () => navigation.goBack();
     const GoToAddDeviceRule = () => navigation.navigate("AddDeviceRules", props);
 
+    const subUserAccess = useSelector(Selectors.subUserAccessSelect);
+    const { AddDeviceRules = -1, UpdateDeviceRules = -1, DeleteDeviceRules = -1 } = subUserAccess;
+
     return (
         <BcBoxShadow>
             <View py={2}
@@ -63,13 +66,19 @@ function Header(props) {
                 </View>
 
                 <View width={"90%"} alignItems={"flex-end"}>
-                    <TouchableOpacity onPress={GoToAddDeviceRule}>
-                        <View borderRadius={16} bgColor={"#2898FF"}
-                            alignItems={"center"} justifyContent={"center"}
-                            style={{ width: 32, height: 32 }}>
-                            <FontAwesome name={"plus"} size={16} color={"#FFF"} />
-                        </View>
-                    </TouchableOpacity>
+                    {
+                        (AddDeviceRules == 1) ? (
+                            <TouchableOpacity onPress={GoToAddDeviceRule}>
+                                <View borderRadius={16} bgColor={"#2898FF"}
+                                    alignItems={"center"} justifyContent={"center"}
+                                    style={{ width: 32, height: 32 }}>
+                                    <FontAwesome name={"plus"} size={16} color={"#FFF"} />
+                                </View>
+                            </TouchableOpacity>
+                        ) : (
+                            <></>
+                        )
+                    }
                 </View>
             </View>
         </BcBoxShadow>
@@ -114,7 +123,7 @@ function RemoveRulesModal(props) {
 
 function RulesItem(props) {
 
-    const { Title } = props;
+    const { Title, showDelete = true } = props;
     const { onSelect = () => { }, onSelectDelete = () => { } } = props;
     const [showRDModal, setShowRDModal, toggleRDModal] = useToggle(false);
     return (
@@ -128,13 +137,19 @@ function RulesItem(props) {
                             fontSize: 18
                         }}>{Title}</Text>
                     </View>
-                    <TouchableOpacity onPress={toggleRDModal}>
-                        <View borderRadius={16} bgColor={"#F00"}
-                            alignItems={"center"} justifyContent={"center"}
-                            style={{ width: 32, height: 32 }}>
-                            <FontAwesome name={"minus"} size={16} color={"#FFF"} />
-                        </View>
-                    </TouchableOpacity>
+                    {
+                        (showDelete) ? (
+                            <TouchableOpacity onPress={toggleRDModal}>
+                                <View borderRadius={16} bgColor={"#F00"}
+                                    alignItems={"center"} justifyContent={"center"}
+                                    style={{ width: 32, height: 32 }}>
+                                    <FontAwesome name={"minus"} size={16} color={"#FFF"} />
+                                </View>
+                            </TouchableOpacity>
+                        ) : (
+                            <View style={{ width: 32, height: 32 }}></View>
+                        )
+                    }
                 </HStack>
                 <Divider my={3} />
             </TouchableOpacity>
@@ -152,6 +167,9 @@ function Index(props) {
     const { Id: deviceId } = device;
 
     const userId = useSelector(Selectors.userIdSelect);
+
+    const subUserAccess = useSelector(Selectors.subUserAccessSelect);
+    const { AddDeviceRules = -1, UpdateDeviceRules = -1, DeleteDeviceRules = -1 } = subUserAccess;
 
     const [loading, setLoading, toggleLoading] = useToggle(false);
     const [refresh, setRefresh, toggleRefresh] = useToggle(false);
@@ -203,7 +221,7 @@ function Index(props) {
         const onSelectDelete = () => deleteRules(item);
 
         return (
-            <RulesItem key={index} 
+            <RulesItem key={index} showDelete={DeleteDeviceRules == 1}
                 onSelect={onSelect} onSelectDelete={onSelectDelete}
                 {...item} />
         )

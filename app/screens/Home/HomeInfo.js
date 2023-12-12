@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { Text, TouchableOpacity, Image, TextInput, Dimensions, SafeAreaView, ImageBackground, ScrollView } from "react-native";
+import { Text, TouchableOpacity, Image, TextInput, SafeAreaView, ImageBackground, ScrollView } from "react-native";
 import { View, VStack, HStack, useToast } from "native-base";
 
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 import { useNavigation, useIsFocused } from "@react-navigation/native";
-1
-const screen = Dimensions.get("screen");
-const { width, height } = screen;
+
 
 import { Logger, Utility } from "@utility";
 
@@ -15,6 +13,9 @@ import { Images } from "@config";
 import { BcHeader, BcLoading, BcBoxShadow } from "@components";
 
 import { fetchHomeInfo, fetchDeleteHome } from "@api";
+
+import { useDispatch, useSelector } from 'react-redux';
+import { Actions, Selectors } from '@redux';
 
 // #region Components
 function Header(props) {
@@ -31,6 +32,9 @@ function Header(props) {
         navigation.goBack();
     }
     // #endregion
+
+    const subUserAccess = useSelector(Selectors.subUserAccessSelect);
+    const { UpdateHome = -1 } = subUserAccess;
 
     return (
         <BcBoxShadow>
@@ -73,12 +77,18 @@ function Header(props) {
                     }}>{children}</Text>
                 </View>
 
-                <TouchableOpacity>
-                    <Text style={{
-                        fontSize: 20,
-                        color: "#2898FF"
-                    }}>Save</Text>
-                </TouchableOpacity>
+                {
+                    (UpdateHome == 1) ? (
+                        <TouchableOpacity>
+                            <Text style={{
+                                fontSize: 20,
+                                color: "#2898FF"
+                            }}>Save</Text>
+                        </TouchableOpacity>
+                    ) : (
+                        <></>
+                    )
+                }
             </View>
         </BcBoxShadow>
     )
@@ -142,7 +152,7 @@ function InfoPanel(props) {
 
     // #region Props
     const { Name, RoomCount } = props;
-    const { onRoomManagement = () => {}} = props;
+    const { onRoomManagement = () => { } } = props;
     // #endregion
 
     return (
@@ -189,9 +199,6 @@ function DeleteHome(props) {
     )
 }
 // #endregion
-
-import { useDispatch, useSelector } from 'react-redux';
-import { Actions, Selectors } from '@redux';
 
 function Index(props) {
 

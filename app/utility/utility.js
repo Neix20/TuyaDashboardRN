@@ -130,6 +130,11 @@ function formatDt(dt = "2023-01-01T00:00:00", format = "yyyy-MM-dd") {
 		dt = "2023-01-01T00:00:00";
 	}
 
+	// Check if DateTime contains "T"
+	if (!dt.includes("T")) {
+		dt = dt.replace(/ /g, "T");
+	}
+
 	res = DateTime.fromISO(dt).toFormat(format);
 	return res;
 }

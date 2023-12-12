@@ -1,15 +1,12 @@
 import React, { useState, useEffect } from "react";
 
-import { TouchableOpacity, Dimensions } from "react-native";
+import { TouchableOpacity } from "react-native";
 import { View } from "native-base";
 
 import Modal from 'react-native-modal';
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 
 import CustomToast from "./CustomToast";
-
-const screen = Dimensions.get("screen");
-const { width, height } = screen;
 
 import { BcSvgIcon } from "@components";
 
@@ -27,10 +24,6 @@ function CloseBtn(props) {
             <FontAwesome name={"close"} size={15} color={"#fff"} />
         </View>
     );
-    
-    // return (
-    //     <BcSvgIcon name={"Cross"} width={24} height={24} fill={"#C6C6C6"} />
-    // )
 }
 
 function Index(props) {
@@ -51,13 +44,15 @@ function Index(props) {
     const { cusToast = init.toast, backdropOpacity = 0.7 } = props;
     // #endregion
 
+    const closeModal = () => setShowModal(false);
+
     return (
         <Modal
             isVisible={showModal}
             animationIn={'slideInUp'}
             animationOut={'slideOutDown'}
-            onBackButtonPress={() => setShowModal(false)}
-            onBackdropPress={() => setShowModal(false)}
+            onBackButtonPress={closeModal}
+            onBackdropPress={closeModal}
             backdropOpacity={backdropOpacity}>
             <View
                 style={{
@@ -75,7 +70,7 @@ function Index(props) {
                                 right: 20,
                             }}
                         >
-                            <TouchableOpacity onPress={() => setShowModal(false)}>
+                            <TouchableOpacity onPress={closeModal}>
                                 <CloseBtn />
                             </TouchableOpacity>
                         </View>
