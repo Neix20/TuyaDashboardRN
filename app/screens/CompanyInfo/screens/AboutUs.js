@@ -110,7 +110,8 @@ function Index(props) {
     // #region UseEffect
     useEffect(() => {
         if (isFocused) {
-            setData(TestData);
+            // setData(TestData);
+            GetData();
         }
     }, [isFocused]);
     // #endregion
@@ -126,6 +127,25 @@ function Index(props) {
 
     const emailVigTech = () => {
         Linking.openURL(`mailto:${clsConst.VIGTECH_EMAIL}`);
+    }
+
+    const GetData = () => {
+        setLoading(true);
+        fetchAboutUs({
+            param: {
+                UserId: 10
+            },
+            onSetLoading: setLoading
+        })
+        .then(data => {
+            setData(data);
+        })
+        .catch(err => {
+            setLoading(false);
+            console.log(`Error: ${err}`);
+
+            setData(TestData);
+        })
     }
     // #endregion
 

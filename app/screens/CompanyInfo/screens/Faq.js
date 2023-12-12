@@ -33,15 +33,35 @@ function Index(props) {
     const [data, setData] = useTextInfo(init.data);
     const [loading, setLoading, toggleLoading] = useToggle(false);
 
-    const { version = "", content = [] } = data;
+    const { content = [] } = data;
 
     // #region UseEffect
     useEffect(() => {
         if (isFocused) {
-            setData(TestData)
+            // setData(TestData)
+            GetData();
         }
     }, [isFocused]);
     // #endregion
+
+    const GetData = () => {
+        setLoading(true);
+        fetchFaq({
+            param: {
+                UserId: 10
+            },
+            onSetLoading: setLoading
+        })
+        .then(data => {
+            setData(data);
+        })
+        .catch(err => {
+            setLoading(false);
+            console.log(`Error: ${err}`);
+
+            setData(TestData);
+        })
+    }
 
     return (
         <>
