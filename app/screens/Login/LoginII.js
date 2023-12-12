@@ -1,12 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { Text, TouchableOpacity, Image, TextInput, Dimensions, SafeAreaView, ImageBackground, ScrollView, Keyboard } from "react-native";
+import { Text, TouchableOpacity, Image, TextInput, SafeAreaView, ImageBackground, ScrollView, Keyboard } from "react-native";
 import { View, VStack, HStack, useToast } from "native-base";
 
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 import { useNavigation, useIsFocused } from "@react-navigation/native";
-
-const screen = Dimensions.get("screen");
-const { width, height } = screen;
 
 import { Logger, Utility } from "@utility";
 
@@ -14,7 +11,7 @@ import { Animation, clsConst, Images } from "@config";
 
 import { BcSvgIcon, BcLoading, BcDisable, BcCarousel, BottomModal } from "@components";
 
-import { fetchRequestOtp, fetchLogin, fetchSubUserAccess, fetchSubUserLogin } from "@api";
+import { fetchRequestOtp, fetchLogin, fetchDemoLogin, fetchSubUserAccess, fetchSubUserLogin } from "@api";
 
 import { useDispatch, useSelector } from 'react-redux';
 import { Actions, Selectors } from '@redux';
@@ -623,73 +620,6 @@ function SubLoginModal(props) {
 }
 // #endregion
 
-function Trash() {
-    const init = {
-        introLs: [
-            {
-                name: "intro",
-                animation: Animation.onboarding,
-                title: "",
-                description: "",
-            },
-            {
-                name: "introII",
-                animation: Animation.onboardingII,
-                title: "",
-                description: "",
-            },
-            {
-                name: "introIII",
-                animation: Animation.onboardingIII,
-                title: "",
-                description: "",
-            }
-        ]
-    }
-
-    const renderItem = ({ index }) => {
-        const { animation, title, description } = init.introLs[index];
-        return (
-            <VStack alignItems={"center"} space={10} px={3}>
-                <View>
-                    <Lottie
-                        autoPlay
-                        source={animation}
-                        loop={true}
-                        style={{
-                            width: width - 80,
-                            height: width - 80
-                        }} />
-                </View>
-
-                <VStack
-                    space={3}
-                    alignItems={"center"}
-                    style={{
-                        height: 120,
-                        width: width - 80,
-                    }}>
-                    <Text style={{
-                        fontSize: 20,
-                        fontFamily: "Roboto-Bold",
-                        color: "#000",
-                    }}>
-                        {title}
-                    </Text>
-                    <Text style={{
-                        fontSize: 14,
-                        fontFamily: "Roboto-Bold",
-                        textAlign: "justify",
-                        color: "#000",
-                    }}>
-                        {description}
-                    </Text>
-                </VStack>
-            </VStack>
-        )
-    }
-}
-
 function Index(props) {
 
     const toast = useToast();
@@ -704,16 +634,60 @@ function Index(props) {
     const existLoginFormHook = useExistLoginForm();
     const subLoginFormHook = useSubLoginForm();
 
+    const [loading, setLoading, toggleLoading] = useToggle(false);
+
     const [img] = useChangeBg();
 
-    const TryASGuest = () => {
-        toast.show({
-            description: "Work in progress"
+    // #region Helper
+    const TryAsGuest = () => {
+        setLoading(true);
+        fetchDemoLogin({
+            param: {},
+            onSetLoading: setLoading
+        })
+        .then(data => {
+            const { User_Id, Email = "", FirstTimeUserId, ResponseMessage } = data;
+
+            Utility.OneSignalSubscribe(Email);
+            dispatch(Actions.onChangeUserId(User_Id));
+
+            RequestAccess(User_Id);
+
+            dispatch(Actions.onChangeFirstTimeLink(false));
+            GoToHome();
+
+        })
+        .catch(err => {
+            setLoading(false);
+            console.log(`Error: ${err}`);
         })
     }
     
+    const GoToHome = () => {
+        navigation.navigate("TabNavigation", {
+            screen: "Dashboard",
+        });
+    }
+
+    const RequestAccess = (userId) => {
+        fetchSubUserAccess({
+            param: {
+                UserId: userId
+            },
+            onSetLoading: () => { },
+        })
+            .then(data => {
+                dispatch(Actions.onChangeSubUserAccess(data));
+            })
+            .catch(err => {
+                console.log(`Error: ${err}`);
+            })
+    }
+    // #endregion
+    
     return (
         <>
+            <BcLoading loading={loading} />
             <ExistLoginModal formHook={existLoginFormHook} showModal={showExLoginModal} setShowModal={setShowExLoginModal} />
             <SubLoginModal formHook={subLoginFormHook} showModal={showSubLoginModal} setShowModal={setShowSubLoginModal} />
             <SafeAreaView style={{ flex: 1 }}>
@@ -764,7 +738,7 @@ function Index(props) {
                                         </View>
                                     </TouchableOpacity> */}
 
-                                    <TouchableOpacity onPress={TryASGuest}
+                                    <TouchableOpacity onPress={TryAsGuest}
                                         style={{ width: "80%" }}>
                                         <View alignItems={"center"}>
                                             <Text style={{

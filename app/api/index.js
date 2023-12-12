@@ -6,6 +6,7 @@ import fetchUpdateProfile from "./fetchUpdateProfile";
 
 import fetchRequestOtp from "./fetchRequestOtp";
 import fetchLogin from "./fetchLogin";
+import fetchDemoLogin from "./fetchDemoLogin";
 import fetchAuthTuyaCode from "./fetchAuthTuyaCode";
 import fetchRegister from "./fetchRegister";
 
@@ -117,6 +118,7 @@ export {
 export {
     fetchRequestOtp,
     fetchLogin,
+    fetchDemoLogin,
     fetchAuthTuyaCode,
     fetchRegister
 }

@@ -1,5 +1,4 @@
-SELECT * FROM TSubUserAccess
+USE Sandbox_Yatu;
+SELECT * FROM MParameter;
 
-UPDATE TSubUserAccess
-SET Status = 1
-WHERE UserId = 65
+EXEC NSP_MParameter_InsertPair 'Yatu_DemoId', '65', 'System';

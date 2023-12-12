@@ -37,7 +37,7 @@ function Header(props) {
     }
     // #endregion
 
-    if (UpdateDeviceRules == -1) {
+    if (UpdateDeviceRules < 1) {
         return (
 
             <View bgColor={"#FFF"}
