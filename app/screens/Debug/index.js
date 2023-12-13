@@ -2,16 +2,17 @@ import React, { useState, useEffect } from "react";
 import { Text, TouchableOpacity, Image, TextInput, SafeAreaView, ScrollView } from "react-native";
 import { View, VStack, HStack, useToast } from "native-base";
 
+import FontAwesome from "react-native-vector-icons/FontAwesome";
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
+
 import { useNavigation, useIsFocused } from "@react-navigation/native";
 
 import { Logger, Utility } from "@utility";
-
 import { iRData, iRDataUnit, DowntimeData, clsConst, Images, DashboardSmartPlugFullData, DeviceDistributionData } from "@config";
 
 import { useToggle, useDate, useEChart, useOrientation, useTimer, useBarChart, useCoor, useDevDistChart, useCalendarDate } from "@hooks";
 
-import { BcViewShot, BcLineChartFull, BcDateRange, BcLineChart, BcLineLegend, BcApacheChart, BcApacheChartFull, BcDropdown, BcApacheChartDebug, BcApacheBarChart, BcApachePieChart, BcCalendar } from "@components";
+import { BcViewShot, BcLineChartFull, BcDateRange, BcLineChart, BcLineLegend, BcApacheChart, BcApacheChartFull, BcDropdown, BcApacheChartDebug, BcApacheBarChart, BcApachePieChart, BcCalendar, BcPhotoGalleryModal } from "@components";
 
 import { fetchGetDeviceDistribution } from "@api";
 import { DateTime } from "luxon";
@@ -389,6 +390,32 @@ function PayProSubBtn(props) {
     );
 }
 
+function TutorialGuideBtn(props) {
+    const [showTGModal, setShowTGModal, toggleTGModal] = useToggle(false);
+
+    const images = [
+        { uri: Images.LinkDeviceI },
+        { uri: Images.LinkDeviceII },
+        { uri: Images.LinkDeviceIII },
+        { uri: Images.LinkDeviceIV },
+        { uri: Images.LinkDeviceV },
+    ]
+
+    return (
+        <>
+            <BcPhotoGalleryModal showModal={showTGModal} setShowModal={setShowTGModal} images={images} />
+            <TouchableOpacity onPress={toggleTGModal}>
+                <View borderRadius={20}
+                    bgColor={"#d3d3d3"}
+                    alignItems={"center"} justifyContent={"center"}
+                    style={{ width: 32, height: 32 }}>
+                    <FontAwesome name={"info"} size={16} color={"#FFF"} />
+                </View>
+            </TouchableOpacity>
+        </>
+    )
+}
+
 function PaymentProSub(props) {
     return (
         <SafeAreaView style={{ flex: 1 }}>
@@ -396,6 +423,7 @@ function PaymentProSub(props) {
                 justifyContent={"center"}
                 style={{ flex: 1 }}>
                 <PayProSubBtn />
+                <TutorialGuideBtn />
             </View>
         </SafeAreaView>
     )

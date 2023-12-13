@@ -16,7 +16,7 @@ function BaseModal(props) {
     // #region Props
     const { children } = props;
     const { showModal, setShowModal } = props;
-    const { cusToast = {} } = props;
+    const { cusToast = {}, showCross = true } = props;
     // #endregion
 
     const closeModal = () => setShowModal(false);
@@ -29,12 +29,26 @@ function BaseModal(props) {
             onBackButtonPress={closeModal}
             onBackdropPress={closeModal}
             style={{ margin: 0 }}>
-            <SafeAreaView style={{ flex: 1 }}>
-                <View style={{ flex: 1 }}>
-                    {/* Content */}
-                    {children}
-                </View>
-            </SafeAreaView>
+            <VStack py={5} height={"80%"} minHeight={250}> 
+                {
+                    (showCross) ? (
+                        <View
+                            style={{
+                                position: "absolute",
+                                zIndex: 1,
+                                top: 10,
+                                right: 10,
+                            }}
+                        >
+                            <TouchableOpacity onPress={closeModal}>
+                                <CloseBtn />
+                            </TouchableOpacity>
+                        </View>
+                    ) : (<></>)
+                }
+                {/* Content */}
+                {children}
+            </VStack>
         </Modal>
     )
 }
@@ -66,86 +80,52 @@ function Index(props) {
 
     const [tabPaneInd, setTabPaneInd] = useState(0);
 
-    const closeModal = () => setShowModal(false);
-
-    const renderItem = (item, index) => {
-        const { uri } = item;
+    const renderItem = ({ uri }, index) => {
         return (
             <TabView.Item key={index} style={{ width: "100%" }}>
-                <TouchableWithoutFeedback onPress={closeModal} style={{ flex: 1 }}>
-                    <View flexGrow={1} justifyContent={"center"}>
-                        <TouchableWithoutFeedback>
-                            <Image
-                                source={uri}
-                                style={{
-                                    width: "100%",
-                                    height: 540,
-                                }}
-                                resizeMode={"contain"}
-                                alt={uri + ""} />
-                        </TouchableWithoutFeedback>
-                    </View>
-                </TouchableWithoutFeedback>
+                <View flexGrow={1} bgColor={"rgba(0,0,0,0.5)"}
+                    onStartShouldSetResponder={() => true}>
+                    <Image
+                        source={uri}
+                        style={{
+                            height: "100%",
+                            width: "100%"
+                        }}
+                        resizeMode={"contain"}
+                        alt={uri + ""} />
+                </View>
             </TabView.Item>
         )
     }
 
     return (
         <BaseModal {...props}>
-            {/* Front Layer */}
-            <View style={{
-                position: "absolute",
-                zIndex: 2,
-                top: 10,
-                right: 10,
-            }}>
-                <TouchableOpacity onPress={closeModal}>
-                    <CloseBtn />
-                </TouchableOpacity>
-            </View>
+            {/* Close Button */}
+            <VStack flexGrow={1} space={3}>
 
-            <View alignItems={"center"}
-                style={{
-                    position: "absolute",
-                    zIndex: 2,
-                    top: 80,
-                    left: 0,
-                    right: 0
-                }}>
-                <Text style={{
-                    fontFamily: "Roboto-Bold",
-                    fontSize: 24,
-                    color: "#FFF"
-                }}>
-                    Tutorial
-                </Text>
-            </View>
+                <View alignItems={"center"}>
+                    <Text style={{
+                        fontFamily: "Roboto-Bold",
+                        fontSize: 20,
+                        color: "#FFF"
+                    }}>Tutorial</Text>
+                </View>
 
-            <TabView
-                value={tabPaneInd}
-                onChange={(e) => setTabPaneInd(e)}>
-                {
-                    images.map(renderItem)
-                }
-            </TabView>
+                <TabView value={tabPaneInd} onChange={(e) => setTabPaneInd(e)}>
+                    {images.map(renderItem)}
+                </TabView>
 
-            <View alignItems={"center"}
-                style={{
-                    position: "absolute",
-                    zIndex: 2,
-                    bottom: 20,
-                    left: 0,
-                    right: 0,
-                    display: (images.length > 0) ? "flex" : "none"
-                }}>
-                <PaginationDot
-                    activeDotColor={"#fff"}
-                    inactiveDotColor={"#fff"}
-                    curPage={tabPaneInd}
-                    maxPage={images.length}
-                    sizeRatio={2}
-                />
-            </View>
+                {/* Pagination */}
+                <View alignItems={"center"}>
+                    <PaginationDot
+                        activeDotColor={"#FFF"}
+                        inactiveDotColor={"#FFF"}
+                        curPage={tabPaneInd}
+                        maxPage={images.length}
+                        sizeRatio={2}
+                    />
+                </View>
+            </VStack>
         </BaseModal>
 
     );

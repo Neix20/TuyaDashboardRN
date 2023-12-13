@@ -397,8 +397,7 @@ function DebugTopModal(props) {
                             space={3}
                             alignItems={"center"}
                             justifyContent={"center"}>
-                            
-                            <BcCarousel data={svgLs} renderItem={renderItem} />
+                        
 
                             <TouchableOpacity onPress={toggleTopModal}>
                                 <View backgroundColor={"#ff0000"}
