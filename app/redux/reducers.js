@@ -14,7 +14,8 @@ const initialState = {
     linkTsStart: -1,
     linkTotalDuration: 0,
     subUserAccess: {},
-    dashboardReportFlag: {}
+    dashboardReportFlag: {},
+    premiumPayFlag: false,
 };
 
 function setReducer(state = initialState, action = {}) {
@@ -83,6 +84,11 @@ function setReducer(state = initialState, action = {}) {
             return {
                 ...state,
                 dashboardReportFlag: action.dashboardReportFlag,
+            };
+        case "SET_PREMIUM_PAY_FLAG":
+            return {
+                ...state,
+                premiumPayFlag: action.premiumPayFlag,
             };
         default: {
             return {

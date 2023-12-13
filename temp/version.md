@@ -149,3 +149,16 @@
     3. Yatu Add-Ons Support:
        1. Added Yatu Module Add-Ons to Enhance User Experience.
 </en-US>
+
+#### Version 1.2.14
+------------------------
+<en-US>
+    Features Update:
+    1. Ui Fixes:
+       1. Modified Payment Subscription Page. Added Tooltip for Viewing more Information.
+       2. Added Payment Subscription Pop-up Modal.
+    2. Demo Login:
+       1. Added Demo Test Account for First Time User. User is able to test out all of YatuDashboard functionalities
+    3. Yatu Company Info:
+       1. Added 4 Sections: "About Us", "Terms & Conditions", "Privacy Policy", "Frequently Asked Questions"
+</en-US>

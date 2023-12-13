@@ -646,7 +646,7 @@ function Index(props) {
             onSetLoading: setLoading
         })
         .then(data => {
-            const { User_Id, Email = "", FirstTimeUserId, ResponseMessage } = data;
+            const { User_Id, Email = "" } = data;
 
             Utility.OneSignalSubscribe(Email);
             dispatch(Actions.onChangeUserId(User_Id));

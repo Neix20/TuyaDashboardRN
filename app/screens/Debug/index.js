@@ -356,8 +356,8 @@ function CalendarDiv(props) {
                         <BcCalendar calHook={calHook} />
                     </View>
                     <Text>{parseDt.toFormat("yyyy-MM-dd")}</Text>
-                    
-                    <BcDateRange hook={dateHook} flagHook={flagHook} prevHook={prevHook} /> 
+
+                    <BcDateRange hook={dateHook} flagHook={flagHook} prevHook={prevHook} />
                     <Text>{startDt} {endDt}</Text>
                 </VStack>
             </ScrollView>
@@ -365,4 +365,40 @@ function CalendarDiv(props) {
     )
 }
 
-export default CalendarDiv;
+import PayProSubModal from "@screens/PaymentModule/screens/ProSubscription/Modal";
+
+function PayProSubBtn(props) {
+    const [showPsModal, setShowPsModal, togglePsModal] = useToggle(false);
+    const openModal = () => setShowPsModal(true);
+
+    return (
+        <>
+            <PayProSubModal showModal={showPsModal} setShowModal={setShowPsModal} />
+            <TouchableOpacity onPress={openModal}>
+                <View backgroundColor={"#ff0000"}
+                    alignItems={"center"} justifyContent={"center"}
+                    style={{ width: 120, height: 40 }}>
+                    <Text style={[{
+                        fontSize: 14,
+                        fontWeight: "bold",
+                        color: "white",
+                    }]}>Test</Text>
+                </View>
+            </TouchableOpacity>
+        </>
+    );
+}
+
+function PaymentProSub(props) {
+    return (
+        <SafeAreaView style={{ flex: 1 }}>
+            <View alignItems={"center"}
+                justifyContent={"center"}
+                style={{ flex: 1 }}>
+                <PayProSubBtn />
+            </View>
+        </SafeAreaView>
+    )
+}
+
+export default PaymentProSub;

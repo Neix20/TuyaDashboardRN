@@ -3,7 +3,7 @@ import React, { useEffect } from "react";
 import { Text, BackHandler } from "react-native";
 import { View, VStack } from "native-base";
 
-import { BcTabNavigator, BcSvgIcon } from "@components";
+import { BcTabNavigator, BcSvgIcon, BcPremiumModal } from "@components";
 
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
@@ -13,15 +13,17 @@ import { useIsFocused, useNavigation } from "@react-navigation/native";
 import { useDispatch, useSelector } from 'react-redux';
 import { Actions, Selectors } from '@redux';
 
+import { useToggle } from "@hooks";
+
 function TabIconFontAwesome(props) {
     const { icon, title, color, focused, Btn } = props;
 
     const styles = {
         activeDot: {
-            width: 5, height: 5, borderRadius: 5, backgroundColor: "rgba(40, 152, 255, 0.35)" 
+            width: 5, height: 5, borderRadius: 5, backgroundColor: "rgba(40, 152, 255, 0.35)"
         },
         inActiveDot: {
-            width: 5, height: 5 
+            width: 5, height: 5
         },
         textStyle: {
             color: color,
@@ -93,16 +95,33 @@ TabScreens = {
     }
 };
 
+import PayProSubModal from "@screens/PaymentModule/screens/ProSubscription/Modal";
+
 function Index(props) {
 
-    const linkTimer = useSelector(Selectors.linkTimerSelect);
-
-    const defaultScreen = (linkTimer > 0) ? "Device" : "Dashboard";
-
-    // const navigation = useNavigation();
-
+    const navigation = useNavigation();
     const isFocused = useIsFocused();
 
+    const dispatch = useDispatch();
+
+    // #region Redux
+    const linkTimer = useSelector(Selectors.linkTimerSelect);
+
+    const subUserAccess = useSelector(Selectors.subUserAccessSelect);
+    const { AccountType = -1 } = subUserAccess;
+
+    const premiumPayFlag = useSelector(Selectors.premiumPayFlagSelect);
+    // #endregion
+
+     // #region UseState
+     const [showPsModal, setShowPsModal, togglePsModal] = useToggle(false);
+     const openPsModal = () => setShowPsModal(true);
+
+     const [showPreModal, setShowPreModal, togglePreModal] = useToggle(false);
+     // #endregion
+
+    // #region UseEffect
+    // Disable Back Button
     useEffect(() => {
         const backAction = () => {
             if (!isFocused) {
@@ -115,11 +134,41 @@ function Index(props) {
         return () => backHandler.remove();
     }, [isFocused]);
 
+    useEffect(() => {
+        const timeout = setTimeout(() => {
+            if (navigation.isFocused()) {
+                openPsModal();
+            }
+        }, 3000)
+        return () => clearTimeout(timeout);
+    }, []);
+
+    useEffect(() => {
+        const timeout = setTimeout(() => {
+            if (premiumPayFlag) {
+                togglePreModal();
+            }
+        }, 3000)
+        return () => clearTimeout(timeout);
+    }, []);
+    // #endregion
+
+    const defaultScreen = (linkTimer > 0) ? "Device" : "Dashboard";
+
+    const closePreModal = () => {
+        dispatch(Actions.onChangePremiumPayFlag(false));
+        togglePreModal();
+     }
+
     return (
-        <BcTabNavigator
-            screens={TabScreens}
-            defaultScreen={defaultScreen}
-        />
+        <>
+            <BcPremiumModal showModal={premiumPayFlag && showPreModal} setShowModal={closePreModal} />
+            <PayProSubModal showModal={showPsModal && AccountType == 2} setShowModal={setShowPsModal} />
+            <BcTabNavigator
+                screens={TabScreens}
+                defaultScreen={defaultScreen}
+            />
+        </>
     )
 }
 

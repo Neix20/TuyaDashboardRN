@@ -6,7 +6,6 @@ import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 import { useNavigation, useIsFocused, useRoute } from "@react-navigation/native";
 
 import { Logger, Utility } from "@utility";
-
 import { Animation, Images, clsConst } from "@config";
 
 import Lottie from "lottie-react-native";
@@ -21,6 +20,8 @@ import Clipboard from '@react-native-clipboard/clipboard';
 import { useModalToast, useToggle, useTimer } from "@hooks";
 
 import { BcPhotoGalleryModal } from "@components";
+
+import { BackHandler } from "react-native";
 
 function GenQrLoading(props) {
     const [timer, setTimer, totalDuration, setTotalDuration, progress] = useTimer(45);
@@ -315,6 +316,19 @@ function Index(props) {
             screen: "Device",
         });
     }
+
+    // Disable Back Button
+    useEffect(() => {
+        const backAction = () => {
+            if (!isFocused) {
+                return false;
+            }
+
+            return true;
+        };
+        const backHandler = BackHandler.addEventListener("hardwareBackPress", backAction);
+        return () => backHandler.remove();
+    }, [isFocused]);
 
     // Shown at False
     if (!atcFlag) {

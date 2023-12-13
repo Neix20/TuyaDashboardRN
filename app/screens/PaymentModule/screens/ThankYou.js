@@ -12,6 +12,9 @@ import { Images, Svg } from "@config";
 
 import { BcHeader, BcBoxShadow, BcFooter } from "@components";
 
+import { useDispatch, useSelector } from 'react-redux';
+import { Actions, Selectors } from '@redux';
+
 function Header(props) {
     const { children, onBack = () => { } } = props;
     const { color = "#2898FF", txtColor = "#000", bgColor = "#FFF" } = props;
@@ -47,6 +50,12 @@ function Index(props) {
     const toast = useToast();
     const navigation = useNavigation();
     const isFocused = useIsFocused();
+
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(Actions.onChangePremiumPayFlag(true));
+    }, [])
 
     const onExit = () => {
         navigation.navigate("TabNavigation", {

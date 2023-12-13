@@ -10,7 +10,6 @@ function Index(props) {
     const { onPressYes = () => {}, onPressNo = () => {} } = props;
 
     return (
-
         <BaseModal {...props}>
             {/* Content */}
             <VStack py={3} space={3}

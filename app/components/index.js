@@ -61,6 +61,7 @@ export {
 
 // #region Modals
 import BaseModal from "./Modal";
+import BaseIIModal from "./Modal/CommunityModalsII";
 import BottomModal from "./Modal/BottomModal";
 import TopModal from "./Modal/TopModal";
 
@@ -79,8 +80,11 @@ import BcPhotoGalleryModal from "./Modal/PhotoGallery";
 
 import BcYesNoModal from "./Modal/YesNo";
 
+import BcPremiumModal from "./Modal/Premium";
+
 export {
     BaseModal,
+    BaseIIModal,
     BottomModal,
     TopModal,
 }
@@ -93,7 +97,8 @@ export {
     BcAppUpdateModal,
     BcServerMainModal,
     BcPhotoGalleryModal,
-    BcYesNoModal
+    BcYesNoModal,
+    BcPremiumModal
 }
 
 import BcGradient from "./Gradient";

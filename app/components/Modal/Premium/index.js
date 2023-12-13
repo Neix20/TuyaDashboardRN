@@ -3,7 +3,6 @@ import { Text, TouchableOpacity, Image, TextInput } from "react-native";
 import { View, VStack, HStack } from "native-base";
 
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
-import { Logger, Utility } from "@utility";
 
 import { BaseModal } from "@components";
 
@@ -14,19 +13,16 @@ function Index(props) {
     const [cusToast, showMsg] = useModalToast();
 
     return (
-        <BaseModal {...props}
-            cusToast={cusToast}
-            showCross={false}
-            setShowModal={() => { }}>
+        <BaseModal {...props} cusToast={cusToast}>
             <VStack width={"90%"} space={5}
                 alignItems={"center"}>
                 <Text style={{
                     fontFamily: "Roboto-Bold",
                     fontSize: 24,
                     color: "#000"
-                }}>Server Maintenance</Text>
+                }}>Congratulations!</Text>
 
-                <FontAwesome5 name={"cogs"} size={84} color={"#d3d3d3"} />
+                <FontAwesome5 name={"crown"} size={64} color={"#FFAA00"} />
 
                 <Text style={{
                     fontFamily: "Roboto-Medium",
@@ -34,7 +30,7 @@ function Index(props) {
                     color: "#000",
                     textAlign: "justify",
                 }}>
-                    Uh-oh! Scheduled Server Maintenance in Progress. Thank You for Your Patience!
+                    You are now a premium member.
                 </Text>
             </VStack>
         </BaseModal>

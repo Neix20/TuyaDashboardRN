@@ -89,6 +89,13 @@ const onChangeDashboardReportFlag = (dashboardReportFlag) => {
     }
 };
 
+const onChangePremiumPayFlag = (premiumPayFlag) => {
+    return {
+        type: "SET_PREMIUM_PAY_FLAG",
+        premiumPayFlag: premiumPayFlag,
+    }
+};
+
 export {
     onChangeDefaultValue,
     onChangeUserId,
@@ -102,5 +109,6 @@ export {
     onChangeLinkDeviceLs,
     onChangeLinkTsStart,
     onChangeSubUserAccess,
-    onChangeDashboardReportFlag
+    onChangeDashboardReportFlag,
+    onChangePremiumPayFlag
 }
