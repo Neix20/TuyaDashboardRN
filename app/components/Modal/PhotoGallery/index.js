@@ -79,6 +79,7 @@ function Index(props) {
     }
 
     const [tabPaneInd, setTabPaneInd] = useState(0);
+    const onChangeTabPane = (e) => setTabPaneInd(e);
 
     const renderItem = ({ uri }, index) => {
         return (
@@ -101,7 +102,8 @@ function Index(props) {
     return (
         <BaseModal {...props}>
             {/* Close Button */}
-            <VStack flexGrow={1} space={3}>
+            <VStack flexGrow={1} 
+                space={3}>
 
                 <View alignItems={"center"}>
                     <Text style={{
@@ -111,7 +113,7 @@ function Index(props) {
                     }}>Tutorial</Text>
                 </View>
 
-                <TabView value={tabPaneInd} onChange={(e) => setTabPaneInd(e)}>
+                <TabView value={tabPaneInd} onChange={onChangeTabPane}>
                     {images.map(renderItem)}
                 </TabView>
 

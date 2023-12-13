@@ -159,7 +159,6 @@ function Index(props) {
     useEffect(() => {
         if (isFocused) {
             SubscriptionProPlan();
-            // setPayDict(subProData);
         }
     }, [isFocused]);
     // #endregion

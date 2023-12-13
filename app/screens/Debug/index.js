@@ -8,11 +8,11 @@ import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 import { useNavigation, useIsFocused } from "@react-navigation/native";
 
 import { Logger, Utility } from "@utility";
-import { iRData, iRDataUnit, DowntimeData, clsConst, Images, DashboardSmartPlugFullData, DeviceDistributionData } from "@config";
+import { iRData, iRDataUnit, DowntimeData, clsConst, Images, DashboardSmartPlugFullData, DeviceDistributionData, Animation } from "@config";
 
 import { useToggle, useDate, useEChart, useOrientation, useTimer, useBarChart, useCoor, useDevDistChart, useCalendarDate } from "@hooks";
 
-import { BcViewShot, BcLineChartFull, BcDateRange, BcLineChart, BcLineLegend, BcApacheChart, BcApacheChartFull, BcDropdown, BcApacheChartDebug, BcApacheBarChart, BcApachePieChart, BcCalendar, BcPhotoGalleryModal } from "@components";
+import { BcViewShot, BcLineChartFull, BcDateRange, BcLineChart, BcLineLegend, BcApacheChart, BcApacheChartFull, BcDropdown, BcApacheChartDebug, BcApacheBarChart, BcApachePieChart, BcCalendar, BcPhotoGalleryModal, BcCarousel } from "@components";
 
 import { fetchGetDeviceDistribution } from "@api";
 import { DateTime } from "luxon";
@@ -416,14 +416,58 @@ function TutorialGuideBtn(props) {
     )
 }
 
+import Lottie from 'lottie-react-native';
+
+
 function PaymentProSub(props) {
+
+    const introLs = [
+        {
+            name: "intro",
+            img: Images.sunsetBg,
+            animation: Animation.onboarding,
+        },
+        {
+            name: "introII",
+            img: Images.sunsetBgII,
+            animation: Animation.onboardingII,
+        },
+        {
+            name: "introIII",
+            img: Images.sunsetBgIII,
+            animation: Animation.onboardingIII,
+        }
+    ];
+
+    const renderItem = (item) => {
+        const { animation } = item;
+        return (
+            <View flexGrow={1}>
+                <Lottie
+                    autoPlay
+                    source={animation}
+                    loop={true}
+                    style={{
+                        width: "100%",
+                        height: "100%"
+                    }} />
+                
+            </View>
+        )
+    }
+
     return (
         <SafeAreaView style={{ flex: 1 }}>
             <View alignItems={"center"}
                 justifyContent={"center"}
                 style={{ flex: 1 }}>
-                <PayProSubBtn />
-                <TutorialGuideBtn />
+                <View width={"90%"}>
+                    <BcCarousel
+                        autoPlay={true}
+                        autoPlayInterval={5000}
+                        data={introLs}
+                        renderItem={renderItem} />
+                </View>
             </View>
         </SafeAreaView>
     )

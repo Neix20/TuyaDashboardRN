@@ -1,46 +1,57 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { View, VStack, HStack } from "native-base";
 
-import Carousel from 'react-native-reanimated-carousel';
-import { GestureHandlerRootView } from "react-native-gesture-handler";
+import { TabView } from "@rneui/themed";
+
 import PaginationDot from 'react-native-animated-pagination-dot';
 
 function Index(props) {
+
     const { data = [], renderItem = () => { } } = props;
-    const { width, height } = props;
+    const { height = 400, autoPlay = true, autoPlayInterval = 3000 } = props;
 
-    const [dotInd, setDotInd] = useState(0);
-
-    const onProgressChange = (_, progress) => {
-        let num = Math.round(progress);
-        if (num >= data.length) {
-            num = 0;
-        }
-        setDotInd(_ => num);
+    if (data.length == 0) {
+        return (<></>)
     }
 
-    const posArr = [...Array(data.length).keys()];
+    const [tabPaneInd, setTabPaneInd] = useState(0);
+    const onChangeTabPane = (e) => setTabPaneInd(e);
+
+    const renderChild = (item, index) => {
+        return (
+            <TabView.Item key={index} style={{ width: "100%" }}>
+                {renderItem(item)}
+            </TabView.Item>
+        )
+    }
+
+    // Auto-Loop Timer
+    useEffect(() => {
+        let tick = () => { };
+
+        if (autoPlay) {
+            tick = () => setTabPaneInd(val => (val + 1) % data.length);
+        }
+
+        const timer = setInterval(tick, autoPlayInterval);
+        return () => clearInterval(timer);
+    }, [autoPlay, autoPlayInterval]);
 
     return (
-        <VStack alignItems={"center"}>
-            <GestureHandlerRootView >
-                <Carousel loop
-                    width={width}
-                    height={height}
-                    autoPlay={true}
-                    autoPlayInterval={5000}
-                    scrollAnimationDuration={1500}
-                    data={posArr}
-                    onProgressChange={onProgressChange}
-                    renderItem={renderItem}
+        <VStack flexGrow={1} space={3}
+            style={{ height: height }}>
+            <TabView value={tabPaneInd} onChange={onChangeTabPane}>
+                {data.map(renderChild)}
+            </TabView>
+            <View alignItems={"center"}>
+                <PaginationDot
+                    activeDotColor={"#F01821"}
+                    inactiveDotColor={"#F01821"}
+                    curPage={tabPaneInd}
+                    maxPage={data.length}
+                    sizeRatio={2}
                 />
-            </GestureHandlerRootView>
-            <PaginationDot
-                activeDotColor={"#F00"}
-                inactiveDotColor={"#000"}
-                curPage={dotInd}
-                maxPage={data.length}
-            />
+            </View>
         </VStack>
     )
 }
