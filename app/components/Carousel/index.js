@@ -13,10 +13,8 @@ function Backup(props) {
         return (<></>)
     }
 
-    // #region UseState
     const [tabPaneInd, setTabPaneInd] = useState(0);
     const onChangeTabPane = (e) => setTabPaneInd(e);
-    // #endregion
 
     const onProgressChange = (_, progress) => {
         setTabPaneInd(val => (Math.round(progress) + 1) % data.length);

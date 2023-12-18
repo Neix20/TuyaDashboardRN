@@ -12,16 +12,23 @@ buildscript {
         ndkVersion = "23.1.7779620"
     }
     repositories {
-        maven {
-            url 'https://maven.aliyun.com/nexus/content/groups/public/'
-        }
         google()
         mavenCentral()
         jcenter()
     }
+
     dependencies {
         classpath("com.android.tools.build:gradle:7.3.1")
         classpath("com.facebook.react:react-native-gradle-plugin")
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
+    }
+}
+
+allprojects {
+    repositories {
+        google()
+        mavenCentral() // New line
+        jcenter()
+        // NOTE: Keep any other entries you may have had here
     }
 }

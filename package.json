@@ -3,11 +3,12 @@
   "version": "1.2.14",
   "private": true,
   "scripts": {
-    "android": "react-native run-android --variant yatuDebug",
-    "ios": "react-native run-ios --simulator=\"iPhone 15\"",
+    "android": "npx react-native run-android --variant yatuDebug",
+    "ios": "npx react-native run-ios --simulator=\"iPhone 15\"",
     "lint": "eslint .",
     "start": "react-native start",
-    "test": "jest"
+    "test": "jest",
+    "clearWatchman": "watchman watch-del-all"
   },
   "dependencies": {
     "@react-native-async-storage/async-storage": "^1.19.1",

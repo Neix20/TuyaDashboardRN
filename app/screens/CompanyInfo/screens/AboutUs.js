@@ -105,7 +105,7 @@ function Index(props) {
     const [data, setData] = useTextInfo(init.data);
     const [loading, setLoading, toggleLoading] = useToggle(false);
 
-    const { version = "", info = [] } = data;
+    const { version = "", info = [], phone_no = "", business_phone_no = "", email = "" } = data;
 
     // #region UseEffect
     useEffect(() => {
@@ -118,15 +118,15 @@ function Index(props) {
 
     // #region Helper
     const contactVigTech = () => {
-        Linking.openURL(`tel:${clsConst.VIGTECH_PHONE_NUMBER}`);
+        Linking.openURL(`tel:${phone_no}`);
     }
 
     const whatsappVigTech = () => {
-        Linking.openURL(`whatsapp://send?phone=+6${clsConst.VIGTECH_BUSINESS_PHONE_NUMBER}`);
+        Linking.openURL(`whatsapp://send?phone=+6${business_phone_no}`);
     }
 
     const emailVigTech = () => {
-        Linking.openURL(`mailto:${clsConst.VIGTECH_EMAIL}`);
+        Linking.openURL(`mailto:${email}`);
     }
 
     const GetData = () => {
