@@ -63,6 +63,7 @@ import Subscription from "@screens/Subscription";
 import SubscriptionInfo from "@screens/Subscription/SubscriptionInfo";
 
 import CheckTuyaEmail from "@screens/CheckTuyaEmail";
+// import CheckTuyaEmail from "@screens/CheckTuyaEmail/backup.js";
 
 let StackScreens = {};
 
@@ -573,8 +574,8 @@ function Index(props) {
     }
     // #endregion
 
-    const defaultScreen = (userId == -1 || firstTimeLink) ? "LoginII" : "TabNavigation";
-    // const defaultScreen = "CheckTuyaEmail";
+    // const defaultScreen = (userId == -1 || firstTimeLink) ? "LoginII" : "TabNavigation";
+    const defaultScreen = "CheckTuyaEmail";
 
     return (
         <>

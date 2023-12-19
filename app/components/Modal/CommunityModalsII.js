@@ -39,7 +39,7 @@ function Index(props) {
     const { children } = props;
     const { showCross = true } = props;
     const { showModal, setShowModal } = props;
-    const { cusToast = init.toast, backdropOpacity = 0.7 } = props;
+    const { cusToast = init.toast, backdropOpacity = 0.7, style = {} } = props;
     // #endregion
 
     const closeModal = () => setShowModal(false);
@@ -51,7 +51,8 @@ function Index(props) {
             animationOut={'slideOutDown'}
             onBackButtonPress={closeModal}
             onBackdropPress={closeModal}
-            backdropOpacity={backdropOpacity}>
+            backdropOpacity={backdropOpacity}
+            style={style}>
             <View bgColor={"#FFF"} borderRadius={20}>
                 {/* Front Layer */}
                 {
@@ -84,7 +85,7 @@ function Index(props) {
                 </View>
 
                 {/* Content */}
-                <View py={5} height={"90%"}>
+                <View py={5} flexGrow={1}>
                     {children}
                 </View>
             </View>

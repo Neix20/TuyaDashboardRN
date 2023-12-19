@@ -18,7 +18,7 @@ import { clsConst } from "@config";
 import { useDispatch, useSelector } from 'react-redux';
 import { Actions, Selectors } from '@redux';
 
-import { fetchProfileInfo, fetchSubUserAccess } from "@api";
+import { fetchProfileInfo, fetchSubUserAccess, fetchDeleteAccount } from "@api";
 
 import { BcLoading, BaseModal } from "@components";
 
@@ -27,13 +27,18 @@ import { useToggle } from "@hooks";
 // #region Components
 function LogoutModal(props) {
 
-    const { showModal, setShowModal } = props;
-    const { onLogout = () => { } } = props;
+    const { showModal, setShowModal = () => { } } = props;
+    const { onLogout = () => { }, onDeleteAccount = () => { } } = props;
 
     const closeModal = () => setShowModal(false);
 
-    const signOut = () => {
+    const logout = () => {
         onLogout();
+        closeModal();
+    }
+
+    const delAcc = () => {
+        onDeleteAccount();
         closeModal();
     }
 
@@ -54,7 +59,7 @@ function LogoutModal(props) {
 
                 {/* Button Panel */}
                 <HStack space={3}>
-                    <TouchableOpacity onPress={signOut}>
+                    <TouchableOpacity onPress={delAcc}>
                         <HStack
                             bgColor={"#2898FF"}
                             borderRadius={8}
@@ -66,10 +71,10 @@ function LogoutModal(props) {
                                 fontSize: 20,
                                 textAlign: "center",
                                 color: "#fff",
-                            }}>Yes</Text>
+                            }}>Delete</Text>
                         </HStack>
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={closeModal}>
+                    <TouchableOpacity onPress={logout}>
                         <HStack
                             borderRadius={8}
                             bgColor={"#E6E6E6"}
@@ -81,7 +86,7 @@ function LogoutModal(props) {
                                 fontSize: 20,
                                 textAlign: "center",
                                 color: "#6A7683",
-                            }}>No</Text>
+                            }}>Logout</Text>
                         </HStack>
                     </TouchableOpacity>
                 </HStack>
@@ -371,21 +376,7 @@ function Index(props) {
 
     useEffect(() => {
         if (isFocused) {
-            setLoading(true);
-            fetchProfileInfo({
-                param: {
-                    UserId: userId
-                },
-                onSetLoading: setLoading
-            })
-                .then(data => {
-                    setProfileInfo(data);
-                })
-                .catch(err => {
-                    setLoading(false);
-                    console.log(`Error: ${err}`);
-                })
-
+            GetProfileInfo();
             RequestAccess(userId);
         }
     }, [isFocused, userId]);
@@ -411,19 +402,55 @@ function Index(props) {
     }
     // #endregion
 
+    // #region API
     const RequestAccess = (userId) => {
         fetchSubUserAccess({
             param: {
                 UserId: userId
             },
-            onSetLoading: () => {},
+            onSetLoading: () => { },
         })
-        .then(data => {
-            dispatch(Actions.onChangeSubUserAccess(data));
+            .then(data => {
+                dispatch(Actions.onChangeSubUserAccess(data));
+            })
+            .catch(err => {
+                console.log(`Error: ${err}`);
+            })
+    }
+
+    const GetProfileInfo = () => {
+        setLoading(true);
+        fetchProfileInfo({
+            param: {
+                UserId: userId
+            },
+            onSetLoading: setLoading
         })
-        .catch(err => {
-            console.log(`Error: ${err}`);
+            .then(data => {
+                setProfileInfo(data);
+            })
+            .catch(err => {
+                setLoading(false);
+                console.log(`Error: ${err}`);
+            })
+    }
+
+    const DeleteAccount = () => {
+        setLoading(true);
+        fetchDeleteAccount({
+            param: {
+                UserId: userId
+            },
+            onSetLoading: setLoading
         })
+            .then(data => {
+                SignOut();
+            })
+            .catch(err => {
+                setLoading(false);
+                console.log(`Error: ${err}`);
+            })
+    // #endregion
     }
 
     return (
@@ -455,7 +482,7 @@ function Index(props) {
                             <CompanyInfoPanel />
 
                             {/* Logout */}
-                            <LogoutPanel onLogout={SignOut} />
+                            <LogoutPanel onLogout={SignOut} onDeleteAccount={DeleteAccount} />
                         </VStack>
 
                         <View style={{ height: 10 }} />

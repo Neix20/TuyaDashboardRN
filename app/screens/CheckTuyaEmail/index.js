@@ -10,9 +10,198 @@ import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 import { Logger, Utility } from "@utility";
 import { Images, Svg } from "@config";
 
-import { useToggle } from "@hooks";
-import { BcYesNoModal } from "@components";
+import { fetchCheckTuyaEmail } from "@api";
 
+import { useToggle, useModalToast } from "@hooks";
+import { BcYesNoModal, BaseIIModal } from "@components";
+
+import { useDispatch, useSelector } from 'react-redux';
+import { Actions, Selectors } from '@redux';
+
+// #region Custom Hooks
+function useFlag() {
+    const [flag, setFlag] = useState({});
+
+    const { ats = false, rts = false } = flag;
+
+    const toggleAts = () => {
+        const next_state = {
+            ...flag,
+            ats: !ats
+        }
+        setFlag(_ => next_state);
+    }
+
+    const toggleRts = () => {
+        const next_state = {
+            ...flag,
+            rts: !rts
+        }
+        setFlag(_ => next_state);
+    }
+
+    const setRtsOn = () => {
+        const next_state = {
+            ...flag,
+            rts: true
+        }
+        setFlag(_ => next_state);
+    }
+
+    const checkFlag = ats && rts;
+
+    return [flag, setFlag, toggleAts, toggleRts, checkFlag, setRtsOn];
+}
+// #endregion
+
+// #region Modals
+function ATSModal(props) {
+
+    const { onPress = () => { } } = props;
+
+    const [cusToast, showMsg] = useModalToast();
+
+    return (
+        <BaseIIModal cusToast={cusToast} style={{ margin: 10 }}
+            {...props}>
+            <View flexGrow={1} py={8}
+                alignItems={"center"}>
+                <VStack alignItems={"center"} width={"90%"} space={5}>
+                    <Text style={{
+                        fontFamily: "Roboto-Bold",
+                        fontSize: 20,
+                        color: "#000",
+                        textAlign: "center",
+                    }}>Sorry, we can't sync your account. Please register a Tuya or Smart Life account before continue on Yatu.</Text>
+                    <TouchableOpacity onPress={onPress}
+                        style={{ height: 48, width: "100%" }}>
+                        <View flex={1} backgroundColor={"#2898FF"}
+                            borderRadius={8}
+                            alignItems={"center"} justifyContent={"center"}>
+                            <Text style={[{
+                                fontSize: 16,
+                                fontWeight: "bold",
+                                color: "#FFF",
+                            }]}>Exit</Text>
+                        </View>„
+                    </TouchableOpacity>
+                </VStack>
+            </View>
+        </BaseIIModal>
+    )
+}
+
+function RtsEmailModal(props) {
+
+    const { onDone = () => {}, emailHook = [] } = props;
+
+    const [cusToast, showMsg] = useModalToast();
+
+    const [email, setEmail] = emailHook;
+    const [eFlag, setEFlag, toggleEFlag] = useToggle(false);
+
+    const userId = useSelector(Selectors.userIdSelect);
+
+    useEffect(() => {
+        let flag = email.length > 0 && Utility.validateEmail(email);
+        setEFlag(_ => flag);
+    }, [email]);
+
+    const CheckTuyaEmail = () => {
+        fetchCheckTuyaEmail({
+            param: {
+                UserId: userId,
+                TuyaEmail: email
+            },
+            onSetLoading: () => {}
+        })
+            .then(data => {
+                const { ResponseCode = "", Message = "" } = data;
+
+                if (ResponseCode == "016001") {
+                    showMsg(Message);
+                } else if (ResponseCode == "00") {
+                    onDone();
+                    setEmail("");
+                } else {
+                    showMsg("Please Enter a Valid Email!");
+                    setEmail("");
+                }
+                
+            })
+            .catch(err => {
+                console.log(`Error: ${err}`);
+            })
+    }
+
+    const Btn = (props) => {
+
+        const { flag = false, onPress = () => {} } = props;
+
+        if (!flag) {
+            return (
+                <View backgroundColor={"#F3F8FC"} borderRadius={8}
+                    alignItems={"center"} justifyContent={"center"}
+                    width={"100%"} style={{ height: 48 }}>
+                    <Text style={[{
+                        fontSize: 16,
+                        fontWeight: "bold",
+                        color: "#5981A6",
+                    }]}>Link Email & Sync Account</Text>
+                </View> 
+            )
+        }
+
+        return (
+            <TouchableOpacity onPress={onPress} style={{ height: 48, width: "100%" }}>
+                <View flex={1} backgroundColor={"#2898FF"}
+                    borderRadius={8}
+                    alignItems={"center"} justifyContent={"center"}>
+                    <Text style={[{
+                        fontSize: 16,
+                        fontWeight: "bold",
+                        color: "#FFF",
+                    }]}>Link Email & Sync Account</Text>
+                </View>
+            </TouchableOpacity>
+        )
+
+    }
+
+    return (
+        <BaseIIModal cusToast={cusToast} style={{ margin: 10 }} {...props}>
+            <View flexGrow={1} py={8}
+                alignItems={"center"}>
+                <VStack alignItems={"center"} width={"90%"} space={5}>
+                    <Text style={{
+                        fontFamily: "Roboto-Bold",
+                        fontSize: 20,
+                        color: "#000",
+                        textAlign: "center",
+                    }}>Enter your Tuya or Smart Life email</Text>
+                    <View width={"100%"} bgColor={"#F3F8FC"}>
+                        <TextInput
+                            defaultValue={email}
+                            onChangeText={setEmail}
+                            autoCapitalize={"none"}
+                            placeholder={"xxx@gmail.com"}
+                            style={{
+                                fontFamily: "Roboto-Medium",
+                                fontSize: 20,
+                                color: "#5981A6",
+                                height: 48,
+                                textAlign: "center"
+                            }} />
+                    </View>
+                    <Btn flag={eFlag} onPress={CheckTuyaEmail} />
+                </VStack>
+            </View>
+        </BaseIIModal>
+    )
+}
+// #endregion
+
+// #region Components
 function Header(props) {
     return (
         <View alignItems={"center"}>
@@ -32,7 +221,7 @@ function Header(props) {
 
 function Footer(props) {
 
-    const { flag = false } = props;
+    const { flag = false, onPress = () => { } } = props;
 
     if (!flag) {
         return (
@@ -52,7 +241,7 @@ function Footer(props) {
 
     return (
         <View alignItems={"center"} justifyContent={"center"} style={{ height: 100 }}>
-            <TouchableOpacity style={{ width: "80%" }}>
+            <TouchableOpacity onPress={onPress} style={{ width: "80%" }}>
                 <View borderRadius={8}
                     alignItems={"center"} justifyContent={"center"}
                     bgColor={"#2898FF"} style={{ height: 60 }}>
@@ -66,7 +255,9 @@ function Footer(props) {
         </View>
     )
 }
+// #endregion
 
+// #region Components II
 function TuyaSmartLogo(props) {
     const style = {
         img: {
@@ -84,12 +275,14 @@ function TuyaSmartLogo(props) {
 }
 
 function ATSBtn(props) {
+
     const { children } = props;
-    const { flag = false, onPress = () => { } } = props;
+    const { disabled = false, flag = false, onPress = () => { } } = props;
 
     if (!flag) {
         return (
-            <TouchableOpacity onPress={onPress} style={{ flex: 1 }}>
+            <TouchableOpacity onPress={onPress} disabled={disabled}
+                style={{ flex: 1 }}>
                 <View flex={1} bgColor={"#FFF"}
                     alignItems={"center"} justifyContent={"center"}>
                     <Text style={{
@@ -103,7 +296,7 @@ function ATSBtn(props) {
     }
 
     return (
-        <TouchableOpacity onPress={onPress} style={{ flex: 1 }}>
+        <TouchableOpacity onPress={onPress} disabled={disabled} style={{ flex: 1 }}>
             <View flex={1} bgColor={"#FFF"}
                 alignItems={"center"} justifyContent={"center"}>
                 <HStack alignItems={"center"} space={3}>
@@ -121,7 +314,7 @@ function ATSBtn(props) {
 
 function ATSLogo(props) {
 
-    const { title = "", description = "", pos = "" } = props;
+    const { title = "", description = "", pos = "", flag = false } = props;
     const { Icon = () => { }, fontName = "" } = props;
     const { onPressNo = () => { }, onPressYes = () => { } } = props;
 
@@ -160,14 +353,15 @@ function ATSLogo(props) {
 
                 {/* Buttons */}
                 <HStack space={5} style={{ height: 40 }}>
-                    <ATSBtn>No</ATSBtn>
-                    <ATSBtn>Yes</ATSBtn>
+                    <ATSBtn disabled={flag} onPress={onPressNo}>No</ATSBtn>
+                    <ATSBtn flag={flag} onPress={onPressYes}>Yes</ATSBtn>
                 </HStack>
 
             </VStack>
         </View>
     )
 }
+// #endregion
 
 function Index(props) {
 
@@ -175,9 +369,19 @@ function Index(props) {
     const navigation = useNavigation();
     const isFocused = useIsFocused();
 
-    // #region Exit
     const [showExitModal, setShowExitModal, toggleExitModal] = useToggle(false);
+    const [showAtsModal, setShowAtsModal, toggleAtsModal] = useToggle(false);
+    const [showRtsModal, setShowRtsModal, toggleRtsModal] = useToggle(false);
 
+    const flagHook = useFlag();
+    const [flag, setFlag, toggleAts, toggleRts, syncFlag, setRtsOn] = flagHook;
+
+    const emailHook = useState("");
+    const [email, setEmail] = emailHook;
+
+    const { ats: atsFlag, rts: rtsFlag } = flag;
+
+    // #region Exit
     useEffect(() => {
         const backAction = () => {
             if (!isFocused) {
@@ -194,15 +398,23 @@ function Index(props) {
     const GoBack = () => {
         navigation.goBack();
     }
+
+    const GoToAuthTuya = () => {
+        navigation.navigate("AuthTuya", {
+            Email: email
+        });
+    }
     // #endregion
 
     return (
         <>
-            <BcYesNoModal showModal={showExitModal} setShowModal={setShowExitModal} 
+            <BcYesNoModal showModal={showExitModal} setShowModal={setShowExitModal}
                 title={"Warning"} showCross={false}
                 onPressYes={GoBack}
                 onPressNo={toggleExitModal}
                 description={"Are you sure you want to exit this page?"} />
+            <ATSModal showModal={showAtsModal} setShowModal={setShowAtsModal} onPress={GoBack} />
+            <RtsEmailModal showModal={showRtsModal} setShowModal={setShowRtsModal} onDone={setRtsOn} emailHook={emailHook} />
             <SafeAreaView style={{ flex: 1 }}>
                 <View bgColor={"#F3F8FC"} style={{ flex: 1 }}>
 
@@ -214,21 +426,27 @@ function Index(props) {
                         keyboardShouldPersistTaps={"handled"}
                         contentContainerStyle={{ flexGrow: 1 }}>
                         <VStack space={5} flexGrow={1}>
+
                             {/* Are you a Tuya or SmartLife User */}
                             <ATSLogo pos={"1/2"}
                                 title={"Are you a Tuya or Smart Life user?"}
                                 description={"Yatu is advanced monitoring app for Tuya or Smart Life smart devices. Data will be synced for analysis."}
-                                Icon={FontAwesome5} fontName={"user-alt"} />
+                                Icon={FontAwesome5} fontName={"user-alt"}
+                                onPressYes={toggleAts} flag={atsFlag}
+                                onPressNo={toggleAtsModal} />
+
+                            {/* Is Email Same as Your Tuya / SmartLife ? */}
                             <ATSLogo pos={"2/2"}
                                 title={"Is registered email same as your Tuya or Smart Life email?"}
                                 description={"Tuya or Smart Life account’s email is needed for Yatu auto-sync to start generating complete data."}
-                                Icon={FontAwesome} fontName={"envelope"} />
-
+                                Icon={FontAwesome} fontName={"envelope"}
+                                onPressYes={toggleRts} flag={rtsFlag}
+                                onPressNo={toggleRtsModal} />
                         </VStack>
                     </ScrollView>
 
                     {/* Footer */}
-                    <Footer />
+                    <Footer flag={syncFlag} onPress={GoToAuthTuya} />
                 </View>
             </SafeAreaView>
         </>

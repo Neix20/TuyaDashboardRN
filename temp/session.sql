@@ -1,15 +1,21 @@
-CREATE OR ALTER PROCEDURE [dbo].[NSP_TUser_SelectDemoLogin]
-(
-    @UserId INT
-)
-AS
-    DECLARE @Email NVARCHAR(200) = '';
+USE Sandbox_Yatu;
+SELECT * FROM TUserQueue;
 
-    SELECT @Email = [Email]
-    FROM [dbo].[TUser]
-    WHERE 1=1
-    AND [User_Id] = @UserId;
+SELECT * FROM MParameter WHERE P_Key LIKE '%Tuya%';
 
-    SELECT @UserId AS [User_Id], @Email AS [Email], -1 AS [FirstTimeUserId], 'Normal' AS [ResponseMessage];
--- EXEC [dbo].[NSP_TUser_SelectDemoLogin] 65
-GO
+SELECT * FROM MSubscriptionPlan
+
+SELECT * FROM TSubscription WHERE MerchantId = 64
+
+UPDATE TSubscription SET SubscriptionCode = 'MSSP0007' WHERE MerchantId = 64
+
+DECLARE @data NVARCHAR(MAX) = N'';
+EXEC NSP_MParameter_UpdatePair 'Yatu_PolicyData', @data, 'System';
+
+EXEC NSP_MParameter_UpdatePair 'Tuya_LinkFlag', 'True', 'System';
+
+EXEC sp_depends MStatus
+EXEC sp_helptext NSP_MStatus_InsertApi
+
+SElECT * FROM TUser;
+SELECT * FROM MStatus;

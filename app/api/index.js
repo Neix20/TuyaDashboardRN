@@ -79,6 +79,8 @@ import fetchCheckTuyaEmail from "./fetchCheckTuyaEmail";
 
 import fetchSubscriptionProPlan from "./fetchSubscriptionProPlan";
 
+import fetchDeleteAccount from "./fetchDeleteAccount";
+
 export {
     fetchHomeList,
     fetchHomeInfo,
@@ -125,7 +127,8 @@ export {
 
 export {
     fetchProfileInfo,
-    fetchUpdateProfile
+    fetchUpdateProfile,
+    fetchDeleteAccount
 }
 
 export {

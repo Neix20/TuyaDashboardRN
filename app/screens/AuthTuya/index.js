@@ -215,8 +215,8 @@ function Index(props) {
 
     const userId = useSelector(Selectors.userIdSelect);
 
-    const { Email } = props.route.params;
-    // const Email = "";
+    // const { Email } = props.route.params;
+    const Email = "";
 
     // #region UseState
     const [loading, setLoading] = useState(false);

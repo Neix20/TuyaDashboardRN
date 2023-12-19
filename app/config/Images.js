@@ -57,11 +57,11 @@ data = {
 
 data = {
     ...data,
-    LinkDeviceI: require("@assets/images/Tutorial/LinkDevice/I.jpeg"),
+    LinkDeviceI: require("@assets/images/Tutorial/LinkDevice/I.png"),
     LinkDeviceII: require("@assets/images/Tutorial/LinkDevice/II.jpeg"),
-    LinkDeviceIII: require("@assets/images/Tutorial/LinkDevice/III.jpeg"),
-    LinkDeviceIV: require("@assets/images/Tutorial/LinkDevice/IV.jpeg"),
-    LinkDeviceV: require("@assets/images/Tutorial/LinkDevice/V.jpeg")
+    LinkDeviceIII: require("@assets/images/Tutorial/LinkDevice/III.png"),
+    LinkDeviceIV: require("@assets/images/Tutorial/LinkDevice/IV.png"),
+    LinkDeviceV: require("@assets/images/Tutorial/LinkDevice/V.png")
 }
 
 data = {

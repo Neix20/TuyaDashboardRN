@@ -142,10 +142,10 @@ function EmailForm(props) {
     const { loadHook = [] } = props;
     const [loading, setLoading, toggleLoading] = loadHook;
 
+    const userId = useSelector(Selectors.userIdSelect);
+
     const [email, setEmail] = useState(emailInit);
     const [eFlag, setEFlag, toggleEFlag] = useToggle(false);
-
-    const userId = useSelector(Selectors.userIdSelect);
 
     useEffect(() => {
         let flag = email.length > 0 && Utility.validateEmail(email);
@@ -194,7 +194,7 @@ function EmailForm(props) {
                         fontSize: 14,
                         fontWeight: "bold"
                     }}>Email</Text>
-                    <View bgColor={"#EEF3F6"}>
+                    <View bgColor={"#F3F8FC"}>
                         <TextInput
                             defaultValue={email}
                             onChangeText={setEmail}
@@ -203,8 +203,9 @@ function EmailForm(props) {
                             style={{
                                 fontFamily: "Roboto-Medium",
                                 fontSize: 20,
-                                color: "#000",
-                                height: 50
+                                color: "#5981A6",
+                                height: 50,
+                                textAlign: "center"
                             }} />
                     </View>
                 </View>

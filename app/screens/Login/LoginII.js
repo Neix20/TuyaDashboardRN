@@ -9,7 +9,7 @@ import { Logger, Utility } from "@utility";
 
 import { Animation, clsConst, Images } from "@config";
 
-import { BcSvgIcon, BcLoading, BcDisable, BcCarousel, BottomModal } from "@components";
+import { BcSvgIcon, BcLoading, BcDisable, BcCarousel, BottomModal, BcDeleteAccountModal } from "@components";
 
 import { fetchRequestOtp, fetchLogin, fetchDemoLogin, fetchSubUserAccess, fetchSubUserLogin } from "@api";
 
@@ -22,7 +22,7 @@ import Lottie from 'lottie-react-native';
 
 // #region Custom Hooks
 function useChangeBg() {
-    
+
     const imgLs = [Images.sunsetBg, Images.sunsetBgII, Images.sunsetBgIII];
 
     const [img, setImg] = useState(imgLs[0]);
@@ -178,9 +178,9 @@ function ExistLoginForm(props) {
 
     // const { loading, setLoading = () => { } } = props;
 
-    const { toastHook = [], formHook = [] } = props;
+    const { toastHook = [], formHook = [], delAccHook = [] } = props;
 
-    const { showModal, setShowModal = () => {}} = props;
+    const { showModal, setShowModal = () => { } } = props;
 
     const [mToast, showMsg] = toastHook;
 
@@ -199,6 +199,7 @@ function ExistLoginForm(props) {
     // #region UseState
     // const [form, clearForm, setEmail, setOtp, setSessionId, loginFlag] = useExistLoginForm();
     const [form, clearForm, setEmail, setOtp, setSessionId, loginFlag] = formHook;
+    const [showDelAccModal, setShowDelAccModal, toggleDelAccModal] = delAccHook;
 
     const [timer, setTimer] = useTimer(0);
     const [otpFlag, setOtpFlag, toggleOtpFlag] = useToggle(false);
@@ -280,39 +281,43 @@ function ExistLoginForm(props) {
             .then(data => {
                 if (data !== null) {
 
+                    // TODO: Uncomment Once done
                     const { Data: { User_Id, FirstTimeUserId, ResponseMessage } } = data;
 
-                    Utility.OneSignalSubscribe(email);
-                    dispatch(Actions.onChangeUserId(User_Id));
+                    if (FirstTimeUserId != 6) {
+                        Utility.OneSignalSubscribe(email);
+                        dispatch(Actions.onChangeUserId(User_Id));
 
-                    RequestAccess(User_Id);
+                        RequestAccess(User_Id);
 
-                    if (FirstTimeUserId == 1) {
-                        dispatch(Actions.onChangeFirstTimeLink(true));
-                        navigation.navigate("CheckTuyaEmail", {
-                            Email: email,
-                        })
-                    } 
-                    else if (FirstTimeUserId == 2) {
-                        dispatch(Actions.onChangeFirstTimeLink(true));
-                        navigation.navigate("AuthTuya", {
-                            Email: email,
-                        })
-                    }
-                    else {
-                        dispatch(Actions.onChangeFirstTimeLink(false));
-                        GoToHome();
-                    }
+                        if (FirstTimeUserId == 1) {
+                            dispatch(Actions.onChangeFirstTimeLink(true));
+                            navigation.navigate("CheckTuyaEmail", {
+                                Email: email,
+                            })
+                        }
+                        else if (FirstTimeUserId == 2) {
+                            dispatch(Actions.onChangeFirstTimeLink(true));
+                            navigation.navigate("AuthTuya", {
+                                Email: email,
+                            })
+                        }
+                        else {
+                            dispatch(Actions.onChangeFirstTimeLink(false));
+                            GoToHome();
+                        }
 
-                    if (ResponseMessage != "") {
-                        // toast.show({
-                        //     description: ResponseMessage
-                        // })
-                        showMsg(ResponseMessage);
+                        if (ResponseMessage != "") {
+                            // toast.show({
+                            //     description: ResponseMessage
+                            // })
+                            showMsg(ResponseMessage);
+                        }
+                    } else {
+                        toggleDelAccModal();
                     }
 
                     clearForm();
-
                     setShowModal(false);
                 } else {
                     // toast.show({
@@ -503,37 +508,37 @@ function SubLoginForm(props) {
             },
             onSetLoading: setLoading,
         })
-        .then(data => {
-            if (data !== null) {
+            .then(data => {
+                if (data !== null) {
 
-                const { UserId, FirstTimeUserId } = data;
+                    const { UserId, FirstTimeUserId } = data;
 
-                Utility.OneSignalSubscribe(username);
-                dispatch(Actions.onChangeUserId(UserId));
+                    Utility.OneSignalSubscribe(username);
+                    dispatch(Actions.onChangeUserId(UserId));
 
-                RequestAccess(UserId);
+                    RequestAccess(UserId);
 
-                if (FirstTimeUserId == 1) {
-                    dispatch(Actions.onChangeFirstTimeLink(true));
-                    navigation.navigate("CheckTuyaEmail", {
-                        Email: email,
-                    })
+                    if (FirstTimeUserId == 1) {
+                        dispatch(Actions.onChangeFirstTimeLink(true));
+                        navigation.navigate("CheckTuyaEmail", {
+                            Email: email,
+                        })
+                    } else {
+                        dispatch(Actions.onChangeFirstTimeLink(false));
+                        GoToHome();
+                    }
+
+
+
                 } else {
-                    dispatch(Actions.onChangeFirstTimeLink(false));
-                    GoToHome();
+                    showMsg("Username / Password is incorrect!");
+                    setPassword("");
                 }
-
-
-
-            } else {
-                showMsg("Username / Password is incorrect!");
-                setPassword("");
-            }
-        })
-        .catch(err => {
-            setLoading(false);
-            console.log(`Error: ${err}`);
-        })
+            })
+            .catch(err => {
+                setLoading(false);
+                console.log(`Error: ${err}`);
+            })
     }
     // #endregion
 
@@ -631,6 +636,9 @@ function Index(props) {
     const [showExLoginModal, setShowExLoginModal, toggleExLoginModal] = useToggle(false);
     const [showSubLoginModal, setShowSubLoginModal, toggleSubLoginModal] = useToggle(false);
 
+    const delAccHook = useToggle(false);
+    const [showDelAccModal, setShowDelAccModal, toggleDelAccModal] = delAccHook;
+
     const existLoginFormHook = useExistLoginForm();
     const subLoginFormHook = useSubLoginForm();
 
@@ -645,24 +653,24 @@ function Index(props) {
             param: {},
             onSetLoading: setLoading
         })
-        .then(data => {
-            const { User_Id, Email = "" } = data;
+            .then(data => {
+                const { User_Id, Email = "" } = data;
 
-            Utility.OneSignalSubscribe(Email);
-            dispatch(Actions.onChangeUserId(User_Id));
+                Utility.OneSignalSubscribe(Email);
+                dispatch(Actions.onChangeUserId(User_Id));
 
-            RequestAccess(User_Id);
+                RequestAccess(User_Id);
 
-            dispatch(Actions.onChangeFirstTimeLink(false));
-            GoToHome();
+                dispatch(Actions.onChangeFirstTimeLink(false));
+                GoToHome();
 
-        })
-        .catch(err => {
-            setLoading(false);
-            console.log(`Error: ${err}`);
-        })
+            })
+            .catch(err => {
+                setLoading(false);
+                console.log(`Error: ${err}`);
+            })
     }
-    
+
     const GoToHome = () => {
         navigation.navigate("TabNavigation", {
             screen: "Dashboard",
@@ -684,11 +692,14 @@ function Index(props) {
             })
     }
     // #endregion
-    
+
     return (
         <>
             <BcLoading loading={loading} />
-            <ExistLoginModal formHook={existLoginFormHook} showModal={showExLoginModal} setShowModal={setShowExLoginModal} />
+            <BcDeleteAccountModal showModal={showDelAccModal} setShowModal={setShowDelAccModal} />
+            <ExistLoginModal
+                delAccHook={delAccHook} formHook={existLoginFormHook}
+                showModal={showExLoginModal} setShowModal={setShowExLoginModal} />
             <SubLoginModal formHook={subLoginFormHook} showModal={showSubLoginModal} setShowModal={setShowSubLoginModal} />
             <SafeAreaView style={{ flex: 1 }}>
                 <ImageBackground

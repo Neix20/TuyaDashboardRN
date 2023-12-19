@@ -69,8 +69,6 @@ import TopModal from "./Modal/TopModal";
 import BcBirthdayModal from "./Modal/Birthday";
 import BcGenderModal from "./Modal/Gender";
 
-import BcLogoutModal from "./Modal/Logout";
-
 import BcDateRangeModal from "./Modal/DateRange";
 
 import BcAppUpdateModal from "./Modal/AppUpdate";
@@ -82,6 +80,8 @@ import BcYesNoModal from "./Modal/YesNo";
 
 import BcPremiumModal from "./Modal/Premium";
 
+import BcDeleteAccountModal from "./Modal/DeleteAccount";
+
 export {
     BaseModal,
     BaseIIModal,
@@ -92,13 +92,13 @@ export {
 export {
     BcGenderModal,
     BcBirthdayModal,
-    BcLogoutModal,
     BcDateRangeModal,
     BcAppUpdateModal,
     BcServerMainModal,
     BcPhotoGalleryModal,
     BcYesNoModal,
-    BcPremiumModal
+    BcPremiumModal,
+    BcDeleteAccountModal
 }
 
 import BcGradient from "./Gradient";
