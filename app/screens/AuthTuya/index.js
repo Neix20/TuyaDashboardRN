@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Text, TouchableOpacity, Image, TextInput, SafeAreaView, ImageBackground, ScrollView } from "react-native";
+import { Text, TouchableOpacity, Image, TextInput, SafeAreaView, ScrollView } from "react-native";
 import { View, VStack, HStack, useToast } from "native-base";
 
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
@@ -19,10 +19,11 @@ import Clipboard from '@react-native-clipboard/clipboard';
 
 import { useModalToast, useToggle, useTimer } from "@hooks";
 
-import { BcPhotoGalleryModal } from "@components";
+import { BcPhotoGalleryModal, BcYesNoModal } from "@components";
 
 import { BackHandler } from "react-native";
 
+// #region Components
 function GenQrLoading(props) {
     const [timer, setTimer, totalDuration, setTotalDuration, progress] = useTimer(45);
     return (
@@ -203,6 +204,7 @@ function RefreshQrBtn(props) {
         </TouchableOpacity>
     )
 }
+// #endregion
 
 function Index(props) {
     const toast = useToast();
@@ -224,6 +226,7 @@ function Index(props) {
     const [timer, setTimer] = useTimer(0);
 
     const [atcFlag, setAtcFlag] = useState(false);
+    const [showExitModal, setShowExitModal, toggleExitModal] = useToggle(false);
     // #endregion
 
     const upadteAtcFlag = () => {
@@ -324,19 +327,143 @@ function Index(props) {
                 return false;
             }
 
+            toggleExitModal();
             return true;
         };
         const backHandler = BackHandler.addEventListener("hardwareBackPress", backAction);
         return () => backHandler.remove();
     }, [isFocused]);
 
+    const GoBack = () => {
+        navigation.goBack();
+    }
+
     // Shown at False
     if (!atcFlag) {
         return (
+            <>
+                <BcYesNoModal showModal={showExitModal} setShowModal={setShowExitModal}
+                    title={"Warning"} showCross={false}
+                    onPressYes={GoBack}
+                    onPressNo={toggleExitModal}
+                    description={"Are you sure you want to exit this page?"} />
+                <SafeAreaView style={{ flex: 1 }}>
+                    <View style={{ flex: 1 }}>
+                        <View style={{ height: 80 }} />
+                        <Loading>{loadingTxt}</Loading>
+                    </View>
+
+                    <View
+                        justifyContent={"center"}
+                        alignItems={"center"}
+                        style={{ height: 60 }}>
+                        <Text style={{
+                            fontFamily: "Roboto-Medium",
+                            fontSize: 16
+                        }}>Powered By {clsConst.ORG_NAME}</Text>
+                        <Text style={{
+                            fontFamily: "Roboto-Medium",
+                            fontSize: 14
+                        }}>© Version {clsConst.APP_VERSION}</Text>
+                    </View>
+                </SafeAreaView>
+            </>
+        )
+    }
+
+    // Never Show Not Once
+    return (
+        <>
+            <BcYesNoModal showModal={showExitModal} setShowModal={setShowExitModal}
+                title={"Warning"} showCross={false}
+                onPressYes={GoBack}
+                onPressNo={toggleExitModal}
+                description={"Are you sure you want to exit this page?"} />
             <SafeAreaView style={{ flex: 1 }}>
                 <View style={{ flex: 1 }}>
-                    <View style={{ height: 80 }} />
-                    <Loading>{loadingTxt}</Loading>
+                    <View alignItems={"center"} justifyContent={"center"} style={{ height: 80 }}>
+                        <HStack width={"90%"} alignItems={"flex-end"} justifyContent={"flex-end"}>
+                            <TutorialGuideBtn />
+                        </HStack>
+                    </View>
+                    {
+                        (loading) ? (
+                            <Loading>{loadingTxt}</Loading>
+                        ) : (
+                            <>
+                                <VStack flexGrow={1} space={5}>
+                                    <VStack space={6} alignItems={"center"}>
+                                        {/* Instruction */}
+                                        <View width={"90%"}>
+                                            <Text style={{
+                                                fontFamily: "Roboto-Bold",
+                                                fontSize: 18
+                                            }}>
+                                                Please use your Tuya or SmartLife app to scan the QR code provided through any web browser.
+                                            </Text>
+                                        </View>
+
+                                        <View width={"90%"}>
+                                            <Image source={{ uri: refImg }}
+                                                style={{
+                                                    width: "100%",
+                                                    height: 250
+                                                }}
+                                                resizeMode={"contain"}
+                                                alt={"Auth QR Code"} />
+                                        </View>
+
+                                        {/* Copy Link */}
+                                        {
+                                            (false) ? (
+                                                <HStack
+                                                    px={4} borderRadius={4}
+                                                    bgColor={"#E6E6E6"}
+                                                    alignItems={"center"}
+                                                    justifyContent={"space-between"}
+                                                    width={"90%"} style={{ height: 48 }}>
+
+                                                    <View width={"80%"}>
+                                                        <Text style={{ fontFamily: "Roboto-Medium", fontSize: 14 }}>{refLink}</Text>
+                                                    </View>
+
+                                                    <TouchableOpacity onPress={copyRefLink}>
+                                                        <HStack alignItems={"center"} space={1}>
+                                                            <FontAwesome5 name={"clone"} size={20} />
+                                                            <Text style={{ fontFamily: "Roboto-Bold", fontSize: 16 }}>
+                                                                Copy
+                                                            </Text>
+                                                        </HStack>
+                                                    </TouchableOpacity>
+                                                </HStack>
+                                            ) : (
+                                                <></>
+                                            )
+                                        }
+
+                                        {/* Button To Register */}
+                                        <HStack space={5}
+                                            alignItems={"center"} justifyContent={"center"}>
+                                            <TouchableOpacity onPress={register}>
+                                                <View backgroundColor={"#2898FF"} borderRadius={12}
+                                                    alignItems={"center"} justifyContent={"center"}
+                                                    style={{ height: 80, width: 120 }}>
+                                                    <Text style={[{
+                                                        fontSize: 24,
+                                                        fontWeight: "bold",
+                                                        color: "white",
+                                                    }]}>Register</Text>
+                                                </View>
+                                            </TouchableOpacity>
+                                            <RefreshQrBtn onPress={authTuyaCode} timer={timer} />
+                                        </HStack>
+                                    </VStack>
+
+
+                                </VStack>
+                            </>
+                        )
+                    }
                 </View>
 
                 <View
@@ -353,112 +480,7 @@ function Index(props) {
                     }}>© Version {clsConst.APP_VERSION}</Text>
                 </View>
             </SafeAreaView>
-        )
-    }
-
-    // Never Show Not Once
-    return (
-        <SafeAreaView style={{ flex: 1 }}>
-            <View style={{ flex: 1 }}>
-                <View alignItems={"center"} justifyContent={"center"} style={{ height: 80 }}>
-                    <HStack width={"90%"} alignItems={"flex-end"} justifyContent={"flex-end"}>
-                        <TutorialGuideBtn />
-                    </HStack>
-                </View>
-                {
-                    (loading) ? (
-                        <Loading>{loadingTxt}</Loading>
-                    ) : (
-                        <>
-                            <VStack flexGrow={1} space={5}>
-                                <VStack space={6} alignItems={"center"}>
-                                    {/* Instruction */}
-                                    <View width={"90%"}>
-                                        <Text style={{
-                                            fontFamily: "Roboto-Bold",
-                                            fontSize: 18
-                                        }}>
-                                            Please use your Tuya or SmartLife app to scan the QR code provided through any web browser.
-                                        </Text>
-                                    </View>
-
-                                    <View width={"90%"}>
-                                        <Image source={{ uri: refImg }}
-                                            style={{
-                                                width: "100%",
-                                                height: 250
-                                            }}
-                                            resizeMode={"contain"}
-                                            alt={"Auth QR Code"} />
-                                    </View>
-
-                                    {/* Copy Link */}
-                                    {
-                                        (false) ? (
-                                            <HStack
-                                                px={4} borderRadius={4}
-                                                bgColor={"#E6E6E6"}
-                                                alignItems={"center"}
-                                                justifyContent={"space-between"}
-                                                width={"90%"} style={{ height: 48 }}>
-
-                                                <View width={"80%"}>
-                                                    <Text style={{ fontFamily: "Roboto-Medium", fontSize: 14 }}>{refLink}</Text>
-                                                </View>
-
-                                                <TouchableOpacity onPress={copyRefLink}>
-                                                    <HStack alignItems={"center"} space={1}>
-                                                        <FontAwesome5 name={"clone"} size={20} />
-                                                        <Text style={{ fontFamily: "Roboto-Bold", fontSize: 16 }}>
-                                                            Copy
-                                                        </Text>
-                                                    </HStack>
-                                                </TouchableOpacity>
-                                            </HStack>
-                                        ) : (
-                                            <></>
-                                        )
-                                    }
-
-                                    {/* Button To Register */}
-                                    <HStack space={5}
-                                        alignItems={"center"} justifyContent={"center"}>
-                                        <TouchableOpacity onPress={register}>
-                                            <View backgroundColor={"#2898FF"} borderRadius={12}
-                                                alignItems={"center"} justifyContent={"center"}
-                                                style={{ height: 80, width: 120 }}>
-                                                <Text style={[{
-                                                    fontSize: 24,
-                                                    fontWeight: "bold",
-                                                    color: "white",
-                                                }]}>Register</Text>
-                                            </View>
-                                        </TouchableOpacity>
-                                        <RefreshQrBtn onPress={authTuyaCode} timer={timer} />
-                                    </HStack>
-                                </VStack>
-
-
-                            </VStack>
-                        </>
-                    )
-                }
-            </View>
-
-            <View
-                justifyContent={"center"}
-                alignItems={"center"}
-                style={{ height: 60 }}>
-                <Text style={{
-                    fontFamily: "Roboto-Medium",
-                    fontSize: 16
-                }}>Powered By {clsConst.ORG_NAME}</Text>
-                <Text style={{
-                    fontFamily: "Roboto-Medium",
-                    fontSize: 14
-                }}>© Version {clsConst.APP_VERSION}</Text>
-            </View>
-        </SafeAreaView>
+        </>
     );
 }
 

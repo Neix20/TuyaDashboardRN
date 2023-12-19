@@ -96,5 +96,11 @@ data = {
     SubProIILogo: require("@assets/images/sub-pro-ii.png"),
 }
 
+data = {
+    ...data,
+    TuyaLogo: require("@assets/images/tuya.png"),
+    SmartLifeLogo: require("@assets/images/smartlife.png")
+}
+
 
 export default data;

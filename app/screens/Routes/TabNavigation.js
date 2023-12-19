@@ -113,12 +113,12 @@ function Index(props) {
     const premiumPayFlag = useSelector(Selectors.premiumPayFlagSelect);
     // #endregion
 
-     // #region UseState
-     const [showPsModal, setShowPsModal, togglePsModal] = useToggle(false);
-     const openPsModal = () => setShowPsModal(true);
+    // #region UseState
+    const [showPsModal, setShowPsModal, togglePsModal] = useToggle(false);
+    const openPsModal = () => setShowPsModal(true);
 
-     const [showPreModal, setShowPreModal, togglePreModal] = useToggle(false);
-     // #endregion
+    const [showPreModal, setShowPreModal, togglePreModal] = useToggle(false);
+    // #endregion
 
     // #region UseEffect
     // Disable Back Button
@@ -158,7 +158,7 @@ function Index(props) {
     const closePreModal = () => {
         dispatch(Actions.onChangePremiumPayFlag(false));
         togglePreModal();
-     }
+    }
 
     return (
         <>
