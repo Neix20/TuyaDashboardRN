@@ -77,8 +77,6 @@ target 'YatuDashboard' do
         
         # iOS 模拟器去除 1386
         config.build_settings["EXCLUDED_ARCHS[sdk=iphonesimulator*]"] = "arm64 1386"
-
-        config.build_settings['ARCHS[sdk=iphonesimulator*]'] = 'x86_64'
         
         config.build_settings['APPLICATION_EXTENSION_API_ONLY'] = 'NO'
       end

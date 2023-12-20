@@ -359,6 +359,8 @@ PODS:
   - react-native-onesignal (4.5.1):
     - OneSignalXCFramework (= 3.12.4)
     - React (< 1.0.0, >= 0.13.0)
+  - react-native-render-html (6.3.4):
+    - React-Core
   - react-native-safe-area-context (4.7.3):
     - React-Core
   - react-native-skia (0.1.213):
@@ -466,6 +468,8 @@ PODS:
   - RNGestureHandler (2.13.3):
     - RCT-Folly (= 2021.07.22.00)
     - React-Core
+  - RNIap (12.12.1):
+    - React-Core
   - RNReanimated (2.14.4):
     - DoubleConversion
     - FBLazyVector
@@ -562,6 +566,7 @@ DEPENDENCIES:
   - react-native-date-picker (from `../node_modules/react-native-date-picker`)
   - "react-native-keep-awake (from `../node_modules/@sayem314/react-native-keep-awake`)"
   - react-native-onesignal (from `../node_modules/react-native-onesignal`)
+  - react-native-render-html (from `../node_modules/react-native-render-html`)
   - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
   - "react-native-skia (from `../node_modules/@shopify/react-native-skia`)"
   - react-native-splash-screen (from `../node_modules/react-native-splash-screen`)
@@ -585,6 +590,7 @@ DEPENDENCIES:
   - "RNCClipboard (from `../node_modules/@react-native-clipboard/clipboard`)"
   - RNFS (from `../node_modules/react-native-fs`)
   - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
+  - RNIap (from `../node_modules/react-native-iap`)
   - RNReanimated (from `../node_modules/react-native-reanimated`)
   - RNScreens (from `../node_modules/react-native-screens`)
   - RNShare (from `../node_modules/react-native-share`)
@@ -669,6 +675,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/@sayem314/react-native-keep-awake"
   react-native-onesignal:
     :path: "../node_modules/react-native-onesignal"
+  react-native-render-html:
+    :path: "../node_modules/react-native-render-html"
   react-native-safe-area-context:
     :path: "../node_modules/react-native-safe-area-context"
   react-native-skia:
@@ -715,6 +723,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-fs"
   RNGestureHandler:
     :path: "../node_modules/react-native-gesture-handler"
+  RNIap:
+    :path: "../node_modules/react-native-iap"
   RNReanimated:
     :path: "../node_modules/react-native-reanimated"
   RNScreens:
@@ -772,6 +782,7 @@ SPEC CHECKSUMS:
   react-native-date-picker: 1d61c76315098a6ad4c643a356f005916c7d4875
   react-native-keep-awake: ad1d67f617756b139536977a0bf06b27cec0714a
   react-native-onesignal: 7bd44dbd031d8d57110c0203836ffc37ddead526
+  react-native-render-html: 984dfe2294163d04bf5fe25d7c9f122e60e05ebe
   react-native-safe-area-context: 238cd8b619e05cb904ccad97ef42e84d1b5ae6ec
   react-native-skia: 4327dd69d3272313b91ea753a2d6dd5d9bebba42
   react-native-splash-screen: 4312f786b13a81b5169ef346d76d33bc0c6dc457
@@ -795,6 +806,7 @@ SPEC CHECKSUMS:
   RNCClipboard: d77213bfa269013bf4b857b7a9ca37ee062d8ef1
   RNFS: 4ac0f0ea233904cb798630b3c077808c06931688
   RNGestureHandler: fa40ab6b6cafaa7609294d31f8e8fbbd0cce8ea6
+  RNIap: 31bf0cfb84ec19a9e5cc6b53b88d159c5adb3c68
   RNReanimated: cc5e3aa479cb9170bcccf8204291a6950a3be128
   RNScreens: 2a28f2973f4d0d4623e18629ebfc2c4adaceb39a
   RNShare: 32e97adc8d8c97d4a26bcdd3c45516882184f8b6

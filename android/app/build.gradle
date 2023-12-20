@@ -139,6 +139,7 @@ android {
         yatu {
             dimension "version"
             signingConfig signingConfigs.release
+            missingDimensionStrategy "store", "play"
         }
 
         yatuDeveloper {
@@ -146,6 +147,7 @@ android {
             applicationIdSuffix ".developer"
             versionNameSuffix "-developer"
             signingConfig signingConfigs.release
+            missingDimensionStrategy "store", "play"
         }
     }
 
@@ -172,7 +174,7 @@ android {
             def abi = output.getFilter(OutputFile.ABI)
             if (abi != null) {  // null for the universal-debug, universal-release variants
                 output.versionCodeOverride =
-                        defaultConfig.versionCode * 1000 + versionCodes.get(abi)
+                    defaultConfig.versionCode * 1000 + versionCodes.get(abi)
             }
 
         }
@@ -220,9 +222,7 @@ dependencies {
 repositories {
     mavenCentral()
     google()
-    maven {
-        url "https://maven-other.tuya.com/repository/maven-releases/"
-    }
+    maven { url "https://maven-other.tuya.com/repository/maven-releases/" }
     maven { url "https://maven-other.tuya.com/repository/maven-commercial-releases/" }
 }
 

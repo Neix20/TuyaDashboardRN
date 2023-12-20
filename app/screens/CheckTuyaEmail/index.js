@@ -32,7 +32,24 @@ function useFlag() {
         setFlag(_ => next_state);
     }
 
+    const setAtsOn = () => {
+        const next_state = {
+            ...flag,
+            ats: true
+        }
+        setFlag(_ => next_state);
+    }
+
+    const setAtsOff = () => {
+        const next_state = {
+            ...flag,
+            ats: false
+        }
+        setFlag(_ => next_state);
+    }
+
     const toggleRts = () => {
+
         const next_state = {
             ...flag,
             rts: !rts
@@ -48,9 +65,17 @@ function useFlag() {
         setFlag(_ => next_state);
     }
 
+    const setRtsOff = () => {
+        const next_state = {
+            ...flag,
+            rts: false
+        }
+        setFlag(_ => next_state);
+    }
+
     const checkFlag = ats && rts;
 
-    return [flag, setFlag, toggleAts, toggleRts, checkFlag, setRtsOn];
+    return [flag, setFlag, toggleAts, setAtsOn, setAtsOff, toggleRts, setRtsOn, setRtsOff, checkFlag];
 }
 // #endregion
 
@@ -83,7 +108,7 @@ function ATSModal(props) {
                                 fontWeight: "bold",
                                 color: "#FFF",
                             }]}>Exit</Text>
-                        </View>„
+                        </View>
                     </TouchableOpacity>
                 </VStack>
             </View>
@@ -93,7 +118,7 @@ function ATSModal(props) {
 
 function RtsEmailModal(props) {
 
-    const { onDone = () => {}, emailHook = [] } = props;
+    const { onDone = () => { }, emailHook = [] } = props;
 
     const [cusToast, showMsg] = useModalToast();
 
@@ -113,7 +138,7 @@ function RtsEmailModal(props) {
                 UserId: userId,
                 TuyaEmail: email
             },
-            onSetLoading: () => {}
+            onSetLoading: () => { }
         })
             .then(data => {
                 const { ResponseCode = "", Message = "" } = data;
@@ -127,7 +152,7 @@ function RtsEmailModal(props) {
                     showMsg("Please Enter a Valid Email!");
                     setEmail("");
                 }
-                
+
             })
             .catch(err => {
                 console.log(`Error: ${err}`);
@@ -136,7 +161,7 @@ function RtsEmailModal(props) {
 
     const Btn = (props) => {
 
-        const { flag = false, onPress = () => {} } = props;
+        const { flag = false, onPress = () => { } } = props;
 
         if (!flag) {
             return (
@@ -148,7 +173,7 @@ function RtsEmailModal(props) {
                         fontWeight: "bold",
                         color: "#5981A6",
                     }]}>Link Email & Sync Account</Text>
-                </View> 
+                </View>
             )
         }
 
@@ -353,7 +378,7 @@ function ATSLogo(props) {
 
                 {/* Buttons */}
                 <HStack space={5} style={{ height: 40 }}>
-                    <ATSBtn disabled={flag} onPress={onPressNo}>No</ATSBtn>
+                    <ATSBtn onPress={onPressNo}>No</ATSBtn>
                     <ATSBtn flag={flag} onPress={onPressYes}>Yes</ATSBtn>
                 </HStack>
 
@@ -374,7 +399,7 @@ function Index(props) {
     const [showRtsModal, setShowRtsModal, toggleRtsModal] = useToggle(false);
 
     const flagHook = useFlag();
-    const [flag, setFlag, toggleAts, toggleRts, syncFlag, setRtsOn] = flagHook;
+    const [flag, setFlag, toggleAts, setAtsOn, setAtsOff, toggleRts, setRtsOn, setRtsOff, syncFlag] = flagHook;
 
     const emailHook = useState("");
     const [email, setEmail] = emailHook;
@@ -403,6 +428,16 @@ function Index(props) {
         navigation.navigate("AuthTuya", {
             Email: email
         });
+    }
+
+    const onToggleAtsModal = () => {
+        setAtsOff();
+        toggleAtsModal();
+    }
+
+    const onToggleRtsModal = () => {
+        setRtsOff();
+        toggleRtsModal();
     }
     // #endregion
 
@@ -433,7 +468,7 @@ function Index(props) {
                                 description={"Yatu is advanced monitoring app for Tuya or Smart Life smart devices. Data will be synced for analysis."}
                                 Icon={FontAwesome5} fontName={"user-alt"}
                                 onPressYes={toggleAts} flag={atsFlag}
-                                onPressNo={toggleAtsModal} />
+                                onPressNo={onToggleAtsModal} />
 
                             {/* Is Email Same as Your Tuya / SmartLife ? */}
                             <ATSLogo pos={"2/2"}
@@ -441,7 +476,7 @@ function Index(props) {
                                 description={"Tuya or Smart Life account’s email is needed for Yatu auto-sync to start generating complete data."}
                                 Icon={FontAwesome} fontName={"envelope"}
                                 onPressYes={toggleRts} flag={rtsFlag}
-                                onPressNo={toggleRtsModal} />
+                                onPressNo={onToggleRtsModal} />
                         </VStack>
                     </ScrollView>
 

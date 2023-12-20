@@ -69,5 +69,4 @@ android/app/yatu/*
 android/app/yatuDeveloper/*
 
 *.zip
-temp/session.sql
-temp/tmp.sql
+temp/*

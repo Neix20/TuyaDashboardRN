@@ -49,3 +49,5 @@
 <en-US>
     Our data monitoring dashboard provides the user an additonal option of subscribing for professional service. The pro service includes real-time data analytics, extra data storage, 24 hour customer support, additional device linkage and email report archiving. Currently, the free version only lasts for 1 month and has limited data storage and limited data linkage. Therefore, we encourage new user whom enjoy our app to subscribe for pro version.
 </en-US>
+
+App Secret: `a777595ab0c0401aa4dcc2249f957a2b`

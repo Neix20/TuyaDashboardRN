@@ -12,6 +12,8 @@ const VIGTECH_PHONE_NUMBER = "017-776 8230";
 const VIGTECH_BUSINESS_PHONE_NUMBER = "013-910 0574";
 const VIGTECH_EMAIL = "app.vigtech@gmail.com";
 
+const APP_STORE_SECRET_KEY = "a777595ab0c0401aa4dcc2249f957a2b";
+
 const TUYA_TIME_TO_WAIT_SYNC = 225;
 
 export {
@@ -21,8 +23,12 @@ export {
 
 export {
     SERVER_URL,
-    LOG_URL,
-    ONESIGNAL_APP_ID
+    LOG_URL
+}
+
+export {
+    ONESIGNAL_APP_ID,
+    APP_STORE_SECRET_KEY
 }
 
 export {
