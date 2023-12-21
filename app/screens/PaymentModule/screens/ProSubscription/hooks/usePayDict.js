@@ -4,10 +4,33 @@ function Index(val = []) {
 
     const [dict, setDict] = useState({});
     const [data, setData] = useState(val);
-    const [key, setKey] = useState([]);
-    const [img, setImg] = useState({
-        uri: "https://i.imgur.com/lwNqBtJ.png"
-    });
+    const [img, setImg] = useState({ uri: "https://i.imgur.com/lwNqBtJ.png" });
+
+    /* Input:
+        {
+            "key": "1 Month",
+            "title": "1 Month",
+            "showBtn": true,
+            "detail": [
+                {
+                    "title": "Real-Time Data Analysis",
+                    "description": "Data sync across linked devices for real-time analysis.",
+                    "icon": "DataAnalysis",
+                    "showInfo": false,
+                    "info": ""
+                }
+            ],
+            "data": {
+                "Code": "MSPP0100",
+                "Price": 39.99,
+                "TypeCode": "MSP_PP",
+                "DurationTypeCode": "DT_MM",
+                "Status": 1,
+                "Image": "https://i.imgur.com/duGvnXn.png",
+                "StoreCode": "com.subscription.mspp0100"
+            }
+        } 
+     */
 
     useEffect(() => {
         if (data.length > 0) {
@@ -23,8 +46,7 @@ function Index(val = []) {
                     data: {
                         ...oData,
                         img: { uri: Image }
-                    },
-                    price: Price,
+                    }
                 }
             })
 
@@ -40,12 +62,39 @@ function Index(val = []) {
                 aDict[key] = obj;
             }
 
-            let keys = Object.keys(aDict);
-            setKey(keys);
-
             setDict(aDict);
         }
     }, [data]);
+
+    /* Output:
+        {
+            "1 Month": {
+                "key": "1 Month",
+                "title": "1 Month",
+                "showBtn": true,
+                "detail": [
+                    {
+                        "title": "Real-Time Data Analysis",
+                        "description": "Data sync across linked devices for real-time analysis.",
+                        "icon": "DataAnalysis",
+                        "showInfo": false,
+                        "info": ""
+                    }
+                ],
+                "data": {
+                    "Code": "MSPP0100",
+                    "Price": 39.99,
+                    "TypeCode": "MSP_PP",
+                    "DurationTypeCode": "DT_MM",
+                    "Status": 1,
+                    "Image": { uri: "https://i.imgur.com/duGvnXn.png" },
+                    "StoreCode": "com.subscription.mspp0100"
+                }
+            }
+        }
+     */
+
+    const key = Object.keys(dict);
 
     return [dict, setData, key, img];
 

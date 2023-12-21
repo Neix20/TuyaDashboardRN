@@ -25,7 +25,7 @@ const fetchInfoLogData = async (param) => {
     let obj = {
         content: {
             ...param,
-            app: "Buah Cinta",
+            app: "Yatu Dashboard",
         },
         fileName: fileName,
     };
@@ -57,7 +57,7 @@ const fetchErrorLogData = async (param) => {
     let obj = {
         content: {
             ...param,
-            app: "Buah Cinta",
+            app: "Yatu Dashboard",
         },
         fileName: fileName,
     };
@@ -73,7 +73,7 @@ const fetchErrorLogData = async (param) => {
     const data = await resp.json();
 
     if (data["ResponseCode"] === "00") {
-        console.log("Error Logging!");
+        console.error("Error Logging!");
     }
 
     return data;
@@ -89,19 +89,19 @@ class Log {
             console.log(res);
         })
         .catch((err) => {
-            console.log(`Error: ${err}`);
+            console.error(`Error: ${err}`);
         });
     }
 
     error(param) {
-        console.log(param);
+        console.error(param);
 
         fetchErrorLogData(param)
         .then(res => {
             console.log(res);
         })
         .catch((err) => {
-            console.log(`Error: ${err}`);
+            console.error(`Error: ${err}`);
         });
     }
 }

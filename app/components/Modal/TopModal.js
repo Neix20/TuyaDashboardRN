@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 
 import { TouchableOpacity, Dimensions, Text } from "react-native";
 import { View } from "native-base";
-import { GlobalColors } from "@config";
 
 import Modal from 'react-native-modal';
 import FontAwesome from "react-native-vector-icons/FontAwesome";
@@ -10,8 +9,6 @@ import FontAwesome from "react-native-vector-icons/FontAwesome";
 import CustomToast from "./CustomToast";
 
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-
-const { width, height } = Dimensions.get("screen");
 
 function CloseBtn(props) {
     return (
@@ -48,8 +45,7 @@ function Index(props) {
     // #endregion
 
     const insets = useSafeAreaInsets();
-
-    const pt_top = (insets.top <= 0) ? 10 : insets.top
+    const pt_top = (insets.top <= 0) ? 10 : insets.top;
 
     return (
         <Modal isVisible={showModal}

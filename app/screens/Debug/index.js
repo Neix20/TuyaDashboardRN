@@ -8,124 +8,215 @@ import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 import { useNavigation, useIsFocused } from "@react-navigation/native";
 
 import { Logger, Utility } from "@utility";
-import { iRData, iRDataUnit, DowntimeData, clsConst, Images, DashboardSmartPlugFullData, DeviceDistributionData, Animation } from "@config";
+import { clsConst } from "@config";
 
-import { useToggle, useDate, useEChart, useOrientation, useTimer, useBarChart, useCoor, useDevDistChart, useCalendarDate } from "@hooks";
+import { useToggle, usePayDict } from "@hooks";
 
-import { BcViewShot, BcLineChartFull, BcDateRange, BcLineChart, BcLineLegend, BcApacheChart, BcApacheChartFull, BcDropdown, BcApacheChartDebug, BcApacheBarChart, BcApachePieChart, BcCalendar, BcPhotoGalleryModal, BcCarousel } from "@components";
+import { BcLoading } from "@components";
 
-import { fetchGetDeviceDistribution } from "@api";
+import { fetchSubscriptionProPlan } from "@api";
 import { DateTime } from "luxon";
 
-function DownTimeTable(props) {
 
-    const color = {
-        active: "#F00",
-        inactive: "#0F0"
-    }
+// #region IAP Hooks
+import { Platform } from "react-native";
+import {
+    PurchaseError,
+    requestSubscription,
+    validateReceiptIos,
+    useIAP,
+    withIAPContext,
+    initConnection,
+    endConnection,
+    flushFailedPurchasesCachedAsPendingAndroid
+} from "react-native-iap";
+const { APP_STORE_SECRET_KEY } = clsConst;
 
-    // const duration = 1000;
+// // TODO: Get From 'GetSubProPlan' API
+const subscriptionSkus = [
+    // "com.subscription.mspp0100",
+    "com.subscription.mspp0300",
+    "com.subscription.mspp0600",
+    "com.subscription.mspp1000"
+];
 
-    // const [opacity, setOpacity] = useState(0);
-    // const [flag, setFlag, toggleFlag] = useToggle(false);
+const { OS = "android" } = Platform;
 
-    // useEffect(() => {
-    //     const interval = setInterval(() => {
-    //         // setOpacity(opacity => (opacity + 1) % 21)
-    //         toggleFlag();
-    //     }, duration);
+function useYatuIAP(onSetLoading = () => { }) {
 
-    //     return () => clearInterval(interval);
-    // }, [])
+    const {
+        connected,
+        subscriptions, // returns subscriptions for this app.
+        getSubscriptions, // Gets available subsctiptions for this app.
+        currentPurchase, // current purchase for the tranasction
+        finishTransaction,
+        purchaseHistory, // return the purchase history of the user on the device (sandbox user in dev)
+        getPurchaseHistory, // gets users purchase history
+    } = useIAP();
 
-    const { data = [] } = props;
+    const handleGetSubscriptions = () => {
+        onSetLoading(true);
+        getSubscriptions({
+            skus: subscriptionSkus
+        })
+            .then(data => {
+                onSetLoading(false);
+            })
+            .catch(err => {
+                onSetLoading(false);
+                Logger.error({ data: err });
+            });
+    };
 
-    if (data.length == 0) {
-        return (
-            <></>
-        )
-    }
+    useEffect(() => {
+        if (connected) {
+            handleGetSubscriptions();
+        }
+    }, [connected]);
 
-    // #region Render
-    const Active = () => {
-        return (
-            <View flex={1} opacity={1} bgColor={color.active} />
-        )
-    }
+    const [priceDict, setPriceDict] = useState({});
+    useEffect(() => {
+        if (subscriptions.length > 0) {
 
-    const InActive = () => {
-        return (
-            <View flex={1} bgColor={color.inactive} />
-        )
-    }
+            let dict = {};
 
-    const renderValues = (item, index) => {
+            for (const obj of subscriptions) {
+                try {
+                    let key = ""; // com.subscription.mspp0600
+                    let res = {
+                        subPlanCode: "", // mspp0600
+                        price: 0
+                    }
 
-        const { Name, Timestamp, Status } = item;
+                    if (OS === "android") {
+                        const { productId = "", subscriptionOfferDetails } = obj;
+                        key = productId;
 
-        const StatusDiv = (Status) ? Active : InActive;
+                        if (subscriptionOfferDetails.length > 0) {
+                            const { pricingPhases: { pricingPhaseList } } = subscriptionOfferDetails[0];
 
-        return (
-            <HStack key={index} alignItems={"center"} justifyContent={"space-between"}>
-                <View flex={.3}>
-                    <Text style={{
-                        fontFamily: "Roboto-Bold"
-                    }}>{Name}</Text>
-                </View>
-                <View flex={.5}>
-                    <Text>{Utility.formatDt(Timestamp, "yyyy-MM-dd HH:mm:ss")}</Text>
-                </View>
-                <View flex={.2}>
-                    <StatusDiv />
-                </View>
-            </HStack>
-        )
+                            if (pricingPhaseList.length > 0) {
+                                const { priceAmountMicros = 0 } = pricingPhaseList[0];
+                                res["price"] = +priceAmountMicros / 1000000;
+                            }
+                        }
+                    }
+                    else if (OS === "ios") {
+                        const { productId = "", price: planPrice = 0 } = obj;
+                        key = productId;
+
+                        res["price"] = +planPrice;
+                    }
+
+                    if (key != "") {
+                        res["subPlanCode"] = key.split(".").at(-1);
+                        res["productId"] = key;
+                        dict[key] = res;
+                    }
+                } catch (err) {
+                    console.error(`Error: ${err}`);
+                }
+            }
+
+            setPriceDict(_ => dict);
+        }
+    }, [subscriptions]);
+
+    useEffect(() => {
+        const checkCurrentPurchase = async (purchase) => {
+            if (purchase) {
+                const receipt = purchase.transactionReceipt; if (receipt)
+                    try {
+                        const ackResult = await finishTransaction(purchase);
+                        Logger.info({
+                            data: ackResult
+                        });
+                    } catch (ackErr) {
+                        Logger.error({
+                            data: ackErr
+                        });
+                    }
+            }
+        }; 
+        checkCurrentPurchase(currentPurchase);
+    }, [currentPurchase, finishTransaction]);
+
+    // Things to check:
+    // // 1. List All Subscription
+    // // 2. Generate Dict to Integrate Product Id and Price Into UsePayDict
+    // 2. Buy Subscription
+    // 3. Check Subscription Payment
+    // 4. List Purchase History
+
+    return [subscriptions, priceDict];
+}
+// #endregion
+
+function Index() {
+
+    const navigation = useNavigation();
+    const isFocused = useIsFocused();
+
+    const [loading, setLoading] = useToggle(false);
+
+    const [subLs, subPriceDict] = useYatuIAP(setLoading);
+
+    // #region Subscription Plan
+    const payDictHook = usePayDict();
+    const [payDict, setPayDict, payDictKey, payProImg] = payDictHook;
+
+    useEffect(() => {
+        if (isFocused && subLs.length > 0) {
+            SubscriptionProPlan();
+        }
+    }, [isFocused, subLs]);
+
+    const SubscriptionProPlan = () => {
+        setLoading(true);
+        fetchSubscriptionProPlan({
+            param: {
+                UserId: 10
+            },
+            onSetLoading: setLoading
+        })
+            .then(data => {
+                // Filter Data By SubCode
+                data = data.filter(x => {
+                    const { data: { StoreCode } } = x;
+                    return subscriptionSkus.includes(StoreCode);
+                });
+                setPayDict(data);
+            })
+            .catch(err => {
+                setLoading(false);
+                console.error(`Error: ${err}`);
+            })
     }
     // #endregion
 
-    // return (
-    //     <Text>{1 - Math.abs(opacity / 5 - 1)}</Text>
-    // )
 
-    return (
-        <VStack>{data.slice(0, 2).map(renderValues)}</VStack>
-    )
-}
+    const renderItem = (obj, ind) => {
+        const { productId, price, subPlanCode } = obj;
 
-function Index(props) {
+        const onSelect = () => requestSubscription(productId);
 
-    const toast = useToast();
-
-    const init = {
-        dateObj: {
-            startDt: "2023-08-18",
-            endDt: "2023-08-19"
-        },
-        prevDateObj: {
-            startDt: "2023-07-18",
-            endDt: "2023-07-19"
-        }
+        return (
+            <TouchableOpacity onPress={onSelect} style={{ flex: 1 }}>
+                <View backgroundColor={"#00F"} flexGrow={1}
+                    alignItems={"center"} justifyContent={"center"}>
+                    <Text style={{
+                        fontSize: 14,
+                        fontWeight: "bold",
+                        color: "#FFF",
+                    }}>{subPlanCode}</Text>
+                </View>
+            </TouchableOpacity>
+        )
     }
-
-    const dateHook = useDate(init.dateObj);
-
-    const startDt = dateHook[0];
-    const endDt = dateHook[2];
-
-    const prevHook = useDate(init.prevDateObj);
-
-    const pStartDt = prevHook[0];
-    const pEndDt = prevHook[2];
-
-    const flagHook = useToggle(false);
-    const [flag, setFlag, toggleFlag] = flagHook;
-
-    const [width, height, isPort, isLand, c_width, c_height] = useOrientation();
-
-    const [timer, setTimer, totalDuration, setTotalDuration, progress] = useTimer(30);
 
     return (
         <>
+            <BcLoading loading={loading} />
             <SafeAreaView style={{ flex: 1 }}>
                 <View style={{ flex: 1 }}>
 
@@ -135,342 +226,27 @@ function Index(props) {
                     <View style={{ height: 10 }} />
 
                     {/* Body */}
-                    <ScrollView showsVerticalScrollIndicator={false} keyboardShouldPersistTaps={"handled"}
+                    <ScrollView showsVerticalScrollIndicator={false}
+                        keyboardShouldPersistTaps={"handled"}
                         contentContainerStyle={{ flexGrow: 1 }}>
-                        <VStack flexGrow={1} space={3}>
-                            <HStack
-                                flexWrap={"wrap"}
-                                rowGap={10}
-                                alignItems={"flex-start"}
-                                justifyContent={"space-between"}>
-                                <View px={3} style={{ width: width }}>
-                                    <BcViewShot title={"Test"}>
-
-                                    </BcViewShot>
-                                </View>
-                                <View px={3} style={{ width: width }}>
-                                    <BcViewShot title={"Device Downtime"}>
-                                        <DownTimeTable data={DowntimeData} />
-                                    </BcViewShot>
-                                </View>
+                        <View flexGrow={1}
+                            justifyContent={"center"}
+                            alignItems={"center"}>
+                            <Text>This is Debug Page</Text>
+                            <HStack width={"80%"} space={3}
+                                alignItems={"center"}
+                                style={{ height: 60 }}>
+                                {Object.values(subPriceDict).map(renderItem)}
                             </HStack>
-
-                            {
-                                (isPort) ? (
-                                    <BcDateRange showCompare={false}
-                                        hook={dateHook}
-                                        flagHook={flagHook}
-                                        prevHook={prevHook} />
-                                ) : (
-                                    <></>
-                                )
-                            }
-
-                            <View>
-                                <Text>Start Date: {startDt}</Text>
-                                <Text>End Date: {endDt}</Text>
-
-                                {
-                                    (flag) ? (
-                                        <>
-                                            <Text>Start Date: {pStartDt}</Text>
-                                            <Text>End Date: {pEndDt}</Text>
-                                        </>
-                                    ) : (
-                                        <></>
-                                    )
-                                }
-                            </View>
-
-                            <Text>{progress.toFixed(2)}</Text>
-                            <Text>{timer}</Text>
-                        </VStack>
+                        </View>
                     </ScrollView>
 
                     {/* Footer */}
                     <View style={{ height: 60 }} />
                 </View>
             </SafeAreaView>
-
         </>
     )
 }
 
-function DeviceChart(props) {
-
-    const isFocused = useIsFocused();
-
-    const chartHook = useEChart("Absolute Humidity");
-    const [chart, setChart] = chartHook.slice(0, 2);
-
-    const barChartHook = useBarChart("Total KiloWatt (KWh)");
-    const [barChart, setBarChart] = barChartHook.slice(0, 2);
-
-    const [coor, updateCoor] = useCoor();
-
-    const devDistChartHook = useDevDistChart();
-    const [devDistChart, setDevDistChart, devDistChartData, devDistChartLegend] = devDistChartHook;
-
-    const [width] = useOrientation();
-
-    const [timer, setTimer] = useTimer(0);
-    const [kaTimer, setKATimer] = useTimer(0);
-
-    useEffect(() => {
-        if (isFocused) {
-            // setBarChart(DashboardSmartPlugFullData);
-            // setChart(iRDataUnit);
-
-            // setDevDistChart(DeviceDistributionData);
-            fetchGetDeviceDistribution({
-                param: {
-                    UserId: 2,
-                    HomeId: 85
-                },
-                onSetLoading: () => { }
-            })
-                .then(data => {
-                    setDevDistChart(data);
-                })
-                .catch(err => {
-                    console.log(`Error: ${err}`);
-                })
-        }
-    }, [isFocused]);
-
-    const updateTimer = () => {
-        setTimer(30);
-    }
-
-    const updateKATimer = () => {
-        setKATimer(30);
-    }
-
-    const reset = () => {
-        setTimer(0);
-        setKATimer(0);
-    }
-
-    return (
-        <SafeAreaView style={{ flex: 1 }}>
-            <ScrollView
-                showsVerticalScrollIndicator={false}
-                keyboardShouldPersistTaps={"handled"}
-                contentContainerStyle={{ flexGrow: 1 }}>
-                <VStack py={3} space={3} alignItems={"center"}>
-                    {/* <BcApacheChartFull hook={chartHook} height={480} /> */}
-                    {/* <BcApacheChartDebug /> */}
-                    {/* <BcApacheBarChart hook={barChartHook} height={480} /> */}
-                    {/* <Text>{JSON.stringify(coor)}</Text>
-                    <TouchableOpacity onPress={updateCoor}>
-                        <View bgColor={"#F00"} p={3}>
-                            <Text style={{
-                                fontFamily: "Roboto-Bold",
-                                color: "#FFF",
-                                fontSize: 24,
-                            }}>Coor</Text>
-                        </View>
-                    </TouchableOpacity> */}
-                    <View px={3} style={{ width: width }} >
-                        <BcViewShot title={"Total Device Distribution"}>
-                            <BcApachePieChart hook={devDistChartHook} />
-                        </BcViewShot>
-                    </View>
-
-                    <HStack space={5}>
-                        <Text>{timer}</Text>
-                        <Text>{kaTimer}</Text>
-                    </HStack>
-
-                    <HStack space={3}>
-                        <TouchableOpacity onPress={updateTimer}>
-                            <View bgColor={"#F00"} p={3}>
-                                <Text style={{
-                                    fontFamily: "Roboto-Bold",
-                                    color: "#FFF",
-                                    fontSize: 16,
-                                }}>Set Timer</Text>
-                            </View>
-                        </TouchableOpacity>
-                        <TouchableOpacity onPress={updateKATimer}>
-                            <View bgColor={"#F00"} p={3}>
-                                <Text style={{
-                                    fontFamily: "Roboto-Bold",
-                                    color: "#FFF",
-                                    fontSize: 16,
-                                }}>Set Timer (Keep Awake)</Text>
-                            </View>
-                        </TouchableOpacity>
-                        <TouchableOpacity onPress={reset}>
-                            <View bgColor={"#F00"} p={3}>
-                                <Text style={{
-                                    fontFamily: "Roboto-Bold",
-                                    color: "#FFF",
-                                    fontSize: 16,
-                                }}>Reset</Text>
-                            </View>
-                        </TouchableOpacity>
-                    </HStack>
-                </VStack>
-            </ScrollView>
-        </SafeAreaView>
-    )
-}
-
-function CalendarDiv(props) {
-
-    const calHook = useCalendarDate(DateTime.now().toFormat("yyyy-MM-dd"));
-    const [dt, parseDt] = calHook;
-
-    const init = {
-        dateObj: {
-            startDt: "2023-08-18",
-            endDt: "2023-08-19"
-        },
-        prevDateObj: {
-            startDt: "2023-07-18",
-            endDt: "2023-07-19"
-        }
-    }
-
-    const dateHook = useDate(init.dateObj);
-
-    const startDt = dateHook[0];
-    const endDt = dateHook[2];
-
-    const prevHook = useDate(init.prevDateObj);
-
-    const pStartDt = prevHook[0];
-    const pEndDt = prevHook[2];
-
-    const flagHook = useToggle(false);
-    const [flag, setFlag, toggleFlag] = flagHook;
-
-    return (
-        <SafeAreaView style={{ flex: 1 }}>
-            <ScrollView
-                showsVerticalScrollIndicator={false}
-                keyboardShouldPersistTaps={"handled"}
-                contentContainerStyle={{ flexGrow: 1 }}>
-                <VStack flexGrow={1} alignItems={"center"} justifyContent={"center"} space={3}>
-                    <View bgColor={"#FFF"} style={{ width: "90%", height: 360 }}>
-                        <BcCalendar calHook={calHook} />
-                    </View>
-                    <Text>{parseDt.toFormat("yyyy-MM-dd")}</Text>
-
-                    <BcDateRange hook={dateHook} flagHook={flagHook} prevHook={prevHook} />
-                    <Text>{startDt} {endDt}</Text>
-                </VStack>
-            </ScrollView>
-        </SafeAreaView>
-    )
-}
-
-import PayProSubModal from "@screens/PaymentModule/screens/ProSubscription/Modal";
-
-function PayProSubBtn(props) {
-    const [showPsModal, setShowPsModal, togglePsModal] = useToggle(false);
-    const openModal = () => setShowPsModal(true);
-
-    return (
-        <>
-            <PayProSubModal showModal={showPsModal} setShowModal={setShowPsModal} />
-            <TouchableOpacity onPress={openModal}>
-                <View backgroundColor={"#ff0000"}
-                    alignItems={"center"} justifyContent={"center"}
-                    style={{ width: 120, height: 40 }}>
-                    <Text style={[{
-                        fontSize: 14,
-                        fontWeight: "bold",
-                        color: "white",
-                    }]}>Test</Text>
-                </View>
-            </TouchableOpacity>
-        </>
-    );
-}
-
-function TutorialGuideBtn(props) {
-    const [showTGModal, setShowTGModal, toggleTGModal] = useToggle(false);
-
-    const images = [
-        { uri: Images.LinkDeviceI },
-        { uri: Images.LinkDeviceII },
-        { uri: Images.LinkDeviceIII },
-        { uri: Images.LinkDeviceIV },
-        { uri: Images.LinkDeviceV },
-    ]
-
-    return (
-        <>
-            <BcPhotoGalleryModal showModal={showTGModal} setShowModal={setShowTGModal} images={images} />
-            <TouchableOpacity onPress={toggleTGModal}>
-                <View borderRadius={20}
-                    bgColor={"#d3d3d3"}
-                    alignItems={"center"} justifyContent={"center"}
-                    style={{ width: 32, height: 32 }}>
-                    <FontAwesome name={"info"} size={16} color={"#FFF"} />
-                </View>
-            </TouchableOpacity>
-        </>
-    )
-}
-
-import Lottie from 'lottie-react-native';
-
-
-function PaymentProSub(props) {
-
-    const introLs = [
-        {
-            name: "intro",
-            img: Images.sunsetBg,
-            animation: Animation.onboarding,
-        },
-        {
-            name: "introII",
-            img: Images.sunsetBgII,
-            animation: Animation.onboardingII,
-        },
-        {
-            name: "introIII",
-            img: Images.sunsetBgIII,
-            animation: Animation.onboardingIII,
-        }
-    ];
-
-    const renderItem = (item) => {
-        const { animation } = item;
-        return (
-            <View flexGrow={1}>
-                <Lottie
-                    autoPlay
-                    source={animation}
-                    loop={true}
-                    style={{
-                        width: "100%",
-                        height: "100%"
-                    }} />
-                
-            </View>
-        )
-    }
-
-    return (
-        <SafeAreaView style={{ flex: 1 }}>
-            <View alignItems={"center"}
-                justifyContent={"center"}
-                style={{ flex: 1 }}>
-                <View width={"90%"}>
-                    <BcCarousel
-                        autoPlay={true}
-                        autoPlayInterval={5000}
-                        data={introLs}
-                        renderItem={renderItem} />
-                </View>
-            </View>
-        </SafeAreaView>
-    )
-}
-
-export default PaymentProSub;
+export default withIAPContext(Index);

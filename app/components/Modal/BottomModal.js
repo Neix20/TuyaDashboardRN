@@ -8,6 +8,8 @@ import FontAwesome from "react-native-vector-icons/FontAwesome";
 
 import CustomToast from "./CustomToast";
 
+import { useSafeAreaInsets } from "react-native-safe-area-context";
+
 function CloseBtn(props) {
     return (
         <View
@@ -40,6 +42,8 @@ function Index(props) {
     const { showCross = true } = props;
     const { showModal, setShowModal } = props;
     const { cusToast = init.toast } = props;
+
+    const insets = useSafeAreaInsets();
     // #endregion
 
     return (
@@ -58,6 +62,7 @@ function Index(props) {
                     backgroundColor: 'white',
                     borderTopLeftRadius: 15,
                     borderTopEndRadius: 15,
+                    paddingBottom: insets.bottom
                 }}>
                 
                 {/* Front Layer */}
@@ -85,7 +90,7 @@ function Index(props) {
                 <View style={{
                     position: "absolute",
                     zIndex: 20,
-                    bottom: 10,
+                    bottom: 10 + insets.bottom,
                     left: 0,
                     right: 0,
                     display: (cusToast.flag) ? "flex" : "none"

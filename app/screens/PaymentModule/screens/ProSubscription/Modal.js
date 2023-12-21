@@ -7,7 +7,7 @@ import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 
 import Modal from 'react-native-modal';
 
-import { useToggle, useModalToast } from "@hooks";
+import { useToggle, useModalToast, usePayDict } from "@hooks";
 
 import { fetchSubscriptionProPlan } from "@api";
 
@@ -15,7 +15,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Actions, Selectors } from '@redux';
 
 import { Body, EmptyList, Footer } from "./components";
-import { usePayDict } from "./hooks";
 
 // #region Components
 function CloseBtn(props) {

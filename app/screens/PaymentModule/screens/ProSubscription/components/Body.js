@@ -11,14 +11,14 @@ import { Tab, TabView } from "@rneui/themed";
 
 import { BcSvgIcon, BcTooltip } from "@components";
 
-import { useTabPane } from "./../hooks";
+import { useTabPane } from "@hooks";
 
 function TPHeader(props) {
 
     const { hook = [], colors = {}, borderRadius = 4, payDictHook = [] } = props;
 
     const [tpInd, setTpInd, onChangeTpInd] = hook;
-    const [payDict, setPayDict, payDictKey] = payDictHook;
+    const [payDict, setPayDict, payDictKey, payProImg] = payDictHook;
 
     if (payDictKey.length == 0) {
         return (<></>)
@@ -133,7 +133,7 @@ function TPBody(props) {
 
     const navigation = useNavigation();
     const { inverse = false, title = "", hook = [], colors = {} } = props;
-    const [payDict, setPayDict, payDictKey] = hook;
+    const [payDict, setPayDict, payDictKey, payProImg] = hook;
 
     if (payDictKey.length == 0) {
         return <></>

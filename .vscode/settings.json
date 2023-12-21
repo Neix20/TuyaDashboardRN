@@ -1,5 +1,3 @@
 {
-    "java.compile.nullAnalysis.mode": "disabled",
-    "svg.preview.background": "transparent",
-    "git.useEditorAsCommitInput": true
+    "java.compile.nullAnalysis.mode": "disabled"
 }

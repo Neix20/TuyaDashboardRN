@@ -5,7 +5,7 @@ import { View, VStack, HStack, useToast } from "native-base";
 import { useNavigation, useIsFocused } from "@react-navigation/native";
 
 import { BcHeaderWithAdd, BcLoading, BcSvgIcon, BcTooltip } from "@components";
-import { useToggle } from "@hooks";
+import { useToggle, usePayDict } from "@hooks";
 
 import { fetchSubscriptionProPlan } from "@api";
 
@@ -13,7 +13,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Actions, Selectors } from '@redux';
 
 import { Body, EmptyList, Footer } from "./components";
-import { usePayDict } from "./hooks";
 
 // #region Components
 function Logo(props) {
@@ -172,13 +171,13 @@ function Index(props) {
             },
             onSetLoading: setLoading
         })
-            .then(data => {
-                setPayDict(data);
-            })
-            .catch(err => {
-                setLoading(false);
-                console.log(`Error: ${err}`);
-            })
+        .then(data => {
+            setPayDict(data);
+        })
+        .catch(err => {
+            setLoading(false);
+            console.log(`Error: ${err}`);
+        })
     }
     // #endregion
 

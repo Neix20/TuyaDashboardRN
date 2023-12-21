@@ -17,8 +17,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Actions, Selectors } from '@redux';
 
 import { useTimer, useToggle, useModalToast } from "@hooks";
-
-import Lottie from 'lottie-react-native';
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 // #region Custom Hooks
 function useChangeBg() {
@@ -365,7 +364,7 @@ function ExistLoginForm(props) {
 
                     <HStack px={1} bgColor={"#EEF3F6"}
                         alignItems={"center"} justifyContent={"space-between"}>
-                        <View flex={1}>
+                        <View flex={1} style={{ height: 60 }} justifyContent={"center"}>
                             <TextInput
                                 defaultValue={email}
                                 onChangeText={setEmail}
@@ -376,7 +375,7 @@ function ExistLoginForm(props) {
                                 style={{
                                     fontFamily: "Roboto-Medium",
                                     fontSize: 16,
-                                    color: "#000"
+                                    color: "#000",
                                 }} />
                         </View>
                         <RequestOtpBtn flag={otpFlag} onPress={RequestOtp} />
@@ -424,7 +423,7 @@ function ExistLoginModal(props) {
     const [toast, showMsg] = toastHook;
 
     return (
-        <BottomModal {...props} cusToast={toast}>
+        <BottomModal cusToast={toast} {...props}>
             <ExistLoginForm toastHook={toastHook} formHook={formHook} {...props} />
         </BottomModal>
     )
@@ -693,6 +692,8 @@ function Index(props) {
     }
     // #endregion
 
+    const insets = useSafeAreaInsets();
+
     return (
         <>
             <BcLoading loading={loading} />
@@ -707,7 +708,7 @@ function Index(props) {
                     resizeMode={"cover"}
                     style={{ flex: 1, opacity: 0.4 }} />
 
-                <View position={"absolute"} style={{ top: 0, bottom: 0, left: 0, right: 0 }}>
+                <View position={"absolute"} style={{ top: insets.top, bottom: insets.bottom, left: 0, right: 0 }}>
                     <View style={{ height: 40 }} />
 
                     {/* Body */}

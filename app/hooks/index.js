@@ -15,6 +15,9 @@ import useCoor from "./useCoor";
 import useOrientation from "./useOrientation";
 import useCalendarDate from "./useCalendarDate";
 
+import usePayDict from "@screens/PaymentModule/screens/ProSubscription/hooks/usePayDict.js";
+import useTabPane from "@screens/PaymentModule/screens/ProSubscription/hooks/useTabPane.js";
+
 export {
     useTimer,
     useWifi,
@@ -24,6 +27,11 @@ export {
     useOrientation,
     useCoor,
     useCalendarDate
+}
+
+export {
+    usePayDict,
+    useTabPane
 }
 
 export {
