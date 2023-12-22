@@ -574,8 +574,8 @@ function Index(props) {
     }
     // #endregion
 
-    // const defaultScreen = (userId == -1 || firstTimeLink) ? "LoginII" : "TabNavigation";
-    const defaultScreen = "Debug";
+    const defaultScreen = (userId == -1 || firstTimeLink) ? "LoginII" : "TabNavigation";
+    // const defaultScreen = "PaymentProSubscription";
 
     return (
         <>

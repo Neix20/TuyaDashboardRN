@@ -132,7 +132,10 @@ function Detail(props) {
 function TPBody(props) {
 
     const navigation = useNavigation();
+
     const { inverse = false, title = "", hook = [], colors = {} } = props;
+    const { onPurchase = () => {} } = props;
+
     const [payDict, setPayDict, payDictKey, payProImg] = hook;
 
     if (payDictKey.length == 0) {
@@ -140,13 +143,11 @@ function TPBody(props) {
     }
 
     const obj = payDict[title];
+    
     const { price = 0, detail = [], title: oTitle = "", data: oData = {}, showBtn = false } = obj;
+    const { productId, offerToken } = obj;
 
-    const GoToPayment = () => {
-        navigation.navigate("Payment", {
-            data: [oData]
-        });
-    }
+    const onPurchaseSelect = () => onPurchase(productId, offerToken);
 
     const txtColor = inverse ? "#FFF" : "#000";
     const bgColor = inverse ? colors.activeColor : colors.inActiveColor;
@@ -192,7 +193,7 @@ function TPBody(props) {
                 {
                     (showBtn) ? (
                         <View alignItems={"center"}>
-                            <TouchableOpacity onPress={GoToPayment} style={{ width: "90%", height: 48 }}>
+                            <TouchableOpacity onPress={onPurchaseSelect} style={{ width: "90%", height: 48 }}>
                                 <HStack flex={1}
                                     borderRadius={4}
                                     bgColor={bgInvColor}
@@ -219,7 +220,7 @@ function TPBody(props) {
 
 function Index(props) {
 
-    const { hook = [], colors = {} } = props;
+    const { hook = [], colors = {}, onPurchase = () => {} } = props;
 
     const tpHook = useTabPane(0);
     const [tpInd, setTpInd, onChangeTpInd] = tpHook;
@@ -231,7 +232,8 @@ function Index(props) {
             title={term}
             inverse={ind % 2 == 1}
             hook={hook}
-            colors={colors} />
+            colors={colors}
+            onPurchase={onPurchase} />
     )
 
     return (

@@ -12,6 +12,8 @@ import com.facebook.react.defaults.DefaultReactNativeHost;
 import com.facebook.soloader.SoLoader;
 // import com.tuya.smart.rnsdk.core.TuyaCoreModule;
 
+import com.microsoft.codepush.react.CodePush;
+
 import java.util.List;
 
 public class MainApplication extends Application implements ReactApplication {
@@ -36,6 +38,12 @@ public class MainApplication extends Application implements ReactApplication {
         protected String getJSMainModuleName() {
           return "index";
         }
+
+          @Override
+          protected String getJSBundleFile() {
+              return CodePush.getJSBundleFile();
+          }
+
       };
 
   @Override

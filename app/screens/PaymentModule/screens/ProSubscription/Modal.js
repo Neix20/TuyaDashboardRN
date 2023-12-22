@@ -2,12 +2,14 @@ import React, { useState, useEffect } from "react";
 import { Text, TouchableOpacity, Image } from "react-native";
 import { View, VStack, HStack, useToast } from "native-base";
 
+import { useNavigation, useIsFocused } from "@react-navigation/native";
+
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 
 import Modal from 'react-native-modal';
 
-import { useToggle, useModalToast, usePayDict } from "@hooks";
+import { useToggle, useModalToast, usePayDict, useYatuIap } from "@hooks";
 
 import { fetchSubscriptionProPlan } from "@api";
 
@@ -15,6 +17,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Actions, Selectors } from '@redux';
 
 import { Body, EmptyList, Footer } from "./components";
+
+import { withIAPContext } from "react-native-iap";
+
+import { clsConst } from "@config";
+const { SUBSCRIPTION_SKUS } = clsConst;
 
 // #region Components
 function CloseBtn(props) {
@@ -141,6 +148,8 @@ function Index(props) {
 
     const { showModal = false, setShowModal = () => {} } = props;
 
+    const navigation = useNavigation();
+
     const userId = useSelector(Selectors.userIdSelect);
     
     const colors = {
@@ -150,6 +159,9 @@ function Index(props) {
 
     // #region UseState
     const [cusToast, showMsg] = useModalToast();
+
+    const setLoading = () => {};
+    const [subLs, subPriceDict, handleRequestSubscription] = useYatuIap(setLoading);
 
     const payDictHook = usePayDict();
     const [payDict, setPayDict, payDictKey, payProImg] = payDictHook;
@@ -170,6 +182,21 @@ function Index(props) {
             onSetLoading: () => {}
         })
             .then(data => {
+
+                // Filter Data
+                data = data.map(x => {
+                    const { data: { StoreCode } } = x;
+                    return {
+                        ...x,
+                        ...subPriceDict[StoreCode]
+                    }
+                });
+    
+                data = data.filter(x => {
+                    const { data: { StoreCode } } = x;
+                    return SUBSCRIPTION_SKUS.includes(StoreCode);
+                });
+
                 setPayDict(data);
             })
             .catch(err => {
@@ -178,16 +205,21 @@ function Index(props) {
     }
     // #endregion
 
+    const GoToPaymentProSub = () => {
+        setShowModal(false);
+        navigation.navigate("PaymentProSubscription");
+    }
+
     return (
         <BaseModal cusToast={cusToast} {...props}>
             <VStack space={3} flexGrow={1}>
                 {/* Logo */}
                 <Logo img={payProImg} />
 
-                <Content hook={payDictHook} colors={colors} />
+                <Content hook={payDictHook} colors={colors} onPurchase={GoToPaymentProSub} />
             </VStack>
         </BaseModal>
     )
 }
 
-export default Index;
+export default withIAPContext(Index);

@@ -12,7 +12,7 @@
 			"type": "npm",
 			"script": "start",
 			"problemMatcher": [],
-			"label": "yarn: Run Metro",
+			"label": "yarn: React Native",
 			"detail": "react-native start"
 		},
 		{
@@ -21,6 +21,28 @@
 			"problemMatcher": [],
 			"label": "yarn: ios",
 			"detail": "react-native run-ios --simulator=\"iPhone 15\""
+		},
+		{
+			"type": "npm",
+			"script": "CodePush:ios",
+			"problemMatcher": [],
+			"label": "npm: CodePush:ios",
+			"detail": "appcenter CodePush release-react -a neix20/YatuDashboard -d Production"
+		},
+		{
+			"type": "npm",
+			"script": "CodePush:android",
+			"problemMatcher": [],
+			"label": "npm: CodePush:android",
+			"detail": "appcenter codepush release-react -a neix20/YatuDashboard -d Production"
+		},
+		{
+			"type": "npm",
+			"script": "clearWatchman",
+			"group": "build",
+			"problemMatcher": [],
+			"label": "npm: clearWatchman",
+			"detail": "watchman watch-del-all"
 		}
 	]
 }

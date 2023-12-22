@@ -17,6 +17,7 @@ import useCalendarDate from "./useCalendarDate";
 
 import usePayDict from "@screens/PaymentModule/screens/ProSubscription/hooks/usePayDict.js";
 import useTabPane from "@screens/PaymentModule/screens/ProSubscription/hooks/useTabPane.js";
+import useYatuIap from "@screens/PaymentModule/screens/ProSubscription/hooks/useYatuIap.js";
 
 export {
     useTimer,
@@ -31,7 +32,8 @@ export {
 
 export {
     usePayDict,
-    useTabPane
+    useTabPane,
+    useYatuIap
 }
 
 export {

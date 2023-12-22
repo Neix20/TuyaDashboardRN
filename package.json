@@ -8,7 +8,9 @@
     "lint": "eslint .",
     "start": "react-native start",
     "test": "jest",
-    "clearWatchman": "watchman watch-del-all"
+    "clearWatchman": "watchman watch-del-all",
+    "CodePush:ios": "appcenter CodePush release-react -a neix20/YatuDashboard -d Production",
+    "CodePush:android": "appcenter codepush release-react -a neix20/YatuDashboard -d Production"
   },
   "dependencies": {
     "@react-native-async-storage/async-storage": "^1.19.1",
@@ -41,6 +43,7 @@
     "react-native-animated-pagination-dot": "^0.4.0",
     "react-native-calendars": "^1.1300.0",
     "react-native-chart-kit": "^6.12.0",
+    "react-native-code-push": "^8.1.1",
     "react-native-compressor": "^1.6.4",
     "react-native-date-picker": "^4.2.13",
     "react-native-element-dropdown": "2.5.3",

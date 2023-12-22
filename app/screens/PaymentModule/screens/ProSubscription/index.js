@@ -5,7 +5,7 @@ import { View, VStack, HStack, useToast } from "native-base";
 import { useNavigation, useIsFocused } from "@react-navigation/native";
 
 import { BcHeaderWithAdd, BcLoading, BcSvgIcon, BcTooltip } from "@components";
-import { useToggle, usePayDict } from "@hooks";
+import { useToggle, usePayDict, useYatuIap } from "@hooks";
 
 import { fetchSubscriptionProPlan } from "@api";
 
@@ -13,6 +13,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Actions, Selectors } from '@redux';
 
 import { Body, EmptyList, Footer } from "./components";
+
+import { withIAPContext, purchaseErrorListener, purchaseUpdatedListener } from "react-native-iap";
+
+import { Alert } from "react-native";
+
+import { clsConst } from "@config";
+const { SUBSCRIPTION_SKUS } = clsConst;
 
 // #region Components
 function Logo(props) {
@@ -150,16 +157,19 @@ function Index(props) {
     // #region UseState
     const [loading, setLoading, toggleLoading] = useToggle(false);
 
+    const [subLs, subPriceDict, handleRequestSubscription] = useYatuIap(setLoading);
+
     const payDictHook = usePayDict();
     const [payDict, setPayDict, payDictKey, payProImg] = payDictHook;
     // #endregion
 
     // #region UseEffect
     useEffect(() => {
-        if (isFocused) {
+        const length = Object.keys(subPriceDict).length;
+        if (isFocused && length > 0) {
             SubscriptionProPlan();
         }
-    }, [isFocused]);
+    }, [isFocused, subPriceDict]);
     // #endregion
 
     // #region Api
@@ -172,6 +182,20 @@ function Index(props) {
             onSetLoading: setLoading
         })
         .then(data => {
+            // Filter Data By SubCode
+            data = data.map(x => {
+                const { data: { StoreCode } } = x;
+                return {
+                    ...x,
+                    ...subPriceDict[StoreCode]
+                }
+            });
+
+            data = data.filter(x => {
+                const { data: { StoreCode } } = x;
+                return SUBSCRIPTION_SKUS.includes(StoreCode);
+            });
+
             setPayDict(data);
         })
         .catch(err => {
@@ -179,6 +203,32 @@ function Index(props) {
             console.log(`Error: ${err}`);
         })
     }
+    // #endregion
+    
+    // #region Listener
+    useEffect(() => {
+        const purchaseErrorSubscription = purchaseErrorListener((error) => {
+            if (!(error["responseCode"] === "2")) {
+                Alert.alert("Error", `There has been an error with your purchase, error code: ${error["code"]}`);
+            }
+        });
+
+        const purchaseUpdateSubscription = purchaseUpdatedListener((purchase) => {
+
+            Logger.Info({ data: purchase });
+            const receipt = purchase.transactionReceipt;
+
+            if (receipt) {
+                // Make API Payment Call Here
+                Alert.alert("Success", "Successful Transaction!")
+            }
+        });
+
+        return () => {
+            purchaseErrorSubscription.remove();
+            purchaseUpdateSubscription.remove();
+        };
+    }, [])
     // #endregion
 
     return (
@@ -193,7 +243,7 @@ function Index(props) {
                     <View style={{ height: 10 }} />
 
                     {/* Body */}
-                    <Content hook={payDictHook} colors={colors} />
+                    <Content hook={payDictHook} colors={colors} onPurchase={handleRequestSubscription} />
 
                     {/* Footer */}
                     <Footer />
@@ -204,4 +254,4 @@ function Index(props) {
     );
 }
 
-export default Index;
+export default withIAPContext(Index);
