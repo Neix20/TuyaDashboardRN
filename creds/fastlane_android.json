@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "voucher-platform-373d1",
+  "private_key_id": "f8e53474457a826421657c1345ee4f5201d1c125",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvwIBADANBgkqhkiG9w0BAQEFAASCBKkwggSlAgEAAoIBAQDpouDrgPwf8MdF\nutN+LFUzCrjpc6G9Vgn28pajKKQEM6rIWRHtV0if1qWJ0ViwdXnOQJVRrnwQ5HBq\nXV93j6FWH2bJVgTuIKbhfon7rwDInrhAkNItaMzVhnGVycN8G9bqeAgibsafJRkc\ndYxL/zTyjXgPFls8pnaAB62ewvxlyd+fup/O/x4cNZbiNbHCXwdQxUUoVfrPa/mk\nUWZokwRiSGBOqbjqDP718vKj+0jxQFvyap74aGLpwJ7N9s70P0CHopK/oBfjmfUW\ntY3Yni/9hPoewPEyzOm0/s3Kort99vWvWipUxuDKKfafS24n+80uOg1ukhfd3LsG\nyE8KrMgdAgMBAAECggEAIrlzHX2Hu4WRUINSgLu9E/+BeS0W+mmJxJrMmcZmDjvR\no8JdQD3LTPpdkyy6tktXhbiimMfKp8YUETL8h+wgigjTwZPX2r6enwAsKOybPLYe\nY3ZCzr33R7saMa2RsOYAXMvnRZraSXf9kfXEmtz89RnioLdtawfAsAm0G9cWJViB\nfjULJ8DSzZp3qSs/aBxx6f+lnqyDMypG3R/RwbcoxY94pfpmHmGpp/lNOjnTfCtn\nnsPGnza5ZPzEDzRygb6POhWONbPbMhNZE839wlkU/Foy2YQ9h/AtyPjQ9NOhLOCT\n6ah6mpyTldpV+VeaIExYPm1k///Fn+gCntmwYdXUHwKBgQD5iYCmsQwTecaJztiF\nvBdn9f/KwZxjVRCcC381ob6AKjQMyQE6ZXhu/mC2EXvsIB7ZVDYTo2q92V1pInf2\nRMZaAxmHD22fUvcnAIjmEWnvHTPxKarJfltuhDwgtzYuvMl/N8f9M9iNHRynENdh\nCJtnI3bke4WlUcUx3H4YhcLsywKBgQDvr/LzFzIJvirXoKiStktaltL/Qvb9ZRvG\nh8/QrPHO4Wh2cGht4xv+HIZdb+wPOCjIYRAYFesCC1Lz9zNfPozB3RkrJBy9CAwS\n2XlsaUocfZH1m6+WmN4w38UOdcucoPZa2gNdtWSyJge6+sJwLp7y3flhtU4VYsyh\nn9CgURsptwKBgQDkXPnnks9CY4dWRn3Qpbml4nMc0uKT5R02MS9RnZwBHp5TtP/y\nuTnmGdXXyVhnV13j9jUm876Tz4C03l56eaYsafnKqEviKsMUZmDia71OnqMSaNdr\nXr+9/DYqmoBzdUHRsvLKvc/IFIRMQBVbL81ILiR4JLLCAHs+jlK3jnI80QKBgQCe\nNdq84NOzoKXw3OhIpzGII0Q1IAOecS3rVtwy1uVp9FmazEnyNtXUXwnGBUmhJiWt\nVnxkGZudJtJjnQl41fXdRU8GrfiWQgiOLKS8jadQtQYyQ8icNF19j0coa1KyGYFj\nqMJOCZzlBrtVjY3otK1QjHq/JwjajvOZv77bA45VcwKBgQDvONSbrXOqjavyK+ZE\nDjANlmK5InTAcE5pBmY0l4Q/zraHJaLyI/GDldlESMBSZ+4D9DZS3haOCCU0niEE\n3pl/XvRUwb80A/IPzVV4U+rg8ztssAF4xmwp/pS9oLwBOnU/KBofSPGa3HdTZfci\n7uBdSD1x1xjdNDoM9CXiQ+Ee5Q==\n-----END PRIVATE KEY-----\n",
+  "client_email": "fastlane-supply@voucher-platform-373d1.iam.gserviceaccount.com",
+  "client_id": "106631513899630791543",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/fastlane-supply%40voucher-platform-373d1.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}
