@@ -19,16 +19,15 @@ import { DateTime } from "luxon";
 
 
 // #region IAP Hooks
-import { Platform } from "react-native";
+import { Platform, Alert } from "react-native";
 import {
     PurchaseError,
     requestSubscription,
     validateReceiptIos,
     useIAP,
     withIAPContext,
-    initConnection,
-    endConnection,
-    flushFailedPurchasesCachedAsPendingAndroid
+    purchaseErrorListener,
+    purchaseUpdatedListener
 } from "react-native-iap";
 const { APP_STORE_SECRET_KEY } = clsConst;
 
@@ -49,10 +48,11 @@ function useYatuIAP(onSetLoading = () => { }) {
         subscriptions, // returns subscriptions for this app.
         getSubscriptions, // Gets available subsctiptions for this app.
         currentPurchase, // current purchase for the tranasction
-        finishTransaction,
         purchaseHistory, // return the purchase history of the user on the device (sandbox user in dev)
         getPurchaseHistory, // gets users purchase history
     } = useIAP();
+
+    const [purchased, setPurchased, togglePurchased] = useToggle();
 
     const handleGetSubscriptions = () => {
         onSetLoading(true);
@@ -68,12 +68,36 @@ function useYatuIAP(onSetLoading = () => { }) {
             });
     };
 
+    // Initialize
     useEffect(() => {
         if (connected) {
             handleGetSubscriptions();
         }
     }, [connected]);
 
+    // Listener
+    useEffect(() => {
+        const purchaseErrorSubscription = purchaseErrorListener((error) => {
+            if (!(error["responseCode"] === "2")) {
+                Alert.alert("Error", `There has been an error with your purchase, error code: ${error["code"]}`);
+            }
+        });
+
+        const purchaseUpdateSubscription = purchaseUpdatedListener((purchase) => {
+            const receipt = purchase.transactionReceipt;
+            if (receipt) {
+                Alert.alert("Success", "Successful Transaction!")
+                finishTransaction(purchase, false);
+            }
+        });
+
+        return () => {
+            purchaseUpdateSubscription.remove();
+            purchaseErrorSubscription.remove();
+        };
+    }, [])
+
+    // #region Price Dict
     const [priceDict, setPriceDict] = useState({});
     useEffect(() => {
         if (subscriptions.length > 0) {
@@ -121,29 +145,12 @@ function useYatuIAP(onSetLoading = () => { }) {
             setPriceDict(_ => dict);
         }
     }, [subscriptions]);
-
-    useEffect(() => {
-        const checkCurrentPurchase = async (purchase) => {
-            if (purchase) {
-                const receipt = purchase.transactionReceipt; if (receipt)
-                    try {
-                        const ackResult = await finishTransaction(purchase);
-                        Logger.info({
-                            data: ackResult
-                        });
-                    } catch (ackErr) {
-                        Logger.error({
-                            data: ackErr
-                        });
-                    }
-            }
-        }; 
-        checkCurrentPurchase(currentPurchase);
-    }, [currentPurchase, finishTransaction]);
+    // #endregion
 
     // Things to check:
     // // 1. List All Subscription
     // // 2. Generate Dict to Integrate Product Id and Price Into UsePayDict
+    // 3. EAS Build (OTA Update)
     // 2. Buy Subscription
     // 3. Check Subscription Payment
     // 4. List Purchase History
@@ -193,7 +200,6 @@ function Index() {
             })
     }
     // #endregion
-
 
     const renderItem = (obj, ind) => {
         const { productId, price, subPlanCode } = obj;

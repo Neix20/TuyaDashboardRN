@@ -1,0 +1,26 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "npm",
+			"script": "android",
+			"problemMatcher": [],
+			"label": "yarn: android",
+			"detail": "react-native run-android --variant yatuDebug"
+		},
+		{
+			"type": "npm",
+			"script": "start",
+			"problemMatcher": [],
+			"label": "yarn: Run Metro",
+			"detail": "react-native start"
+		},
+		{
+			"type": "npm",
+			"script": "ios",
+			"problemMatcher": [],
+			"label": "yarn: ios",
+			"detail": "react-native run-ios --simulator=\"iPhone 15\""
+		}
+	]
+}

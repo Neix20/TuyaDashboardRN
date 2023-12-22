@@ -3,6 +3,10 @@
 #import <React/RCTBundleURLProvider.h>
 #import "RNSplashScreen.h"  // here
 
+#import <AppCenterReactNative.h>
+#import <AppCenterReactNativeAnalytics.h>
+#import <AppCenterReactNativeCrashes.h>
+
 #define APP_KEY @"38qypjqnk8pfkxkahs8x"
 #define APP_SECRET_KEY @"rpyw7wjdtnmddhnmjx3ng8udg3qmreg5"
 
@@ -26,6 +30,10 @@
   [super application:application didFinishLaunchingWithOptions:launchOptions];
   [RNSplashScreen show];  // here
   //[RNSplashScreen showSplash:@"LaunchScreen" inRootView:rootView];
+
+  [AppCenterReactNative register];
+  [AppCenterReactNativeAnalytics registerWithInitiallyEnabled:true];
+  [AppCenterReactNativeCrashes registerWithAutomaticProcessing];
 
   return YES;
 }
