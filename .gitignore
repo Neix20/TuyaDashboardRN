@@ -70,3 +70,7 @@ android/app/yatuDeveloper/*
 
 *.zip
 temp/*
+
+android/fastlane/*
+ios/fastlane/*
+creds/*

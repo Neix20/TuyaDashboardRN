@@ -1,0 +1,57 @@
+fastlane_version '2.53.1'
+
+platform :ios do
+   # iOS Lanes
+end
+
+# platform :android do
+#     desc "Runs all the tests"
+#     lane :test do
+#         gradle(task: "test")
+#     end
+
+#     desc "Submit a new Beta Build to Crashlytics Beta"
+#     lane :beta do
+#         gradle(task: "clean assembleRelease")
+#         crashlytics
+
+#         # sh "your_script.sh"
+#         # You can also use other beta testing services here
+#     end
+
+#     desc "Deploy a new version to the Google Play"
+#     lane :deploy do
+#         increment_version_code(app_project_dir: './android/app')
+#         increment_version_name(app_project_dir: './android/app', bump_type: 'patch')
+#         gradle(task: 'clean', project_dir: './android/')
+#         gradle(task: "clean assembleRelease")
+#         supply(track: 'production', aab: './android/app/build/outputs/bundle/release/app_release.aab', release_status: 'draft')
+#     end
+# end
+  
+platform :android do 
+    desc "Build Android Developer APK"
+    lane :genDevApk do 
+        gradle(task: 'clean', project_dir: './android')
+        gradle(
+            task: "assemble",
+            flavor: "YatuDeveloper",
+            build_type: "release",
+            project_dir: './android'
+        )
+    end
+    # desc "Release for the Android production"
+    # lane : release do
+    #     increment_version_code(app_project_dir: './android/app')
+    #     increment_version_name(app_project_dir: './android/app', bump_type: 'patch')
+    #     gradle(task: 'clean', project_dir: './android/')
+    #     gradle(task: 'bundle', bundle_type: 'Release', project_dir: './andriod', properties: {
+    #         "android.injected.signing.store.file" => ENV['ANDROID_KEYSTORE_FILE'],
+    #         "android.injected.signing.store.password" => ENV['ANDROID_KEYSTORE_PASSWORD'],
+    #         "android.injected.signing.key.alias" => ENV['ANDROID_KEYSTORE_ALIAS'],
+    #         "android.injected.signing.key.password" => ENV['ANDROID_KEYSTORE_PASSWORD']
+    #     })
+    #     supply(track: 'production', aab: './android/app/build/outputs/bundle/release/app_release.aab', release_status: 'draft')
+    # end
+end
+  

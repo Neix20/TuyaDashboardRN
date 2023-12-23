@@ -78,6 +78,7 @@ import fetchLinkSubUser from "./fetchLinkSubUser";
 import fetchCheckTuyaEmail from "./fetchCheckTuyaEmail";
 
 import fetchSubscriptionProPlan from "./fetchSubscriptionProPlan";
+import fetchCreateSubscriptionOrderWithStorePayment from "./fetchCreateSubscriptionOrderWithStorePayment";
 
 import fetchDeleteAccount from "./fetchDeleteAccount";
 
@@ -173,6 +174,7 @@ export {
     fetchSubscriptionPlan,
     fetchPaymentTypeList,
     fetchCreateSubscriptionOrder,
+    fetchCreateSubscriptionOrderWithStorePayment,
     fetchVerifyPromoCode
 }
 

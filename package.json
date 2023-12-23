@@ -11,7 +11,7 @@
     "clearWatchman": "watchman watch-del-all",
     "CodePush:ios": "appcenter CodePush release-react -a neix20/YatuDashboard -d Production",
     "CodePush:android": "appcenter codepush release-react -a neix20/YatuDashboard -d Production",
-    "fastlaneTest": "fastlane run validate_play_store_json_key json_key:./creds/fastlane_android.json"
+    "fastlaneAndroid:Developer": "fastlane android genDevApk"
   },
   "dependencies": {
     "@react-native-async-storage/async-storage": "^1.19.1",

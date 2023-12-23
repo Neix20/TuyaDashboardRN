@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Text, TouchableOpacity, Image, TextInput, SafeAreaView, ScrollView, FlatList } from "react-native";
+import { Text, TouchableOpacity, Image, TextInput, SafeAreaView, ScrollView, FlatList, Platform } from "react-native";
 import { View, VStack, HStack, useToast } from "native-base";
 
 import { useNavigation, useIsFocused } from "@react-navigation/native";
@@ -7,12 +7,14 @@ import { useNavigation, useIsFocused } from "@react-navigation/native";
 import { BcHeaderWithAdd, BcLoading, BcSvgIcon, BcTooltip } from "@components";
 import { useToggle, usePayDict, useYatuIap } from "@hooks";
 
-import { fetchSubscriptionProPlan } from "@api";
+import { fetchSubscriptionProPlan, fetchCreateSubscriptionOrderWithStorePayment } from "@api";
 
 import { useDispatch, useSelector } from 'react-redux';
 import { Actions, Selectors } from '@redux';
 
 import { Body, EmptyList, Footer } from "./components";
+
+import { Logger, Utility } from "@utility";
 
 import { withIAPContext, purchaseErrorListener, purchaseUpdatedListener } from "react-native-iap";
 
@@ -203,12 +205,37 @@ function Index(props) {
             console.log(`Error: ${err}`);
         })
     }
+
+    const CreateSubscriptionOrderWithStorePayment = (subCode = "") => {
+
+        const serviceId = Utility.genServiceId();
+
+        setLoading(true);
+        fetchCreateSubscriptionOrderWithStorePayment({
+            param: {
+                UserId: userId,
+                SubscriptionCode: subCode,
+                ServiceId: serviceId
+            },
+            onSetLoading: setLoading,
+        }).then(data => {
+            // Navigate to Thank You
+            GoToThankYou();
+        }).catch(err => {
+            setLoading(false);
+            console.log(`Error: ${err}`);
+        })
+    }
     // #endregion
     
     // #region Listener
     useEffect(() => {
         const purchaseErrorSubscription = purchaseErrorListener((error) => {
             if (!(error["responseCode"] === "2")) {
+
+                GoToPaymentFailed();
+
+                // Navigate to error
                 Alert.alert("Error", `There has been an error with your purchase, error code: ${error["code"]}`);
             }
         });
@@ -220,7 +247,9 @@ function Index(props) {
 
             if (receipt) {
                 // Make API Payment Call Here
-                Alert.alert("Success", "Successful Transaction!")
+                CreateSubscriptionOrderWithStorePayment("");
+
+                Alert.alert("Success", "Successful Transaction!");
             }
         });
 
@@ -229,6 +258,16 @@ function Index(props) {
             purchaseUpdateSubscription.remove();
         };
     }, [])
+    // #endregion
+
+    // #region Navigation
+    const GoToThankYou = () => {
+        navigation.navigate("ThankYou");
+    }
+
+    const GoToPaymentFailed = () => {
+        navigation.navigate("PaymentFailed");
+    }
     // #endregion
 
     return (

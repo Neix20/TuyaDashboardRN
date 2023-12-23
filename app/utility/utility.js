@@ -409,6 +409,21 @@ function genUnit(key) {
 	return "";
 }
 
+function getServiceId() {
+
+	const { OS = "" } = Platform;
+
+	if (OS === "android" ) {
+		return 4001;
+	}
+
+	if (OS === "ios") {
+		return 4002;
+	}
+
+	return 4001;
+}
+
 export {
 	checkAppVersion,
 	OneSignalSubscribe
@@ -431,7 +446,8 @@ export {
 	genTs,
 	genLabel,
 	genTsLabel,
-	genUnit
+	genUnit,
+	getServiceId
 }
 
 export {
