@@ -13,6 +13,9 @@
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		22249CA49D03827590970B16 /* libPods-YatuDashboard-OneSignalNotificationServiceExtension.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 27465FBB19F13787467EAC32 /* libPods-YatuDashboard-OneSignalNotificationServiceExtension.a */; };
+		22E031E486C62ECC99A6830C /* ExpoModulesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8289F03B642CE72E3B261BE4 /* ExpoModulesProvider.swift */; };
+		3545DEBFA6E3BE075FDD77F9 /* ExpoModulesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DCF98402BB20863CD7C3C18 /* ExpoModulesProvider.swift */; };
+		6B9A68161201C44A82953DB9 /* ExpoModulesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45A11AFCA5BD62D80B80D095 /* ExpoModulesProvider.swift */; };
 		7699B88040F8A987B510C191 /* libPods-YatuDashboard-YatuDashboardTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19F6CBCC0A4E27FBF8BF4A61 /* libPods-YatuDashboard-YatuDashboardTests.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		8C1E6206A960490AB0C3D9E9 /* Montserrat-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EC9CBEA42F674938A737D1FA /* Montserrat-Regular.ttf */; };
@@ -58,6 +61,7 @@
 		00E356EE1AD99517003FC87E /* YatuDashboardTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = YatuDashboardTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* YatuDashboardTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YatuDashboardTests.m; sourceTree = "<group>"; };
+		0DCF98402BB20863CD7C3C18 /* ExpoModulesProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ExpoModulesProvider.swift; path = "Pods/Target Support Files/Pods-YatuDashboard/ExpoModulesProvider.swift"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* YatuDashboard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YatuDashboard.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = YatuDashboard/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = YatuDashboard/AppDelegate.mm; sourceTree = "<group>"; };
@@ -68,6 +72,7 @@
 		19F6CBCC0A4E27FBF8BF4A61 /* libPods-YatuDashboard-YatuDashboardTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-YatuDashboard-YatuDashboardTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		27465FBB19F13787467EAC32 /* libPods-YatuDashboard-OneSignalNotificationServiceExtension.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-YatuDashboard-OneSignalNotificationServiceExtension.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B4392A12AC88292D35C810B /* Pods-YatuDashboard.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YatuDashboard.debug.xcconfig"; path = "Target Support Files/Pods-YatuDashboard/Pods-YatuDashboard.debug.xcconfig"; sourceTree = "<group>"; };
+		45A11AFCA5BD62D80B80D095 /* ExpoModulesProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ExpoModulesProvider.swift; path = "Pods/Target Support Files/Pods-YatuDashboard-YatuDashboardTests/ExpoModulesProvider.swift"; sourceTree = "<group>"; };
 		4EF1D35055E64008A4D629CC /* Roboto-Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Roboto-Medium.ttf"; path = "../app/assets/fonts/Roboto-Medium.ttf"; sourceTree = "<group>"; };
 		50CB2493226644A0B920A325 /* Montserrat-Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Montserrat-Medium.ttf"; path = "../app/assets/fonts/Montserrat-Medium.ttf"; sourceTree = "<group>"; };
 		5709B34CF0A7D63546082F79 /* Pods-YatuDashboard.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YatuDashboard.release.xcconfig"; path = "Target Support Files/Pods-YatuDashboard/Pods-YatuDashboard.release.xcconfig"; sourceTree = "<group>"; };
@@ -75,8 +80,10 @@
 		5B7EB9410499542E8C5724F5 /* Pods-YatuDashboard-YatuDashboardTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YatuDashboard-YatuDashboardTests.debug.xcconfig"; path = "Target Support Files/Pods-YatuDashboard-YatuDashboardTests/Pods-YatuDashboard-YatuDashboardTests.debug.xcconfig"; sourceTree = "<group>"; };
 		5DCACB8F33CDC322A6C60F78 /* libPods-YatuDashboard.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-YatuDashboard.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = YatuDashboard/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		8289F03B642CE72E3B261BE4 /* ExpoModulesProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ExpoModulesProvider.swift; path = "Pods/Target Support Files/Pods-YatuDashboard-OneSignalNotificationServiceExtension/ExpoModulesProvider.swift"; sourceTree = "<group>"; };
 		89C6BE57DB24E9ADA2F236DE /* Pods-YatuDashboard-YatuDashboardTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YatuDashboard-YatuDashboardTests.release.xcconfig"; path = "Target Support Files/Pods-YatuDashboard-YatuDashboardTests/Pods-YatuDashboard-YatuDashboardTests.release.xcconfig"; sourceTree = "<group>"; };
 		A3FB6907B95DF635D95C444C /* Pods-YatuDashboard-OneSignalNotificationServiceExtension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YatuDashboard-OneSignalNotificationServiceExtension.debug.xcconfig"; path = "Target Support Files/Pods-YatuDashboard-OneSignalNotificationServiceExtension/Pods-YatuDashboard-OneSignalNotificationServiceExtension.debug.xcconfig"; sourceTree = "<group>"; };
+		D02DC12D2B36727F004D4977 /* Expo.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Expo.plist; sourceTree = "<group>"; };
 		D06442892A9ED977001F139F /* PrefixHeader.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
 		D08F33322AC3DC7500965385 /* OneSignalNotificationServiceExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = OneSignalNotificationServiceExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		D08F33342AC3DC7500965385 /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
@@ -183,6 +190,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				D02DC12D2B36727F004D4977 /* Expo.plist */,
 				D06442892A9ED977001F139F /* PrefixHeader.pch */,
 				13B07FAE1A68108700A75B9A /* YatuDashboard */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
@@ -192,6 +200,7 @@
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				BBD78D7AC51CEA395F1C20DB /* Pods */,
 				62FE578E6B204EFAB5B36EA8 /* Resources */,
+				D0BB634292B95262CCFFA020 /* ExpoModulesProviders */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -206,6 +215,14 @@
 				D08F33322AC3DC7500965385 /* OneSignalNotificationServiceExtension.appex */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		B5272B36D58666857298D2A8 /* YatuDashboard */ = {
+			isa = PBXGroup;
+			children = (
+				0DCF98402BB20863CD7C3C18 /* ExpoModulesProvider.swift */,
+			);
+			name = YatuDashboard;
 			sourceTree = "<group>";
 		};
 		BBD78D7AC51CEA395F1C20DB /* Pods */ = {
@@ -229,6 +246,32 @@
 				D08F33362AC3DC7500965385 /* Info.plist */,
 			);
 			path = OneSignalNotificationServiceExtension;
+			sourceTree = "<group>";
+		};
+		D0BB634292B95262CCFFA020 /* ExpoModulesProviders */ = {
+			isa = PBXGroup;
+			children = (
+				B5272B36D58666857298D2A8 /* YatuDashboard */,
+				FA53989ACA860F28519B2DEE /* OneSignalNotificationServiceExtension */,
+				FE8761D833FA23BD8882DF07 /* YatuDashboardTests */,
+			);
+			name = ExpoModulesProviders;
+			sourceTree = "<group>";
+		};
+		FA53989ACA860F28519B2DEE /* OneSignalNotificationServiceExtension */ = {
+			isa = PBXGroup;
+			children = (
+				8289F03B642CE72E3B261BE4 /* ExpoModulesProvider.swift */,
+			);
+			name = OneSignalNotificationServiceExtension;
+			sourceTree = "<group>";
+		};
+		FE8761D833FA23BD8882DF07 /* YatuDashboardTests */ = {
+			isa = PBXGroup;
+			children = (
+				45A11AFCA5BD62D80B80D095 /* ExpoModulesProvider.swift */,
+			);
+			name = YatuDashboardTests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -565,6 +608,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				00E356F31AD99517003FC87E /* YatuDashboardTests.m in Sources */,
+				6B9A68161201C44A82953DB9 /* ExpoModulesProvider.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -574,6 +618,7 @@
 			files = (
 				13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
+				3545DEBFA6E3BE075FDD77F9 /* ExpoModulesProvider.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -582,6 +627,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D08F33352AC3DC7500965385 /* NotificationService.swift in Sources */,
+				22E031E486C62ECC99A6830C /* ExpoModulesProvider.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -611,7 +657,7 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = YatuDashboardTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -622,6 +668,7 @@
 					"-lc++",
 					"$(inherited)",
 				);
+				OTHER_SWIFT_FLAGS = "$(inherited) -D EXPO_CONFIGURATION_DEBUG";
 				PRODUCT_BUNDLE_IDENTIFIER = com.yatudashboard;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/YatuDashboard.app/YatuDashboard";
@@ -635,7 +682,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
 				INFOPLIST_FILE = YatuDashboardTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -646,6 +693,7 @@
 					"-lc++",
 					"$(inherited)",
 				);
+				OTHER_SWIFT_FLAGS = "$(inherited) -D EXPO_CONFIGURATION_RELEASE";
 				PRODUCT_BUNDLE_IDENTIFIER = com.yatudashboard;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/YatuDashboard.app/YatuDashboard";
@@ -678,6 +726,7 @@
 					"-ObjC",
 					"-lc++",
 				);
+				OTHER_SWIFT_FLAGS = "$(inherited) -D EXPO_CONFIGURATION_DEBUG";
 				PRODUCT_BUNDLE_IDENTIFIER = com.yatudashboard;
 				PRODUCT_NAME = YatuDashboard;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -712,6 +761,7 @@
 					"-ObjC",
 					"-lc++",
 				);
+				OTHER_SWIFT_FLAGS = "$(inherited) -D EXPO_CONFIGURATION_RELEASE";
 				PRODUCT_BUNDLE_IDENTIFIER = com.yatudashboard;
 				PRODUCT_NAME = YatuDashboard;
 				SWIFT_VERSION = 5.0;
@@ -768,7 +818,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					/usr/lib/swift,
 					"$(inherited)",
@@ -833,7 +883,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					/usr/lib/swift,
 					"$(inherited)",
@@ -887,6 +937,7 @@
 				MARKETING_VERSION = 1.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
+				OTHER_SWIFT_FLAGS = "$(inherited) -D EXPO_CONFIGURATION_DEBUG";
 				PRODUCT_BUNDLE_IDENTIFIER = com.yatudashboard.OneSignalNotificationServiceExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -930,6 +981,7 @@
 				);
 				MARKETING_VERSION = 1.0;
 				MTL_FAST_MATH = YES;
+				OTHER_SWIFT_FLAGS = "$(inherited) -D EXPO_CONFIGURATION_RELEASE";
 				PRODUCT_BUNDLE_IDENTIFIER = com.yatudashboard.OneSignalNotificationServiceExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

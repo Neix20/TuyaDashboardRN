@@ -1,4 +1,7 @@
 package com.yatudashboard;
+import android.content.res.Configuration;
+import expo.modules.ApplicationLifecycleDispatcher;
+import expo.modules.ReactNativeHostWrapper;
 
 import android.app.Application;
 
@@ -17,7 +20,7 @@ import java.util.List;
 public class MainApplication extends Application implements ReactApplication {
 
   private final ReactNativeHost mReactNativeHost =
-      new DefaultReactNativeHost(this) {
+      new ReactNativeHostWrapper(this, new DefaultReactNativeHost(this) {
         @Override
         public boolean getUseDeveloperSupport() {
           return BuildConfig.DEBUG;
@@ -36,7 +39,7 @@ public class MainApplication extends Application implements ReactApplication {
         protected String getJSMainModuleName() {
           return "index";
         }
-      };
+      });
 
   @Override
   public ReactNativeHost getReactNativeHost() {
@@ -53,5 +56,12 @@ public class MainApplication extends Application implements ReactApplication {
 //    }
     ReactNativeFlipper.initializeFlipper(this, getReactNativeHost().getReactInstanceManager());
 //      TuyaCoreModule.Companion.initTuyaSDKWithoutOptions(this);
+    ApplicationLifecycleDispatcher.onApplicationCreate(this);
+  }
+
+  @Override
+  public void onConfigurationChanged(Configuration newConfig) {
+    super.onConfigurationChanged(newConfig);
+    ApplicationLifecycleDispatcher.onConfigurationChanged(this, newConfig);
   }
 }

@@ -219,6 +219,11 @@ dependencies {
 //    implementation 'com.onesignal:OneSignal:[5.0.0, 5.99.99]'
 }
 
+// Override `hermesEnabled` by `expo.jsEngine`
+ext {
+  hermesEnabled = (findProperty('expo.jsEngine') ?: "hermes") == "hermes"
+}
+
 repositories {
     mavenCentral()
     google()

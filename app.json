@@ -1,4 +1,18 @@
 {
   "name": "YatuDashboard",
-  "displayName": "YatuDashboard"
+  "displayName": "YatuDashboard",
+  "expo": {
+    "name": "YatuDashboard",
+    "slug": "YatuDashboard",
+    "ios": {
+      "bundleIdentifier": "com.yatudashboard"
+    },
+    "android": {
+      "package": "com.yatudashboard"
+    },
+    "runtimeVersion": "1.0.0",
+    "updates": {
+      "url": "http://localhost:3000/api/manifest"
+    }
+  }
 }
