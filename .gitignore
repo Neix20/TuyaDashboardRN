@@ -74,3 +74,5 @@ temp/*
 android/fastlane/*
 ios/fastlane/*
 creds/*
+
+fastlane/*

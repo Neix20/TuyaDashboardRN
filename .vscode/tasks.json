@@ -43,6 +43,27 @@
 			"problemMatcher": [],
 			"label": "npm: clearWatchman",
 			"detail": "watchman watch-del-all"
+		},
+		{
+			"type": "npm",
+			"script": "fastlaneIos:genIpa",
+			"problemMatcher": [],
+			"label": "npm: fastlaneIos:genIpa",
+			"detail": "fastlane ios genIpa"
+		},
+		{
+			"type": "npm",
+			"script": "fastlaneAndroid:Developer",
+			"problemMatcher": [],
+			"label": "npm: fastlaneAndroid:Developer",
+			"detail": "fastlane android genDevApk"
+		},
+		{
+			"type": "npm",
+			"script": "fastlaneAndroid:PushToPlayStore",
+			"problemMatcher": [],
+			"label": "npm: fastlaneAndroid:PushToPlayStore",
+			"detail": "fastlane android pushToPlayStore"
 		}
 	]
 }

@@ -13,6 +13,19 @@ For _fastlane_ installation instructions, see [Installing _fastlane_](https://do
 
 # Available Actions
 
+## iOS
+
+### ios genIpa
+
+```sh
+[bundle exec] fastlane ios genIpa
+```
+
+
+
+----
+
+
 ## Android
 
 ### android genDevApk
@@ -22,6 +35,22 @@ For _fastlane_ installation instructions, see [Installing _fastlane_](https://do
 ```
 
 Build Android Developer APK
+
+### android pushToPlayStore
+
+```sh
+[bundle exec] fastlane android pushToPlayStore
+```
+
+Release for the Android production
+
+### android testPush
+
+```sh
+[bundle exec] fastlane android testPush
+```
+
+Test Push To Playstore
 
 ----
 
