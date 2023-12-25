@@ -5,6 +5,18 @@ platform :ios do
     lane :genIpa do
         build_app(scheme: "YatuDashboard", workspace: "./ios/YatuDashboard.xcworkspace", include_bitcode: true)
     end
+
+    lane :pushToTestFlight do
+        # ios_set_build_number(xcodeproj: "./ios/YatuDashboard.xcodeproj")
+        version_name = ios_get_build_number(xcodeproj: "./ios/YatuDashboard.xcodeproj")
+        # ios_set_version(version: version_name, xcodeproj: "./ios/YatuDashboard.xcodeproj")
+
+        upload_to_testflight(
+            app_version: version_name,
+            skip_waiting_for_build_processing: true,
+            reject_build_waiting_for_review: true
+        )
+    end
 end
   
 platform :android do 
@@ -19,22 +31,13 @@ platform :android do
 
     desc "Release for the Android production"
     lane :pushToPlayStore do
-        # increment_version_number_in_plist(bump_type: 'patch')
-        android_set_version_code(
-            gradle_file: "./android/app/build.gradle"
-        )
 
-        versionCode = android_get_version_code(
-            gradle_file: "./android/app/build.gradle"
-        )
-
-        android_set_version_name(
-            version_name: versionCode,
-            gradle_file: "./android/app/build.gradle"
-        )
+        android_set_version_code(gradle_file: "./android/app/build.gradle")
+        version_name = android_get_version_code(gradle_file: "./android/app/build.gradle")
+        android_set_version_name(version_name: version_name, gradle_file: "./android/app/build.gradle")
 
         gradle(
-            task: "clean",
+            task: "clean", 
             project_dir: './android'
         )
         gradle(

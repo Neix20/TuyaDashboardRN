@@ -23,6 +23,14 @@ For _fastlane_ installation instructions, see [Installing _fastlane_](https://do
 
 
 
+### ios pushToTestFlight
+
+```sh
+[bundle exec] fastlane ios pushToTestFlight
+```
+
+
+
 ----
 
 
@@ -43,14 +51,6 @@ Build Android Developer APK
 ```
 
 Release for the Android production
-
-### android testPush
-
-```sh
-[bundle exec] fastlane android testPush
-```
-
-Test Push To Playstore
 
 ----
 
