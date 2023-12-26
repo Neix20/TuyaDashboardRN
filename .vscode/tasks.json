@@ -53,7 +53,7 @@
 		},
 		{
 			"type": "npm",
-			"script": "fastlaneAndroid:Developer",
+			"script": "fastlaneAndroid:DeveloperApk",
 			"problemMatcher": [],
 			"label": "npm: fastlaneAndroid:Developer",
 			"detail": "fastlane android genDevApk"
@@ -64,6 +64,13 @@
 			"problemMatcher": [],
 			"label": "npm: fastlaneAndroid:PushToPlayStore",
 			"detail": "fastlane android pushToPlayStore"
+		},
+		{
+			"type": "npm",
+			"script": "fastlaneAndroid:DeveloperAab",
+			"problemMatcher": [],
+			"label": "npm: fastlaneAndroid:DeveloperAab",
+			"detail": "fastlane android genDevAab"
 		}
 	]
 }

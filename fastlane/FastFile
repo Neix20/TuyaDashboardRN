@@ -23,8 +23,28 @@ platform :android do
     desc "Build Android Developer APK"
     lane :genDevApk do 
         gradle(
-            task: "clean assembleRelease",
+            task: "assemble",
             flavor: "YatuDeveloper",
+            build_type: "release",
+            project_dir: './android'
+        )
+    end
+
+    desc "Build Android Developer AAB"
+    lane :genDevAab do 
+
+        android_set_version_code(gradle_file: "./android/app/build.gradle")
+        version_name = android_get_version_code(gradle_file: "./android/app/build.gradle")
+        android_set_version_name(version_name: version_name, gradle_file: "./android/app/build.gradle")
+        
+        gradle(
+            task: "clean", 
+            project_dir: './android'
+        )
+        gradle(
+            task: "assemble",
+            flavor: "Yatu",
+            build_type: "release",
             project_dir: './android'
         )
     end
