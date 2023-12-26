@@ -71,6 +71,13 @@
 			"problemMatcher": [],
 			"label": "npm: fastlaneAndroid:DeveloperAab",
 			"detail": "fastlane android genDevAab"
+		},
+		{
+			"type": "npm",
+			"script": "fastlaneIos:pushToTestFlight",
+			"problemMatcher": [],
+			"label": "npm: fastlaneIos:pushToTestFlight",
+			"detail": "fastlane ios pushToTestFlight"
 		}
 	]
 }
