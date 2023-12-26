@@ -60,7 +60,7 @@ function DataTable(props) {
     const renderHeader = (item, ind) => {
         return (
             <View key={ind} alignItems={"center"} flex={1}>
-                <BcSvgIcon name={item} />
+                <BcSvgIcon name={item} size={24} />
             </View>
         )
     }

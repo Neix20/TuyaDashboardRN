@@ -148,10 +148,10 @@ function DashboardVoltageReport(props) {
                 <View style={{ width: 80 }}>
                     <Text style={{ fontFamily: "Roboto-Bold" }}>Name</Text>
                 </View>
-                <View alignItems={"center"} flex={1}><BcSvgIcon name={"KWh"} /></View>
-                <View alignItems={"center"} flex={1}><BcSvgIcon name={"Current"} /></View>
-                <View alignItems={"center"} flex={1}><BcSvgIcon name={"Power"} /></View>
-                <View alignItems={"center"} flex={1}><BcSvgIcon name={"Voltage"} /></View>
+                <View alignItems={"center"} flex={1}><BcSvgIcon name={"KWh"} size={24} /></View>
+                <View alignItems={"center"} flex={1}><BcSvgIcon name={"Current"} size={24} /></View>
+                <View alignItems={"center"} flex={1}><BcSvgIcon name={"Power"} size={24} /></View>
+                <View alignItems={"center"} flex={1}><BcSvgIcon name={"Voltage"} size={24} /></View>
                 <View alignItems={"flex-end"} flex={1.5}>
                     <Text style={{ fontFamily: "Roboto-Bold" }}>Uptime %</Text>
                 </View>
@@ -261,9 +261,9 @@ function DashboardAirQualityReport(props) {
                 <View style={{ width: 80 }}>
                     <Text style={{ fontFamily: "Roboto-Bold" }}>Name</Text>
                 </View>
-                <View alignItems={"center"} flex={1}><BcSvgIcon name={"Formaldehyde"} /></View>
-                <View alignItems={"center"} flex={1}><BcSvgIcon name={"Particle Matter"} /></View>
-                <View alignItems={"center"} flex={1}><BcSvgIcon name={"Carbon Dioxide"} /></View>
+                <View alignItems={"center"} flex={1}><BcSvgIcon name={"Formaldehyde"} width={40} height={12} /></View>
+                <View alignItems={"center"} flex={1}><BcSvgIcon name={"Particle Matter"} width={40} height={12} /></View>
+                <View alignItems={"center"} flex={1}><BcSvgIcon name={"Carbon Dioxide"} size={24} /></View>
                 <View alignItems={"flex-end"} flex={1}>
                     <Text style={{ fontFamily: "Roboto-Bold" }}>Uptime %</Text>
                 </View>
@@ -374,9 +374,9 @@ function DashboardHumidityReport(props) {
                 <View style={{ width: 80 }}>
                     <Text style={{ fontFamily: "Roboto-Bold" }}>Name</Text>
                 </View>
-                <View alignItems={"center"} flex={1}><BcSvgIcon name={"Absolute Humidity"} /></View>
-                <View alignItems={"center"} flex={1}><BcSvgIcon name={"Temperature"} /></View>
-                <View alignItems={"center"} flex={1}><BcSvgIcon name={"Relative Humidity"} /></View>
+                <View alignItems={"center"} flex={1}><BcSvgIcon name={"Absolute Humidity"} size={24} /></View>
+                <View alignItems={"center"} flex={1}><BcSvgIcon name={"Temperature"} size={24} /></View>
+                <View alignItems={"center"} flex={1}><BcSvgIcon name={"Relative Humidity"} size={24} /></View>
                 <View alignItems={"flex-end"} flex={1}>
                     <Text style={{ fontFamily: "Roboto-Bold" }}>Uptime %</Text>
                 </View>
@@ -729,7 +729,7 @@ function Index(props) {
                                         {
                                             (Object.keys(chart).length > 0) ? (
                                                 <View px={3} style={{ width: width }}>
-                                                    <BcViewShot title="Daily Humidity Device Report">
+                                                    <BcViewShot title="Daily Humidity Device Report VI">
                                                         <BcApacheChartFull hook={chartHook} height={400} />
                                                     </BcViewShot>
                                                 </View>

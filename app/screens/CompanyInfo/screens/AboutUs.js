@@ -31,7 +31,7 @@ function AboutBtn(props) {
                         height: 50,
                         borderRadius: 8,
                     }}>
-                    <BcSvgIcon name={name} width={24} height={24} fill={"#2898FF"} />
+                    <BcSvgIcon name={name} size={24} fill={"#2898FF"} />
                 </View>
             </TouchableOpacity>
             <View>
