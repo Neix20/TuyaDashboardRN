@@ -1,0 +1,185 @@
+{
+  "identifier" : "FB06CF2A",
+  "nonRenewingSubscriptions" : [
+
+  ],
+  "products" : [
+
+  ],
+  "settings" : {
+    "_applicationInternalID" : "6470972458",
+    "_developerTeamID" : "G64S5HN2AP",
+    "_failTransactionsEnabled" : false,
+    "_lastSynchronizedDate" : 725269842.52502298,
+    "_locale" : "en_US",
+    "_storefront" : "USA",
+    "_storeKitErrors" : [
+      {
+        "current" : {
+          "index" : 2,
+          "type" : "generic"
+        },
+        "enabled" : false,
+        "name" : "Load Products"
+      },
+      {
+        "current" : {
+          "index" : 1,
+          "type" : "purchase"
+        },
+        "enabled" : false,
+        "name" : "Purchase"
+      },
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "Verification"
+      },
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "App Store Sync"
+      },
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "Subscription Status"
+      },
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "App Transaction"
+      },
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "Manage Subscriptions Sheet"
+      },
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "Refund Request Sheet"
+      },
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "Offer Code Redeem Sheet"
+      }
+    ]
+  },
+  "subscriptionGroups" : [
+    {
+      "id" : "21425137",
+      "localizations" : [
+
+      ],
+      "name" : "YatuMonthlySubscription",
+      "subscriptions" : [
+        {
+          "adHocOffers" : [
+
+          ],
+          "codeOffers" : [
+
+          ],
+          "displayPrice" : "99.99",
+          "familyShareable" : false,
+          "groupNumber" : 5,
+          "internalID" : "6474724601",
+          "introductoryOffer" : null,
+          "localizations" : [
+            {
+              "description" : "Annual Subscription for Pro Services",
+              "displayName" : "Yatu Annual Subscription",
+              "locale" : "en_US"
+            }
+          ],
+          "productID" : "com.subscription.mspp1000",
+          "recurringSubscriptionPeriod" : "P1Y",
+          "referenceName" : "Yatu Annually Subscription",
+          "subscriptionGroupID" : "21425137",
+          "type" : "RecurringSubscription"
+        },
+        {
+          "adHocOffers" : [
+
+          ],
+          "codeOffers" : [
+
+          ],
+          "displayPrice" : "49.99",
+          "familyShareable" : false,
+          "groupNumber" : 4,
+          "internalID" : "6474724263",
+          "introductoryOffer" : null,
+          "localizations" : [
+            {
+              "description" : "Half-Annual Subscription for Pro Services",
+              "displayName" : "Yatu Half-Annual Sub",
+              "locale" : "en_US"
+            }
+          ],
+          "productID" : "com.subscription.mspp0600",
+          "recurringSubscriptionPeriod" : "P6M",
+          "referenceName" : "Yatu Half-Annual Subscription",
+          "subscriptionGroupID" : "21425137",
+          "type" : "RecurringSubscription"
+        },
+        {
+          "adHocOffers" : [
+
+          ],
+          "codeOffers" : [
+
+          ],
+          "displayPrice" : "8.99",
+          "familyShareable" : false,
+          "groupNumber" : 2,
+          "internalID" : "6474724142",
+          "introductoryOffer" : null,
+          "localizations" : [
+            {
+              "description" : "Monthly Subscription for Pro Version",
+              "displayName" : "Yatu Monthly Subscription",
+              "locale" : "en_US"
+            }
+          ],
+          "productID" : "com.subscription.mspp0100",
+          "recurringSubscriptionPeriod" : "P1M",
+          "referenceName" : "Yatu Monthly Subscription",
+          "subscriptionGroupID" : "21425137",
+          "type" : "RecurringSubscription"
+        },
+        {
+          "adHocOffers" : [
+
+          ],
+          "codeOffers" : [
+
+          ],
+          "displayPrice" : "24.99",
+          "familyShareable" : false,
+          "groupNumber" : 3,
+          "internalID" : "6474724342",
+          "introductoryOffer" : null,
+          "localizations" : [
+            {
+              "description" : "Quarterly Subscription for Pro Services",
+              "displayName" : "Yatu Quarterly Subscription",
+              "locale" : "en_US"
+            }
+          ],
+          "productID" : "com.subscription.mspp0300",
+          "recurringSubscriptionPeriod" : "P3M",
+          "referenceName" : "Yatu Quarterly Subscription",
+          "subscriptionGroupID" : "21425137",
+          "type" : "RecurringSubscription"
+        }
+      ]
+    }
+  ],
+  "version" : {
+    "major" : 3,
+    "minor" : 0
+  }
+}

@@ -1,32 +1,8 @@
 PODS:
-  - appcenter-analytics (5.0.0):
-    - AppCenter/Analytics (~> 5.0)
-    - AppCenterReactNativeShared (~> 5.0)
-    - React-Core
-  - appcenter-core (5.0.0):
-    - AppCenterReactNativeShared (~> 5.0)
-    - React-Core
-  - appcenter-crashes (5.0.0):
-    - AppCenter/Crashes (~> 5.0)
-    - AppCenterReactNativeShared (~> 5.0)
-    - React-Core
-  - AppCenter/Analytics (5.0.3):
-    - AppCenter/Core
-  - AppCenter/Core (5.0.3)
-  - AppCenter/Crashes (5.0.3):
-    - AppCenter/Core
-  - AppCenterReactNativeShared (5.0.0):
-    - AppCenter/Core (= 5.0.3)
-  - Base64 (1.1.2)
   - boost (1.76.0)
   - BVLinearGradient (2.8.3):
     - React-Core
   - CocoaAsyncSocket (7.6.5)
-  - CodePush (8.1.1):
-    - Base64 (~> 1.1)
-    - JWT (~> 3.0.0-beta.12)
-    - React-Core
-    - SSZipArchive (~> 2.2.2)
   - DoubleConversion (1.1.6)
   - FBLazyVector (0.71.7)
   - FBReactNativeSpec (0.71.7):
@@ -102,14 +78,11 @@ PODS:
   - hermes-engine (0.71.7):
     - hermes-engine/Pre-built (= 0.71.7)
   - hermes-engine/Pre-built (0.71.7)
-  - JWT (3.0.0-beta.14):
-    - Base64 (~> 1.1.2)
   - libevent (2.1.12)
-  - lottie-ios (4.3.3)
-  - lottie-react-native (6.3.1):
-    - lottie-ios (~> 4.3.0)
+  - lottie-ios (4.3.4)
+  - lottie-react-native (6.4.1):
+    - lottie-ios (~> 4.3.3)
     - React-Core
-  - NextLevelSessionExporter (0.4.6)
   - OneSignalXCFramework (3.12.4):
     - OneSignalXCFramework/OneSignalCore (= 3.12.4)
     - OneSignalXCFramework/OneSignalExtension (= 3.12.4)
@@ -374,11 +347,10 @@ PODS:
     - glog
   - react-native-cameraroll (5.10.0):
     - React-Core
-  - react-native-compressor (1.8.12):
-    - NextLevelSessionExporter
+  - react-native-compressor (1.8.23):
     - RCT-Folly (= 2021.07.22.00)
     - React-Core
-  - react-native-date-picker (4.3.3):
+  - react-native-date-picker (4.3.5):
     - React-Core
   - react-native-keep-awake (1.2.2):
     - React-Core
@@ -387,17 +359,18 @@ PODS:
     - React (< 1.0.0, >= 0.13.0)
   - react-native-render-html (6.3.4):
     - React-Core
-  - react-native-safe-area-context (4.7.3):
+  - react-native-safe-area-context (4.8.2):
     - React-Core
-  - react-native-skia (0.1.213):
+  - react-native-skia (0.1.230):
+    - RCT-Folly (= 2021.07.22.00)
     - React
     - React-callinvoker
     - React-Core
   - react-native-splash-screen (3.3.0):
     - React-Core
-  - react-native-view-shot (3.7.0):
+  - react-native-view-shot (3.8.0):
     - React-Core
-  - react-native-webview (13.6.2):
+  - react-native-webview (13.6.3):
     - React-Core
   - React-perflogger (0.71.7)
   - React-RCTActionSheet (0.71.7):
@@ -485,13 +458,13 @@ PODS:
     - React-perflogger (= 0.71.7)
   - rn-fetch-blob (0.12.0):
     - React-Core
-  - RNCAsyncStorage (1.19.3):
+  - RNCAsyncStorage (1.21.0):
     - React-Core
-  - RNCClipboard (1.12.1):
+  - RNCClipboard (1.13.2):
     - React-Core
   - RNFS (2.20.0):
     - React-Core
-  - RNGestureHandler (2.13.3):
+  - RNGestureHandler (2.14.0):
     - RCT-Folly (= 2021.07.22.00)
     - React-Core
   - RNIap (12.12.1):
@@ -523,28 +496,24 @@ PODS:
     - React-RCTText
     - ReactCommon/turbomodule/core
     - Yoga
-  - RNScreens (3.26.0):
+  - RNScreens (3.29.0):
     - RCT-Folly (= 2021.07.22.00)
     - React-Core
   - RNShare (9.4.1):
     - React-Core
   - RNSVG (13.14.0):
     - React-Core
-  - RNVectorIcons (10.0.0):
+  - RNVectorIcons (10.0.3):
+    - RCT-Folly (= 2021.07.22.00)
     - React-Core
   - SocketRocket (0.6.1)
-  - SSZipArchive (2.2.3)
   - Yoga (1.14.0)
   - YogaKit (1.18.1):
     - Yoga (~> 1.14)
 
 DEPENDENCIES:
-  - appcenter-analytics (from `../node_modules/appcenter-analytics`)
-  - appcenter-core (from `../node_modules/appcenter`)
-  - appcenter-crashes (from `../node_modules/appcenter-crashes`)
   - boost (from `../node_modules/react-native/third-party-podspecs/boost.podspec`)
   - BVLinearGradient (from `../node_modules/react-native-linear-gradient`)
-  - CodePush (from `../node_modules/react-native-code-push`)
   - DoubleConversion (from `../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec`)
   - FBLazyVector (from `../node_modules/react-native/Libraries/FBLazyVector`)
   - FBReactNativeSpec (from `../node_modules/react-native/React/FBReactNativeSpec`)
@@ -631,9 +600,6 @@ DEPENDENCIES:
 
 SPEC REPOS:
   https://github.com/CocoaPods/Specs:
-    - AppCenter
-    - AppCenterReactNativeShared
-    - Base64
     - CocoaAsyncSocket
     - Flipper
     - Flipper-Boost-iOSX
@@ -645,28 +611,17 @@ SPEC REPOS:
     - Flipper-RSocket
     - FlipperKit
     - fmt
-    - JWT
     - libevent
-    - NextLevelSessionExporter
     - OneSignalXCFramework
     - OpenSSL-Universal
     - SocketRocket
-    - SSZipArchive
     - YogaKit
 
 EXTERNAL SOURCES:
-  appcenter-analytics:
-    :path: "../node_modules/appcenter-analytics"
-  appcenter-core:
-    :path: "../node_modules/appcenter"
-  appcenter-crashes:
-    :path: "../node_modules/appcenter-crashes"
   boost:
     :podspec: "../node_modules/react-native/third-party-podspecs/boost.podspec"
   BVLinearGradient:
     :path: "../node_modules/react-native-linear-gradient"
-  CodePush:
-    :path: "../node_modules/react-native-code-push"
   DoubleConversion:
     :podspec: "../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec"
   FBLazyVector:
@@ -783,16 +738,9 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
 SPEC CHECKSUMS:
-  AppCenter: a4070ec3d4418b5539067a51f57155012e486ebd
-  appcenter-analytics: fbeef54afe6fa91d3803dfd31499817baa81fec0
-  appcenter-core: e192ea8b373bebd3e44998882b43311078bd7dda
-  appcenter-crashes: 266063788bcebd553e621344a54286395a8e2010
-  AppCenterReactNativeShared: 01df23849b1c3c6eb8c4049f54322635650e98f0
-  Base64: cecfb41a004124895a7bcee567a89bae5a89d49b
   boost: 57d2868c099736d80fcd648bf211b4431e51a558
   BVLinearGradient: 880f91a7854faff2df62518f0281afb1c60d49a3
   CocoaAsyncSocket: 065fd1e645c7abab64f7a6a2007a48038fdc6a99
-  CodePush: c3fdecab0dba1f760a1c6d1a562b9b88ce311fe1
   DoubleConversion: 5189b271737e1565bdce30deb4a08d647e3f5f54
   FBLazyVector: a89a0525bc7ca174675045c2b492b5280d5a2470
   FBReactNativeSpec: 7714e6bc1e9ea23df6c4cb42f0b2fd9c6a3a559c
@@ -808,11 +756,9 @@ SPEC CHECKSUMS:
   fmt: ff9d55029c625d3757ed641535fd4a75fedc7ce9
   glog: 04b94705f318337d7ead9e6d17c019bd9b1f6b1b
   hermes-engine: 4438d2b8bf8bebaba1b1ac0451160bab59e491f8
-  JWT: ef71dfb03e1f842081e64dc42eef0e164f35d251
   libevent: 4049cae6c81cdb3654a443be001fb9bdceff7913
-  lottie-ios: 25e7b2675dad5c3ddad369ac9baab03560c5bfdd
-  lottie-react-native: c9f1db4f4124dcce9f8159e65d8dc6e8bcb11fb4
-  NextLevelSessionExporter: 4d8aa5e617f1c709724f2453efe5d4628480f65a
+  lottie-ios: 3d98679b41fa6fd6aff2352b3953dbd3df8a397e
+  lottie-react-native: a2ae9c27c273b060b2affff2957bc0ff7fdca353
   OneSignalXCFramework: 087934ab0d4d7445fcf1c015c7c782359e26c020
   OpenSSL-Universal: ebc357f1e6bc71fa463ccb2fe676756aff50e88c
   RCT-Folly: 424b8c9a7a0b9ab2886ffe9c3b041ef628fd4fb1
@@ -830,16 +776,16 @@ SPEC CHECKSUMS:
   React-jsinspector: 9885f6f94d231b95a739ef7bb50536fb87ce7539
   React-logger: 3f8ebad1be1bf3299d1ab6d7f971802d7395c7ef
   react-native-cameraroll: 4701ae7c3dbcd3f5e9e150ca17f250a276154b35
-  react-native-compressor: 31281c7b026dc2d9faa61ff952ea184f5c9d059d
-  react-native-date-picker: 1d61c76315098a6ad4c643a356f005916c7d4875
+  react-native-compressor: d30f0cf83afec95099fb109919a58d484e00051a
+  react-native-date-picker: 90d1d60802a20085125657940b944f2bb4e5c113
   react-native-keep-awake: ad1d67f617756b139536977a0bf06b27cec0714a
   react-native-onesignal: 7bd44dbd031d8d57110c0203836ffc37ddead526
   react-native-render-html: 984dfe2294163d04bf5fe25d7c9f122e60e05ebe
-  react-native-safe-area-context: 238cd8b619e05cb904ccad97ef42e84d1b5ae6ec
-  react-native-skia: 4327dd69d3272313b91ea753a2d6dd5d9bebba42
+  react-native-safe-area-context: 0ee144a6170530ccc37a0fd9388e28d06f516a89
+  react-native-skia: a395bbbb438d593e525f65d0886c36d1c30f0604
   react-native-splash-screen: 4312f786b13a81b5169ef346d76d33bc0c6dc457
-  react-native-view-shot: f5507655f122e6b104888a11130f267a427f0d57
-  react-native-webview: 8fc09f66a1a5b16bbe37c3878fda27d5982bb776
+  react-native-view-shot: 6b7ed61d77d88580fed10954d45fad0eb2d47688
+  react-native-webview: 88293a0f23eca8465c0433c023ec632930e644d0
   React-perflogger: 2d505bbe298e3b7bacdd9e542b15535be07220f6
   React-RCTActionSheet: 0e96e4560bd733c9b37efbf68f5b1a47615892fb
   React-RCTAnimation: fd138e26f120371c87e406745a27535e2c8a04ef
@@ -854,18 +800,17 @@ SPEC CHECKSUMS:
   React-runtimeexecutor: c5c89f8f543842dd864b63ded1b0bbb9c9445328
   ReactCommon: dbfbe2f7f3c5ce4ce44f43f2fd0d5950d1eb67c5
   rn-fetch-blob: f065bb7ab7fb48dd002629f8bdcb0336602d3cba
-  RNCAsyncStorage: c913ede1fa163a71cea118ed4670bbaaa4b511bb
-  RNCClipboard: d77213bfa269013bf4b857b7a9ca37ee062d8ef1
+  RNCAsyncStorage: 618d03a5f52fbccb3d7010076bc54712844c18ef
+  RNCClipboard: 60fed4b71560d7bfe40e9d35dea9762b024da86d
   RNFS: 4ac0f0ea233904cb798630b3c077808c06931688
-  RNGestureHandler: fa40ab6b6cafaa7609294d31f8e8fbbd0cce8ea6
+  RNGestureHandler: 32a01c29ecc9bb0b5bf7bc0a33547f61b4dc2741
   RNIap: 31bf0cfb84ec19a9e5cc6b53b88d159c5adb3c68
   RNReanimated: cc5e3aa479cb9170bcccf8204291a6950a3be128
-  RNScreens: 2a28f2973f4d0d4623e18629ebfc2c4adaceb39a
+  RNScreens: 3c5b9f4a9dcde752466854b6109b79c0e205dad3
   RNShare: 32e97adc8d8c97d4a26bcdd3c45516882184f8b6
   RNSVG: d00c8f91c3cbf6d476451313a18f04d220d4f396
-  RNVectorIcons: 8b5bb0fa61d54cd2020af4f24a51841ce365c7e9
+  RNVectorIcons: 64e6a523ac30a3241efa9baf1ffbcc5e76ff747a
   SocketRocket: f32cd54efbe0f095c4d7594881e52619cfe80b17
-  SSZipArchive: 62d4947b08730e4cda640473b0066d209ff033c9
   Yoga: d56980c8914db0b51692f55533409e844b66133c
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
 

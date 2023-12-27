@@ -1,3 +1,29 @@
 {
-    "java.compile.nullAnalysis.mode": "disabled"
+    "java.compile.nullAnalysis.mode": "disabled",
+    "cmake.configureOnOpen": false,
+    "workbench.colorCustomizations": {
+        "commandCenter.border": "#e7e7e799",
+        "sash.hoverBorder": "#005aa0",
+        "titleBar.activeBackground": "#003d6d",
+        "titleBar.activeForeground": "#e7e7e7",
+        "titleBar.inactiveBackground": "#003d6d99",
+        "titleBar.inactiveForeground": "#e7e7e799",
+        "titleBar.border": "#003d6d",
+        "statusBar.background": "#003d6d",
+        "statusBar.border": "#003d6d",
+        "statusBar.foreground": "#e7e7e7",
+        "statusBarItem.hoverBackground": "#005aa0",
+        "statusBarItem.remoteBackground": "#003d6d",
+        "statusBarItem.remoteForeground": "#e7e7e7",
+        "panel.border": "#005aa0",
+        "editorGroup.border": "#005aa0",
+        "sideBar.border": "#005aa0",
+        "activityBar.activeBackground": "#005aa0",
+        "activityBar.background": "#005aa0",
+        "activityBar.foreground": "#e7e7e7",
+        "activityBar.inactiveForeground": "#e7e7e799",
+        "activityBarBadge.background": "#ff209d",
+        "activityBarBadge.foreground": "#e7e7e7"
+    },
+    "peacock.color": "#003d6d"
 }

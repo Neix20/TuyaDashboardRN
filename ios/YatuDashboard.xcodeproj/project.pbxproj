@@ -86,6 +86,7 @@
 		D08F333E2AC3DCD900965385 /* OneSignalNotificationServiceExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = OneSignalNotificationServiceExtension.entitlements; sourceTree = "<group>"; };
 		D0927AC32B33CED70088DABB /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		D0CAFA6A2AD7ADB400609DCA /* YatuDashboard.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = YatuDashboard.entitlements; path = YatuDashboard/YatuDashboard.entitlements; sourceTree = "<group>"; };
+		D0EB0EA12B3ABD4E00EDC690 /* yatuProSub.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = yatuProSub.storekit; sourceTree = "<group>"; };
 		EC9CBEA42F674938A737D1FA /* Montserrat-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Montserrat-Regular.ttf"; path = "../app/assets/fonts/Montserrat-Regular.ttf"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
@@ -197,6 +198,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				D0EB0EA12B3ABD4E00EDC690 /* yatuProSub.storekit */,
 				D02DC12C2B3529A7004D4977 /* AppCenter-Config.plist */,
 				D06442892A9ED977001F139F /* PrefixHeader.pch */,
 				13B07FAE1A68108700A75B9A /* YatuDashboard */,
@@ -662,7 +664,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = YatuDashboard/YatuDashboard.entitlements;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = G64S5HN2AP;
 				ENABLE_BITCODE = NO;
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "i386 arm64";
@@ -696,7 +698,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = YatuDashboard/YatuDashboard.entitlements;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = G64S5HN2AP;
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "i386 arm64";
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
@@ -871,7 +873,7 @@
 				CODE_SIGN_ENTITLEMENTS = OneSignalNotificationServiceExtension/OneSignalNotificationServiceExtension.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = G64S5HN2AP;
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "arm64 i386";
@@ -915,7 +917,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = G64S5HN2AP;
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "i386 arm64";

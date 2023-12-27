@@ -16,7 +16,7 @@ import { Body, EmptyList, Footer } from "./components";
 
 import { Logger, Utility } from "@utility";
 
-import { withIAPContext, purchaseErrorListener, purchaseUpdatedListener } from "react-native-iap";
+import { withIAPContext, PurchaseError } from "react-native-iap";
 
 import { Alert } from "react-native";
 
@@ -159,7 +159,7 @@ function Index(props) {
     // #region UseState
     const [loading, setLoading, toggleLoading] = useToggle(false);
 
-    const [subLs, subPriceDict, handleRequestSubscription] = useYatuIap(setLoading);
+    const [subLs, currentPurchase, finishTransaction, subPriceDict, handleRequestSubscription] = useYatuIap(setLoading);
 
     const payDictHook = usePayDict();
     const [payDict, setPayDict, payDictKey, payProImg] = payDictHook;
@@ -179,38 +179,37 @@ function Index(props) {
         setLoading(true);
         fetchSubscriptionProPlan({
             param: {
-                UserId: userId
+                UserId: 10
             },
             onSetLoading: setLoading
         })
-        .then(data => {
-            // Filter Data By SubCode
-            data = data.map(x => {
-                const { data: { StoreCode } } = x;
-                return {
-                    ...x,
-                    ...subPriceDict[StoreCode]
-                }
-            });
+            .then(data => {
+                // Filter Data By SubCode
+                data = data.map(x => {
+                    const { data: { StoreCode } } = x;
+                    return {
+                        ...x,
+                        ...subPriceDict[StoreCode]
+                    }
+                });
 
-            data = data.filter(x => {
-                const { data: { StoreCode } } = x;
-                return SUBSCRIPTION_SKUS.includes(StoreCode);
-            });
+                data = data.filter(x => {
+                    const { data: { StoreCode } } = x;
+                    return SUBSCRIPTION_SKUS.includes(StoreCode);
+                });
 
-            setPayDict(data);
-        })
-        .catch(err => {
-            setLoading(false);
-            console.log(`Error: ${err}`);
-        })
+                setPayDict(data);
+            })
+            .catch(err => {
+                setLoading(false);
+                console.log(`Error: ${err}`);
+            })
     }
 
     const CreateSubscriptionOrderWithStorePayment = (subCode = "") => {
 
-        const serviceId = Utility.genServiceId();
+        const serviceId = Utility.getServiceId();
 
-        setLoading(true);
         fetchCreateSubscriptionOrderWithStorePayment({
             param: {
                 UserId: userId,
@@ -227,37 +226,47 @@ function Index(props) {
         })
     }
     // #endregion
-    
+
     // #region Listener
     useEffect(() => {
-        const purchaseErrorSubscription = purchaseErrorListener((error) => {
-            if (!(error["responseCode"] === "2")) {
+        const checkCurrentPurchase = async () => {
+            try {
 
+                if (currentPurchase?.productId) {
+                    setLoading(true);
+                    const { productId } = currentPurchase;
+
+                    // Crash at here
+                    const ackResult = await finishTransaction({ purchase: currentPurchase, isConsumable: false });
+
+                    // Debug
+                    const resp = {
+                        ...currentPurchase,
+                        ...ackResult,
+                        os: Platform.OS,
+                        userId: userId
+                    }
+                    Logger.serverInfo({ res: resp });
+
+                    const subCode = productId.split(".").at(-1);
+                    CreateSubscriptionOrderWithStorePayment(subCode);
+                }
+            } catch (error) {
+                if (error instanceof PurchaseError) {
+                    Logger.serverError({ message: `[${error.code}]: ${error.message}`, error });
+                } else {
+                    Logger.serverError({ message: "handleBuyProduct", error });
+                }
+
+                setLoading(false);
                 GoToPaymentFailed();
-
-                // Navigate to error
-                Alert.alert("Error", `There has been an error with your purchase, error code: ${error["code"]}`);
             }
-        });
-
-        const purchaseUpdateSubscription = purchaseUpdatedListener((purchase) => {
-
-            Logger.Info({ data: purchase });
-            const receipt = purchase.transactionReceipt;
-
-            if (receipt) {
-                // Make API Payment Call Here
-                CreateSubscriptionOrderWithStorePayment("");
-
-                Alert.alert("Success", "Successful Transaction!");
-            }
-        });
-
-        return () => {
-            purchaseErrorSubscription.remove();
-            purchaseUpdateSubscription.remove();
         };
-    }, [])
+
+        if (currentPurchase != undefined) {
+            checkCurrentPurchase();
+        }
+    }, [currentPurchase]);
     // #endregion
 
     // #region Navigation

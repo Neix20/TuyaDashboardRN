@@ -729,7 +729,7 @@ function Index(props) {
                                         {
                                             (Object.keys(chart).length > 0) ? (
                                                 <View px={3} style={{ width: width }}>
-                                                    <BcViewShot title="Daily Humidity Device Report VI">
+                                                    <BcViewShot title="Daily Humidity Device Report">
                                                         <BcApacheChartFull hook={chartHook} height={400} />
                                                     </BcViewShot>
                                                 </View>

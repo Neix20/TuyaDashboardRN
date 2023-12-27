@@ -27,7 +27,7 @@ function Index() {
 
     const [loading, setLoading] = useToggle(false);
 
-    const [subLs, subPriceDict, handleRequestSubscription] = useYatuIap(setLoading);
+    const [subLs, t1, t2, subPriceDict, handleRequestSubscription] = useYatuIap(setLoading);
 
     // #region Subscription Plan
     const payDictHook = usePayDict();
@@ -38,6 +38,29 @@ function Index() {
             SubscriptionProPlan();
         }
     }, [isFocused, subLs]);
+
+    useEffect(() => {
+        const data = {
+            "autoRenewingAndroid": false,
+            "dataAndroid": "{\"orderId\":\"GPA.3379-7537-5652-93189\",\"packageName\":\"com.yatudashboard\",\"productId\":\"com.subscription.mspp0300\",\"purchaseTime\":1703577705812,\"purchaseState\":0,\"purchaseToken\":\"lcohkopiojnfojffnkffblmk.AO-J1Oz03tZuP2jwUrlBCwp_J28-lEn_Rv6Ul6HryAd_4aJDZA6gb82tXUzQED_PTKv6qIcAdOsjpwDHIPiPELZAblHSE6kYKw\",\"quantity\":1,\"autoRenewing\":false,\"acknowledged\":false}",
+            "developerPayloadAndroid": "",
+            "isAcknowledgedAndroid": false,
+            "obfuscatedAccountIdAndroid": "",
+            "obfuscatedProfileIdAndroid": "",
+            "packageNameAndroid": "com.yatudashboard",
+            "productId": "com.subscription.mspp0300",
+            "productIds": [
+                "com.subscription.mspp0300"
+            ],
+            "purchaseStateAndroid": 1,
+            "purchaseToken": "lcohkopiojnfojffnkffblmk.AO-J1Oz03tZuP2jwUrlBCwp_J28-lEn_Rv6Ul6HryAd_4aJDZA6gb82tXUzQED_PTKv6qIcAdOsjpwDHIPiPELZAblHSE6kYKw",
+            "signatureAndroid": "iIkBQJeC7OjQF3efLGfgshuBPU1YvoNZtxxeKxx45LmQgwkKFpv8hMar0Q7WSVN5eLyQ20ZtN1j0NWcPULXZWBdndonuaw2dx8fJHT/mNZtVuQo2liRRbJ17s+dNX992x1GRcbuNuBjYjU7JmJq+vqNDHV3z+eMkf+NN6lZGKApk3oUg+h5OEI0YB3hx023KM1LsycP+7tKevNqy57SGTz6NoJkXR/xAAc54DrJo668qyz8LNWyxD6X6zWAcQ8hEdBpW1Eyh0UDCr0NOOHgGFX0YUEY92mFkDEGKFZh833KMMEWdReQVGSlWkVVMx+wbrODupVX88fDzRVoZGuMkVw==",
+            "transactionDate": 1703577705812,
+            "transactionId": "GPA.3379-7537-5652-93189",
+            "transactionReceipt": "{\"orderId\":\"GPA.3379-7537-5652-93189\",\"packageName\":\"com.yatudashboard\",\"productId\":\"com.subscription.mspp0300\",\"purchaseTime\":1703577705812,\"purchaseState\":0,\"purchaseToken\":\"lcohkopiojnfojffnkffblmk.AO-J1Oz03tZuP2jwUrlBCwp_J28-lEn_Rv6Ul6HryAd_4aJDZA6gb82tXUzQED_PTKv6qIcAdOsjpwDHIPiPELZAblHSE6kYKw\",\"quantity\":1,\"autoRenewing\":false,\"acknowledged\":false}"
+        };
+        Logger.serverInfo({res: data})
+    }, []);
 
     const SubscriptionProPlan = () => {
         setLoading(true);

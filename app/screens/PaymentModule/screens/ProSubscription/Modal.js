@@ -161,7 +161,7 @@ function Index(props) {
     const [cusToast, showMsg] = useModalToast();
 
     const setLoading = () => {};
-    const [subLs, subPriceDict, handleRequestSubscription] = useYatuIap(setLoading);
+    const [subLs, t1, t2, subPriceDict, handleRequestSubscription] = useYatuIap(setLoading);
 
     const payDictHook = usePayDict();
     const [payDict, setPayDict, payDictKey, payProImg] = payDictHook;

@@ -1,13 +1,6 @@
-SELECT * 
-FROM TOTP 
-ORDER BY Id DESC
+USE Sandbox_Yatu;
+SElECT * FROM TSubscription WHERE MerchantId = 64
 
-SELECT * FROM TUser
-SELECT * FROM TUserQueue
-
-TRUNCATE TABLE TUserQueue
-
-UPDATE [dbo].[TUser] 
-SET [Status] = 0
-WHERE 1=1
-AND [User_Id] = 92;
+UPDATE TSubscription 
+SET SubscriptionCode = 'MSSP0007'
+WHERE MerchantId = 64

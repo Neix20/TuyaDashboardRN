@@ -24,8 +24,7 @@ function Index(onSetLoading = () => { }) {
         subscriptions, // returns subscriptions for this app.
         getSubscriptions, // Gets available subsctiptions for this app.
         currentPurchase, // current purchase for the tranasction
-        purchaseHistory, // return the purchase history of the user on the device (sandbox user in dev)
-        getPurchaseHistory, // gets users purchase history
+        finishTransaction,
     } = useIAP();
 
     const handleGetSubscriptions = () => {
@@ -102,14 +101,6 @@ function Index(onSetLoading = () => { }) {
     }, [subscriptions]);
     // #endregion
 
-    // Things to check:
-    // // 1. List All Subscription
-    // // 2. Generate Dict to Integrate Product Id and Price Into UsePayDict
-    // 3. EAS Build (OTA Update)
-    // 2. Buy Subscription
-    // 3. Check Subscription Payment
-    // 4. List Purchase History
-
     const handleRequestSubscription = (sku, offerToken = "") => {
         onSetLoading(true);
         if (OS === "android") {
@@ -122,9 +113,7 @@ function Index(onSetLoading = () => { }) {
                 })
                 .catch(err => {
                     onSetLoading(false);
-                    Logger.error({
-                        data: err
-                    });
+                    Logger.error({ data: err });
                 })
         }
         else if (OS === "ios") {
@@ -150,7 +139,10 @@ function Index(onSetLoading = () => { }) {
     }
     */
 
-    return [subscriptions, priceDict, handleRequestSubscription];
+    return [
+        subscriptions, currentPurchase, finishTransaction,
+        priceDict, handleRequestSubscription
+    ];
 }
 
 export default Index;

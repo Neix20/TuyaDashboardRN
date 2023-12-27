@@ -82,6 +82,9 @@ import fetchCreateSubscriptionOrderWithStorePayment from "./fetchCreateSubscript
 
 import fetchDeleteAccount from "./fetchDeleteAccount";
 
+import fetchInfoLog from "./fetchInfoLog";
+import fetchErrorLog from "./fetchErrorLog";
+
 export {
     fetchHomeList,
     fetchHomeInfo,
@@ -185,4 +188,9 @@ export {
     fetchLinkSubUser,
     fetchCheckTuyaEmail,
     fetchSubscriptionProPlan
+}
+
+export {
+    fetchInfoLog,
+    fetchErrorLog
 }

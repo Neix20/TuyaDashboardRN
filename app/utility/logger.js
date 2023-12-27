@@ -1,5 +1,7 @@
 import { genLogUrl } from "./utility";
 
+import { fetchInfoLog, fetchErrorLog } from "@api";
+
 const getCircularReplacer = () => {
     const seen = new WeakSet();
     return (key, value) => {
@@ -89,7 +91,7 @@ class Log {
             console.log(res);
         })
         .catch((err) => {
-            console.error(`Error: ${err}`);
+            console.error(`InfoLogger Error: ${err}`);
         });
     }
 
@@ -101,7 +103,27 @@ class Log {
             console.log(res);
         })
         .catch((err) => {
-            console.error(`Error: ${err}`);
+            console.error(`ErrorLogger Error: ${err}`);
+        });
+    }
+
+    serverInfo(props) {
+        fetchInfoLog({
+            param: props,
+            onSetLoading: () => {}
+        })
+        .catch((err) => {
+            console.error(`serverInfo Error: ${err}`);
+        });
+    }
+
+    serverError(props) {
+        fetchErrorLog({
+            param: props,
+            onSetLoading: () => {}
+        })
+        .catch((err) => {
+            console.error(`serverError Error: ${err}`);
         });
     }
 }

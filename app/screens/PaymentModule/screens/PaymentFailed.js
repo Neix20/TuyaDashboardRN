@@ -12,6 +12,8 @@ import { Images, Svg } from "@config";
 
 import { BcHeader, BcBoxShadow, BcFooter } from "@components";
 
+import { useSafeAreaInsets } from "react-native-safe-area-context";
+
 function Header(props) {
     const { children, onBack = () => { } } = props;
     const { color = "#2898FF", txtColor = "#000", bgColor = "#FFF" } = props;
@@ -54,6 +56,8 @@ function Index(props) {
         })
     }
 
+    const insets = useSafeAreaInsets();
+
     return (
         <SafeAreaView style={{ flex: 1 }}>
 
@@ -62,7 +66,7 @@ function Index(props) {
                 resizeMode={"cover"}
                 style={{ flex: 1, opacity: 0.4 }} />
 
-            <View position={"absolute"} style={{ top: 0, bottom: 0, left: 0, right: 0 }}>
+            <View position={"absolute"} style={{ top: insets.top, bottom: insets.bottom, left: 0, right: 0 }}>
 
                 {/* Header */}
                 <Header>Payment Failed</Header>
