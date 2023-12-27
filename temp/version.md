@@ -162,3 +162,12 @@
     3. Yatu Company Info:
        1. Added 4 Sections: "About Us", "Terms & Conditions", "Privacy Policy", "Frequently Asked Questions"
 </en-US>
+
+#### Version 1.2.20
+------------------------
+<en-US>
+    Features Update:
+    1. In-App Purchasing:
+       1. Huge Update to our payment service. Moved Payment gateway service to another container.
+       2. Added In-App Purchase with Google Play & App Store
+</en-US>
