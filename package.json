@@ -9,8 +9,6 @@
     "start": "react-native start",
     "test": "jest",
     "clearWatchman": "watchman watch-del-all",
-    "CodePush:ios": "appcenter CodePush release-react -a neix20/YatuDashboard -d Production",
-    "CodePush:android": "appcenter codepush release-react -a neix20/YatuDashboard -d Production",
     "fastlaneAndroid:DeveloperApk": "fastlane android genDevApk",
     "fastlaneAndroid:DeveloperAab": "fastlane android genDevAab",
     "fastlaneAndroid:PushToPlayStore": "fastlane android pushToPlayStore",

@@ -8,14 +8,14 @@
 
 /* Begin PBXBuildFile section */
 		00E356F31AD99517003FC87E /* YatuDashboardTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* YatuDashboardTests.m */; };
-		0C80B921A6F3F58F76C31292 /* libPods-YatuDashboard.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DCACB8F33CDC322A6C60F78 /* libPods-YatuDashboard.a */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
-		22249CA49D03827590970B16 /* libPods-YatuDashboard-OneSignalNotificationServiceExtension.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 27465FBB19F13787467EAC32 /* libPods-YatuDashboard-OneSignalNotificationServiceExtension.a */; };
-		7699B88040F8A987B510C191 /* libPods-YatuDashboard-YatuDashboardTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19F6CBCC0A4E27FBF8BF4A61 /* libPods-YatuDashboard-YatuDashboardTests.a */; };
+		257B478BAC70480E70E215DD /* libPods-YatuDashboard-OneSignalNotificationServiceExtension.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 472B01C2E595E52DAFDF6314 /* libPods-YatuDashboard-OneSignalNotificationServiceExtension.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
+		8BB66E565F2CBBCB0B912698 /* libPods-YatuDashboard.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 585B555D71E1F59D21CD59DD /* libPods-YatuDashboard.a */; };
 		8C1E6206A960490AB0C3D9E9 /* Montserrat-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EC9CBEA42F674938A737D1FA /* Montserrat-Regular.ttf */; };
+		93D85277D625061760EAEACD /* libPods-YatuDashboard-YatuDashboardTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0093006C8914343B7020766B /* libPods-YatuDashboard-YatuDashboardTests.a */; };
 		A84D3C8CF5CB40F1894D3716 /* Montserrat-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5AF1D21C787F45F19B087C66 /* Montserrat-Bold.ttf */; };
 		B51682E18F914F14AA360F16 /* Roboto-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 17499A7A6686441B9FBA4D4A /* Roboto-Bold.ttf */; };
 		CB8CBB9B54104389A14AABB8 /* Roboto-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4EF1D35055E64008A4D629CC /* Roboto-Medium.ttf */; };
@@ -55,10 +55,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		0093006C8914343B7020766B /* libPods-YatuDashboard-YatuDashboardTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-YatuDashboard-YatuDashboardTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356EE1AD99517003FC87E /* YatuDashboardTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = YatuDashboardTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* YatuDashboardTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YatuDashboardTests.m; sourceTree = "<group>"; };
-		0E8230768DE4D0AC53FB01E9 /* Pods-YatuDashboard-OneSignalNotificationServiceExtension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YatuDashboard-OneSignalNotificationServiceExtension.debug.xcconfig"; path = "Target Support Files/Pods-YatuDashboard-OneSignalNotificationServiceExtension/Pods-YatuDashboard-OneSignalNotificationServiceExtension.debug.xcconfig"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* YatuDashboard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YatuDashboard.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = YatuDashboard/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = YatuDashboard/AppDelegate.mm; sourceTree = "<group>"; };
@@ -66,18 +66,18 @@
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = YatuDashboard/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = YatuDashboard/main.m; sourceTree = "<group>"; };
 		17499A7A6686441B9FBA4D4A /* Roboto-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Roboto-Bold.ttf"; path = "../app/assets/fonts/Roboto-Bold.ttf"; sourceTree = "<group>"; };
-		19F6CBCC0A4E27FBF8BF4A61 /* libPods-YatuDashboard-YatuDashboardTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-YatuDashboard-YatuDashboardTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		20B1DB2A091BBCC05CCB2078 /* Pods-YatuDashboard-OneSignalNotificationServiceExtension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YatuDashboard-OneSignalNotificationServiceExtension.release.xcconfig"; path = "Target Support Files/Pods-YatuDashboard-OneSignalNotificationServiceExtension/Pods-YatuDashboard-OneSignalNotificationServiceExtension.release.xcconfig"; sourceTree = "<group>"; };
-		27465FBB19F13787467EAC32 /* libPods-YatuDashboard-OneSignalNotificationServiceExtension.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-YatuDashboard-OneSignalNotificationServiceExtension.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		3C9B51D56F29B75D3D571213 /* Pods-YatuDashboard-OneSignalNotificationServiceExtension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YatuDashboard-OneSignalNotificationServiceExtension.debug.xcconfig"; path = "Target Support Files/Pods-YatuDashboard-OneSignalNotificationServiceExtension/Pods-YatuDashboard-OneSignalNotificationServiceExtension.debug.xcconfig"; sourceTree = "<group>"; };
+		41048F4BB38B0B6BBA92B7CC /* Pods-YatuDashboard.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YatuDashboard.release.xcconfig"; path = "Target Support Files/Pods-YatuDashboard/Pods-YatuDashboard.release.xcconfig"; sourceTree = "<group>"; };
+		472B01C2E595E52DAFDF6314 /* libPods-YatuDashboard-OneSignalNotificationServiceExtension.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-YatuDashboard-OneSignalNotificationServiceExtension.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4EF1D35055E64008A4D629CC /* Roboto-Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Roboto-Medium.ttf"; path = "../app/assets/fonts/Roboto-Medium.ttf"; sourceTree = "<group>"; };
 		50CB2493226644A0B920A325 /* Montserrat-Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Montserrat-Medium.ttf"; path = "../app/assets/fonts/Montserrat-Medium.ttf"; sourceTree = "<group>"; };
+		585B555D71E1F59D21CD59DD /* libPods-YatuDashboard.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-YatuDashboard.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5AF1D21C787F45F19B087C66 /* Montserrat-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Montserrat-Bold.ttf"; path = "../app/assets/fonts/Montserrat-Bold.ttf"; sourceTree = "<group>"; };
-		5CE04067198CFCFF313C1CBF /* Pods-YatuDashboard.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YatuDashboard.debug.xcconfig"; path = "Target Support Files/Pods-YatuDashboard/Pods-YatuDashboard.debug.xcconfig"; sourceTree = "<group>"; };
-		5DCACB8F33CDC322A6C60F78 /* libPods-YatuDashboard.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-YatuDashboard.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		5D84CCC5089469F9D350D460 /* Pods-YatuDashboard-OneSignalNotificationServiceExtension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YatuDashboard-OneSignalNotificationServiceExtension.release.xcconfig"; path = "Target Support Files/Pods-YatuDashboard-OneSignalNotificationServiceExtension/Pods-YatuDashboard-OneSignalNotificationServiceExtension.release.xcconfig"; sourceTree = "<group>"; };
+		60042A614CD92B1CD2536984 /* Pods-YatuDashboard.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YatuDashboard.debug.xcconfig"; path = "Target Support Files/Pods-YatuDashboard/Pods-YatuDashboard.debug.xcconfig"; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = YatuDashboard/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		8CE5081169751DBBC6B1E275 /* Pods-YatuDashboard-YatuDashboardTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YatuDashboard-YatuDashboardTests.debug.xcconfig"; path = "Target Support Files/Pods-YatuDashboard-YatuDashboardTests/Pods-YatuDashboard-YatuDashboardTests.debug.xcconfig"; sourceTree = "<group>"; };
-		A3F7809A0F9DFB0EEFB0A977 /* Pods-YatuDashboard-YatuDashboardTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YatuDashboard-YatuDashboardTests.release.xcconfig"; path = "Target Support Files/Pods-YatuDashboard-YatuDashboardTests/Pods-YatuDashboard-YatuDashboardTests.release.xcconfig"; sourceTree = "<group>"; };
-		AC3B527D28A45CC8725CBA7B /* Pods-YatuDashboard.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YatuDashboard.release.xcconfig"; path = "Target Support Files/Pods-YatuDashboard/Pods-YatuDashboard.release.xcconfig"; sourceTree = "<group>"; };
+		B7AE30666F200716A7897EC9 /* Pods-YatuDashboard-YatuDashboardTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YatuDashboard-YatuDashboardTests.debug.xcconfig"; path = "Target Support Files/Pods-YatuDashboard-YatuDashboardTests/Pods-YatuDashboard-YatuDashboardTests.debug.xcconfig"; sourceTree = "<group>"; };
+		BE4FD643D008A495D36B26D3 /* Pods-YatuDashboard-YatuDashboardTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YatuDashboard-YatuDashboardTests.release.xcconfig"; path = "Target Support Files/Pods-YatuDashboard-YatuDashboardTests/Pods-YatuDashboard-YatuDashboardTests.release.xcconfig"; sourceTree = "<group>"; };
 		D02DC12C2B3529A7004D4977 /* AppCenter-Config.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "AppCenter-Config.plist"; sourceTree = "<group>"; };
 		D06442892A9ED977001F139F /* PrefixHeader.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
 		D08F33322AC3DC7500965385 /* OneSignalNotificationServiceExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = OneSignalNotificationServiceExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -96,7 +96,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7699B88040F8A987B510C191 /* libPods-YatuDashboard-YatuDashboardTests.a in Frameworks */,
+				93D85277D625061760EAEACD /* libPods-YatuDashboard-YatuDashboardTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -104,8 +104,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0C80B921A6F3F58F76C31292 /* libPods-YatuDashboard.a in Frameworks */,
 				D0927AC42B33CED70088DABB /* StoreKit.framework in Frameworks */,
+				8BB66E565F2CBBCB0B912698 /* libPods-YatuDashboard.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -113,7 +113,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				22249CA49D03827590970B16 /* libPods-YatuDashboard-OneSignalNotificationServiceExtension.a in Frameworks */,
+				257B478BAC70480E70E215DD /* libPods-YatuDashboard-OneSignalNotificationServiceExtension.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -140,12 +140,12 @@
 		0C1D467812955702EF1D5D78 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				5CE04067198CFCFF313C1CBF /* Pods-YatuDashboard.debug.xcconfig */,
-				AC3B527D28A45CC8725CBA7B /* Pods-YatuDashboard.release.xcconfig */,
-				0E8230768DE4D0AC53FB01E9 /* Pods-YatuDashboard-OneSignalNotificationServiceExtension.debug.xcconfig */,
-				20B1DB2A091BBCC05CCB2078 /* Pods-YatuDashboard-OneSignalNotificationServiceExtension.release.xcconfig */,
-				8CE5081169751DBBC6B1E275 /* Pods-YatuDashboard-YatuDashboardTests.debug.xcconfig */,
-				A3F7809A0F9DFB0EEFB0A977 /* Pods-YatuDashboard-YatuDashboardTests.release.xcconfig */,
+				60042A614CD92B1CD2536984 /* Pods-YatuDashboard.debug.xcconfig */,
+				41048F4BB38B0B6BBA92B7CC /* Pods-YatuDashboard.release.xcconfig */,
+				3C9B51D56F29B75D3D571213 /* Pods-YatuDashboard-OneSignalNotificationServiceExtension.debug.xcconfig */,
+				5D84CCC5089469F9D350D460 /* Pods-YatuDashboard-OneSignalNotificationServiceExtension.release.xcconfig */,
+				B7AE30666F200716A7897EC9 /* Pods-YatuDashboard-YatuDashboardTests.debug.xcconfig */,
+				BE4FD643D008A495D36B26D3 /* Pods-YatuDashboard-YatuDashboardTests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -169,9 +169,9 @@
 			children = (
 				D0927AC32B33CED70088DABB /* StoreKit.framework */,
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
-				5DCACB8F33CDC322A6C60F78 /* libPods-YatuDashboard.a */,
-				19F6CBCC0A4E27FBF8BF4A61 /* libPods-YatuDashboard-YatuDashboardTests.a */,
-				27465FBB19F13787467EAC32 /* libPods-YatuDashboard-OneSignalNotificationServiceExtension.a */,
+				585B555D71E1F59D21CD59DD /* libPods-YatuDashboard.a */,
+				472B01C2E595E52DAFDF6314 /* libPods-YatuDashboard-OneSignalNotificationServiceExtension.a */,
+				0093006C8914343B7020766B /* libPods-YatuDashboard-YatuDashboardTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -242,12 +242,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "YatuDashboardTests" */;
 			buildPhases = (
-				A55EABD7B0C7F3A422A6CC61 /* [CP] Check Pods Manifest.lock */,
+				B69BBF50049EEC4ACDF46C84 /* [CP] Check Pods Manifest.lock */,
 				00E356EA1AD99517003FC87E /* Sources */,
 				00E356EB1AD99517003FC87E /* Frameworks */,
 				00E356EC1AD99517003FC87E /* Resources */,
-				C59DA0FBD6956966B86A3779 /* [CP] Embed Pods Frameworks */,
-				F6A41C54EA430FDDC6A6ED99 /* [CP] Copy Pods Resources */,
+				DFE4B9B75C766475CA1333D5 /* [CP] Embed Pods Frameworks */,
+				654E8FF016E5F58C0E778691 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -263,15 +263,15 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "YatuDashboard" */;
 			buildPhases = (
-				C38B50BA6285516D6DCD4F65 /* [CP] Check Pods Manifest.lock */,
+				C73A0B895E5A9C4EDAAF9B2F /* [CP] Check Pods Manifest.lock */,
 				FD10A7F022414F080027D42C /* Start Packager */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
-				00EEFC60759A1932668264C0 /* [CP] Embed Pods Frameworks */,
-				E235C05ADACE081382539298 /* [CP] Copy Pods Resources */,
 				D08F333A2AC3DC7500965385 /* Embed Foundation Extensions */,
+				411F91CD18D023D97E67D5B2 /* [CP] Embed Pods Frameworks */,
+				A60E860713EA67BECF358116 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -287,11 +287,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = D08F333D2AC3DC7500965385 /* Build configuration list for PBXNativeTarget "OneSignalNotificationServiceExtension" */;
 			buildPhases = (
-				55E2C56D8030BB472E5925A9 /* [CP] Check Pods Manifest.lock */,
+				6130E49D92092DB429EB5D7E /* [CP] Check Pods Manifest.lock */,
 				D08F332E2AC3DC7500965385 /* Sources */,
 				D08F332F2AC3DC7500965385 /* Frameworks */,
 				D08F33302AC3DC7500965385 /* Resources */,
-				E1E52FAFD9BD5D0F21EB56B6 /* [CP] Copy Pods Resources */,
+				6503A6F032B4F798BC8B5D5A /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -391,7 +391,7 @@
 			shellPath = /bin/sh;
 			shellScript = "set -e\n\nWITH_ENVIRONMENT=\"../node_modules/react-native/scripts/xcode/with-environment.sh\"\nREACT_NATIVE_XCODE=\"../node_modules/react-native/scripts/react-native-xcode.sh\"\n\n/bin/sh -c \"$WITH_ENVIRONMENT $REACT_NATIVE_XCODE\"\n";
 		};
-		00EEFC60759A1932668264C0 /* [CP] Embed Pods Frameworks */ = {
+		411F91CD18D023D97E67D5B2 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -408,7 +408,7 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-YatuDashboard/Pods-YatuDashboard-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		55E2C56D8030BB472E5925A9 /* [CP] Check Pods Manifest.lock */ = {
+		6130E49D92092DB429EB5D7E /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -430,7 +430,58 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		A55EABD7B0C7F3A422A6CC61 /* [CP] Check Pods Manifest.lock */ = {
+		6503A6F032B4F798BC8B5D5A /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-YatuDashboard-OneSignalNotificationServiceExtension/Pods-YatuDashboard-OneSignalNotificationServiceExtension-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-YatuDashboard-OneSignalNotificationServiceExtension/Pods-YatuDashboard-OneSignalNotificationServiceExtension-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-YatuDashboard-OneSignalNotificationServiceExtension/Pods-YatuDashboard-OneSignalNotificationServiceExtension-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		654E8FF016E5F58C0E778691 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-YatuDashboard-YatuDashboardTests/Pods-YatuDashboard-YatuDashboardTests-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-YatuDashboard-YatuDashboardTests/Pods-YatuDashboard-YatuDashboardTests-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-YatuDashboard-YatuDashboardTests/Pods-YatuDashboard-YatuDashboardTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A60E860713EA67BECF358116 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-YatuDashboard/Pods-YatuDashboard-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-YatuDashboard/Pods-YatuDashboard-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-YatuDashboard/Pods-YatuDashboard-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B69BBF50049EEC4ACDF46C84 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -452,7 +503,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		C38B50BA6285516D6DCD4F65 /* [CP] Check Pods Manifest.lock */ = {
+		C73A0B895E5A9C4EDAAF9B2F /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -474,7 +525,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		C59DA0FBD6956966B86A3779 /* [CP] Embed Pods Frameworks */ = {
+		DFE4B9B75C766475CA1333D5 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -489,57 +540,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-YatuDashboard-YatuDashboardTests/Pods-YatuDashboard-YatuDashboardTests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		E1E52FAFD9BD5D0F21EB56B6 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-YatuDashboard-OneSignalNotificationServiceExtension/Pods-YatuDashboard-OneSignalNotificationServiceExtension-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-YatuDashboard-OneSignalNotificationServiceExtension/Pods-YatuDashboard-OneSignalNotificationServiceExtension-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-YatuDashboard-OneSignalNotificationServiceExtension/Pods-YatuDashboard-OneSignalNotificationServiceExtension-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		E235C05ADACE081382539298 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-YatuDashboard/Pods-YatuDashboard-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-YatuDashboard/Pods-YatuDashboard-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-YatuDashboard/Pods-YatuDashboard-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		F6A41C54EA430FDDC6A6ED99 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-YatuDashboard-YatuDashboardTests/Pods-YatuDashboard-YatuDashboardTests-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-YatuDashboard-YatuDashboardTests/Pods-YatuDashboard-YatuDashboardTests-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-YatuDashboard-YatuDashboardTests/Pods-YatuDashboard-YatuDashboardTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		FD10A7F022414F080027D42C /* Start Packager */ = {
@@ -607,7 +607,7 @@
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 8CE5081169751DBBC6B1E275 /* Pods-YatuDashboard-YatuDashboardTests.debug.xcconfig */;
+			baseConfigurationReference = B7AE30666F200716A7897EC9 /* Pods-YatuDashboard-YatuDashboardTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -634,7 +634,7 @@
 		};
 		00E356F71AD99517003FC87E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = A3F7809A0F9DFB0EEFB0A977 /* Pods-YatuDashboard-YatuDashboardTests.release.xcconfig */;
+			baseConfigurationReference = BE4FD643D008A495D36B26D3 /* Pods-YatuDashboard-YatuDashboardTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
@@ -658,7 +658,7 @@
 		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5CE04067198CFCFF313C1CBF /* Pods-YatuDashboard.debug.xcconfig */;
+			baseConfigurationReference = 60042A614CD92B1CD2536984 /* Pods-YatuDashboard.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -692,7 +692,7 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = AC3B527D28A45CC8725CBA7B /* Pods-YatuDashboard.release.xcconfig */;
+			baseConfigurationReference = 41048F4BB38B0B6BBA92B7CC /* Pods-YatuDashboard.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -862,7 +862,7 @@
 		};
 		D08F333B2AC3DC7500965385 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0E8230768DE4D0AC53FB01E9 /* Pods-YatuDashboard-OneSignalNotificationServiceExtension.debug.xcconfig */;
+			baseConfigurationReference = 3C9B51D56F29B75D3D571213 /* Pods-YatuDashboard-OneSignalNotificationServiceExtension.debug.xcconfig */;
 			buildSettings = {
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
@@ -905,7 +905,7 @@
 		};
 		D08F333C2AC3DC7500965385 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 20B1DB2A091BBCC05CCB2078 /* Pods-YatuDashboard-OneSignalNotificationServiceExtension.release.xcconfig */;
+			baseConfigurationReference = 5D84CCC5089469F9D350D460 /* Pods-YatuDashboard-OneSignalNotificationServiceExtension.release.xcconfig */;
 			buildSettings = {
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
