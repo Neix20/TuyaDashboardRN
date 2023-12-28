@@ -1,0 +1,94 @@
+{
+    "IR Temperature": {
+        "B8 Bedroom Smart IR 4": [
+            {
+                "Record_Date": "2023-11-07T23:59:00",
+                "Count": 100.0,
+                "Absolute Humidity": "19.41",
+                "Temperature (℃)": "28.6",
+                "Relative Humidity (%)": "69",
+                "Device_Name": "B8 Bedroom Smart IR 4"
+            }
+        ],
+        "B8 multi-function-timer-air monitor": [
+            {
+                "Record_Date": "2023-11-07T23:59:00",
+                "Count": 100.0,
+                "tvoc": "39",
+                "air_quality": "mild",
+                "ch2o": "18",
+                "Particle Matter (ug/m3)": "49",
+                "Carbon Dioxide (ppm)": "450",
+                "Absolute Humidity": "16.02",
+                "Temperature (℃)": "31",
+                "Relative Humidity (%)": "50",
+                "Device_Name": "B8 multi-function-timer-air monitor"
+            }
+        ],
+        "LF Piano LG aircon": [
+            {
+                "Record_Date": "2023-11-07T00:59:00",
+                "Count": 4.17,
+                "Absolute Humidity": "19.01",
+                "Temperature (℃)": "29.6",
+                "Relative Humidity (%)": "64",
+                "Device_Name": "LF Piano LG aircon"
+            }
+        ]
+    },
+    "Smart Plug": {
+        "B8 Study LG Monitor Smart Plug": [
+            {
+                "Record_Date": "2023-11-07T23:37:00",
+                "KWh": 0.67,
+                "Count": 80.56,
+                "add_ele": "9.00",
+                "Current (mA)": "222",
+                "Power (W)": "339",
+                "Voltage (V)": "195.1",
+                "Device_Name": "B8 Study LG Monitor Smart Plug"
+            }
+        ],
+        "LF Downstairs Europace dehumidfier": [
+            {
+                "Record_Date": "2023-11-07T23:59:00",
+                "KWh": 10.28,
+                "Count": 100.0,
+                "add_ele": "142.00",
+                "Current (mA)": "2126",
+                "Power (W)": "5146",
+                "Voltage (V)": "363.3",
+                "Device_Name": "LF Downstairs Europace dehumidfier"
+            }
+        ],
+        "LF upstairs blue delonghi dehumidifier": [
+            {
+                "Record_Date": "2023-11-07T23:59:00",
+                "KWh": 6.55,
+                "Count": 100.0,
+                "add_ele": "90.00",
+                "Current (mA)": "920",
+                "Power (W)": "2182",
+                "Voltage (V)": "252.7",
+                "Device_Name": "LF upstairs blue delonghi dehumidifier"
+            }
+        ]
+    },
+    "Air Quality": {
+        "B8 multi-function-timer-air monitor": [
+            {
+                "Record_Date": "2023-11-07T23:59:00",
+                "Count": 100.0,
+                "tvoc": "39",
+                "air_quality": "mild",
+                "ch2o": "18",
+                "Particle Matter (ug/m3)": "49",
+                "Carbon Dioxide (ppm)": "450",
+                "Absolute Humidity": "16.02",
+                "Temperature (℃)": "31",
+                "Relative Humidity (%)": "50",
+                "Device_Name": "B8 multi-function-timer-air monitor"
+            }
+        ]
+    }
+}

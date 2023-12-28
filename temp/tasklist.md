@@ -1,20 +1,7 @@
-## Task List
+# Task List
 
-#### React Native
-- [ ] Chart
-  - [ ] Select By Attribute
-  - [ ] <span style="color: #F00">Timestamp Issue</span>
-- [ ] Data Table
-  - [ ] Formatting Issue
-
-#### Engine
-- [x] <span style="color: #F00">Device Report</span>
-  - [x] Generate Report
-- [ ] Device Category
-  - [ ] Generate Different Category
-
-#### Server
-
-#### 20231006
-- [ ] Device Log Status
-- [ ] Device Landings
+- [x] Create Dummy Page, Insert 3 Types Chart, 3 Types Report
+- [x] Prepare Dummy Data
+- [x] Run on iOS Simulator
+  - [x] Fix Issues on iOS Simulator
+  - [x] Issues Exists Even in Phsyical Devices!!!

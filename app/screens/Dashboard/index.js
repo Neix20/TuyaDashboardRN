@@ -1,18 +1,17 @@
 import React, { useState, useEffect } from "react";
-import { Text, TouchableOpacity, Image, TextInput, SafeAreaView, ImageBackground, ScrollView } from "react-native";
+import { Text, TouchableOpacity, SafeAreaView, ScrollView } from "react-native";
 import { View, VStack, HStack, useToast } from "native-base";
-
-import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 
 import { useNavigation, useIsFocused } from "@react-navigation/native";
 
-import { Logger, Utility } from "@utility";
+import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 
-import { Images, Svg, iRDataUnit, DashboardSmartPlugData } from "@config";
+import { Logger, Utility } from "@utility";
+import { Images, Svg } from "@config";
 
 import {
     BcBoxShadow, BcSvgIcon, BcDateRange, BcViewShot, BcLoading, BcYatuHome, BcApacheChartFull, BcDataAttribute,
-    BcApacheBarChart, BcApacheBarChartFull, BcApachePieChart, BcApacheChartDebug
+    BcApacheBarChartFull, BcApachePieChart
 } from "@components";
 
 import { DateTime } from "luxon";
@@ -554,7 +553,7 @@ function Index(props) {
 
         if (flag) {
 
-            setLoading(true);
+            // setLoading(true);
             fetchDashboardInfo({
                 param: {
                     UserId: userId,
@@ -692,7 +691,7 @@ function Index(props) {
 
     return (
         <>
-            <BcLoading loading={loading} />
+            <BcLoading loading={false} />
             <SafeAreaView style={{ flex: 1 }}>
                 <View style={{ flex: 1 }}>
 

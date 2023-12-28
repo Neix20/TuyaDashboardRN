@@ -17,10 +17,6 @@ import { iRData, Devices, Animation, Images } from "@config";
 import { CheckBox as ElemCheckbox } from '@rneui/base';
 import { Checkbox as NativeCheckbox } from "native-base";
 
-import WChart from "./WChart";
-
-import DropDownPicker from "react-native-dropdown-picker";
-
 import Lottie from "lottie-react-native"
 
 // #region Trash
@@ -256,6 +252,8 @@ function DebugDateRange(props) {
         </>
     )
 }
+
+import WChart from "./WChart";
 
 function DebugChart() {
 
@@ -784,7 +782,7 @@ function DownTimeTable(props) {
     )
 }
 
-function Index(props) {
+function TestIndex(props) {
 
     const toast = useToast();
 
@@ -1108,8 +1106,6 @@ function TutorialGuideBtn(props) {
     )
 }
 
-import Lottie from 'lottie-react-native';
-
 
 function PaymentProSub(props) {
 
@@ -1167,4 +1163,4 @@ function PaymentProSub(props) {
 // #endregion
 
 const Index = () => (<></>);
-export default Index;
+export default DebugChart;

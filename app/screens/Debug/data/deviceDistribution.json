@@ -1,0 +1,30 @@
+[
+    {
+        "Name": "Temp_Humd",
+        "Active": 3,
+        "Inactive": 9,
+        "Total": 12,
+        "Color": "rgba(255, 0, 0, 1)"
+    },
+    {
+        "Name": "Smart_Plug",
+        "Active": 3,
+        "Inactive": 9,
+        "Total": 12,
+        "Color": "rgba(0, 255, 0, 1)"
+    },
+    {
+        "Name": "Air_Quality",
+        "Active": 1,
+        "Inactive": 0,
+        "Total": 1,
+        "Color": "rgba(0, 0, 255, 1)"
+    },
+    {
+        "Name": "Total",
+        "Active": 7,
+        "Inactive": 18,
+        "Total": 25,
+        "Color": "rgba(265, 165, 0, 1)"
+    }
+]

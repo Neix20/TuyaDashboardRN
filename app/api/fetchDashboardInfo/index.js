@@ -25,10 +25,8 @@ const Index = async (props) => {
     const data = await resp.json();
     onSetLoading(false);
 
-
     if (data["ResponseCode"] === "00") {
         // return data;
-
         const { Data } = data;
         return Data;
     }

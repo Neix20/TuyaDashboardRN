@@ -7,6 +7,7 @@ import { useNavigation } from "@react-navigation/native";
 
 // Screens
 import Debug from "@screens/Debug";
+import DebugBackup from "@screens/Debug/Backup";
 
 import TabNavigation from "./TabNavigation";
 import DrawerNavigation from "./DrawerNavigation";
@@ -79,6 +80,10 @@ StackScreens = {
     Debug: {
         component: Debug,
         title: "Debug"
+    },
+    DebugBackup: {
+        component: DebugBackup,
+        title: "DebugBackup"
     },
     Login: {
         component: Login,
@@ -574,8 +579,8 @@ function Index(props) {
     }
     // #endregion
 
-    const defaultScreen = (userId == -1 || firstTimeLink) ? "LoginII" : "TabNavigation";
-    // const defaultScreen = "Debug";
+    // const defaultScreen = (userId == -1 || firstTimeLink) ? "LoginII" : "TabNavigation";
+    const defaultScreen = "Debug";
 
     return (
         <>
