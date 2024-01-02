@@ -691,7 +691,7 @@ function Index(props) {
 
     return (
         <>
-            <BcLoading loading={false} />
+            <BcLoading loading={loading} />
             <SafeAreaView style={{ flex: 1 }}>
                 <View style={{ flex: 1 }}>
 

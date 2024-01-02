@@ -185,9 +185,6 @@ function Index(props) {
     const GoToRules = () => navigation.navigate("DeviceRulesInfo", deviceInfo);
     // #endregion
 
-    const subUserAccess = useSelector(Selectors.subUserAccessSelect);
-    const { ManageDeviceRules = -1} = subUserAccess;
-
     return (
         <>
             <BcLoading loading={loading} />

@@ -9,7 +9,7 @@ import { Logger, Utility } from "@utility";
 
 import { Animation, clsConst, Images } from "@config";
 
-import { BcSvgIcon, BcLoading, BcDisable, BcCarousel, BottomModal, BcDeleteAccountModal } from "@components";
+import { BcSvgIcon, BcLoading, BcDisable, BcCarousel, BottomModal, BcDeleteAccountModal, BcExpiredAccountModal } from "@components";
 
 import { fetchRequestOtp, fetchLogin, fetchDemoLogin, fetchSubUserAccess, fetchSubUserLogin } from "@api";
 
@@ -177,7 +177,9 @@ function ExistLoginForm(props) {
 
     // const { loading, setLoading = () => { } } = props;
 
-    const { toastHook = [], formHook = [], delAccHook = [] } = props;
+    const { toastHook = [], formHook = [] } = props;
+
+    const { delAccHook = [], expAccHook = [] } = props;
 
     const { showModal, setShowModal = () => { } } = props;
 
@@ -198,7 +200,9 @@ function ExistLoginForm(props) {
     // #region UseState
     // const [form, clearForm, setEmail, setOtp, setSessionId, loginFlag] = useExistLoginForm();
     const [form, clearForm, setEmail, setOtp, setSessionId, loginFlag] = formHook;
+
     const [showDelAccModal, setShowDelAccModal, toggleDelAccModal] = delAccHook;
+    const [showExpAccModal, setShowExpAccModal, toggleExpAccModal] = expAccHook;
 
     const [timer, setTimer] = useTimer(0);
     const [otpFlag, setOtpFlag, toggleOtpFlag] = useToggle(false);
@@ -280,10 +284,9 @@ function ExistLoginForm(props) {
             .then(data => {
                 if (data !== null) {
 
-                    // TODO: Uncomment Once done
                     const { Data: { User_Id, FirstTimeUserId, ResponseMessage } } = data;
 
-                    if (FirstTimeUserId != 6) {
+                    if (FirstTimeUserId < 3) {
                         Utility.OneSignalSubscribe(email);
                         dispatch(Actions.onChangeUserId(User_Id));
 
@@ -312,7 +315,11 @@ function ExistLoginForm(props) {
                             // })
                             showMsg(ResponseMessage);
                         }
-                    } else {
+                    } 
+                    else if (FirstTimeUserId == 3) {
+                        toggleExpAccModal();
+                    }
+                    else if (FirstTimeUserId == 6) {
                         toggleDelAccModal();
                     }
 
@@ -638,6 +645,9 @@ function Index(props) {
     const delAccHook = useToggle(false);
     const [showDelAccModal, setShowDelAccModal, toggleDelAccModal] = delAccHook;
 
+    const expAccHook = useToggle(false);
+    const [showExpAccModal, setShowExpAccModal, toggleExpAccModal] = expAccHook;
+
     const existLoginFormHook = useExistLoginForm();
     const subLoginFormHook = useSubLoginForm();
 
@@ -698,8 +708,9 @@ function Index(props) {
         <>
             <BcLoading loading={loading} />
             <BcDeleteAccountModal showModal={showDelAccModal} setShowModal={setShowDelAccModal} />
-            <ExistLoginModal
-                delAccHook={delAccHook} formHook={existLoginFormHook}
+            <BcExpiredAccountModal showModal={showExpAccModal} setShowModal={setShowExpAccModal} />
+            <ExistLoginModal formHook={existLoginFormHook}
+                delAccHook={delAccHook} expAccHook={expAccHook}
                 showModal={showExLoginModal} setShowModal={setShowExLoginModal} />
             <SubLoginModal formHook={subLoginFormHook} showModal={showSubLoginModal} setShowModal={setShowSubLoginModal} />
             <SafeAreaView style={{ flex: 1 }}>

@@ -129,14 +129,10 @@ function Index(props) {
                                         justifyContent={"space-between"}>
 
                                         <View px={3} style={{ width: width }}>
-                                            <BcViewShot title="Daily Humidity Device Report">
-                                                <BcApacheChartFull hook={chartHook} height={400} />
+                                            <BcViewShot title="Daily Air Quality Data">
+                                                <BcApacheChartFull hook={aqChartHook} height={400} />
                                             </BcViewShot>
                                         </View>
-
-                                       <Text>{JSON.stringify(DashboardData)}</Text>
-                                       <Text>{JSON.stringify(ReportData)}</Text>
-                                       <Text>{JSON.stringify(DeviceDistributionData)}</Text>
 
                                         {/* <View px={3} style={{ width: width }}>
                                             <BcViewShot title="Total KiloWatt (KWh) Report">
