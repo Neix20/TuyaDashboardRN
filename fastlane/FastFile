@@ -34,24 +34,9 @@ platform :android do
             build_type: "release",
             project_dir: './android'
         )
-    end
 
-    desc "Build Android Developer AAB"
-    lane :genDevAab do 
-
-        android_set_version_code(gradle_file: "./android/app/build.gradle")
-        version_name = android_get_version_code(gradle_file: "./android/app/build.gradle")
-        android_set_version_name(version_name: version_name, gradle_file: "./android/app/build.gradle")
-        
-        gradle(
-            task: "clean", 
-            project_dir: './android'
-        )
-        gradle(
-            task: "assemble",
-            flavor: "Yatu",
-            build_type: "release",
-            project_dir: './android'
+        adb(
+            command: "push ./android/app/build/outputs/apk/yatuDeveloper/release/app-yatuDeveloper-release.apk /sdcard"
         )
     end
 
@@ -79,5 +64,12 @@ platform :android do
             }
         )
         supply(track: 'production', aab: './android/app/build/outputs/bundle/YatuRelease/app-yatu-release.aab')
+    end
+
+    desc "Push Apk To Phone"
+    lane :pushDevApk do 
+        adb(
+            command: "push ./android/app/build/outputs/apk/yatuDeveloper/release/app-yatuDeveloper-release.apk /sdcard"
+        )
     end
 end

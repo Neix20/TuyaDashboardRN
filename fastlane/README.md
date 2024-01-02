@@ -44,14 +44,6 @@ For _fastlane_ installation instructions, see [Installing _fastlane_](https://do
 
 Build Android Developer APK
 
-### android genDevAab
-
-```sh
-[bundle exec] fastlane android genDevAab
-```
-
-Build Android Developer AAB
-
 ### android pushToPlayStore
 
 ```sh
@@ -59,6 +51,14 @@ Build Android Developer AAB
 ```
 
 Release for the Android production
+
+### android pushDevApk
+
+```sh
+[bundle exec] fastlane android pushDevApk
+```
+
+Push Apk To Phone
 
 ----
 

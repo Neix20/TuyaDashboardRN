@@ -10,7 +10,6 @@
     "test": "jest",
     "clearWatchman": "watchman watch-del-all",
     "fastlaneAndroid:DeveloperApk": "fastlane android genDevApk",
-    "fastlaneAndroid:DeveloperAab": "fastlane android genDevAab",
     "fastlaneAndroid:PushToPlayStore": "fastlane android pushToPlayStore",
     "fastlaneIos:genIpa": "fastlane ios genIpa",
     "fastlaneIos:pushToTestFlight": "fastlane ios pushToTestFlight"
