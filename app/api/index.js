@@ -85,6 +85,8 @@ import fetchDeleteAccount from "./fetchDeleteAccount";
 import fetchInfoLog from "./fetchInfoLog";
 import fetchErrorLog from "./fetchErrorLog";
 
+import fetchYatuEngineStatus from "./fetchYatuEngineStatus";
+
 export {
     fetchHomeList,
     fetchHomeInfo,
@@ -193,4 +195,8 @@ export {
 export {
     fetchInfoLog,
     fetchErrorLog
+}
+
+export {
+    fetchYatuEngineStatus
 }

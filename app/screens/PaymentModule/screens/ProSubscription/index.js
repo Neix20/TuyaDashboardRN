@@ -236,7 +236,6 @@ function Index(props) {
                     setLoading(true);
                     const { productId } = currentPurchase;
 
-                    // Crash at here
                     const ackResult = await finishTransaction({ purchase: currentPurchase, isConsumable: false });
 
                     // Debug

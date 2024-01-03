@@ -64,7 +64,6 @@ import Subscription from "@screens/Subscription";
 import SubscriptionInfo from "@screens/Subscription/SubscriptionInfo";
 
 import CheckTuyaEmail from "@screens/CheckTuyaEmail";
-// import CheckTuyaEmail from "@screens/CheckTuyaEmail/backup.js";
 
 let StackScreens = {};
 
@@ -417,6 +416,8 @@ import Tnc from "@screens/CompanyInfo/screens/Tnc.js";
 import Policy from "@screens/CompanyInfo/screens/Policy.js";
 import Faq from "@screens/CompanyInfo/screens/Faq.js";
 
+import YatuEngine from "@screens/YatuEngine";
+
 StackScreens = {
     ...StackScreens,
     AboutUs: {
@@ -443,6 +444,13 @@ StackScreens = {
     Faq: {
         component: Faq,
         title: "Faq",
+        option: {
+            orientation: "portrait"
+        }
+    },
+    YatuEngine: {
+        component: YatuEngine,
+        title: "YatuEngine",
         option: {
             orientation: "portrait"
         }
@@ -580,7 +588,7 @@ function Index(props) {
     // #endregion
 
     const defaultScreen = (userId == -1 || firstTimeLink) ? "LoginII" : "TabNavigation";
-    // const defaultScreen = "Debug";
+    // const defaultScreen = "YatuEngine";
 
     return (
         <>

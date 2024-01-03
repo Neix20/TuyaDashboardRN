@@ -552,8 +552,7 @@ function Index(props) {
         const flag = isFocused && startDt != undefined && endDt != undefined;
 
         if (flag) {
-
-            // setLoading(true);
+            setLoading(true);
             fetchDashboardInfo({
                 param: {
                     UserId: userId,

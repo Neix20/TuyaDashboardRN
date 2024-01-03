@@ -26,6 +26,27 @@ platform :ios do
 end
   
 platform :android do 
+
+    desc "Build Android Developer AAB"
+    lane :genDevAab do 
+        gradle(
+            task: "clean", 
+            project_dir: './android'
+        )
+        gradle(
+            task: 'bundle', 
+            flavor: "Yatu",
+            build_type: "release",
+            project_dir: './android', 
+            properties: {
+                "android.injected.signing.store.file" => ENV['PWD'] + "/android/app/yatu.jks",
+                "android.injected.signing.store.password" => "vt8888",
+                "android.injected.signing.key.alias" => "yatu",
+                "android.injected.signing.key.password" => "vt8888"
+            }
+        )
+    end
+
     desc "Build Android Developer APK"
     lane :genDevApk do 
         gradle(

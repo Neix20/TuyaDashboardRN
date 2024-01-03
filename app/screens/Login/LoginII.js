@@ -292,45 +292,47 @@ function ExistLoginForm(props) {
 
                         RequestAccess(User_Id);
 
+                        // If User Logins For First Time
                         if (FirstTimeUserId == 1) {
                             dispatch(Actions.onChangeFirstTimeLink(true));
                             navigation.navigate("CheckTuyaEmail", {
                                 Email: email,
                             })
                         }
+                        // User has login first time, but failed to authenticate
                         else if (FirstTimeUserId == 2) {
                             dispatch(Actions.onChangeFirstTimeLink(true));
                             navigation.navigate("AuthTuya", {
                                 Email: email,
                             })
                         }
-                        else {
+                        // User is Existing User: FirstTimeUserId == -1
+                        else if (FirstTimeUserId == -1) {
                             dispatch(Actions.onChangeFirstTimeLink(false));
                             GoToHome();
                         }
 
                         if (ResponseMessage != "") {
-                            // toast.show({
-                            //     description: ResponseMessage
-                            // })
                             showMsg(ResponseMessage);
                         }
                     } 
+                    // User has Expired
                     else if (FirstTimeUserId == 3) {
                         toggleExpAccModal();
                     }
+                    // User Account has Deleted
                     else if (FirstTimeUserId == 6) {
                         toggleDelAccModal();
+                    }
+                    // User Account is Admin Account
+                    else if (FirstTimeUserId == 99) {
+                        navigation.navigate("YatuEngine");
                     }
 
                     clearForm();
                     setShowModal(false);
                 } else {
-                    // toast.show({
-                    //     description: "Account / otp is incorrect!"
-                    // })
                     showMsg("Account / otp is incorrect!");
-
                     setOtp("");
                 }
 

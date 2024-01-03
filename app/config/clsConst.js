@@ -1,4 +1,4 @@
-const APP_VERSION = "1.2.15";
+const APP_VERSION = "1.2.20";
 const ORG_NAME = "VIGTECH LABS SDN BHD";
 
 // const SERVER_URL = "https://2452-103-26-251-251.ngrok-free.app";
@@ -17,7 +17,7 @@ const APP_STORE_SECRET_KEY = "a777595ab0c0401aa4dcc2249f957a2b";
 const TUYA_TIME_TO_WAIT_SYNC = 225;
 
 const SUBSCRIPTION_SKUS = [
-    // "com.subscription.mspp0100",
+    "com.subscription.mspp0100",
     "com.subscription.mspp0300",
     "com.subscription.mspp0600",
     "com.subscription.mspp1000"

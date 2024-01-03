@@ -33,6 +33,7 @@ function Index(onSetLoading = () => { }) {
             skus: SUBSCRIPTION_SKUS
         })
             .then(data => {
+                Logger.serverInfo({ data: subscriptions, code: "IapGetSubscription", OS });
                 onSetLoading(false);
             })
             .catch(err => {

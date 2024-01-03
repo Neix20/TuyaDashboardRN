@@ -439,6 +439,11 @@ function Index(props) {
         setRtsOff();
         toggleRtsModal();
     }
+
+    const onEmailDone = () => {
+        setRtsOn();
+        setShowRtsModal(false);
+    }
     // #endregion
 
     return (
@@ -449,7 +454,7 @@ function Index(props) {
                 onPressNo={toggleExitModal}
                 description={"Are you sure you want to exit this page?"} />
             <ATSModal showModal={showAtsModal} setShowModal={setShowAtsModal} onPress={GoBack} />
-            <RtsEmailModal showModal={showRtsModal} setShowModal={setShowRtsModal} onDone={setRtsOn} emailHook={emailHook} />
+            <RtsEmailModal showModal={showRtsModal} setShowModal={setShowRtsModal} onDone={onEmailDone} emailHook={emailHook} />
             <SafeAreaView style={{ flex: 1 }}>
                 <View bgColor={"#F3F8FC"} style={{ flex: 1 }}>
 
