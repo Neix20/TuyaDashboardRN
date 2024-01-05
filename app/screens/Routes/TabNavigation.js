@@ -121,8 +121,8 @@ function Index(props) {
     // #endregion
 
     // #region UseEffect
-    // Disable Back Button
     useEffect(() => {
+        // Disable Back Button
         const backAction = () => {
             if (!isFocused) {
                 return false;
@@ -154,6 +154,7 @@ function Index(props) {
     // #endregion
 
     const defaultScreen = (linkTimer > 0) ? "Device" : "Dashboard";
+    // const defaultScreen = "Profile";
 
     const closePreModal = () => {
         dispatch(Actions.onChangePremiumPayFlag(false));

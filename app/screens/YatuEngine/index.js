@@ -120,7 +120,7 @@ function EngineList(props) {
 
     const { Data: engineLs = [], version = "" } = data;
 
-    if (true) {
+    if (engineLs.length == 0) {
         return (
             <EmptyList />
         )

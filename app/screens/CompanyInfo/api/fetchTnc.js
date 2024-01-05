@@ -24,6 +24,16 @@ const Index = async (props) => {
 
     if (data["ResponseCode"] === "00") {
         const { Data = {} } = data;
+
+        Data["content"] = Data["content"].map(obj => {
+            // Remove All <br/> from description
+            const { description = "" } = obj;
+            return {
+                ...obj,
+                description: description.replace(/<br\/>/g, "\n")
+            }
+        });
+
         return Data;
     }
     else {
