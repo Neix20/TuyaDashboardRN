@@ -55,30 +55,6 @@ function AddMoreUser(props) {
 }
 
 function EmptyList(props) {
-
-    // return (
-    //     <BcBoxShadow>
-    //         <View bgColor={"#FFF"}
-    //             alignItems={"center"} justifyContent={"center"}
-    //             style={{ height: 180 }}>
-    //             <TouchableOpacity onPress={GoToUser} style={{ width: "90%" }}>
-    //                 <VStack space={2} alignItems={"center"} bgColor={"#A0AAB6"} borderRadius={12}>
-    //                     <FontAwesome name={"plus-circle"} color={"#e6e6e6"} size={80} />
-    //                     <Text style={{
-    //                         fontFamily: "Roboto-Medium",
-    //                         fontSize: 18,
-    //                         color: "#e6e6e6",
-    //                         textAlign: "center",
-    //                         fontWeight: "700"
-    //                     }}>
-    //                         Not Enough Members? Click to Expand Member List
-    //                     </Text>
-    //                 </VStack>
-    //             </TouchableOpacity>
-    //         </View>
-    //     </BcBoxShadow>
-    // )
-
     return (
         <BcBoxShadow>
             <View py={3} bgColor={"#FFF"} justifyContent={"center"} alignItems={"center"}>

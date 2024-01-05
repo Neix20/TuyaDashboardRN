@@ -22,16 +22,19 @@ import {
 } from "@components";
 
 function EmptyList(props) {
+    const style = {
+        txt: {
+            fontFamily: "Roboto-Medium",
+            fontSize: 18,
+            color: "#d3d3d3",
+            fontWeight: "700"
+        }
+    }
     return (
         <View flexGrow={1} justifyContent={"center"} alignItems={"center"} bgColor={"#FFF"}>
             <VStack space={2} width={"90%"} alignItems={"center"}>
                 <FontAwesome5 name={"chart-line"} color={"#e6e6e6"} size={80} />
-                <Text style={{
-                    fontSize: 18,
-                    color: "#d3d3d3",
-                    fontFamily: 'Roboto-Medium',
-                    fontWeight: "700"
-                }}>No Data Collected Yet</Text>
+                <Text style={style.txt}>No Data Collected Yet</Text>
             </VStack>
         </View>
     )

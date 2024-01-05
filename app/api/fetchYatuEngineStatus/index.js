@@ -23,15 +23,14 @@ const Index = async (props) => {
     onSetLoading(false);
 
     if (data["ResponseCode"] === "00") {
-        const { Data = [] } = data;
-        return Data;
+        return data;
     }
     else {
         console.log(`GetYatuEngineStatus - Request - ${JSON.stringify(obj)}`);
         console.log(`GetYatuEngineStatus - Response - ${JSON.stringify(data)}`);
     }
 
-    return [];
+    return {};
 };
 
 export default Index;

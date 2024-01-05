@@ -31,7 +31,7 @@ function Policy(props) {
                 <Text style={{
                     fontFamily: "Roboto-Bold",
                     fontSize: 16,
-                }}>{title}</Text>
+                }}>{index + 1}. {title}</Text>
 
                 {/* TODO: Modify this into Array */}
                 <VStack space={1}>

@@ -52,25 +52,23 @@ const requestPermission = async () => {
 // #region Loading
 function EmptyList(props) {
 
+    const style = {
+        txt: {
+            fontSize: 24,
+            color: "#CCC",
+            fontFamily: 'Roboto-Medium',
+            fontWeight: "700"
+        }
+    }
+
     // #region Props
     const { lang = "en" } = props;
     // #endregion
 
     return (
-        <VStack space={2}
-            width={"90%"}
-            alignItems={"center"}>
-
-            <FontAwesome name={"plug"}
-                color={"#CCC"}
-                size={80} />
-
-            <Text style={{
-                fontSize: 24,
-                color: "#CCC",
-                fontFamily: 'Roboto-Medium',
-                fontWeight: "700"
-            }}>{Utility.translate("Empty List", lang)}</Text>
+        <VStack space={2} width={"90%"} alignItems={"center"}>
+            <FontAwesome name={"plug"} color={"#CCC"} size={80} />
+            <Text style={style.txt}>{Utility.translate("Empty List", lang)}</Text>
         </VStack>
     )
 }

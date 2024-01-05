@@ -33,7 +33,7 @@ function GenQrLoading(props) {
                 fontSize: 18,
                 textAlign: "center"
             }}>
-                Overall Loading: <Text style={{ color: "#F00" }}>{progress.toFixed(2)}</Text>%
+                Overall Loading: <Text style={{ color: "#F00" }}>{progress.toFixed(1)}</Text>%
             </Text>
             <Text style={{
                 fontFamily: "Roboto-Bold",
@@ -61,7 +61,7 @@ function SyncWithSmartLife(props) {
                     fontSize: 18,
                     textAlign: "center"
                 }}>
-                    Overall Loading: <Text style={{ color: "#F00" }}>{progress.toFixed(2)}</Text>%
+                    Overall Loading: <Text style={{ color: "#F00" }}>{progress.toFixed(1)}</Text>%
                 </Text>
                 <Text style={{
                     fontFamily: "Roboto-Bold",

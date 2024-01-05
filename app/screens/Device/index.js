@@ -332,7 +332,7 @@ function LinkDeviceModal(props) {
                                         fontSize: 20,
                                         textAlign: "center"
                                     }}>
-                                        Overall Loading: <Text style={{ color: "#F00" }}>{overallPercent.toFixed(2)}</Text>%
+                                        Overall Loading: <Text style={{ color: "#F00" }}>{overallPercent.toFixed(1)}</Text>%
                                     </Text>
                                     <Text style={{
                                         fontFamily: "Roboto-Bold",
@@ -869,26 +869,22 @@ function Header(props) {
 }
 
 function EmptyList(props) {
-    const { lang } = props;
+
+    const style = {
+        txt: {
+            fontFamily: "Roboto-Medium",
+            fontSize: 18,
+            color: "#d3d3d3",
+            textAlign: "center",
+            fontWeight: "700"
+        }
+    };
+
     return (
-        <View flexGrow={1}
-            alignItems={"center"}
-            justifyContent={"center"}>
-
-            <VStack space={2}
-                alignItems={"center"}
-                width={"90%"}>
-
-                <FontAwesome name={"plug"}
-                    color={"#e6e6e6"}
-                    size={80} />
-
-                <Text style={{
-                    fontSize: 18,
-                    color: "#d3d3d3",
-                    fontFamily: 'Roboto-Medium',
-                    fontWeight: "700"
-                }}>Add Device to Your Dashboard</Text>
+        <View flexGrow={1} justifyContent={"center"} alignItems={"center"}>
+            <VStack space={2} width={"90%"} alignItems={"center"}>
+                <FontAwesome name={"plug"} color={"#e6e6e6"} size={80} />
+                <Text style={style.txt}>Add Device to Your Dashboard</Text>
             </VStack>
         </View>
     )

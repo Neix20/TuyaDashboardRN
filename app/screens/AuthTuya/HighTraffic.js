@@ -67,22 +67,6 @@ function Header(props) {
     )
 }
 
-function useAuthEmail() {
-    const [msg, setMsg] = useState("");
-    const [data, setData] = useState("");
-
-    useEffect(() => {
-        if (data.length > 0) {
-            let txt = data;
-            txt = txt.replace(/<br\/>/g, "\n");
-
-            setMsg(_ => txt);
-        }
-    }, [data]);
-
-    return [msg, setData];
-}
-
 function Index(props) {
     
     const toast = useToast();

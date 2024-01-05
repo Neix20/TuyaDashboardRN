@@ -6,13 +6,18 @@ import { Logger, Utility } from "@utility";
 
 function Index(props) {
     const { lang = "en", version = "" } = props;
+
+    const style = {
+        version: {
+            fontFamily: "Roboto-Medium",
+            fontWeight: "500",
+            fontSize: 12,
+        }
+    };
+    
     return (
         <View width={"90%"} justifyContent={"center"} style={{ height: 40 }}>
-            <Text style={{
-                fontFamily: "Roboto-Medium",
-                fontWeight: "500",
-                fontSize: 12,
-            }}>{Utility.translate("Last Updated at", lang)} {Utility.formatDt(version, "yyyy-MM-dd HH:mm:ss")}</Text>
+            <Text style={style.version}>{Utility.translate("Last Updated at", lang)} {Utility.formatDt(version, "yyyy-MM-dd HH:mm:ss")}</Text>
         </View>
     )
 }

@@ -587,8 +587,8 @@ function Index(props) {
     }
     // #endregion
 
-    const defaultScreen = (userId == -1 || firstTimeLink) ? "LoginII" : "TabNavigation";
-    // const defaultScreen = "YatuEngine";
+    // const defaultScreen = (userId == -1 || firstTimeLink) ? "LoginII" : "TabNavigation";
+    const defaultScreen = "YatuEngine";
 
     return (
         <>

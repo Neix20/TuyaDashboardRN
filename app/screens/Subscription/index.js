@@ -19,16 +19,19 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Actions, Selectors } from '@redux';
 
 function EmptyList(props) {
+    const style = {
+        txt: {
+            fontSize: 18,
+            color: "#d3d3d3",
+            fontFamily: 'Roboto-Medium',
+            fontWeight: "700"
+        }
+    }
     return (
         <View flexGrow={1} justifyContent={"center"} alignItems={"center"} bgColor={"#FFF"}>
             <VStack space={2} width={"90%"} alignItems={"center"}>
                 <FontAwesome5 name={"tools"} color={"#e6e6e6"} size={80} />
-                <Text style={{
-                    fontSize: 18,
-                    color: "#d3d3d3",
-                    fontFamily: 'Roboto-Medium',
-                    fontWeight: "700"
-                }}>No Purchases Yet</Text>
+                <Text style={style.txt}>No Purchases Yet</Text>
             </VStack>
         </View>
     )
