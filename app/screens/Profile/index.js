@@ -209,6 +209,7 @@ function ProfileInfo(props) {
 }
 
 function PanelBtn(props) {
+
     const { Btn, icon } = props;
     const { showRight = true, disabled = false } = props;
     const { title = "", color = "#111111" } = props;
@@ -247,6 +248,7 @@ function PanelBtn(props) {
 }
 
 function PanelBtnII(props) {
+
     const { Btn, icon } = props;
     const { title = "", color = "#111111" } = props;
 
@@ -341,6 +343,18 @@ function PaymentSubscriptionPanel(props) {
     )
 }
 
+function RestorePurchasePanel(props) {
+
+    const { onRestorePurchase = () => { } } = props;
+
+    return (
+        <VStack bgColor={"#FFF"} borderRadius={8}
+            width={"90%"} alignItems={"center"}>
+            <PanelBtn onPress={onRestorePurchase} Btn={FontAwesome5} icon={"cart-arrow-down"} title={"Restore Purchases"} showRight={false} />
+        </VStack>
+    )
+}
+
 function LogoutPanel(props) {
     const [showLgModal, setShowLgModal, toggleLgModal] = useToggle(false);
     return (
@@ -371,7 +385,9 @@ function Index(props) {
 
     // #region UseState
     const [profileInfo, setProfileInfo] = useState({});
-    const [loading, setLoading] = useState(false);
+
+    const loadingHook = useState(false);
+    const [loading, setLoading] = loadingHook;
     // #endregion
 
     useEffect(() => {
@@ -400,6 +416,13 @@ function Index(props) {
 
         navigation.navigate("LoginII");
     }
+
+    const RestorePurchase = () => {
+        setLoading(true);
+        setTimeout(() => {
+            setLoading(false);
+        }, 1500);
+    };
     // #endregion
 
     // #region API
@@ -449,8 +472,8 @@ function Index(props) {
             .catch(err => {
                 setLoading(false);
                 console.log(`Error: ${err}`);
-            })
-    // #endregion
+            });
+        // #endregion
     }
 
     return (
@@ -480,6 +503,8 @@ function Index(props) {
                             {(AccountType <= 2) ? <PaymentSubscriptionPanel /> : <></>}
 
                             <CompanyInfoPanel />
+
+                            <RestorePurchasePanel onRestorePurchase={RestorePurchase} />
 
                             {/* Logout */}
                             <LogoutPanel onLogout={SignOut} onDeleteAccount={DeleteAccount} />

@@ -33,7 +33,6 @@ function Policy(props) {
                     fontSize: 16,
                 }}>{index + 1}. {title}</Text>
 
-                {/* TODO: Modify this into Array */}
                 <VStack space={1}>
                     {
                         (description.length > 0) ? (

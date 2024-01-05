@@ -301,7 +301,6 @@ function Index(props) {
         });
     }
 
-    // TODO: Use API
     const data = [
         {
             "Name": "Storage Module",

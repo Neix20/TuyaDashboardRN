@@ -9,11 +9,12 @@ import {
     PurchaseError,
     requestSubscription,
     validateReceiptIos,
+    getAvailablePurchases,
     useIAP
 } from "react-native-iap";
-const { APP_STORE_SECRET_KEY, SUBSCRIPTION_SKUS } = clsConst;
 
-import { useToggle } from "@hooks";
+// todo: Get by API instead
+const { SUBSCRIPTION_SKUS } = clsConst;
 
 const { OS = "android" } = Platform;
 
@@ -24,7 +25,7 @@ function Index(onSetLoading = () => { }) {
         subscriptions, // returns subscriptions for this app.
         getSubscriptions, // Gets available subsctiptions for this app.
         currentPurchase, // current purchase for the tranasction
-        finishTransaction,
+        finishTransaction
     } = useIAP();
 
     const handleGetSubscriptions = () => {
@@ -50,7 +51,10 @@ function Index(onSetLoading = () => { }) {
     }, [connected]);
 
     // #region Price Dict
+
+    // Output priceDict: {"com.subscription.mspp0100":{"productId":"com.subscription.mspp0100","subPlanCode":"mspp0100","price":0,"offerToken":""}}
     const [priceDict, setPriceDict] = useState({});
+
     useEffect(() => {
         if (subscriptions.length > 0) {
 
@@ -128,17 +132,6 @@ function Index(onSetLoading = () => { }) {
                 })
         }
     }
-
-    /* Output
-    const obj = {
-        "com.subscription.mspp0100": {
-            productId: "com.subscription.mspp0100", 
-            subPlanCode: "mspp0100", 
-            price: 0, 
-            offerToken: ""
-        }
-    }
-    */
 
     return [
         subscriptions, currentPurchase, finishTransaction,

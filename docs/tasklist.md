@@ -5,3 +5,10 @@
 - [x] Run on iOS Simulator
   - [x] Fix Issues on iOS Simulator
   - [x] Issues Exists Even in Phsyical Devices!!!
+
+## Restore Purchases
+
+- [x] Select Restore Purchase
+  - [ ] Pop up Yes-No Modal
+  - [ ] Yes => Rstore Purchase
+  - [ ] No => Close

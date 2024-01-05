@@ -288,7 +288,6 @@ function Index(props) {
     const navigation = useNavigation();
     const isFocused = useIsFocused();
 
-    // TODO: Use API
     const data = [
         {
             "title": "Storage Module",
