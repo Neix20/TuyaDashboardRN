@@ -52,6 +52,14 @@ Build Android Developer AAB
 
 Build Android Developer APK
 
+### android debug
+
+```sh
+[bundle exec] fastlane android debug
+```
+
+Test Run
+
 ### android pushToPlayStore
 
 ```sh

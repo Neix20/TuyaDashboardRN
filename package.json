@@ -9,11 +9,11 @@
     "start": "react-native start",
     "test": "jest",
     "clearWatchman": "watchman watch-del-all",
-    "fastlaneAndroid:DeveloperApk": "fastlane android genDevApk",
-    "fastlaneAndroid:DeveloperAab": "fastlane android genDevAab",
-    "fastlaneAndroid:PushToPlayStore": "fastlane android pushToPlayStore",
-    "fastlaneIos:genIpa": "fastlane ios genIpa",
-    "fastlaneIos:pushToTestFlight": "fastlane ios pushToTestFlight"
+    "fastlaneAndroid:DeveloperApk": "cd app && fastlane android genDevApk",
+    "fastlaneAndroid:DeveloperAab": "cd app && fastlane android genDevAab",
+    "fastlaneAndroid:PushToPlayStore": "cd app && fastlane android pushToPlayStore",
+    "fastlaneIos:genIpa": "cd app && fastlane ios genIpa",
+    "fastlaneIos:pushToTestFlight": "cd app && fastlane ios pushToTestFlight"
   },
   "dependencies": {
     "@react-native-async-storage/async-storage": "^1.19.1",

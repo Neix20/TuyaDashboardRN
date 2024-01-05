@@ -1,0 +1,1 @@
+Yatu App is an IoT app for businesses, used to monitor smart devices.

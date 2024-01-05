@@ -35,42 +35,42 @@
 			"script": "fastlaneIos:genIpa",
 			"problemMatcher": [],
 			"label": "npm: fastlaneIos:genIpa",
-			"detail": "fastlane ios genIpa"
+			"detail": "cd app && fastlane ios genIpa"
 		},
 		{
 			"type": "npm",
 			"script": "fastlaneAndroid:DeveloperApk",
 			"problemMatcher": [],
 			"label": "npm: fastlaneAndroid:DeveloperApk",
-			"detail": "fastlane android genDevApk"
+			"detail": "cd app && fastlane android genDevApk"
 		},
 		{
 			"type": "npm",
 			"script": "fastlaneAndroid:PushToPlayStore",
 			"problemMatcher": [],
 			"label": "npm: fastlaneAndroid:PushToPlayStore",
-			"detail": "fastlane android pushToPlayStore"
+			"detail": "cd app && fastlane android pushToPlayStore"
 		},
 		{
 			"type": "npm",
 			"script": "fastlaneAndroid:DeveloperAab",
 			"problemMatcher": [],
 			"label": "npm: fastlaneAndroid:DeveloperAab",
-			"detail": "fastlane android genDevAab"
+			"detail": "cd app && fastlane android genDevAab"
 		},
 		{
 			"type": "npm",
 			"script": "fastlaneIos:pushToTestFlight",
 			"problemMatcher": [],
 			"label": "npm: fastlaneIos:pushToTestFlight",
-			"detail": "fastlane ios pushToTestFlight"
+			"detail": "cd app && fastlane ios pushToTestFlight"
 		},
 		{
 			"type": "npm",
 			"script": "fastlaneAndroid:pushDevApk",
 			"problemMatcher": [],
 			"label": "npm: fastlaneAndroid:pushDevApk",
-			"detail": "fastlane android pushDevApk"
+			"detail": "cd app && fastlane android pushDevApk"
 		},
 	]
 }
