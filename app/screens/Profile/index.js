@@ -22,7 +22,8 @@ import { fetchProfileInfo, fetchSubUserAccess, fetchDeleteAccount } from "@api";
 
 import { BcLoading, BaseModal } from "@components";
 
-import { useToggle } from "@hooks";
+import { useToggle, useYatuIap } from "@hooks";
+import { withIAPContext } from "react-native-iap";
 
 // #region Components
 function LogoutModal(props) {
@@ -350,7 +351,9 @@ function RestorePurchasePanel(props) {
     return (
         <VStack bgColor={"#FFF"} borderRadius={8}
             width={"90%"} alignItems={"center"}>
-            <PanelBtn onPress={onRestorePurchase} Btn={FontAwesome5} icon={"cart-arrow-down"} title={"Restore Purchases"} showRight={false} />
+            <PanelBtn onPress={onRestorePurchase} 
+                Btn={FontAwesome5} icon={"cart-arrow-down"} 
+                title={"Restore Purchases"} showRight={false} />
         </VStack>
     )
 }
@@ -388,6 +391,8 @@ function Index(props) {
 
     const loadingHook = useState(false);
     const [loading, setLoading] = loadingHook;
+
+    const [t1, t2, t3, t4, t5, purchaseHistoryLs, t7] = useYatuIap(setLoading);
     // #endregion
 
     useEffect(() => {
@@ -418,6 +423,11 @@ function Index(props) {
     }
 
     const RestorePurchase = () => {
+
+        Logger.info({
+            data: purchaseHistoryLs
+        });
+
         setLoading(true);
         setTimeout(() => {
             setLoading(false);
@@ -473,8 +483,8 @@ function Index(props) {
                 setLoading(false);
                 console.log(`Error: ${err}`);
             });
-        // #endregion
     }
+    // #endregion
 
     return (
         <>
@@ -545,4 +555,4 @@ function Index(props) {
     );
 }
 
-export default Index;
+export default withIAPContext(Index);

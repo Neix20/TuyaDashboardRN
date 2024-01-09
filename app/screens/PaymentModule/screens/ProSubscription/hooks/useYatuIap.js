@@ -9,7 +9,6 @@ import {
     PurchaseError,
     requestSubscription,
     validateReceiptIos,
-    getAvailablePurchases,
     useIAP
 } from "react-native-iap";
 
@@ -25,7 +24,9 @@ function Index(onSetLoading = () => { }) {
         subscriptions, // returns subscriptions for this app.
         getSubscriptions, // Gets available subsctiptions for this app.
         currentPurchase, // current purchase for the tranasction
-        finishTransaction
+        finishTransaction,
+        purchaseHistory,
+        getPurchaseHistory
     } = useIAP();
 
     const handleGetSubscriptions = () => {
@@ -34,7 +35,6 @@ function Index(onSetLoading = () => { }) {
             skus: SUBSCRIPTION_SKUS
         })
             .then(data => {
-                Logger.serverInfo({ data: subscriptions, code: "IapGetSubscription", OS });
                 onSetLoading(false);
             })
             .catch(err => {
@@ -43,10 +43,29 @@ function Index(onSetLoading = () => { }) {
             });
     };
 
+    useEffect(() => {
+        if (subscriptions.length > 0) {
+            Logger.serverInfo({ 
+                data: subscriptions, 
+                code: "IapGetSubscription", 
+                OS 
+            });
+        }
+    }, [subscriptions]);
+
+    const handleGetPurchaseHistory = async () => {
+        // try {
+        //     await getPurchaseHistory();
+        // } catch (error) {
+        //     Logger.error({ message: 'handleGetPurchaseHistory', error });
+        // }
+    };
+
     // Initialize
     useEffect(() => {
         if (connected) {
             handleGetSubscriptions();
+            handleGetPurchaseHistory();
         }
     }, [connected]);
 
@@ -133,9 +152,13 @@ function Index(onSetLoading = () => { }) {
         }
     }
 
+    const t1 = [];
+    const t2 = () => {};
+
     return [
         subscriptions, currentPurchase, finishTransaction,
-        priceDict, handleRequestSubscription
+        priceDict, handleRequestSubscription,
+        t1, t2
     ];
 }
 

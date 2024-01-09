@@ -159,7 +159,7 @@ function Index(props) {
     // #region UseState
     const [loading, setLoading, toggleLoading] = useToggle(false);
 
-    const [subLs, currentPurchase, finishTransaction, subPriceDict, handleRequestSubscription] = useYatuIap(setLoading);
+    const [subLs, currentPurchase, finishTransaction, subPriceDict, handleRequestSubscription, t3, t4] = useYatuIap(setLoading);
 
     const payDictHook = usePayDict();
     const [payDict, setPayDict, payDictKey, payProImg] = payDictHook;
@@ -206,14 +206,15 @@ function Index(props) {
             })
     }
 
-    const CreateSubscriptionOrderWithStorePayment = (subCode = "") => {
+    const CreateSubscriptionOrderWithStorePayment = (SubscriptionCode = "", RefNo = "") => {
 
         const serviceId = Utility.getServiceId();
 
         fetchCreateSubscriptionOrderWithStorePayment({
             param: {
                 UserId: userId,
-                SubscriptionCode: subCode,
+                SubscriptionCode,
+                RefNo,
                 ServiceId: serviceId
             },
             onSetLoading: setLoading,
@@ -247,8 +248,10 @@ function Index(props) {
                     }
                     Logger.serverInfo({ res: resp });
 
+                    const { transactionId: refNo = "" } = resp;
+
                     const subCode = productId.split(".").at(-1);
-                    CreateSubscriptionOrderWithStorePayment(subCode);
+                    CreateSubscriptionOrderWithStorePayment(subCode, refNo);
                 }
             } catch (error) {
                 if (error instanceof PurchaseError) {

@@ -25,7 +25,7 @@ function PaymentIap() {
 
     const [loading, setLoading] = useToggle(false);
 
-    const [subLs, t1, t2, subPriceDict, handleRequestSubscription] = useYatuIap(setLoading);
+    const [subLs, t1, t2, subPriceDict, handleRequestSubscription, t3, t4] = useYatuIap(setLoading);
 
     // #region Subscription Plan
     const payDictHook = usePayDict();
