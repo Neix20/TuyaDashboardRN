@@ -206,7 +206,7 @@ function Index(props) {
             })
     }
 
-    const CreateSubscriptionOrderWithStorePayment = (SubscriptionCode = "", RefNo = "") => {
+    const CreateSubscriptionOrderWithStorePayment = (SubscriptionCode = "", RefNo = "", PurchaseToken = "") => {
 
         const serviceId = Utility.getServiceId();
 
@@ -215,6 +215,7 @@ function Index(props) {
                 UserId: userId,
                 SubscriptionCode,
                 RefNo,
+                PurchaseToken,
                 ServiceId: serviceId
             },
             onSetLoading: setLoading,
@@ -248,7 +249,7 @@ function Index(props) {
                     }
                     Logger.serverInfo({ res: resp });
 
-                    const { transactionId: refNo = "" } = resp;
+                    const { transactionId: refNo = "", purchaseToken = "" } = resp;
 
                     const subCode = productId.split(".").at(-1);
                     CreateSubscriptionOrderWithStorePayment(subCode, refNo);

@@ -18,6 +18,33 @@ import { useToggle } from "@hooks";
 import { useDispatch, useSelector } from 'react-redux';
 import { Actions, Selectors } from '@redux';
 
+// #region Custom Hooks
+function useSubLs(val = []) {
+
+    const [data, setData] = useState(val);
+
+    const updateLs = (arr = []) => {
+        if (arr.length > 0) {
+
+            arr = arr.map((obj, index) => {
+                const { Image } = obj;
+                return {
+                    ...obj,
+                    img: { uri: Image },
+                    flag: false,
+                    pos: index
+                }
+            });
+
+            setData(_ => arr);
+        }
+    }
+
+    return [data, updateLs];
+}
+// #endregion
+
+// #region Components
 function EmptyList(props) {
     const style = {
         txt: {
@@ -37,86 +64,58 @@ function EmptyList(props) {
     )
 }
 
-function useSubLs() {
-
-    const [ls, setLs] = useState([]);
-    const [data, setData] = useState([]);
-
-    useEffect(() => {
-        let arr = [...data];
-
-        arr = arr.map((obj, index) => {
-            const { Image } = obj;
-            return {
-                ...obj,
-                img: { uri: Image },
-                flag: false,
-                pos: index
-            }
-        });
-
-        setLs(_ => arr);
-    }, [JSON.stringify(data)]);
-
-    return [ls, setData];
-}
-
 function PaymentBodyItem(props) {
     const { data = {}, onPress = () => { } } = props;
+
     const { Name, Description, img, flag = true } = data;
     const { InitialDate = "", ExpiryDate = "" } = data;
 
     const borderRadius = 8;
 
+    const style = {
+        icon: {
+            height: 100,
+            width: 100,
+            borderTopLeftRadius: borderRadius,
+            borderBottomLeftRadius: borderRadius,
+        },
+        title: {
+            fontFamily: "Roboto-Bold",
+            fontSize: 16,
+        },
+        date: {
+            fontFamily: "Roboto-Bold",
+            fontSize: 14
+        }
+    };
+
     return (
-        <>
-            <TouchableOpacity onPress={onPress}>
-                <BcBoxShadow style={{ borderRadius, width: "100%" }}>
-                    <HStack bgColor={"#FFF"}
-                        borderRadius={borderRadius}
-                        alignItems={"center"}>
-                        <Image
-                            source={img}
-                            style={{
-                                height: 100,
-                                width: 100,
-                                borderTopLeftRadius: borderRadius,
-                                borderBottomLeftRadius: borderRadius,
-                            }}
-                            alt={Name}
-                        />
-                        <VStack px={3} py={2} flex={1} 
-                            justifyContent={"space-between"}
-                            style={{ height: 100 }}>
-                            <VStack space={2}>
-                                <Text style={{
-                                    fontFamily: "Roboto-Bold",
-                                    fontSize: 16,
-                                }}>{Name}</Text>
-                                <Text>{Description}</Text>
-                            </VStack>
-                            <VStack>
-                                {/* <HStack alignItems={"center"} justifyContent={"space-between"}>
-                                    <Text style={{
-                                        fontFamily: "Roboto-Bold",
-                                        fontSize: 14
-                                    }}>Purchase Date: </Text>
+        <TouchableOpacity onPress={onPress}>
+            <BcBoxShadow style={{ borderRadius, width: "100%" }}>
+                <HStack bgColor={"#FFF"} borderRadius={borderRadius}
+                    alignItems={"center"}>
+                    <Image source={img} alt={Name} style={style.icon} />
+                    <VStack flex={1} px={3} py={2}
+                        justifyContent={"space-between"}
+                        style={{ height: 100 }}>
+                        <VStack space={2}>
+                            <Text style={style.title}>{Name}</Text>
+                            <Text>{Description}</Text>
+                        </VStack>
+                        <VStack>
+                            {/* <HStack alignItems={"center"} justifyContent={"space-between"}>
+                                    <Text style={style.date}>Purchase Date: </Text>
                                     <Text>{Utility.formatDt(InitialDate, "yyyy-MM-dd 00:00")}</Text>
                                 </HStack> */}
-                                <HStack alignItems={"center"} justifyContent={"space-between"}>
-                                    <Text style={{
-                                        fontFamily: "Roboto-Bold",
-                                        fontSize: 14
-                                    }}>Expiry Date: </Text>
-                                    <Text>{Utility.formatDt(ExpiryDate, "yyyy-MM-dd")}</Text>
-                                </HStack>
-                            </VStack>
+                            <HStack alignItems={"center"} justifyContent={"space-between"}>
+                                <Text style={style.date}>Expiry Date: </Text>
+                                <Text>{Utility.formatDt(ExpiryDate, "yyyy-MM-dd")}</Text>
+                            </HStack>
                         </VStack>
-                    </HStack>
-                </BcBoxShadow>
-            </TouchableOpacity>
-            <View style={{ height: 10 }} />
-        </>
+                    </VStack>
+                </HStack>
+            </BcBoxShadow>
+        </TouchableOpacity>
     )
 }
 
@@ -138,7 +137,8 @@ function PaymentBody(props) {
     }
 
     return (
-        <VStack flex={1} py={3} space={2}
+        <VStack flexGrow={1}
+            py={3} space={2}
             bgColor={"#FFF"} alignItems={"center"}>
             <View width={"90%"} style={{ paddingHorizontal: 2 }}>
                 <Text style={{
@@ -150,10 +150,12 @@ function PaymentBody(props) {
                 data={data}
                 renderItem={renderItem}
                 style={{ width: "90%" }}
-                contentContainerStyle={{ padding: 2 }} />
+                contentContainerStyle={{ padding: 2 }}
+                ItemSeparatorComponent={<View style={{ height: 10 }} />} />
         </VStack>
     );
 }
+// #endregion
 
 function Index(props) {
 
@@ -197,15 +199,7 @@ function Index(props) {
                     <View style={{ height: 10 }} />
 
                     {/* Body */}
-                    {/* <ScrollView showsVerticalScrollIndicator={false} 
-                        keyboardShouldPersistTaps={"handled"}
-                        contentContainerStyle={{ flexGrow: 1 }}>
-                        
-                    </ScrollView> */}
-
-                    <VStack space={3} flexGrow={1}>
-                        <PaymentBody data={ls} />
-                    </VStack>
+                    <PaymentBody data={ls} />
 
                 </View>
             </SafeAreaView>

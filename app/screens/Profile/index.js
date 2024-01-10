@@ -202,6 +202,7 @@ function PanelBtnII(props) {
 
 function NavPanel(props) {
 
+    const toast = useToast();
     const navigation = useNavigation();
 
     const GoToHomeManagement = () => navigation.navigate("HomeManagement");
@@ -212,6 +213,12 @@ function NavPanel(props) {
     const GoToAddSubUser = () => navigation.navigate("AddSubUserWithCode");
 
     const GoToSubscription = () => navigation.navigate("Subscription");
+
+    const workInProgress = () => {
+        toast.show({
+            description: "Work In-Progress!"
+        })
+    }
 
     const subUserAccess = useSelector(Selectors.subUserAccessSelect);
     const { MS_Email = -1, MS_User = -1 } = subUserAccess;
@@ -229,7 +236,7 @@ function NavPanel(props) {
             } */}
             {/* <PanelBtn Btn={SimpleLineIcons} icon={"question"} title={"FAQ & Feedback"} /> */}
             <PanelBtn onPress={GoToSubscription} Btn={FontAwesome5} icon={"shopping-cart"} title={"View Purchased Add-Ons"} />
-            <PanelBtn onPress={GoToSubscription} Btn={Ionicons} icon={"settings-sharp"} title={"View Profile Workspace"} />
+            <PanelBtn onPress={workInProgress} Btn={Ionicons} icon={"settings-sharp"} title={"View Profile Workspace"} />
         </VStack>
     )
 }
@@ -270,6 +277,28 @@ function PaymentSubscriptionPanel(props) {
             <PanelBtn
                 onPress={GoToPayment} title={"Get Value with Pro Subscription"}
                 Btn={FontAwesome5} icon={"crown"}
+                color={"#FFAA00"} showRight={false} />
+        </VStack>
+    )
+}
+
+function TokenSubscriptionPanel(props) {
+
+    const toast = useToast();
+    const navigation = useNavigation();
+
+    const GoToRedeemToken = () => {
+        toast.show({
+            description: "Work In-Progress!"
+        });
+    };
+
+    return (
+        <VStack bgColor={"#FFF"} borderRadius={8}
+            width={"90%"} alignItems={"center"}>
+            <PanelBtn
+                onPress={GoToRedeemToken} title={"Redeem your Activation Tokens!"}
+                Btn={FontAwesome} icon={"ticket"}
                 color={"#FFAA00"} showRight={false} />
         </VStack>
     )
@@ -483,7 +512,8 @@ function Index(props) {
                             <NavPanel {...profileInfo} />
 
                             {/* Make Payment */}
-                            {(AccountType <= 2) ? <PaymentSubscriptionPanel /> : <></>}
+                            {/* {(AccountType <= 2) ? <PaymentSubscriptionPanel /> : <></>} */}
+                            <TokenSubscriptionPanel />
 
                             <CompanyInfoPanel />
 

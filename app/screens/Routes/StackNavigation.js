@@ -64,6 +64,7 @@ import Subscription from "@screens/Subscription";
 import SubscriptionInfo from "@screens/Subscription/SubscriptionInfo";
 
 import CheckTuyaEmail from "@screens/CheckTuyaEmail";
+import ProfileWorkspace from "@screens/ProfileWorkspace";
 
 let StackScreens = {};
 
@@ -323,6 +324,13 @@ StackScreens = {
     CheckTuyaEmail: {
         component: CheckTuyaEmail,
         title: "CheckTuyaEmail",
+        option: {
+            orientation: "portrait"
+        }
+    },
+    ProfileWorkspace: {
+        component: ProfileWorkspace,
+        title: "ProfileWorkspace",
         option: {
             orientation: "portrait"
         }
@@ -587,8 +595,8 @@ function Index(props) {
     }
     // #endregion
 
-    const defaultScreen = (userId == -1 || firstTimeLink) ? "LoginII" : "TabNavigation";
-    // const defaultScreen = "YatuEngine";
+    // const defaultScreen = (userId == -1 || firstTimeLink) ? "LoginII" : "TabNavigation";
+    const defaultScreen = "TabNavigation";
 
     return (
         <>
