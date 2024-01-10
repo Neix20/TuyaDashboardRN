@@ -159,7 +159,7 @@ function Index(props) {
     // #region UseState
     const [loading, setLoading, toggleLoading] = useToggle(false);
 
-    const [subLs, currentPurchase, finishTransaction, subPriceDict, handleRequestSubscription, t3, t4] = useYatuIap(setLoading);
+    const [subLs, currentPurchase, finishTransaction, subPriceDict, handleRequestSubscription, t3] = useYatuIap(setLoading);
 
     const payDictHook = usePayDict();
     const [payDict, setPayDict, payDictKey, payProImg] = payDictHook;

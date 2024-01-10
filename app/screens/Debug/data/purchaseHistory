@@ -1,0 +1,75 @@
+{
+    "purchaseHistoryLs": [
+        {
+            "developerPayload": "null",
+            "signatureAndroid": "G2bTO8mOBJCjm5gYOP9FHxcPu9u68+GT3292/PkQSDQiGNHovoLQEeVAzxosONU/BnlAyAPTNQSZEHr8lem0BbvQWYhjSRCYoFPeexds8nfRRg/Gf4foP//epH/RMPHjoyU4UxbE15opyQqEM9zjnfQ/edBEptkaGTvCUcTp2vThnQXGmlZ/yADd6k8sM8ElojpipaATBBJo2TzrnYezoeTKsBOilqcgQiFb9pEGzf4uPmKXqQ4onrexYFI0tB1atwyTqrPstUTiAXml3iz62Y6dG0k2PlNCLyzihTCaSpPPiEfMjaiO2NxA/IeCNR8sLGMuy7IYYrqsUzLc1fbNdw==",
+            "dataAndroid": {
+                "developerPayload": null,
+                "productId": "com.subscription.mspp1000",
+                "purchaseTime": 1704774746949,
+                "purchaseToken": "hbojmjnaipnmfonnmjgjkakc.AO-J1OyhXEPMw5rIkZ8ocCX7rA2YMmwsBXgKF4K45ufNj_Bg2DXe01pcfD5cuyC7zao5Q3WSX1N4HffTT19hAjRVu9C4XctGVQ",
+                "quantity": 1
+            },
+            "productIds": [
+                "com.subscription.mspp1000"
+            ],
+            "purchaseToken": "hbojmjnaipnmfonnmjgjkakc.AO-J1OyhXEPMw5rIkZ8ocCX7rA2YMmwsBXgKF4K45ufNj_Bg2DXe01pcfD5cuyC7zao5Q3WSX1N4HffTT19hAjRVu9C4XctGVQ",
+            "transactionReceipt": {
+                "developerPayload": null,
+                "productId": "com.subscription.mspp1000",
+                "purchaseTime": 1704774746949,
+                "purchaseToken": "hbojmjnaipnmfonnmjgjkakc.AO-J1OyhXEPMw5rIkZ8ocCX7rA2YMmwsBXgKF4K45ufNj_Bg2DXe01pcfD5cuyC7zao5Q3WSX1N4HffTT19hAjRVu9C4XctGVQ",
+                "quantity": 1
+            },
+            "transactionDate": 1704774746949,
+            "productId": "com.subscription.mspp1000"
+        },
+        {
+            "developerPayload": "null",
+            "signatureAndroid": "B+36a7y6da9b7ZcY+OYEP8wCUbfCm0H6L93HC47Yypqwc4U/CufawRc5DGTcBW7gCWr2U7CeOPGSbVdQ44Z8j2TDUo8FPeXgdtiaYDFebJi7dgn5mDC2SmRsEqdHbU07sO9F3V+rhpbRrrZ9xVv6863FbUQmDK9l3L1cVhRP3mlCvJ/pxzYNF13mGpmBJvMfF2hlotniA1zOrZHdZc46jHHj6FOP5kfv/I2bEWyFSCImXuGjLOiClkT/fZHRS8w9Hc53qRcRDgoOOKR/hk9QnM1gjwwfqv//defv6MMaJErrqmidimBTSbFQivaT87CCwG9aUViWg++YLdYZycaJdg==",
+            "dataAndroid": {
+                "developerPayload": null,
+                "productId": "com.subscription.mspp0600",
+                "purchaseTime": 1704774726774,
+                "purchaseToken": "jelhndbdnehpedhajjkldgai.AO-J1OxzaHFknITKscVcIOxvP83plTQoFRw-fx9nUZ-rvF0xG2NID_t68DxU4YjAT1XGMF7rLNRy7YK5tNh7DIOSuw5gWNKUQw",
+                "quantity": 1
+            },
+            "productIds": [
+                "com.subscription.mspp0600"
+            ],
+            "purchaseToken": "jelhndbdnehpedhajjkldgai.AO-J1OxzaHFknITKscVcIOxvP83plTQoFRw-fx9nUZ-rvF0xG2NID_t68DxU4YjAT1XGMF7rLNRy7YK5tNh7DIOSuw5gWNKUQw",
+            "transactionReceipt": {
+                "developerPayload": null,
+                "productId": "com.subscription.mspp0600",
+                "purchaseTime": 1704774726774,
+                "purchaseToken": "jelhndbdnehpedhajjkldgai.AO-J1OxzaHFknITKscVcIOxvP83plTQoFRw-fx9nUZ-rvF0xG2NID_t68DxU4YjAT1XGMF7rLNRy7YK5tNh7DIOSuw5gWNKUQw",
+                "quantity": 1
+            },
+            "transactionDate": 1704774726774,
+            "productId": "com.subscription.mspp0600"
+        },
+        {
+            "developerPayload": "",
+            "signatureAndroid": "cUY2eq4OSPYsRP6Q1QgHWSMZzjHB2dGtHbDH/8dO4qAaxQdS+XYu4BhB0UY8cJgU417Lodvlh8C00XsT+k0phvwW6PSGoz0CKvJrEomiZ498UXy/5hOk5QA078QmVLiLihHB2kmP8cfSHBYUR9RDzn1NyX+05XPVNsP6M3XCDNGFu2o0L6tf02itdSoLrRYbdx01s/vdbAGt1kDR47lZx5+d3/iX77pGD7p8cxzPdCdP8mbcolN/4X5vxAYQ/OfqsGQD1lyJFhkIcJy/Brv1n+DxNEZ+ASvsza8rJGDPMnNA6UrsH9sMAWR3biTbvcRvJXDrEYYo+rpilITo7+xu4A==",
+            "dataAndroid": {
+                "productId": "com.subscription.mspp0300",
+                "purchaseTime": 1703642955130,
+                "purchaseToken": "kpceilpbkhpnijbkidepjjep.AO-J1OznV9p3kAQOytFbSwt_qgQ5MXQ7GEMDP8CUBmwaEUhdtaubaJjY7lqRFfuas1SUjXvyg3WQzzAzpGdYGjE3wihtHiR60g",
+                "quantity": 1
+            },
+            "productIds": [
+                "com.subscription.mspp0300"
+            ],
+            "purchaseToken": "kpceilpbkhpnijbkidepjjep.AO-J1OznV9p3kAQOytFbSwt_qgQ5MXQ7GEMDP8CUBmwaEUhdtaubaJjY7lqRFfuas1SUjXvyg3WQzzAzpGdYGjE3wihtHiR60g",
+            "transactionReceipt": {
+                "productId": "com.subscription.mspp0300",
+                "purchaseTime": 1703642955130,
+                "purchaseToken": "kpceilpbkhpnijbkidepjjep.AO-J1OznV9p3kAQOytFbSwt_qgQ5MXQ7GEMDP8CUBmwaEUhdtaubaJjY7lqRFfuas1SUjXvyg3WQzzAzpGdYGjE3wihtHiR60g",
+                "quantity": 1
+            },
+            "transactionDate": 1703642955130,
+            "productId": "com.subscription.mspp0300"
+        }
+    ],
+    "app": "Yatu Dashboard"
+}

@@ -161,7 +161,7 @@ function Index(props) {
     const [cusToast, showMsg] = useModalToast();
 
     const setLoading = () => {};
-    const [subLs, t1, t2, subPriceDict, handleRequestSubscription, t3, t4] = useYatuIap(setLoading);
+    const [subLs, t1, t2, subPriceDict, handleRequestSubscription, t3] = useYatuIap(setLoading);
 
     const payDictHook = usePayDict();
     const [payDict, setPayDict, payDictKey, payProImg] = payDictHook;
@@ -169,8 +169,11 @@ function Index(props) {
 
     // #region UseEffect
     useEffect(() => {
-        SubscriptionProPlan();
-    }, []);
+        const length = Object.keys(subPriceDict).length;
+        if (length > 0) {
+            SubscriptionProPlan();
+        }
+    }, [subPriceDict]);
     // #endregion
 
     // #region Api

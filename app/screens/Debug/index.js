@@ -13,7 +13,7 @@ import { clsConst } from "@config";
 const { SUBSCRIPTION_SKUS } = clsConst;
 
 import { useToggle, usePayDict, useYatuIap } from "@hooks";
-import { BcLoading } from "@components";
+import { BcLoading, BcYesNoModal } from "@components";
 
 import { fetchSubscriptionProPlan } from "@api";
 import { withIAPContext } from "react-native-iap";
@@ -25,17 +25,19 @@ function PaymentIap() {
 
     const [loading, setLoading] = useToggle(false);
 
-    const [subLs, t1, t2, subPriceDict, handleRequestSubscription, t3, t4] = useYatuIap(setLoading);
+    const [subLs, t1, t2, subPriceDict, handleRequestSubscription, purchaseHistoryLs] = useYatuIap(setLoading);
+    const [showRpModal, setShowRpModal, toggleRpModal] = useToggle();
 
     // #region Subscription Plan
     const payDictHook = usePayDict();
     const [payDict, setPayDict, payDictKey, payProImg] = payDictHook;
 
     useEffect(() => {
-        if (isFocused && subLs.length > 0) {
+        const length = Object.keys(subPriceDict).length;
+        if (isFocused && length > 0) {
             SubscriptionProPlan();
         }
-    }, [isFocused, subLs]);
+    }, [isFocused, subPriceDict]);
 
     const SubscriptionProPlan = () => {
         setLoading(true);
@@ -69,6 +71,7 @@ function PaymentIap() {
     }
     // #endregion
 
+    // #region Render
     const renderItem = (obj) => {
         const { key, productId, offerToken = "" } = obj;
 
@@ -88,9 +91,19 @@ function PaymentIap() {
             </TouchableOpacity>
         )
     }
+    // #endregion
+
+    const onPressYes = () => {};
+    const onPressNo = () => {};
 
     return (
         <>
+            <BcYesNoModal 
+                showModal={showRpModal} setShowModal={setShowRpModal}
+                title={"Test"} description={"Test"}
+                titleYes={"Delete"} titleNo={"Cancel"}
+                onPressYes={onPressYes} onPressNo={onPressNo}
+            />
             <BcLoading loading={loading} />
             <SafeAreaView style={{ flex: 1 }}>
                 <View style={{ flex: 1 }}>
@@ -111,6 +124,18 @@ function PaymentIap() {
                                     alignItems={"center"} style={{ height: 60 }}>
                                     {Object.values(payDict).map(renderItem)}
                                 </HStack>
+
+                                <TouchableOpacity onPress={toggleRpModal}
+                                    style={{ width: "60%", height: 40 }}>
+                                    <View flex={1} backgroundColor={"#ff0000"}
+                                        alignItems={"center"} justifyContent={"center"}>
+                                        <Text style={{
+                                            fontSize: 14,
+                                            fontWeight: "bold",
+                                            color: "white",
+                                        }}>Restore Purchases</Text>
+                                    </View>
+                                </TouchableOpacity>
                             </VStack>
                         </View>
                     </ScrollView>
@@ -123,8 +148,7 @@ function PaymentIap() {
     )
 }
 
-import Dashboard from "./Dashboard";
+export default withIAPContext(PaymentIap);
 
-export default Dashboard;
-
-// export default withIAPContext(PaymentIap);
+// import Dashboard from "./Dashboard";
+// export default Dashboard;

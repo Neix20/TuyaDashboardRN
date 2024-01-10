@@ -39,26 +39,20 @@ function Index(onSetLoading = () => { }) {
             })
             .catch(err => {
                 onSetLoading(false);
-                Logger.error({ data: err });
+                Logger.error({ message: "handleGetSubscriptions", data: err });
             });
     };
 
-    useEffect(() => {
-        if (subscriptions.length > 0) {
-            Logger.serverInfo({ 
-                data: subscriptions, 
-                code: "IapGetSubscription", 
-                OS 
-            });
-        }
-    }, [subscriptions]);
-
-    const handleGetPurchaseHistory = async () => {
-        // try {
-        //     await getPurchaseHistory();
-        // } catch (error) {
-        //     Logger.error({ message: 'handleGetPurchaseHistory', error });
-        // }
+    const handleGetPurchaseHistory = () => {
+        onSetLoading(true);
+        getPurchaseHistory()
+        .then(data => {
+            onSetLoading(false);
+        })
+        .catch(err => {
+            onSetLoading(false);
+            Logger.error({ message: "handleGetPurchaseHistory", data: err });
+        })
     };
 
     // Initialize
@@ -152,13 +146,10 @@ function Index(onSetLoading = () => { }) {
         }
     }
 
-    const t1 = [];
-    const t2 = () => {};
-
     return [
         subscriptions, currentPurchase, finishTransaction,
         priceDict, handleRequestSubscription,
-        t1, t2
+        purchaseHistory
     ];
 }
 
