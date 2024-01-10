@@ -20,82 +20,12 @@ import { Actions, Selectors } from '@redux';
 
 import { fetchProfileInfo, fetchSubUserAccess, fetchDeleteAccount } from "@api";
 
-import { BcLoading, BaseModal } from "@components";
+import { BcLoading, BaseModal, BcYesNoModal } from "@components";
 
 import { useToggle, useYatuIap } from "@hooks";
 import { withIAPContext } from "react-native-iap";
 
 // #region Components
-function LogoutModal(props) {
-
-    const { showModal, setShowModal = () => { } } = props;
-    const { onLogout = () => { }, onDeleteAccount = () => { } } = props;
-
-    const closeModal = () => setShowModal(false);
-
-    const logout = () => {
-        onLogout();
-        closeModal();
-    }
-
-    const delAcc = () => {
-        onDeleteAccount();
-        closeModal();
-    }
-
-    return (
-        <BaseModal {...props}>
-            {/* Content */}
-            <VStack
-                py={3} space={3}
-                width={"90%"} alignItems={"center"}>
-                <Text style={{ fontFamily: "Roboto-Bold", fontSize: 20 }}>Confirm Log Out</Text>
-
-                <Text style={{
-                    fontFamily: "Roboto-Bold",
-                    fontSize: 16,
-                    textAlign: "justify",
-                    color: "#000",
-                }}>Are you sure you want to log out? You will be returned to the login screen.</Text>
-
-                {/* Button Panel */}
-                <HStack space={3}>
-                    <TouchableOpacity onPress={delAcc}>
-                        <HStack
-                            bgColor={"#2898FF"}
-                            borderRadius={8}
-                            alignItems={"center"}
-                            justifyContent={"center"}
-                            style={{ width: 120, height: 40 }}>
-                            <Text style={{
-                                fontFamily: "Roboto-Bold",
-                                fontSize: 20,
-                                textAlign: "center",
-                                color: "#fff",
-                            }}>Delete</Text>
-                        </HStack>
-                    </TouchableOpacity>
-                    <TouchableOpacity onPress={logout}>
-                        <HStack
-                            borderRadius={8}
-                            bgColor={"#E6E6E6"}
-                            alignItems={"center"}
-                            justifyContent={"center"}
-                            style={{ width: 120, height: 40 }}>
-                            <Text style={{
-                                fontFamily: "Roboto-Bold",
-                                fontSize: 20,
-                                textAlign: "center",
-                                color: "#6A7683",
-                            }}>Logout</Text>
-                        </HStack>
-                    </TouchableOpacity>
-                </HStack>
-            </VStack>
-        </BaseModal>
-    )
-}
-
 function Header(props) {
     const { onSelectSetting = () => { } } = props;
     return (
@@ -299,6 +229,7 @@ function NavPanel(props) {
             } */}
             {/* <PanelBtn Btn={SimpleLineIcons} icon={"question"} title={"FAQ & Feedback"} /> */}
             <PanelBtn onPress={GoToSubscription} Btn={FontAwesome5} icon={"shopping-cart"} title={"View Purchased Add-Ons"} />
+            <PanelBtn onPress={GoToSubscription} Btn={Ionicons} icon={"settings-sharp"} title={"View Profile Workspace"} />
         </VStack>
     )
 }
@@ -348,21 +279,68 @@ function RestorePurchasePanel(props) {
 
     const { onRestorePurchase = () => { } } = props;
 
+    // #region Restore Purchase Helper
+    const [showRpModal, setShowRpModal, toggleRpModal] = useToggle();
+
+    const closeRpModal = () => setShowRpModal(false);
+
+    const RestorePurchase = () => {
+        onRestorePurchase();
+        closeRpModal();
+    };
+
+    const CancelRestorePurchase = () => {
+        closeRpModal();
+    };
+    // #endregion
+
     return (
-        <VStack bgColor={"#FFF"} borderRadius={8}
-            width={"90%"} alignItems={"center"}>
-            <PanelBtn onPress={onRestorePurchase} 
-                Btn={FontAwesome5} icon={"cart-arrow-down"} 
-                title={"Restore Purchases"} showRight={false} />
-        </VStack>
+        <>
+            <BcYesNoModal
+                showModal={showRpModal} setShowModal={setShowRpModal} 
+                title={"Restore Purchase"}
+                description={`This will restore all your deleted purchases from App Store & Google play store.\n\nWould you like to restore your purchases?`}
+                titleYes={"Restore"} titleNo={"Cancel"}
+                onPressYes={RestorePurchase} onPressNo={CancelRestorePurchase}
+            />
+            <VStack bgColor={"#FFF"} borderRadius={8}
+                width={"90%"} alignItems={"center"}>
+                <PanelBtn onPress={toggleRpModal}
+                    Btn={FontAwesome5} icon={"cart-arrow-down"}
+                    title={"Restore Purchases"} showRight={false} />
+            </VStack>
+        </>
     )
 }
 
 function LogoutPanel(props) {
+
+    const { onLogout = () => { }, onDeleteAccount = () => { } } = props;
+
+    // #region Logout Helper
     const [showLgModal, setShowLgModal, toggleLgModal] = useToggle(false);
+
+    const closeLgModal = () => setShowLgModal(false);
+
+    const DeleteAccount = () => {
+        onDeleteAccount();
+        closeLgModal();
+    }
+
+    const Logout = () => {
+        onLogout();
+        closeLgModal();
+    }
+    // #endregion
+
     return (
         <>
-            <LogoutModal showModal={showLgModal} setShowModal={setShowLgModal} {...props} />
+            <BcYesNoModal
+                showModal={showLgModal} setShowModal={setShowLgModal}
+                title={"Confirm Log Out"} description={"Are you sure you want to log out? You will be returned to the login screen."}
+                titleYes={"Delete"} titleNo={"Logout"}
+                onPressYes={DeleteAccount} onPressNo={Logout}
+            />
             <VStack bgColor={"#FFF"} borderRadius={8} width={"90%"} alignItems={"center"}>
                 <PanelBtn onPress={toggleLgModal} title={"Log Out"}
                     Btn={MaterialIcons} icon={"logout"}
@@ -392,7 +370,7 @@ function Index(props) {
     const loadingHook = useState(false);
     const [loading, setLoading] = loadingHook;
 
-    const [t1, t2, t3, t4, t5, purchaseHistoryLs, t7] = useYatuIap(setLoading);
+    const [t1, t2, t3, t4, t5, purchaseHistoryLs] = useYatuIap(setLoading);
     // #endregion
 
     useEffect(() => {
@@ -423,11 +401,6 @@ function Index(props) {
     }
 
     const RestorePurchase = () => {
-
-        Logger.info({
-            data: purchaseHistoryLs
-        });
-
         setLoading(true);
         setTimeout(() => {
             setLoading(false);
