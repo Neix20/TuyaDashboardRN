@@ -9,6 +9,7 @@
     "start": "react-native start",
     "test": "jest",
     "clearWatchman": "watchman watch-del-all",
+    "fastlaneAndroid:pushDevApk": "cd app && fastlane android pushDevApk",
     "fastlaneAndroid:DeveloperApk": "cd app && fastlane android genDevApk",
     "fastlaneAndroid:DeveloperAab": "cd app && fastlane android genDevAab",
     "fastlaneAndroid:PushToPlayStore": "cd app && fastlane android pushToPlayStore",

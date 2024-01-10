@@ -4,18 +4,18 @@ platform :ios do
     # iOS Lanes
     lane :genIpa do
         # ios_set_build_number(xcodeproj: "./ios/YatuDashboard.xcodeproj")
-        version_name = ios_get_build_number(xcodeproj: "./ios/YatuDashboard.xcodeproj")
+        version_name = ios_get_build_number(xcodeproj: "./../ios/YatuDashboard.xcodeproj")
         # ios_set_version(version: version_name, xcodeproj: "./ios/YatuDashboard.xcodeproj")
 
-        build_app(scheme: "YatuDashboard", workspace: "./ios/YatuDashboard.xcworkspace", include_bitcode: true)
+        build_app(scheme: "YatuDashboard", workspace: "./../ios/YatuDashboard.xcworkspace", include_bitcode: true)
     end
 
     lane :pushToTestFlight do
-        ios_set_build_number(xcodeproj: "./ios/YatuDashboard.xcodeproj")
-        version_name = ios_get_build_number(xcodeproj: "./ios/YatuDashboard.xcodeproj")
-        ios_set_version(version: version_name, xcodeproj: "./ios/YatuDashboard.xcodeproj")
+        ios_set_build_number(xcodeproj: "./../ios/YatuDashboard.xcodeproj")
+        version_name = ios_get_build_number(xcodeproj: "./../ios/YatuDashboard.xcodeproj")
+        ios_set_version(version: version_name, xcodeproj: "./../ios/YatuDashboard.xcodeproj")
 
-        build_app(scheme: "YatuDashboard", workspace: "./ios/YatuDashboard.xcworkspace", include_bitcode: true)
+        build_app(scheme: "YatuDashboard", workspace: "./../ios/YatuDashboard.xcworkspace", include_bitcode: true)
 
         upload_to_testflight(
             app_version: version_name,
@@ -31,15 +31,15 @@ platform :android do
     lane :genDevAab do 
         gradle(
             task: "clean", 
-            project_dir: './android'
+            project_dir: './../android'
         )
         gradle(
             task: 'bundle', 
             flavor: "Yatu",
             build_type: "release",
-            project_dir: './android', 
+            project_dir: './../android', 
             properties: {
-                "android.injected.signing.store.file" => ENV['PWD'] + "/android/app/yatu.jks",
+                "android.injected.signing.store.file" => ENV['PWD'] + "/../android/app/yatu.jks",
                 "android.injected.signing.store.password" => "vt8888",
                 "android.injected.signing.key.alias" => "yatu",
                 "android.injected.signing.key.password" => "vt8888"
@@ -53,44 +53,50 @@ platform :android do
             task: "assemble",
             flavor: "YatuDeveloper",
             build_type: "release",
-            project_dir: './android'
+            project_dir: './../android'
         )
 
         adb(
-            command: "push ./android/app/build/outputs/apk/yatuDeveloper/release/app-yatuDeveloper-release.apk /sdcard"
+            command: "push ./../android/app/build/outputs/apk/yatuDeveloper/release/app-yatuDeveloper-release.apk /sdcard"
         )
+
+
     end
 
     desc "Release for the Android production"
     lane :pushToPlayStore do
 
-        android_set_version_code(gradle_file: "./android/app/build.gradle")
-        version_name = android_get_version_code(gradle_file: "./android/app/build.gradle")
-        android_set_version_name(version_name: version_name, gradle_file: "./android/app/build.gradle")
+        android_set_version_code(gradle_file: "./../android/app/build.gradle")
+        version_name = android_get_version_code(gradle_file: "./../android/app/build.gradle")
+        android_set_version_name(version_name: version_name, gradle_file: "./../android/app/build.gradle")
 
         gradle(
             task: "clean", 
-            project_dir: './android'
+            project_dir: './../android'
         )
         gradle(
             task: 'bundle', 
             flavor: "Yatu",
             build_type: "release",
-            project_dir: './android', 
+            project_dir: './../android', 
             properties: {
-                "android.injected.signing.store.file" => ENV['PWD'] + "/android/app/yatu.jks",
+                "android.injected.signing.store.file" => ENV['PWD'] + "/../android/app/yatu.jks",
                 "android.injected.signing.store.password" => "vt8888",
                 "android.injected.signing.key.alias" => "yatu",
                 "android.injected.signing.key.password" => "vt8888"
             }
         )
-        supply(track: 'production', aab: './android/app/build/outputs/bundle/YatuRelease/app-yatu-release.aab')
+        supply(track: 'production', aab: './../android/app/build/outputs/bundle/YatuRelease/app-yatu-release.aab')
     end
 
     desc "Push Apk To Phone"
     lane :pushDevApk do 
         adb(
-            command: "push ./android/app/build/outputs/apk/yatuDeveloper/release/app-yatuDeveloper-release.apk /sdcard"
+            command: "push ./../android/app/build/outputs/apk/yatuDeveloper/release/app-yatuDeveloper-release.apk /sdcard"
+        )
+
+        adb(
+            command: "uninstall com.yatudashboard.developer"
         )
     end
 end
