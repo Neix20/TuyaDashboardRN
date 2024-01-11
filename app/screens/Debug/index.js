@@ -16,16 +16,19 @@ import { useToggle, usePayDict, useYatuIap } from "@hooks";
 import { BcLoading, BcYesNoModal } from "@components";
 
 import { fetchSubscriptionProPlan } from "@api";
-import { withIAPContext } from "react-native-iap";
+import { withIAPContext, PurchaseError } from "react-native-iap";
+
+import { Platform } from "react-native";
 
 function PaymentIap() {
 
+    const toast = useToast();
     const navigation = useNavigation();
     const isFocused = useIsFocused();
 
     const [loading, setLoading] = useToggle(false);
 
-    const [subLs, t1, t2, subPriceDict, handleRequestSubscription, purchaseHistoryLs] = useYatuIap(setLoading);
+    const [subLs, currentPurchase, finishTransaction, subPriceDict, handleRequestSubscription, purchaseHistoryLs] = useYatuIap(setLoading);
     const [showRpModal, setShowRpModal, toggleRpModal] = useToggle();
 
     // #region Subscription Plan
@@ -38,6 +41,32 @@ function PaymentIap() {
             SubscriptionProPlan();
         }
     }, [isFocused, subPriceDict]);
+
+    useEffect(() => {
+        if (purchaseHistoryLs.length > 0) {
+            Logger.info({ 
+                data: purchaseHistoryLs, 
+                os: Platform.OS,
+                code: "PurchaseHistoryLs"
+            });
+            toast.show({
+                description: "Purchase History Loaded!"
+            })
+        }
+    }, [purchaseHistoryLs]);
+
+    useEffect(() => {
+        if (subLs.length > 0) {
+            Logger.info({ 
+                data: subLs, 
+                os: Platform.OS,
+                code: "Subscription Listing"
+            });
+            toast.show({
+                description: "Subscription Listing Loaded!"
+            })
+        }
+    }, [subLs]);
 
     const SubscriptionProPlan = () => {
         setLoading(true);
@@ -69,6 +98,49 @@ function PaymentIap() {
                 console.error(`Error: ${err}`);
             })
     }
+    // #endregion
+
+    // #region IAP Listener
+    useEffect(() => {
+        const checkCurrentPurchase = async () => {
+            try {
+                if (currentPurchase?.productId) {
+                    setLoading(true);
+                    const { productId } = currentPurchase;
+
+                    const ackResult = await finishTransaction({ purchase: currentPurchase, isConsumable: false });
+
+                    // Debug
+                    const resp = {
+                        ...currentPurchase,
+                        ...ackResult,
+                        os: Platform.OS,
+                        code: "PurchaseTransaction"
+                    }
+                    Logger.info(resp);
+
+                    setLoading(false);
+
+                    // const { transactionId: refNo = "", purchaseToken = "" } = resp;
+
+                    // const subCode = productId.split(".").at(-1);
+                    // CreateSubscriptionOrderWithStorePayment(subCode, refNo);
+                }
+            } catch (error) {
+                if (error instanceof PurchaseError) {
+                    Logger.error({ message: `[${error.code}]: ${error.message}`, error });
+                } else {
+                    Logger.error({ message: "handleBuyProduct", error });
+                }
+
+                setLoading(false);
+            }
+        };
+
+        if (currentPurchase != undefined) {
+            checkCurrentPurchase();
+        }
+    }, [currentPurchase]);
     // #endregion
 
     // #region Render

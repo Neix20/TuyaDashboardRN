@@ -9,7 +9,8 @@ import {
     PurchaseError,
     requestSubscription,
     validateReceiptIos,
-    useIAP
+    useIAP,
+    getAvailablePurchases
 } from "react-native-iap";
 
 // todo: Get by API instead
@@ -39,19 +40,19 @@ function Index(onSetLoading = () => { }) {
             })
             .catch(err => {
                 onSetLoading(false);
-                Logger.error({ message: "handleGetSubscriptions", data: err });
+                Logger.error({ message: "handleGetSubscriptions", data: err })
             });
     };
 
     const handleGetPurchaseHistory = () => {
-        onSetLoading(true);
+        // onSetLoading(true);
         getPurchaseHistory()
         .then(data => {
-            onSetLoading(false);
+            // onSetLoading(false);
         })
         .catch(err => {
-            onSetLoading(false);
-            Logger.error({ message: "handleGetPurchaseHistory", data: err });
+            // onSetLoading(false);
+            Logger.error({ message: "handleGetPurchaseHistory GetPurchaseHistory", data: err });
         })
     };
 
@@ -59,9 +60,20 @@ function Index(onSetLoading = () => { }) {
     useEffect(() => {
         if (connected) {
             handleGetSubscriptions();
-            handleGetPurchaseHistory();
+            // handleGetPurchaseHistory();
+            // try {
+            //     handleGetPurchaseHistory();
+            // } catch (err) {
+            //     Logger.error(err);
+            // }
         }
     }, [connected]);
+
+    useEffect(() => {
+        if (subscriptions.length > 0) {
+            handleGetPurchaseHistory();
+        }
+    }, [subscriptions]);
 
     // #region Price Dict
 

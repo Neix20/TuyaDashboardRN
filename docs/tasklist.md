@@ -7,7 +7,7 @@
   - [x] Yes => Restore Purchase
   - [x] No => Close
 - [x] Added Email to App Store connect
-- [ ] Restore Purchase Using Purchase Token
+- [x] Restore Purchase Using Purchase Token
 - [ ] Demo on iPhone (Recording)
 - [ ] Upload for Verification
   - [ ] Hide "Profile Workspace" before deployment
@@ -15,11 +15,21 @@
 
 ## "Profiles" Workspace
 
-- [ ]  Sample Profile Setup
-  - [ ]  Possible to Copy?
-    - [ ]  Insert 3 Similar Device
-    - [ ]  Pull Data of 3 Days ago
-    - [ ]  Check Data Alert
+- [x] Create New Home
+  - [x] Add 3 Temperature Devices
+  - [x] Add 3 Energy Cost Devices
+
+- [x]  Sample Profile Setup
+  - [x]  Possible to Copy?
+    - [x]  Insert 3 Similar Device (6 Total)
+      - [x]  Temperature & Humidity
+      - [x]  Energy Cost (Basic)
+    - [x]  Pull Data of 3 Days ago
+    - [x]  Check Data Alert
+
+- [x]  TUser
+  - [x]  Add New Column ProfileWorkspaceId
+  - [x]  Add API Update ProfileWorkspaceId
 
 - [x]  RN App
   - [x]  Profile Listing
@@ -42,3 +52,4 @@
 
 - [x] Fixed Delete Profile Issue
 - [x] Check Data Alert
+- [ ]  Update C# Conversion

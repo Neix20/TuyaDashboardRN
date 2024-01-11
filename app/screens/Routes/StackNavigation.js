@@ -3,6 +3,9 @@ import React, { useState, useEffect } from "react";
 import SplashScreen from "react-native-splash-screen";
 import { BcStackNavigator } from "@components";
 
+import { Logger } from "@utility";
+import { Platform } from "react-native";
+
 import { useNavigation } from "@react-navigation/native";
 
 // Screens
@@ -508,6 +511,8 @@ import { fetchGetAppVersion, fetchGetServerStatus, fetchSubUserAccess } from "@a
 import { useToggle } from "@hooks";
 import { useToast } from "native-base";
 
+import { initConnection, IapIosSk2, setup } from "react-native-iap";
+
 function Index(props) {
 
     // #region UseState
@@ -567,6 +572,9 @@ function Index(props) {
         getAppVersion();
         getServerStatus();
         RequestAccess(userId);
+
+        // Setup for Getting Purchase History
+        setup({ storekitMode: 'STOREKIT_HYBRID_MODE' });
     }, []);
 
     // #region Helper
@@ -575,14 +583,14 @@ function Index(props) {
             param: {
                 UserId: 10,
             },
-            onSetLoading: () => {}
+            onSetLoading: () => { }
         })
-        .then(data => {
-            setAppFlag(data);
-        })
-        .catch(err => {
-            console.log(`Error: ${err}`)
-        })
+            .then(data => {
+                setAppFlag(data);
+            })
+            .catch(err => {
+                console.log(`Error: ${err}`)
+            })
     }
 
     const getServerStatus = () => {
@@ -590,14 +598,14 @@ function Index(props) {
             param: {
                 UserId: 10,
             },
-            onSetLoading: () => {}
+            onSetLoading: () => { }
         })
-        .then(data => {
-            setServerFlag(data);
-        })
-        .catch(err => {
-            console.log(`Error: ${err}`)
-        })
+            .then(data => {
+                setServerFlag(data);
+            })
+            .catch(err => {
+                console.log(`Error: ${err}`)
+            })
     }
 
     const RequestAccess = (userId) => {
@@ -605,26 +613,26 @@ function Index(props) {
             param: {
                 UserId: userId
             },
-            onSetLoading: () => {},
+            onSetLoading: () => { },
         })
-        .then(data => {
-            dispatch(Actions.onChangeSubUserAccess(data));
-        })
-        .catch(err => {
-            console.log(`Error: ${err}`);
-        })
+            .then(data => {
+                dispatch(Actions.onChangeSubUserAccess(data));
+            })
+            .catch(err => {
+                console.log(`Error: ${err}`);
+            })
     }
     // #endregion
 
     // const defaultScreen = (userId == -1 || firstTimeLink) ? "LoginII" : "TabNavigation";
-    const defaultScreen = "TokenActivation";
+    const defaultScreen = "Debug";
 
     return (
         <>
             <BcAppUpdateModal showModal={appFlag} />
             <BcServerMainModal showModal={serverFlag} />
-            <BcStackNavigator 
-                screens={StackScreens} 
+            <BcStackNavigator
+                screens={StackScreens}
                 defaultScreen={defaultScreen} />
         </>
     )

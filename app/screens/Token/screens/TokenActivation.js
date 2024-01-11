@@ -13,6 +13,15 @@ import { Images, Svg } from "@config";
 import { BcHeader, BcLoading, BcSvgIcon, BcDisableII } from "@components";
 import { useToggle } from "@hooks";
 
+// #region Custom Hook
+function useTokenCode() {
+    const [query, setQuery] = useState("");
+    const flag = query === "";
+    return [query, setQuery, flag];
+}
+// #endregion
+
+// #region Components
 function Search(props) {
 
     const { queryHook = [] } = props;
@@ -61,14 +70,6 @@ function Search(props) {
             </View>
         </View>
     )
-}
-
-function useTokenCode() {
-    const [query, setQuery] = useState("");
-
-    const flag = query === "";
-
-    return [query, setQuery, flag];
 }
 
 function RedeemTokenBtn(props) {
@@ -136,6 +137,7 @@ function TnC(props) {
         </View>
     )
 }
+// #endregion
 
 function Index(props) {
     const toast = useToast();
@@ -146,6 +148,10 @@ function Index(props) {
 
     const tokenCodeHook = useTokenCode();
     const [tokenCode, setTokenCode, tokenCodeFlag] = tokenCodeHook;
+
+    const GoToTokenSuccess = () => {
+        navigation.navigate("TokenSuccess");
+    }
 
     return (
         <>
@@ -184,7 +190,7 @@ function Index(props) {
 
                             {/* Redeem Button */}
                             <View alignItems={"center"}>
-                                <RedeemTokenBtn flag={tokenCodeFlag} />
+                                <RedeemTokenBtn flag={tokenCodeFlag} onPress={GoToTokenSuccess} />
                             </View>
                         </VStack>
                     </ScrollView>

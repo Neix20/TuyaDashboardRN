@@ -12,26 +12,32 @@ import { Logger, Utility } from "@utility";
 import { Images, Svg } from "@config";
 
 import { BcHeader, BcLoading, BcBoxShadow } from "@components";
-import { fetchGetParamApi } from "@api";
+import { fetchGetParamApi, fetchUpdateProfileWorkspace } from "@api";
 
 import { useToggle } from "@hooks";
 import { ProfileWsData as TestData } from "./data";
 
+import { useDispatch, useSelector } from 'react-redux';
+import { Actions, Selectors } from '@redux';
+
 // #region Custom Hook
-function useProfileWs(val = []) {
+function useProfileWs(ProfileWorkspaceId = -1, val = []) {
 
     const [data, setData] = useState(val);
 
     const updateLs = (arr = []) => {
         if (arr.length > 0) {
 
-            arr = arr.map((obj, index) => {
-                const { Image = "https://i.imgur.com/Du4wGXQ.jpg" } = obj;
+            arr = arr.map((obj, pos) => {
+                const { Image = "https://i.imgur.com/Du4wGXQ.jpg", Id = -1 } = obj;
+
+                const flag = false;
+
                 return {
                     ...obj,
                     img: { uri: Image },
-                    flag: false,
-                    pos: index
+                    pos, 
+                    flag,
                 }
             });
 
@@ -155,17 +161,12 @@ function ProfileWsLs(props) {
         return (<EmptyList />);
     }
 
-
     const toast = useToast();
     const navigation = useNavigation();
 
     const renderItem = ({ item, index }) => {
         const onSelect = () => {
-            // navigation.navigate("SubscriptionInfo", item);
-            onSelectItem(index);
-            toast.show({
-                description: `Changed Workspace to ${item.Name}`
-            })
+            onSelectItem(item);
         }
         return (<ProfileWsItem key={index} data={item} onPress={onSelect} />)
     }
@@ -196,9 +197,11 @@ function Index(props) {
     const navigation = useNavigation();
     const isFocused = useIsFocused();
 
-    const [profileWsLs, setProfileWsLs, toggleProfileWsFlag] = useProfileWs();
+    const [profileWsLs, setProfileWsLs, toggleProfileWsFlag] = useProfileWs(2);
     const loadingHook = useToggle(false);
     const [loading, setLoading, toggleLoading] = loadingHook;
+
+    const userId = useSelector(Selectors.userIdSelect);
 
     useEffect(() => {
         if (isFocused) {
@@ -224,6 +227,28 @@ function Index(props) {
             console.error(err);
         })
     }
+
+    const UpdateProfileWorkspace = (item) => {
+        const { Id: ProfileWorkspaceId = 0, pos, Name } = item;
+        toggleProfileWsFlag(pos);
+        setLoading(true);
+        fetchUpdateProfileWorkspace({
+            param: {
+                UserId: userId,
+                ProfileWorkspaceId
+            },
+            onSetLoading: setLoading
+        })
+        .then(data => {
+            toast.show({
+                description: `Successfully updated workspace to ${Name}!`
+            })
+        })
+        .catch(err => {
+            setLoading(false);
+            console.error(err);
+        })
+    }
     // #endregion
 
     return (
@@ -240,7 +265,7 @@ function Index(props) {
                     {/* Body */}
                     <ProfileWsLs 
                         data={profileWsLs}
-                        onSelectItem={toggleProfileWsFlag}
+                        onSelectItem={UpdateProfileWorkspace}
                         loadingHook={loadingHook} />
 
                 </View>

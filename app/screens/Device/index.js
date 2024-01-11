@@ -1043,7 +1043,7 @@ function Index(props) {
                 setLoading(false);
                 console.log(`Error: ${err}`);
             })
-    }, [homeId, refresh]);
+    }, [homeId, refresh, isFocused]);
 
     useEffect(() => {
         if (isFocused && firstTimeLink) {

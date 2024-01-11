@@ -330,10 +330,7 @@ function Index(props) {
                 <View style={{ height: 10 }} />
 
                 {/* Body */}
-                <VStack flexGrow={1} 
-                    space={2}
-                    alignItems={"center"}>
-                    {/* Header */}
+                <VStack flexGrow={1} space={2} alignItems={"center"}> {/* Header */} 
                     <PaymentHeader />
 
                     {/* Body */}

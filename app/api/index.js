@@ -87,6 +87,7 @@ import fetchErrorLog from "./fetchErrorLog";
 
 import fetchYatuEngineStatus from "./fetchYatuEngineStatus";
 import fetchGetParamApi from "./fetchGetParamApi";
+import fetchUpdateProfileWorkspace from "./fetchUpdateProfileWorkspace";
 
 export {
     fetchHomeList,
@@ -200,5 +201,6 @@ export {
 
 export {
     fetchYatuEngineStatus,
-    fetchGetParamApi
+    fetchGetParamApi,
+    fetchUpdateProfileWorkspace
 }
