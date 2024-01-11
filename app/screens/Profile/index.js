@@ -213,6 +213,7 @@ function NavPanel(props) {
     const GoToAddSubUser = () => navigation.navigate("AddSubUserWithCode");
 
     const GoToSubscription = () => navigation.navigate("Subscription");
+    const GoToProfileWorkspace = () => navigation.navigate("ProfileWorkspace");
 
     const workInProgress = () => {
         toast.show({
@@ -236,7 +237,7 @@ function NavPanel(props) {
             } */}
             {/* <PanelBtn Btn={SimpleLineIcons} icon={"question"} title={"FAQ & Feedback"} /> */}
             <PanelBtn onPress={GoToSubscription} Btn={FontAwesome5} icon={"shopping-cart"} title={"View Purchased Add-Ons"} />
-            <PanelBtn onPress={workInProgress} Btn={Ionicons} icon={"settings-sharp"} title={"View Profile Workspace"} />
+            <PanelBtn onPress={GoToProfileWorkspace} Btn={Ionicons} icon={"settings-sharp"} title={"View Profile Workspace"} />
         </VStack>
     )
 }
@@ -288,9 +289,7 @@ function TokenSubscriptionPanel(props) {
     const navigation = useNavigation();
 
     const GoToRedeemToken = () => {
-        toast.show({
-            description: "Work In-Progress!"
-        });
+        navigation.navigate("TokenActivation");
     };
 
     return (

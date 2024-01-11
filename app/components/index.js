@@ -17,7 +17,6 @@ import BcCalendar from "./Calendar";
 import BcCarousel from "./Carousel";
 import BcDateRange from "./DateRange";
 import BcDateTimer from "./Timer/Date";
-import BcDisable from "./Disable";
 import BcDropdown from "./Dropdown";
 import BcLoading from "./Loading/Normal";
 import BcProgressBarLoading from "./Loading/ProgressBar";
@@ -33,7 +32,6 @@ export {
     BcCarousel,
     BcDateRange,
     BcDateTimer,
-    BcDisable,
     BcDropdown,
     BcLoading,
     BcProgressBarLoading,
@@ -41,6 +39,14 @@ export {
     BcTimer,
     BcViewShot,
     BcTooltip
+}
+
+import BcDisable from "./Disable";
+import BcDisableII from "./Disable/Ver2.js";
+
+export {
+    BcDisable,
+    BcDisableII
 }
 // #endregion
 

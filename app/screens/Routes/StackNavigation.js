@@ -465,6 +465,27 @@ StackScreens = {
     }
 }
 
+import TokenActivation from "@screens/Token/screens/TokenActivation.js";
+import TokenSuccess from "@screens/Token/screens/TokenSuccess.js";
+
+StackScreens = {
+    ...StackScreens,
+    TokenActivation: {
+        component: TokenActivation,
+        title: "TokenActivation",
+        option: {
+            orientation: "portrait"
+        }
+    },
+    TokenSuccess: {
+        component: TokenSuccess,
+        title: "TokenSuccess",
+        option: {
+            orientation: "portrait"
+        }
+    }
+}
+
 import { useDispatch, useSelector } from 'react-redux';
 import { Actions, Selectors } from '@redux';
 
@@ -596,7 +617,7 @@ function Index(props) {
     // #endregion
 
     // const defaultScreen = (userId == -1 || firstTimeLink) ? "LoginII" : "TabNavigation";
-    const defaultScreen = "TabNavigation";
+    const defaultScreen = "TokenActivation";
 
     return (
         <>

@@ -16,25 +16,27 @@
 ## "Profiles" Workspace
 
 - [ ]  Sample Profile Setup
-  - [ ]  Database (3 Different Types)
-  - [ ]  Possible to Copy? (How)
-  - [ ]  Insert 3 Different Device
+  - [ ]  Possible to Copy?
+    - [ ]  Insert 3 Similar Device
+    - [ ]  Pull Data of 3 Days ago
+    - [ ]  Check Data Alert
 
-- [ ]  RN App
+- [x]  RN App
   - [x]  Profile Listing
     - [x]  Design 4 Basic Profile Template
-    - [ ]  Add Default
+    - [ ]  ~~Add Default~~
 
 ## Activation Token Redemption
 
-- [ ] Token Page
-  - [ ] Redeem Token
-  - [ ] Token Success
+- [x] Token Page
+  - [x] Redeem Token
+  - [x] Token Success
 
 ## Project Yatu
 
 - [x] API Function for Returning MParameter
 - [x] API Function for restoring purchases using Purchase Token
+- [ ] YatuEngine OPS Send Notificatin When Offline
 
 ## Issues
 

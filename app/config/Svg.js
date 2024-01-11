@@ -163,4 +163,13 @@ Data = {
     }
 }
 
+import RedeemSucess from "@assets/svg/tokens/redeem_sucess.svg";
+import RedeemTokens from "@assets/svg/tokens/redeem_tokens.svg";
+
+Data = {
+    ...Data,
+    RedeemSucess: RedeemSucess,
+    RedeemTokens: RedeemTokens,    
+}
+
 export default Data;
