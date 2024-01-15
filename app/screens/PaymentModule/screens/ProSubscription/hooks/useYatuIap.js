@@ -6,11 +6,8 @@ import { Logger } from "@utility";
 import { clsConst } from "@config";
 
 import {
-    PurchaseError,
     requestSubscription,
-    validateReceiptIos,
     useIAP,
-    getAvailablePurchases
 } from "react-native-iap";
 
 // todo: Get by API instead
@@ -22,7 +19,7 @@ function Index(onSetLoading = () => { }) {
 
     const {
         connected,
-        subscriptions, // returns subscriptions for this app.
+        subscriptions, // returns subscriptions for this app. (Subscriptions To Sell)
         getSubscriptions, // Gets available subsctiptions for this app.
         currentPurchase, // current purchase for the tranasction
         finishTransaction,
@@ -44,14 +41,28 @@ function Index(onSetLoading = () => { }) {
             });
     };
 
-    const handleGetPurchaseHistory = () => {
-        // onSetLoading(true);
+    const handleGetPurchaseHistory = async (props) => {
+
+        if (subscriptions.length == 0) {
+            return;
+        }
+
+        const { onEndTrue = () => {}, onEndFalse = () => {} } = props;
+
+        onSetLoading(true);
+
         getPurchaseHistory()
         .then(data => {
-            // onSetLoading(false);
+            onSetLoading(false);
+            
+            // if (purchaseHistory && purchaseHistory.length > 0) {
+            //     onEndTrue();
+            // } else {
+            //     onEndFalse();
+            // }
         })
         .catch(err => {
-            // onSetLoading(false);
+            onSetLoading(false);
             Logger.error({ message: "handleGetPurchaseHistory GetPurchaseHistory", data: err });
         })
     };
@@ -60,20 +71,8 @@ function Index(onSetLoading = () => { }) {
     useEffect(() => {
         if (connected) {
             handleGetSubscriptions();
-            // handleGetPurchaseHistory();
-            // try {
-            //     handleGetPurchaseHistory();
-            // } catch (err) {
-            //     Logger.error(err);
-            // }
         }
     }, [connected]);
-
-    useEffect(() => {
-        if (subscriptions.length > 0) {
-            handleGetPurchaseHistory();
-        }
-    }, [subscriptions]);
 
     // #region Price Dict
 
@@ -161,7 +160,7 @@ function Index(onSetLoading = () => { }) {
     return [
         subscriptions, currentPurchase, finishTransaction,
         priceDict, handleRequestSubscription,
-        purchaseHistory
+        purchaseHistory, handleGetPurchaseHistory
     ];
 }
 

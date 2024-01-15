@@ -1,0 +1,70 @@
+{
+    "IR Temperature": {
+        "B8 Bedroom Smart IR 4": [
+            {
+                "Record_Date": "2023-11-29T23:59:00",
+                "Count": 100.0,
+                "Absolute Humidity": "18.91",
+                "Temperature (℃)": "29.5",
+                "Relative Humidity (%)": "64",
+                "Device_Name": "B8 Bedroom Smart IR 4"
+            }
+        ],
+        "B8 multi-function-timer-air monitor": [
+            {
+                "Record_Date": "2023-11-29T23:59:00",
+                "Count": 100.0,
+                "tvoc": "41",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "50",
+                "Carbon Dioxide (ppm)": "452",
+                "Absolute Humidity": "14.74",
+                "Temperature (℃)": "31",
+                "Relative Humidity (%)": "46",
+                "Formaldehyde (mg/m3)": "18",
+                "Device_Name": "B8 multi-function-timer-air monitor"
+            }
+        ],
+        "LF Piano LG aircon": [
+            {
+                "Record_Date": "2023-11-29T23:59:00",
+                "Count": 100.0,
+                "Absolute Humidity": "19.1",
+                "Temperature (℃)": "29.4",
+                "Relative Humidity (%)": "65",
+                "Device_Name": "LF Piano LG aircon"
+            }
+        ]
+    },
+    "Smart Plug": {
+        "B8 Study LG Monitor Smart Plug": [
+            {
+                "Record_Date": "2023-11-29T23:48:00",
+                "KWh": 1.01,
+                "Count": 100.0,
+                "add_ele": "13.00",
+                "Current (mA)": "256",
+                "Power (W)": "380",
+                "Voltage (V)": "254.9",
+                "Device_Name": "B8 Study LG Monitor Smart Plug"
+            }
+        ]
+    },
+    "Air Quality": {
+        "B8 multi-function-timer-air monitor": [
+            {
+                "Record_Date": "2023-11-29T23:59:00",
+                "Count": 100.0,
+                "tvoc": "41",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "50",
+                "Carbon Dioxide (ppm)": "452",
+                "Absolute Humidity": "14.74",
+                "Temperature (℃)": "31",
+                "Relative Humidity (%)": "46",
+                "Formaldehyde (mg/m3)": "18",
+                "Device_Name": "B8 multi-function-timer-air monitor"
+            }
+        ]
+    }
+}

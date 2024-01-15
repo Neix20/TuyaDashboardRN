@@ -485,6 +485,8 @@ function EmptyList(props) {
 }
 // #endregion
 
+import { DashboardInfoData, DeviceDistriData, ReportDataJson } from "./data";
+
 function Index(props) {
 
     const toast = useToast();
@@ -551,11 +553,81 @@ function Index(props) {
     // #region UseEffect
     // Update Data
     useEffect(() => {
-
         const flag = isFocused && startDt != undefined && endDt != undefined;
 
         if (flag) {
             setLoading(true);
+            DashboardInfo();
+            ReportData();
+            GetDeviceDistribution();
+            setLoading(false);
+        }
+    }, [isFocused, JSON.stringify(startDt + endDt + homeId)]);
+
+    // useEffect(() => {
+    //     if (isFocused) {
+    //         setTimeout(() => {
+    //             fetchDashboardInfo({
+    //                 param: {
+    //                     UserId: userId,
+    //                     HomeId: homeId,
+    //                     StartDate: cmpStartDt,
+    //                     EndDate: `${cmpEndDt} 23:59:59`
+    //                 },
+    //                 onSetLoading: () => { },
+    //             })
+    //                 .then(res => {
+    //                     if ("IR Temperature" in res) {
+    //                         const Data = res["IR Temperature"]
+    //                         setPrevChart(Data);
+    //                     } else {
+    //                         setPrevChart({})
+    //                     }
+    //                 })
+    //                 .catch(err => {
+    //                     setLoading(false);
+    //                     console.log(`Error: ${err}`);
+    //                 })
+    //         }, 10 * 1000);
+    //     }
+    // }, [isFocused, JSON.stringify(cmpStartDt + cmpEndDt + homeId)]);
+    // #endregion
+
+    // #region API
+    const DashboardInfo = () => {
+
+        const res = DashboardInfoData;
+
+        if ("IR Temperature" in res) {
+            const Data = res["IR Temperature"];
+            setChart(Data);
+        } else {
+            setChart({})
+        }
+
+        if ("Smart Plug" in res) {
+            const Data = res["Smart Plug"];
+            setSpChart(Data);
+        } else {
+            setSpChart({});
+        }
+
+        if ("Smart Plug KWh" in res) {
+            const Data = res["Smart Plug KWh"];
+            setSpBarChart(Data);
+        } else {
+            setSpBarChart({});
+        }
+
+        if ("Air Quality" in res) {
+            const Data = res["Air Quality"];
+            setAqChart(Data);
+        } else {
+            setAqChart({});
+        }
+
+        return;
+        setLoading(true);
             fetchDashboardInfo({
                 param: {
                     UserId: userId,
@@ -598,97 +670,106 @@ function Index(props) {
                     setLoading(false);
                     console.log(`Error: ${err}`);
                 })
+    }
 
-            fetchReportData({
-                param: {
-                    UserId: userId,
-                    HomeId: homeId,
-                    StartDate: startDt,
-                    EndDate: `${endDt} 23:59:59`
-                },
-                onSetLoading: () => { }
-            })
-                .then(res => {
+    const ReportData = () => {
 
-                    if ("IR Temperature" in res) {
-                        const Data = res["IR Temperature"]
+        const res = ReportDataJson;
+        if ("IR Temperature" in res) {
+            const Data = res["IR Temperature"]
 
-                        const Data_II = Object.values(Data).map(x => x[0]);
+            const Data_II = Object.values(Data).map(x => x[0]);
 
-                        setDrData(Data_II);
-                    } else {
-                        setDrData([])
-                    }
-
-                    if ("Smart Plug" in res) {
-                        const Data = res["Smart Plug"];
-
-                        const Data_II = Object.values(Data).map(x => x[0]);
-
-                        setDrSpData(Data_II);
-                    } else {
-                        setDrSpData([])
-                    }
-
-                    if ("Air Quality" in res) {
-                        const Data = res["Air Quality"];
-
-                        const Data_II = Object.values(Data).map(x => x[0]);
-
-                        setDrAqData(Data_II);
-                    } else {
-                        setDrAqData([])
-                    }
-
-                })
-                .catch(err => {
-                    console.log(`Error: ${err}`);
-                })
-
-            fetchGetDeviceDistribution({
-                param: {
-                    UserId: userId,
-                    HomeId: homeId,
-                },
-                onSetLoading: () => { }
-            })
-                .then(data => {
-                    setDevDistChart(data);
-                })
-                .catch(err => {
-                    console.log(`Error: ${err}`);
-                })
-
+            setDrData(Data_II);
+        } else {
+            setDrData([])
         }
-    }, [isFocused, JSON.stringify(startDt + endDt + homeId)]);
 
-    // useEffect(() => {
-    //     if (isFocused) {
-    //         setTimeout(() => {
-    //             fetchDashboardInfo({
-    //                 param: {
-    //                     UserId: userId,
-    //                     HomeId: homeId,
-    //                     StartDate: cmpStartDt,
-    //                     EndDate: `${cmpEndDt} 23:59:59`
-    //                 },
-    //                 onSetLoading: () => { },
-    //             })
-    //                 .then(res => {
-    //                     if ("IR Temperature" in res) {
-    //                         const Data = res["IR Temperature"]
-    //                         setPrevChart(Data);
-    //                     } else {
-    //                         setPrevChart({})
-    //                     }
-    //                 })
-    //                 .catch(err => {
-    //                     setLoading(false);
-    //                     console.log(`Error: ${err}`);
-    //                 })
-    //         }, 10 * 1000);
-    //     }
-    // }, [isFocused, JSON.stringify(cmpStartDt + cmpEndDt + homeId)]);
+        if ("Smart Plug" in res) {
+            const Data = res["Smart Plug"];
+
+            const Data_II = Object.values(Data).map(x => x[0]);
+
+            setDrSpData(Data_II);
+        } else {
+            setDrSpData([])
+        }
+
+        if ("Air Quality" in res) {
+            const Data = res["Air Quality"];
+
+            const Data_II = Object.values(Data).map(x => x[0]);
+
+            setDrAqData(Data_II);
+        } else {
+            setDrAqData([])
+        }
+
+        return;
+        fetchReportData({
+            param: {
+                UserId: userId,
+                HomeId: homeId,
+                StartDate: startDt,
+                EndDate: `${endDt} 23:59:59`
+            },
+            onSetLoading: () => { }
+        })
+            .then(res => {
+
+                if ("IR Temperature" in res) {
+                    const Data = res["IR Temperature"]
+
+                    const Data_II = Object.values(Data).map(x => x[0]);
+
+                    setDrData(Data_II);
+                } else {
+                    setDrData([])
+                }
+
+                if ("Smart Plug" in res) {
+                    const Data = res["Smart Plug"];
+
+                    const Data_II = Object.values(Data).map(x => x[0]);
+
+                    setDrSpData(Data_II);
+                } else {
+                    setDrSpData([])
+                }
+
+                if ("Air Quality" in res) {
+                    const Data = res["Air Quality"];
+
+                    const Data_II = Object.values(Data).map(x => x[0]);
+
+                    setDrAqData(Data_II);
+                } else {
+                    setDrAqData([])
+                }
+
+            })
+            .catch(err => {
+                console.log(`Error: ${err}`);
+            })
+    }
+
+    const GetDeviceDistribution = () => {
+        setDevDistChart(DeviceDistriData);
+        return;
+        fetchGetDeviceDistribution({
+            param: {
+                UserId: userId,
+                HomeId: homeId,
+            },
+            onSetLoading: () => { }
+        })
+            .then(data => {
+                setDevDistChart(data);
+            })
+            .catch(err => {
+                console.log(`Error: ${err}`);
+            })
+    }
     // #endregion
 
     return (

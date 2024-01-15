@@ -26,13 +26,12 @@ function useSubLs(val = []) {
     const updateLs = (arr = []) => {
         if (arr.length > 0) {
 
-            arr = arr.map((obj, index) => {
+            arr = arr.map((obj, pos) => {
                 const { Image } = obj;
                 return {
                     ...obj,
                     img: { uri: Image },
-                    flag: false,
-                    pos: index
+                    pos,
                 }
             });
 

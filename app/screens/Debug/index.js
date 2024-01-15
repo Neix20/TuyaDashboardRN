@@ -2,9 +2,6 @@ import React, { useState, useEffect } from "react";
 import { Text, TouchableOpacity, Image, TextInput, SafeAreaView, ScrollView } from "react-native";
 import { View, VStack, HStack, useToast } from "native-base";
 
-import FontAwesome from "react-native-vector-icons/FontAwesome";
-import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
-
 import { useNavigation, useIsFocused } from "@react-navigation/native";
 
 import { Logger, Utility } from "@utility";
@@ -28,7 +25,7 @@ function PaymentIap() {
 
     const [loading, setLoading] = useToggle(false);
 
-    const [subLs, currentPurchase, finishTransaction, subPriceDict, handleRequestSubscription, purchaseHistoryLs] = useYatuIap(setLoading);
+    const [subLs, currentPurchase, finishTransaction, subPriceDict, handleRequestSubscription, purchaseHistoryLs, getPurchaseHistory] = useYatuIap(setLoading);
     const [showRpModal, setShowRpModal, toggleRpModal] = useToggle();
 
     // #region Subscription Plan
@@ -43,6 +40,19 @@ function PaymentIap() {
     }, [isFocused, subPriceDict]);
 
     useEffect(() => {
+        if (subLs.length > 0) {
+            Logger.info({ 
+                data: subLs, 
+                os: Platform.OS,
+                code: "SubscriptionLs"
+            });
+            toast.show({
+                description: "Subscription Listing Loaded!"
+            })
+        }
+    }, [subLs]);
+
+    useEffect(() => {
         if (purchaseHistoryLs.length > 0) {
             Logger.info({ 
                 data: purchaseHistoryLs, 
@@ -54,19 +64,6 @@ function PaymentIap() {
             })
         }
     }, [purchaseHistoryLs]);
-
-    useEffect(() => {
-        if (subLs.length > 0) {
-            Logger.info({ 
-                data: subLs, 
-                os: Platform.OS,
-                code: "Subscription Listing"
-            });
-            toast.show({
-                description: "Subscription Listing Loaded!"
-            })
-        }
-    }, [subLs]);
 
     const SubscriptionProPlan = () => {
         setLoading(true);
@@ -106,7 +103,6 @@ function PaymentIap() {
             try {
                 if (currentPurchase?.productId) {
                     setLoading(true);
-                    const { productId } = currentPurchase;
 
                     const ackResult = await finishTransaction({ purchase: currentPurchase, isConsumable: false });
 
@@ -118,10 +114,9 @@ function PaymentIap() {
                         code: "PurchaseTransaction"
                     }
                     Logger.info(resp);
-
                     setLoading(false);
 
-                    // const { transactionId: refNo = "", purchaseToken = "" } = resp;
+                    // const { productId = "", transactionId: refNo = "", purchaseToken = "" } = resp;
 
                     // const subCode = productId.split(".").at(-1);
                     // CreateSubscriptionOrderWithStorePayment(subCode, refNo);
@@ -165,8 +160,23 @@ function PaymentIap() {
     }
     // #endregion
 
-    const onPressYes = () => {};
-    const onPressNo = () => {};
+    const onPressYes = () => {
+        const onEndTrue = () => {
+            toast.show({
+                description: "Successfully restored your subscription."
+            })
+            setShowRpModal(false);
+        }
+
+        const onEndFalse = () => {
+            toast.show({
+                description: "No subscription available to restore."
+            })
+            setShowRpModal(false);
+        }
+
+        getPurchaseHistory({ onEndTrue, onEndFalse });
+    };
 
     return (
         <>
@@ -174,7 +184,7 @@ function PaymentIap() {
                 showModal={showRpModal} setShowModal={setShowRpModal}
                 title={"Test"} description={"Test"}
                 titleYes={"Delete"} titleNo={"Cancel"}
-                onPressYes={onPressYes} onPressNo={onPressNo}
+                onPressYes={onPressYes} onPressNo={toggleRpModal}
             />
             <BcLoading loading={loading} />
             <SafeAreaView style={{ flex: 1 }}>

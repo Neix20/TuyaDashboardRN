@@ -15,6 +15,8 @@ const subUserAccessSelect = (state) => state.subUserAccess;
 const dashboardReportFlagSelect = (state) => state.dashboardReportFlag;
 const premiumPayFlagSelect = (state) => state.premiumPayFlag;
 
+const profileWorkspaceIdSelect = (state) => state.profileWorkspaceId;
+
 export {
     defaultValueSelect,
     userIdSelect,
@@ -29,5 +31,6 @@ export {
     linkTsStartSelect,
     subUserAccessSelect,
     dashboardReportFlagSelect,
-    premiumPayFlagSelect
+    premiumPayFlagSelect,
+    profileWorkspaceIdSelect
 }

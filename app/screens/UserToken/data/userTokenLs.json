@@ -1,0 +1,16 @@
+[
+    {
+        "Id": 3,
+        "Code": "VGT2e9c88a413821cb414e4",
+        "UserId": 95,
+        "Image": "https://i.imgur.com/TYUESIY.jpg",
+        "InitialDate": "2024-01-15T11:44:25.5",
+        "ExpiryDate": "2024-04-15T11:44:25.5",
+        "Status": 1,
+        "Remark": "",
+        "Created_By": "YatuApi",
+        "Created_Date": "2024-01-15T11:44:25.5",
+        "Last_Updated_By": "YatuApi",
+        "Last_Updated_Date": "2024-01-15T11:44:25.5"
+    }
+]

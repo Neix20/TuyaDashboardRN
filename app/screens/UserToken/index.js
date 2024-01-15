@@ -12,16 +12,16 @@ import { Logger, Utility } from "@utility";
 import { Images, Svg } from "@config";
 
 import { BcHeader, BcLoading, BcBoxShadow } from "@components";
-import { fetchGetParamApi, fetchUpdateProfileWorkspace, fetchProfileWorkspace } from "@api";
+import { fetchGetUserToken } from "@api";
 
 import { useToggle } from "@hooks";
-import { ProfileWsData as TestData } from "./data";
+import { UserTokenData as TestData } from "./data";
 
 import { useDispatch, useSelector } from 'react-redux';
 import { Actions, Selectors } from '@redux';
 
 // #region Custom Hook
-function useProfileWs(ProfileWorkspaceId = -1, val = []) {
+function useLs(val = []) {
 
     const [data, setData] = useState(val);
 
@@ -29,15 +29,12 @@ function useProfileWs(ProfileWorkspaceId = -1, val = []) {
         if (arr.length > 0) {
 
             arr = arr.map((obj, pos) => {
-                const { Image = "https://i.imgur.com/Du4wGXQ.jpg", Id = -1 } = obj;
-
-                const flag = false;
+                const { Image = "https://i.imgur.com/TYUESIY.jpg", Id = -1 } = obj;
 
                 return {
                     ...obj,
                     img: { uri: Image },
-                    pos, 
-                    flag,
+                    pos
                 }
             });
 
@@ -45,20 +42,7 @@ function useProfileWs(ProfileWorkspaceId = -1, val = []) {
         }
     }
 
-    const toggleFlag = (pos) => {
-        let arr = [...data];
-
-        // Set All Flag as False
-        for (let ind in arr) {
-            arr[ind].flag = false;
-        }
-
-        arr[pos].flag = true;
-
-        setData(_ => arr);
-    }
-
-    return [data, updateLs, toggleFlag];
+    return [data, updateLs];
 }
 // #endregion
 
@@ -79,7 +63,7 @@ function EmptyList(props) {
             justifyContent={"center"} alignItems={"center"}>
             <VStack space={2} width={"90%"} alignItems={"center"}>
                 <Ionicons name={"settings-sharp"} color={"#e6e6e6"} size={80} />
-                <Text style={style.txt}>No Purchases Yet</Text>
+                <Text style={style.txt}>No Tokens Yet</Text>
             </VStack>
         </View>
     )
@@ -88,7 +72,7 @@ function EmptyList(props) {
 function BodyItem(props) {
     const { data = {}, onPress = () => { } } = props;
 
-    const { Name, Description, img, flag = true } = data;
+    const { Code: Name = "", Description = "", img } = data;
     const { InitialDate = "", ExpiryDate = "" } = data;
 
     const borderRadius = 8;
@@ -107,31 +91,13 @@ function BodyItem(props) {
         date: {
             fontFamily: "Roboto-Bold",
             fontSize: 14
-        },
-        frontLayer: {
-            position: "absolute",
-            zIndex: 2,
-            top: 5, 
-            right: 5 
         }
     };
-
-    const borderColor = flag ? "#39B54A" : "#FFF";
 
     return (
         <TouchableOpacity onPress={onPress}>
             <BcBoxShadow style={{ borderRadius, width: "100%" }}>
-                {/* Front Layer */}
-                {flag ? (
-                    <View style={style.frontLayer}>
-                        <FontAwesome name={"check-circle"} size={24} color={"#39B54A"} />
-                    </View>
-                ) : (
-                    <></>
-                )}
-                <HStack
-                    bgColor={"#FFF"} borderRadius={borderRadius}
-                    borderColor={borderColor} borderWidth={2}
+                <HStack bgColor={"#FFF"} borderRadius={borderRadius}
                     alignItems={"center"}>
                     <Image source={img} alt={Name} style={style.icon} />
                     <VStack flex={1} px={3} py={2}
@@ -141,11 +107,16 @@ function BodyItem(props) {
                             <Text style={style.title}>{Name}</Text>
                             <Text>{Description}</Text>
                         </VStack>
-                        <HStack alignItems={"center"}
-                            justifyContent={"space-between"}>
-                            <Text style={style.date}>Expiry Date: </Text>
-                            <Text style={style.date}>{Utility.formatDt(ExpiryDate, "yyyy-MM-dd")}</Text>
-                        </HStack>
+                        <VStack>
+                            {/* <HStack alignItems={"center"} justifyContent={"space-between"}>
+                                    <Text style={style.date}>Purchase Date: </Text>
+                                    <Text>{Utility.formatDt(InitialDate, "yyyy-MM-dd 00:00")}</Text>
+                                </HStack> */}
+                            <HStack alignItems={"center"} justifyContent={"space-between"}>
+                                <Text style={style.date}>Expiry Date: </Text>
+                                <Text>{Utility.formatDt(ExpiryDate, "yyyy-MM-dd")}</Text>
+                            </HStack>
+                        </VStack>
                     </VStack>
                 </HStack>
             </BcBoxShadow>
@@ -155,30 +126,31 @@ function BodyItem(props) {
 
 function Body(props) {
 
-    const { data = [], onSelectItem = () => {} } = props;
+    const { data = [] } = props;
 
-    if (data.length == 0) {
-        return (<EmptyList />);
-    }
-
-    const toast = useToast();
     const navigation = useNavigation();
+    const toast = useToast();
 
     const renderItem = ({ item, index }) => {
         const onSelect = () => {
-            onSelectItem(item);
+            navigation.navigate("UserTokenInfo", item);
         }
-        return (<BodyItem key={index} data={item} onPress={onSelect} />)
+        return <BodyItem key={index} data={item} onPress={onSelect} />
+    }
+
+    if (data.length == 0) {
+        return (<EmptyList />)
     }
 
     return (
-        <VStack flex={1} py={3} space={2}
+        <VStack flexGrow={1}
+            py={3} space={2}
             bgColor={"#FFF"} alignItems={"center"}>
             <View width={"90%"} style={{ paddingHorizontal: 2 }}>
                 <Text style={{
                     fontFamily: "Roboto-Bold",
                     fontSize: 16,
-                }}>Active Profiles</Text>
+                }}>Active Tokens</Text>
             </View>
             <FlatList
                 data={data}
@@ -197,56 +169,29 @@ function Index(props) {
     const navigation = useNavigation();
     const isFocused = useIsFocused();
 
-    const [profileWsLs, setProfileWsLs, toggleProfileWsFlag] = useProfileWs(2);
-    const loadingHook = useToggle(false);
-    const [loading, setLoading, toggleLoading] = loadingHook;
+    const [tokenLs, setTokenLs] = useLs([]);
+    const [loading, setLoading, toggleLoading] = useToggle(false);
 
     const userId = useSelector(Selectors.userIdSelect);
 
     useEffect(() => {
         if (isFocused) {
-            GetProfileWorkspaceData();
+            // GetUserTokenData();
+            setTokenLs(TestData);
         }
     }, [isFocused]);
 
     // #region Api
-    const GetProfileWorkspaceData = () => {
+    const GetUserTokenData = () => {
         setLoading(true);
-        fetchProfileWorkspace({
+        fetchGetUserToken({
             param: {
                 UserId: userId
             },
             onSetLoading: setLoading
         })
         .then(data => {
-            const { Data = [] } = data;
-            setProfileWsLs(Data);
-        })
-        .catch(err => {
-            setLoading(false);
-            console.error(err);
-        })
-    }
-
-    const UpdateProfileWorkspace = (item) => {
-        const { Id = 0, pos, Name, Code = "" } = item;
-        
-
-        const ProfileWorkspaceId = Code.slice(Code.length - 1);
-        
-        setLoading(true);
-        fetchUpdateProfileWorkspace({
-            param: {
-                UserId: userId,
-                ProfileWorkspaceId
-            },
-            onSetLoading: setLoading
-        })
-        .then(data => {
-            toggleProfileWsFlag(pos);
-            toast.show({
-                description: `Successfully updated workspace to ${Name}!`
-            })
+            setTokenLs(data);
         })
         .catch(err => {
             setLoading(false);
@@ -262,14 +207,12 @@ function Index(props) {
                 <View style={{ flex: 1 }}>
 
                     {/* Header */}
-                    <BcHeader>Device Profiles</BcHeader>
+                    <BcHeader>User Tokens</BcHeader>
 
                     <View style={{ height: 10 }} />
 
                     {/* Body */}
-                    <Body 
-                        data={profileWsLs}
-                        onSelectItem={UpdateProfileWorkspace} />
+                    <Body data={tokenLs} />
                 </View>
             </SafeAreaView>
         </>

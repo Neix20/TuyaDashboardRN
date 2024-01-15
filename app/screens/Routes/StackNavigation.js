@@ -470,6 +470,8 @@ StackScreens = {
 
 import TokenActivation from "@screens/Token/screens/TokenActivation.js";
 import TokenSuccess from "@screens/Token/screens/TokenSuccess.js";
+import UserToken from "@screens/UserToken";
+import UserTokenInfo from "@screens/UserToken/UserTokenInfo.js";
 
 StackScreens = {
     ...StackScreens,
@@ -483,6 +485,20 @@ StackScreens = {
     TokenSuccess: {
         component: TokenSuccess,
         title: "TokenSuccess",
+        option: {
+            orientation: "portrait"
+        }
+    },
+    UserToken: {
+        component: UserToken,
+        title: "UserToken",
+        option: {
+            orientation: "portrait"
+        }
+    },
+    UserTokenInfo: {
+        component: UserTokenInfo,
+        title: "UserTokenInfo",
         option: {
             orientation: "portrait"
         }
@@ -624,8 +640,8 @@ function Index(props) {
     }
     // #endregion
 
-    // const defaultScreen = (userId == -1 || firstTimeLink) ? "LoginII" : "TabNavigation";
-    const defaultScreen = "Debug";
+    const defaultScreen = (userId == -1 || firstTimeLink) ? "LoginII" : "TabNavigation";
+    // const defaultScreen = "Debug";
 
     return (
         <>

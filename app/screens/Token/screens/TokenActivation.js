@@ -12,6 +12,10 @@ import { Images, Svg } from "@config";
 
 import { BcHeader, BcLoading, BcSvgIcon, BcDisableII } from "@components";
 import { useToggle } from "@hooks";
+import { fetchRedeemToken } from "@api";
+
+import { useDispatch, useSelector } from 'react-redux';
+import { Actions, Selectors } from '@redux';
 
 // #region Custom Hook
 function useTokenCode() {
@@ -149,6 +153,34 @@ function Index(props) {
     const tokenCodeHook = useTokenCode();
     const [tokenCode, setTokenCode, tokenCodeFlag] = tokenCodeHook;
 
+    const userId = useSelector(Selectors.userIdSelect);
+
+    const RedeemToken = () => {
+        setLoading(true);
+        fetchRedeemToken({
+            param: {
+                UserId: userId,
+                Token: tokenCode
+            },
+            onSetLoading: setLoading
+        })
+        .then(data => {
+            const { ResponseCode = "00", ResponseMessage = "" } = data;
+            if (ResponseCode === "00") {
+                GoToTokenSuccess();
+            } else {
+                toast.show({
+                    description: "Error!"
+                })
+            }
+            setTokenCode("");
+        })
+        .catch(err => {
+            setLoading(false);
+            console.error(`Error: ${err}`)
+        })
+    }
+
     const GoToTokenSuccess = () => {
         navigation.navigate("TokenSuccess");
     }
@@ -190,7 +222,7 @@ function Index(props) {
 
                             {/* Redeem Button */}
                             <View alignItems={"center"}>
-                                <RedeemTokenBtn flag={tokenCodeFlag} onPress={GoToTokenSuccess} />
+                                <RedeemTokenBtn flag={tokenCodeFlag} onPress={RedeemToken} />
                             </View>
                         </VStack>
                     </ScrollView>

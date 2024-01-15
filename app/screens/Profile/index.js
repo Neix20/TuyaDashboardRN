@@ -213,6 +213,7 @@ function NavPanel(props) {
     const GoToAddSubUser = () => navigation.navigate("AddSubUserWithCode");
 
     const GoToSubscription = () => navigation.navigate("Subscription");
+    const GoToUserToken = () => navigation.navigate("UserToken");
     const GoToProfileWorkspace = () => navigation.navigate("ProfileWorkspace");
 
     const workInProgress = () => {
@@ -237,6 +238,7 @@ function NavPanel(props) {
             } */}
             {/* <PanelBtn Btn={SimpleLineIcons} icon={"question"} title={"FAQ & Feedback"} /> */}
             <PanelBtn onPress={GoToSubscription} Btn={FontAwesome5} icon={"shopping-cart"} title={"View Purchased Add-Ons"} />
+            <PanelBtn onPress={GoToUserToken} Btn={FontAwesome5} icon={"shopping-cart"} title={"View Purchased Tokens"} />
             <PanelBtn onPress={GoToProfileWorkspace} Btn={Ionicons} icon={"settings-sharp"} title={"View Profile Workspace"} />
         </VStack>
     )
@@ -305,7 +307,9 @@ function TokenSubscriptionPanel(props) {
 
 function RestorePurchasePanel(props) {
 
-    const { onRestorePurchase = () => { } } = props;
+    const toast = useToast();
+
+    const { onGetPurchaseHistory = () => { } } = props;
 
     // #region Restore Purchase Helper
     const [showRpModal, setShowRpModal, toggleRpModal] = useToggle();
@@ -313,12 +317,22 @@ function RestorePurchasePanel(props) {
     const closeRpModal = () => setShowRpModal(false);
 
     const RestorePurchase = () => {
-        onRestorePurchase();
-        closeRpModal();
-    };
+        const onEndTrue = () => {
+            toast.show({
+                description: "Successfully restored your subscription."
+            })
+            closeRpModal();
+        }
 
-    const CancelRestorePurchase = () => {
-        closeRpModal();
+        const onEndFalse = () => {
+            toast.show({
+                description: "No subscription available to restore."
+            })
+            closeRpModal();
+        }
+
+        onGetPurchaseHistory({ onEndTrue, onEndFalse });
+        
     };
     // #endregion
 
@@ -329,7 +343,7 @@ function RestorePurchasePanel(props) {
                 title={"Restore Purchase"}
                 description={`This will restore all your deleted purchases from App Store & Google play store.\n\nWould you like to restore your purchases?`}
                 titleYes={"Restore"} titleNo={"Cancel"}
-                onPressYes={RestorePurchase} onPressNo={CancelRestorePurchase}
+                onPressYes={RestorePurchase} onPressNo={toggleRpModal}
             />
             <VStack bgColor={"#FFF"} borderRadius={8}
                 width={"90%"} alignItems={"center"}>
@@ -398,7 +412,7 @@ function Index(props) {
     const loadingHook = useState(false);
     const [loading, setLoading] = loadingHook;
 
-    const [t1, t2, t3, t4, t5, purchaseHistoryLs] = useYatuIap(setLoading);
+    const [t1, t2, t3, t4, t5, purchaseHistoryLs, getPurchaseHistory] = useYatuIap(setLoading);
     // #endregion
 
     useEffect(() => {
@@ -427,13 +441,6 @@ function Index(props) {
 
         navigation.navigate("LoginII");
     }
-
-    const RestorePurchase = () => {
-        setLoading(true);
-        setTimeout(() => {
-            setLoading(false);
-        }, 1500);
-    };
     // #endregion
 
     // #region API
@@ -516,7 +523,7 @@ function Index(props) {
 
                             <CompanyInfoPanel />
 
-                            <RestorePurchasePanel onRestorePurchase={RestorePurchase} />
+                            <RestorePurchasePanel onGetPurchaseHistory={getPurchaseHistory} />
 
                             {/* Logout */}
                             <LogoutPanel onLogout={SignOut} onDeleteAccount={DeleteAccount} />

@@ -18,11 +18,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Actions, Selectors } from '@redux';
 
 // #region Custom Hooks
-function useSubInfo() {
-    const [sub, setSub] = useState({});
+function useInfo() {
     const [data, setData] = useState({});
 
-    useEffect(() => {
+    const updateData = (data) => {
+
         const { Image = "" } = data;
 
         const next_state = {
@@ -30,41 +30,42 @@ function useSubInfo() {
             img: { uri: Image }
         };
 
-        setSub(_ => next_state);
-    }, [data]);
+        setData(_ => next_state);
+    }
 
-    return [sub, setData];
+    return [data, updateData];
 }
 // #endregion
 
 // #region Components
-function SubItem(props) {
+function TopItem(props) {
     const { data = {} } = props;
     const { Name, Description, img, flag = true } = data
 
     const borderRadius = 8;
+
+    const style = {
+        img: {
+            height: 100,
+            width: 100,
+            borderTopLeftRadius: borderRadius,
+            borderBottomLeftRadius: borderRadius,
+        },
+        name: {
+            fontFamily: "Roboto-Bold",
+            fontSize: 16,
+        }
+    };
 
     return (
         <BcBoxShadow style={{ borderRadius, width: "100%" }}>
             <HStack bgColor={"#FFF"}
                 borderRadius={borderRadius}
                 alignItems={"center"}>
-                <Image
-                    source={img}
-                    style={{
-                        height: 100,
-                        width: 100,
-                        borderTopLeftRadius: borderRadius,
-                        borderBottomLeftRadius: borderRadius,
-                    }}
-                    alt={Name}
-                />
+                <Image source={img} style={style.img} alt={Name} />
                 <VStack px={3} flex={1}
                     space={2} style={{ height: 80 }}>
-                    <Text style={{
-                        fontFamily: "Roboto-Bold",
-                        fontSize: 16,
-                    }}>{Name}</Text>
+                    <Text style={style.name}>{Name}</Text>
                     <Text>{Description}</Text>
                 </VStack>
             </HStack>
@@ -72,12 +73,12 @@ function SubItem(props) {
     )
 }
 
-function SubPanel(props) {
+function TopPanel(props) {
     return (
         <BcBoxShadow>
             <View bgColor={"#FFF"} alignItems={"center"} py={3}>
                 <View width={"90%"}>
-                <SubItem {...props} />
+                    <TopItem {...props} />
                 </View>
             </View>
         </BcBoxShadow>
@@ -86,20 +87,26 @@ function SubPanel(props) {
 
 function InfoItem(props) {
     const { Title, Value } = props;
+
+    const style = {
+        title: {
+            fontFamily: "Roboto-Medium",
+            fontSize: 18
+        },
+        value: {
+            fontFamily: "Roboto-Medium",
+            fontSize: 18,
+            color: "#000",
+        }
+    };
+
     return (
         <HStack width={"90%"} alignItems={"center"}>
             <View flex={.4}>
-                <Text style={{
-                    fontFamily: "Roboto-Medium",
-                    fontSize: 18
-                }}>{Title}: </Text>
+                <Text style={style.title}>{Title}: </Text>
             </View>
             <View flex={.6} alignItems={"flex-end"}>
-                <Text style={{
-                    fontFamily: "Roboto-Medium",
-                    fontSize: 18,
-                    color: "#000",
-                }}>{Value}</Text>
+                <Text style={style.value}>{Value}</Text>
             </View>
         </HStack>
     )
@@ -110,17 +117,21 @@ function InfoPanel(props) {
     const { data = {} } = props;
     const { SubscriptionCode = "", InitialDate, ExpiryDate, AutoRenew = 0 } = data;
 
-    const autoRenewal = (AutoRenew == 0) ? "False" : "True"
+    const autoRenewal = (AutoRenew == 0) ? "False" : "True";
+
+    const style = {
+        title: {
+            fontFamily: "Roboto-Bold",
+            fontSize: 18,
+            color: "#000"
+        }
+    }
 
     return (
         <BcBoxShadow>
             <View bgColor={"#FFF"} alignItems={"center"} pt={3}>
                 <View width={"90%"}>
-                    <Text style={{
-                        fontFamily: "Roboto-Bold",
-                        fontSize: 18,
-                        color: "#000"
-                    }}>Details</Text>
+                    <Text style={style.title}>Details</Text>
                 </View>
                 <Divider bgColor={"#EBEBEB"} my={2} width={"90%"} />
 
@@ -152,7 +163,7 @@ function Index(props) {
 
     const userId = useSelector(Selectors.userIdSelect);
 
-    const [subInfo, setSubInfo] = useSubInfo();
+    const [subInfo, setSubInfo] = useInfo();
     const [loading, setLoading, toggleLoading] = useToggle(false);
 
     useEffect(() => {
@@ -190,7 +201,7 @@ function Index(props) {
                         keyboardShouldPersistTaps={"handled"}
                         contentContainerStyle={{ flexGrow: 1 }}>
                         <VStack space={3} flexGrow={1}>
-                            <SubPanel data={subInfo} />
+                            <TopPanel data={subInfo} />
                             <InfoPanel data={subInfo} />
                         </VStack>
                     </ScrollView>

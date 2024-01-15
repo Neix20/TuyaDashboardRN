@@ -96,6 +96,13 @@ const onChangePremiumPayFlag = (premiumPayFlag) => {
     }
 };
 
+const onChangeProfileWorkspaceId = (profileWorkspaceId) => {
+    return {
+        type: "SET_PROFILE_WORKSPACE_ID",
+        profileWorkspaceId: profileWorkspaceId,
+    }
+};
+
 export {
     onChangeDefaultValue,
     onChangeUserId,
@@ -110,5 +117,6 @@ export {
     onChangeLinkTsStart,
     onChangeSubUserAccess,
     onChangeDashboardReportFlag,
-    onChangePremiumPayFlag
+    onChangePremiumPayFlag,
+    onChangeProfileWorkspaceId
 }

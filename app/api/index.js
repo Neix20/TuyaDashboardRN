@@ -87,7 +87,12 @@ import fetchErrorLog from "./fetchErrorLog";
 
 import fetchYatuEngineStatus from "./fetchYatuEngineStatus";
 import fetchGetParamApi from "./fetchGetParamApi";
+
 import fetchUpdateProfileWorkspace from "./fetchUpdateProfileWorkspace";
+import fetchProfileWorkspace from "./fetchProfileWorkspace";
+import fetchRedeemToken from "./fetchRedeemToken";
+import fetchGetUserToken from "./fetchGetUserToken";
+
 
 export {
     fetchHomeList,
@@ -201,6 +206,12 @@ export {
 
 export {
     fetchYatuEngineStatus,
-    fetchGetParamApi,
-    fetchUpdateProfileWorkspace
+    fetchGetParamApi
+}
+
+export {
+    fetchUpdateProfileWorkspace,
+    fetchProfileWorkspace,
+    fetchRedeemToken,
+    fetchGetUserToken,
 }

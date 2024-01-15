@@ -9,7 +9,7 @@ import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 import { Logger, Utility } from "@utility";
 import { Images, Svg } from "@config";
 
-import { BcHeader, BcLoading, BcSvgIcon, BcDisableII } from "@components";
+import { BcBoxShadow, BcLoading, BcSvgIcon, BcDisableII } from "@components";
 import { useToggle } from "@hooks";
 
 // #region Components
@@ -104,6 +104,62 @@ function RedeemedToken(props) {
         </VStack>
     )
 }
+
+function Header(props) {
+    const { children } = props;
+    const { color = "#2898FF", txtColor = "#000", bgColor = "#FFF" } = props;
+
+    const navigation = useNavigation();
+
+    // #region Helper Functions
+    const GoBack = () => {
+        navigation.navigate("TabNavigation", {
+            screen: "Profile",
+        })
+    }
+    // #endregion
+
+    return (
+        <BcBoxShadow>
+            <View
+                style={{
+                    height: 60,
+                    backgroundColor: bgColor,
+                }}>
+                {/* Front Layer */}
+                <TouchableOpacity
+                    onPress={GoBack}
+                    style={{
+                        alignItems: "center",
+                        justifyContent: "center",
+                        width: 120,
+                        height: 120,
+                        position: "absolute",
+                        left: -30,
+                        top: -19,
+                        zIndex: 1,
+                    }}>
+                    <FontAwesome5 name={"chevron-left"} size={20} color={color} />
+                </TouchableOpacity>
+
+                <View style={{
+                    position: "absolute",
+                    height: 120,
+                    left: 45,
+                    top: -20,
+                    alignItems: "center",
+                    justifyContent: "center",
+                }}>
+                    <Text style={{
+                        fontSize: 20,
+                        fontWeight: "bold",
+                        color: txtColor,
+                    }}>{children}</Text>
+                </View>
+            </View>
+        </BcBoxShadow>
+    )
+}
 // #endregion
 
 function Index(props) {
@@ -116,7 +172,7 @@ function Index(props) {
 
     const GoDashboard = () => {
         navigation.navigate("TabNavigation", {
-            screen: "Dashboard"
+            screen: "Profile"
         })
     }
 
@@ -127,7 +183,7 @@ function Index(props) {
                 <View style={{ flex: 1 }}>
 
                     {/* Header */}
-                    <BcHeader>Successful Redemption</BcHeader>
+                    <Header>Successful Redemption</Header>
 
                     <View style={{ height: 10 }} />
 
@@ -154,7 +210,7 @@ function Index(props) {
                                 <TnC />
                             </View>
 
-                            {/* Go Dashboard */}
+                            {/* Go Profile */}
                             <View alignItems={"center"}>
                                 <DashboardBtn flag={false} onPress={GoDashboard} />
                             </View>
