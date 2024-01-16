@@ -16,6 +16,101 @@ import { Actions, Selectors } from '@redux';
 import TopModal from "@components/Modal/TopModal";
 
 import { fetchHomeList } from "@api";
+import { useToggle } from "@hooks";
+
+// #region Custom Hooks
+function useHome() {
+
+    const init = {
+        home: {
+            Name: "",
+            flag: false,
+        }
+    }
+
+    const dispatch = useDispatch();
+
+    const [home, setHome] = useState(init.home);
+    const [ls, setLs] = useState([]);
+
+    const updateLs = (data = [], homeId) => {
+
+        if (data.length <= 0) {
+            return;
+        }
+
+        let arr = [...data];
+
+        arr = arr.map((obj, pos) => ({
+            ...obj,
+            pos,
+            flag: false,
+        }))
+
+        if (homeId == -1) {
+            arr[0].flag = true;
+            setHome(_ => arr[0]);
+            dispatch(Actions.onChangeHomeId(arr[0].Id));
+        } else {
+            for (const obj of arr) {
+                if (obj.Id == homeId) {
+                    obj.flag = true;
+                    setHome(_ => obj);
+                    dispatch(Actions.onChangeHomeId(obj.Id));
+                }
+            }
+        }
+
+        setLs(_ => arr);
+    }
+
+    const selectHome = ({ pos }) => {
+        let arr = [...ls];
+
+        for (let ind in arr) {
+            arr[ind].flag = false;
+        }
+
+        arr[pos].flag = true;
+
+        setLs(_ => arr);
+
+        const { Id: HomeId } = arr[pos];
+        setHome(arr[pos]);
+        dispatch(Actions.onChangeHomeId(HomeId));
+    }
+
+    return [home, ls, updateLs, selectHome];
+}
+// #endregion
+
+// #region Components
+function HomeItem(props) {
+
+    const { children = null, onPress = () => { } } = props;
+
+    const { flag = false, IconBtn = () => <></>, IconName = "", IconColor = "#000" } = props;
+
+    const style = {
+        title: {
+            fontFamily: "Roboto-Bold",
+            fontSize: 18,
+        }
+    }
+
+    return (
+        <TouchableOpacity onPress={onPress} style={{ width: "90%" }}>
+            <HStack alignItems={"center"} style={{ height: 40 }}>
+                <View flex={.1}>
+                    {flag ? <IconBtn name={IconName} color={IconColor} size={20} /> : <></>}
+                </View>
+                <View flex={.9}>
+                    <Text style={style.title}>{children}</Text>
+                </View>
+            </HStack>
+        </TouchableOpacity>
+    )
+}
 
 function HomeModal(props) {
 
@@ -26,29 +121,15 @@ function HomeModal(props) {
 
     // #region Render
     const renderItem = ({ item, index }) => {
-        const { Name, pos, flag } = item;
+        const { Name = "", flag = false } = item;
         const selectItem = () => onItemSelect(item);
 
         return (
-            <TouchableOpacity onPress={selectItem}>
-                <HStack alignItems={"center"} style={{ height: 40 }}>
-                    {
-                        (flag) ? (
-                            <View flex={.1}>
-                                <FontAwesome5 name={"check"} color={"#28984f"} size={20} />
-                            </View>
-                        ) : (
-                            <View flex={.1}></View>
-                        )
-                    }
-                    <View flex={.9}>
-                        <Text style={{
-                            fontFamily: "Roboto-Bold",
-                            fontSize: 18,
-                        }}>{Name}</Text>
-                    </View>
-                </HStack>
-            </TouchableOpacity>
+            <HomeItem key={index} 
+                onPress={selectItem} flag={flag}
+                IconBtn={FontAwesome5} IconName={"check"} IconColor={"#28984f"}>
+                {Name}
+            </HomeItem>
         )
     }
     // #endregion
@@ -56,125 +137,73 @@ function HomeModal(props) {
     return (
         <TopModal showCross={false} {...props}>
             <View alignItems={"center"} width={"100%"}>
-                <FlatList data={data} renderItem={renderItem} style={{ width: "90%" }} />
+                <FlatList data={data} renderItem={renderItem} style={{ width: "96%" }} />
                 <Divider my={2} width={"90%"} />
-                <TouchableOpacity onPress={onSelectHomeManagement} style={{ width: "90%" }}>
-                    <HStack alignItems={"center"} style={{ height: 40 }}>
-                        <View flex={.1}>
-                            <FontAwesome name={"home"} color={"#ccc"} size={20} />
-                        </View>
-                        <View flex={.9}>
-                            <Text style={{
-                                fontFamily: "Roboto-Bold",
-                                fontSize: 18,
-                            }}>Home Management</Text>
-                        </View>
-                    </HStack>
-                </TouchableOpacity>
+                <HomeItem onPress={onSelectHomeManagement} flag={true}
+                    IconBtn={FontAwesome5} IconName={"home"} IconColor={"#ccc"}>Home Management</HomeItem>
             </View>
         </TopModal>
     )
 }
+// #endregion
 
 function Index(props) {
 
     const navigation = useNavigation();
     const isFocused = useIsFocused();
 
-    const dispatch = useDispatch();
-
     const userId = useSelector(Selectors.userIdSelect);
     const homeId = useSelector(Selectors.homeIdSelect);
-    
-    // #region Initial
-    const init = {
-        home: {
-            Name: "",
-            pos: 0,
-            flag: false,
-        }
-    }
-    // #endregion
 
     // #region UseState
-    const [home, setHome] = useState(init.home);
-    const [homeLs, setHomeLs] = useState([]);
-    const [showHomeModal, setShowHomeModal] = useState(false);
+    const [home, homeLs, setHomeLs, selectHome] = useHome();
+    const [showHomeModal, setShowHomeModal, toggleHomeModal] = useToggle(false);
 
     const [loading, setLoading] = useState(false);
     // #endregion
 
-    // #region UseEffect
     useEffect(() => {
         if (isFocused) {
-            setLoading(true);
-            fetchHomeList({
-                param: {
-                    UserId: userId,
-                },
-                onSetLoading: setLoading
-            })
-                .then(data => {
-                    if (homeId == -1 && data.length > 0) {
-                        const { Id: tHomeId } = data[0];
-                        setHome(data[0]);
-                        dispatch(Actions.onChangeHomeId(tHomeId));
-                    } else if (homeId > 0) {
-                    
-                        for(let obj of data) {
-                            const { Id } = obj;
-
-                            if (Id === homeId) {
-                                obj.flag = true;
-                                setHome(obj);
-                                // break;
-                            }
-                        }
-                    }
-                    setHomeLs(data);
-                })
-                .catch(err => {
-                    setLoading(false);
-                    console.log(`Error: ${err}`);
-                })
+            HomeList();
         }
     }, [isFocused]);
-    // #endregion
 
     // #region Helper
-    const toggleHomeModal = () => setShowHomeModal((val) => !val);
-    const selectHome = ({ pos }) => {
-        let arr = [...homeLs];
-
-        for (let ind in arr) {
-            arr[ind].flag = false;
-        }
-
-        arr[pos].flag = true;
-        
-        setHomeLs(arr);
-        
-        const { Id: homeId } = arr[pos];
-        setHome(arr[pos]);
-
-        dispatch(Actions.onChangeHomeId(homeId));
-
+    const onSelectHome = (item) => {
+        selectHome(item);
         toggleHomeModal();
     }
-    // #endregion
 
-    // #region Navigation
     const GoToHomeManagement = () => {
         navigation.navigate("HomeManagement");
         toggleHomeModal();
     };
+
+    const HomeList = () => {
+        setLoading(true);
+        fetchHomeList({
+            param: {
+                UserId: userId,
+            },
+            onSetLoading: setLoading
+        })
+            .then(data => {
+                setHomeLs(data, homeId);
+            })
+            .catch(err => {
+                setLoading(false);
+                console.log(`Error: ${err}`);
+            })
+    }
     // #endregion
+
+    const { Name = "" } = home;
 
     return (
         <>
             <BcLoading loading={loading} />
             <HomeModal
-                data={homeLs} onItemSelect={selectHome}
+                data={homeLs} onItemSelect={onSelectHome}
                 onSelectHomeManagement={GoToHomeManagement}
                 showModal={showHomeModal} setShowModal={setShowHomeModal} />
             <TouchableOpacity onPress={toggleHomeModal}>
@@ -183,7 +212,7 @@ function Index(props) {
                         fontFamily: "Roboto-Bold",
                         fontSize: 20,
                         color: "#c3c3c3"
-                    }}>{home.Name}</Text>
+                    }}>{Name}</Text>
                     <FontAwesome5 name={"caret-down"} color={"#c3c3c3"} size={32} />
                 </HStack>
             </TouchableOpacity>

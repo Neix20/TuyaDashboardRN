@@ -4,7 +4,7 @@ const ORG_NAME = "VIGTECH LABS SDN BHD";
 // const SERVER_URL = "https://2452-103-26-251-251.ngrok-free.app";
 const SERVER_URL = "https://vms.vendlah.com/YatuWS";
 
-const LOG_URL = "https://7f33-2001-e68-6988-7100-70c4-8c80-f738-1a76.ngrok-free.app";
+const LOG_URL = "https://e390-2001-e68-6988-7100-b46f-daab-29cf-4fab.ngrok-free.app";
 
 const ONESIGNAL_APP_ID = "c9ae1fae-6f45-4ec4-8d62-15947a7d9b52";
 

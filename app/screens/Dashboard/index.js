@@ -33,7 +33,8 @@ function Header(props) {
                     height: 60,
                     backgroundColor: "#fff",
                 }}>
-                <HStack style={{ width: "90%" }}>
+                <HStack justifyContent={"space-between"} style={{ width: "90%" }}>
+                    <BcYatuHome />
                     <BcYatuHome />
                 </HStack>
             </View>

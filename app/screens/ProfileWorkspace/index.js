@@ -231,7 +231,6 @@ function Index(props) {
     const UpdateProfileWorkspace = (item) => {
         const { Id = 0, pos, Name, Code = "" } = item;
         
-
         const ProfileWorkspaceId = Code.slice(Code.length - 1);
         
         setLoading(true);
