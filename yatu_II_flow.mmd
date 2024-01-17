@@ -1,0 +1,25 @@
+flowchart TD
+    
+    2[Login]
+    3[Check Device Listing]
+    4[Dashboard]
+    5[Activate Token]
+
+    6[Check is Authenticated]
+    7[Please top-up / Activate Tokesn]
+    8[Check Tokens Exist]
+
+    9[Device Listing, Ask to Sync]
+    10[Auth Module]
+
+    2 --> 3
+    3 -->|No| 5
+    3 -->|Yes| 4
+
+    5 --> 8
+
+    8 -->|If Got Tokens| 6
+    8 -->|If No| 7
+
+    6 -->|If Authenticated| 9
+    6 -->|If Not| 10

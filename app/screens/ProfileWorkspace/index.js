@@ -29,6 +29,7 @@ function useProfileWs(ProfileWorkspaceId = -1, val = []) {
         if (arr.length > 0) {
 
             arr = arr.map((obj, pos) => {
+
                 const { Image = "https://i.imgur.com/Du4wGXQ.jpg", Id = -1 } = obj;
 
                 const flag = false;
@@ -231,7 +232,11 @@ function Index(props) {
     const UpdateProfileWorkspace = (item) => {
         const { Id = 0, pos, Name, Code = "" } = item;
         
-        const ProfileWorkspaceId = Code.slice(Code.length - 1);
+        let ProfileWorkspaceId = Code.slice(Code.length - 1);
+
+        if (ProfileWorkspaceId == 1) {
+            ProfileWorkspaceId = 0;
+        }
         
         setLoading(true);
         fetchUpdateProfileWorkspace({

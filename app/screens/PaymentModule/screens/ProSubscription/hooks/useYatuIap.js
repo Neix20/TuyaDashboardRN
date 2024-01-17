@@ -41,7 +41,7 @@ function Index(onSetLoading = () => { }) {
             });
     };
 
-    const handleGetPurchaseHistory = async (props) => {
+    const handleGetPurchaseHistory = (props) => {
 
         if (subscriptions.length == 0) {
             return;
@@ -54,16 +54,12 @@ function Index(onSetLoading = () => { }) {
         getPurchaseHistory()
         .then(data => {
             onSetLoading(false);
-            
-            // if (purchaseHistory && purchaseHistory.length > 0) {
-            //     onEndTrue();
-            // } else {
-            //     onEndFalse();
-            // }
+            onEndTrue();
         })
         .catch(err => {
             onSetLoading(false);
-            Logger.error({ message: "handleGetPurchaseHistory GetPurchaseHistory", data: err });
+            onEndFalse();
+            console.err({ message: "handleGetPurchaseHistory GetPurchaseHistory", data: err });
         })
     };
 

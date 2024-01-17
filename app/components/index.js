@@ -148,7 +148,9 @@ export {
 }
 
 import BcYatuHome from "./YatuHome";
+import BcProfileWorkspace from "./ProfileWorkspace";
 
 export {
-    BcYatuHome
+    BcYatuHome,
+    BcProfileWorkspace
 }

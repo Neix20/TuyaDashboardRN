@@ -9,16 +9,20 @@ import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 import { Logger, Utility } from "@utility";
 import { Images, Svg } from "@config";
 
-import { BcBoxShadow, BcLoading, BcSvgIcon, BcDisableII } from "@components";
+import { BcBoxShadow, BcLoading, BcSvgIcon, BcDisableII, BcFooter } from "@components";
 import { useToggle } from "@hooks";
+
+import { fetchTokenInfo } from "@api";
 
 // #region Components
 function TnC(props) {
 
     const arr = [
-        "Velit magnam et molestiae nulla quia adipisci sit consequatur ipsam. Pariatur atque iure sit assumenda voluptate dolores ducimus molestiae. Repudiandae culpa ut assumenda id qui.",
-        "Ipsum cumque iure soluta occaecati esse suscipit et. Repudiandae accusamus debitis molestiae ipsam distinctio. Ex nam et incidunt vel fugiat vel repellat et. Et dicta eos odio.",
-        "Iure omnis quasi qui ut accusamus. Sit et tempore. Sunt unde mollitia a natus optio a accusamus et.",
+        "The token can only be utilized for the specified services as outlined in its details.",
+        "The token is valid until the specified expiration date mentioned in the token details or as communicated by the issuer. Once redeemed, it cannot be refunded.",
+        "Expired Tokens will not grant access to the subscribed services.",
+        "The issuer reserves the right to refuse access or cancel the subscription if there is a reasonable belief of fraud, misuse, or violation of the terms and conditions.",
+        "Any attempt to tamper with, alter, or duplicate the subscription may be considered fraudulent and could lead to legal action.",
     ];
 
     const style = {
@@ -28,7 +32,7 @@ function TnC(props) {
         },
         description: {
             fontFamily: "Roboto-Medium",
-            fontSize: 18
+            fontSize: 14
         }
     }
 
@@ -81,12 +85,7 @@ function DashboardBtn(props) {
 
 function RedeemedToken(props) {
 
-    const obj = {
-        name: "Yatu Pro Token",
-        img: { uri: "https://i.imgur.com/duGvnXn.png" },
-    }
-
-    const { name = "", img } = obj;
+    const { Name =  "Yatu Pro Token", img } = props;
 
     const style = {
         title: {
@@ -97,10 +96,10 @@ function RedeemedToken(props) {
     }
 
     return (
-        <VStack width={"80%"} space={3} 
+        <VStack width={"80%"} space={3}
             alignItems={"center"}>
-            <Text style={style.title}>You've successfully redeemed {name}!</Text>
-            <Image source={img} alt={name} style={{ width: 100, height: 100 }} />
+            <Text style={style.title}>You've successfully redeemed {Name}!</Text>
+            <Image source={img} alt={Name} style={{ width: 100, height: 100 }} />
         </VStack>
     )
 }
@@ -162,6 +161,23 @@ function Header(props) {
 }
 // #endregion
 
+function useToken(props) {
+    const [token, setToken] = useState({});
+
+    const updateToken = (data = {}) => {
+        const { Image = "https://i.imgur.com/Du4wGXQ.jpg" } = data;
+
+        const next_state = {
+            ...data,
+            img: { uri: Image },
+        }
+
+        setToken(_ => next_state);
+    }
+
+    return [token, updateToken]
+}
+
 function Index(props) {
 
     const toast = useToast();
@@ -169,11 +185,41 @@ function Index(props) {
     const isFocused = useIsFocused();
 
     const [loading, setLoading, toggleLoading] = useToggle(false);
+    
+    const { Token = "" } = props.route.params;
+    // const Token = "";
+
+    const [token, setToken] = useToken();
+
+    useEffect(() => {
+        if (isFocused) {
+            TokenInfo();
+        }
+    }, [isFocused]);
 
     const GoDashboard = () => {
         navigation.navigate("TabNavigation", {
             screen: "Profile"
         })
+    }
+
+    const TokenInfo = () => {
+        setLoading(true);
+        fetchTokenInfo({
+            param: {
+                UserId: 10,
+                Token
+            },
+            onSetLoading: setLoading
+        })
+        .then(data => {
+            setToken(data)
+        })
+        .catch(err => {
+            setLoading(false);
+            console.error(`Error: ${err}`);
+        })
+
     }
 
     return (
@@ -202,20 +248,20 @@ function Index(props) {
 
                             {/* Token For Selected Item */}
                             <View alignItems={"center"}>
-                                <RedeemedToken />
+                                <RedeemedToken {...token} />
                             </View>
 
                             {/* Terms & Conditions */}
                             <View alignItems={"center"}>
                                 <TnC />
                             </View>
-
-                            {/* Go Profile */}
-                            <View alignItems={"center"}>
-                                <DashboardBtn flag={false} onPress={GoDashboard} />
-                            </View>
                         </VStack>
                     </ScrollView>
+
+                    {/* Footer */}
+                    <BcFooter>
+                        <DashboardBtn flag={false} onPress={GoDashboard} />
+                    </BcFooter>
                 </View>
             </SafeAreaView>
         </>

@@ -10,7 +10,7 @@ import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 import { Logger, Utility } from "@utility";
 import { Images, Svg } from "@config";
 
-import { BcHeader, BcLoading, BcSvgIcon, BcDisableII } from "@components";
+import { BcHeader, BcLoading, BcSvgIcon, BcDisableII, BcFooter } from "@components";
 import { useToggle } from "@hooks";
 import { fetchRedeemToken } from "@api";
 
@@ -103,9 +103,11 @@ function RedeemTokenBtn(props) {
 function TnC(props) {
 
     const arr = [
-        "Velit magnam et molestiae nulla quia adipisci sit consequatur ipsam. Pariatur atque iure sit assumenda voluptate dolores ducimus molestiae. Repudiandae culpa ut assumenda id qui.",
-        "Ipsum cumque iure soluta occaecati esse suscipit et. Repudiandae accusamus debitis molestiae ipsam distinctio. Ex nam et incidunt vel fugiat vel repellat et. Et dicta eos odio.",
-        "Iure omnis quasi qui ut accusamus. Sit et tempore. Sunt unde mollitia a natus optio a accusamus et.",
+        "The token can only be utilized for the specified services as outlined in its details.",
+        "The token is valid until the specified expiration date mentioned in the token details or as communicated by the issuer. Once redeemed, it cannot be refunded.",
+        "Expired Tokens will not grant access to the subscribed services.",
+        "The issuer reserves the right to refuse access or cancel the subscription if there is a reasonable belief of fraud, misuse, or violation of the terms and conditions.",
+        "Any attempt to tamper with, alter, or duplicate the subscription may be considered fraudulent and could lead to legal action.",
     ];
 
     const style = {
@@ -115,7 +117,7 @@ function TnC(props) {
         },
         description: {
             fontFamily: "Roboto-Medium",
-            fontSize: 18
+            fontSize: 14
         }
     }
 
@@ -164,25 +166,27 @@ function Index(props) {
             },
             onSetLoading: setLoading
         })
-        .then(data => {
-            const { ResponseCode = "00", ResponseMessage = "" } = data;
-            if (ResponseCode === "00") {
-                GoToTokenSuccess();
-            } else {
-                toast.show({
-                    description: "Error!"
-                })
-            }
-            setTokenCode("");
-        })
-        .catch(err => {
-            setLoading(false);
-            console.error(`Error: ${err}`)
-        })
+            .then(data => {
+                const { ResponseCode = "00", ResponseMessage = "" } = data;
+                if (ResponseCode === "00") {
+                    GoToTokenSuccess();
+                } else {
+                    toast.show({
+                        description: ResponseMessage
+                    })
+                }
+                setTokenCode("");
+            })
+            .catch(err => {
+                setLoading(false);
+                console.error(`Error: ${err}`)
+            })
     }
 
     const GoToTokenSuccess = () => {
-        navigation.navigate("TokenSuccess");
+        navigation.navigate("TokenSuccess", {
+            Token: tokenCode
+        });
     }
 
     return (
@@ -202,8 +206,7 @@ function Index(props) {
                         contentContainerStyle={{ flexGrow: 1 }}>
                         <VStack
                             flexGrow={1} bgColor={"#FFF"}
-                            pt={3} pb={5} space={5}
-                            justifyContent={"space-between"}>
+                            pt={3} pb={5} space={5}>
 
                             {/* SVG Icon */}
                             <View alignItems={"center"}>
@@ -219,13 +222,14 @@ function Index(props) {
                             <View alignItems={"center"}>
                                 <TnC />
                             </View>
-
-                            {/* Redeem Button */}
-                            <View alignItems={"center"}>
-                                <RedeemTokenBtn flag={tokenCodeFlag} onPress={RedeemToken} />
-                            </View>
                         </VStack>
+
                     </ScrollView>
+
+                    {/* Redeem Button */}
+                    <BcFooter>
+                        <RedeemTokenBtn flag={tokenCodeFlag} onPress={RedeemToken} />
+                    </BcFooter>
                 </View>
             </SafeAreaView>
         </>

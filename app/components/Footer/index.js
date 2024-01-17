@@ -11,20 +11,24 @@ import { BcBoxShadow } from "@components";
 
 function Index(props) {
     const { children } = props;
+
+    const borderRadius = 30;
+
+    const style = {
+        footer: {
+            height: 80,
+            width: width,
+            backgroundColor: "#fff",
+            borderTopLeftRadius: borderRadius,
+            borderTopRightRadius: borderRadius,
+        }
+    }
+
     return (
         <BcBoxShadow style={{
-            borderRadius: 30,
+            borderRadius,
         }}>
-            <View
-                alignItems={"center"}
-                justifyContent={"center"}
-                style={{
-                    height: 80,
-                    width: width,
-                    backgroundColor: "#fff",
-                    borderTopLeftRadius: 30,
-                    borderTopRightRadius: 30,
-                }}>
+            <View alignItems={"center"} justifyContent={"center"} style={style.footer}>
                 {children}
             </View>
         </BcBoxShadow>

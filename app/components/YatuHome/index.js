@@ -121,15 +121,18 @@ function HomeModal(props) {
 
     // #region Render
     const renderItem = ({ item, index }) => {
+
         const { Name = "", flag = false } = item;
         const selectItem = () => onItemSelect(item);
 
         return (
-            <HomeItem key={index} 
-                onPress={selectItem} flag={flag}
-                IconBtn={FontAwesome5} IconName={"check"} IconColor={"#28984f"}>
-                {Name}
-            </HomeItem>
+            <View alignItems={"center"}>
+                <HomeItem key={index}
+                    onPress={selectItem} flag={flag}
+                    IconBtn={FontAwesome5} IconName={"check"} IconColor={"#28984f"}>
+                    {Name}
+                </HomeItem>
+            </View>
         )
     }
     // #endregion
@@ -137,7 +140,7 @@ function HomeModal(props) {
     return (
         <TopModal showCross={false} {...props}>
             <View alignItems={"center"} width={"100%"}>
-                <FlatList data={data} renderItem={renderItem} style={{ width: "96%" }} />
+                <FlatList data={data} renderItem={renderItem} style={{ width: "100%" }} />
                 <Divider my={2} width={"90%"} />
                 <HomeItem onPress={onSelectHomeManagement} flag={true}
                     IconBtn={FontAwesome5} IconName={"home"} IconColor={"#ccc"}>Home Management</HomeItem>

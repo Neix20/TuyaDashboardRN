@@ -26,4 +26,10 @@
         "titleBar.inactiveForeground": "#e7e7e799"
     },
     "peacock.color": "#1857a4",
+    "files.exclude": {
+        "**/.yarn/cache": true
+    },
+    "files.watcherExclude": {
+        "**/.yarn/cache/**": true
+    }
 }

@@ -249,10 +249,18 @@ function Index(props) {
                     }
                     Logger.serverInfo({ res: resp });
 
-                    const { transactionId: refNo = "", purchaseToken = "" } = resp;
+                    const { transactionId: refNo = "" } = resp;
+
+                    let purchaseToken = "";
+
+                    if (Platform.OS == "ios") {
+                        purchaseToken = resp.verificationResultIOS;
+                    } else if (Platform.OS == "android") {
+                        purchaseToken = resp.purchaseToken;
+                    }
 
                     const subCode = productId.split(".").at(-1);
-                    CreateSubscriptionOrderWithStorePayment(subCode, refNo);
+                    CreateSubscriptionOrderWithStorePayment(subCode, refNo, purchaseToken);
                 }
             } catch (error) {
                 if (error instanceof PurchaseError) {

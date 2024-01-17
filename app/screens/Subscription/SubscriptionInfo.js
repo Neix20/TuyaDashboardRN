@@ -9,13 +9,15 @@ import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 import { Logger, Utility } from "@utility";
 import { Images, Svg } from "@config";
 
-import { fetchSubscription } from "@api";
+import { fetchSubscription, fetchCancelSubscriptionOrder } from "@api";
 
 import { BcHeader, BcLoading, BcBoxShadow } from "@components";
 import { useToggle } from "@hooks";
 
 import { useDispatch, useSelector } from 'react-redux';
 import { Actions, Selectors } from '@redux';
+
+import { deepLinkToSubscriptions } from "react-native-iap";
 
 // #region Custom Hooks
 function useInfo() {
@@ -150,6 +152,36 @@ function InfoPanel(props) {
         </BcBoxShadow>
     )
 }
+
+function CancelSubscription(props) {
+
+    const { hideFlag = false, onPress = () => { } } = props;
+
+    const style = {
+        title: {
+            fontFamily: "Roboto-Bold",
+            fontSize: 18,
+            color: "#F00"
+        }
+    }
+
+    if (hideFlag) {
+        return (<></>)
+    }
+
+    return (
+        <BcBoxShadow>
+            <View bgColor={"#FFF"} alignItems={"center"}>
+                <TouchableOpacity onPress={onPress}
+                    style={{ width: "90%", height: 40 }}>
+                    <View flex={1} alignItems={"center"} justifyContent={"center"}>
+                        <Text style={style.title}>Cancel Subscription</Text>
+                    </View>
+                </TouchableOpacity>
+            </View>
+        </BcBoxShadow>
+    )
+}
 // #endregion
 
 function Index(props) {
@@ -168,22 +200,71 @@ function Index(props) {
 
     useEffect(() => {
         if (isFocused) {
-            fetchSubscription({
-                param: {
-                    UserId: userId,
-                    SubscriptionId: SubId
-                },
-                onSetLoading: setLoading
-            })
-                .then(data => {
-                    setSubInfo(data)
-                })
-                .catch(err => {
-                    setLoading(false);
-                    console.log(`Error: ${err}`);
-                })
+            Subscription();
         }
     }, [isFocused]);
+
+    const Subscription = () => {
+        setLoading(true);
+        fetchSubscription({
+            param: {
+                UserId: userId,
+                SubscriptionId: SubId
+            },
+            onSetLoading: setLoading
+        })
+            .then(data => {
+                setSubInfo(data)
+            })
+            .catch(err => {
+                setLoading(false);
+                console.log(`Error: ${err}`);
+            })
+    }
+
+    const { SubscriptionCode = "" } = subInfo;
+
+    const CancelSubscriptionOrder = () => {
+        setLoading(true);
+        fetchCancelSubscriptionOrder({
+            param: {
+                UserId: userId,
+                SubscriptionId: SubId
+            },
+            onSetLoading: setLoading
+        })
+        .then(data => {
+            GoToProfile();
+        })
+        .catch(err => {
+            setLoading(false);
+            console.error(`Error: ${err}`);
+        })
+    }
+
+    const onCancelSubscription = () => {
+        const sku = `com.subscription.${SubscriptionCode.toLowerCase()}`;
+        // const sku = "com.subscription.mspp0100";
+
+        // [x] API Call
+        // Cancel Subscription
+
+        deepLinkToSubscriptions({
+            sku
+        })
+        .then(_ => {
+            CancelSubscriptionOrder();
+        })
+        .catch(err => {
+            console.error(`Error: ${err}`);
+        });
+    }
+
+    const GoToProfile = () => {
+        navigation.navigate("TabNavigation", {
+            screen: "Profile",
+        })
+    }
 
     return (
         <>
@@ -203,6 +284,10 @@ function Index(props) {
                         <VStack space={3} flexGrow={1}>
                             <TopPanel data={subInfo} />
                             <InfoPanel data={subInfo} />
+                            <CancelSubscription 
+                                hideFlag={SubscriptionCode == "MSSP0007"} 
+                                // hideFlag={false}
+                                onPress={onCancelSubscription} />
                         </VStack>
                     </ScrollView>
                 </View>

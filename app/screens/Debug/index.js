@@ -12,7 +12,7 @@ const { SUBSCRIPTION_SKUS } = clsConst;
 import { useToggle, usePayDict, useYatuIap } from "@hooks";
 import { BcLoading, BcYesNoModal } from "@components";
 
-import { fetchSubscriptionProPlan } from "@api";
+import { fetchSubscriptionProPlan, fetchRestoreStorePurchase } from "@api";
 import { withIAPContext, PurchaseError } from "react-native-iap";
 
 import { Platform } from "react-native";
@@ -41,8 +41,8 @@ function PaymentIap() {
 
     useEffect(() => {
         if (subLs.length > 0) {
-            Logger.info({ 
-                data: subLs, 
+            Logger.serverInfo({
+                data: subLs,
                 os: Platform.OS,
                 code: "SubscriptionLs"
             });
@@ -52,18 +52,18 @@ function PaymentIap() {
         }
     }, [subLs]);
 
-    useEffect(() => {
-        if (purchaseHistoryLs.length > 0) {
-            Logger.info({ 
-                data: purchaseHistoryLs, 
-                os: Platform.OS,
-                code: "PurchaseHistoryLs"
-            });
-            toast.show({
-                description: "Purchase History Loaded!"
-            })
-        }
-    }, [purchaseHistoryLs]);
+    // useEffect(() => {
+    //     if (purchaseHistoryLs.length > 0) {
+    //         Logger.serverInfo({ 
+    //             data: purchaseHistoryLs, 
+    //             os: Platform.OS,
+    //             code: "PurchaseHistoryLs"
+    //         });
+    //         toast.show({
+    //             description: "Purchase History Loaded!"
+    //         })
+    //     }
+    // }, [purchaseHistoryLs]);
 
     const SubscriptionProPlan = () => {
         setLoading(true);
@@ -95,6 +95,21 @@ function PaymentIap() {
                 console.error(`Error: ${err}`);
             })
     }
+
+    const RestoreStorePurchase = (SubscriptionCode = "") => {
+        setLoading(true);
+        fetchRestoreStorePurchase({
+            param: {
+                UserId: 10,
+                SubscriptionCode
+            },
+            onSetLoading: setLoading
+        })
+            .catch(err => {
+                setLoading(false);
+                console.error(`Error: ${err}`);
+            })
+    }
     // #endregion
 
     // #region IAP Listener
@@ -113,7 +128,7 @@ function PaymentIap() {
                         os: Platform.OS,
                         code: "PurchaseTransaction"
                     }
-                    Logger.info(resp);
+                    Logger.serverInfo(resp);
                     setLoading(false);
 
                     // const { productId = "", transactionId: refNo = "", purchaseToken = "" } = resp;
@@ -160,11 +175,24 @@ function PaymentIap() {
     }
     // #endregion
 
-    const onPressYes = () => {
+    const RestorePurchase = () => {
         const onEndTrue = () => {
-            toast.show({
-                description: "Successfully restored your subscription."
-            })
+            if (purchaseHistoryLs.length > 0) {
+
+                const { productId = "" } = purchaseHistoryLs[0];
+
+                // const sku = "com.subscription.mspp0100";
+                const sku = productId.split(".").at(-1);
+                RestoreStorePurchase(sku);
+
+                toast.show({
+                    description: "Successfully restored your subscription."
+                })
+            } else {
+                toast.show({
+                    description: "No subscription available to restore."
+                })
+            }
             setShowRpModal(false);
         }
 
@@ -180,11 +208,12 @@ function PaymentIap() {
 
     return (
         <>
-            <BcYesNoModal 
+            <BcYesNoModal
                 showModal={showRpModal} setShowModal={setShowRpModal}
-                title={"Test"} description={"Test"}
-                titleYes={"Delete"} titleNo={"Cancel"}
-                onPressYes={onPressYes} onPressNo={toggleRpModal}
+                title={"Restore Purchase"}
+                description={`This will restore all your deleted purchases from App Store & Google play store.\n\nWould you like to restore your purchases?`}
+                titleYes={"Restore"} titleNo={"Cancel"}
+                onPressYes={RestorePurchase} onPressNo={toggleRpModal}
             />
             <BcLoading loading={loading} />
             <SafeAreaView style={{ flex: 1 }}>
@@ -202,7 +231,7 @@ function PaymentIap() {
                         <View flexGrow={1} justifyContent={"center"}>
                             <VStack alignItems={"center"} space={3}>
                                 <Text>This is Debug Page</Text>
-                                <HStack width={"80%"} space={3} 
+                                <HStack width={"80%"} space={3}
                                     alignItems={"center"} style={{ height: 60 }}>
                                     {Object.values(payDict).map(renderItem)}
                                 </HStack>

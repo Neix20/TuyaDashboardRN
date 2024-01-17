@@ -79,6 +79,8 @@ import fetchCheckTuyaEmail from "./fetchCheckTuyaEmail";
 
 import fetchSubscriptionProPlan from "./fetchSubscriptionProPlan";
 import fetchCreateSubscriptionOrderWithStorePayment from "./fetchCreateSubscriptionOrderWithStorePayment";
+import fetchCancelSubscriptionOrder from "./fetchCancelSubscriptionOrder";
+import fetchRestoreStorePurchase from "./fetchRestoreStorePurchase";
 
 import fetchDeleteAccount from "./fetchDeleteAccount";
 
@@ -92,6 +94,8 @@ import fetchUpdateProfileWorkspace from "./fetchUpdateProfileWorkspace";
 import fetchProfileWorkspace from "./fetchProfileWorkspace";
 import fetchRedeemToken from "./fetchRedeemToken";
 import fetchGetUserToken from "./fetchGetUserToken";
+import fetchTokenInfo from "./fetchTokenInfo";
+
 
 
 export {
@@ -187,6 +191,8 @@ export {
     fetchPaymentTypeList,
     fetchCreateSubscriptionOrder,
     fetchCreateSubscriptionOrderWithStorePayment,
+    fetchCancelSubscriptionOrder,
+    fetchRestoreStorePurchase,
     fetchVerifyPromoCode
 }
 
@@ -214,4 +220,5 @@ export {
     fetchProfileWorkspace,
     fetchRedeemToken,
     fetchGetUserToken,
+    fetchTokenInfo
 }

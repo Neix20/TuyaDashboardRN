@@ -18,7 +18,7 @@ import { clsConst } from "@config";
 import { useDispatch, useSelector } from 'react-redux';
 import { Actions, Selectors } from '@redux';
 
-import { fetchProfileInfo, fetchSubUserAccess, fetchDeleteAccount } from "@api";
+import { fetchProfileInfo, fetchSubUserAccess, fetchDeleteAccount, fetchRestoreStorePurchase } from "@api";
 
 import { BcLoading, BaseModal, BcYesNoModal } from "@components";
 
@@ -238,8 +238,8 @@ function NavPanel(props) {
             } */}
             {/* <PanelBtn Btn={SimpleLineIcons} icon={"question"} title={"FAQ & Feedback"} /> */}
             <PanelBtn onPress={GoToSubscription} Btn={FontAwesome5} icon={"shopping-cart"} title={"View Purchased Add-Ons"} />
-            <PanelBtn onPress={GoToUserToken} Btn={FontAwesome5} icon={"shopping-cart"} title={"View Purchased Tokens"} />
-            <PanelBtn onPress={GoToProfileWorkspace} Btn={Ionicons} icon={"settings-sharp"} title={"View Profile Workspace"} />
+            {/* <PanelBtn onPress={GoToUserToken} Btn={FontAwesome5} icon={"shopping-cart"} title={"View Token Wallet"} /> */}
+            {/* <PanelBtn onPress={GoToProfileWorkspace} Btn={Ionicons} icon={"settings-sharp"} title={"View Profile Workspace"} /> */}
         </VStack>
     )
 }
@@ -269,9 +269,6 @@ function PaymentSubscriptionPanel(props) {
 
     const GoToPayment = () => {
         navigation.navigate("PaymentProSubscription");
-        // toast.show({
-        //     description: "Work In-Progress!"
-        // });
     };
 
     return (
@@ -311,16 +308,46 @@ function RestorePurchasePanel(props) {
 
     const { onGetPurchaseHistory = () => { } } = props;
 
+    const userId = useSelector(Selectors.userIdSelect);
+
     // #region Restore Purchase Helper
     const [showRpModal, setShowRpModal, toggleRpModal] = useToggle();
 
     const closeRpModal = () => setShowRpModal(false);
 
+    const RestoreStorePurchase = (SubscriptionCode = "") => {
+        setLoading(true);
+        fetchRestoreStorePurchase({
+            param: {
+                UserId: userId,
+                SubscriptionCode
+            },
+            onSetLoading: setLoading
+        })
+            .catch(err => {
+                setLoading(false);
+                console.error(`Error: ${err}`);
+            })
+    }
+
     const RestorePurchase = () => {
         const onEndTrue = () => {
-            toast.show({
-                description: "Successfully restored your subscription."
-            })
+            if (purchaseHistoryLs.length > 0) {
+
+                const { productId = "" } = purchaseHistoryLs[0];
+
+                // const sku = "com.subscription.mspp0100";
+                const sku = productId.split(".").at(-1);
+                RestoreStorePurchase(sku);
+
+                toast.show({
+                    description: "Successfully restored your subscription."
+                })
+            } else {
+                toast.show({
+                    description: "No subscription available to restore."
+                })
+            }
             closeRpModal();
         }
 
@@ -332,7 +359,6 @@ function RestorePurchasePanel(props) {
         }
 
         onGetPurchaseHistory({ onEndTrue, onEndFalse });
-        
     };
     // #endregion
 
@@ -518,8 +544,8 @@ function Index(props) {
                             <NavPanel {...profileInfo} />
 
                             {/* Make Payment */}
-                            {/* {(AccountType <= 2) ? <PaymentSubscriptionPanel /> : <></>} */}
-                            <TokenSubscriptionPanel />
+                            {(AccountType <= 2) ? <PaymentSubscriptionPanel /> : <></>}
+                            {/* <TokenSubscriptionPanel /> */}
 
                             <CompanyInfoPanel />
 

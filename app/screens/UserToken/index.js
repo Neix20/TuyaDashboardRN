@@ -176,8 +176,8 @@ function Index(props) {
 
     useEffect(() => {
         if (isFocused) {
-            // GetUserTokenData();
-            setTokenLs(TestData);
+            GetUserTokenData();
+            // setTokenLs(TestData);
         }
     }, [isFocused]);
 

@@ -9,8 +9,6 @@ import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 import { Logger, Utility } from "@utility";
 import { Images, Svg } from "@config";
 
-import { fetchSubscription } from "@api";
-
 import { BcHeader, BcLoading, BcBoxShadow } from "@components";
 import { useToggle } from "@hooks";
 
@@ -18,6 +16,8 @@ import { UserTokenInfo as TestData } from "./data";
 
 import { useDispatch, useSelector } from 'react-redux';
 import { Actions, Selectors } from '@redux';
+
+import { fetchTokenInfo } from "@api";
 
 // #region Custom Hooks
 function useInfo() {
@@ -161,8 +161,9 @@ function Index(props) {
     const navigation = useNavigation();
     const isFocused = useIsFocused();
 
-    // const { Id: TokenId = -1 } = props.route.params;
-    const TokenId = 26;
+    const { Code: Token = "" } = props.route.params;
+    console.log(Token);
+    // const TokenId = 26;
 
     const userId = useSelector(Selectors.userIdSelect);
 
@@ -171,13 +172,28 @@ function Index(props) {
 
     useEffect(() => {
         if (isFocused) {
-            setTokenInfo(TestData);
+            // setTokenInfo(TestData);
+            UserTokenInfo();
         }
     }, [isFocused]);
 
     // #region API
     const UserTokenInfo = () => {
-        
+        setLoading(true);
+        fetchTokenInfo({
+            param: {
+                UserId: 10,
+                Token
+            },
+            onSetLoading: setLoading
+        })
+        .then(data => {
+            setTokenInfo(data)
+        })
+        .catch(err => {
+            setLoading(false);
+            console.error(`Error: ${err}`);
+        })
     }
     // #endregion
 

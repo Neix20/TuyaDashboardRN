@@ -16,7 +16,7 @@ const { width, height } = screen;
 
 import { Logger, Utility } from "@utility";
 
-import { BcBoxShadow, BcLoading, BcYatuHome, BaseModal, BcPhotoGalleryModal } from "@components";
+import { BcBoxShadow, BcLoading, BcYatuHome, BaseModal, BcPhotoGalleryModal, BcProfileWorkspace } from "@components";
 
 import { Devices, Images, Animation, clsConst } from "@config";
 

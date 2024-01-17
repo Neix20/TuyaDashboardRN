@@ -4,6 +4,8 @@ import { View, VStack, HStack, Divider, useToast } from "native-base";
 
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
+import Ionicons from "react-native-vector-icons/Ionicons";
+
 import { useNavigation, useIsFocused } from "@react-navigation/native";
 
 import { Logger, Utility } from "@utility";
@@ -15,13 +17,14 @@ import { Actions, Selectors } from '@redux';
 
 import TopModal from "@components/Modal/TopModal";
 
-import { fetchHomeList } from "@api";
+import { fetchProfileWorkspace, fetchUpdateProfileWorkspace } from "@api";
 import { useToggle } from "@hooks";
 
-function useHome() {
+// #region Custom Hooks
+function useProfileWs() {
 
     const init = {
-        home: {
+        profileWs: {
             Name: "",
             flag: false,
         }
@@ -29,10 +32,10 @@ function useHome() {
 
     const dispatch = useDispatch();
 
-    const [home, setHome] = useState(init.home);
+    const [ws, setWs] = useState(init.profileWs);
     const [ls, setLs] = useState([]);
 
-    const updateLs = (data = [], homeId) => {
+    const updateLs = (data = [], profileWorkspace) => {
 
         if (data.length <= 0) {
             return;
@@ -46,16 +49,16 @@ function useHome() {
             flag: false,
         }))
 
-        if (homeId == -1) {
+        if (profileWorkspace == -1) {
             arr[0].flag = true;
-            setHome(_ => arr[0]);
-            dispatch(Actions.onChangeHomeId(arr[0].Id));
+            setWs(_ => arr[0]);
+            dispatch(Actions.onChangeProfileWorkspaceId(arr[0].Id));
         } else {
             for (const obj of arr) {
-                if (obj.Id == homeId) {
+                if (obj.Id == profileWorkspace) {
                     obj.flag = true;
-                    setHome(_ => obj);
-                    dispatch(Actions.onChangeHomeId(obj.Id));
+                    setWs(_ => obj);
+                    dispatch(Actions.onChangeProfileWorkspaceId(obj.Id));
                 }
             }
         }
@@ -63,7 +66,7 @@ function useHome() {
         setLs(_ => arr);
     }
 
-    const selectHome = ({ pos }) => {
+    const selectProfileWs = ({ pos }) => {
         let arr = [...ls];
 
         for (let ind in arr) {
@@ -74,14 +77,16 @@ function useHome() {
 
         setLs(_ => arr);
 
-        const { Id: HomeId } = arr[pos];
-        setHome(arr[pos]);
-        dispatch(Actions.onChangeHomeId(HomeId));
+        const { Id: ProfileWorkspaceId } = arr[pos];
+        setWs(arr[pos]);
+        dispatch(Actions.onChangeProfileWorkspaceId(ProfileWorkspaceId));
     }
 
-    return [home, ls, updateLs, selectHome];
+    return [ws, ls, updateLs, selectProfileWs];
 }
+// #endregion
 
+// #region Components
 function HomeItem(props) {
 
     const { children = null, onPress = () => { } } = props;
@@ -113,20 +118,23 @@ function HomeModal(props) {
 
     // #region Props
     const { data = [], onItemSelect = () => { } } = props;
-    const { onSelectHomeManagement = () => { } } = props;
+    const { onSelectManagement = () => { } } = props;
     // #endregion
 
     // #region Render
     const renderItem = ({ item, index }) => {
+
         const { Name = "", flag = false } = item;
         const selectItem = () => onItemSelect(item);
 
         return (
-            <HomeItem key={index} 
-                onPress={selectItem} flag={flag}
-                IconBtn={FontAwesome5} IconName={"check"} IconColor={"#28984f"}>
-                {Name}
-            </HomeItem>
+            <View alignItems={"center"}>
+                <HomeItem key={index}
+                    onPress={selectItem} flag={flag}
+                    IconBtn={FontAwesome5} IconName={"check"} IconColor={"#28984f"}>
+                    {Name}
+                </HomeItem>
+            </View>
         )
     }
     // #endregion
@@ -134,14 +142,15 @@ function HomeModal(props) {
     return (
         <TopModal showCross={false} {...props}>
             <View alignItems={"center"} width={"100%"}>
-                <FlatList data={data} renderItem={renderItem} style={{ width: "96%" }} />
+                <FlatList data={data} renderItem={renderItem} style={{ width: "100%" }} />
                 <Divider my={2} width={"90%"} />
-                <HomeItem onPress={onSelectHomeManagement} flag={true}
-                    IconBtn={FontAwesome5} IconName={"home"} IconColor={"#ccc"}>Home Management</HomeItem>
+                <HomeItem onPress={onSelectManagement} flag={true}
+                    IconBtn={Ionicons} IconName={"settings-sharp"} IconColor={"#ccc"}>ProfileWorkspace</HomeItem>
             </View>
         </TopModal>
     )
 }
+// #endregion
 
 function Index(props) {
 
@@ -152,61 +161,94 @@ function Index(props) {
     const homeId = useSelector(Selectors.homeIdSelect);
 
     // #region UseState
-    const [home, homeLs, setHomeLs, selectHome] = useHome();
-    const [showHomeModal, setShowHomeModal, toggleHomeModal] = useToggle(false);
+    const [profileWs, profileWsLs, setProfileWsLs, selectProfileWs] = useProfileWs();
+    const [setProfileWsModal, setShowProfileWsModal, toggleProfileWsModal] = useToggle(false);
 
     const [loading, setLoading] = useState(false);
     // #endregion
 
     useEffect(() => {
         if (isFocused) {
-            HomeList();
+            ProfileWorkspace();
         }
     }, [isFocused]);
 
-    const onSelectHome = (item) => {
-        selectHome(item);
-        toggleHomeModal();
+    // #region Helper
+    // const onSelectProfileWs = (item) => {
+    //     selectProfileWs(item);
+    //     toggleProfileWsModal();
+    // }
+
+    const onSelectProfileWs = (item) => {
+        const { Id = 0, pos, Name, Code = "" } = item;
+        
+        let ProfileWorkspaceId = Code.slice(Code.length - 1);
+
+        if (ProfileWorkspaceId == 1) {
+            ProfileWorkspaceId = 0;
+        }
+        
+        setLoading(true);
+        fetchUpdateProfileWorkspace({
+            param: {
+                UserId: userId,
+                ProfileWorkspaceId
+            },
+            onSetLoading: setLoading
+        })
+        .then(data => {
+            selectProfileWs(item);
+            toggleProfileWsModal();
+        })
+        .catch(err => {
+            setLoading(false);
+            console.error(err);
+        })
     }
 
-    const GoToHomeManagement = () => {
-        navigation.navigate("HomeManagement");
-        toggleHomeModal();
+    const GoToProfileWorkspace = () => {
+        navigation.navigate("ProfileWorkspace");
+        toggleProfileWsModal();
     };
 
-    const HomeList = () => {
+    const ProfileWorkspace = () => {
         setLoading(true);
-        fetchHomeList({
+        Logger.info({
+            UserId: userId
+        })
+        fetchProfileWorkspace({
             param: {
                 UserId: userId,
             },
             onSetLoading: setLoading
         })
             .then(data => {
-                setHomeLs(data, homeId);
+                const { Data = [] } = data;
+                setProfileWsLs(Data, homeId);
             })
             .catch(err => {
                 setLoading(false);
                 console.log(`Error: ${err}`);
             })
     }
+    // #endregion
 
-    const { Name = "" } = home;
+    const { Code = "PFWS0001" } = profileWs;
 
     return (
         <>
             <BcLoading loading={loading} />
             <HomeModal
-                data={homeLs} onItemSelect={onSelectHome}
-                onSelectHomeManagement={GoToHomeManagement}
-                showModal={showHomeModal} setShowModal={setShowHomeModal} />
-            <TouchableOpacity onPress={toggleHomeModal}>
+                data={profileWsLs} onItemSelect={onSelectProfileWs}
+                onSelectManagement={GoToProfileWorkspace}
+                showModal={setProfileWsModal} setShowModal={setShowProfileWsModal} />
+            <TouchableOpacity onPress={toggleProfileWsModal}>
                 <HStack alignItems={"center"} space={2}>
                     <Text style={{
                         fontFamily: "Roboto-Bold",
                         fontSize: 20,
                         color: "#c3c3c3"
-                    }}>{Name}</Text>
+                    }}>{Code}</Text>
                     <FontAwesome5 name={"caret-down"} color={"#c3c3c3"} size={32} />
                 </HStack>
             </TouchableOpacity>

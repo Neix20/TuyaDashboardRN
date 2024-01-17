@@ -2,13 +2,14 @@
 
 ## API To Integrate
 
-- [x] UpdateProfileWorkspace
-  - [x] Update Params to Pass
-- [x] GetProfileWorkspace
-  - [x] fetch API
-  - [x] Update Terms & Conditions
-- [x] RedeemToken
-  - [x] fetch API
-  - [ ] Return Token When Redeemed
-- [ ] GetUserToken
-  - [x] fetch API
+- [ ] CancelSubscriptionOrder
+- [ ] RestoreStorePurchase
+- [ ] Record Demo & TestFlight
+
+## Issues
+
+- [ ] TNB Info
+- [ ] Optimal Line between 14 & 19
+- [ ] Disable all Downloads
+- [ ] Profile Workspace Implementation
+  - [ ] TProfileWorkspace
