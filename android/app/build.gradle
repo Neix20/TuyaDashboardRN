@@ -137,17 +137,18 @@ android {
     flavorDimensions "version"
     productFlavors {
         yatu {
+            resValue "string", "app_name", "Yatu Dashboard"
             dimension "version"
             signingConfig signingConfigs.release
             manifestPlaceholders = [
                 appIcon: "@mipmap/ic_launcher",
                 appIconRound: "@mipmap/ic_launcher_round",
-                appName: "Yatu Dashboard",
             ]
             missingDimensionStrategy "store", "play"
         }
 
         yatuDeveloper {
+            resValue "string", "app_name", "Yatu Lite"
             dimension "version"
             applicationIdSuffix ".developer"
             versionNameSuffix "-developer"
@@ -155,7 +156,6 @@ android {
             manifestPlaceholders = [
                     appIcon: "@mipmap/lite_launcher",
                     appIconRound: "@mipmap/lite_launcher_round",
-                    appName: "Yatu Developer",
             ]
             missingDimensionStrategy "store", "play"
         }

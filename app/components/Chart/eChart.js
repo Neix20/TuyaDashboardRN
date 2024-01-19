@@ -36,7 +36,7 @@ function ChartComponent(props) {
 
 	const { height = 480, width = 320 } = props;
 	const { option = {}, chartRef = null } = props;
-	const { dataset = [], coor = {}, toolTip = false } = props;
+	const { dataset = [], coor = {}, toolTip = false, comfort = true } = props;
 
 	useEffect(() => {
 		let chart;
@@ -52,7 +52,7 @@ function ChartComponent(props) {
 		}
 
 		return () => chart?.dispose();
-	}, [toolTip, coor, dataset, width]);
+	}, [toolTip, comfort, coor, dataset, width]);
 
 	return (<SkiaChart ref={chartRef} />);
 }
@@ -90,6 +90,7 @@ function Index(props) {
 	const [unit, setUnit] = useState("");
 
 	const [toolTip, setToolTip, toggleToolTip] = useToggle(true);
+	const [comfort, setComfort, toggleComfort] = useToggle(true);
 	// #endregion
 
 	// #region UseEffect
@@ -121,7 +122,43 @@ function Index(props) {
 	// #endregion
 
 	// #region Variables
-	const optDataSet = dataset.map(x => ({ ...x, type: "line", symbol: "circle", symbolSize: 5 }));
+	// Should Use UseEffect
+	let optDataSet = dataset.map(x => ({ ...x, type: "line", symbol: "square", symbolSize: 5 }));
+
+	if (comfort) {
+
+		let ts = [];
+
+		if (dataset.length >= 1) {
+
+			let { data: ts_val = [] } = dataset[0];
+
+			ts = ts_val.map(x => x.value[0]);
+
+			// Removed Undefined
+			ts = ts.filter(x => x);
+		}
+
+		// Upper Boundary
+		optDataSet.push({
+			name: 'Lower Boundary',
+			type: 'line',
+			stack: 'Total',
+			color: "rgba(255, 173, 177, 0.4)",
+			areaStyle: { color: "#FFF" },
+			data: ts.map(x => ({value: [x, 14]}))
+		});
+
+		// Lower Boundary
+		optDataSet.push({
+			name: 'Upper Boundary',
+			type: 'line',
+			stack: 'Total',
+			color: "rgba(255, 173, 177, 0.4)",
+			areaStyle: {},
+			data: ts.map(x => ({value: [x, 5]}))
+		})
+	}
 
 	const seTerm = seLs[flag ? 0 : 1];
 	const itvTerm = itvLs[pos];
@@ -130,12 +167,23 @@ function Index(props) {
 	const mtgTitle = flag ? "Toggle End" : "Toggle Start";
 
 	const ttColor = toolTip ? "#39B54A" : "#98A0A8";
+	const czColor = comfort ? "#FF5F1F" : "#98A0A8";
 	// #endregion
 
-	let option = {
+	option = {
 		animation: false,
 		toolbox: {
 			feature: {
+				myToggleComfort: {
+					show: true,
+					title: "Toggle Comfort Zone",
+					iconStyle: {
+						color: czColor,
+						borderColor: czColor
+					},
+					icon: `path://${ChartSvg["smiley"]}`,
+					onclick: toggleComfort,
+				},
 				myToggleToolTip: {
 					show: true,
 					title: "Toggle Tooltip",
@@ -251,20 +299,24 @@ function Index(props) {
 				formatter: function (params) {
 					if (params.length > 0) {
 						const { axisValueLabel: header } = params[0];
-	
+
 						let resArr = [header];
-	
+
+						if (comfort) {
+							params = params.slice(0, params.length - 2);
+						}
+
 						params.forEach(obj => {
 							let { data: { value }, marker } = obj;
 							value = value[1];
-	
+
 							const res = `${marker} ${value.toFixed(2)}${unit}`;
 							resArr.push(res);
 						})
-	
+
 						return resArr.join("\n");
 					}
-	
+
 					return "";
 				},
 				textStyle: {
@@ -284,8 +336,9 @@ function Index(props) {
 			</View>
 			<ChartComponent key={flag}
 				chartRef={chartRef} width={width * 0.85}
-				option={option} dataset={dataset} 
+				option={option} dataset={dataset}
 				coor={coor} toolTip={toolTip}
+				comfort={comfort}
 				{...props}
 			/>
 		</>

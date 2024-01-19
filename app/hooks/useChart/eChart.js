@@ -134,7 +134,7 @@ function Index(default_key) {
                 data: val
             }
 
-            // Output: [{ "name": "Temperature", "val": [ [1701255600000, 5], [1701257400000, 5], [1701259200000, 7], [1701261000000, 6], [1701262800000, 5] ] }]
+            // Output: [{ "name": "Temperature", "data": [ [1701255600000, 5], [1701257400000, 5], [1701259200000, 7], [1701261000000, 6], [1701262800000, 5] ] }]
             dataset.push(obj);
         }
         setChartData(() => ({ label, dataset }));
