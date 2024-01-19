@@ -72,5 +72,11 @@
 			"label": "npm: fastlaneAndroid:pushDevApk",
 			"detail": "cd app && fastlane android pushDevApk"
 		},
+		{
+			"label": "node: sandbox",
+			"type": "shell",
+			"command": "node temp/js/sandbox.js",
+			"problemMatcher": []
+		}
 	]
 }

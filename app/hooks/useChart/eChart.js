@@ -30,27 +30,12 @@ function Index(default_key) {
     // #region Helper
     const gen_device_log = (arr = []) => {
 
+        // Input:  [ { "Temperature": 1, "Humidity": 1 }, { "Temperature": 2, "Humidity": 2 } ]
         const dataDict = {};
 
         for (const obj of arr) {
 
             delete obj["Device_Id"];
-
-            // [
-            //     {
-            //         "Temperature": 1,
-            //         "Humidity": 1
-            //     },
-            //     {
-            //         "Temperature": 2,
-            //         "Humidity": 2
-            //     }
-            // ]
-
-            // {
-            //     "Temperature": [1, 2, 3],
-            //     "Humidity": [1, 2, 3]
-            // }
 
             for (const o_key in obj) {
                 const o_val = obj[o_key];
@@ -64,20 +49,23 @@ function Index(default_key) {
             }
         }
 
+        // Output: { "Temperature": [ 1, 2, 3 ], "Humidity": [ 1, 2, 3 ] }
         return dataDict;
     }
     // #endregion
 
     useEffect(() => {
 
+        // Input:  { "B8 Bedroom Smart IR 4": [ { "Timestamp": "2023-11-29T00:00:00", "Device_Id": 416, "Absolute Humidity": "18.87", "Temperature (℃)": "28.9", "Relative Humidity (%)": "66" } ], "B8 multi-function-timer-air monitor": [ { "Timestamp": "2023-11-29T00:00:00", "Device_Id": 414, "tvoc": "44", "air_quality": "good", "Particle Matter (ug/m3)": "51", "Carbon Dioxide (ppm)": "537", "Absolute Humidity": "15.7", "Temperature (℃)": "31", "Relative Humidity (%)": "49", "Formaldehyde (mg/m3)": "19" } ], "LF Piano LG aircon": [ { "Timestamp": "2023-11-29T00:00:00", "Device_Id": 430, "Absolute Humidity": "19.01", "Temperature (℃)": "29.6", "Relative Humidity (%)": "64" } ] }
         let data_dict = {};
 
         for (const key in chart) {
-            // DCH-CRYS
+            // "B8 Bedroom Smart IR 4"
             const val = chart[key];
             data_dict[key] = gen_device_log(val);
         }
 
+        // Output: { "B8 Bedroom Smart IR 4": { "Temperature": [ 1, 2, 3 ], "Humidity": [ 1, 2, 3 ] } }
         setChartII(data_dict);
 
         let ck_arr = [];
@@ -101,6 +89,7 @@ function Index(default_key) {
         }
 
         ck_arr = ck_arr.filter(x => svg_key.includes(x));
+        // [ "Temperature", "Humidity" ]
         setChartKeyOption(ck_arr);
     }, [chart]);
 
@@ -121,6 +110,7 @@ function Index(default_key) {
 
             let val = [0];
 
+            // Chart Key: "Temperature"
             if (chartKey in device_log) {
                 val = device_log[chartKey];
                 val = val.map(x => +x);
@@ -144,10 +134,12 @@ function Index(default_key) {
                 data: val
             }
 
+            // Output: [{ "name": "Temperature", "val": [ [1701255600000, 5], [1701257400000, 5], [1701259200000, 7], [1701261000000, 6], [1701262800000, 5] ] }]
             dataset.push(obj);
         }
         setChartData(() => ({ label, dataset }));
 
+        // [ "B8 Bedroom Smart IR 4", "B8 multi-function-timer-air monitor", "LF Piano LG aircon" ]
         const legend = Object.keys(chartII);
         setChartLegend(() => legend);
     }, [chartKey, chartII]);

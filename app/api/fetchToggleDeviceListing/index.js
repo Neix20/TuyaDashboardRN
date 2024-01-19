@@ -5,7 +5,7 @@ const Index = async (props) => {
     const { param } = props;
     const { onSetLoading } = props;
 
-    const action = "GetProfileWorkspace";
+    const action = "ToggleDeviceListing";
     const url = Utility.genServerUrl(action);
 
     // Static Data
@@ -23,15 +23,14 @@ const Index = async (props) => {
     onSetLoading(false);
 
     if (data["ResponseCode"] === "00") {
-        const { Data = [] } = data;
-        return Data;
+        // return data;
     }
     else {
-        console.log(`GetProfileWorkspace - Request - ${JSON.stringify(obj)}`);
-        console.log(`GetProfileWorkspace - Response - ${JSON.stringify(data)}`);
+        console.log(`ToggleDeviceListing - Request - ${JSON.stringify(obj)}`);
+        console.log(`ToggleDeviceListing - Response - ${JSON.stringify(data)}`);
     }
 
-    return [];
+    return data;
 };
 
 export default Index;

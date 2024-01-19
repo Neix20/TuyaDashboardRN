@@ -1,4 +1,5 @@
 
+
 import fetchDashboardInfo from "./fetchDashboardInfo";
 
 import fetchProfileInfo from "./fetchProfile";
@@ -90,13 +91,17 @@ import fetchErrorLog from "./fetchErrorLog";
 import fetchYatuEngineStatus from "./fetchYatuEngineStatus";
 import fetchGetParamApi from "./fetchGetParamApi";
 
-import fetchUpdateProfileWorkspace from "./fetchUpdateProfileWorkspace";
-import fetchProfileWorkspace from "./fetchProfileWorkspace";
 import fetchRedeemToken from "./fetchRedeemToken";
 import fetchGetUserToken from "./fetchGetUserToken";
 import fetchTokenInfo from "./fetchTokenInfo";
 
+import fetchProfileWorkspace from "./fetchProfileWorkspace";
+import fetchUpdateProfileWorkspace from "./fetchUpdateProfileWorkspace";
 
+import fetchDeviceByUserII from "./fetchDeviceByUserII";
+import fetchDeviceListII from "./fetchDeviceListII";
+import fetchToggleDeviceListing from "./fetchToggleDeviceListing";
+import fetchDeviceByProfileWorkspace from "./fetchDeviceByProfileWorkspace";
 
 export {
     fetchHomeList,
@@ -221,4 +226,11 @@ export {
     fetchRedeemToken,
     fetchGetUserToken,
     fetchTokenInfo
+}
+
+export {
+    fetchDeviceByUserII,
+    fetchDeviceListII,
+    fetchToggleDeviceListing,
+    fetchDeviceByProfileWorkspace,
 }

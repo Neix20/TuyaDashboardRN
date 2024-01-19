@@ -25,7 +25,7 @@ const Index = async (props) => {
     if (data["ResponseCode"] === "00") {
         // return data;
 
-        const { Data } = data;
+        const { Data = {} } = data;
 
         // Add Uri and Pos To Each Device Row
         for (let room in Data) {

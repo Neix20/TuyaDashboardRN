@@ -19,8 +19,8 @@ function Index(onSetLoading = () => {}) {
 
             let ts = chart.map(x => x["Timestamp"]);
 
+            // [ '11-29', '05-22', '12-31', '04-20', '02-12' ]
             const label = ts.map(x => DateTime.fromISO(x).toFormat("MM-dd"));
-
             delete obj["Timestamp"];
 
             const keys = Object.keys(obj);

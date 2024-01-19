@@ -4,7 +4,7 @@ platform :ios do
     # iOS Lanes
     lane :genIpa do
         # ios_set_build_number(xcodeproj: "./ios/YatuDashboard.xcodeproj")
-        version_name = ios_get_build_number(xcodeproj: "./../ios/YatuDashboard.xcodeproj")
+        # version_name = ios_get_build_number(xcodeproj: "./../ios/YatuDashboard.xcodeproj")
         # ios_set_version(version: version_name, xcodeproj: "./ios/YatuDashboard.xcodeproj")
 
         build_app(scheme: "YatuDashboard", workspace: "./../ios/YatuDashboard.xcworkspace", include_bitcode: true)

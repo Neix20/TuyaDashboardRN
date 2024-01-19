@@ -579,7 +579,7 @@ function Index(props) {
         //Method for handling notifications opened
         OneSignal.setNotificationOpenedHandler(event => {
             const { additionalData = {} } = event.notification;
-
+            
             if ("Action" in additionalData && additionalData["Action"] == "Data_Alert") {
 
             }

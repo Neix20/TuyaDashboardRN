@@ -1,15 +1,23 @@
 # Task List
 
-## API To Integrate
-
-- [ ] CancelSubscriptionOrder
-- [ ] RestoreStorePurchase
-- [ ] Record Demo & TestFlight
-
 ## Issues
 
 - [ ] TNB Info
-- [ ] Optimal Line between 14 & 19
+- [x] Optimal Line between 14 & 19
 - [ ] Disable all Downloads
-- [ ] Profile Workspace Implementation
-  - [ ] TProfileWorkspace
+- [x] Profile Workspace Implementation
+  - [x] TProfileWorkspace
+- [ ] Lite Icon
+
+## API List
+
+- [x] GetProfileWorkspace
+- [x] GetDeviceList
+- [x] GetDeviceByUserII
+  - [x] Import
+- [x] GetDeviceByProfileWorkspace
+  - [x] Import
+- [x] GetDeviceListII
+  - [x] Import
+- [x] ToggleDeviceListing
+  - [x] Import

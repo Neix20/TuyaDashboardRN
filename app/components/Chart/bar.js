@@ -1,12 +1,13 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Dimensions, SafeAreaView, ScrollView, Text } from "react-native";
-import { View } from "native-base";
+import { View, useToast } from "native-base";
 
 import { useNavigation, useIsFocused } from "@react-navigation/native";
 
 import * as echarts from 'echarts/core';
 import { SVGRenderer, SkiaChart } from '@wuba/react-native-echarts';
 import { LineChart, BarChart } from 'echarts/charts';
+
 import { TitleComponent, TooltipComponent, GridComponent, LegendComponent, ToolboxComponent, DataZoomComponent } from 'echarts/components';
 
 import { useOrientation, useToggle } from "@hooks";
@@ -65,27 +66,35 @@ function ChartComponent(props) {
 function Index(props) {
 
 	const { hook = [] } = props;
+	
+	const chartRef = useRef(null);
+	const toast = useToast();
 
+	// #region UseState
 	const [chart, setChart, chartKey, setChartKey, chartData, setChartData, chartLegend, chartKeyOption, setChartKeyOption] = hook;
-
 	const { label = [], dataset = [] } = chartData;
 
-	const chartRef = useRef(null);
-
 	const [width] = useOrientation();
-
 	const [unit, setUnit] = useState("");
+	const [toolTip, setToolTip, toggleToolTip] = useToggle(true);
+	// #endregion
 
 	const optDataSet = dataset.map(x => ({ ...x, type: "bar" }));
-
-	const [toolTip, setToolTip, toggleToolTip] = useToggle(true);
-
 	const ttColor = toolTip ? "#39B54A" : "#98A0A8";
 
 	useEffect(() => {
 		let ut = Utility.genUnit(chartKey);
 		setUnit(_ => ut);
 	}, [chartKey]);
+
+	const test = () => {
+		toast.show({
+			description: "Steven King"
+		})
+	}
+
+	// Best Way is to convert to stacked bar charts
+	// After Selecting Show Tariff
 
 	let option = {
 		animation: false,
@@ -100,6 +109,16 @@ function Index(props) {
 					},
 					icon: `path://${ChartSvg["tooltip"]}`,
 					onclick: toggleToolTip,
+				},
+				myShowTnbInfo: {
+					show: true,
+					title: "Toggle Tariff",
+					iconStyle: {
+						color: "#F00",
+						borderColor: "#F00"
+					},
+					icon: `path://${ChartSvg["start"]}`,
+					onclick: test,
 				},
 				restore: {}
 			},
@@ -178,7 +197,7 @@ function Index(props) {
 				formatter: function (params) {
 	
 					if (params.length > 0) {
-						const { axisValueLabel: header } = params[0];
+						const { axisValueLabel: header = "" } = params[0];
 	
 						let resArr = [header];
 	

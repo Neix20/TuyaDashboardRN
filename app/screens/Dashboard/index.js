@@ -558,11 +558,11 @@ function Index(props) {
         const flag = isFocused && startDt != undefined && endDt != undefined;
 
         if (flag) {
-            // setLoading(true);
+            setLoading(true);
             DashboardInfo();
             ReportData();
             GetDeviceDistribution();
-            // setLoading(false);
+            setLoading(false);
         }
     }, [isFocused, JSON.stringify(startDt + endDt + homeId + prwsId)]);
 
@@ -598,37 +598,37 @@ function Index(props) {
     // #region API
     const DashboardInfo = () => {
 
-        // const res = DashboardInfoData;
+        const res = DashboardInfoData;
 
-        // if ("IR Temperature" in res) {
-        //     const Data = res["IR Temperature"];
-        //     setChart(Data);
-        // } else {
-        //     setChart({})
-        // }
+        if ("IR Temperature" in res) {
+            const Data = res["IR Temperature"];
+            setChart(Data);
+        } else {
+            setChart({})
+        }
 
-        // if ("Smart Plug" in res) {
-        //     const Data = res["Smart Plug"];
-        //     setSpChart(Data);
-        // } else {
-        //     setSpChart({});
-        // }
+        if ("Smart Plug" in res) {
+            const Data = res["Smart Plug"];
+            setSpChart(Data);
+        } else {
+            setSpChart({});
+        }
 
-        // if ("Smart Plug KWh" in res) {
-        //     const Data = res["Smart Plug KWh"];
-        //     setSpBarChart(Data);
-        // } else {
-        //     setSpBarChart({});
-        // }
+        if ("Smart Plug KWh" in res) {
+            const Data = res["Smart Plug KWh"];
+            setSpBarChart(Data);
+        } else {
+            setSpBarChart({});
+        }
 
-        // if ("Air Quality" in res) {
-        //     const Data = res["Air Quality"];
-        //     setAqChart(Data);
-        // } else {
-        //     setAqChart({});
-        // }
+        if ("Air Quality" in res) {
+            const Data = res["Air Quality"];
+            setAqChart(Data);
+        } else {
+            setAqChart({});
+        }
 
-        // return;
+        return;
         setLoading(true);
             fetchDashboardInfo({
                 param: {
@@ -676,38 +676,38 @@ function Index(props) {
 
     const ReportData = () => {
 
-        // const res = ReportDataJson;
-        // if ("IR Temperature" in res) {
-        //     const Data = res["IR Temperature"]
+        const res = ReportDataJson;
+        if ("IR Temperature" in res) {
+            const Data = res["IR Temperature"]
 
-        //     const Data_II = Object.values(Data).map(x => x[0]);
+            const Data_II = Object.values(Data).map(x => x[0]);
 
-        //     setDrData(Data_II);
-        // } else {
-        //     setDrData([])
-        // }
+            setDrData(Data_II);
+        } else {
+            setDrData([])
+        }
 
-        // if ("Smart Plug" in res) {
-        //     const Data = res["Smart Plug"];
+        if ("Smart Plug" in res) {
+            const Data = res["Smart Plug"];
 
-        //     const Data_II = Object.values(Data).map(x => x[0]);
+            const Data_II = Object.values(Data).map(x => x[0]);
 
-        //     setDrSpData(Data_II);
-        // } else {
-        //     setDrSpData([])
-        // }
+            setDrSpData(Data_II);
+        } else {
+            setDrSpData([])
+        }
 
-        // if ("Air Quality" in res) {
-        //     const Data = res["Air Quality"];
+        if ("Air Quality" in res) {
+            const Data = res["Air Quality"];
 
-        //     const Data_II = Object.values(Data).map(x => x[0]);
+            const Data_II = Object.values(Data).map(x => x[0]);
 
-        //     setDrAqData(Data_II);
-        // } else {
-        //     setDrAqData([])
-        // }
+            setDrAqData(Data_II);
+        } else {
+            setDrAqData([])
+        }
 
-        // return;
+        return;
         fetchReportData({
             param: {
                 UserId: userId,
@@ -756,8 +756,8 @@ function Index(props) {
     }
 
     const GetDeviceDistribution = () => {
-        // setDevDistChart(DeviceDistriData);
-        // return;
+        setDevDistChart(DeviceDistriData);
+        return;
         fetchGetDeviceDistribution({
             param: {
                 UserId: userId,

@@ -210,16 +210,6 @@ function Index(props) {
 			},
 			boundaryGap: false,
 		},
-		// xAxis: {
-		// 	type: "category",
-		// 	axisLabel: {
-		// 		rotate: 45,
-		// 		showMinLabel: true,
-		// 		showMaxLabel: true
-		// 	},
-		// 	boundaryGap: false,
-		// 	data: label,
-		// },
 		yAxis: {
 			type: 'value',
 			renderMode: "richText",

@@ -139,6 +139,11 @@ android {
         yatu {
             dimension "version"
             signingConfig signingConfigs.release
+            manifestPlaceholders = [
+                appIcon: "@mipmap/ic_launcher",
+                appIconRound: "@mipmap/ic_launcher_round",
+                appName: "Yatu Dashboard",
+            ]
             missingDimensionStrategy "store", "play"
         }
 
@@ -147,6 +152,11 @@ android {
             applicationIdSuffix ".developer"
             versionNameSuffix "-developer"
             signingConfig signingConfigs.release
+            manifestPlaceholders = [
+                    appIcon: "@mipmap/lite_launcher",
+                    appIconRound: "@mipmap/lite_launcher_round",
+                    appName: "Yatu Developer",
+            ]
             missingDimensionStrategy "store", "play"
         }
     }

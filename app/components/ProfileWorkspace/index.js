@@ -223,8 +223,7 @@ function Index(props) {
             onSetLoading: setLoading
         })
             .then(data => {
-                const { Data = [] } = data;
-                setProfileWsLs(Data, homeId);
+                setProfileWsLs(data, homeId);
             })
             .catch(err => {
                 setLoading(false);
