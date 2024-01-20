@@ -51,7 +51,7 @@ platform :android do
     lane :genDevApk do 
         gradle(
             task: "assemble",
-            flavor: "YatuDeveloper",
+            flavor: "Yatu",
             build_type: "release",
             project_dir: './../android'
         )

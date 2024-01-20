@@ -11,8 +11,8 @@ import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 import { Logger, Utility } from "@utility";
 import { Images, Svg } from "@config";
 
-import { BcHeader, BcLoading, BcBoxShadow, BcSvgIcon } from "@components";
-import { fetchGetParamApi, fetchUpdateProfileWorkspace, fetchProfileWorkspace } from "@api";
+import { BcHeaderWithAdd, BcLoading, BcBoxShadow } from "@components";
+import { fetchGetParamApi, fetchDeviceByProfileWorkspace, fetchToggleDeviceListing } from "@api";
 
 import { useToggle } from "@hooks";
 import { ProfileWsData as TestData } from "./data";
@@ -20,8 +20,10 @@ import { ProfileWsData as TestData } from "./data";
 import { useDispatch, useSelector } from 'react-redux';
 import { Actions, Selectors } from '@redux';
 
+import { CheckBox } from "@rneui/base";
+
 // #region Custom Hook
-function useProfileWs(val = []) {
+function useLs(val = []) {
 
     const [data, setData] = useState(val);
 
@@ -30,14 +32,14 @@ function useProfileWs(val = []) {
 
             arr = arr.map((obj, pos) => {
 
-                const { Image = "https://i.imgur.com/Du4wGXQ.jpg", Id = -1 } = obj;
+                const { DeviceImg = "https://i.imgur.com/Du4wGXQ.jpg", Id = -1, Status } = obj;
 
-                const flag = false;
+                const flag = Status == 1;
 
                 return {
                     ...obj,
-                    img: { uri: Image },
-                    pos, 
+                    img: { uri: DeviceImg },
+                    pos,
                     flag,
                 }
             });
@@ -46,20 +48,18 @@ function useProfileWs(val = []) {
         }
     }
 
-    const toggleFlag = (pos) => {
+    const toggleFlag = (item) => {
+        const { pos, flag } = item;
         let arr = [...data];
 
-        // Set All Flag as False
-        for (let ind in arr) {
-            arr[ind].flag = false;
-        }
-
-        arr[pos].flag = true;
+        arr[pos].flag = !flag;
 
         setData(_ => arr);
     }
 
-    return [data, updateLs, toggleFlag];
+    const addFlag = data.filter(x => x.flag).length > 0;
+
+    return [data, updateLs, toggleFlag, addFlag];
 }
 // #endregion
 
@@ -79,8 +79,8 @@ function EmptyList(props) {
         <View flexGrow={1} bgColor={"#FFF"}
             justifyContent={"center"} alignItems={"center"}>
             <VStack space={2} width={"90%"} alignItems={"center"}>
-                <Ionicons name={"settings-sharp"} color={"#e6e6e6"} size={80} />
-                <Text style={style.txt}>No Purchases Yet</Text>
+                <FontAwesome5 name={"tools"} color={"#e6e6e6"} size={80} />
+                <Text style={style.txt}>No Devices Yet</Text>
             </VStack>
         </View>
     )
@@ -89,7 +89,7 @@ function EmptyList(props) {
 function BodyItem(props) {
     const { data = {}, onPress = () => { } } = props;
 
-    const { Name, Description, img, flag = true } = data;
+    const { Title, img, flag = true, Online_Status = 0, HomeName = "" } = data;
     const { InitialDate = "", ExpiryDate = "" } = data;
 
     const borderRadius = 8;
@@ -105,6 +105,10 @@ function BodyItem(props) {
             fontFamily: "Roboto-Bold",
             fontSize: 16,
         },
+        home: {
+            fontFamily: "Roboto-Bold",
+            fontSize: 14,
+        },
         date: {
             fontFamily: "Roboto-Bold",
             fontSize: 14
@@ -112,42 +116,48 @@ function BodyItem(props) {
         frontLayer: {
             position: "absolute",
             zIndex: 2,
-            top: 5, 
-            right: 5 
+            top: 5,
+            right: 5
         }
     };
 
-    const borderColor = flag ? "#39B54A" : "#FFF";
+    const borderColor = "#FFF";
 
     return (
         <TouchableOpacity onPress={onPress}>
             <BcBoxShadow style={{ borderRadius, width: "100%" }}>
                 {/* Front Layer */}
-                {flag ? (
-                    <View style={style.frontLayer}>
-                        <FontAwesome name={"check-circle"} size={24} color={"#39B54A"} />
-                    </View>
-                ) : (
-                    <></>
-                )}
                 <HStack
                     bgColor={"#FFF"} borderRadius={borderRadius}
                     borderColor={borderColor} borderWidth={2}
                     alignItems={"center"}>
-                    <Image source={img} alt={Name} style={style.icon} />
+                    <Image source={img} alt={Title} style={style.icon} />
                     <VStack flex={1} px={3} py={2}
                         justifyContent={"space-between"}
                         style={{ height: 100 }}>
                         <VStack space={2}>
-                            <Text style={style.title}>{Name}</Text>
-                            <Text>{Description}</Text>
+                            <Text style={style.title}>{Title}</Text>
+                            <Text style={style.home}>{HomeName}</Text>
+                            {/* <Text>{Description}</Text> */}
+                            <Text style={{
+                                fontSize: 12,
+                                fontFamily: 'Roboto-Bold',
+                                color: (Online_Status === 1) ? "#0F0" : "#F00",
+                            }}>
+                                {Online_Status === 1 ? "Online" : "Offline"}
+                            </Text>
                         </VStack>
-                        <HStack alignItems={"center"}
-                            justifyContent={"space-between"}>
-                            <Text style={style.date}>Expiry Date: </Text>
-                            <Text style={style.date}>{Utility.formatDt(ExpiryDate, "yyyy-MM-dd")}</Text>
-                        </HStack>
                     </VStack>
+                    <CheckBox
+                        containerStyle={{
+                            paddingHorizontal: 5,
+                            paddingVertical: 0,
+                        }}
+                        iconType={"material-community"}
+                        checkedIcon={"checkbox-marked"}
+                        uncheckedIcon={"checkbox-blank-outline"}
+                        // onPress={onSelect}
+                        checked={flag} />
                 </HStack>
             </BcBoxShadow>
         </TouchableOpacity>
@@ -156,7 +166,7 @@ function BodyItem(props) {
 
 function Body(props) {
 
-    const { data = [], onSelectItem = () => {} } = props;
+    const { data = [], onSelectItem = () => { } } = props;
 
     if (data.length == 0) {
         return (<EmptyList />);
@@ -175,12 +185,12 @@ function Body(props) {
     return (
         <VStack flex={1} py={3} space={2}
             bgColor={"#FFF"} alignItems={"center"}>
-            <View width={"90%"} style={{ paddingHorizontal: 2 }}>
+            {/* <View width={"90%"} style={{ paddingHorizontal: 2 }}>
                 <Text style={{
                     fontFamily: "Roboto-Bold",
                     fontSize: 16,
                 }}>Active Profiles</Text>
-            </View>
+            </View> */}
             <FlatList
                 data={data}
                 renderItem={renderItem}
@@ -190,54 +200,18 @@ function Body(props) {
         </VStack>
     );
 }
+// #endregion
 
-function Header(props) {
-
-    const { flag = false } = props;
-
-    const toast = useToast();
-
-    const onSelectAdd = () => {
-        toast.show({
-            description: "Work in progress"
-        })
-    }
-
+function HeaderAddBtn(props) {
     return (
-        <BcBoxShadow>
-            <View bgColor={"#FFF"}
-                alignItems={"center"}
-                justifyContent={"center"}
-                style={{ height: 60 }}>
-                <HStack
-                    alignItems={"center"}
-                    justifyContent={"space-between"}
-                    style={{ width: "90%" }}>
-
-                    {/* Logo */}
-                    {/* <BcYatuHome /> */}
-                    <BcSvgIcon name={"Yatu"} size={80} color={"#2898FF"} />
-
-                    {
-                        (flag) ? (
-                            <TouchableOpacity onPress={onSelectAdd}>
-                                <View borderRadius={20}
-                                    bgColor={"#2898FF"}
-                                    alignItems={"center"} justifyContent={"center"}
-                                    style={{ width: 32, height: 32 }}>
-                                    <FontAwesome name={"plus"} size={16} color={"#FFF"} />
-                                </View>
-                            </TouchableOpacity>
-                        ) : (
-                            <></>
-                        )
-                    }
-                </HStack>
-            </View>
-        </BcBoxShadow>
+        <View borderRadius={20}
+            bgColor={"#2898FF"}
+            alignItems={"center"} justifyContent={"center"}
+            style={{ width: 32, height: 32 }}>
+            <FontAwesome name={"plus"} size={16} color={"#FFF"} />
+        </View>
     )
 }
-// #endregion
 
 function Index(props) {
 
@@ -245,65 +219,79 @@ function Index(props) {
     const navigation = useNavigation();
     const isFocused = useIsFocused();
 
-    const [profileWsLs, setProfileWsLs, toggleProfileWsFlag] = useProfileWs([]);
+    const [devLs, setDevLs, toggleDevFlag, addFlag] = useLs([]);
+
     const loadingHook = useToggle(false);
     const [loading, setLoading, toggleLoading] = loadingHook;
 
+    const [refresh, setRefresh, toggleRefresh] = useToggle();
+
     const userId = useSelector(Selectors.userIdSelect);
+    const homeId = useSelector(Selectors.homeIdSelect);
+
+    const { Id: ProfileWorkspaceId = -1 } = props.route.params;
+    // const ProfileWorkspaceId = -1;
 
     useEffect(() => {
         if (isFocused) {
-            GetProfileWorkspaceData();
+            GetProfileWsDevice();
         }
-    }, [isFocused]);
+    }, [isFocused, refresh]);
 
     // #region Api
-    const GetProfileWorkspaceData = () => {
+    const GetProfileWsDevice = () => {
         setLoading(true);
-        fetchProfileWorkspace({
-            param: {
-                UserId: userId
-            },
-            onSetLoading: setLoading
-        })
-        .then(data => {
-            setProfileWsLs(data);
-        })
-        .catch(err => {
-            setLoading(false);
-            console.error(err);
-        })
-    }
-
-    const UpdateProfileWorkspace = (item) => {
-        const { Id = 0, pos, Name, Code = "" } = item;
-        
-        let ProfileWorkspaceId = Code.slice(Code.length - 1);
-
-        if (ProfileWorkspaceId == 1) {
-            ProfileWorkspaceId = 0;
-        }
-        
-        setLoading(true);
-        fetchUpdateProfileWorkspace({
+        fetchDeviceByProfileWorkspace({
             param: {
                 UserId: userId,
-                ProfileWorkspaceId
+                ProfileWorkspaceId,
+                HomeId: userId
             },
             onSetLoading: setLoading
         })
-        .then(data => {
-            toggleProfileWsFlag(pos);
-            toast.show({
-                description: `Successfully updated workspace to ${Name}!`
+            .then(data => {
+                setDevLs(data);
             })
+            .catch(err => {
+                setLoading(false);
+                console.error(err);
+            })
+    }
+
+    const ToggleDeviceListing = (t_devLs) => {
+
+        setLoading(true);
+        fetchToggleDeviceListing({
+            param: {
+                UserId: userId,
+                ProfileWorkspaceId,
+                DeviceLs: t_devLs
+            },
+            onSetLoading: setLoading
         })
-        .catch(err => {
-            setLoading(false);
-            console.error(err);
-        })
+            .then(data => {
+                toggleRefresh()
+            })
+            .catch(err => {
+                setLoading(false);
+                console.error(err);
+            })
     }
     // #endregion
+
+    const onSelectDevice = (item) => {
+
+        toggleDevFlag(item);
+
+        setTimeout(() => {
+            const t_devLs = [{
+                Id: item.Id,
+                Status: item.flag ? 1 : 0
+            }]
+    
+            ToggleDeviceListing(t_devLs)
+        }, 500);
+    }
 
     return (
         <>
@@ -312,14 +300,14 @@ function Index(props) {
                 <View style={{ flex: 1 }}>
 
                     {/* Header */}
-                    <BcHeader>Device Profiles</BcHeader>
+                    <BcHeaderWithAdd flag={addFlag} onSelect={ToggleDeviceListing} RightChild={() => {}}>Device List</BcHeaderWithAdd>
 
                     <View style={{ height: 10 }} />
 
                     {/* Body */}
-                    <Body 
-                        data={profileWsLs}
-                        onSelectItem={UpdateProfileWorkspace} />
+                    <Body
+                        data={devLs}
+                        onSelectItem={onSelectDevice} />
                 </View>
             </SafeAreaView>
         </>

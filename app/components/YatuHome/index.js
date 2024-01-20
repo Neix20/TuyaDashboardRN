@@ -213,7 +213,7 @@ function Index(props) {
                 <HStack alignItems={"center"} space={2}>
                     <Text style={{
                         fontFamily: "Roboto-Bold",
-                        fontSize: 20,
+                        fontSize: 18,
                         color: "#c3c3c3"
                     }}>{Name}</Text>
                     <FontAwesome5 name={"caret-down"} color={"#c3c3c3"} size={32} />

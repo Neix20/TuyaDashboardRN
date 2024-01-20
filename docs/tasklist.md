@@ -7,7 +7,7 @@
 - [ ] Disable all Downloads
 - [x] Profile Workspace Implementation
   - [x] TProfileWorkspace
-- [ ] Lite Icon
+- [x] Lite Icon
 
 ## API List
 
@@ -17,3 +17,20 @@
 - [x] GetDeviceByProfileWorkspace
 - [x] GetDeviceListII
 - [x] ToggleDeviceListing
+
+## Screens
+
+- [ ] Yatu Pro
+  - [x] Tab Navigation
+  - [ ] Profile Workspace
+  - [x] Screens
+    - [x] Login
+    - [x] Profile
+    - [x] Dashboard
+    - [ ] Device
+  - [ ] Profile Workspace Items
+  - [ ] Device Items
+
+- [ ] Yatu Lite
+  - [ ] Login => Go To Token Page
+  - [ ] Token Activation

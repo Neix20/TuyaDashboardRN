@@ -98,6 +98,7 @@ import fetchTokenInfo from "./fetchTokenInfo";
 import fetchProfileWorkspace from "./fetchProfileWorkspace";
 import fetchUpdateProfileWorkspace from "./fetchUpdateProfileWorkspace";
 
+import fetchDeviceByUser from "./fetchDeviceByUser";
 import fetchDeviceByUserII from "./fetchDeviceByUserII";
 import fetchDeviceListII from "./fetchDeviceListII";
 import fetchToggleDeviceListing from "./fetchToggleDeviceListing";
@@ -229,6 +230,7 @@ export {
 }
 
 export {
+    fetchDeviceByUser,
     fetchDeviceByUserII,
     fetchDeviceListII,
     fetchToggleDeviceListing,

@@ -12,7 +12,7 @@ import { Logger, Utility } from "@utility";
 import { Images, Svg } from "@config";
 
 import { BcHeader, BcLoading, BcBoxShadow, BcSvgIcon } from "@components";
-import { fetchGetParamApi, fetchUpdateProfileWorkspace, fetchProfileWorkspace } from "@api";
+import { fetchProfileWorkspace } from "@api";
 
 import { useToggle } from "@hooks";
 import { ProfileWsData as TestData } from "./data";
@@ -27,6 +27,8 @@ function useProfileWs(val = []) {
 
     const updateLs = (arr = []) => {
         if (arr.length > 0) {
+
+            arr =arr.filter(x => x.Code !== "PFWS0001");
 
             arr = arr.map((obj, pos) => {
 
@@ -64,6 +66,53 @@ function useProfileWs(val = []) {
 // #endregion
 
 // #region Components
+function Header(props) {
+
+    const { flag = false } = props;
+
+    const toast = useToast();
+
+    const onSelectAdd = () => {
+        toast.show({
+            description: "Work in progress"
+        })
+    }
+
+    return (
+        <BcBoxShadow>
+            <View bgColor={"#FFF"}
+                alignItems={"center"}
+                justifyContent={"center"}
+                style={{ height: 60 }}>
+                <HStack
+                    alignItems={"center"}
+                    justifyContent={"space-between"}
+                    style={{ width: "90%" }}>
+
+                    {/* Logo */}
+                    {/* <BcYatuHome /> */}
+                    <BcSvgIcon name={"Yatu"} size={80} color={"#2898FF"} />
+
+                    {
+                        (flag) ? (
+                            <TouchableOpacity onPress={onSelectAdd}>
+                                <View borderRadius={20}
+                                    bgColor={"#2898FF"}
+                                    alignItems={"center"} justifyContent={"center"}
+                                    style={{ width: 32, height: 32 }}>
+                                    <FontAwesome name={"plus"} size={16} color={"#FFF"} />
+                                </View>
+                            </TouchableOpacity>
+                        ) : (
+                            <></>
+                        )
+                    }
+                </HStack>
+            </View>
+        </BcBoxShadow>
+    )
+}
+
 function EmptyList(props) {
 
     const style = {
@@ -142,11 +191,11 @@ function BodyItem(props) {
                             <Text style={style.title}>{Name}</Text>
                             <Text>{Description}</Text>
                         </VStack>
-                        <HStack alignItems={"center"}
+                        {/* <HStack alignItems={"center"}
                             justifyContent={"space-between"}>
                             <Text style={style.date}>Expiry Date: </Text>
                             <Text style={style.date}>{Utility.formatDt(ExpiryDate, "yyyy-MM-dd")}</Text>
-                        </HStack>
+                        </HStack> */}
                     </VStack>
                 </HStack>
             </BcBoxShadow>
@@ -190,53 +239,6 @@ function Body(props) {
         </VStack>
     );
 }
-
-function Header(props) {
-
-    const { flag = false } = props;
-
-    const toast = useToast();
-
-    const onSelectAdd = () => {
-        toast.show({
-            description: "Work in progress"
-        })
-    }
-
-    return (
-        <BcBoxShadow>
-            <View bgColor={"#FFF"}
-                alignItems={"center"}
-                justifyContent={"center"}
-                style={{ height: 60 }}>
-                <HStack
-                    alignItems={"center"}
-                    justifyContent={"space-between"}
-                    style={{ width: "90%" }}>
-
-                    {/* Logo */}
-                    {/* <BcYatuHome /> */}
-                    <BcSvgIcon name={"Yatu"} size={80} color={"#2898FF"} />
-
-                    {
-                        (flag) ? (
-                            <TouchableOpacity onPress={onSelectAdd}>
-                                <View borderRadius={20}
-                                    bgColor={"#2898FF"}
-                                    alignItems={"center"} justifyContent={"center"}
-                                    style={{ width: 32, height: 32 }}>
-                                    <FontAwesome name={"plus"} size={16} color={"#FFF"} />
-                                </View>
-                            </TouchableOpacity>
-                        ) : (
-                            <></>
-                        )
-                    }
-                </HStack>
-            </View>
-        </BcBoxShadow>
-    )
-}
 // #endregion
 
 function Index(props) {
@@ -245,7 +247,7 @@ function Index(props) {
     const navigation = useNavigation();
     const isFocused = useIsFocused();
 
-    const [profileWsLs, setProfileWsLs, toggleProfileWsFlag] = useProfileWs([]);
+    const [profileWsLs, setProfileWsLs, toggleProfileWsFlag] = useProfileWs(2);
     const loadingHook = useToggle(false);
     const [loading, setLoading, toggleLoading] = loadingHook;
 
@@ -275,33 +277,9 @@ function Index(props) {
         })
     }
 
-    const UpdateProfileWorkspace = (item) => {
-        const { Id = 0, pos, Name, Code = "" } = item;
+    const SelectProfileWorkspace = (item) => {
+        navigation.navigate("ProfileWorkspaceInfo", item);
         
-        let ProfileWorkspaceId = Code.slice(Code.length - 1);
-
-        if (ProfileWorkspaceId == 1) {
-            ProfileWorkspaceId = 0;
-        }
-        
-        setLoading(true);
-        fetchUpdateProfileWorkspace({
-            param: {
-                UserId: userId,
-                ProfileWorkspaceId
-            },
-            onSetLoading: setLoading
-        })
-        .then(data => {
-            toggleProfileWsFlag(pos);
-            toast.show({
-                description: `Successfully updated workspace to ${Name}!`
-            })
-        })
-        .catch(err => {
-            setLoading(false);
-            console.error(err);
-        })
     }
     // #endregion
 
@@ -312,14 +290,15 @@ function Index(props) {
                 <View style={{ flex: 1 }}>
 
                     {/* Header */}
-                    <BcHeader>Device Profiles</BcHeader>
+                    {/* <BcHeader>Profiles Workspace</BcHeader> */}
+                    <Header />
 
                     <View style={{ height: 10 }} />
 
                     {/* Body */}
                     <Body 
                         data={profileWsLs}
-                        onSelectItem={UpdateProfileWorkspace} />
+                        onSelectItem={SelectProfileWorkspace} />
                 </View>
             </SafeAreaView>
         </>

@@ -35,7 +35,7 @@ function useProfileWs() {
     const [ws, setWs] = useState(init.profileWs);
     const [ls, setLs] = useState([]);
 
-    const updateLs = (data = [], profileWorkspace) => {
+    const updateLs = (data = []) => {
 
         if (data.length <= 0) {
             return;
@@ -49,18 +49,10 @@ function useProfileWs() {
             flag: false,
         }))
 
-        if (profileWorkspace == -1) {
+        if (arr.length > 0) {
             arr[0].flag = true;
             setWs(_ => arr[0]);
             dispatch(Actions.onChangeProfileWorkspaceId(arr[0].Id));
-        } else {
-            for (const obj of arr) {
-                if (obj.Id == profileWorkspace) {
-                    obj.flag = true;
-                    setWs(_ => obj);
-                    dispatch(Actions.onChangeProfileWorkspaceId(obj.Id));
-                }
-            }
         }
 
         setLs(_ => arr);
@@ -142,7 +134,8 @@ function HomeModal(props) {
     return (
         <TopModal showCross={false} {...props}>
             <View alignItems={"center"} width={"100%"}>
-                <FlatList data={data} renderItem={renderItem} style={{ width: "100%" }} />
+                <FlatList data={data} 
+                    renderItem={renderItem} style={{ width: "100%" }} />
                 <Divider my={2} width={"90%"} />
                 <HomeItem onPress={onSelectManagement} flag={true}
                     IconBtn={Ionicons} IconName={"settings-sharp"} IconColor={"#ccc"}>ProfileWorkspace</HomeItem>
@@ -213,9 +206,7 @@ function Index(props) {
 
     const ProfileWorkspace = () => {
         setLoading(true);
-        Logger.info({
-            UserId: userId
-        })
+
         fetchProfileWorkspace({
             param: {
                 UserId: userId,
@@ -223,7 +214,7 @@ function Index(props) {
             onSetLoading: setLoading
         })
             .then(data => {
-                setProfileWsLs(data, homeId);
+                setProfileWsLs(data);
             })
             .catch(err => {
                 setLoading(false);
@@ -232,7 +223,7 @@ function Index(props) {
     }
     // #endregion
 
-    const { Code = "PFWS0001" } = profileWs;
+    const { Name = "Default" } = profileWs;
 
     return (
         <>
@@ -245,9 +236,9 @@ function Index(props) {
                 <HStack alignItems={"center"} space={2}>
                     <Text style={{
                         fontFamily: "Roboto-Bold",
-                        fontSize: 20,
+                        fontSize: 18,
                         color: "#c3c3c3"
-                    }}>{Code}</Text>
+                    }}>{Name}</Text>
                     <FontAwesome5 name={"caret-down"} color={"#c3c3c3"} size={32} />
                 </HStack>
             </TouchableOpacity>

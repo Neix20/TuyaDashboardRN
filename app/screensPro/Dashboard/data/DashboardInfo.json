@@ -1,0 +1,3865 @@
+{
+    "IR Temperature": {
+        "B8 Bedroom Smart IR 4": [
+            {
+                "Timestamp": "2023-11-29T00:00:00",
+                "Device_Id": 416,
+                "Absolute Humidity": "18.87",
+                "Temperature (℃)": "28.9",
+                "Relative Humidity (%)": "66"
+            },
+            {
+                "Timestamp": "2023-11-29T00:15:00",
+                "Device_Id": 416,
+                "Absolute Humidity": "18.58",
+                "Temperature (℃)": "28.9",
+                "Relative Humidity (%)": "65"
+            },
+            {
+                "Timestamp": "2023-11-29T00:30:00",
+                "Device_Id": 416,
+                "Absolute Humidity": "18.3",
+                "Temperature (℃)": "28.9",
+                "Relative Humidity (%)": "64"
+            },
+            {
+                "Timestamp": "2023-11-29T00:45:00",
+                "Device_Id": 416,
+                "Absolute Humidity": "18.3",
+                "Temperature (℃)": "28.9",
+                "Relative Humidity (%)": "64"
+            },
+            {
+                "Timestamp": "2023-11-29T01:00:00",
+                "Device_Id": 416,
+                "Absolute Humidity": "18.3",
+                "Temperature (℃)": "28.9",
+                "Relative Humidity (%)": "64"
+            },
+            {
+                "Timestamp": "2023-11-29T01:15:00",
+                "Device_Id": 416,
+                "Absolute Humidity": "18.3",
+                "Temperature (℃)": "28.9",
+                "Relative Humidity (%)": "64"
+            },
+            {
+                "Timestamp": "2023-11-29T01:30:00",
+                "Device_Id": 416,
+                "Absolute Humidity": "17.53",
+                "Temperature (℃)": "28.7",
+                "Relative Humidity (%)": "62"
+            },
+            {
+                "Timestamp": "2023-11-29T01:45:00",
+                "Device_Id": 416,
+                "Absolute Humidity": "17.82",
+                "Temperature (℃)": "28.7",
+                "Relative Humidity (%)": "63"
+            },
+            {
+                "Timestamp": "2023-11-29T02:00:00",
+                "Device_Id": 416,
+                "Absolute Humidity": "17.82",
+                "Temperature (℃)": "28.7",
+                "Relative Humidity (%)": "63"
+            },
+            {
+                "Timestamp": "2023-11-29T02:15:00",
+                "Device_Id": 416,
+                "Absolute Humidity": "13.72",
+                "Temperature (℃)": "27.1",
+                "Relative Humidity (%)": "53"
+            },
+            {
+                "Timestamp": "2023-11-29T02:30:00",
+                "Device_Id": 416,
+                "Absolute Humidity": "13.56",
+                "Temperature (℃)": "25.9",
+                "Relative Humidity (%)": "56"
+            },
+            {
+                "Timestamp": "2023-11-29T02:45:00",
+                "Device_Id": 416,
+                "Absolute Humidity": "14.37",
+                "Temperature (℃)": "25.4",
+                "Relative Humidity (%)": "61"
+            },
+            {
+                "Timestamp": "2023-11-29T03:00:00",
+                "Device_Id": 416,
+                "Absolute Humidity": "15.14",
+                "Temperature (℃)": "25.2",
+                "Relative Humidity (%)": "65"
+            },
+            {
+                "Timestamp": "2023-11-29T03:15:00",
+                "Device_Id": 416,
+                "Absolute Humidity": "15.51",
+                "Temperature (℃)": "25.1",
+                "Relative Humidity (%)": "67"
+            },
+            {
+                "Timestamp": "2023-11-29T03:30:00",
+                "Device_Id": 416,
+                "Absolute Humidity": "14.51",
+                "Temperature (℃)": "25",
+                "Relative Humidity (%)": "63"
+            },
+            {
+                "Timestamp": "2023-11-29T03:45:00",
+                "Device_Id": 416,
+                "Absolute Humidity": "14.8",
+                "Temperature (℃)": "24.8",
+                "Relative Humidity (%)": "65"
+            },
+            {
+                "Timestamp": "2023-11-29T04:00:00",
+                "Device_Id": 416,
+                "Absolute Humidity": "15.8",
+                "Temperature (℃)": "24.9",
+                "Relative Humidity (%)": "69"
+            },
+            {
+                "Timestamp": "2023-11-29T04:15:00",
+                "Device_Id": 416,
+                "Absolute Humidity": "14.65",
+                "Temperature (℃)": "24.9",
+                "Relative Humidity (%)": "64"
+            },
+            {
+                "Timestamp": "2023-11-29T04:30:00",
+                "Device_Id": 416,
+                "Absolute Humidity": "16.12",
+                "Temperature (℃)": "25",
+                "Relative Humidity (%)": "70"
+            },
+            {
+                "Timestamp": "2023-11-29T04:45:00",
+                "Device_Id": 416,
+                "Absolute Humidity": "14.82",
+                "Temperature (℃)": "25.1",
+                "Relative Humidity (%)": "64"
+            },
+            {
+                "Timestamp": "2023-11-29T05:00:00",
+                "Device_Id": 416,
+                "Absolute Humidity": "15.57",
+                "Temperature (℃)": "24.9",
+                "Relative Humidity (%)": "68"
+            },
+            {
+                "Timestamp": "2023-11-29T05:15:00",
+                "Device_Id": 416,
+                "Absolute Humidity": "15.89",
+                "Temperature (℃)": "25",
+                "Relative Humidity (%)": "69"
+            },
+            {
+                "Timestamp": "2023-11-29T05:30:00",
+                "Device_Id": 416,
+                "Absolute Humidity": "15.03",
+                "Temperature (℃)": "24.8",
+                "Relative Humidity (%)": "66"
+            },
+            {
+                "Timestamp": "2023-11-29T05:45:00",
+                "Device_Id": 416,
+                "Absolute Humidity": "16.16",
+                "Temperature (℃)": "24.8",
+                "Relative Humidity (%)": "71"
+            },
+            {
+                "Timestamp": "2023-11-29T06:00:00",
+                "Device_Id": 416,
+                "Absolute Humidity": "15.25",
+                "Temperature (℃)": "24.8",
+                "Relative Humidity (%)": "67"
+            },
+            {
+                "Timestamp": "2023-11-29T06:15:00",
+                "Device_Id": 416,
+                "Absolute Humidity": "16.16",
+                "Temperature (℃)": "24.8",
+                "Relative Humidity (%)": "71"
+            },
+            {
+                "Timestamp": "2023-11-29T06:30:00",
+                "Device_Id": 416,
+                "Absolute Humidity": "15.48",
+                "Temperature (℃)": "24.8",
+                "Relative Humidity (%)": "68"
+            },
+            {
+                "Timestamp": "2023-11-29T06:45:00",
+                "Device_Id": 416,
+                "Absolute Humidity": "16.71",
+                "Temperature (℃)": "24.9",
+                "Relative Humidity (%)": "73"
+            },
+            {
+                "Timestamp": "2023-11-29T07:00:00",
+                "Device_Id": 416,
+                "Absolute Humidity": "16.58",
+                "Temperature (℃)": "25",
+                "Relative Humidity (%)": "72"
+            },
+            {
+                "Timestamp": "2023-11-29T07:15:00",
+                "Device_Id": 416,
+                "Absolute Humidity": "16.67",
+                "Temperature (℃)": "25.1",
+                "Relative Humidity (%)": "72"
+            },
+            {
+                "Timestamp": "2023-11-29T07:30:00",
+                "Device_Id": 416,
+                "Absolute Humidity": "16.67",
+                "Temperature (℃)": "25.1",
+                "Relative Humidity (%)": "72"
+            },
+            {
+                "Timestamp": "2023-11-29T07:45:00",
+                "Device_Id": 416,
+                "Absolute Humidity": "16.44",
+                "Temperature (℃)": "25.1",
+                "Relative Humidity (%)": "71"
+            },
+            {
+                "Timestamp": "2023-11-29T08:00:00",
+                "Device_Id": 416,
+                "Absolute Humidity": "15.11",
+                "Temperature (℃)": "24.9",
+                "Relative Humidity (%)": "66"
+            },
+            {
+                "Timestamp": "2023-11-29T08:15:00",
+                "Device_Id": 416,
+                "Absolute Humidity": "14.2",
+                "Temperature (℃)": "24.9",
+                "Relative Humidity (%)": "62"
+            },
+            {
+                "Timestamp": "2023-11-29T08:30:00",
+                "Device_Id": 416,
+                "Absolute Humidity": "14.57",
+                "Temperature (℃)": "24.8",
+                "Relative Humidity (%)": "64"
+            },
+            {
+                "Timestamp": "2023-11-29T08:45:00",
+                "Device_Id": 416,
+                "Absolute Humidity": "12.09",
+                "Temperature (℃)": "24.5",
+                "Relative Humidity (%)": "54"
+            },
+            {
+                "Timestamp": "2023-11-29T09:00:00",
+                "Device_Id": 416,
+                "Absolute Humidity": "13.28",
+                "Temperature (℃)": "24.3",
+                "Relative Humidity (%)": "60"
+            },
+            {
+                "Timestamp": "2023-11-29T09:15:00",
+                "Device_Id": 416,
+                "Absolute Humidity": "15.9",
+                "Temperature (℃)": "25.8",
+                "Relative Humidity (%)": "66"
+            },
+            {
+                "Timestamp": "2023-11-29T09:30:00",
+                "Device_Id": 416,
+                "Absolute Humidity": "16.74",
+                "Temperature (℃)": "27",
+                "Relative Humidity (%)": "65"
+            },
+            {
+                "Timestamp": "2023-11-29T09:45:00",
+                "Device_Id": 416,
+                "Absolute Humidity": "17.3",
+                "Temperature (℃)": "27.6",
+                "Relative Humidity (%)": "65"
+            },
+            {
+                "Timestamp": "2023-11-29T10:00:00",
+                "Device_Id": 416,
+                "Absolute Humidity": "17.69",
+                "Temperature (℃)": "28",
+                "Relative Humidity (%)": "65"
+            },
+            {
+                "Timestamp": "2023-11-29T10:15:00",
+                "Device_Id": 416,
+                "Absolute Humidity": "17.71",
+                "Temperature (℃)": "28.3",
+                "Relative Humidity (%)": "64"
+            },
+            {
+                "Timestamp": "2023-11-29T10:30:00",
+                "Device_Id": 416,
+                "Absolute Humidity": "18",
+                "Temperature (℃)": "28.6",
+                "Relative Humidity (%)": "64"
+            },
+            {
+                "Timestamp": "2023-11-29T10:45:00",
+                "Device_Id": 416,
+                "Absolute Humidity": "17.82",
+                "Temperature (℃)": "28.7",
+                "Relative Humidity (%)": "63"
+            },
+            {
+                "Timestamp": "2023-11-29T11:00:00",
+                "Device_Id": 416,
+                "Absolute Humidity": "18.01",
+                "Temperature (℃)": "28.9",
+                "Relative Humidity (%)": "63"
+            },
+            {
+                "Timestamp": "2023-11-29T11:15:00",
+                "Device_Id": 416,
+                "Absolute Humidity": "17.82",
+                "Temperature (℃)": "29",
+                "Relative Humidity (%)": "62"
+            },
+            {
+                "Timestamp": "2023-11-29T11:30:00",
+                "Device_Id": 416,
+                "Absolute Humidity": "18.02",
+                "Temperature (℃)": "29.2",
+                "Relative Humidity (%)": "62"
+            },
+            {
+                "Timestamp": "2023-11-29T11:45:00",
+                "Device_Id": 416,
+                "Absolute Humidity": "17.82",
+                "Temperature (℃)": "29.3",
+                "Relative Humidity (%)": "61"
+            },
+            {
+                "Timestamp": "2023-11-29T12:00:00",
+                "Device_Id": 416,
+                "Absolute Humidity": "18.02",
+                "Temperature (℃)": "29.5",
+                "Relative Humidity (%)": "61"
+            },
+            {
+                "Timestamp": "2023-11-29T12:15:00",
+                "Device_Id": 416,
+                "Absolute Humidity": "18.02",
+                "Temperature (℃)": "29.5",
+                "Relative Humidity (%)": "61"
+            },
+            {
+                "Timestamp": "2023-11-29T12:30:00",
+                "Device_Id": 416,
+                "Absolute Humidity": "18.42",
+                "Temperature (℃)": "29.6",
+                "Relative Humidity (%)": "62"
+            },
+            {
+                "Timestamp": "2023-11-29T12:45:00",
+                "Device_Id": 416,
+                "Absolute Humidity": "18.12",
+                "Temperature (℃)": "29.6",
+                "Relative Humidity (%)": "61"
+            },
+            {
+                "Timestamp": "2023-11-29T13:00:00",
+                "Device_Id": 416,
+                "Absolute Humidity": "18.22",
+                "Temperature (℃)": "29.7",
+                "Relative Humidity (%)": "61"
+            },
+            {
+                "Timestamp": "2023-11-29T13:15:00",
+                "Device_Id": 416,
+                "Absolute Humidity": "18.32",
+                "Temperature (℃)": "29.8",
+                "Relative Humidity (%)": "61"
+            },
+            {
+                "Timestamp": "2023-11-29T13:30:00",
+                "Device_Id": 416,
+                "Absolute Humidity": "18.32",
+                "Temperature (℃)": "29.8",
+                "Relative Humidity (%)": "61"
+            },
+            {
+                "Timestamp": "2023-11-29T13:45:00",
+                "Device_Id": 416,
+                "Absolute Humidity": "18.32",
+                "Temperature (℃)": "29.8",
+                "Relative Humidity (%)": "61"
+            },
+            {
+                "Timestamp": "2023-11-29T14:00:00",
+                "Device_Id": 416,
+                "Absolute Humidity": "18.42",
+                "Temperature (℃)": "29.9",
+                "Relative Humidity (%)": "61"
+            },
+            {
+                "Timestamp": "2023-11-29T14:15:00",
+                "Device_Id": 416,
+                "Absolute Humidity": "18.11",
+                "Temperature (℃)": "29.9",
+                "Relative Humidity (%)": "60"
+            },
+            {
+                "Timestamp": "2023-11-29T14:30:00",
+                "Device_Id": 416,
+                "Absolute Humidity": "18.11",
+                "Temperature (℃)": "29.9",
+                "Relative Humidity (%)": "60"
+            },
+            {
+                "Timestamp": "2023-11-29T14:45:00",
+                "Device_Id": 416,
+                "Absolute Humidity": "18.21",
+                "Temperature (℃)": "30",
+                "Relative Humidity (%)": "60"
+            },
+            {
+                "Timestamp": "2023-11-29T15:00:00",
+                "Device_Id": 416,
+                "Absolute Humidity": "18.21",
+                "Temperature (℃)": "30",
+                "Relative Humidity (%)": "60"
+            },
+            {
+                "Timestamp": "2023-11-29T15:15:00",
+                "Device_Id": 416,
+                "Absolute Humidity": "18.21",
+                "Temperature (℃)": "30",
+                "Relative Humidity (%)": "60"
+            },
+            {
+                "Timestamp": "2023-11-29T15:30:00",
+                "Device_Id": 416,
+                "Absolute Humidity": "18.21",
+                "Temperature (℃)": "30",
+                "Relative Humidity (%)": "60"
+            },
+            {
+                "Timestamp": "2023-11-29T15:45:00",
+                "Device_Id": 416,
+                "Absolute Humidity": "17.51",
+                "Temperature (℃)": "29.9",
+                "Relative Humidity (%)": "58"
+            },
+            {
+                "Timestamp": "2023-11-29T16:00:00",
+                "Device_Id": 416,
+                "Absolute Humidity": "17.51",
+                "Temperature (℃)": "29.9",
+                "Relative Humidity (%)": "58"
+            },
+            {
+                "Timestamp": "2023-11-29T16:15:00",
+                "Device_Id": 416,
+                "Absolute Humidity": "17.51",
+                "Temperature (℃)": "29.9",
+                "Relative Humidity (%)": "58"
+            },
+            {
+                "Timestamp": "2023-11-29T16:30:00",
+                "Device_Id": 416,
+                "Absolute Humidity": "17.61",
+                "Temperature (℃)": "30",
+                "Relative Humidity (%)": "58"
+            },
+            {
+                "Timestamp": "2023-11-29T16:45:00",
+                "Device_Id": 416,
+                "Absolute Humidity": "17.91",
+                "Temperature (℃)": "30",
+                "Relative Humidity (%)": "59"
+            },
+            {
+                "Timestamp": "2023-11-29T17:00:00",
+                "Device_Id": 416,
+                "Absolute Humidity": "17.91",
+                "Temperature (℃)": "30",
+                "Relative Humidity (%)": "59"
+            },
+            {
+                "Timestamp": "2023-11-29T17:15:00",
+                "Device_Id": 416,
+                "Absolute Humidity": "17.91",
+                "Temperature (℃)": "30",
+                "Relative Humidity (%)": "59"
+            },
+            {
+                "Timestamp": "2023-11-29T17:30:00",
+                "Device_Id": 416,
+                "Absolute Humidity": "17.91",
+                "Temperature (℃)": "30",
+                "Relative Humidity (%)": "59"
+            },
+            {
+                "Timestamp": "2023-11-29T17:45:00",
+                "Device_Id": 416,
+                "Absolute Humidity": "17.91",
+                "Temperature (℃)": "30",
+                "Relative Humidity (%)": "59"
+            },
+            {
+                "Timestamp": "2023-11-29T18:00:00",
+                "Device_Id": 416,
+                "Absolute Humidity": "18.21",
+                "Temperature (℃)": "30",
+                "Relative Humidity (%)": "60"
+            },
+            {
+                "Timestamp": "2023-11-29T18:15:00",
+                "Device_Id": 416,
+                "Absolute Humidity": "18.21",
+                "Temperature (℃)": "30",
+                "Relative Humidity (%)": "60"
+            },
+            {
+                "Timestamp": "2023-11-29T18:30:00",
+                "Device_Id": 416,
+                "Absolute Humidity": "18.52",
+                "Temperature (℃)": "30",
+                "Relative Humidity (%)": "61"
+            },
+            {
+                "Timestamp": "2023-11-29T18:45:00",
+                "Device_Id": 416,
+                "Absolute Humidity": "18.42",
+                "Temperature (℃)": "29.9",
+                "Relative Humidity (%)": "61"
+            },
+            {
+                "Timestamp": "2023-11-29T19:00:00",
+                "Device_Id": 416,
+                "Absolute Humidity": "18.42",
+                "Temperature (℃)": "29.9",
+                "Relative Humidity (%)": "61"
+            },
+            {
+                "Timestamp": "2023-11-29T19:15:00",
+                "Device_Id": 416,
+                "Absolute Humidity": "18.72",
+                "Temperature (℃)": "29.9",
+                "Relative Humidity (%)": "62"
+            },
+            {
+                "Timestamp": "2023-11-29T19:30:00",
+                "Device_Id": 416,
+                "Absolute Humidity": "18.32",
+                "Temperature (℃)": "29.8",
+                "Relative Humidity (%)": "61"
+            },
+            {
+                "Timestamp": "2023-11-29T19:45:00",
+                "Device_Id": 416,
+                "Absolute Humidity": "18.62",
+                "Temperature (℃)": "29.8",
+                "Relative Humidity (%)": "62"
+            },
+            {
+                "Timestamp": "2023-11-29T20:00:00",
+                "Device_Id": 416,
+                "Absolute Humidity": "18.62",
+                "Temperature (℃)": "29.8",
+                "Relative Humidity (%)": "62"
+            },
+            {
+                "Timestamp": "2023-11-29T20:15:00",
+                "Device_Id": 416,
+                "Absolute Humidity": "18.92",
+                "Temperature (℃)": "29.8",
+                "Relative Humidity (%)": "63"
+            },
+            {
+                "Timestamp": "2023-11-29T20:30:00",
+                "Device_Id": 416,
+                "Absolute Humidity": "18.62",
+                "Temperature (℃)": "29.8",
+                "Relative Humidity (%)": "62"
+            },
+            {
+                "Timestamp": "2023-11-29T20:45:00",
+                "Device_Id": 416,
+                "Absolute Humidity": "18.62",
+                "Temperature (℃)": "29.8",
+                "Relative Humidity (%)": "62"
+            },
+            {
+                "Timestamp": "2023-11-29T21:00:00",
+                "Device_Id": 416,
+                "Absolute Humidity": "18.62",
+                "Temperature (℃)": "29.8",
+                "Relative Humidity (%)": "62"
+            },
+            {
+                "Timestamp": "2023-11-29T21:15:00",
+                "Device_Id": 416,
+                "Absolute Humidity": "18.62",
+                "Temperature (℃)": "29.8",
+                "Relative Humidity (%)": "62"
+            },
+            {
+                "Timestamp": "2023-11-29T21:30:00",
+                "Device_Id": 416,
+                "Absolute Humidity": "18.52",
+                "Temperature (℃)": "29.7",
+                "Relative Humidity (%)": "62"
+            },
+            {
+                "Timestamp": "2023-11-29T21:45:00",
+                "Device_Id": 416,
+                "Absolute Humidity": "18.52",
+                "Temperature (℃)": "29.7",
+                "Relative Humidity (%)": "62"
+            },
+            {
+                "Timestamp": "2023-11-29T22:00:00",
+                "Device_Id": 416,
+                "Absolute Humidity": "18.81",
+                "Temperature (℃)": "29.7",
+                "Relative Humidity (%)": "63"
+            },
+            {
+                "Timestamp": "2023-11-29T22:15:00",
+                "Device_Id": 416,
+                "Absolute Humidity": "18.81",
+                "Temperature (℃)": "29.7",
+                "Relative Humidity (%)": "63"
+            },
+            {
+                "Timestamp": "2023-11-29T22:30:00",
+                "Device_Id": 416,
+                "Absolute Humidity": "18.81",
+                "Temperature (℃)": "29.7",
+                "Relative Humidity (%)": "63"
+            },
+            {
+                "Timestamp": "2023-11-29T22:45:00",
+                "Device_Id": 416,
+                "Absolute Humidity": "18.71",
+                "Temperature (℃)": "29.6",
+                "Relative Humidity (%)": "63"
+            },
+            {
+                "Timestamp": "2023-11-29T23:00:00",
+                "Device_Id": 416,
+                "Absolute Humidity": "18.71",
+                "Temperature (℃)": "29.6",
+                "Relative Humidity (%)": "63"
+            },
+            {
+                "Timestamp": "2023-11-29T23:15:00",
+                "Device_Id": 416,
+                "Absolute Humidity": "18.71",
+                "Temperature (℃)": "29.6",
+                "Relative Humidity (%)": "63"
+            },
+            {
+                "Timestamp": "2023-11-29T23:30:00",
+                "Device_Id": 416,
+                "Absolute Humidity": "19.01",
+                "Temperature (℃)": "29.6",
+                "Relative Humidity (%)": "64"
+            },
+            {
+                "Timestamp": "2023-11-29T23:45:00",
+                "Device_Id": 416,
+                "Absolute Humidity": "18.91",
+                "Temperature (℃)": "29.5",
+                "Relative Humidity (%)": "64"
+            }
+        ],
+        "B8 multi-function-timer-air monitor": [
+            {
+                "Timestamp": "2023-11-29T00:00:00",
+                "Device_Id": 414,
+                "tvoc": "44",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "51",
+                "Carbon Dioxide (ppm)": "537",
+                "Absolute Humidity": "15.7",
+                "Temperature (℃)": "31",
+                "Relative Humidity (%)": "49",
+                "Formaldehyde (mg/m3)": "19"
+            },
+            {
+                "Timestamp": "2023-11-29T00:15:00",
+                "Device_Id": 414,
+                "tvoc": "40",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "49",
+                "Carbon Dioxide (ppm)": "441",
+                "Absolute Humidity": "15.06",
+                "Temperature (℃)": "31",
+                "Relative Humidity (%)": "47",
+                "Formaldehyde (mg/m3)": "17"
+            },
+            {
+                "Timestamp": "2023-11-29T00:30:00",
+                "Device_Id": 414,
+                "tvoc": "41",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "47",
+                "Carbon Dioxide (ppm)": "451",
+                "Absolute Humidity": "15.38",
+                "Temperature (℃)": "31",
+                "Relative Humidity (%)": "48",
+                "Formaldehyde (mg/m3)": "18"
+            },
+            {
+                "Timestamp": "2023-11-29T00:45:00",
+                "Device_Id": 414,
+                "tvoc": "41",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "50",
+                "Carbon Dioxide (ppm)": "457",
+                "Absolute Humidity": "15.38",
+                "Temperature (℃)": "31",
+                "Relative Humidity (%)": "48",
+                "Formaldehyde (mg/m3)": "18"
+            },
+            {
+                "Timestamp": "2023-11-29T01:00:00",
+                "Device_Id": 414,
+                "tvoc": "39",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "51",
+                "Carbon Dioxide (ppm)": "455",
+                "Absolute Humidity": "15.06",
+                "Temperature (℃)": "31",
+                "Relative Humidity (%)": "47",
+                "Formaldehyde (mg/m3)": "17"
+            },
+            {
+                "Timestamp": "2023-11-29T01:15:00",
+                "Device_Id": 414,
+                "tvoc": "37",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "46",
+                "Carbon Dioxide (ppm)": "433",
+                "Absolute Humidity": "15.06",
+                "Temperature (℃)": "31",
+                "Relative Humidity (%)": "47",
+                "Formaldehyde (mg/m3)": "16"
+            },
+            {
+                "Timestamp": "2023-11-29T01:30:00",
+                "Device_Id": 414,
+                "tvoc": "46",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "49",
+                "Carbon Dioxide (ppm)": "525",
+                "Absolute Humidity": "14.1",
+                "Temperature (℃)": "31",
+                "Relative Humidity (%)": "44",
+                "Formaldehyde (mg/m3)": "21"
+            },
+            {
+                "Timestamp": "2023-11-29T01:45:00",
+                "Device_Id": 414,
+                "tvoc": "39",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "50",
+                "Carbon Dioxide (ppm)": "429",
+                "Absolute Humidity": "14.42",
+                "Temperature (℃)": "31",
+                "Relative Humidity (%)": "45",
+                "Formaldehyde (mg/m3)": "17"
+            },
+            {
+                "Timestamp": "2023-11-29T02:00:00",
+                "Device_Id": 414,
+                "tvoc": "40",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "50",
+                "Carbon Dioxide (ppm)": "439",
+                "Absolute Humidity": "15.7",
+                "Temperature (℃)": "31",
+                "Relative Humidity (%)": "49",
+                "Formaldehyde (mg/m3)": "18"
+            },
+            {
+                "Timestamp": "2023-11-29T02:15:00",
+                "Device_Id": 414,
+                "tvoc": "44",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "51",
+                "Carbon Dioxide (ppm)": "493",
+                "Absolute Humidity": "14.42",
+                "Temperature (℃)": "31",
+                "Relative Humidity (%)": "45",
+                "Formaldehyde (mg/m3)": "19"
+            },
+            {
+                "Timestamp": "2023-11-29T02:30:00",
+                "Device_Id": 414,
+                "tvoc": "40",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "50",
+                "Carbon Dioxide (ppm)": "433",
+                "Absolute Humidity": "14.1",
+                "Temperature (℃)": "31",
+                "Relative Humidity (%)": "44",
+                "Formaldehyde (mg/m3)": "18"
+            },
+            {
+                "Timestamp": "2023-11-29T02:45:00",
+                "Device_Id": 414,
+                "tvoc": "38",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "50",
+                "Carbon Dioxide (ppm)": "468",
+                "Absolute Humidity": "14.1",
+                "Temperature (℃)": "31",
+                "Relative Humidity (%)": "44",
+                "Formaldehyde (mg/m3)": "17"
+            },
+            {
+                "Timestamp": "2023-11-29T03:00:00",
+                "Device_Id": 414,
+                "tvoc": "45",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "45",
+                "Carbon Dioxide (ppm)": "500",
+                "Absolute Humidity": "14.1",
+                "Temperature (℃)": "31",
+                "Relative Humidity (%)": "44",
+                "Formaldehyde (mg/m3)": "20"
+            },
+            {
+                "Timestamp": "2023-11-29T03:15:00",
+                "Device_Id": 414,
+                "tvoc": "43",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "46",
+                "Carbon Dioxide (ppm)": "472",
+                "Absolute Humidity": "14.1",
+                "Temperature (℃)": "31",
+                "Relative Humidity (%)": "44",
+                "Formaldehyde (mg/m3)": "19"
+            },
+            {
+                "Timestamp": "2023-11-29T03:30:00",
+                "Device_Id": 414,
+                "tvoc": "43",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "50",
+                "Carbon Dioxide (ppm)": "476",
+                "Absolute Humidity": "14.1",
+                "Temperature (℃)": "31",
+                "Relative Humidity (%)": "44",
+                "Formaldehyde (mg/m3)": "19"
+            },
+            {
+                "Timestamp": "2023-11-29T03:45:00",
+                "Device_Id": 414,
+                "tvoc": "45",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "50",
+                "Carbon Dioxide (ppm)": "504",
+                "Absolute Humidity": "14.1",
+                "Temperature (℃)": "31",
+                "Relative Humidity (%)": "44",
+                "Formaldehyde (mg/m3)": "20"
+            },
+            {
+                "Timestamp": "2023-11-29T04:00:00",
+                "Device_Id": 414,
+                "tvoc": "42",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "52",
+                "Carbon Dioxide (ppm)": "467",
+                "Absolute Humidity": "14.1",
+                "Temperature (℃)": "31",
+                "Relative Humidity (%)": "44",
+                "Formaldehyde (mg/m3)": "17"
+            },
+            {
+                "Timestamp": "2023-11-29T04:15:00",
+                "Device_Id": 414,
+                "tvoc": "42",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "50",
+                "Carbon Dioxide (ppm)": "459",
+                "Absolute Humidity": "13.78",
+                "Temperature (℃)": "31",
+                "Relative Humidity (%)": "43",
+                "Formaldehyde (mg/m3)": "19"
+            },
+            {
+                "Timestamp": "2023-11-29T04:30:00",
+                "Device_Id": 414,
+                "tvoc": "45",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "51",
+                "Carbon Dioxide (ppm)": "514",
+                "Absolute Humidity": "14.1",
+                "Temperature (℃)": "31",
+                "Relative Humidity (%)": "44",
+                "Formaldehyde (mg/m3)": "21"
+            },
+            {
+                "Timestamp": "2023-11-29T04:45:00",
+                "Device_Id": 414,
+                "tvoc": "42",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "49",
+                "Carbon Dioxide (ppm)": "467",
+                "Absolute Humidity": "13.78",
+                "Temperature (℃)": "31",
+                "Relative Humidity (%)": "43",
+                "Formaldehyde (mg/m3)": "17"
+            },
+            {
+                "Timestamp": "2023-11-29T05:00:00",
+                "Device_Id": 414,
+                "tvoc": "45",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "48",
+                "Carbon Dioxide (ppm)": "494",
+                "Absolute Humidity": "14.42",
+                "Temperature (℃)": "31",
+                "Relative Humidity (%)": "45",
+                "Formaldehyde (mg/m3)": "20"
+            },
+            {
+                "Timestamp": "2023-11-29T05:15:00",
+                "Device_Id": 414,
+                "tvoc": "40",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "51",
+                "Carbon Dioxide (ppm)": "440",
+                "Absolute Humidity": "14.42",
+                "Temperature (℃)": "31",
+                "Relative Humidity (%)": "45",
+                "Formaldehyde (mg/m3)": "17"
+            },
+            {
+                "Timestamp": "2023-11-29T05:30:00",
+                "Device_Id": 414,
+                "tvoc": "40",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "52",
+                "Carbon Dioxide (ppm)": "441",
+                "Absolute Humidity": "14.42",
+                "Temperature (℃)": "31",
+                "Relative Humidity (%)": "45",
+                "Formaldehyde (mg/m3)": "18"
+            },
+            {
+                "Timestamp": "2023-11-29T05:45:00",
+                "Device_Id": 414,
+                "tvoc": "46",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "46",
+                "Carbon Dioxide (ppm)": "514",
+                "Absolute Humidity": "14.1",
+                "Temperature (℃)": "31",
+                "Relative Humidity (%)": "44",
+                "Formaldehyde (mg/m3)": "19"
+            },
+            {
+                "Timestamp": "2023-11-29T06:00:00",
+                "Device_Id": 414,
+                "tvoc": "41",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "48",
+                "Carbon Dioxide (ppm)": "445",
+                "Absolute Humidity": "15.7",
+                "Temperature (℃)": "31",
+                "Relative Humidity (%)": "49",
+                "Formaldehyde (mg/m3)": "18"
+            },
+            {
+                "Timestamp": "2023-11-29T06:15:00",
+                "Device_Id": 414,
+                "tvoc": "38",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "52",
+                "Carbon Dioxide (ppm)": "419",
+                "Absolute Humidity": "14.74",
+                "Temperature (℃)": "31",
+                "Relative Humidity (%)": "46",
+                "Formaldehyde (mg/m3)": "17"
+            },
+            {
+                "Timestamp": "2023-11-29T06:30:00",
+                "Device_Id": 414,
+                "tvoc": "46",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "51",
+                "Carbon Dioxide (ppm)": "504",
+                "Absolute Humidity": "14.74",
+                "Temperature (℃)": "31",
+                "Relative Humidity (%)": "46",
+                "Formaldehyde (mg/m3)": "20"
+            },
+            {
+                "Timestamp": "2023-11-29T06:45:00",
+                "Device_Id": 414,
+                "tvoc": "46",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "49",
+                "Carbon Dioxide (ppm)": "532",
+                "Absolute Humidity": "14.42",
+                "Temperature (℃)": "31",
+                "Relative Humidity (%)": "45",
+                "Formaldehyde (mg/m3)": "20"
+            },
+            {
+                "Timestamp": "2023-11-29T07:00:00",
+                "Device_Id": 414,
+                "tvoc": "38",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "49",
+                "Carbon Dioxide (ppm)": "414",
+                "Absolute Humidity": "15.7",
+                "Temperature (℃)": "31",
+                "Relative Humidity (%)": "49",
+                "Formaldehyde (mg/m3)": "17"
+            },
+            {
+                "Timestamp": "2023-11-29T07:15:00",
+                "Device_Id": 414,
+                "tvoc": "42",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "50",
+                "Carbon Dioxide (ppm)": "467",
+                "Absolute Humidity": "13.51",
+                "Temperature (℃)": "29",
+                "Relative Humidity (%)": "47",
+                "Formaldehyde (mg/m3)": "17"
+            },
+            {
+                "Timestamp": "2023-11-29T07:30:00",
+                "Device_Id": 414,
+                "tvoc": "37",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "51",
+                "Carbon Dioxide (ppm)": "409",
+                "Absolute Humidity": "13.51",
+                "Temperature (℃)": "29",
+                "Relative Humidity (%)": "47",
+                "Formaldehyde (mg/m3)": "16"
+            },
+            {
+                "Timestamp": "2023-11-29T07:45:00",
+                "Device_Id": 414,
+                "tvoc": "42",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "45",
+                "Carbon Dioxide (ppm)": "458",
+                "Absolute Humidity": "13.51",
+                "Temperature (℃)": "29",
+                "Relative Humidity (%)": "47",
+                "Formaldehyde (mg/m3)": "19"
+            },
+            {
+                "Timestamp": "2023-11-29T08:00:00",
+                "Device_Id": 414,
+                "tvoc": "41",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "48",
+                "Carbon Dioxide (ppm)": "451",
+                "Absolute Humidity": "15.7",
+                "Temperature (℃)": "31",
+                "Relative Humidity (%)": "49",
+                "Formaldehyde (mg/m3)": "18"
+            },
+            {
+                "Timestamp": "2023-11-29T08:15:00",
+                "Device_Id": 414,
+                "tvoc": "43",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "53",
+                "Carbon Dioxide (ppm)": "473",
+                "Absolute Humidity": "14.74",
+                "Temperature (℃)": "31",
+                "Relative Humidity (%)": "46",
+                "Formaldehyde (mg/m3)": "19"
+            },
+            {
+                "Timestamp": "2023-11-29T08:30:00",
+                "Device_Id": 414,
+                "tvoc": "39",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "48",
+                "Carbon Dioxide (ppm)": "457",
+                "Absolute Humidity": "14.74",
+                "Temperature (℃)": "31",
+                "Relative Humidity (%)": "46",
+                "Formaldehyde (mg/m3)": "17"
+            },
+            {
+                "Timestamp": "2023-11-29T08:45:00",
+                "Device_Id": 414,
+                "tvoc": "42",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "50",
+                "Carbon Dioxide (ppm)": "464",
+                "Absolute Humidity": "14.74",
+                "Temperature (℃)": "31",
+                "Relative Humidity (%)": "46",
+                "Formaldehyde (mg/m3)": "19"
+            },
+            {
+                "Timestamp": "2023-11-29T09:00:00",
+                "Device_Id": 414,
+                "tvoc": "46",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "50",
+                "Carbon Dioxide (ppm)": "508",
+                "Absolute Humidity": "13.46",
+                "Temperature (℃)": "31",
+                "Relative Humidity (%)": "42",
+                "Formaldehyde (mg/m3)": "20"
+            },
+            {
+                "Timestamp": "2023-11-29T09:15:00",
+                "Device_Id": 414,
+                "tvoc": "41",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "52",
+                "Carbon Dioxide (ppm)": "443",
+                "Absolute Humidity": "13.14",
+                "Temperature (℃)": "31",
+                "Relative Humidity (%)": "41",
+                "Formaldehyde (mg/m3)": "18"
+            },
+            {
+                "Timestamp": "2023-11-29T09:30:00",
+                "Device_Id": 414,
+                "tvoc": "38",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "50",
+                "Carbon Dioxide (ppm)": "467",
+                "Absolute Humidity": "13.14",
+                "Temperature (℃)": "31",
+                "Relative Humidity (%)": "41",
+                "Formaldehyde (mg/m3)": "16"
+            },
+            {
+                "Timestamp": "2023-11-29T09:45:00",
+                "Device_Id": 414,
+                "tvoc": "46",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "50",
+                "Carbon Dioxide (ppm)": "502",
+                "Absolute Humidity": "13.14",
+                "Temperature (℃)": "31",
+                "Relative Humidity (%)": "41",
+                "Formaldehyde (mg/m3)": "21"
+            },
+            {
+                "Timestamp": "2023-11-29T10:00:00",
+                "Device_Id": 414,
+                "tvoc": "41",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "49",
+                "Carbon Dioxide (ppm)": "452",
+                "Absolute Humidity": "15.7",
+                "Temperature (℃)": "31",
+                "Relative Humidity (%)": "49",
+                "Formaldehyde (mg/m3)": "18"
+            },
+            {
+                "Timestamp": "2023-11-29T10:15:00",
+                "Device_Id": 414,
+                "tvoc": "43",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "52",
+                "Carbon Dioxide (ppm)": "477",
+                "Absolute Humidity": "13.46",
+                "Temperature (℃)": "31",
+                "Relative Humidity (%)": "42",
+                "Formaldehyde (mg/m3)": "19"
+            },
+            {
+                "Timestamp": "2023-11-29T10:30:00",
+                "Device_Id": 414,
+                "tvoc": "45",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "51",
+                "Carbon Dioxide (ppm)": "499",
+                "Absolute Humidity": "13.78",
+                "Temperature (℃)": "31",
+                "Relative Humidity (%)": "43",
+                "Formaldehyde (mg/m3)": "19"
+            },
+            {
+                "Timestamp": "2023-11-29T10:45:00",
+                "Device_Id": 414,
+                "tvoc": "39",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "45",
+                "Carbon Dioxide (ppm)": "436",
+                "Absolute Humidity": "13.78",
+                "Temperature (℃)": "31",
+                "Relative Humidity (%)": "43",
+                "Formaldehyde (mg/m3)": "18"
+            },
+            {
+                "Timestamp": "2023-11-29T11:00:00",
+                "Device_Id": 414,
+                "tvoc": "41",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "48",
+                "Carbon Dioxide (ppm)": "471",
+                "Absolute Humidity": "13.78",
+                "Temperature (℃)": "31",
+                "Relative Humidity (%)": "43",
+                "Formaldehyde (mg/m3)": "19"
+            },
+            {
+                "Timestamp": "2023-11-29T11:15:00",
+                "Device_Id": 414,
+                "tvoc": "39",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "46",
+                "Carbon Dioxide (ppm)": "481",
+                "Absolute Humidity": "13.78",
+                "Temperature (℃)": "31",
+                "Relative Humidity (%)": "43",
+                "Formaldehyde (mg/m3)": "17"
+            },
+            {
+                "Timestamp": "2023-11-29T11:30:00",
+                "Device_Id": 414,
+                "tvoc": "39",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "49",
+                "Carbon Dioxide (ppm)": "436",
+                "Absolute Humidity": "12.75",
+                "Temperature (℃)": "30",
+                "Relative Humidity (%)": "42",
+                "Formaldehyde (mg/m3)": "16"
+            },
+            {
+                "Timestamp": "2023-11-29T11:45:00",
+                "Device_Id": 414,
+                "tvoc": "42",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "50",
+                "Carbon Dioxide (ppm)": "466",
+                "Absolute Humidity": "12.45",
+                "Temperature (℃)": "30",
+                "Relative Humidity (%)": "41",
+                "Formaldehyde (mg/m3)": "19"
+            },
+            {
+                "Timestamp": "2023-11-29T12:00:00",
+                "Device_Id": 414,
+                "tvoc": "45",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "51",
+                "Carbon Dioxide (ppm)": "505",
+                "Absolute Humidity": "13.46",
+                "Temperature (℃)": "31",
+                "Relative Humidity (%)": "42",
+                "Formaldehyde (mg/m3)": "20"
+            },
+            {
+                "Timestamp": "2023-11-29T12:15:00",
+                "Device_Id": 414,
+                "tvoc": "47",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "51",
+                "Carbon Dioxide (ppm)": "518",
+                "Absolute Humidity": "13.46",
+                "Temperature (℃)": "31",
+                "Relative Humidity (%)": "42",
+                "Formaldehyde (mg/m3)": "21"
+            },
+            {
+                "Timestamp": "2023-11-29T12:30:00",
+                "Device_Id": 414,
+                "tvoc": "42",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "50",
+                "Carbon Dioxide (ppm)": "527",
+                "Absolute Humidity": "13.36",
+                "Temperature (℃)": "30",
+                "Relative Humidity (%)": "44",
+                "Formaldehyde (mg/m3)": "21"
+            },
+            {
+                "Timestamp": "2023-11-29T12:45:00",
+                "Device_Id": 414,
+                "tvoc": "38",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "50",
+                "Carbon Dioxide (ppm)": "445",
+                "Absolute Humidity": "13.78",
+                "Temperature (℃)": "31",
+                "Relative Humidity (%)": "43",
+                "Formaldehyde (mg/m3)": "16"
+            },
+            {
+                "Timestamp": "2023-11-29T13:00:00",
+                "Device_Id": 414,
+                "tvoc": "47",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "48",
+                "Carbon Dioxide (ppm)": "516",
+                "Absolute Humidity": "15.7",
+                "Temperature (℃)": "31",
+                "Relative Humidity (%)": "49",
+                "Formaldehyde (mg/m3)": "21"
+            },
+            {
+                "Timestamp": "2023-11-29T13:15:00",
+                "Device_Id": 414,
+                "tvoc": "49",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "46",
+                "Carbon Dioxide (ppm)": "543",
+                "Absolute Humidity": "15.7",
+                "Temperature (℃)": "31",
+                "Relative Humidity (%)": "49",
+                "Formaldehyde (mg/m3)": "19"
+            },
+            {
+                "Timestamp": "2023-11-29T13:30:00",
+                "Device_Id": 414,
+                "tvoc": "38",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "51",
+                "Carbon Dioxide (ppm)": "418",
+                "Absolute Humidity": "14.1",
+                "Temperature (℃)": "31",
+                "Relative Humidity (%)": "44",
+                "Formaldehyde (mg/m3)": "16"
+            },
+            {
+                "Timestamp": "2023-11-29T13:45:00",
+                "Device_Id": 414,
+                "tvoc": "40",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "48",
+                "Carbon Dioxide (ppm)": "441",
+                "Absolute Humidity": "14.1",
+                "Temperature (℃)": "31",
+                "Relative Humidity (%)": "44",
+                "Formaldehyde (mg/m3)": "17"
+            },
+            {
+                "Timestamp": "2023-11-29T14:00:00",
+                "Device_Id": 414,
+                "tvoc": "47",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "49",
+                "Carbon Dioxide (ppm)": "517",
+                "Absolute Humidity": "15.7",
+                "Temperature (℃)": "31",
+                "Relative Humidity (%)": "49",
+                "Formaldehyde (mg/m3)": "18"
+            },
+            {
+                "Timestamp": "2023-11-29T14:15:00",
+                "Device_Id": 414,
+                "tvoc": "41",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "50",
+                "Carbon Dioxide (ppm)": "455",
+                "Absolute Humidity": "13.36",
+                "Temperature (℃)": "30",
+                "Relative Humidity (%)": "44",
+                "Formaldehyde (mg/m3)": "18"
+            },
+            {
+                "Timestamp": "2023-11-29T14:30:00",
+                "Device_Id": 414,
+                "tvoc": "42",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "51",
+                "Carbon Dioxide (ppm)": "462",
+                "Absolute Humidity": "13.36",
+                "Temperature (℃)": "30",
+                "Relative Humidity (%)": "44",
+                "Formaldehyde (mg/m3)": "19"
+            },
+            {
+                "Timestamp": "2023-11-29T14:45:00",
+                "Device_Id": 414,
+                "tvoc": "39",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "49",
+                "Carbon Dioxide (ppm)": "438",
+                "Absolute Humidity": "13.36",
+                "Temperature (℃)": "30",
+                "Relative Humidity (%)": "44",
+                "Formaldehyde (mg/m3)": "17"
+            },
+            {
+                "Timestamp": "2023-11-29T15:00:00",
+                "Device_Id": 414,
+                "tvoc": "46",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "48",
+                "Carbon Dioxide (ppm)": "522",
+                "Absolute Humidity": "14.1",
+                "Temperature (℃)": "31",
+                "Relative Humidity (%)": "44",
+                "Formaldehyde (mg/m3)": "21"
+            },
+            {
+                "Timestamp": "2023-11-29T15:15:00",
+                "Device_Id": 414,
+                "tvoc": "45",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "50",
+                "Carbon Dioxide (ppm)": "536",
+                "Absolute Humidity": "13.36",
+                "Temperature (℃)": "30",
+                "Relative Humidity (%)": "44",
+                "Formaldehyde (mg/m3)": "20"
+            },
+            {
+                "Timestamp": "2023-11-29T15:30:00",
+                "Device_Id": 414,
+                "tvoc": "48",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "51",
+                "Carbon Dioxide (ppm)": "528",
+                "Absolute Humidity": "13.05",
+                "Temperature (℃)": "30",
+                "Relative Humidity (%)": "43",
+                "Formaldehyde (mg/m3)": "21"
+            },
+            {
+                "Timestamp": "2023-11-29T15:45:00",
+                "Device_Id": 414,
+                "tvoc": "40",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "42",
+                "Carbon Dioxide (ppm)": "441",
+                "Absolute Humidity": "12.14",
+                "Temperature (℃)": "30",
+                "Relative Humidity (%)": "40",
+                "Formaldehyde (mg/m3)": "18"
+            },
+            {
+                "Timestamp": "2023-11-29T16:00:00",
+                "Device_Id": 414,
+                "tvoc": "46",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "52",
+                "Carbon Dioxide (ppm)": "505",
+                "Absolute Humidity": "13.46",
+                "Temperature (℃)": "31",
+                "Relative Humidity (%)": "42",
+                "Formaldehyde (mg/m3)": "21"
+            },
+            {
+                "Timestamp": "2023-11-29T16:15:00",
+                "Device_Id": 414,
+                "tvoc": "47",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "52",
+                "Carbon Dioxide (ppm)": "518",
+                "Absolute Humidity": "13.14",
+                "Temperature (℃)": "31",
+                "Relative Humidity (%)": "41",
+                "Formaldehyde (mg/m3)": "21"
+            },
+            {
+                "Timestamp": "2023-11-29T16:30:00",
+                "Device_Id": 414,
+                "tvoc": "39",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "51",
+                "Carbon Dioxide (ppm)": "434",
+                "Absolute Humidity": "13.05",
+                "Temperature (℃)": "30",
+                "Relative Humidity (%)": "43",
+                "Formaldehyde (mg/m3)": "17"
+            },
+            {
+                "Timestamp": "2023-11-29T16:45:00",
+                "Device_Id": 414,
+                "tvoc": "40",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "50",
+                "Carbon Dioxide (ppm)": "442",
+                "Absolute Humidity": "13.05",
+                "Temperature (℃)": "30",
+                "Relative Humidity (%)": "43",
+                "Formaldehyde (mg/m3)": "18"
+            },
+            {
+                "Timestamp": "2023-11-29T17:00:00",
+                "Device_Id": 414,
+                "tvoc": "46",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "51",
+                "Carbon Dioxide (ppm)": "508",
+                "Absolute Humidity": "13.78",
+                "Temperature (℃)": "31",
+                "Relative Humidity (%)": "43",
+                "Formaldehyde (mg/m3)": "20"
+            },
+            {
+                "Timestamp": "2023-11-29T17:15:00",
+                "Device_Id": 414,
+                "tvoc": "41",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "51",
+                "Carbon Dioxide (ppm)": "449",
+                "Absolute Humidity": "13.78",
+                "Temperature (℃)": "31",
+                "Relative Humidity (%)": "43",
+                "Formaldehyde (mg/m3)": "18"
+            },
+            {
+                "Timestamp": "2023-11-29T17:30:00",
+                "Device_Id": 414,
+                "tvoc": "38",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "48",
+                "Carbon Dioxide (ppm)": "424",
+                "Absolute Humidity": "13.46",
+                "Temperature (℃)": "31",
+                "Relative Humidity (%)": "42",
+                "Formaldehyde (mg/m3)": "17"
+            },
+            {
+                "Timestamp": "2023-11-29T17:45:00",
+                "Device_Id": 414,
+                "tvoc": "47",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "50",
+                "Carbon Dioxide (ppm)": "521",
+                "Absolute Humidity": "12.75",
+                "Temperature (℃)": "30",
+                "Relative Humidity (%)": "42",
+                "Formaldehyde (mg/m3)": "21"
+            },
+            {
+                "Timestamp": "2023-11-29T18:00:00",
+                "Device_Id": 414,
+                "tvoc": "42",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "51",
+                "Carbon Dioxide (ppm)": "508",
+                "Absolute Humidity": "13.36",
+                "Temperature (℃)": "30",
+                "Relative Humidity (%)": "44",
+                "Formaldehyde (mg/m3)": "18"
+            },
+            {
+                "Timestamp": "2023-11-29T18:15:00",
+                "Device_Id": 414,
+                "tvoc": "42",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "51",
+                "Carbon Dioxide (ppm)": "461",
+                "Absolute Humidity": "13.05",
+                "Temperature (℃)": "30",
+                "Relative Humidity (%)": "43",
+                "Formaldehyde (mg/m3)": "19"
+            },
+            {
+                "Timestamp": "2023-11-29T18:30:00",
+                "Device_Id": 414,
+                "tvoc": "43",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "45",
+                "Carbon Dioxide (ppm)": "470",
+                "Absolute Humidity": "13.78",
+                "Temperature (℃)": "31",
+                "Relative Humidity (%)": "43",
+                "Formaldehyde (mg/m3)": "19"
+            },
+            {
+                "Timestamp": "2023-11-29T18:45:00",
+                "Device_Id": 414,
+                "tvoc": "40",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "50",
+                "Carbon Dioxide (ppm)": "441",
+                "Absolute Humidity": "13.05",
+                "Temperature (℃)": "30",
+                "Relative Humidity (%)": "43",
+                "Formaldehyde (mg/m3)": "17"
+            },
+            {
+                "Timestamp": "2023-11-29T19:00:00",
+                "Device_Id": 414,
+                "tvoc": "38",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "51",
+                "Carbon Dioxide (ppm)": "421",
+                "Absolute Humidity": "14.42",
+                "Temperature (℃)": "31",
+                "Relative Humidity (%)": "45",
+                "Formaldehyde (mg/m3)": "16"
+            },
+            {
+                "Timestamp": "2023-11-29T19:15:00",
+                "Device_Id": 414,
+                "tvoc": "41",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "48",
+                "Carbon Dioxide (ppm)": "448",
+                "Absolute Humidity": "14.1",
+                "Temperature (℃)": "31",
+                "Relative Humidity (%)": "44",
+                "Formaldehyde (mg/m3)": "18"
+            },
+            {
+                "Timestamp": "2023-11-29T19:30:00",
+                "Device_Id": 414,
+                "tvoc": "44",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "50",
+                "Carbon Dioxide (ppm)": "484",
+                "Absolute Humidity": "14.74",
+                "Temperature (℃)": "31",
+                "Relative Humidity (%)": "46",
+                "Formaldehyde (mg/m3)": "17"
+            },
+            {
+                "Timestamp": "2023-11-29T19:45:00",
+                "Device_Id": 414,
+                "tvoc": "37",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "51",
+                "Carbon Dioxide (ppm)": "417",
+                "Absolute Humidity": "15.38",
+                "Temperature (℃)": "31",
+                "Relative Humidity (%)": "48",
+                "Formaldehyde (mg/m3)": "17"
+            },
+            {
+                "Timestamp": "2023-11-29T20:00:00",
+                "Device_Id": 414,
+                "tvoc": "42",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "50",
+                "Carbon Dioxide (ppm)": "458",
+                "Absolute Humidity": "15.7",
+                "Temperature (℃)": "31",
+                "Relative Humidity (%)": "49",
+                "Formaldehyde (mg/m3)": "19"
+            },
+            {
+                "Timestamp": "2023-11-29T20:15:00",
+                "Device_Id": 414,
+                "tvoc": "47",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "52",
+                "Carbon Dioxide (ppm)": "519",
+                "Absolute Humidity": "14.27",
+                "Temperature (℃)": "30",
+                "Relative Humidity (%)": "47",
+                "Formaldehyde (mg/m3)": "21"
+            },
+            {
+                "Timestamp": "2023-11-29T20:30:00",
+                "Device_Id": 414,
+                "tvoc": "39",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "49",
+                "Carbon Dioxide (ppm)": "435",
+                "Absolute Humidity": "13.96",
+                "Temperature (℃)": "30",
+                "Relative Humidity (%)": "46",
+                "Formaldehyde (mg/m3)": "16"
+            },
+            {
+                "Timestamp": "2023-11-29T20:45:00",
+                "Device_Id": 414,
+                "tvoc": "41",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "52",
+                "Carbon Dioxide (ppm)": "461",
+                "Absolute Humidity": "13.96",
+                "Temperature (℃)": "30",
+                "Relative Humidity (%)": "46",
+                "Formaldehyde (mg/m3)": "18"
+            },
+            {
+                "Timestamp": "2023-11-29T21:00:00",
+                "Device_Id": 414,
+                "tvoc": "47",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "50",
+                "Carbon Dioxide (ppm)": "509",
+                "Absolute Humidity": "14.74",
+                "Temperature (℃)": "31",
+                "Relative Humidity (%)": "46",
+                "Formaldehyde (mg/m3)": "21"
+            },
+            {
+                "Timestamp": "2023-11-29T21:15:00",
+                "Device_Id": 414,
+                "tvoc": "39",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "48",
+                "Carbon Dioxide (ppm)": "435",
+                "Absolute Humidity": "13.96",
+                "Temperature (℃)": "30",
+                "Relative Humidity (%)": "46",
+                "Formaldehyde (mg/m3)": "16"
+            },
+            {
+                "Timestamp": "2023-11-29T21:30:00",
+                "Device_Id": 414,
+                "tvoc": "40",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "51",
+                "Carbon Dioxide (ppm)": "444",
+                "Absolute Humidity": "14.74",
+                "Temperature (℃)": "31",
+                "Relative Humidity (%)": "46",
+                "Formaldehyde (mg/m3)": "18"
+            },
+            {
+                "Timestamp": "2023-11-29T21:45:00",
+                "Device_Id": 414,
+                "tvoc": "46",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "50",
+                "Carbon Dioxide (ppm)": "499",
+                "Absolute Humidity": "14.27",
+                "Temperature (℃)": "30",
+                "Relative Humidity (%)": "47",
+                "Formaldehyde (mg/m3)": "20"
+            },
+            {
+                "Timestamp": "2023-11-29T22:00:00",
+                "Device_Id": 414,
+                "tvoc": "41",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "46",
+                "Carbon Dioxide (ppm)": "459",
+                "Absolute Humidity": "14.87",
+                "Temperature (℃)": "30",
+                "Relative Humidity (%)": "49",
+                "Formaldehyde (mg/m3)": "17"
+            },
+            {
+                "Timestamp": "2023-11-29T22:15:00",
+                "Device_Id": 414,
+                "tvoc": "39",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "50",
+                "Carbon Dioxide (ppm)": "431",
+                "Absolute Humidity": "15.38",
+                "Temperature (℃)": "31",
+                "Relative Humidity (%)": "48",
+                "Formaldehyde (mg/m3)": "17"
+            },
+            {
+                "Timestamp": "2023-11-29T22:30:00",
+                "Device_Id": 414,
+                "tvoc": "46",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "49",
+                "Carbon Dioxide (ppm)": "503",
+                "Absolute Humidity": "15.06",
+                "Temperature (℃)": "31",
+                "Relative Humidity (%)": "47",
+                "Formaldehyde (mg/m3)": "20"
+            },
+            {
+                "Timestamp": "2023-11-29T22:45:00",
+                "Device_Id": 414,
+                "tvoc": "41",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "49",
+                "Carbon Dioxide (ppm)": "452",
+                "Absolute Humidity": "15.06",
+                "Temperature (℃)": "31",
+                "Relative Humidity (%)": "47",
+                "Formaldehyde (mg/m3)": "18"
+            },
+            {
+                "Timestamp": "2023-11-29T23:00:00",
+                "Device_Id": 414,
+                "tvoc": "42",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "51",
+                "Carbon Dioxide (ppm)": "461",
+                "Absolute Humidity": "15.7",
+                "Temperature (℃)": "31",
+                "Relative Humidity (%)": "49",
+                "Formaldehyde (mg/m3)": "17"
+            },
+            {
+                "Timestamp": "2023-11-29T23:15:00",
+                "Device_Id": 414,
+                "tvoc": "46",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "48",
+                "Carbon Dioxide (ppm)": "503",
+                "Absolute Humidity": "15.38",
+                "Temperature (℃)": "31",
+                "Relative Humidity (%)": "48",
+                "Formaldehyde (mg/m3)": "20"
+            },
+            {
+                "Timestamp": "2023-11-29T23:30:00",
+                "Device_Id": 414,
+                "tvoc": "43",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "48",
+                "Carbon Dioxide (ppm)": "474",
+                "Absolute Humidity": "15.06",
+                "Temperature (℃)": "31",
+                "Relative Humidity (%)": "47",
+                "Formaldehyde (mg/m3)": "17"
+            },
+            {
+                "Timestamp": "2023-11-29T23:45:00",
+                "Device_Id": 414,
+                "tvoc": "37",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "42",
+                "Carbon Dioxide (ppm)": "432",
+                "Absolute Humidity": "14.74",
+                "Temperature (℃)": "31",
+                "Relative Humidity (%)": "46",
+                "Formaldehyde (mg/m3)": "16"
+            }
+        ],
+        "LF Piano LG aircon": [
+            {
+                "Timestamp": "2023-11-29T00:00:00",
+                "Device_Id": 430,
+                "Absolute Humidity": "19.01",
+                "Temperature (℃)": "29.6",
+                "Relative Humidity (%)": "64"
+            },
+            {
+                "Timestamp": "2023-11-29T00:15:00",
+                "Device_Id": 430,
+                "Absolute Humidity": "19.01",
+                "Temperature (℃)": "29.6",
+                "Relative Humidity (%)": "64"
+            },
+            {
+                "Timestamp": "2023-11-29T00:30:00",
+                "Device_Id": 430,
+                "Absolute Humidity": "18.91",
+                "Temperature (℃)": "29.5",
+                "Relative Humidity (%)": "64"
+            },
+            {
+                "Timestamp": "2023-11-29T00:45:00",
+                "Device_Id": 430,
+                "Absolute Humidity": "18.91",
+                "Temperature (℃)": "29.5",
+                "Relative Humidity (%)": "64"
+            },
+            {
+                "Timestamp": "2023-11-29T01:00:00",
+                "Device_Id": 430,
+                "Absolute Humidity": "18.91",
+                "Temperature (℃)": "29.5",
+                "Relative Humidity (%)": "64"
+            },
+            {
+                "Timestamp": "2023-11-29T01:15:00",
+                "Device_Id": 430,
+                "Absolute Humidity": "18.91",
+                "Temperature (℃)": "29.5",
+                "Relative Humidity (%)": "64"
+            },
+            {
+                "Timestamp": "2023-11-29T01:30:00",
+                "Device_Id": 430,
+                "Absolute Humidity": "18.91",
+                "Temperature (℃)": "29.5",
+                "Relative Humidity (%)": "64"
+            },
+            {
+                "Timestamp": "2023-11-29T01:45:00",
+                "Device_Id": 430,
+                "Absolute Humidity": "18.91",
+                "Temperature (℃)": "29.5",
+                "Relative Humidity (%)": "64"
+            },
+            {
+                "Timestamp": "2023-11-29T02:00:00",
+                "Device_Id": 430,
+                "Absolute Humidity": "18.91",
+                "Temperature (℃)": "29.5",
+                "Relative Humidity (%)": "64"
+            },
+            {
+                "Timestamp": "2023-11-29T02:15:00",
+                "Device_Id": 430,
+                "Absolute Humidity": "18.8",
+                "Temperature (℃)": "29.4",
+                "Relative Humidity (%)": "64"
+            },
+            {
+                "Timestamp": "2023-11-29T02:30:00",
+                "Device_Id": 430,
+                "Absolute Humidity": "18.8",
+                "Temperature (℃)": "29.4",
+                "Relative Humidity (%)": "64"
+            },
+            {
+                "Timestamp": "2023-11-29T02:45:00",
+                "Device_Id": 430,
+                "Absolute Humidity": "18.8",
+                "Temperature (℃)": "29.4",
+                "Relative Humidity (%)": "64"
+            },
+            {
+                "Timestamp": "2023-11-29T03:00:00",
+                "Device_Id": 430,
+                "Absolute Humidity": "18.8",
+                "Temperature (℃)": "29.4",
+                "Relative Humidity (%)": "64"
+            },
+            {
+                "Timestamp": "2023-11-29T03:15:00",
+                "Device_Id": 430,
+                "Absolute Humidity": "18.8",
+                "Temperature (℃)": "29.4",
+                "Relative Humidity (%)": "64"
+            },
+            {
+                "Timestamp": "2023-11-29T03:30:00",
+                "Device_Id": 430,
+                "Absolute Humidity": "18.8",
+                "Temperature (℃)": "29.4",
+                "Relative Humidity (%)": "64"
+            },
+            {
+                "Timestamp": "2023-11-29T03:45:00",
+                "Device_Id": 430,
+                "Absolute Humidity": "18.7",
+                "Temperature (℃)": "29.3",
+                "Relative Humidity (%)": "64"
+            },
+            {
+                "Timestamp": "2023-11-29T04:00:00",
+                "Device_Id": 430,
+                "Absolute Humidity": "18.7",
+                "Temperature (℃)": "29.3",
+                "Relative Humidity (%)": "64"
+            },
+            {
+                "Timestamp": "2023-11-29T04:15:00",
+                "Device_Id": 430,
+                "Absolute Humidity": "18.7",
+                "Temperature (℃)": "29.3",
+                "Relative Humidity (%)": "64"
+            },
+            {
+                "Timestamp": "2023-11-29T04:30:00",
+                "Device_Id": 430,
+                "Absolute Humidity": "18.7",
+                "Temperature (℃)": "29.3",
+                "Relative Humidity (%)": "64"
+            },
+            {
+                "Timestamp": "2023-11-29T04:45:00",
+                "Device_Id": 430,
+                "Absolute Humidity": "18.6",
+                "Temperature (℃)": "29.2",
+                "Relative Humidity (%)": "64"
+            },
+            {
+                "Timestamp": "2023-11-29T05:00:00",
+                "Device_Id": 430,
+                "Absolute Humidity": "18.6",
+                "Temperature (℃)": "29.2",
+                "Relative Humidity (%)": "64"
+            },
+            {
+                "Timestamp": "2023-11-29T05:15:00",
+                "Device_Id": 430,
+                "Absolute Humidity": "18.6",
+                "Temperature (℃)": "29.2",
+                "Relative Humidity (%)": "64"
+            },
+            {
+                "Timestamp": "2023-11-29T05:30:00",
+                "Device_Id": 430,
+                "Absolute Humidity": "18.6",
+                "Temperature (℃)": "29.2",
+                "Relative Humidity (%)": "64"
+            },
+            {
+                "Timestamp": "2023-11-29T05:45:00",
+                "Device_Id": 430,
+                "Absolute Humidity": "18.6",
+                "Temperature (℃)": "29.2",
+                "Relative Humidity (%)": "64"
+            },
+            {
+                "Timestamp": "2023-11-29T06:00:00",
+                "Device_Id": 430,
+                "Absolute Humidity": "18.6",
+                "Temperature (℃)": "29.2",
+                "Relative Humidity (%)": "64"
+            },
+            {
+                "Timestamp": "2023-11-29T06:15:00",
+                "Device_Id": 430,
+                "Absolute Humidity": "18.5",
+                "Temperature (℃)": "29.1",
+                "Relative Humidity (%)": "64"
+            },
+            {
+                "Timestamp": "2023-11-29T06:30:00",
+                "Device_Id": 430,
+                "Absolute Humidity": "18.5",
+                "Temperature (℃)": "29.1",
+                "Relative Humidity (%)": "64"
+            },
+            {
+                "Timestamp": "2023-11-29T06:45:00",
+                "Device_Id": 430,
+                "Absolute Humidity": "18.5",
+                "Temperature (℃)": "29.1",
+                "Relative Humidity (%)": "64"
+            },
+            {
+                "Timestamp": "2023-11-29T07:00:00",
+                "Device_Id": 430,
+                "Absolute Humidity": "18.5",
+                "Temperature (℃)": "29.1",
+                "Relative Humidity (%)": "64"
+            },
+            {
+                "Timestamp": "2023-11-29T07:15:00",
+                "Device_Id": 430,
+                "Absolute Humidity": "18.5",
+                "Temperature (℃)": "29.1",
+                "Relative Humidity (%)": "64"
+            },
+            {
+                "Timestamp": "2023-11-29T07:30:00",
+                "Device_Id": 430,
+                "Absolute Humidity": "18.5",
+                "Temperature (℃)": "29.1",
+                "Relative Humidity (%)": "64"
+            },
+            {
+                "Timestamp": "2023-11-29T07:45:00",
+                "Device_Id": 430,
+                "Absolute Humidity": "18.5",
+                "Temperature (℃)": "29.1",
+                "Relative Humidity (%)": "64"
+            },
+            {
+                "Timestamp": "2023-11-29T08:00:00",
+                "Device_Id": 430,
+                "Absolute Humidity": "18.5",
+                "Temperature (℃)": "29.1",
+                "Relative Humidity (%)": "64"
+            },
+            {
+                "Timestamp": "2023-11-29T08:15:00",
+                "Device_Id": 430,
+                "Absolute Humidity": "18.5",
+                "Temperature (℃)": "29.1",
+                "Relative Humidity (%)": "64"
+            },
+            {
+                "Timestamp": "2023-11-29T08:30:00",
+                "Device_Id": 430,
+                "Absolute Humidity": "18.5",
+                "Temperature (℃)": "29.1",
+                "Relative Humidity (%)": "64"
+            },
+            {
+                "Timestamp": "2023-11-29T08:45:00",
+                "Device_Id": 430,
+                "Absolute Humidity": "18.5",
+                "Temperature (℃)": "29.1",
+                "Relative Humidity (%)": "64"
+            },
+            {
+                "Timestamp": "2023-11-29T09:00:00",
+                "Device_Id": 430,
+                "Absolute Humidity": "18.5",
+                "Temperature (℃)": "29.1",
+                "Relative Humidity (%)": "64"
+            },
+            {
+                "Timestamp": "2023-11-29T09:15:00",
+                "Device_Id": 430,
+                "Absolute Humidity": "18.5",
+                "Temperature (℃)": "29.1",
+                "Relative Humidity (%)": "64"
+            },
+            {
+                "Timestamp": "2023-11-29T09:30:00",
+                "Device_Id": 430,
+                "Absolute Humidity": "18.5",
+                "Temperature (℃)": "29.1",
+                "Relative Humidity (%)": "64"
+            },
+            {
+                "Timestamp": "2023-11-29T09:45:00",
+                "Device_Id": 430,
+                "Absolute Humidity": "18.5",
+                "Temperature (℃)": "29.1",
+                "Relative Humidity (%)": "64"
+            },
+            {
+                "Timestamp": "2023-11-29T10:00:00",
+                "Device_Id": 430,
+                "Absolute Humidity": "18.5",
+                "Temperature (℃)": "29.1",
+                "Relative Humidity (%)": "64"
+            },
+            {
+                "Timestamp": "2023-11-29T10:15:00",
+                "Device_Id": 430,
+                "Absolute Humidity": "18.4",
+                "Temperature (℃)": "29",
+                "Relative Humidity (%)": "64"
+            },
+            {
+                "Timestamp": "2023-11-29T10:30:00",
+                "Device_Id": 430,
+                "Absolute Humidity": "18.69",
+                "Temperature (℃)": "29",
+                "Relative Humidity (%)": "65"
+            },
+            {
+                "Timestamp": "2023-11-29T10:45:00",
+                "Device_Id": 430,
+                "Absolute Humidity": "18.87",
+                "Temperature (℃)": "28.9",
+                "Relative Humidity (%)": "66"
+            },
+            {
+                "Timestamp": "2023-11-29T11:00:00",
+                "Device_Id": 430,
+                "Absolute Humidity": "18.87",
+                "Temperature (℃)": "28.9",
+                "Relative Humidity (%)": "66"
+            },
+            {
+                "Timestamp": "2023-11-29T11:15:00",
+                "Device_Id": 430,
+                "Absolute Humidity": "19.15",
+                "Temperature (℃)": "28.9",
+                "Relative Humidity (%)": "67"
+            },
+            {
+                "Timestamp": "2023-11-29T11:30:00",
+                "Device_Id": 430,
+                "Absolute Humidity": "19.15",
+                "Temperature (℃)": "28.9",
+                "Relative Humidity (%)": "67"
+            },
+            {
+                "Timestamp": "2023-11-29T11:45:00",
+                "Device_Id": 430,
+                "Absolute Humidity": "19.15",
+                "Temperature (℃)": "28.9",
+                "Relative Humidity (%)": "67"
+            },
+            {
+                "Timestamp": "2023-11-29T12:00:00",
+                "Device_Id": 430,
+                "Absolute Humidity": "19.15",
+                "Temperature (℃)": "28.9",
+                "Relative Humidity (%)": "67"
+            },
+            {
+                "Timestamp": "2023-11-29T12:15:00",
+                "Device_Id": 430,
+                "Absolute Humidity": "19.15",
+                "Temperature (℃)": "28.9",
+                "Relative Humidity (%)": "67"
+            },
+            {
+                "Timestamp": "2023-11-29T12:30:00",
+                "Device_Id": 430,
+                "Absolute Humidity": "19.44",
+                "Temperature (℃)": "28.9",
+                "Relative Humidity (%)": "68"
+            },
+            {
+                "Timestamp": "2023-11-29T12:45:00",
+                "Device_Id": 430,
+                "Absolute Humidity": "19.55",
+                "Temperature (℃)": "29",
+                "Relative Humidity (%)": "68"
+            },
+            {
+                "Timestamp": "2023-11-29T13:00:00",
+                "Device_Id": 430,
+                "Absolute Humidity": "19.55",
+                "Temperature (℃)": "29",
+                "Relative Humidity (%)": "68"
+            },
+            {
+                "Timestamp": "2023-11-29T13:15:00",
+                "Device_Id": 430,
+                "Absolute Humidity": "19.55",
+                "Temperature (℃)": "29",
+                "Relative Humidity (%)": "68"
+            },
+            {
+                "Timestamp": "2023-11-29T13:30:00",
+                "Device_Id": 430,
+                "Absolute Humidity": "19.55",
+                "Temperature (℃)": "29",
+                "Relative Humidity (%)": "68"
+            },
+            {
+                "Timestamp": "2023-11-29T13:45:00",
+                "Device_Id": 430,
+                "Absolute Humidity": "19.55",
+                "Temperature (℃)": "29",
+                "Relative Humidity (%)": "68"
+            },
+            {
+                "Timestamp": "2023-11-29T14:00:00",
+                "Device_Id": 430,
+                "Absolute Humidity": "19.65",
+                "Temperature (℃)": "29.1",
+                "Relative Humidity (%)": "68"
+            },
+            {
+                "Timestamp": "2023-11-29T14:15:00",
+                "Device_Id": 430,
+                "Absolute Humidity": "19.65",
+                "Temperature (℃)": "29.1",
+                "Relative Humidity (%)": "68"
+            },
+            {
+                "Timestamp": "2023-11-29T14:30:00",
+                "Device_Id": 430,
+                "Absolute Humidity": "19.76",
+                "Temperature (℃)": "29.2",
+                "Relative Humidity (%)": "68"
+            },
+            {
+                "Timestamp": "2023-11-29T14:45:00",
+                "Device_Id": 430,
+                "Absolute Humidity": "19.76",
+                "Temperature (℃)": "29.2",
+                "Relative Humidity (%)": "68"
+            },
+            {
+                "Timestamp": "2023-11-29T15:00:00",
+                "Device_Id": 430,
+                "Absolute Humidity": "19.76",
+                "Temperature (℃)": "29.2",
+                "Relative Humidity (%)": "68"
+            },
+            {
+                "Timestamp": "2023-11-29T15:15:00",
+                "Device_Id": 430,
+                "Absolute Humidity": "19.87",
+                "Temperature (℃)": "29.3",
+                "Relative Humidity (%)": "68"
+            },
+            {
+                "Timestamp": "2023-11-29T15:30:00",
+                "Device_Id": 430,
+                "Absolute Humidity": "19.87",
+                "Temperature (℃)": "29.3",
+                "Relative Humidity (%)": "68"
+            },
+            {
+                "Timestamp": "2023-11-29T15:45:00",
+                "Device_Id": 430,
+                "Absolute Humidity": "19.87",
+                "Temperature (℃)": "29.3",
+                "Relative Humidity (%)": "68"
+            },
+            {
+                "Timestamp": "2023-11-29T16:00:00",
+                "Device_Id": 430,
+                "Absolute Humidity": "19.98",
+                "Temperature (℃)": "29.4",
+                "Relative Humidity (%)": "68"
+            },
+            {
+                "Timestamp": "2023-11-29T16:15:00",
+                "Device_Id": 430,
+                "Absolute Humidity": "19.98",
+                "Temperature (℃)": "29.4",
+                "Relative Humidity (%)": "68"
+            },
+            {
+                "Timestamp": "2023-11-29T16:30:00",
+                "Device_Id": 430,
+                "Absolute Humidity": "19.98",
+                "Temperature (℃)": "29.4",
+                "Relative Humidity (%)": "68"
+            },
+            {
+                "Timestamp": "2023-11-29T16:45:00",
+                "Device_Id": 430,
+                "Absolute Humidity": "19.98",
+                "Temperature (℃)": "29.4",
+                "Relative Humidity (%)": "68"
+            },
+            {
+                "Timestamp": "2023-11-29T17:00:00",
+                "Device_Id": 430,
+                "Absolute Humidity": "19.98",
+                "Temperature (℃)": "29.4",
+                "Relative Humidity (%)": "68"
+            },
+            {
+                "Timestamp": "2023-11-29T17:15:00",
+                "Device_Id": 430,
+                "Absolute Humidity": "19.98",
+                "Temperature (℃)": "29.4",
+                "Relative Humidity (%)": "68"
+            },
+            {
+                "Timestamp": "2023-11-29T17:30:00",
+                "Device_Id": 430,
+                "Absolute Humidity": "19.98",
+                "Temperature (℃)": "29.4",
+                "Relative Humidity (%)": "68"
+            },
+            {
+                "Timestamp": "2023-11-29T17:45:00",
+                "Device_Id": 430,
+                "Absolute Humidity": "19.98",
+                "Temperature (℃)": "29.4",
+                "Relative Humidity (%)": "68"
+            },
+            {
+                "Timestamp": "2023-11-29T18:00:00",
+                "Device_Id": 430,
+                "Absolute Humidity": "20.27",
+                "Temperature (℃)": "29.4",
+                "Relative Humidity (%)": "69"
+            },
+            {
+                "Timestamp": "2023-11-29T18:15:00",
+                "Device_Id": 430,
+                "Absolute Humidity": "20.45",
+                "Temperature (℃)": "29.3",
+                "Relative Humidity (%)": "70"
+            },
+            {
+                "Timestamp": "2023-11-29T18:30:00",
+                "Device_Id": 430,
+                "Absolute Humidity": "20.27",
+                "Temperature (℃)": "29.4",
+                "Relative Humidity (%)": "69"
+            },
+            {
+                "Timestamp": "2023-11-29T18:45:00",
+                "Device_Id": 430,
+                "Absolute Humidity": "20.09",
+                "Temperature (℃)": "29.5",
+                "Relative Humidity (%)": "68"
+            },
+            {
+                "Timestamp": "2023-11-29T19:00:00",
+                "Device_Id": 430,
+                "Absolute Humidity": "20.2",
+                "Temperature (℃)": "29.6",
+                "Relative Humidity (%)": "68"
+            },
+            {
+                "Timestamp": "2023-11-29T19:15:00",
+                "Device_Id": 430,
+                "Absolute Humidity": "19.9",
+                "Temperature (℃)": "29.6",
+                "Relative Humidity (%)": "67"
+            },
+            {
+                "Timestamp": "2023-11-29T19:30:00",
+                "Device_Id": 430,
+                "Absolute Humidity": "19.9",
+                "Temperature (℃)": "29.6",
+                "Relative Humidity (%)": "67"
+            },
+            {
+                "Timestamp": "2023-11-29T19:45:00",
+                "Device_Id": 430,
+                "Absolute Humidity": "19.9",
+                "Temperature (℃)": "29.6",
+                "Relative Humidity (%)": "67"
+            },
+            {
+                "Timestamp": "2023-11-29T20:00:00",
+                "Device_Id": 430,
+                "Absolute Humidity": "19.9",
+                "Temperature (℃)": "29.6",
+                "Relative Humidity (%)": "67"
+            },
+            {
+                "Timestamp": "2023-11-29T20:15:00",
+                "Device_Id": 430,
+                "Absolute Humidity": "19.6",
+                "Temperature (℃)": "29.6",
+                "Relative Humidity (%)": "66"
+            },
+            {
+                "Timestamp": "2023-11-29T20:30:00",
+                "Device_Id": 430,
+                "Absolute Humidity": "19.6",
+                "Temperature (℃)": "29.6",
+                "Relative Humidity (%)": "66"
+            },
+            {
+                "Timestamp": "2023-11-29T20:45:00",
+                "Device_Id": 430,
+                "Absolute Humidity": "19.6",
+                "Temperature (℃)": "29.6",
+                "Relative Humidity (%)": "66"
+            },
+            {
+                "Timestamp": "2023-11-29T21:00:00",
+                "Device_Id": 430,
+                "Absolute Humidity": "19.6",
+                "Temperature (℃)": "29.6",
+                "Relative Humidity (%)": "66"
+            },
+            {
+                "Timestamp": "2023-11-29T21:15:00",
+                "Device_Id": 430,
+                "Absolute Humidity": "19.6",
+                "Temperature (℃)": "29.6",
+                "Relative Humidity (%)": "66"
+            },
+            {
+                "Timestamp": "2023-11-29T21:30:00",
+                "Device_Id": 430,
+                "Absolute Humidity": "19.6",
+                "Temperature (℃)": "29.6",
+                "Relative Humidity (%)": "66"
+            },
+            {
+                "Timestamp": "2023-11-29T21:45:00",
+                "Device_Id": 430,
+                "Absolute Humidity": "19.5",
+                "Temperature (℃)": "29.5",
+                "Relative Humidity (%)": "66"
+            },
+            {
+                "Timestamp": "2023-11-29T22:00:00",
+                "Device_Id": 430,
+                "Absolute Humidity": "19.5",
+                "Temperature (℃)": "29.5",
+                "Relative Humidity (%)": "66"
+            },
+            {
+                "Timestamp": "2023-11-29T22:15:00",
+                "Device_Id": 430,
+                "Absolute Humidity": "19.2",
+                "Temperature (℃)": "29.5",
+                "Relative Humidity (%)": "65"
+            },
+            {
+                "Timestamp": "2023-11-29T22:30:00",
+                "Device_Id": 430,
+                "Absolute Humidity": "19.2",
+                "Temperature (℃)": "29.5",
+                "Relative Humidity (%)": "65"
+            },
+            {
+                "Timestamp": "2023-11-29T22:45:00",
+                "Device_Id": 430,
+                "Absolute Humidity": "19.2",
+                "Temperature (℃)": "29.5",
+                "Relative Humidity (%)": "65"
+            },
+            {
+                "Timestamp": "2023-11-29T23:00:00",
+                "Device_Id": 430,
+                "Absolute Humidity": "19.2",
+                "Temperature (℃)": "29.5",
+                "Relative Humidity (%)": "65"
+            },
+            {
+                "Timestamp": "2023-11-29T23:15:00",
+                "Device_Id": 430,
+                "Absolute Humidity": "19.2",
+                "Temperature (℃)": "29.5",
+                "Relative Humidity (%)": "65"
+            },
+            {
+                "Timestamp": "2023-11-29T23:30:00",
+                "Device_Id": 430,
+                "Absolute Humidity": "19.2",
+                "Temperature (℃)": "29.5",
+                "Relative Humidity (%)": "65"
+            },
+            {
+                "Timestamp": "2023-11-29T23:45:00",
+                "Device_Id": 430,
+                "Absolute Humidity": "19.1",
+                "Temperature (℃)": "29.4",
+                "Relative Humidity (%)": "65"
+            }
+        ]
+    },
+    "Smart Plug": {
+        "B8 Study LG Monitor Smart Plug": [
+            {
+                "Timestamp": "2023-11-29T00:05:00",
+                "Device_Id": 415,
+                "add_ele": "0",
+                "switch_1": "true",
+                "countdown_1": "0",
+                "Current (mA)": "62",
+                "Power (W)": "89",
+                "Voltage (V)": "241.4"
+            },
+            {
+                "Timestamp": "2023-11-29T00:25:00",
+                "Device_Id": 415,
+                "add_ele": "0",
+                "switch_1": "true",
+                "countdown_1": "0",
+                "Current (mA)": "108",
+                "Power (W)": "95",
+                "Voltage (V)": "241.8"
+            },
+            {
+                "Timestamp": "2023-11-29T01:35:00",
+                "Device_Id": 415,
+                "add_ele": "25",
+                "switch_1": "false",
+                "countdown_1": "0",
+                "Current (mA)": "342",
+                "Power (W)": "514",
+                "Voltage (V)": "241.4"
+            },
+            {
+                "Timestamp": "2023-11-29T03:00:00",
+                "Device_Id": 415,
+                "add_ele": "0",
+                "switch_1": "false",
+                "countdown_1": "0",
+                "Current (mA)": "340",
+                "Power (W)": "517",
+                "Voltage (V)": "242.7"
+            },
+            {
+                "Timestamp": "2023-11-29T07:55:00",
+                "Device_Id": 415,
+                "add_ele": "0",
+                "switch_1": "false",
+                "countdown_1": "0",
+                "Current (mA)": "340",
+                "Power (W)": "517",
+                "Voltage (V)": "240.5"
+            },
+            {
+                "Timestamp": "2023-11-29T09:15:00",
+                "Device_Id": 415,
+                "add_ele": "0",
+                "switch_1": "true",
+                "countdown_1": "0",
+                "Current (mA)": "63",
+                "Power (W)": "91",
+                "Voltage (V)": "240.5"
+            },
+            {
+                "Timestamp": "2023-11-29T10:35:00",
+                "Device_Id": 415,
+                "add_ele": "26",
+                "switch_1": "false",
+                "countdown_1": "0",
+                "Current (mA)": "340",
+                "Power (W)": "517",
+                "Voltage (V)": "240.1"
+            },
+            {
+                "Timestamp": "2023-11-29T12:05:00",
+                "Device_Id": 415,
+                "add_ele": "0",
+                "switch_1": "false",
+                "countdown_1": "0",
+                "Current (mA)": "348",
+                "Power (W)": "515",
+                "Voltage (V)": "242.7"
+            },
+            {
+                "Timestamp": "2023-11-29T13:35:00",
+                "Device_Id": 415,
+                "add_ele": "25",
+                "switch_1": "false",
+                "countdown_1": "0",
+                "Current (mA)": "343",
+                "Power (W)": "516",
+                "Voltage (V)": "242.7"
+            },
+            {
+                "Timestamp": "2023-11-29T15:05:00",
+                "Device_Id": 415,
+                "add_ele": "26",
+                "switch_1": "false",
+                "countdown_1": "0",
+                "Current (mA)": "351",
+                "Power (W)": "514",
+                "Voltage (V)": "242.7"
+            },
+            {
+                "Timestamp": "2023-11-29T17:30:00",
+                "Device_Id": 415,
+                "add_ele": "0",
+                "switch_1": "false",
+                "countdown_1": "0",
+                "Current (mA)": "351",
+                "Power (W)": "514",
+                "Voltage (V)": "244"
+            },
+            {
+                "Timestamp": "2023-11-29T19:55:00",
+                "Device_Id": 415,
+                "add_ele": "0",
+                "switch_1": "true",
+                "countdown_1": "0",
+                "Current (mA)": "55",
+                "Power (W)": "71",
+                "Voltage (V)": "239.2"
+            },
+            {
+                "Timestamp": "2023-11-29T20:50:00",
+                "Device_Id": 415,
+                "add_ele": "24",
+                "switch_1": "false",
+                "countdown_1": "0",
+                "Current (mA)": "10",
+                "Power (W)": "519",
+                "Voltage (V)": "239.2"
+            },
+            {
+                "Timestamp": "2023-11-29T21:55:00",
+                "Device_Id": 415,
+                "add_ele": "25",
+                "switch_1": "false",
+                "countdown_1": "0",
+                "Current (mA)": "54",
+                "Power (W)": "69",
+                "Voltage (V)": "240.5"
+            },
+            {
+                "Timestamp": "2023-11-29T22:35:00",
+                "Device_Id": 415,
+                "add_ele": "26",
+                "switch_1": "false",
+                "countdown_1": "0",
+                "Current (mA)": "361",
+                "Power (W)": "509",
+                "Voltage (V)": "240.5"
+            },
+            {
+                "Timestamp": "2023-11-29T23:45:00",
+                "Device_Id": 415,
+                "add_ele": "25",
+                "switch_1": "false",
+                "countdown_1": "0",
+                "Current (mA)": "358",
+                "Power (W)": "510",
+                "Voltage (V)": "239.2"
+            }
+        ]
+    },
+    "Smart Plug KWh": {
+        "B8 Study LG Monitor Smart Plug": [
+            {
+                "Timestamp": "2023-11-23T00:00:00",
+                "Total KiloWatt (KWh)": 0.3,
+                "Device_Id": 415
+            },
+            {
+                "Timestamp": "2023-11-24T00:00:00",
+                "Total KiloWatt (KWh)": 0.66,
+                "Device_Id": 415
+            },
+            {
+                "Timestamp": "2023-11-25T00:00:00",
+                "Total KiloWatt (KWh)": 0.84,
+                "Device_Id": 415
+            },
+            {
+                "Timestamp": "2023-11-26T00:00:00",
+                "Total KiloWatt (KWh)": 1.24,
+                "Device_Id": 415
+            },
+            {
+                "Timestamp": "2023-11-27T00:00:00",
+                "Total KiloWatt (KWh)": 0.46,
+                "Device_Id": 415
+            },
+            {
+                "Timestamp": "2023-11-28T00:00:00",
+                "Total KiloWatt (KWh)": 0.0,
+                "Device_Id": 415
+            },
+            {
+                "Timestamp": "2023-11-29T00:00:00",
+                "Total KiloWatt (KWh)": 1.01,
+                "Device_Id": 415
+            }
+        ]
+    },
+    "Air Quality": {
+        "B8 multi-function-timer-air monitor": [
+            {
+                "Timestamp": "2023-11-29T00:10:00",
+                "Device_Id": 414,
+                "tvoc": "37",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "50",
+                "Carbon Dioxide (ppm)": "420",
+                "Absolute Humidity": "15.7",
+                "Temperature (℃)": "31",
+                "Relative Humidity (%)": "49",
+                "Formaldehyde (mg/m3)": "17"
+            },
+            {
+                "Timestamp": "2023-11-29T00:25:00",
+                "Device_Id": 414,
+                "tvoc": "41",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "50",
+                "Carbon Dioxide (ppm)": "450",
+                "Absolute Humidity": "15.7",
+                "Temperature (℃)": "31",
+                "Relative Humidity (%)": "49",
+                "Formaldehyde (mg/m3)": "18"
+            },
+            {
+                "Timestamp": "2023-11-29T00:40:00",
+                "Device_Id": 414,
+                "tvoc": "47",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "48",
+                "Carbon Dioxide (ppm)": "519",
+                "Absolute Humidity": "15.38",
+                "Temperature (℃)": "31",
+                "Relative Humidity (%)": "48",
+                "Formaldehyde (mg/m3)": "21"
+            },
+            {
+                "Timestamp": "2023-11-29T00:55:00",
+                "Device_Id": 414,
+                "tvoc": "37",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "51",
+                "Carbon Dioxide (ppm)": "412",
+                "Absolute Humidity": "14.74",
+                "Temperature (℃)": "31",
+                "Relative Humidity (%)": "46",
+                "Formaldehyde (mg/m3)": "16"
+            },
+            {
+                "Timestamp": "2023-11-29T01:10:00",
+                "Device_Id": 414,
+                "tvoc": "42",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "46",
+                "Carbon Dioxide (ppm)": "449",
+                "Absolute Humidity": "15.06",
+                "Temperature (℃)": "31",
+                "Relative Humidity (%)": "47",
+                "Formaldehyde (mg/m3)": "18"
+            },
+            {
+                "Timestamp": "2023-11-29T01:25:00",
+                "Device_Id": 414,
+                "tvoc": "47",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "50",
+                "Carbon Dioxide (ppm)": "525",
+                "Absolute Humidity": "14.74",
+                "Temperature (℃)": "31",
+                "Relative Humidity (%)": "46",
+                "Formaldehyde (mg/m3)": "21"
+            },
+            {
+                "Timestamp": "2023-11-29T01:40:00",
+                "Device_Id": 414,
+                "tvoc": "44",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "49",
+                "Carbon Dioxide (ppm)": "482",
+                "Absolute Humidity": "14.42",
+                "Temperature (℃)": "31",
+                "Relative Humidity (%)": "45",
+                "Formaldehyde (mg/m3)": "16"
+            },
+            {
+                "Timestamp": "2023-11-29T01:55:00",
+                "Device_Id": 414,
+                "tvoc": "40",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "48",
+                "Carbon Dioxide (ppm)": "441",
+                "Absolute Humidity": "14.42",
+                "Temperature (℃)": "31",
+                "Relative Humidity (%)": "45",
+                "Formaldehyde (mg/m3)": "18"
+            },
+            {
+                "Timestamp": "2023-11-29T02:10:00",
+                "Device_Id": 414,
+                "tvoc": "46",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "48",
+                "Carbon Dioxide (ppm)": "509",
+                "Absolute Humidity": "14.1",
+                "Temperature (℃)": "31",
+                "Relative Humidity (%)": "44",
+                "Formaldehyde (mg/m3)": "20"
+            },
+            {
+                "Timestamp": "2023-11-29T02:25:00",
+                "Device_Id": 414,
+                "tvoc": "38",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "50",
+                "Carbon Dioxide (ppm)": "421",
+                "Absolute Humidity": "14.1",
+                "Temperature (℃)": "31",
+                "Relative Humidity (%)": "44",
+                "Formaldehyde (mg/m3)": "17"
+            },
+            {
+                "Timestamp": "2023-11-29T02:40:00",
+                "Device_Id": 414,
+                "tvoc": "39",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "50",
+                "Carbon Dioxide (ppm)": "439",
+                "Absolute Humidity": "14.1",
+                "Temperature (℃)": "31",
+                "Relative Humidity (%)": "44",
+                "Formaldehyde (mg/m3)": "17"
+            },
+            {
+                "Timestamp": "2023-11-29T02:55:00",
+                "Device_Id": 414,
+                "tvoc": "39",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "51",
+                "Carbon Dioxide (ppm)": "428",
+                "Absolute Humidity": "14.1",
+                "Temperature (℃)": "31",
+                "Relative Humidity (%)": "44",
+                "Formaldehyde (mg/m3)": "17"
+            },
+            {
+                "Timestamp": "2023-11-29T03:10:00",
+                "Device_Id": 414,
+                "tvoc": "38",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "49",
+                "Carbon Dioxide (ppm)": "417",
+                "Absolute Humidity": "14.1",
+                "Temperature (℃)": "31",
+                "Relative Humidity (%)": "44",
+                "Formaldehyde (mg/m3)": "17"
+            },
+            {
+                "Timestamp": "2023-11-29T03:25:00",
+                "Device_Id": 414,
+                "tvoc": "40",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "51",
+                "Carbon Dioxide (ppm)": "445",
+                "Absolute Humidity": "14.1",
+                "Temperature (℃)": "31",
+                "Relative Humidity (%)": "44",
+                "Formaldehyde (mg/m3)": "18"
+            },
+            {
+                "Timestamp": "2023-11-29T03:40:00",
+                "Device_Id": 414,
+                "tvoc": "40",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "48",
+                "Carbon Dioxide (ppm)": "444",
+                "Absolute Humidity": "14.1",
+                "Temperature (℃)": "31",
+                "Relative Humidity (%)": "44",
+                "Formaldehyde (mg/m3)": "20"
+            },
+            {
+                "Timestamp": "2023-11-29T03:55:00",
+                "Device_Id": 414,
+                "tvoc": "44",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "49",
+                "Carbon Dioxide (ppm)": "480",
+                "Absolute Humidity": "14.1",
+                "Temperature (℃)": "31",
+                "Relative Humidity (%)": "44",
+                "Formaldehyde (mg/m3)": "19"
+            },
+            {
+                "Timestamp": "2023-11-29T04:10:00",
+                "Device_Id": 414,
+                "tvoc": "42",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "52",
+                "Carbon Dioxide (ppm)": "464",
+                "Absolute Humidity": "13.78",
+                "Temperature (℃)": "31",
+                "Relative Humidity (%)": "43",
+                "Formaldehyde (mg/m3)": "17"
+            },
+            {
+                "Timestamp": "2023-11-29T04:25:00",
+                "Device_Id": 414,
+                "tvoc": "47",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "50",
+                "Carbon Dioxide (ppm)": "514",
+                "Absolute Humidity": "14.1",
+                "Temperature (℃)": "31",
+                "Relative Humidity (%)": "44",
+                "Formaldehyde (mg/m3)": "21"
+            },
+            {
+                "Timestamp": "2023-11-29T04:40:00",
+                "Device_Id": 414,
+                "tvoc": "44",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "51",
+                "Carbon Dioxide (ppm)": "493",
+                "Absolute Humidity": "13.78",
+                "Temperature (℃)": "31",
+                "Relative Humidity (%)": "43",
+                "Formaldehyde (mg/m3)": "19"
+            },
+            {
+                "Timestamp": "2023-11-29T04:55:00",
+                "Device_Id": 414,
+                "tvoc": "39",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "50",
+                "Carbon Dioxide (ppm)": "432",
+                "Absolute Humidity": "14.1",
+                "Temperature (℃)": "31",
+                "Relative Humidity (%)": "44",
+                "Formaldehyde (mg/m3)": "17"
+            },
+            {
+                "Timestamp": "2023-11-29T05:10:00",
+                "Device_Id": 414,
+                "tvoc": "48",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "51",
+                "Carbon Dioxide (ppm)": "532",
+                "Absolute Humidity": "14.42",
+                "Temperature (℃)": "31",
+                "Relative Humidity (%)": "45",
+                "Formaldehyde (mg/m3)": "21"
+            },
+            {
+                "Timestamp": "2023-11-29T05:25:00",
+                "Device_Id": 414,
+                "tvoc": "39",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "51",
+                "Carbon Dioxide (ppm)": "434",
+                "Absolute Humidity": "14.1",
+                "Temperature (℃)": "31",
+                "Relative Humidity (%)": "44",
+                "Formaldehyde (mg/m3)": "18"
+            },
+            {
+                "Timestamp": "2023-11-29T05:40:00",
+                "Device_Id": 414,
+                "tvoc": "41",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "52",
+                "Carbon Dioxide (ppm)": "452",
+                "Absolute Humidity": "14.42",
+                "Temperature (℃)": "31",
+                "Relative Humidity (%)": "45",
+                "Formaldehyde (mg/m3)": "18"
+            },
+            {
+                "Timestamp": "2023-11-29T05:55:00",
+                "Device_Id": 414,
+                "tvoc": "46",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "49",
+                "Carbon Dioxide (ppm)": "524",
+                "Absolute Humidity": "14.1",
+                "Temperature (℃)": "31",
+                "Relative Humidity (%)": "44",
+                "Formaldehyde (mg/m3)": "21"
+            },
+            {
+                "Timestamp": "2023-11-29T06:10:00",
+                "Device_Id": 414,
+                "tvoc": "39",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "51",
+                "Carbon Dioxide (ppm)": "438",
+                "Absolute Humidity": "14.74",
+                "Temperature (℃)": "31",
+                "Relative Humidity (%)": "46",
+                "Formaldehyde (mg/m3)": "17"
+            },
+            {
+                "Timestamp": "2023-11-29T06:25:00",
+                "Device_Id": 414,
+                "tvoc": "40",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "45",
+                "Carbon Dioxide (ppm)": "446",
+                "Absolute Humidity": "14.74",
+                "Temperature (℃)": "31",
+                "Relative Humidity (%)": "46",
+                "Formaldehyde (mg/m3)": "18"
+            },
+            {
+                "Timestamp": "2023-11-29T06:40:00",
+                "Device_Id": 414,
+                "tvoc": "48",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "49",
+                "Carbon Dioxide (ppm)": "518",
+                "Absolute Humidity": "14.42",
+                "Temperature (℃)": "31",
+                "Relative Humidity (%)": "45",
+                "Formaldehyde (mg/m3)": "21"
+            },
+            {
+                "Timestamp": "2023-11-29T06:55:00",
+                "Device_Id": 414,
+                "tvoc": "43",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "50",
+                "Carbon Dioxide (ppm)": "476",
+                "Absolute Humidity": "12.94",
+                "Temperature (℃)": "29",
+                "Relative Humidity (%)": "45",
+                "Formaldehyde (mg/m3)": "19"
+            },
+            {
+                "Timestamp": "2023-11-29T07:10:00",
+                "Device_Id": 414,
+                "tvoc": "38",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "52",
+                "Carbon Dioxide (ppm)": "424",
+                "Absolute Humidity": "13.51",
+                "Temperature (℃)": "29",
+                "Relative Humidity (%)": "47",
+                "Formaldehyde (mg/m3)": "16"
+            },
+            {
+                "Timestamp": "2023-11-29T07:25:00",
+                "Device_Id": 414,
+                "tvoc": "48",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "48",
+                "Carbon Dioxide (ppm)": "528",
+                "Absolute Humidity": "13.51",
+                "Temperature (℃)": "29",
+                "Relative Humidity (%)": "47",
+                "Formaldehyde (mg/m3)": "21"
+            },
+            {
+                "Timestamp": "2023-11-29T07:40:00",
+                "Device_Id": 414,
+                "tvoc": "37",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "51",
+                "Carbon Dioxide (ppm)": "414",
+                "Absolute Humidity": "13.51",
+                "Temperature (℃)": "29",
+                "Relative Humidity (%)": "47",
+                "Formaldehyde (mg/m3)": "16"
+            },
+            {
+                "Timestamp": "2023-11-29T07:55:00",
+                "Device_Id": 414,
+                "tvoc": "47",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "52",
+                "Carbon Dioxide (ppm)": "512",
+                "Absolute Humidity": "13.51",
+                "Temperature (℃)": "29",
+                "Relative Humidity (%)": "47",
+                "Formaldehyde (mg/m3)": "19"
+            },
+            {
+                "Timestamp": "2023-11-29T08:10:00",
+                "Device_Id": 414,
+                "tvoc": "46",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "52",
+                "Carbon Dioxide (ppm)": "522",
+                "Absolute Humidity": "14.42",
+                "Temperature (℃)": "31",
+                "Relative Humidity (%)": "45",
+                "Formaldehyde (mg/m3)": "21"
+            },
+            {
+                "Timestamp": "2023-11-29T08:25:00",
+                "Device_Id": 414,
+                "tvoc": "38",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "51",
+                "Carbon Dioxide (ppm)": "417",
+                "Absolute Humidity": "14.74",
+                "Temperature (℃)": "31",
+                "Relative Humidity (%)": "46",
+                "Formaldehyde (mg/m3)": "17"
+            },
+            {
+                "Timestamp": "2023-11-29T08:40:00",
+                "Device_Id": 414,
+                "tvoc": "41",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "50",
+                "Carbon Dioxide (ppm)": "450",
+                "Absolute Humidity": "14.74",
+                "Temperature (℃)": "31",
+                "Relative Humidity (%)": "46",
+                "Formaldehyde (mg/m3)": "18"
+            },
+            {
+                "Timestamp": "2023-11-29T08:55:00",
+                "Device_Id": 414,
+                "tvoc": "47",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "51",
+                "Carbon Dioxide (ppm)": "518",
+                "Absolute Humidity": "14.1",
+                "Temperature (℃)": "31",
+                "Relative Humidity (%)": "44",
+                "Formaldehyde (mg/m3)": "21"
+            },
+            {
+                "Timestamp": "2023-11-29T09:10:00",
+                "Device_Id": 414,
+                "tvoc": "47",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "49",
+                "Carbon Dioxide (ppm)": "512",
+                "Absolute Humidity": "13.14",
+                "Temperature (℃)": "31",
+                "Relative Humidity (%)": "41",
+                "Formaldehyde (mg/m3)": "21"
+            },
+            {
+                "Timestamp": "2023-11-29T09:25:00",
+                "Device_Id": 414,
+                "tvoc": "40",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "50",
+                "Carbon Dioxide (ppm)": "440",
+                "Absolute Humidity": "13.46",
+                "Temperature (℃)": "31",
+                "Relative Humidity (%)": "42",
+                "Formaldehyde (mg/m3)": "17"
+            },
+            {
+                "Timestamp": "2023-11-29T09:40:00",
+                "Device_Id": 414,
+                "tvoc": "48",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "50",
+                "Carbon Dioxide (ppm)": "526",
+                "Absolute Humidity": "13.14",
+                "Temperature (℃)": "31",
+                "Relative Humidity (%)": "41",
+                "Formaldehyde (mg/m3)": "21"
+            },
+            {
+                "Timestamp": "2023-11-29T09:55:00",
+                "Device_Id": 414,
+                "tvoc": "48",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "49",
+                "Carbon Dioxide (ppm)": "536",
+                "Absolute Humidity": "13.14",
+                "Temperature (℃)": "31",
+                "Relative Humidity (%)": "41",
+                "Formaldehyde (mg/m3)": "20"
+            },
+            {
+                "Timestamp": "2023-11-29T10:10:00",
+                "Device_Id": 414,
+                "tvoc": "42",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "50",
+                "Carbon Dioxide (ppm)": "461",
+                "Absolute Humidity": "13.46",
+                "Temperature (℃)": "31",
+                "Relative Humidity (%)": "42",
+                "Formaldehyde (mg/m3)": "19"
+            },
+            {
+                "Timestamp": "2023-11-29T10:25:00",
+                "Device_Id": 414,
+                "tvoc": "44",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "52",
+                "Carbon Dioxide (ppm)": "485",
+                "Absolute Humidity": "13.78",
+                "Temperature (℃)": "31",
+                "Relative Humidity (%)": "43",
+                "Formaldehyde (mg/m3)": "19"
+            },
+            {
+                "Timestamp": "2023-11-29T10:40:00",
+                "Device_Id": 414,
+                "tvoc": "40",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "45",
+                "Carbon Dioxide (ppm)": "446",
+                "Absolute Humidity": "13.78",
+                "Temperature (℃)": "31",
+                "Relative Humidity (%)": "43",
+                "Formaldehyde (mg/m3)": "17"
+            },
+            {
+                "Timestamp": "2023-11-29T10:55:00",
+                "Device_Id": 414,
+                "tvoc": "42",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "50",
+                "Carbon Dioxide (ppm)": "462",
+                "Absolute Humidity": "13.78",
+                "Temperature (℃)": "31",
+                "Relative Humidity (%)": "43",
+                "Formaldehyde (mg/m3)": "16"
+            },
+            {
+                "Timestamp": "2023-11-29T11:10:00",
+                "Device_Id": 414,
+                "tvoc": "46",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "48",
+                "Carbon Dioxide (ppm)": "525",
+                "Absolute Humidity": "13.78",
+                "Temperature (℃)": "31",
+                "Relative Humidity (%)": "43",
+                "Formaldehyde (mg/m3)": "21"
+            },
+            {
+                "Timestamp": "2023-11-29T11:25:00",
+                "Device_Id": 414,
+                "tvoc": "41",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "48",
+                "Carbon Dioxide (ppm)": "451",
+                "Absolute Humidity": "12.75",
+                "Temperature (℃)": "30",
+                "Relative Humidity (%)": "42",
+                "Formaldehyde (mg/m3)": "18"
+            },
+            {
+                "Timestamp": "2023-11-29T11:40:00",
+                "Device_Id": 414,
+                "tvoc": "40",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "49",
+                "Carbon Dioxide (ppm)": "435",
+                "Absolute Humidity": "12.45",
+                "Temperature (℃)": "30",
+                "Relative Humidity (%)": "41",
+                "Formaldehyde (mg/m3)": "18"
+            },
+            {
+                "Timestamp": "2023-11-29T11:55:00",
+                "Device_Id": 414,
+                "tvoc": "47",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "50",
+                "Carbon Dioxide (ppm)": "518",
+                "Absolute Humidity": "13.46",
+                "Temperature (℃)": "31",
+                "Relative Humidity (%)": "42",
+                "Formaldehyde (mg/m3)": "21"
+            },
+            {
+                "Timestamp": "2023-11-29T12:10:00",
+                "Device_Id": 414,
+                "tvoc": "41",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "45",
+                "Carbon Dioxide (ppm)": "447",
+                "Absolute Humidity": "12.75",
+                "Temperature (℃)": "30",
+                "Relative Humidity (%)": "42",
+                "Formaldehyde (mg/m3)": "18"
+            },
+            {
+                "Timestamp": "2023-11-29T12:25:00",
+                "Device_Id": 414,
+                "tvoc": "41",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "50",
+                "Carbon Dioxide (ppm)": "498",
+                "Absolute Humidity": "12.75",
+                "Temperature (℃)": "30",
+                "Relative Humidity (%)": "42",
+                "Formaldehyde (mg/m3)": "20"
+            },
+            {
+                "Timestamp": "2023-11-29T12:40:00",
+                "Device_Id": 414,
+                "tvoc": "42",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "48",
+                "Carbon Dioxide (ppm)": "462",
+                "Absolute Humidity": "13.78",
+                "Temperature (℃)": "31",
+                "Relative Humidity (%)": "43",
+                "Formaldehyde (mg/m3)": "19"
+            },
+            {
+                "Timestamp": "2023-11-29T12:55:00",
+                "Device_Id": 414,
+                "tvoc": "41",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "52",
+                "Carbon Dioxide (ppm)": "453",
+                "Absolute Humidity": "14.1",
+                "Temperature (℃)": "31",
+                "Relative Humidity (%)": "44",
+                "Formaldehyde (mg/m3)": "18"
+            },
+            {
+                "Timestamp": "2023-11-29T13:10:00",
+                "Device_Id": 414,
+                "tvoc": "47",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "52",
+                "Carbon Dioxide (ppm)": "508",
+                "Absolute Humidity": "15.7",
+                "Temperature (℃)": "31",
+                "Relative Humidity (%)": "49",
+                "Formaldehyde (mg/m3)": "18"
+            },
+            {
+                "Timestamp": "2023-11-29T13:25:00",
+                "Device_Id": 414,
+                "tvoc": "40",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "45",
+                "Carbon Dioxide (ppm)": "438",
+                "Absolute Humidity": "14.1",
+                "Temperature (℃)": "31",
+                "Relative Humidity (%)": "44",
+                "Formaldehyde (mg/m3)": "18"
+            },
+            {
+                "Timestamp": "2023-11-29T13:40:00",
+                "Device_Id": 414,
+                "tvoc": "42",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "50",
+                "Carbon Dioxide (ppm)": "460",
+                "Absolute Humidity": "14.1",
+                "Temperature (℃)": "31",
+                "Relative Humidity (%)": "44",
+                "Formaldehyde (mg/m3)": "17"
+            },
+            {
+                "Timestamp": "2023-11-29T13:55:00",
+                "Device_Id": 414,
+                "tvoc": "46",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "49",
+                "Carbon Dioxide (ppm)": "510",
+                "Absolute Humidity": "14.1",
+                "Temperature (℃)": "31",
+                "Relative Humidity (%)": "44",
+                "Formaldehyde (mg/m3)": "20"
+            },
+            {
+                "Timestamp": "2023-11-29T14:10:00",
+                "Device_Id": 414,
+                "tvoc": "42",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "51",
+                "Carbon Dioxide (ppm)": "459",
+                "Absolute Humidity": "13.05",
+                "Temperature (℃)": "30",
+                "Relative Humidity (%)": "43",
+                "Formaldehyde (mg/m3)": "17"
+            },
+            {
+                "Timestamp": "2023-11-29T14:25:00",
+                "Device_Id": 414,
+                "tvoc": "38",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "51",
+                "Carbon Dioxide (ppm)": "421",
+                "Absolute Humidity": "13.36",
+                "Temperature (℃)": "30",
+                "Relative Humidity (%)": "44",
+                "Formaldehyde (mg/m3)": "16"
+            },
+            {
+                "Timestamp": "2023-11-29T14:40:00",
+                "Device_Id": 414,
+                "tvoc": "47",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "51",
+                "Carbon Dioxide (ppm)": "512",
+                "Absolute Humidity": "13.36",
+                "Temperature (℃)": "30",
+                "Relative Humidity (%)": "44",
+                "Formaldehyde (mg/m3)": "21"
+            },
+            {
+                "Timestamp": "2023-11-29T14:55:00",
+                "Device_Id": 414,
+                "tvoc": "41",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "50",
+                "Carbon Dioxide (ppm)": "457",
+                "Absolute Humidity": "14.1",
+                "Temperature (℃)": "31",
+                "Relative Humidity (%)": "44",
+                "Formaldehyde (mg/m3)": "18"
+            },
+            {
+                "Timestamp": "2023-11-29T15:10:00",
+                "Device_Id": 414,
+                "tvoc": "43",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "51",
+                "Carbon Dioxide (ppm)": "464",
+                "Absolute Humidity": "13.36",
+                "Temperature (℃)": "30",
+                "Relative Humidity (%)": "44",
+                "Formaldehyde (mg/m3)": "19"
+            },
+            {
+                "Timestamp": "2023-11-29T15:25:00",
+                "Device_Id": 414,
+                "tvoc": "46",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "49",
+                "Carbon Dioxide (ppm)": "538",
+                "Absolute Humidity": "13.36",
+                "Temperature (℃)": "30",
+                "Relative Humidity (%)": "44",
+                "Formaldehyde (mg/m3)": "20"
+            },
+            {
+                "Timestamp": "2023-11-29T15:40:00",
+                "Device_Id": 414,
+                "tvoc": "37",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "49",
+                "Carbon Dioxide (ppm)": "425",
+                "Absolute Humidity": "12.14",
+                "Temperature (℃)": "30",
+                "Relative Humidity (%)": "40",
+                "Formaldehyde (mg/m3)": "17"
+            },
+            {
+                "Timestamp": "2023-11-29T15:55:00",
+                "Device_Id": 414,
+                "tvoc": "42",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "51",
+                "Carbon Dioxide (ppm)": "460",
+                "Absolute Humidity": "12.75",
+                "Temperature (℃)": "30",
+                "Relative Humidity (%)": "42",
+                "Formaldehyde (mg/m3)": "19"
+            },
+            {
+                "Timestamp": "2023-11-29T16:10:00",
+                "Device_Id": 414,
+                "tvoc": "45",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "46",
+                "Carbon Dioxide (ppm)": "501",
+                "Absolute Humidity": "13.14",
+                "Temperature (℃)": "31",
+                "Relative Humidity (%)": "41",
+                "Formaldehyde (mg/m3)": "20"
+            },
+            {
+                "Timestamp": "2023-11-29T16:25:00",
+                "Device_Id": 414,
+                "tvoc": "44",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "51",
+                "Carbon Dioxide (ppm)": "478",
+                "Absolute Humidity": "12.45",
+                "Temperature (℃)": "30",
+                "Relative Humidity (%)": "41",
+                "Formaldehyde (mg/m3)": "19"
+            },
+            {
+                "Timestamp": "2023-11-29T16:40:00",
+                "Device_Id": 414,
+                "tvoc": "43",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "50",
+                "Carbon Dioxide (ppm)": "479",
+                "Absolute Humidity": "12.75",
+                "Temperature (℃)": "30",
+                "Relative Humidity (%)": "42",
+                "Formaldehyde (mg/m3)": "19"
+            },
+            {
+                "Timestamp": "2023-11-29T16:55:00",
+                "Device_Id": 414,
+                "tvoc": "40",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "50",
+                "Carbon Dioxide (ppm)": "434",
+                "Absolute Humidity": "13.05",
+                "Temperature (℃)": "30",
+                "Relative Humidity (%)": "43",
+                "Formaldehyde (mg/m3)": "18"
+            },
+            {
+                "Timestamp": "2023-11-29T17:10:00",
+                "Device_Id": 414,
+                "tvoc": "43",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "51",
+                "Carbon Dioxide (ppm)": "469",
+                "Absolute Humidity": "13.46",
+                "Temperature (℃)": "31",
+                "Relative Humidity (%)": "42",
+                "Formaldehyde (mg/m3)": "19"
+            },
+            {
+                "Timestamp": "2023-11-29T17:25:00",
+                "Device_Id": 414,
+                "tvoc": "45",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "48",
+                "Carbon Dioxide (ppm)": "500",
+                "Absolute Humidity": "13.78",
+                "Temperature (℃)": "31",
+                "Relative Humidity (%)": "43",
+                "Formaldehyde (mg/m3)": "20"
+            },
+            {
+                "Timestamp": "2023-11-29T17:40:00",
+                "Device_Id": 414,
+                "tvoc": "42",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "49",
+                "Carbon Dioxide (ppm)": "464",
+                "Absolute Humidity": "12.75",
+                "Temperature (℃)": "30",
+                "Relative Humidity (%)": "42",
+                "Formaldehyde (mg/m3)": "17"
+            },
+            {
+                "Timestamp": "2023-11-29T17:55:00",
+                "Device_Id": 414,
+                "tvoc": "38",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "50",
+                "Carbon Dioxide (ppm)": "414",
+                "Absolute Humidity": "13.36",
+                "Temperature (℃)": "30",
+                "Relative Humidity (%)": "44",
+                "Formaldehyde (mg/m3)": "17"
+            },
+            {
+                "Timestamp": "2023-11-29T18:10:00",
+                "Device_Id": 414,
+                "tvoc": "41",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "52",
+                "Carbon Dioxide (ppm)": "451",
+                "Absolute Humidity": "13.36",
+                "Temperature (℃)": "30",
+                "Relative Humidity (%)": "44",
+                "Formaldehyde (mg/m3)": "18"
+            },
+            {
+                "Timestamp": "2023-11-29T18:25:00",
+                "Device_Id": 414,
+                "tvoc": "39",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "47",
+                "Carbon Dioxide (ppm)": "435",
+                "Absolute Humidity": "13.05",
+                "Temperature (℃)": "30",
+                "Relative Humidity (%)": "43",
+                "Formaldehyde (mg/m3)": "18"
+            },
+            {
+                "Timestamp": "2023-11-29T18:40:00",
+                "Device_Id": 414,
+                "tvoc": "47",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "52",
+                "Carbon Dioxide (ppm)": "516",
+                "Absolute Humidity": "13.78",
+                "Temperature (℃)": "31",
+                "Relative Humidity (%)": "43",
+                "Formaldehyde (mg/m3)": "21"
+            },
+            {
+                "Timestamp": "2023-11-29T18:55:00",
+                "Device_Id": 414,
+                "tvoc": "39",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "48",
+                "Carbon Dioxide (ppm)": "437",
+                "Absolute Humidity": "13.78",
+                "Temperature (℃)": "31",
+                "Relative Humidity (%)": "43",
+                "Formaldehyde (mg/m3)": "17"
+            },
+            {
+                "Timestamp": "2023-11-29T19:10:00",
+                "Device_Id": 414,
+                "tvoc": "40",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "46",
+                "Carbon Dioxide (ppm)": "432",
+                "Absolute Humidity": "14.1",
+                "Temperature (℃)": "31",
+                "Relative Humidity (%)": "44",
+                "Formaldehyde (mg/m3)": "16"
+            },
+            {
+                "Timestamp": "2023-11-29T19:25:00",
+                "Device_Id": 414,
+                "tvoc": "47",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "51",
+                "Carbon Dioxide (ppm)": "515",
+                "Absolute Humidity": "14.74",
+                "Temperature (℃)": "31",
+                "Relative Humidity (%)": "46",
+                "Formaldehyde (mg/m3)": "21"
+            },
+            {
+                "Timestamp": "2023-11-29T19:40:00",
+                "Device_Id": 414,
+                "tvoc": "39",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "51",
+                "Carbon Dioxide (ppm)": "459",
+                "Absolute Humidity": "15.06",
+                "Temperature (℃)": "31",
+                "Relative Humidity (%)": "47",
+                "Formaldehyde (mg/m3)": "17"
+            },
+            {
+                "Timestamp": "2023-11-29T19:55:00",
+                "Device_Id": 414,
+                "tvoc": "40",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "48",
+                "Carbon Dioxide (ppm)": "444",
+                "Absolute Humidity": "15.06",
+                "Temperature (℃)": "31",
+                "Relative Humidity (%)": "47",
+                "Formaldehyde (mg/m3)": "16"
+            },
+            {
+                "Timestamp": "2023-11-29T20:10:00",
+                "Device_Id": 414,
+                "tvoc": "49",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "46",
+                "Carbon Dioxide (ppm)": "532",
+                "Absolute Humidity": "14.27",
+                "Temperature (℃)": "30",
+                "Relative Humidity (%)": "47",
+                "Formaldehyde (mg/m3)": "20"
+            },
+            {
+                "Timestamp": "2023-11-29T20:25:00",
+                "Device_Id": 414,
+                "tvoc": "44",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "52",
+                "Carbon Dioxide (ppm)": "494",
+                "Absolute Humidity": "13.96",
+                "Temperature (℃)": "30",
+                "Relative Humidity (%)": "46",
+                "Formaldehyde (mg/m3)": "19"
+            },
+            {
+                "Timestamp": "2023-11-29T20:40:00",
+                "Device_Id": 414,
+                "tvoc": "40",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "51",
+                "Carbon Dioxide (ppm)": "438",
+                "Absolute Humidity": "14.74",
+                "Temperature (℃)": "31",
+                "Relative Humidity (%)": "46",
+                "Formaldehyde (mg/m3)": "16"
+            },
+            {
+                "Timestamp": "2023-11-29T20:55:00",
+                "Device_Id": 414,
+                "tvoc": "46",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "48",
+                "Carbon Dioxide (ppm)": "508",
+                "Absolute Humidity": "13.96",
+                "Temperature (℃)": "30",
+                "Relative Humidity (%)": "46",
+                "Formaldehyde (mg/m3)": "21"
+            },
+            {
+                "Timestamp": "2023-11-29T21:10:00",
+                "Device_Id": 414,
+                "tvoc": "45",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "48",
+                "Carbon Dioxide (ppm)": "496",
+                "Absolute Humidity": "13.96",
+                "Temperature (℃)": "30",
+                "Relative Humidity (%)": "46",
+                "Formaldehyde (mg/m3)": "20"
+            },
+            {
+                "Timestamp": "2023-11-29T21:25:00",
+                "Device_Id": 414,
+                "tvoc": "42",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "50",
+                "Carbon Dioxide (ppm)": "467",
+                "Absolute Humidity": "13.96",
+                "Temperature (℃)": "30",
+                "Relative Humidity (%)": "46",
+                "Formaldehyde (mg/m3)": "19"
+            },
+            {
+                "Timestamp": "2023-11-29T21:40:00",
+                "Device_Id": 414,
+                "tvoc": "40",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "50",
+                "Carbon Dioxide (ppm)": "444",
+                "Absolute Humidity": "13.66",
+                "Temperature (℃)": "30",
+                "Relative Humidity (%)": "45",
+                "Formaldehyde (mg/m3)": "16"
+            },
+            {
+                "Timestamp": "2023-11-29T21:55:00",
+                "Device_Id": 414,
+                "tvoc": "38",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "51",
+                "Carbon Dioxide (ppm)": "413",
+                "Absolute Humidity": "14.74",
+                "Temperature (℃)": "31",
+                "Relative Humidity (%)": "46",
+                "Formaldehyde (mg/m3)": "17"
+            },
+            {
+                "Timestamp": "2023-11-29T22:10:00",
+                "Device_Id": 414,
+                "tvoc": "39",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "50",
+                "Carbon Dioxide (ppm)": "439",
+                "Absolute Humidity": "14.57",
+                "Temperature (℃)": "30",
+                "Relative Humidity (%)": "48",
+                "Formaldehyde (mg/m3)": "17"
+            },
+            {
+                "Timestamp": "2023-11-29T22:25:00",
+                "Device_Id": 414,
+                "tvoc": "39",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "50",
+                "Carbon Dioxide (ppm)": "434",
+                "Absolute Humidity": "15.06",
+                "Temperature (℃)": "31",
+                "Relative Humidity (%)": "47",
+                "Formaldehyde (mg/m3)": "20"
+            },
+            {
+                "Timestamp": "2023-11-29T22:40:00",
+                "Device_Id": 414,
+                "tvoc": "37",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "50",
+                "Carbon Dioxide (ppm)": "416",
+                "Absolute Humidity": "15.06",
+                "Temperature (℃)": "31",
+                "Relative Humidity (%)": "47",
+                "Formaldehyde (mg/m3)": "17"
+            },
+            {
+                "Timestamp": "2023-11-29T22:55:00",
+                "Device_Id": 414,
+                "tvoc": "41",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "52",
+                "Carbon Dioxide (ppm)": "447",
+                "Absolute Humidity": "15.38",
+                "Temperature (℃)": "31",
+                "Relative Humidity (%)": "48",
+                "Formaldehyde (mg/m3)": "18"
+            },
+            {
+                "Timestamp": "2023-11-29T23:10:00",
+                "Device_Id": 414,
+                "tvoc": "46",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "51",
+                "Carbon Dioxide (ppm)": "509",
+                "Absolute Humidity": "15.38",
+                "Temperature (℃)": "31",
+                "Relative Humidity (%)": "48",
+                "Formaldehyde (mg/m3)": "20"
+            },
+            {
+                "Timestamp": "2023-11-29T23:25:00",
+                "Device_Id": 414,
+                "tvoc": "47",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "49",
+                "Carbon Dioxide (ppm)": "509",
+                "Absolute Humidity": "15.06",
+                "Temperature (℃)": "31",
+                "Relative Humidity (%)": "47",
+                "Formaldehyde (mg/m3)": "21"
+            },
+            {
+                "Timestamp": "2023-11-29T23:40:00",
+                "Device_Id": 414,
+                "tvoc": "40",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "51",
+                "Carbon Dioxide (ppm)": "447",
+                "Absolute Humidity": "14.74",
+                "Temperature (℃)": "31",
+                "Relative Humidity (%)": "46",
+                "Formaldehyde (mg/m3)": "18"
+            },
+            {
+                "Timestamp": "2023-11-29T23:55:00",
+                "Device_Id": 414,
+                "tvoc": "41",
+                "air_quality": "good",
+                "Particle Matter (ug/m3)": "49",
+                "Carbon Dioxide (ppm)": "448",
+                "Absolute Humidity": "14.74",
+                "Temperature (℃)": "31",
+                "Relative Humidity (%)": "46",
+                "Formaldehyde (mg/m3)": "18"
+            }
+        ]
+    }
+}
