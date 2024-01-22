@@ -77,6 +77,12 @@
 			"type": "shell",
 			"command": "node temp/js/sandbox.js",
 			"problemMatcher": []
+		},
+		{
+			"label": "node: Current File",
+			"type": "shell",
+			"command": "node ${file} | pbcopy",
+			"problemMatcher": []
 		}
 	]
 }

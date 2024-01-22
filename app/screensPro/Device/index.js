@@ -27,9 +27,6 @@ import { Actions, Selectors } from '@redux';
 import { useToggle, useModalToast, useTimer } from "@hooks";
 
 import { CheckBox } from "@rneui/base";
-import { DateTime } from "luxon";
-
-import Lottie from "lottie-react-native";
 
 // #region Custom Hooks
 function useViewMode(val = "List") {
@@ -359,6 +356,25 @@ function EmptyList(props) {
 }
 // #endregion
 
+import { UserDeviceIIData } from "./data";
+
+function useDeviceLs(val = []) {
+    const [data, setData] = useState(val);
+
+    const updateData = (arr = []) => {
+        arr = arr.map((obj, pos) => ({
+            ...obj,
+            pos,
+            flag: obj.Status == 1,
+            img: { uri: obj.DeviceImg }
+        }));
+
+        setData(_ => arr);
+    }
+
+    return [data, updateData];
+}
+
 function Index(props) {
 
     const toast = useToast();
@@ -373,12 +389,11 @@ function Index(props) {
     const firstTimeLink = useSelector(Selectors.firstTimeLinkSelect);
     // #endregion
 
-    const [deviceData, setDeviceData] = useState({});
-    const [roomPaneInd, setRoomPaneInd] = useState(0);
+    const [viewMode, toggleViewMode] = useViewMode();
+    const [deviceData, setDeviceData] = useDeviceLs([]);
 
     const [loading, setLoading, toggleLoading] = useToggle(false);
 
-    const [viewMode, toggleViewMode] = useViewMode();
 
     const [refresh, setRefresh, toggleRefresh] = useToggle(false);
     const [devFlag, setDevFlag, toggleDevFlag] = useToggle(false);
@@ -387,6 +402,12 @@ function Index(props) {
 
     // #region UseEffect
     useEffect(() => {
+       if (isFocused) {
+            setDeviceData(UserDeviceIIData);
+       }
+    }, [homeId, refresh, isFocused]);
+
+    const GetDeviceByUserII = () => {
         setLoading(true);
         fetchDeviceByUserII({
             param: {
@@ -395,22 +416,13 @@ function Index(props) {
             onSetLoading: setLoading,
         })
             .then(data => {
-                data = data.sort((objA, objB) => objA.Status - objB.Status)
-
-                data = data.map((obj, pos) => ({
-                    ...obj,
-                    pos,
-                    flag: obj.Status == 1,
-                    img: { uri: obj.DeviceImg }
-                }))
-
                 setDeviceData(data);
             })
             .catch(err => {
                 setLoading(false);
                 console.log(`Error: ${err}`);
             })
-    }, [homeId, refresh, isFocused]);
+    }
 
     useEffect(() => {
         if (deviceData.length > 0) {
