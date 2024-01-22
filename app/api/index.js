@@ -104,6 +104,9 @@ import fetchDeviceListII from "./fetchDeviceListII";
 import fetchToggleDeviceListing from "./fetchToggleDeviceListing";
 import fetchDeviceByProfileWorkspace from "./fetchDeviceByProfileWorkspace";
 
+import fetchDashboardInfoByProfileWorkspace from "./fetchDashboardInfoByProfileWorkspace";
+import fetchToggleFavoriteDevice from "./fetchToggleFavoriteDevice";
+
 export {
     fetchHomeList,
     fetchHomeInfo,
@@ -235,4 +238,9 @@ export {
     fetchDeviceListII,
     fetchToggleDeviceListing,
     fetchDeviceByProfileWorkspace,
+}
+
+export {
+    fetchDashboardInfoByProfileWorkspace,
+    fetchToggleFavoriteDevice,
 }

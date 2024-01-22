@@ -62,11 +62,29 @@ function ChartComponent(props) {
 	);
 }
 
+function TariffRate(props) {
+
+	const rate = {
+		residential: 21.8,
+		commercial: 43.5,
+		industrial: 38
+	}
+
+	return (
+		<View alignItems={"center"}>
+			<View width={"70%"}>
+				<Text>Residential Rate: {rate.residential}</Text>
+				<Text>Commercial Rate: {rate.commercial}</Text>
+			</View>
+		</View>
+	)
+}
+
 // Component usage
 function Index(props) {
 
 	const { hook = [] } = props;
-	
+
 	const chartRef = useRef(null);
 	const toast = useToast();
 
@@ -76,11 +94,15 @@ function Index(props) {
 
 	const [width] = useOrientation();
 	const [unit, setUnit] = useState("");
+
 	const [toolTip, setToolTip, toggleToolTip] = useToggle(true);
+	const [tariff, setTariff, toggleTariff] = useToggle(false);
 	// #endregion
 
 	const optDataSet = dataset.map(x => ({ ...x, type: "bar" }));
 	const ttColor = toolTip ? "#39B54A" : "#98A0A8";
+
+	const trfColor = tariff ? "#565CE4" : "#98A0A8";
 
 	useEffect(() => {
 		let ut = Utility.genUnit(chartKey);
@@ -88,9 +110,7 @@ function Index(props) {
 	}, [chartKey]);
 
 	const test = () => {
-		toast.show({
-			description: "Steven King"
-		})
+		toggleTariff();
 	}
 
 	// Best Way is to convert to stacked bar charts
@@ -100,6 +120,16 @@ function Index(props) {
 		animation: false,
 		toolbox: {
 			feature: {
+				myShowTnbInfo: {
+					show: true,
+					title: "Toggle Tariff",
+					iconStyle: {
+						color: trfColor,
+						borderColor: trfColor
+					},
+					icon: `path://${ChartSvg["tariff"]}`,
+					onclick: test,
+				},
 				myToggleToolTip: {
 					show: true,
 					title: "Toggle Tooltip",
@@ -109,16 +139,6 @@ function Index(props) {
 					},
 					icon: `path://${ChartSvg["tooltip"]}`,
 					onclick: toggleToolTip,
-				},
-				myShowTnbInfo: {
-					show: true,
-					title: "Toggle Tariff",
-					iconStyle: {
-						color: "#F00",
-						borderColor: "#F00"
-					},
-					icon: `path://${ChartSvg["start"]}`,
-					onclick: test,
 				},
 				restore: {}
 			},
@@ -195,22 +215,22 @@ function Index(props) {
 				trigger: 'axis',
 				renderMode: `richText`,
 				formatter: function (params) {
-	
+
 					if (params.length > 0) {
 						const { axisValueLabel: header = "" } = params[0];
-	
+
 						let resArr = [header];
-	
+
 						params.forEach(obj => {
 							const { marker, value } = obj;
-	
+
 							const res = `${marker} ${value.toFixed(2)}${unit}`;
 							resArr.push(res);
 						})
-	
+
 						return resArr.join("\n");
 					}
-	
+
 					return "";
 				},
 				textStyle: {
@@ -234,6 +254,9 @@ function Index(props) {
 				chartRef={chartRef}
 				{...props}
 			/>
+			{
+				tariff ? (<TariffRate />) : (<></>)
+			}
 		</>
 	)
 }

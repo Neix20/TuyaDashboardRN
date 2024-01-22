@@ -143,6 +143,7 @@ function Index(props) {
 		optDataSet.push({
 			name: 'Lower Boundary',
 			type: 'line',
+			symbol: "none",
 			stack: 'Total',
 			color: "rgba(255, 173, 177, 0.4)",
 			areaStyle: { color: "#FFF" },
@@ -153,6 +154,7 @@ function Index(props) {
 		optDataSet.push({
 			name: 'Upper Boundary',
 			type: 'line',
+			symbol: "none",
 			stack: 'Total',
 			color: "rgba(255, 173, 177, 0.4)",
 			areaStyle: {},
@@ -181,7 +183,7 @@ function Index(props) {
 						color: czColor,
 						borderColor: czColor
 					},
-					icon: `path://${ChartSvg["smiley"]}`,
+					icon: `path://${ChartSvg["comfort"]}`,
 					onclick: toggleComfort,
 				},
 				myToggleToolTip: {

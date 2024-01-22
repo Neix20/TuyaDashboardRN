@@ -96,6 +96,7 @@ option = {
         {
             name: 'Lower Boundary',
             type: 'line',
+            symbol: "none",
             stack: 'Total',
             color: "rgba(255, 173, 177, 0.4)",
             areaStyle: {
@@ -112,6 +113,7 @@ option = {
         {
             name: 'Upper Boundary',
             type: 'line',
+            symbol: "none",
             stack: 'Total',
             color: "rgba(255, 173, 177, 0.4)",
             areaStyle: {},
