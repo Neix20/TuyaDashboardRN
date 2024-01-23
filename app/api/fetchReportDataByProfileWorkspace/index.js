@@ -5,7 +5,7 @@ const Index = async (props) => {
     const { param } = props;
     const { onSetLoading } = props;
 
-    const action = "GetDashboardInfoByProfileWorkspace";
+    const action = "GetReportDataByProfileWorkspace";
     const url = Utility.genServerUrl(action);
 
     // Static Data
@@ -23,15 +23,16 @@ const Index = async (props) => {
     onSetLoading(false);
 
     if (data["ResponseCode"] === "00") {
+        // return data;
         const { Data } = data;
         return Data;
     }
     else {
-        console.log(`fetchDashboardInfoByProfileWorkspace - Request - ${JSON.stringify(obj)}`);
-        console.log(`fetchDashboardInfoByProfileWorkspace - Response - ${JSON.stringify(data)}`);
+        console.log(`fetchReportDataByProfileWorkspace - Request - ${JSON.stringify(obj)}`);
+        console.log(`fetchReportDataByProfileWorkspace - Response - ${JSON.stringify(data)}`);
     }
 
-    return {};
+    return [];
 };
 
 export default Index;

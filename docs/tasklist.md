@@ -4,27 +4,10 @@
 
 ## Issues
 
-- [ ] TNB Info
+- [x] TNB Info
 - [ ] Disable all Downloads
 
-## API List
+### API
 
-- [x] API: `GetDashboardInfoByProfileWorkspace` `fetchDashboardInfoByProfileWorkspace`
-- [x] API: `ToggleFavoriteDevice` `fetchToggleFavoriteDevice`
-
-## Screens
-
-- [ ] Yatu Pro
-  - [ ] Profile Workspace
-  - [x] Screens
-    - [x] Login
-    - [x] Profile
-    - [x] Dashboard
-    - [ ] Device
-      - [ ] Toggle To Favorite
-  - [ ] Profile Workspace Items
-  - [ ] Device Items
-
-- [ ] Yatu Lite
-  - [ ] Login => Go To Token Page
-  - [ ] Token Activation
+- [x] `GetReportDataByProfileWorkspace` `fetchReportDataByProfileWorkspace`
+- [x] `GetDeviceDistributionByProfileWorkspace` `fetchDeviceDistributionByProfileWorkspace`

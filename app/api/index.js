@@ -1,5 +1,3 @@
-
-
 import fetchDashboardInfo from "./fetchDashboardInfo";
 
 import fetchProfileInfo from "./fetchProfile";
@@ -106,6 +104,8 @@ import fetchDeviceByProfileWorkspace from "./fetchDeviceByProfileWorkspace";
 
 import fetchDashboardInfoByProfileWorkspace from "./fetchDashboardInfoByProfileWorkspace";
 import fetchToggleFavoriteDevice from "./fetchToggleFavoriteDevice";
+import fetchReportDataByProfileWorkspace from "./fetchReportDataByProfileWorkspace";
+import fetchDeviceDistributionByProfileWorkspace from "./fetchDeviceDistributionByProfileWorkspace";
 
 export {
     fetchHomeList,
@@ -243,4 +243,6 @@ export {
 export {
     fetchDashboardInfoByProfileWorkspace,
     fetchToggleFavoriteDevice,
+    fetchReportDataByProfileWorkspace,
+    fetchDeviceDistributionByProfileWorkspace,
 }

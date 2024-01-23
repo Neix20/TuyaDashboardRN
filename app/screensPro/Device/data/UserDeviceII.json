@@ -21,10 +21,11 @@
         "Created_By": "YatuDataAlert",
         "Created_Date": "2023-10-17T14:20:54",
         "Last_Updated_By": "YatuDataAlert",
-        "Last_Updated_Date": "2024-01-23T01:02:53.793",
+        "Last_Updated_Date": "2024-01-23T12:02:43.25",
         "Online_Status": 1,
         "Type": "Smart Plug",
-        "DeviceImg": "https://images.tuyaus.com/smart/icon/non-session-user/16284966837aeacdf1e39.png"
+        "DeviceImg": "https://images.tuyaus.com/smart/icon/non-session-user/16284966837aeacdf1e39.png",
+        "ProfileWorkspaceStatus": 1
     },
     {
         "Id": 643,
@@ -47,10 +48,11 @@
         "Created_By": "YatuDataAlert",
         "Created_Date": "2023-10-17T14:20:56",
         "Last_Updated_By": "YatuDataAlert",
-        "Last_Updated_Date": "2024-01-23T01:02:55.5",
+        "Last_Updated_Date": "2024-01-23T12:02:44.92",
         "Online_Status": 1,
         "Type": "Eva S1 Pro",
-        "DeviceImg": "https://images.tuyaus.com/smart/icon/bay1595482780734o3bJ/8db638ed23689b0041da7b6130f78c0c.png"
+        "DeviceImg": "https://images.tuyaus.com/smart/icon/bay1595482780734o3bJ/8db638ed23689b0041da7b6130f78c0c.png",
+        "ProfileWorkspaceStatus": 0
     },
     {
         "Id": 644,
@@ -73,10 +75,11 @@
         "Created_By": "YatuDataAlert",
         "Created_Date": "2023-10-17T14:20:56",
         "Last_Updated_By": "YatuDataAlert",
-        "Last_Updated_Date": "2024-01-23T01:02:55.51",
+        "Last_Updated_Date": "2024-01-23T12:02:44.93",
         "Online_Status": 0,
         "Type": "Eva S1 Pro",
-        "DeviceImg": "https://images.tuyaus.com/smart/icon/bay1595482780734o3bJ/8db638ed23689b0041da7b6130f78c0c.png"
+        "DeviceImg": "https://images.tuyaus.com/smart/icon/bay1595482780734o3bJ/8db638ed23689b0041da7b6130f78c0c.png",
+        "ProfileWorkspaceStatus": 0
     },
     {
         "Id": 646,
@@ -99,10 +102,11 @@
         "Created_By": "YatuDataAlert",
         "Created_Date": "2023-10-17T14:20:56",
         "Last_Updated_By": "YatuDataAlert",
-        "Last_Updated_Date": "2024-01-23T01:02:55.51",
+        "Last_Updated_Date": "2024-01-23T12:02:44.933",
         "Online_Status": 0,
         "Type": "Eva S1 Pro",
-        "DeviceImg": "https://images.tuyaus.com/smart/icon/bay1595482780734o3bJ/8db638ed23689b0041da7b6130f78c0c.png"
+        "DeviceImg": "https://images.tuyaus.com/smart/icon/bay1595482780734o3bJ/8db638ed23689b0041da7b6130f78c0c.png",
+        "ProfileWorkspaceStatus": 0
     },
     {
         "Id": 647,
@@ -125,10 +129,11 @@
         "Created_By": "YatuDataAlert",
         "Created_Date": "2023-10-17T14:20:56",
         "Last_Updated_By": "YatuDataAlert",
-        "Last_Updated_Date": "2024-01-23T01:02:55.507",
+        "Last_Updated_Date": "2024-01-23T12:02:44.927",
         "Online_Status": 1,
         "Type": "Eva S1 Pro",
-        "DeviceImg": "https://images.tuyaus.com/smart/icon/bay1595482780734o3bJ/8db638ed23689b0041da7b6130f78c0c.png"
+        "DeviceImg": "https://images.tuyaus.com/smart/icon/bay1595482780734o3bJ/8db638ed23689b0041da7b6130f78c0c.png",
+        "ProfileWorkspaceStatus": 0
     },
     {
         "Id": 648,
@@ -151,10 +156,11 @@
         "Created_By": "YatuDataAlert",
         "Created_Date": "2023-10-17T14:20:56",
         "Last_Updated_By": "YatuDataAlert",
-        "Last_Updated_Date": "2024-01-23T01:02:55.497",
+        "Last_Updated_Date": "2024-01-23T12:02:44.92",
         "Online_Status": 1,
         "Type": "Eva S1 Pro",
-        "DeviceImg": "https://images.tuyaus.com/smart/icon/bay1595482780734o3bJ/8db638ed23689b0041da7b6130f78c0c.png"
+        "DeviceImg": "https://images.tuyaus.com/smart/icon/bay1595482780734o3bJ/8db638ed23689b0041da7b6130f78c0c.png",
+        "ProfileWorkspaceStatus": 0
     },
     {
         "Id": 651,
@@ -177,10 +183,11 @@
         "Created_By": "YatuDataAlert",
         "Created_Date": "2023-10-17T14:20:56",
         "Last_Updated_By": "YatuDataAlert",
-        "Last_Updated_Date": "2024-01-23T01:02:55.513",
+        "Last_Updated_Date": "2024-01-23T12:02:44.933",
         "Online_Status": 0,
         "Type": "Eva S1 Pro",
-        "DeviceImg": "https://images.tuyaus.com/smart/icon/bay1595482780734o3bJ/8db638ed23689b0041da7b6130f78c0c.png"
+        "DeviceImg": "https://images.tuyaus.com/smart/icon/bay1595482780734o3bJ/8db638ed23689b0041da7b6130f78c0c.png",
+        "ProfileWorkspaceStatus": 0
     },
     {
         "Id": 652,
@@ -206,7 +213,8 @@
         "Last_Updated_Date": "2023-10-17T14:20:56",
         "Online_Status": 0,
         "Type": "Smart Plug",
-        "DeviceImg": "https://images.tuyaus.com/smart/icon/non-session-user/16284966837aeacdf1e39.png"
+        "DeviceImg": "https://images.tuyaus.com/smart/icon/non-session-user/16284966837aeacdf1e39.png",
+        "ProfileWorkspaceStatus": 0
     },
     {
         "Id": 663,
@@ -229,10 +237,11 @@
         "Created_By": "YatuDataAlert",
         "Created_Date": "2023-11-01T15:03:44",
         "Last_Updated_By": "YatuDataAlert",
-        "Last_Updated_Date": "2024-01-23T01:02:55.507",
+        "Last_Updated_Date": "2024-01-23T12:02:44.927",
         "Online_Status": 1,
         "Type": "Unsupported",
-        "DeviceImg": "https://i.imgur.com/1zPYr9U.jpg"
+        "DeviceImg": "https://i.imgur.com/1zPYr9U.jpg",
+        "ProfileWorkspaceStatus": 0
     },
     {
         "Id": 738,
@@ -255,10 +264,11 @@
         "Created_By": "YatuDataAlert",
         "Created_Date": "2024-01-08T11:35:01.123",
         "Last_Updated_By": "YatuDataAlert",
-        "Last_Updated_Date": "2024-01-23T01:02:57.17",
+        "Last_Updated_Date": "2024-01-23T12:02:46.59",
         "Online_Status": 1,
         "Type": "Eva S1 Pro",
-        "DeviceImg": "https://images.tuyaus.com/smart/icon/bay1595482780734o3bJ/8db638ed23689b0041da7b6130f78c0c.png"
+        "DeviceImg": "https://images.tuyaus.com/smart/icon/bay1595482780734o3bJ/8db638ed23689b0041da7b6130f78c0c.png",
+        "ProfileWorkspaceStatus": 0
     },
     {
         "Id": 757,
@@ -281,10 +291,11 @@
         "Created_By": "System",
         "Created_Date": "2023-08-08T12:08:10",
         "Last_Updated_By": "YatuDataAlert",
-        "Last_Updated_Date": "2024-01-23T01:02:55.503",
+        "Last_Updated_Date": "2024-01-23T12:02:44.923",
         "Online_Status": 1,
         "Type": "Eva S1 Pro",
-        "DeviceImg": "https://images.tuyaus.com/smart/icon/bay1595482780734o3bJ/8db638ed23689b0041da7b6130f78c0c.png"
+        "DeviceImg": "https://images.tuyaus.com/smart/icon/bay1595482780734o3bJ/8db638ed23689b0041da7b6130f78c0c.png",
+        "ProfileWorkspaceStatus": 1
     },
     {
         "Id": 758,
@@ -307,10 +318,11 @@
         "Created_By": "System",
         "Created_Date": "2023-08-18T11:13:00",
         "Last_Updated_By": "YatuDataAlert",
-        "Last_Updated_Date": "2024-01-23T01:02:55.51",
+        "Last_Updated_Date": "2024-01-23T12:02:44.93",
         "Online_Status": 1,
         "Type": "Eva S1 Pro",
-        "DeviceImg": "https://images.tuyaus.com/smart/icon/bay1595482780734o3bJ/8db638ed23689b0041da7b6130f78c0c.png"
+        "DeviceImg": "https://images.tuyaus.com/smart/icon/bay1595482780734o3bJ/8db638ed23689b0041da7b6130f78c0c.png",
+        "ProfileWorkspaceStatus": 0
     },
     {
         "Id": 759,
@@ -333,10 +345,11 @@
         "Created_By": "System",
         "Created_Date": "2023-08-18T11:13:00",
         "Last_Updated_By": "YatuDataAlert",
-        "Last_Updated_Date": "2024-01-23T01:02:55.5",
+        "Last_Updated_Date": "2024-01-23T12:02:44.917",
         "Online_Status": 1,
         "Type": "Eva S1 Pro",
-        "DeviceImg": "https://images.tuyaus.com/smart/icon/bay1595482780734o3bJ/8db638ed23689b0041da7b6130f78c0c.png"
+        "DeviceImg": "https://images.tuyaus.com/smart/icon/bay1595482780734o3bJ/8db638ed23689b0041da7b6130f78c0c.png",
+        "ProfileWorkspaceStatus": 0
     },
     {
         "Id": 760,
@@ -359,10 +372,11 @@
         "Created_By": "Justin",
         "Created_Date": "2023-10-03T21:56:59",
         "Last_Updated_By": "DataAlert",
-        "Last_Updated_Date": "2024-01-23T01:01:23.803",
+        "Last_Updated_Date": "2024-01-23T12:01:24.133",
         "Online_Status": 1,
         "Type": "Smart Plug",
-        "DeviceImg": "https://images.tuyaus.com/smart/icon/non-session-user/16284966837aeacdf1e39.png"
+        "DeviceImg": "https://images.tuyaus.com/smart/icon/non-session-user/16284966837aeacdf1e39.png",
+        "ProfileWorkspaceStatus": 0
     },
     {
         "Id": 761,
@@ -385,10 +399,11 @@
         "Created_By": "Justin",
         "Created_Date": "2023-10-03T21:56:59",
         "Last_Updated_By": "DataAlert",
-        "Last_Updated_Date": "2024-01-23T01:00:06.723",
+        "Last_Updated_Date": "2024-01-23T12:00:07.18",
         "Online_Status": 1,
         "Type": "Smart Plug",
-        "DeviceImg": "https://images.tuyaus.com/smart/icon/non-session-user/16284966837aeacdf1e39.png"
+        "DeviceImg": "https://images.tuyaus.com/smart/icon/non-session-user/16284966837aeacdf1e39.png",
+        "ProfileWorkspaceStatus": 0
     },
     {
         "Id": 762,
@@ -411,10 +426,11 @@
         "Created_By": "Justin",
         "Created_Date": "2023-10-03T21:56:59",
         "Last_Updated_By": "DataAlert",
-        "Last_Updated_Date": "2024-01-23T01:00:04.29",
+        "Last_Updated_Date": "2024-01-23T12:00:04.65",
         "Online_Status": 1,
         "Type": "Smart Plug",
-        "DeviceImg": "https://images.tuyaus.com/smart/icon/non-session-user/16284966837aeacdf1e39.png"
+        "DeviceImg": "https://images.tuyaus.com/smart/icon/non-session-user/16284966837aeacdf1e39.png",
+        "ProfileWorkspaceStatus": 0
     },
     {
         "Id": 764,
@@ -437,10 +453,11 @@
         "Created_By": "YatuDataAlert",
         "Created_Date": "2024-01-15T16:08:11.783",
         "Last_Updated_By": "YatuDataAlert",
-        "Last_Updated_Date": "2024-01-23T01:02:58.97",
+        "Last_Updated_Date": "2024-01-23T12:02:48.263",
         "Online_Status": 0,
         "Type": "AIR_DETECTOR ",
-        "DeviceImg": "https://images.tuyaus.com/smart/icon/bay16345249392367NnR/c945428435e0f2cc5d8e17b8cdfbc47b.png"
+        "DeviceImg": "https://images.tuyaus.com/smart/icon/bay16345249392367NnR/c945428435e0f2cc5d8e17b8cdfbc47b.png",
+        "ProfileWorkspaceStatus": 0
     },
     {
         "Id": 768,
@@ -463,10 +480,11 @@
         "Created_By": "YatuDataAlert",
         "Created_Date": "2024-01-18T17:04:41.64",
         "Last_Updated_By": "YatuDataAlert",
-        "Last_Updated_Date": "2024-01-23T01:02:53.797",
+        "Last_Updated_Date": "2024-01-23T12:02:43.253",
         "Online_Status": 0,
         "Type": "Smart IR",
-        "DeviceImg": "https://images.tuyaus.com/smart/icon/ay1573546958261faWcj/ae78b0df34d4258995d532430e4763dd.png"
+        "DeviceImg": "https://images.tuyaus.com/smart/icon/ay1573546958261faWcj/ae78b0df34d4258995d532430e4763dd.png",
+        "ProfileWorkspaceStatus": 0
     },
     {
         "Id": 769,
@@ -489,9 +507,10 @@
         "Created_By": "YatuDataAlert",
         "Created_Date": "2024-01-18T17:04:41.643",
         "Last_Updated_By": "YatuDataAlert",
-        "Last_Updated_Date": "2024-01-23T01:02:53.797",
+        "Last_Updated_Date": "2024-01-23T12:02:43.253",
         "Online_Status": 0,
         "Type": "Air Conditioning",
-        "DeviceImg": "https://images.tuyaus.com/smart/icon/001453365846342fhj9e/11c62df7bd89c10f43d3e5ee8d13b4f4.png"
+        "DeviceImg": "https://images.tuyaus.com/smart/icon/001453365846342fhj9e/11c62df7bd89c10f43d3e5ee8d13b4f4.png",
+        "ProfileWorkspaceStatus": 0
     }
 ]

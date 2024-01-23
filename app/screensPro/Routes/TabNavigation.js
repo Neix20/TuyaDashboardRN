@@ -124,8 +124,7 @@ function Index(props) {
     }, [isFocused]);
     // #endregion
 
-    // const defaultScreen = "Dashboard";
-    const defaultScreen = "Device";
+    const defaultScreen = "Dashboard";
 
     return (
         <BcTabNavigator

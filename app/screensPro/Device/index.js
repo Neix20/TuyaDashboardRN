@@ -12,23 +12,58 @@ import { useNavigation, useIsFocused } from "@react-navigation/native";
 
 import { Logger, Utility } from "@utility";
 
-import { BcBoxShadow, BcLoading, BcYatuHome, BaseModal, BcPhotoGalleryModal, BcSvgIcon } from "@components";
-import { Devices, Images, Animation, clsConst } from "@config";
+import { BcBoxShadow, BcLoading, BcPhotoGalleryModal, BcSvgIcon } from "@components";
+import { Images } from "@config";
 
-import TopModal from "@components/Modal/TopModal";
 import Modal from "react-native-modal";
 
-import { fetchDeviceList, fetchDeleteDevice, fetchGetLinkedDevice, fetchLinkDevice } from "@api";
-import { fetchDeviceListII, fetchDeviceByUserII, fetchDeviceByUser } from "@api";
+import { fetchDeviceByUserII, fetchToggleFavoriteDevice } from "@api";
 
 import { useDispatch, useSelector } from 'react-redux';
 import { Actions, Selectors } from '@redux';
 
-import { useToggle, useModalToast, useTimer } from "@hooks";
+import { useToggle } from "@hooks";
 
 import { CheckBox } from "@rneui/base";
+import { UserDeviceIIData } from "./data";
 
 // #region Custom Hooks
+function useDeviceLs(val = []) {
+    const [data, setData] = useState(val);
+
+    const updateData = (arr = []) => {
+        arr = arr.map((obj, pos) => ({
+            ...obj,
+            pos,
+            flag: obj.Status == 1,
+            pwsFlag: obj.ProfileWorkspaceStatus == 1,
+            img: { uri: obj.DeviceImg }
+        }));
+
+        setData(_ => arr);
+    }
+
+    const toggleFlag = (item) => {
+        const { pos, flag = false } = item;
+
+        let arr = [...data];
+        arr[pos].flag = !flag;
+
+        setData(arr);
+    }
+
+    const addToFavorite = (item) => {
+        const { pos, pwsFlag = false } = item;
+
+        let arr = [...data];
+        arr[pos].pwsFlag = !pwsFlag;
+
+        setData(arr);
+    }
+
+    return [data, updateData, toggleFlag, addToFavorite];
+}
+
 function useViewMode(val = "List") {
     const [viewMode, setViewMode] = useState(val);
 
@@ -90,7 +125,7 @@ function TabDetail(props) {
 
     const navigation = useNavigation();
 
-    const { viewMode, toggleViewMode = () => { } } = props;
+    const { toggleViewMode = () => { } } = props;
 
     const [showTdModal, setShowTdModal, toggleTabDetail] = useToggle(false);
 
@@ -100,8 +135,8 @@ function TabDetail(props) {
     }
 
     const GoToRoomManagement = () => {
-        navigation.navigate("RoomManagement");
         toggleTabDetail();
+        navigation.navigate("RoomManagement");
     }
 
     return (
@@ -110,99 +145,26 @@ function TabDetail(props) {
                 toggleViewMode={onSelectViewMode}
                 onSelectRoomManagement={GoToRoomManagement}
                 showModal={showTdModal} setShowModal={setShowTdModal} />
-            {/* <TouchableOpacity onPress={toggleTabDetail}>
+            <TouchableOpacity onPress={toggleTabDetail}>
                 <MaterialCommunityIcons name={"dots-horizontal"} size={32} />
-            </TouchableOpacity> */}
+            </TouchableOpacity>
         </>
     )
 }
 // #endregion
 
 // #region Device
-function DeviceRemoveModal(props) {
-
-    const { onPress = () => { } } = props;
-    const [cusToast, showMsg] = useModalToast();
-
-    const style = {
-        title: {
-            fontSize: 14,
-            fontWeight: "bold",
-            color: "white",
-        },
-        description: {
-            fontFamily: "Roboto-Bold",
-            fontSize: 18,
-            color: "#000",
-            textAlign: "center",
-        }
-    }
-
-    return (
-        <BaseModal {...props} cusToast={cusToast}>
-            <VStack py={5} space={5}
-                alignItems={"center"} width={"80%"}>
-                <View alignItems={"center"}>
-                    <Text style={style.description}>Are you sure you want to remove this device?</Text>
-                </View>
-
-                <TouchableOpacity onPress={onPress} style={{ width: "80%" }}>
-                    <View backgroundColor={"#F00"}
-                        alignItems={"center"} justifyContent={"center"}
-                        style={{ height: 40, borderRadius: 8 }}>
-                        <Text style={style.title}>Remove Device</Text>
-                    </View>
-                </TouchableOpacity>
-            </VStack>
-        </BaseModal>
-    )
-}
-
 function DeviceItem(props) {
 
-    const toast = useToast();
-
     // #region Props
-    const { Title, img, Description, Tuya_Id = "", Id: deviceId, Online_Status, flag } = props;
-    const { loading, setLoading = () => { } } = props;
-    const { onSelect = () => { } } = props;
-    const { toggleRefresh = () => { }, viewMode } = props;
+    const { Title, Online_Status, pwsFlag, img, flag, Status } = props;
+    const { onLinkDevice = () => { }, onAddToFavorite = () => { } } = props;
     // #endregion
-
-    const userId = useSelector(Selectors.userIdSelect);
-
-    // #region UseState
-    const [showRdModal, setShowRdModal, toggleRdModal] = useToggle(false);
-    // #endregion
-
-    // #region Helper
-    const onRemoveDevice = () => {
-        setLoading(true);
-        fetchDeleteDevice({
-            param: {
-                UserId: userId,
-                DeviceId: deviceId,
-            },
-            onSetLoading: setLoading
-        })
-            .then(data => {
-                toggleRdModal();
-                toggleRefresh();
-                toast.show({
-                    description: "Successfully Removed Device!"
-                });
-            })
-            .catch(err => {
-                setLoading(false);
-                console.log(`Error: ${err}`)
-            })
-    }
-    // #endregion
-
-    const subUserAccess = useSelector(Selectors.subUserAccessSelect);
-    const { UnlinkDevice = -1 } = subUserAccess;
 
     const borderRadius = 8;
+
+    const ols = (Online_Status === 1) ? ({ color: "#0F0", term: "Online" }) : ({ color: "#F00", term: "Offline" });
+    const pwsColor = pwsFlag ? "#F00" : "#98A0A8";
 
     const style = {
         img: {
@@ -217,7 +179,7 @@ function DeviceItem(props) {
         onlineStatus: {
             fontSize: 12,
             fontFamily: 'Roboto-Bold',
-            color: (Online_Status === 1) ? "#0F0" : "#F00",
+            color: ols.color,
         },
         chkBox: {
             paddingHorizontal: 0,
@@ -226,43 +188,58 @@ function DeviceItem(props) {
     }
 
     return (
-        <>
-            <DeviceRemoveModal onPress={onRemoveDevice}
-                showModal={showRdModal && UnlinkDevice == 1} setShowModal={setShowRdModal} />
-            <TouchableOpacity onPress={onSelect} onLongPress={toggleRdModal}>
-                <BcBoxShadow style={{ borderRadius: borderRadius, width: "100%" }}>
-                    <HStack p={2} bgColor={"#FFF"}
-                        justifyContent={"space-between"} alignItems={"center"}
-                        style={{ borderRadius: borderRadius }}>
-                        <VStack space={2}>
-                            <Image source={img} style={style.img} resizeMode={"cover"} alt={Title} />
-                            <VStack>
-                                <Text style={style.title}>{Title}</Text>
-                                <Text style={style.onlineStatus}>{Online_Status === 1 ? "Online" : "Offline"}</Text>
-                            </VStack>
+        <TouchableOpacity onPress={onLinkDevice}>
+            <BcBoxShadow style={{ borderRadius, width: "100%" }}>
+                <HStack p={2} bgColor={"#FFF"}
+                    justifyContent={"space-between"} alignItems={"center"}
+                    style={{ borderRadius }}>
+                    <VStack space={2}>
+                        <Image source={img} style={style.img} resizeMode={"cover"} alt={Title} />
+                        <VStack>
+                            <Text style={style.title}>{Title}</Text>
+                            <Text style={style.onlineStatus}>{ols.term}</Text>
                         </VStack>
-                        <HStack alignItems={"center"}>
-                            <FontAwesome5 name={"eye"} size={24} />
-                            <CheckBox
-                                containerStyle={style.chkBox}
-                                iconType={"material-community"}
-                                checkedIcon={"checkbox-marked"}
-                                uncheckedIcon={"checkbox-blank-outline"}
-                                checked={flag}
-                                checkedColor={"#F00"} />
-                        </HStack>
+                    </VStack>
+                    <HStack alignItems={"center"} space={2}>
+                        {
+                            (Status == 1) ? (
+                                <TouchableOpacity onPress={onAddToFavorite}>
+                                    <FontAwesome name={"star"} size={24} color={pwsColor} />
+                                </TouchableOpacity>
+                            ) : (
+                                <View style={{ width: 32, height: 32 }} />
+                            )
+                        }
+                        <CheckBox
+                            containerStyle={style.chkBox}
+                            iconType={"material-community"}
+                            checkedIcon={"checkbox-marked"}
+                            uncheckedIcon={"checkbox-blank-outline"}
+                            checked={flag}
+                            checkedColor={"#F00"} />
                     </HStack>
-                </BcBoxShadow>
-            </TouchableOpacity>
-        </>
+                </HStack>
+            </BcBoxShadow>
+        </TouchableOpacity>
     )
 }
 
 function DeviceLs(props) {
-    const { data = [], renderItem = () => {} } = props;
+    const { data = [], renderItem = () => { } } = props;
 
     if (data.length <= 0) {
         return (<EmptyList />);
+    }
+
+    const style = {
+        flatListContainer: {
+            flexDirection: "column",
+            flexWrap: "nowrap",
+            justifyContent: "flex-start",
+            padding: 5,
+            rowGap: 8,
+            columnGap: 8,
+        }
     }
 
     return (
@@ -271,12 +248,7 @@ function DeviceLs(props) {
                 data={data}
                 renderItem={renderItem}
                 style={{ width: "90%", flex: 1 }}
-                contentContainerStyle={{
-                    flexDirection: "column",
-                    flexWrap: "nowrap",
-                    justifyContent: "flex-start",
-                    padding: 5, rowGap: 8, columnGap: 8,
-                }}
+                contentContainerStyle={style.flatListContainer}
             />
         </View>
     )
@@ -285,20 +257,6 @@ function DeviceLs(props) {
 
 // #region Components
 function Header(props) {
-
-    const { flag = false } = props;
-
-    const subUserAccess = useSelector(Selectors.subUserAccessSelect);
-    const { LinkDevice = -1 } = subUserAccess;
-
-    const toast = useToast();
-
-    const onSelectAdd = () => {
-        toast.show({
-            description: "Work in progress"
-        })
-    }
-
     return (
         <BcBoxShadow>
             <View bgColor={"#FFF"}
@@ -312,21 +270,6 @@ function Header(props) {
 
                     {/* Logo */}
                     <BcSvgIcon name={"Yatu"} size={80} color={"#2898FF"} />
-
-                    {
-                        (flag) ? (
-                            <TouchableOpacity onPress={onSelectAdd}>
-                                <View borderRadius={20}
-                                    bgColor={"#2898FF"}
-                                    alignItems={"center"} justifyContent={"center"}
-                                    style={{ width: 32, height: 32 }}>
-                                    <FontAwesome name={"plus"} size={16} color={"#FFF"} />
-                                </View>
-                            </TouchableOpacity>
-                        ) : (
-                            <></>
-                        )
-                    }
                 </HStack>
             </View>
         </BcBoxShadow>
@@ -356,25 +299,6 @@ function EmptyList(props) {
 }
 // #endregion
 
-import { UserDeviceIIData } from "./data";
-
-function useDeviceLs(val = []) {
-    const [data, setData] = useState(val);
-
-    const updateData = (arr = []) => {
-        arr = arr.map((obj, pos) => ({
-            ...obj,
-            pos,
-            flag: obj.Status == 1,
-            img: { uri: obj.DeviceImg }
-        }));
-
-        setData(_ => arr);
-    }
-
-    return [data, updateData];
-}
-
 function Index(props) {
 
     const toast = useToast();
@@ -386,25 +310,23 @@ function Index(props) {
 
     const userId = useSelector(Selectors.userIdSelect);
     const homeId = useSelector(Selectors.homeIdSelect);
-    const firstTimeLink = useSelector(Selectors.firstTimeLinkSelect);
     // #endregion
 
+    // #region UseState
+    const [deviceData, setDeviceData, toggleDeviceFlag, addToFavorite] = useDeviceLs([]);
+    
     const [viewMode, toggleViewMode] = useViewMode();
-    const [deviceData, setDeviceData] = useDeviceLs([]);
-
     const [loading, setLoading, toggleLoading] = useToggle(false);
-
-
     const [refresh, setRefresh, toggleRefresh] = useToggle(false);
-    const [devFlag, setDevFlag, toggleDevFlag] = useToggle(false);
-
     const [showTGModal, setShowTGModal, toggleTGModal] = useToggle(false);
+    // #endregion
 
     // #region UseEffect
     useEffect(() => {
-       if (isFocused) {
-            setDeviceData(UserDeviceIIData);
-       }
+        if (isFocused) {
+            // setDeviceData(UserDeviceIIData);
+            GetDeviceByUserII();
+        }
     }, [homeId, refresh, isFocused]);
 
     const GetDeviceByUserII = () => {
@@ -421,44 +343,54 @@ function Index(props) {
             .catch(err => {
                 setLoading(false);
                 console.log(`Error: ${err}`);
-            })
+            });
     }
 
-    useEffect(() => {
-        if (deviceData.length > 0) {
-            let flag = false;
+    const ToggleFavoriteDevice = (item) => {
 
-            let arr = [...deviceData];
+        const devLs = [{
+            Id: item.Id,
+            Status: !item.pwsFlag ? 1 : 0
+        }];
 
-            for (const obj of arr) {
-                flag = flag || obj.flag
-            }
-
-            setDevFlag(_ => flag);
-        }
-    }, [JSON.stringify(deviceData)]);
-
-    const toggleDeviceFlag = (item) => {
-        const { pos, flag } = item;
-
-        let arr = [...deviceData];
-
-        arr[pos].flag = !flag;
-
-        setDeviceData(arr);
+        setLoading(true);
+        fetchToggleFavoriteDevice({
+            param: {
+                UserId: userId,
+                DeviceLs: devLs
+            },
+            onSetLoading: setLoading,
+        })
+            .then(data => {
+                addToFavorite(item);
+                toggleRefresh();
+            })
+            .catch(err => {
+                setLoading(false);
+                console.log(`Error: ${err}`);
+            });
     }
 
     const renderDeviceItem = ({ item, index }) => {
-        const onSelect = () => toggleDeviceFlag(item);
+
+        const onLinkDevice = () => {
+            toggleDeviceFlag(item);
+        };
+
+        const onAddToFavorite = () => {
+            ToggleFavoriteDevice(item);
+        }
 
         return (
-            <DeviceItem key={index} viewMode={viewMode}
-                toggleRefresh={toggleRefresh}
-                loading={loading} setLoading={setLoading}
-                onSelect={onSelect} {...item} />
+            <DeviceItem
+                key={index}
+                onLinkDevice={onLinkDevice}
+                onAddToFavorite={onAddToFavorite}
+                {...item} />
         )
     }
 
+    // #region Tab Detail
     const images = [
         { uri: Images.LinkDeviceI },
         { uri: Images.LinkDeviceII },
@@ -470,6 +402,7 @@ function Index(props) {
     const updateFirstTimeLink = () => {
         toggleTGModal();
     }
+    // #endregion
 
     const style = {
         title: {
@@ -493,7 +426,7 @@ function Index(props) {
                 <View bgColor={"#FFF"} style={{ flex: 1 }}>
 
                     {/* Header */}
-                    <Header key={refresh} toggleRefresh={toggleRefresh} flag={devFlag} />
+                    <Header key={refresh} toggleRefresh={toggleRefresh} flag={false} />
 
                     <View style={{ height: 10 }} />
 
@@ -504,11 +437,12 @@ function Index(props) {
                             <Text style={style.title}>Sync Devices</Text>
                             <View justifyContent={"center"}
                                 style={style.tabDetail}>
-                                <TabDetail viewMode={viewMode} toggleViewMode={toggleViewMode} />
+                                <TabDetail toggleViewMode={toggleViewMode} />
                             </View>
                         </HStack>
                     </View>
 
+                    {/* Body */}
                     <DeviceLs data={deviceData} renderItem={renderDeviceItem} />
 
                     {/* Footer */}
@@ -516,7 +450,6 @@ function Index(props) {
                 </View>
             </SafeAreaView>
         </>
-
     );
 }
 

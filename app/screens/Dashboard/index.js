@@ -386,17 +386,6 @@ function DashboardHumidityReport(props) {
     )
 }
 
-function useCusToggle(init_val, onToggle = () => { }) {
-    const [flag, setFlag] = useState(init_val);
-
-    const toggleFlag = () => {
-        setFlag(val => !val);
-        onToggle();
-    }
-
-    return [flag, setFlag, toggleFlag];
-}
-
 function DashboardReport(props) {
 
     const dispatch = useDispatch();
@@ -449,11 +438,15 @@ function DashboardReport(props) {
     // #endregion
 
     const { flag, func = () => {}} = dict[title];
-    const [showDaInfo, setShowDaInfo, toggleDaInfo] = useCusToggle(flag, func);
+    const [showDaInfo, setShowDaInfo, toggleDaInfo] = useToggle(flag);
+    const onToggleDaInfo = () => {
+        toggleDaInfo();
+        func();
+    }
 
     return (
         <BcViewShot title={title}
-            showInfo={true} onPressInfo={toggleDaInfo}>
+            showInfo={true} onPressInfo={onToggleDaInfo}>
             {
                 (showDaInfo) ? (
                     <TouchableOpacity onPress={toggleDaInfo}>

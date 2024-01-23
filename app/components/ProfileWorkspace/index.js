@@ -21,7 +21,7 @@ import { fetchProfileWorkspace, fetchUpdateProfileWorkspace } from "@api";
 import { useToggle } from "@hooks";
 
 // #region Custom Hooks
-function useProfileWs() {
+function useProfileWs(prwsId = -1) {
 
     const init = {
         profileWs: {
@@ -47,12 +47,17 @@ function useProfileWs() {
             ...obj,
             pos,
             flag: false,
-        }))
+        }));
 
-        if (arr.length > 0) {
-            arr[0].flag = true;
-            setWs(_ => arr[0]);
+        if (prwsId == -1) {
+            setWs(arr[0]);
             dispatch(Actions.onChangeProfileWorkspaceId(arr[0].Id));
+        } else {
+            const wsObj = arr.filter(x => x.Id === prwsId)[0];
+            setWs(wsObj);
+
+            const { pos: wsPos } = wsObj;
+            arr[wsPos].flag = true;
         }
 
         setLs(_ => arr);
@@ -66,7 +71,6 @@ function useProfileWs() {
         }
 
         arr[pos].flag = true;
-
         setLs(_ => arr);
 
         const { Id: ProfileWorkspaceId } = arr[pos];
@@ -151,10 +155,10 @@ function Index(props) {
     const isFocused = useIsFocused();
 
     const userId = useSelector(Selectors.userIdSelect);
-    const homeId = useSelector(Selectors.homeIdSelect);
+    const prwsId = useSelector(Selectors.profileWorkspaceIdSelect);
 
     // #region UseState
-    const [profileWs, profileWsLs, setProfileWsLs, selectProfileWs] = useProfileWs();
+    const [profileWs, profileWsLs, setProfileWsLs, selectProfileWs] = useProfileWs(prwsId);
     const [setProfileWsModal, setShowProfileWsModal, toggleProfileWsModal] = useToggle(false);
 
     const [loading, setLoading] = useState(false);
@@ -167,36 +171,9 @@ function Index(props) {
     }, [isFocused]);
 
     // #region Helper
-    // const onSelectProfileWs = (item) => {
-    //     selectProfileWs(item);
-    //     toggleProfileWsModal();
-    // }
-
     const onSelectProfileWs = (item) => {
-        const { Id = 0, pos, Name, Code = "" } = item;
-        
-        let ProfileWorkspaceId = Code.slice(Code.length - 1);
-
-        if (ProfileWorkspaceId == 1) {
-            ProfileWorkspaceId = 0;
-        }
-        
-        setLoading(true);
-        fetchUpdateProfileWorkspace({
-            param: {
-                UserId: userId,
-                ProfileWorkspaceId
-            },
-            onSetLoading: setLoading
-        })
-        .then(data => {
-            selectProfileWs(item);
-            toggleProfileWsModal();
-        })
-        .catch(err => {
-            setLoading(false);
-            console.error(err);
-        })
+        selectProfileWs(item);
+        toggleProfileWsModal();
     }
 
     const GoToProfileWorkspace = () => {

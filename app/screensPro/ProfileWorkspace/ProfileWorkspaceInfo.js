@@ -12,7 +12,7 @@ import { Logger, Utility } from "@utility";
 import { Images, Svg } from "@config";
 
 import { BcHeaderWithAdd, BcLoading, BcBoxShadow } from "@components";
-import { fetchGetParamApi, fetchDeviceByProfileWorkspace, fetchToggleDeviceListing } from "@api";
+import { fetchDeviceByProfileWorkspace, fetchToggleDeviceListing } from "@api";
 
 import { useToggle } from "@hooks";
 import { ProfileWsData as TestData } from "./data";

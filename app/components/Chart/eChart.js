@@ -36,7 +36,7 @@ function ChartComponent(props) {
 
 	const { height = 480, width = 320 } = props;
 	const { option = {}, chartRef = null } = props;
-	const { dataset = [], coor = {}, toolTip = false, comfort = true } = props;
+	const { dataset = [], coor = {}, toolTip = false, comfort = false } = props;
 
 	useEffect(() => {
 		let chart;
@@ -52,7 +52,7 @@ function ChartComponent(props) {
 		}
 
 		return () => chart?.dispose();
-	}, [toolTip, comfort, coor, dataset, width]);
+	}, [toolTip, coor, dataset, width, comfort]);
 
 	return (<SkiaChart ref={chartRef} />);
 }
@@ -122,7 +122,6 @@ function Index(props) {
 	// #endregion
 
 	// #region Variables
-	// Should Use UseEffect
 	let optDataSet = dataset.map(x => ({ ...x, type: "line", symbol: "square", symbolSize: 5 }));
 
 	if (comfort) {
@@ -172,7 +171,7 @@ function Index(props) {
 	const czColor = comfort ? "#FF5F1F" : "#98A0A8";
 	// #endregion
 
-	option = {
+	let option = {
 		animation: false,
 		toolbox: {
 			feature: {
@@ -301,24 +300,20 @@ function Index(props) {
 				formatter: function (params) {
 					if (params.length > 0) {
 						const { axisValueLabel: header } = params[0];
-
+	
 						let resArr = [header];
-
-						if (comfort) {
-							params = params.slice(0, params.length - 2);
-						}
-
+	
 						params.forEach(obj => {
 							let { data: { value }, marker } = obj;
 							value = value[1];
-
+	
 							const res = `${marker} ${value.toFixed(2)}${unit}`;
 							resArr.push(res);
 						})
-
+	
 						return resArr.join("\n");
 					}
-
+	
 					return "";
 				},
 				textStyle: {
@@ -338,7 +333,7 @@ function Index(props) {
 			</View>
 			<ChartComponent key={flag}
 				chartRef={chartRef} width={width * 0.85}
-				option={option} dataset={dataset}
+				option={option} dataset={dataset} 
 				coor={coor} toolTip={toolTip}
 				comfort={comfort}
 				{...props}

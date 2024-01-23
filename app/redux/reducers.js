@@ -16,7 +16,7 @@ const initialState = {
     subUserAccess: {},
     dashboardReportFlag: {},
     premiumPayFlag: false,
-    profileWorkspaceId: "",
+    profileWorkspaceId: -1,
 };
 
 function setReducer(state = initialState, action = {}) {
