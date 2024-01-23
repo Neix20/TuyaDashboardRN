@@ -9,14 +9,11 @@ import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 import { Logger, Utility } from "@utility";
 import { Images, Svg } from "@config";
 
-import {
-    BcBoxShadow, BcSvgIcon, BcDateRange, BcViewShot, BcLoading, BcYatuHome, BcApacheChartFull, BcDataAttribute,
-    BcApacheBarChartFull, BcApachePieChart, BcProfileWorkspace
-} from "@components";
+import { BcBoxShadow, BcSvgIcon, BcLoading, BcYatuHome, BcProfileWorkspace } from "@components";
+import { BcDateRange, BcViewShot, BcApacheChartFull, BcDataAttribute, BcApacheBarChartFull, BcApachePieChart}  from "@components";
 
 import { DateTime } from "luxon";
 
-import { fetchDashboardInfo, fetchReportData, fetchGetDeviceDistribution } from "@api";
 import { fetchDashboardInfoByProfileWorkspace, fetchReportDataByProfileWorkspace, fetchDeviceDistributionByProfileWorkspace } from "@api";
 import { useDate, useToggle, useOrientation } from "@hooks";
 import { useEChart, useBarChart, useDevDistChart } from "@hooks";
@@ -492,7 +489,6 @@ function Index(props) {
 
     // #region Redux
     const userId = useSelector(Selectors.userIdSelect);
-    const homeId = useSelector(Selectors.homeIdSelect);
     const prwsId = useSelector(Selectors.profileWorkspaceIdSelect);
     // #endregion
 
@@ -538,7 +534,7 @@ function Index(props) {
     const [width, height, isPort, isLand, c_width, c_height] = useOrientation();
 
     const devDistChartHook = useDevDistChart();
-    const [devDistChart, setDevDistChart, devDistChartData, devDistChartLegend] = devDistChartHook;
+    const [devDistChart, setDevDistChart, devDistChartLegend] = devDistChartHook;
     // #endregion
 
     // #region UseEffect
@@ -594,6 +590,7 @@ function Index(props) {
     }
 
     const ReportData = () => {
+        return;
         fetchReportDataByProfileWorkspace({
             param: {
                 UserId: userId,
@@ -642,6 +639,7 @@ function Index(props) {
     }
 
     const GetDeviceDistribution = () => {
+        return;
         fetchDeviceDistributionByProfileWorkspace({
             param: {
                 UserId: userId,
@@ -672,7 +670,9 @@ function Index(props) {
                     {
                         (isPort) ? (
                             <>
-                                <BcDateRange showCompare={false} hook={dateHook} prevHook={cmpDateHook} flagHook={chartCompareHook} />
+                                <BcDateRange 
+                                    showCompare={false} hook={dateHook} 
+                                    prevHook={cmpDateHook} flagHook={chartCompareHook} />
                                 <View style={{ height: 10 }} />
                             </>
                         ) : (

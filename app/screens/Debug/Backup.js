@@ -899,7 +899,7 @@ function DeviceChart(props) {
     const [coor, updateCoor] = useCoor();
 
     const devDistChartHook = useDevDistChart();
-    const [devDistChart, setDevDistChart, devDistChartData, devDistChartLegend] = devDistChartHook;
+    const [devDistChart, setDevDistChart, devDistChartLegend] = devDistChartHook;
 
     const [width] = useOrientation();
 

@@ -1,0 +1,23 @@
+[
+    {
+        "Name": "Temp_Humd",
+        "Active": 4,
+        "Inactive": 5,
+        "Total": 9,
+        "Color": "rgba(255, 0, 0, 1)"
+    },
+    {
+        "Name": "Smart_Plug",
+        "Active": 0,
+        "Inactive": 1,
+        "Total": 1,
+        "Color": "rgba(0, 255, 0, 1)"
+    },
+    {
+        "Name": "Total",
+        "Active": 4,
+        "Inactive": 6,
+        "Total": 10,
+        "Color": "rgba(265, 165, 0, 1)"
+    }
+]

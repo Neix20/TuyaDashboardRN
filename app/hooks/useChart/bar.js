@@ -25,21 +25,7 @@ function Index(default_key, onSetLoading = () => {}) {
 
             delete obj["Device_Id"];
 
-            // [
-            //     {
-            //         "Temperature": 1,
-            //         "Humidity": 1
-            //     },
-            //     {
-            //         "Temperature": 2,
-            //         "Humidity": 2
-            //     }
-            // ]
-
-            // {
-            //     "Temperature": [1, 2, 3],
-            //     "Humidity": [1, 2, 3]
-            // }
+            // Input: [ { "Temperature": 1, "Humidity": 1 }, { "Temperature": 2, "Humidity": 2 } ]
 
             for (const o_key in obj) {
                 const o_val = obj[o_key];
@@ -55,6 +41,7 @@ function Index(default_key, onSetLoading = () => {}) {
 
         return dataDict;
     }
+    // Output: { "Temperature": [1, 2, 3], "Humidity": [1, 2, 3] }
     // #endregion
 
     useEffect(() => {

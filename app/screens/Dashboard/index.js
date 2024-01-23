@@ -542,7 +542,7 @@ function Index(props) {
     const [width, height, isPort, isLand, c_width, c_height] = useOrientation();
 
     const devDistChartHook = useDevDistChart();
-    const [devDistChart, setDevDistChart, devDistChartData, devDistChartLegend] = devDistChartHook;
+    const [devDistChart, setDevDistChart, devDistChartLegend] = devDistChartHook;
     // #endregion
 
     // #region UseEffect

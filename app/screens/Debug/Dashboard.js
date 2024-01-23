@@ -64,7 +64,7 @@ function Index(props) {
     const [drAqData, setDrAqData] = useState([]);
 
     const devDistChartHook = useDevDistChart();
-    const [devDistChart, setDevDistChart, devDistChartData, devDistChartLegend] = devDistChartHook;
+    const [devDistChart, setDevDistChart, devDistChartLegend] = devDistChartHook;
     // #endregion
 
     useEffect(() => {

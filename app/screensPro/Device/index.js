@@ -30,6 +30,7 @@ import { UserDeviceIIData } from "./data";
 // #region Custom Hooks
 function useDeviceLs(val = []) {
     const [data, setData] = useState(val);
+    const [session, setSession] = useState("");
 
     const updateData = (arr = []) => {
         arr = arr.map((obj, pos) => ({
@@ -41,6 +42,9 @@ function useDeviceLs(val = []) {
         }));
 
         setData(_ => arr);
+
+        const oriSession = arr.map(x => x.flag ? "true" : "false").join("");
+        setSession(_ => oriSession);
     }
 
     const toggleFlag = (item) => {
@@ -61,7 +65,10 @@ function useDeviceLs(val = []) {
         setData(arr);
     }
 
-    return [data, updateData, toggleFlag, addToFavorite];
+    const newSession = data.map(x => x.flag ? "true" : "false").join("");
+    const sessionFlag = newSession !== session;
+
+    return [data, updateData, toggleFlag, addToFavorite, sessionFlag];
 }
 
 function useViewMode(val = "List") {
@@ -257,6 +264,11 @@ function DeviceLs(props) {
 
 // #region Components
 function Header(props) {
+
+    const { flag = false } = props;
+    const { onSelectAdd = () => { } } = props;
+
+
     return (
         <BcBoxShadow>
             <View bgColor={"#FFF"}
@@ -270,6 +282,21 @@ function Header(props) {
 
                     {/* Logo */}
                     <BcSvgIcon name={"Yatu"} size={80} color={"#2898FF"} />
+
+                    {
+                        (flag) ? (
+                            <TouchableOpacity onPress={onSelectAdd}>
+                                <View borderRadius={20}
+                                    bgColor={"#2898FF"}
+                                    alignItems={"center"} justifyContent={"center"}
+                                    style={{ width: 32, height: 32 }}>
+                                    <FontAwesome name={"plus"} size={16} color={"#FFF"} />
+                                </View>
+                            </TouchableOpacity>
+                        ) : (
+                            <></>
+                        )
+                    }
                 </HStack>
             </View>
         </BcBoxShadow>
@@ -313,7 +340,7 @@ function Index(props) {
     // #endregion
 
     // #region UseState
-    const [deviceData, setDeviceData, toggleDeviceFlag, addToFavorite] = useDeviceLs([]);
+    const [deviceData, setDeviceData, toggleDeviceFlag, addToFavorite, deviceSession] = useDeviceLs([]);
     
     const [viewMode, toggleViewMode] = useViewMode();
     const [loading, setLoading, toggleLoading] = useToggle(false);
@@ -426,7 +453,7 @@ function Index(props) {
                 <View bgColor={"#FFF"} style={{ flex: 1 }}>
 
                     {/* Header */}
-                    <Header key={refresh} toggleRefresh={toggleRefresh} flag={false} />
+                    <Header toggleRefresh={toggleRefresh} flag={deviceSession} />
 
                     <View style={{ height: 10 }} />
 

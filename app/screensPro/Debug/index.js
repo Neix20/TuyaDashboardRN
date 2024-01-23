@@ -9,10 +9,25 @@ import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 import { Logger, Utility } from "@utility";
 import { Images, Svg } from "@config";
 
+import { useDevDistChart } from "@hooks";
+import { fetchGetDeviceDistribution } from "@api";
+
+import { DevDistriData } from "./data";
+
 function Index(props) {
+
     const toast = useToast();
     const navigation = useNavigation();
     const isFocused = useIsFocused();
+
+    const devDistChartHook = useDevDistChart();
+    const [devDistChart, setDevDistChart, devDistChartLegend] = devDistChartHook;
+
+    useEffect(() => {
+        if (isFocused) {
+            setDevDistChart(DevDistriData);
+        }
+    }, [isFocused]);
 
     return (
         <SafeAreaView style={{ flex: 1 }}>
