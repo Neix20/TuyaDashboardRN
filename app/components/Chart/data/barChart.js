@@ -67,7 +67,36 @@ option = {
     series: [
         {
             "name": "Total KiloWatt (KWh)",
-            "data": [7.9, 7.27, 7.44, 7.77, 7.43, 7.54, 4.24],
+            "data": [
+                {
+                    "value": 7.9,
+                    "label": { "show": true, "position": "top" }
+                },
+                {
+                    "value": 7.27,
+                    "label": { "show": true, "position": "top" }
+                },
+                {
+                    "value": 7.44,
+                    "label": { "show": true, "position": "top" }
+                },
+                {
+                    "value": 7.77,
+                    "label": { "show": true, "position": "top" }
+                },
+                {
+                    "value": 7.43,
+                    "label": { "show": true, "position": "top" }
+                },
+                {
+                    "value": 7.54,
+                    "label": { "show": true, "position": "top" }
+                },
+                {
+                    "value": 4.24,
+                    "label": { "show": true, "position": "top" }
+                },
+            ],
             "type": "bar"
         }
     ]
