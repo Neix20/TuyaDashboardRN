@@ -39,12 +39,6 @@ function Index(props) {
         }
     }, [isFocused]);
 
-    useEffect(() => {
-        if (Object.keys(bsm1).length > 0) {
-            Logger.info(bsm3);
-        }
-    }, [bsm1]);
-
     return (
         <SafeAreaView style={{ flex: 1 }}>
             <View style={{ flex: 1 }}>

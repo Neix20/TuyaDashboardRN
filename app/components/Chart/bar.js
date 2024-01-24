@@ -15,6 +15,7 @@ import { useOrientation, useToggle } from "@hooks";
 import { Logger, Utility } from "@utility";
 
 import { ChartSvg } from "@config";
+import { TariffChartData } from "./data";
 
 // Register extensions
 echarts.use([
@@ -112,9 +113,6 @@ function Index(props) {
 	const test = () => {
 		toggleTariff();
 	}
-
-	// Best Way is to convert to stacked bar charts
-	// After Selecting Show Tariff
 
 	let option = {
 		animation: false,
@@ -237,7 +235,14 @@ function Index(props) {
 					color: "rgba(0, 0, 0, 1)",
 				},
 				backgroundColor: "rgba(255, 255, 255, 1)",
-			},
+			}
+		}
+	}
+
+	if (tariff) {
+		option = {
+			...option,
+			...TariffChartData
 		}
 	}
 
@@ -254,9 +259,6 @@ function Index(props) {
 				chartRef={chartRef}
 				{...props}
 			/>
-			{
-				tariff ? (<TariffRate />) : (<></>)
-			}
 		</>
 	)
 }

@@ -541,13 +541,13 @@ function Index(props) {
     // Update Data
     useEffect(() => {
         const flag = isFocused && startDt != undefined && endDt != undefined;
-
-        if (flag) {
+        if (isFocused) {
             DashboardInfo();
             ReportData();
             GetDeviceDistribution();
         }
     }, [isFocused, JSON.stringify(startDt + endDt + prwsId)]);
+    // #endregion
 
     // #region API
     const DashboardInfo = () => {
@@ -590,7 +590,6 @@ function Index(props) {
     }
 
     const ReportData = () => {
-        return;
         fetchReportDataByProfileWorkspace({
             param: {
                 UserId: userId,
@@ -601,7 +600,6 @@ function Index(props) {
             onSetLoading: () => { }
         })
             .then(res => {
-
                 if ("IR Temperature" in res) {
                     const Data = res["IR Temperature"]
 
@@ -639,7 +637,6 @@ function Index(props) {
     }
 
     const GetDeviceDistribution = () => {
-        return;
         fetchDeviceDistributionByProfileWorkspace({
             param: {
                 UserId: userId,

@@ -49,11 +49,12 @@ function useProfileWs(prwsId = -1) {
             flag: false,
         }));
 
-        if (prwsId == -1) {
+        const wsArr = arr.filter(x => x.Id === prwsId);
+        if (wsArr.length == 0) {
             setWs(arr[0]);
             dispatch(Actions.onChangeProfileWorkspaceId(arr[0].Id));
         } else {
-            const wsObj = arr.filter(x => x.Id === prwsId)[0];
+            const wsObj = wsArr[0];
             setWs(wsObj);
 
             const { pos: wsPos } = wsObj;
@@ -138,7 +139,7 @@ function HomeModal(props) {
     return (
         <TopModal showCross={false} {...props}>
             <View alignItems={"center"} width={"100%"}>
-                <FlatList data={data} 
+                <FlatList data={data}
                     renderItem={renderItem} style={{ width: "100%" }} />
                 <Divider my={2} width={"90%"} />
                 <HomeItem onPress={onSelectManagement} flag={true}
@@ -191,6 +192,7 @@ function Index(props) {
             onSetLoading: setLoading
         })
             .then(data => {
+                console.log(data[0]);
                 setProfileWsLs(data);
             })
             .catch(err => {

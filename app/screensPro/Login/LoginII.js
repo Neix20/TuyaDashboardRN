@@ -308,6 +308,7 @@ function ExistLoginForm(props) {
                         }
                         // User is Existing User: FirstTimeUserId == -1
                         else if (FirstTimeUserId == -1) {
+                            dispatch(Actions.onChangeLoginAccess(1));
                             dispatch(Actions.onChangeFirstTimeLink(false));
                             GoToHome();
                         }

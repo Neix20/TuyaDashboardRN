@@ -17,6 +17,7 @@ const initialState = {
     dashboardReportFlag: {},
     premiumPayFlag: false,
     profileWorkspaceId: -1,
+    loginAccess: 1,
 };
 
 function setReducer(state = initialState, action = {}) {
@@ -95,6 +96,11 @@ function setReducer(state = initialState, action = {}) {
             return {
                 ...state,
                 profileWorkspaceId: action.profileWorkspaceId,
+            };
+        case "SET_LOGIN_ACCESS":
+            return {
+                ...state,
+                loginAccess: action.loginAccess,
             };
         default: {
             return {

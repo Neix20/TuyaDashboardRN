@@ -9,10 +9,7 @@ import { useToggle } from "@hooks";
 function Index(props) {
 
     const { hook = [] } = props;
-
     const [chart, setChart, chartKey, setChartKey, chartData, setChartData, chartLegend, chartKeyOption = [], setChartKeyOption] = hook;
-
-    const [showDaModal, setShowDaModal, toggleDaModal] = useToggle(false);
 
     const dropdownLs = chartKeyOption.map(x => ({ label: x, value: x }));
 

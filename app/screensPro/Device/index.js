@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Text, TouchableOpacity, Image, TextInput, SafeAreaView, FlatList, ScrollView } from "react-native";
 import { View, VStack, HStack, Divider, useToast } from "native-base";
 
@@ -17,7 +17,7 @@ import { Images } from "@config";
 
 import Modal from "react-native-modal";
 
-import { fetchDeviceByUserII, fetchToggleFavoriteDevice } from "@api";
+import { fetchDeviceByUserII, fetchToggleFavoriteDevice, fetchLinkDevice } from "@api";
 
 import { useDispatch, useSelector } from 'react-redux';
 import { Actions, Selectors } from '@redux';
@@ -29,8 +29,17 @@ import { UserDeviceIIData } from "./data";
 
 // #region Custom Hooks
 function useDeviceLs(val = []) {
+
+    const init = {
+        position: {
+            tempHumd: 0,
+            smartPlug: 1,
+        }
+    }
+
     const [data, setData] = useState(val);
-    const [session, setSession] = useState("");
+    const [oridLs, setOridLs] = useState([]);
+    const [posObj, setPosObj] = useState(init.position);
 
     const updateData = (arr = []) => {
         arr = arr.map((obj, pos) => ({
@@ -40,11 +49,21 @@ function useDeviceLs(val = []) {
             pwsFlag: obj.ProfileWorkspaceStatus == 1,
             img: { uri: obj.DeviceImg }
         }));
-
         setData(_ => arr);
 
-        const oriSession = arr.map(x => x.flag ? "true" : "false").join("");
-        setSession(_ => oriSession);
+        let _oridLs = arr.filter(x => x.flag).map(x => x.Id);
+        setOridLs(_ => _oridLs);
+
+        let _posObj = { ...posObj };
+        for (let ind in arr) {
+            const { IsSmartPlug } = arr[ind];
+
+            if (IsSmartPlug == 1) {
+                _posObj["smartPlug"] = ind;
+                break;
+            }
+        }
+        setPosObj(_ => _posObj);
     }
 
     const toggleFlag = (item) => {
@@ -65,24 +84,41 @@ function useDeviceLs(val = []) {
         setData(arr);
     }
 
-    const newSession = data.map(x => x.flag ? "true" : "false").join("");
-    const sessionFlag = newSession !== session;
+    const syncCount = data.filter(x => x.Status).length;
 
-    return [data, updateData, toggleFlag, addToFavorite, sessionFlag];
-}
+    const nOridLs = data.filter(x => x.flag).map(x => x.Id).join("");
+    const sessionFlag = nOridLs !== oridLs.join("");
 
-function useViewMode(val = "List") {
-    const [viewMode, setViewMode] = useState(val);
-
-    const toggleViewMode = () => {
-        setViewMode(_ => "List");
-    };
-
-    return [viewMode, toggleViewMode];
+    return [data, updateData, toggleFlag, addToFavorite, syncCount, sessionFlag, posObj];
 }
 // #endregion
 
 // #region Tab Detail
+
+function TabDetailModalItem(props) {
+    const { onPress = () => { } } = props;
+    const { Btn, btnName = "", title = "" } = props;
+
+    const style = {
+        title: {
+            fontFamily: "Roboto-Medium",
+            fontSize: 18
+        }
+    };
+
+    return (
+        <TouchableOpacity onPress={onPress} style={{ width: "90%" }}>
+            <HStack alignItems={"center"} style={{ height: 40 }}>
+                {/* Logo */}
+                <HStack alignItems={"center"} space={3}>
+                    <Btn name={btnName} size={28} />
+                    <Text style={style.title}>{title}</Text>
+                </HStack>
+            </HStack>
+        </TouchableOpacity>
+    )
+}
+
 function TabDetailModal(props) {
 
     const navigation = useNavigation();
@@ -93,17 +129,20 @@ function TabDetailModal(props) {
 
     // #region Props
     const { showModal, setShowModal = () => { } } = props;
-    const { viewMode, toggleViewMode = () => { } } = props;
+    const { navToTempHumd = () => {}, navToSmartPlug = () => {} }  = props;
     // #endregion
 
     const closeModal = () => setShowModal(false);
 
-    const style = {
-        title: {
-            fontFamily: "Roboto-Medium",
-            fontSize: 18
-        }
-    };
+    const onNavToTempHumd = () => {
+        navToTempHumd();
+        closeModal();
+    }
+
+    const onNavToSmartPlug = () => {
+        navToSmartPlug();
+        closeModal();
+    }
 
     return (
         <Modal
@@ -115,14 +154,13 @@ function TabDetailModal(props) {
             backdropOpacity={.3}>
             <View py={3} borderRadius={8}
                 alignItems={"center"} bgColor={"#FFF"}>
-                <TouchableOpacity onPress={onSelectProfileWorkspace} style={{ width: "90%" }}>
-                    <HStack alignItems={"center"} style={{ height: 40 }}>
-                        <HStack alignItems={"center"} space={3}>
-                            <Ionicons name={"settings-sharp"} size={28} />
-                            <Text style={style.title}>Profile Workspace</Text>
-                        </HStack>
-                    </HStack>
-                </TouchableOpacity>
+
+                {/* <TabDetailModalItem onPress={onSelectProfileWorkspace} 
+                    Btn={Ionicons} btnName={"settings-sharp"} title={"Profile Workspace"} /> */}
+                <TabDetailModalItem onPress={onNavToTempHumd}
+                    Btn={FontAwesome5} btnName={"temperature-low"} title={"Temperature & Humidity"} />
+                <TabDetailModalItem onPress={onNavToSmartPlug}
+                    Btn={FontAwesome5} btnName={"plug"} title={"Smart Plug"} />
             </View>
         </Modal>
     )
@@ -232,7 +270,7 @@ function DeviceItem(props) {
 }
 
 function DeviceLs(props) {
-    const { data = [], renderItem = () => { } } = props;
+    const { deviceLsRef = null, data = [], renderItem = () => { } } = props;
 
     if (data.length <= 0) {
         return (<EmptyList />);
@@ -252,6 +290,7 @@ function DeviceLs(props) {
     return (
         <View alignItems={"center"} flexGrow={1}>
             <FlatList
+                ref={deviceLsRef}
                 data={data}
                 renderItem={renderItem}
                 style={{ width: "90%", flex: 1 }}
@@ -267,7 +306,6 @@ function Header(props) {
 
     const { flag = false } = props;
     const { onSelectAdd = () => { } } = props;
-
 
     return (
         <BcBoxShadow>
@@ -340,9 +378,8 @@ function Index(props) {
     // #endregion
 
     // #region UseState
-    const [deviceData, setDeviceData, toggleDeviceFlag, addToFavorite, deviceSession] = useDeviceLs([]);
-    
-    const [viewMode, toggleViewMode] = useViewMode();
+    const [deviceData, setDeviceData, toggleDeviceFlag, addToFavorite, deviceCount, deviceSession, devicePos] = useDeviceLs([]);
+
     const [loading, setLoading, toggleLoading] = useToggle(false);
     const [refresh, setRefresh, toggleRefresh] = useToggle(false);
     const [showTGModal, setShowTGModal, toggleTGModal] = useToggle(false);
@@ -355,7 +392,9 @@ function Index(props) {
             GetDeviceByUserII();
         }
     }, [homeId, refresh, isFocused]);
+    // #endregion
 
+    // #region API List
     const GetDeviceByUserII = () => {
         setLoading(true);
         fetchDeviceByUserII({
@@ -374,12 +413,10 @@ function Index(props) {
     }
 
     const ToggleFavoriteDevice = (item) => {
-
         const devLs = [{
             Id: item.Id,
             Status: !item.pwsFlag ? 1 : 0
         }];
-
         setLoading(true);
         fetchToggleFavoriteDevice({
             param: {
@@ -398,6 +435,26 @@ function Index(props) {
             });
     }
 
+    const LinkDevice = () => {
+        setLoading(true);
+        fetchLinkDevice({
+            param: {
+                UserId: userId,
+                DeviceLs: deviceData.map(x => ({ Id: x.Id, Status: x.flag ? 1 : 0 }))
+            },
+            onSetLoading: setLoading
+        })
+            .then(data => {
+                toggleRefresh();
+            })
+            .catch(err => {
+                setLoading(false);
+                console.log(`Error: ${err}`);
+            });
+    }
+    // #endregion
+
+    // #region Render Item
     const renderDeviceItem = ({ item, index }) => {
 
         const onLinkDevice = () => {
@@ -416,6 +473,7 @@ function Index(props) {
                 {...item} />
         )
     }
+    // #endregion
 
     // #region Tab Detail
     const images = [
@@ -429,7 +487,25 @@ function Index(props) {
     const updateFirstTimeLink = () => {
         toggleTGModal();
     }
+
+    const navToTempHumd = () => {
+        const { tempHumd = 0 } = devicePos;
+        machineListView.current.scrollToIndex({
+            index: tempHumd,
+            animated: true,
+        })
+    }
+
+    const navToSmartPlug = () => {
+        const { smartPlug = 0 } = devicePos;
+        machineListView.current.scrollToIndex({
+            index: smartPlug,
+            animated: true,
+        })
+    }
     // #endregion
+
+    const machineListView = useRef(null);
 
     const style = {
         title: {
@@ -453,7 +529,9 @@ function Index(props) {
                 <View bgColor={"#FFF"} style={{ flex: 1 }}>
 
                     {/* Header */}
-                    <Header toggleRefresh={toggleRefresh} flag={deviceSession} />
+                    <Header toggleRefresh={toggleRefresh}
+                        flag={deviceSession}
+                        onSelectAdd={LinkDevice} />
 
                     <View style={{ height: 10 }} />
 
@@ -461,16 +539,18 @@ function Index(props) {
 
                     <View alignItems={"center"}>
                         <HStack alignItems={"center"} width={"90%"}>
-                            <Text style={style.title}>Sync Devices</Text>
+                            <Text style={style.title}>Sync Devices ({deviceCount}/20)</Text>
                             <View justifyContent={"center"}
                                 style={style.tabDetail}>
-                                <TabDetail toggleViewMode={toggleViewMode} />
+                                <TabDetail navToTempHumd={navToTempHumd} navToSmartPlug={navToSmartPlug} />
                             </View>
                         </HStack>
                     </View>
 
                     {/* Body */}
-                    <DeviceLs data={deviceData} renderItem={renderDeviceItem} />
+                    <DeviceLs
+                        deviceLsRef={machineListView}
+                        data={deviceData} renderItem={renderDeviceItem} />
 
                     {/* Footer */}
                     <View style={{ height: 70 }} />

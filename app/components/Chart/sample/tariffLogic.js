@@ -1,7 +1,7 @@
 
 let series = [
     {
-        "data": [50, 10, 200, 200, 200, 200],
+        "data": [50, 10, 200, 200, 200, 50],
         "itemStyle": {
             "color": "#00F0FF"
         },
@@ -10,7 +10,7 @@ let series = [
         "name": "a"
     },
     {
-        "data": [0, 0, 60, 50, 100, 80],
+        "data": [0, 0, 60, 50, 100, 80, 40],
         "itemStyle": {
             "color": "#AEFFDF"
         },
@@ -19,7 +19,7 @@ let series = [
         "name": "b"
     },
     {
-        "data": [0, 0, 0, 0, 100, 0],
+        "data": [0, 0, 0, 0, 100, 0, 0],
         "itemStyle": {
             "color": "#FFF300"
         },
@@ -145,7 +145,7 @@ series = getStackInfo(series);
 option = {
     xAxis: {
         type: "category",
-        data: ["Sep", "Oct", "Nov", "Dec", "Jan", "Feb"]
+        data: [ "01-18", "01-19", "01-20", "01-21", "01-22", "01-23", "01-24" ]
     },
     yAxis: { type: "value" },
     series

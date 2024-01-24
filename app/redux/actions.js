@@ -103,6 +103,13 @@ const onChangeProfileWorkspaceId = (profileWorkspaceId) => {
     }
 };
 
+const onChangeLoginAccess = (loginAccess) => {
+    return {
+        type: "SET_LOGIN_ACCESS",
+        loginAccess: loginAccess,
+    }
+}
+
 export {
     onChangeDefaultValue,
     onChangeUserId,
@@ -118,5 +125,6 @@ export {
     onChangeSubUserAccess,
     onChangeDashboardReportFlag,
     onChangePremiumPayFlag,
-    onChangeProfileWorkspaceId
+    onChangeProfileWorkspaceId,
+    onChangeLoginAccess
 }

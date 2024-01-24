@@ -135,6 +135,7 @@ function Index(props) {
 
     const userId = useSelector(Selectors.userIdSelect);
     const firstTimeLink = useSelector(Selectors.firstTimeLinkSelect);
+    const loginAccess = useSelector(Selectors.loginAccessSelect);
 
     const [appFlag, setAppFlag, toggleAppFlag] = useToggle(false);
     const [serverFlag, setServerFlag, toggleServerFlag] = useToggle(false);
@@ -152,12 +153,11 @@ function Index(props) {
 
         OneSignal.promptForPushNotificationsWithUserResponse();
 
-        //Method for handling notifications received while app in foreground
+        //Method for handling notifications received, When App Opened
         OneSignal.setNotificationWillShowInForegroundHandler(event => {
             const notification = event.getNotification();
 
             const { additionalData = {} } = notification;
-            console.log(additionalData);
 
             // Check For Payment Success
             if ("Action" in additionalData && additionalData["Action"] == "Data_Controller") {
@@ -168,11 +168,19 @@ function Index(props) {
                 navigation.navigate("AuthTuyaSessionExpired", additionalData);
             }
 
+            if ("Action" in additionalData && additionalData["Action"] == "Data_Logout") {
+                toast.show({
+                    description: "Logout"
+                })
+                dispatch(Actions.onChangeLoginAccess(-1));
+                navigation.navigate("LoginII");
+            }
+
             // Complete with null means don't show a notification.
             event.complete(notification);
         });
 
-        //Method for handling notifications opened
+        //Method for handling notifications opened, When App closed
         OneSignal.setNotificationOpenedHandler(event => {
             const { additionalData = {} } = event.notification;
             
@@ -236,8 +244,8 @@ function Index(props) {
     }
     // #endregion
 
-    // const defaultScreen = (userId == -1 || firstTimeLink) ? "LoginII" : "TabNavigation";
-    const defaultScreen = "Debug";
+    const defaultScreen = (loginAccess == -1 || userId == -1 || firstTimeLink) ? "LoginII" : "TabNavigation";
+    // const defaultScreen = "Debug";
 
     return (
         <>
