@@ -77,34 +77,36 @@ function Index(props) {
     // #endregion
 
     const userId = useSelector(Selectors.userIdSelect);
-
     const { Id: deviceId } = props.route.params;
 
     useEffect(() => {
         const flag = isFocused && startDt != undefined && endDt != undefined;
         if (flag) {
-            setLoading(true);
-
-            fetchDeviceDataChart({
-                param: {
-                    UserId: userId,
-                    DeviceId: deviceId,
-                    StartDate: startDt,
-                    EndDate: `${endDt} 23:59:59`
-                },
-                onSetLoading: setLoading,
-            })
-                .then(data => {
-                    setChart(data);
-                })
-                .catch(err => {
-                    setLoading(false);
-                    console.log(`Error: ${err}`)
-                })
+            GetDeviceDataChart();
         }
     }, [isFocused, JSON.stringify(startDt + endDt + deviceId)]);
 
-    const eChartHook = [chart, setChart, null, null, chartData, setChartData, chartLegend, null, null]
+    const GetDeviceDataChart = () => {
+        setLoading(true);
+        fetchDeviceDataChart({
+            param: {
+                UserId: userId,
+                DeviceId: deviceId,
+                StartDate: startDt,
+                EndDate: `${endDt} 23:59:59`
+            },
+            onSetLoading: setLoading,
+        })
+            .then(data => {
+                setChart(data);
+            })
+            .catch(err => {
+                setLoading(false);
+                console.log(`Error: ${err}`)
+            })
+    }
+
+    const eChartHook = [chart, setChart, null, null, chartData, setChartData, chartLegend, null, null];
 
     return (
         <>

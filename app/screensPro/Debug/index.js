@@ -9,10 +9,10 @@ import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 import { Logger, Utility } from "@utility";
 import { Images, Svg } from "@config";
 
-import { useDevDistChart } from "@hooks";
+import { useDevDistChart, useChartSimple, useBarChartSimple } from "@hooks";
 import { fetchGetDeviceDistribution } from "@api";
 
-import { DevDistriData } from "./data";
+import { DevDistriData, ChartSimpleData, BarChartSimpleData } from "./data";
 
 function Index(props) {
 
@@ -20,14 +20,30 @@ function Index(props) {
     const navigation = useNavigation();
     const isFocused = useIsFocused();
 
+    // #region Hooks
     const devDistChartHook = useDevDistChart();
     const [devDistChart, setDevDistChart, devDistChartLegend] = devDistChartHook;
+
+    const chartSimpleHook = useChartSimple();
+    const [smChart, setSmChart, sm1, sm2, sm3] = chartSimpleHook;
+
+    const barChartSimpleHook = useBarChartSimple();
+    const [bsmChart, setBsmChart, bsm1, bsm2, bsm3] = barChartSimpleHook;
+    // #endregion
 
     useEffect(() => {
         if (isFocused) {
             setDevDistChart(DevDistriData);
+            setSmChart(ChartSimpleData);
+            setBsmChart(BarChartSimpleData);
         }
     }, [isFocused]);
+
+    useEffect(() => {
+        if (Object.keys(bsm1).length > 0) {
+            Logger.info(bsm3);
+        }
+    }, [bsm1]);
 
     return (
         <SafeAreaView style={{ flex: 1 }}>

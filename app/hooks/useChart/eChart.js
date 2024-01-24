@@ -95,11 +95,9 @@ function Index(default_key) {
 
     // Generate Dataset and Legend
     // This is Based on Which Chart Key is Selected
-    // TODO: Change This Shit
+    // [ ] Change This Shit
     useEffect(() => {
         
-        const unit = Utility.genUnit(chartKey);
-
         let dataset = [];
         let label = [];
 
@@ -108,19 +106,15 @@ function Index(default_key) {
         for (const key in chartII) {
             const device_log = chartII[key];
 
-            let val = [0];
+            let val = [];
 
             // Chart Key: "Temperature"
             if (chartKey in device_log) {
-                val = device_log[chartKey];
-                val = val.map(x => +x);
+                val = device_log[chartKey].map(x => +x);;
             }
 
             if ("Timestamp" in device_log) {
-                ts = device_log["Timestamp"];
-
-                ts = ts.map(x => DateTime.fromISO(x).toSeconds());
-                ts = ts.map(x => Math.floor(x * 1000));
+                ts = device_log["Timestamp"].map(x => DateTime.fromISO(x).toSeconds()).map(x => Math.floor(x * 1000));
             }
 
             label = device_log["Timestamp"].map(x => DateTime.fromISO(x).toFormat("T"))
@@ -129,19 +123,18 @@ function Index(default_key) {
                 value: [ts[ind], x]
             }));
 
-            let obj = {
+            // Output: [{ "name": "Temperature", "data": [ [1701255600000, 5], [1701257400000, 5], [1701259200000, 7], [1701261000000, 6], [1701262800000, 5] ] }]
+            dataset.push({
                 name: key,
                 data: val
-            }
-
-            // Output: [{ "name": "Temperature", "data": [ [1701255600000, 5], [1701257400000, 5], [1701259200000, 7], [1701261000000, 6], [1701262800000, 5] ] }]
-            dataset.push(obj);
+            });
         }
         setChartData(() => ({ label, dataset }));
 
         // [ "B8 Bedroom Smart IR 4", "B8 multi-function-timer-air monitor", "LF Piano LG aircon" ]
         const legend = Object.keys(chartII);
         setChartLegend(() => legend);
+        
     }, [chartKey, chartII]);
 
     return [

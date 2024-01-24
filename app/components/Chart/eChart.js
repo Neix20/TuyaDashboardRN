@@ -129,13 +129,8 @@ function Index(props) {
 		let ts = [];
 
 		if (dataset.length >= 1) {
-
 			let { data: ts_val = [] } = dataset[0];
-
-			ts = ts_val.map(x => x.value[0]);
-
-			// Removed Undefined
-			ts = ts.filter(x => x);
+			ts = ts_val.map(x => x.value[0]).filter(x => x);
 		}
 
 		// Upper Boundary

@@ -2,58 +2,65 @@ import { useState, useEffect } from "react";
 
 import { DateTime } from "luxon";
 
-function Index(onSetLoading = () => {}) {
+const genDataset = (data = []) => {
+
+    let res = []
+
+    if (data.length > 0) {
+        const obj = { ...data[0] };
+        delete obj["Device_Id"];
+
+        // [ '11-29', '05-22', '12-31', '04-20', '02-12' ]
+        const label = data
+            .map(x => x["Timestamp"])
+            .map(x => DateTime.fromISO(x).toFormat("MM-dd"));
+
+        delete obj["Timestamp"];
+        const keys = Object.keys(obj);
+
+        const dataset = [];
+
+        for (const key of keys) {
+            let val = data.map(x => +x[key]);
+
+            if (val.length == 0) continue;
+
+            dataset.push({
+                name: key,
+                data: val
+            });
+        }
+
+        res = [keys, label, dataset];
+    }
+
+    return res;
+}
+
+function Index(onSetLoading = () => { }) {
 
     const [chart, setChart] = useState([]);
-    const [chartData, setChartData] = useState({});
-
     const [chartLegend, setChartLegend] = useState([])
 
-    useEffect(() => {
-        if (chart.length > 1) {
+    const updateChart = (data = []) => {
+        onSetLoading(true);
 
-            onSetLoading(true);
+        const dataArr = genDataset(data);
+        if (dataArr.length > 0) {
+            const [keys, label, dataset] = dataArr;
+            setChartLegend(_ => keys);
 
-            const obj = { ...chart[0] };
-            delete obj["Device_Id"];
-
-            let ts = chart.map(x => x["Timestamp"]);
-
-            // [ '11-29', '05-22', '12-31', '04-20', '02-12' ]
-            const label = ts.map(x => DateTime.fromISO(x).toFormat("MM-dd"));
-            delete obj["Timestamp"];
-
-            const keys = Object.keys(obj);
-            setChartLegend(keys);
-
-            let dataset = [];
-
-            for (const key of keys) {
-                let val = chart.map(x => x[key]);
-                val = val.map(x => +x);
-
-                if (val.length == 0) continue;
-
-                let obj = {
-                    name: key,
-                    data: val
-                }
-
-                dataset.push(obj);
-            }
-
-            let dict = {
-                label,
-                dataset
+            const next_state = { 
+                label: label, 
+                dataset: dataset 
             };
-
-            setChartData(dict);
-
-            onSetLoading(false);
+            setChart(_ => next_state);
         }
-    }, [chart]);
+        
+        onSetLoading(false);
+    }
 
-    return [chart, setChart, chartData, setChartData, chartLegend];
+    return [chart, updateChart, chart, () => { }, chartLegend];
 }
 
 export default Index;
