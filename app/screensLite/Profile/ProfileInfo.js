@@ -103,9 +103,9 @@ function InfoPassword(props) {
 function InfoPanel(props) {
 
     const { hook = [] } = props;
-    const [profile, setProfile, onChangeUsername, onChangeMobileNo, onChangeEmail, onChangeAddress, onChangeTariffType] = hook;
+    const [profile, setProfile, onChangeUsername, onChangeMobileNo, onChangeEmail, onChangeAddress] = hook;
 
-    const { Username, MobileNo, Email, TariffType } = profile;
+    const { Username, MobileNo, Email, Address } = profile;
 
     const subUserAccess = useSelector(Selectors.subUserAccessSelect);
     const { AccountType = -1 } = subUserAccess;
@@ -146,14 +146,12 @@ function InfoPanel(props) {
                 <InfoItem Title={"Email"} Value={Email} Placeholder={"xxx@gmail.com"} />
                 <InfoItem Title={"Name"} Value={Username} onChangeValue={onChangeUsername} Placeholder={"Name"} />
                 <InfoItem Title={"MobileNo"} Value={MobileNo} onChangeValue={onChangeMobileNo} Placeholder={"+60 XXX-XXXX"} />
-                <InfoItem Title={"Tariff Type"} Value={TariffType} onChangeValue={onChangeTariffType} Placeholder={"Residential / Complex"} />
             </View>
         </BcBoxShadow>
     )
 }
 // #endregion
 
-// #region Hooks
 function useProfile() {
     const [profile, setProfile] = useState({});
 
@@ -168,11 +166,9 @@ function useProfile() {
     const onChangeMobileNo = (val) => updateProfile("MobileNo", val);
     const onChangeEmail = (val) => updateProfile("Email", val);
     const onChangeAddress = (val) => updateProfile("Address", val);
-    const onChangeTariffType = (val) => updateProfile("TariffType", val);
 
-    return [profile, setProfile, onChangeUsername, onChangeMobileNo, onChangeEmail, onChangeAddress, onChangeTariffType];
+    return [profile, setProfile, onChangeUsername, onChangeMobileNo, onChangeEmail, onChangeAddress];
 }
-// #endregion
 
 function Index(props) {
     const toast = useToast();

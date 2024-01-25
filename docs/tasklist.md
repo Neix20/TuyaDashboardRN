@@ -5,9 +5,10 @@
 ## Issues
 
 - [x] TNB Info
-- [ ] Disable all Downloads
+- [x] Disable all Downloads
 
 ### API
 
 - [x] `GetReportDataByProfileWorkspace` `fetchReportDataByProfileWorkspace`
 - [x] `GetDeviceDistributionByProfileWorkspace` `fetchDeviceDistributionByProfileWorkspace`
+- [ ] `LinkDeviceLite` `fetchLinkDeviceLite`

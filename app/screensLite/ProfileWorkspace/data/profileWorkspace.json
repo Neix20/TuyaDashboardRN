@@ -1,0 +1,40 @@
+{
+    "content": [
+        {
+            "Id": 1,
+            "Code": "PFWS0001",
+            "Name": "Temperature",
+            "Description": "Temperature",
+            "Image": "https://i.imgur.com/Du4wGXQ.jpg",
+            "InitialDate": "2024-01-05T09:26:54.903",
+            "ExpiryDate": "2024-02-05T09:26:54.903"
+        },
+        {
+            "Id": 2,
+            "Code": "PFWS0002",
+            "Name": "Humidity",
+            "Description": "Humidity",
+            "Image": "https://i.imgur.com/efcVMJQ.jpg",
+            "InitialDate": "2024-01-05T09:26:54.903",
+            "ExpiryDate": "2024-02-05T09:26:54.903"
+        },
+        {
+            "Id": 3,
+            "Code": "PFWS0003",
+            "Name": "Energy Cost (Basic)",
+            "Description": "Energy Cost (Basic)",
+            "Image": "https://i.imgur.com/H85oOXa.jpg",
+            "InitialDate": "2024-01-05T09:26:54.903",
+            "ExpiryDate": "2024-02-05T09:26:54.903"
+        },
+        {
+            "Id": 4,
+            "Code": "PFWS0004",
+            "Name": "Energy Cost (Advanced)",
+            "Description": "Energy Cost (Advanced)",
+            "Image": "https://i.imgur.com/ztMhh0Y.jpg",
+            "InitialDate": "2024-01-05T09:26:54.903",
+            "ExpiryDate": "2024-02-05T09:26:54.903"
+        }
+    ]
+}

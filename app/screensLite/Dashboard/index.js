@@ -9,15 +9,14 @@ import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 import { Logger, Utility } from "@utility";
 import { Images, Svg } from "@config";
 
-import {
-    BcBoxShadow, BcSvgIcon, BcDateRange, BcViewShot, BcLoading, BcYatuHome, BcApacheChartFull, BcDataAttribute,
-    BcApacheBarChartFull, BcApachePieChart, BcProfileWorkspace
-} from "@components";
+import { BcBoxShadow, BcSvgIcon, BcLoading, BcYatuHome, BcProfileWorkspace } from "@components";
+import { BcDateRange, BcViewShot, BcApacheChartFull, BcDataAttribute, BcApacheBarChartFull, BcApachePieChart}  from "@components";
 
 import { DateTime } from "luxon";
 
-import { fetchDashboardInfo, fetchReportData, fetchGetDeviceDistribution } from "@api";
-import { useDate, useToggle, useEChart, useOrientation, useBarChart, useDevDistChart } from "@hooks";
+import { fetchDashboardInfoByProfileWorkspace, fetchReportDataByProfileWorkspace, fetchDeviceDistributionByProfileWorkspace } from "@api";
+import { useDate, useToggle, useOrientation, useProfileWs } from "@hooks";
+import { useEChart, useBarChart, useDevDistChart } from "@hooks";
 
 import { useDispatch, useSelector } from 'react-redux';
 import { Actions, Selectors } from '@redux';
@@ -33,14 +32,35 @@ function Header(props) {
                     height: 60,
                     backgroundColor: "#fff",
                 }}>
-                <HStack justifyContent={"space-between"} style={{ width: "90%" }}>
-                    <BcYatuHome />
+                <HStack justifyContent={"space-between"} style={{ width: "90%" }}>                    
+                    <BcProfileWorkspace {...props} />
                 </HStack>
             </View>
         </BcBoxShadow>
     )
 }
 
+function EmptyList(props) {
+    const style = {
+        txt: {
+            fontFamily: "Roboto-Medium",
+            fontSize: 18,
+            color: "#d3d3d3",
+            fontWeight: "700"
+        }
+    }
+    return (
+        <View flexGrow={1} justifyContent={"center"} alignItems={"center"} bgColor={"#FFF"}>
+            <VStack space={2} width={"90%"} alignItems={"center"}>
+                <FontAwesome5 name={"chart-line"} color={"#e6e6e6"} size={80} />
+                <Text style={style.txt}>No Data Collected Yet</Text>
+            </VStack>
+        </View>
+    )
+}
+// #endregion
+
+// #region Dashboard Components
 function DashboardVoltageReport(props) {
     // #region Initial
     const init = {
@@ -457,25 +477,6 @@ function DashboardReport(props) {
         </BcViewShot>
     )
 }
-
-function EmptyList(props) {
-    const style = {
-        txt: {
-            fontFamily: "Roboto-Medium",
-            fontSize: 18,
-            color: "#d3d3d3",
-            fontWeight: "700"
-        }
-    }
-    return (
-        <View flexGrow={1} justifyContent={"center"} alignItems={"center"} bgColor={"#FFF"}>
-            <VStack space={2} width={"90%"} alignItems={"center"}>
-                <FontAwesome5 name={"chart-line"} color={"#e6e6e6"} size={80} />
-                <Text style={style.txt}>No Data Collected Yet</Text>
-            </VStack>
-        </View>
-    )
-}
 // #endregion
 
 import { DashboardInfoData, DeviceDistriData, ReportDataJson } from "./data";
@@ -488,7 +489,6 @@ function Index(props) {
 
     // #region Redux
     const userId = useSelector(Selectors.userIdSelect);
-    const homeId = useSelector(Selectors.homeIdSelect);
     const prwsId = useSelector(Selectors.profileWorkspaceIdSelect);
     // #endregion
 
@@ -511,17 +511,11 @@ function Index(props) {
     const chartHook = useEChart("Absolute Humidity");
     const [chart, setChart] = chartHook.slice(0, 6);
 
-    const spChartHook = useEChart("Voltage (V)");
-    const [spChart, setSpChart] = spChartHook.slice(0, 2);
-
     const spBarChartHook = useBarChart("Total KiloWatt (KWh)");
     const [spBarChart, setSpBarChart] = spBarChartHook.slice(0, 2);
 
     const aqChartHook = useEChart("Particle Matter (ug/m3)");
     const [aqChart, setAqChart] = aqChartHook.slice(0, 2);
-
-    const prevChartHook = useEChart("Absolute Humidity");
-    const [prevChart, setPrevChart] = prevChartHook.slice(0, 6);
 
     const dateHook = useDate(init.dateObj);
     const [startDt, setStartDt, endDt, setEndDt] = dateHook.slice(0, 4);
@@ -537,180 +531,78 @@ function Index(props) {
     const [drAqData, setDrAqData] = useState([]);
 
     const [loading, setLoading, toggleLoading] = useToggle(false);
-
     const [width, height, isPort, isLand, c_width, c_height] = useOrientation();
 
     const devDistChartHook = useDevDistChart();
     const [devDistChart, setDevDistChart, devDistChartLegend] = devDistChartHook;
+
+    const profileWsHook = useProfileWs(prwsId);
+    const [profileWs, profileWsLs, setProfileWsLs, selectProfileWs] = profileWsHook;
     // #endregion
 
     // #region UseEffect
     // Update Data
     useEffect(() => {
         const flag = isFocused && startDt != undefined && endDt != undefined;
-
-        if (flag) {
-            setLoading(true);
+        if (isFocused) {
             DashboardInfo();
             ReportData();
             GetDeviceDistribution();
-            setLoading(false);
         }
-    }, [isFocused, JSON.stringify(startDt + endDt + homeId + prwsId)]);
-
-    // useEffect(() => {
-    //     if (isFocused) {
-    //         setTimeout(() => {
-    //             fetchDashboardInfo({
-    //                 param: {
-    //                     UserId: userId,
-    //                     HomeId: homeId,
-    //                     StartDate: cmpStartDt,
-    //                     EndDate: `${cmpEndDt} 23:59:59`
-    //                 },
-    //                 onSetLoading: () => { },
-    //             })
-    //                 .then(res => {
-    //                     if ("IR Temperature" in res) {
-    //                         const Data = res["IR Temperature"]
-    //                         setPrevChart(Data);
-    //                     } else {
-    //                         setPrevChart({})
-    //                     }
-    //                 })
-    //                 .catch(err => {
-    //                     setLoading(false);
-    //                     console.log(`Error: ${err}`);
-    //                 })
-    //         }, 10 * 1000);
-    //     }
-    // }, [isFocused, JSON.stringify(cmpStartDt + cmpEndDt + homeId)]);
+    }, [isFocused, JSON.stringify(startDt + endDt + prwsId)]);
     // #endregion
 
     // #region API
     const DashboardInfo = () => {
-
-        const res = DashboardInfoData;
-
-        if ("IR Temperature" in res) {
-            const Data = res["IR Temperature"];
-            setChart(Data);
-        } else {
-            setChart({})
-        }
-
-        if ("Smart Plug" in res) {
-            const Data = res["Smart Plug"];
-            setSpChart(Data);
-        } else {
-            setSpChart({});
-        }
-
-        if ("Smart Plug KWh" in res) {
-            const Data = res["Smart Plug KWh"];
-            setSpBarChart(Data);
-        } else {
-            setSpBarChart({});
-        }
-
-        if ("Air Quality" in res) {
-            const Data = res["Air Quality"];
-            setAqChart(Data);
-        } else {
-            setAqChart({});
-        }
-
-        return;
         setLoading(true);
-            fetchDashboardInfo({
-                param: {
-                    UserId: userId,
-                    HomeId: homeId,
-                    StartDate: startDt,
-                    EndDate: `${endDt} 23:59:59`
-                },
-                onSetLoading: setLoading,
-            })
-                .then(res => {
-                    if ("IR Temperature" in res) {
-                        const Data = res["IR Temperature"];
-                        setChart(Data);
-                    } else {
-                        setChart({})
-                    }
+        fetchDashboardInfoByProfileWorkspace({
+            param: {
+                UserId: userId,
+                ProfileWorkspaceId: prwsId,
+                StartDate: startDt,
+                EndDate: `${endDt} 23:59:59`
+            },
+            onSetLoading: setLoading,
+        })
+        .then(res => {
+            if ("IR Temperature" in res) {
+                const Data = res["IR Temperature"];
+                setChart(Data);
+            } else {
+                setChart({})
+            }
 
-                    if ("Smart Plug" in res) {
-                        const Data = res["Smart Plug"];
-                        setSpChart(Data);
-                    } else {
-                        setSpChart({});
-                    }
+            if ("Smart Plug KWh" in res) {
+                const Data = res["Smart Plug KWh"];
+                setSpBarChart(Data);
+            } else {
+                setSpBarChart({});
+            }
 
-                    if ("Smart Plug KWh" in res) {
-                        const Data = res["Smart Plug KWh"];
-                        setSpBarChart(Data);
-                    } else {
-                        setSpBarChart({});
-                    }
-
-                    if ("Air Quality" in res) {
-                        const Data = res["Air Quality"];
-                        setAqChart(Data);
-                    } else {
-                        setAqChart({});
-                    }
-                })
-                .catch(err => {
-                    setLoading(false);
-                    console.log(`Error: ${err}`);
-                })
+            if ("Air Quality" in res) {
+                const Data = res["Air Quality"];
+                setAqChart(Data);
+            } else {
+                setAqChart({});
+            }
+        })
+        .catch(err => {
+            setLoading(false);
+            console.log(`Error: ${err}`);
+        })
     }
 
     const ReportData = () => {
-
-        const res = ReportDataJson;
-        if ("IR Temperature" in res) {
-            const Data = res["IR Temperature"]
-
-            const Data_II = Object.values(Data).map(x => x[0]);
-
-            setDrData(Data_II);
-        } else {
-            setDrData([])
-        }
-
-        if ("Smart Plug" in res) {
-            const Data = res["Smart Plug"];
-
-            const Data_II = Object.values(Data).map(x => x[0]);
-
-            setDrSpData(Data_II);
-        } else {
-            setDrSpData([])
-        }
-
-        if ("Air Quality" in res) {
-            const Data = res["Air Quality"];
-
-            const Data_II = Object.values(Data).map(x => x[0]);
-
-            setDrAqData(Data_II);
-        } else {
-            setDrAqData([])
-        }
-
-        return;
-        fetchReportData({
+        fetchReportDataByProfileWorkspace({
             param: {
                 UserId: userId,
-                HomeId: homeId,
+                ProfileWorkspaceId: prwsId,
                 StartDate: startDt,
                 EndDate: `${endDt} 23:59:59`
             },
             onSetLoading: () => { }
         })
             .then(res => {
-
                 if ("IR Temperature" in res) {
                     const Data = res["IR Temperature"]
 
@@ -748,12 +640,10 @@ function Index(props) {
     }
 
     const GetDeviceDistribution = () => {
-        setDevDistChart(DeviceDistriData);
-        return;
-        fetchGetDeviceDistribution({
+        fetchDeviceDistributionByProfileWorkspace({
             param: {
                 UserId: userId,
-                HomeId: homeId,
+                ProfileWorkspaceId: prwsId,
             },
             onSetLoading: () => { }
         })
@@ -766,22 +656,25 @@ function Index(props) {
     }
     // #endregion
 
+    const { Name = "Default", WsColor = "#c3c3c3" } = profileWs;
+
     return (
         <>
             <BcLoading loading={loading} />
             <SafeAreaView style={{ flex: 1 }}>
-                <View style={{ flex: 1 }}>
+                <View style={{ flex: 1 }} bgColor={Utility.colorOpacity(WsColor, 0.25)}>
 
                     {/* Header */}
-                    <Header />
+                    <Header hook={profileWsHook}  />
 
                     <View style={{ height: 10 }} />
 
                     {
                         (isPort) ? (
                             <>
-                                <BcDateRange showCompare={false}
-                                    hook={dateHook} prevHook={cmpDateHook} flagHook={chartCompareHook} />
+                                <BcDateRange 
+                                    showCompare={false} hook={dateHook} 
+                                    prevHook={cmpDateHook} flagHook={chartCompareHook} />
                                 <View style={{ height: 10 }} />
                             </>
                         ) : (
@@ -797,11 +690,8 @@ function Index(props) {
                         {
                             (Object.keys(chart).length > 0 || Object.keys(spBarChart).length > 0 || Object.keys(aqChart).length > 0) ? (
                                 <View flexGrow={1}>
-                                    <HStack
-                                        flexWrap={"wrap"}
-                                        rowGap={10}
-                                        alignItems={"flex-start"}
-                                        justifyContent={"space-between"}>
+                                    <HStack flexWrap={"wrap"} rowGap={10}
+                                        alignItems={"flex-start"} justifyContent={"space-between"}>
                                         {
                                             (Object.keys(chart).length > 0) ? (
                                                 <View px={3} style={{ width: width }}>
@@ -818,7 +708,6 @@ function Index(props) {
                                             (Object.keys(spBarChart).length > 0) ? (
                                                 <View px={3} style={{ width: width }}>
                                                     <BcViewShot title="Total KiloWatt (KWh) Report">
-                                                        {/* <BcApacheChartFull hook={spChartHook} height={400} /> */}
                                                         <BcApacheBarChartFull hook={spBarChartHook} height={400} />
                                                     </BcViewShot>
                                                 </View>
@@ -832,18 +721,6 @@ function Index(props) {
                                                 <View px={3} style={{ width: width }}>
                                                     <BcViewShot title="Daily Air Quality Data">
                                                         <BcApacheChartFull hook={aqChartHook} height={400} />
-                                                    </BcViewShot>
-                                                </View>
-                                            ) : (
-                                                <></>
-                                            )
-                                        }
-
-                                        {
-                                            (compare && Object.keys(prevChart).length > 0) ? (
-                                                <View px={3} style={{ width: width }}>
-                                                    <BcViewShot title="Comparison">
-                                                        <BcApacheChartFull hook={prevChartHook} height={400} />
                                                     </BcViewShot>
                                                 </View>
                                             ) : (

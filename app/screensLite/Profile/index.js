@@ -114,7 +114,7 @@ function Profile(props) {
                                 fontSize: 18
                             }}>{Email}</Text>
 
-                            <ProfilePremium AccountType={AccountType} />
+                            {/* <ProfilePremium AccountType={AccountType} /> */}
                         </VStack>
                     </HStack>
 
@@ -227,19 +227,9 @@ function NavPanel(props) {
 
     return (
         <VStack bgColor={"#FFF"} borderRadius={8} width={"90%"} alignItems={"center"}>
-            <PanelBtn onPress={GoToHomeManagement} Btn={FontAwesome} icon={"home"} title={"Home Management"} />
-            {/* <PanelBtn onPress={GoToAlert} Btn={MaterialCommunityIcons} icon={"message-text-outline"} title={"Message Center"} />
-            <PanelBtn onPress={GoToReportSchedule} Btn={FontAwesome5} icon={"clipboard-list"} title={"Email Alert"} /> */}
-            {/* {
-                (MS_Email == 1) ? (<PanelBtn onPress={GoToReportSchedule} Btn={FontAwesome5} icon={"clipboard-list"} title={"Email Alert"} />) : (<></>)
-            } */}
-            {/* {
-                (MS_User == 1) ? (<PanelBtn onPress={GoToSubUser} Btn={FontAwesome5} icon={"users"} title={"Manage Members"} />) : (<></>)
-            } */}
-            {/* <PanelBtn Btn={SimpleLineIcons} icon={"question"} title={"FAQ & Feedback"} /> */}
-            <PanelBtn onPress={GoToSubscription} Btn={FontAwesome5} icon={"shopping-cart"} title={"View Subscriptions"} />
+            <PanelBtn onPress={GoToProfileWorkspace} Btn={Ionicons} icon={"settings-sharp"} title={"View Profile Workspace"} />
             <PanelBtn onPress={GoToUserToken} Btn={FontAwesome5} icon={"shopping-cart"} title={"View Token Wallet"} />
-            {/* <PanelBtn onPress={GoToProfileWorkspace} Btn={Ionicons} icon={"settings-sharp"} title={"View Profile Workspace"} /> */}
+            {/* <PanelBtn onPress={GoToSubscription} Btn={FontAwesome5} icon={"shopping-cart"} title={"View Purchased Add-Ons"} /> */}
         </VStack>
     )
 }
@@ -297,6 +287,28 @@ function TokenSubscriptionPanel(props) {
             <PanelBtn
                 onPress={GoToRedeemToken} title={"Redeem your Activation Tokens!"}
                 Btn={FontAwesome} icon={"ticket"}
+                color={"#FFAA00"} showRight={false} />
+        </VStack>
+    )
+}
+
+function AuthUserCheckTuyaEmail(props) {
+
+    const navigation = useNavigation();
+
+    const subUserAccess = useSelector(Selectors.subUserAccessSelect);
+    const { Email = "" } = subUserAccess;
+
+    const AuthUser = () => {
+        navigation.navigate("CheckTuyaEmail", { Email })
+    };
+
+    return (
+        <VStack bgColor={"#FFF"} borderRadius={8}
+            width={"90%"} alignItems={"center"}>
+            <PanelBtn
+                onPress={AuthUser} title={"Authenticate User"}
+                Btn={FontAwesome} icon={"user-plus"}
                 color={"#FFAA00"} showRight={false} />
         </VStack>
     )
@@ -544,12 +556,12 @@ function Index(props) {
                             <NavPanel {...profileInfo} />
 
                             {/* Make Payment */}
-                            {(AccountType <= 2) ? <PaymentSubscriptionPanel /> : <></>}
-                            {/* <TokenSubscriptionPanel /> */}
+                            {/* {(AccountType <= 2) ? <PaymentSubscriptionPanel /> : <></>} */}
+                            <TokenSubscriptionPanel />
+                            
+                            <AuthUserCheckTuyaEmail />
 
                             <CompanyInfoPanel />
-
-                            <RestorePurchasePanel onGetPurchaseHistory={getPurchaseHistory} />
 
                             {/* Logout */}
                             <LogoutPanel onLogout={SignOut} onDeleteAccount={DeleteAccount} />

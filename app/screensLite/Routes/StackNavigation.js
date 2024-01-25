@@ -20,6 +20,18 @@ import ProfileInfo from "@screensPro/Profile/ProfileInfo";
 import ProfileWorkspace from "@screensPro/ProfileWorkspace";
 import ProfileWorkspaceInfo from "@screensPro/ProfileWorkspace/ProfileWorkspaceInfo";
 
+// Check Tuya Email & Auth
+import CheckTuyaEmail from "@screens/CheckTuyaEmail";
+import AuthTuya from "@screens/AuthTuya";
+import AuthTuyaHighTraffic from "@screens/AuthTuya/HighTraffic";
+import AuthTuyaSessionExpired from "@screens/AuthTuya/SessionExpired";
+
+// Token & UserToken
+import TokenActivation from "@screens/Token/screens/TokenActivation.js";
+import TokenSuccess from "@screens/Token/screens/TokenSuccess.js";
+import UserToken from "@screens/UserToken";
+import UserTokenInfo from "@screens/UserToken/UserTokenInfo.js";
+
 let StackScreens = {};
 
 StackScreens = {
@@ -66,96 +78,69 @@ StackScreens = {
     }
 };
 
-import Subscription from "@screens/Subscription";
-import SubscriptionInfo from "@screens/Subscription/SubscriptionInfo";
-
-import Payment from "@screens/PaymentModule/screens/Payment.js";
-import WebPayment from "@screens/PaymentModule/screens/WebPayment.js";
-import PaymentFailed from "@screens/PaymentModule/screens/PaymentFailed.js";
-import ThankYou from "@screens/PaymentModule/screens/ThankYou.js";
-import PaymentProSubscription from "@screens/PaymentModule/screens/ProSubscription";
-
-import PaymentSubscription from "@screens/PaymentModule/screens/Subscription.js";
-import PaymentSubscriptionAddOn from "@screens/PaymentModule/screens/Addon/index.js";
-import PaymentSubscriptionDetail from "@screens/PaymentModule/screens/Addon/detail.js";
-
 StackScreens = {
     ...StackScreens,
-    Subscription: {
-        component: Subscription,
-        title: "Subscription",
+    CheckTuyaEmail: {
+        component: CheckTuyaEmail,
+        title: "CheckTuyaEmail",
         option: {
             orientation: "portrait"
         }
     },
-    SubscriptionInfo: {
-        component: SubscriptionInfo,
-        title: "SubscriptionInfo",
+    AuthTuya: {
+        component: AuthTuya,
+        title: "AuthTuya",
+        option: {
+            orientation: "portrait"
+        }
+    },
+    AuthTuyaHighTraffic: {
+        component: AuthTuyaHighTraffic,
+        title: "AuthTuyaHighTraffic",
+        option: {
+            orientation: "portrait"
+        }
+    },
+    AuthTuyaSessionExpired: {
+        component: AuthTuyaSessionExpired,
+        title: "AuthTuyaSessionExpired",
         option: {
             orientation: "portrait"
         }
     }
-}
+};
 
 StackScreens = {
     ...StackScreens,
-    Payment: {
-        component: Payment,
-        title: "Payment",
+    TokenActivation: {
+        component: TokenActivation,
+        title: "TokenActivation",
         option: {
             orientation: "portrait"
         }
     },
-    WebPayment: {
-        component: WebPayment,
-        title: "WebPayment",
+    TokenSuccess: {
+        component: TokenSuccess,
+        title: "TokenSuccess",
         option: {
             orientation: "portrait"
         }
     },
-    PaymentFailed: {
-        component: PaymentFailed,
-        title: "PaymentFailed",
+    UserToken: {
+        component: UserToken,
+        title: "UserToken",
         option: {
             orientation: "portrait"
         }
     },
-    ThankYou: {
-        component: ThankYou,
-        title: "ThankYou",
-        option: {
-            orientation: "portrait"
-        }
-    },
-    PaymentProSubscription: {
-        component: PaymentProSubscription,
-        title: "PaymentProSubscription",
-        option: {
-            orientation: "portrait"
-        }
-    },
-    PaymentSubscription: {
-        component: PaymentSubscription,
-        title: "PaymentSubscription",
-        option: {
-            orientation: "portrait"
-        }
-    },
-    PaymentSubscriptionAddOn: {
-        component: PaymentSubscriptionAddOn,
-        title: "PaymentSubscriptionAddOn",
-        option: {
-            orientation: "portrait"
-        }
-    },
-    PaymentSubscriptionDetail: {
-        component: PaymentSubscriptionDetail,
-        title: "PaymentSubscriptionDetail",
+    UserTokenInfo: {
+        component: UserTokenInfo,
+        title: "UserTokenInfo",
         option: {
             orientation: "portrait"
         }
     }
-}
+};
 
 import AboutUs from "@screens/CompanyInfo/screens/AboutUs.js";
 import Tnc from "@screens/CompanyInfo/screens/Tnc.js";
