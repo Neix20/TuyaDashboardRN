@@ -10,12 +10,14 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 
 import { useNavigation, useIsFocused } from "@react-navigation/native";
 
-import { Logger, Utility } from "@utility";
-
-import { BcBoxShadow, BcLoading, BcPhotoGalleryModal, BcSvgIcon } from "@components";
-import { Images } from "@config";
+import { CheckBox } from "@rneui/base";
 
 import Modal from "react-native-modal";
+
+import { Logger, Utility } from "@utility";
+import { Images } from "@config";
+
+import { BcBoxShadow, BcLoading, BcPhotoGalleryModal, BcSvgIcon, BcYesNoModal } from "@components";
 
 import { fetchDeviceByUserII, fetchToggleFavoriteDevice, fetchLinkDevice } from "@api";
 
@@ -23,9 +25,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Actions, Selectors } from '@redux';
 
 import { useToggle } from "@hooks";
-
-import { CheckBox } from "@rneui/base";
-import { UserDeviceIIData } from "./data";
 
 // #region Custom Hooks
 function useDeviceLs(val = []) {
@@ -121,12 +120,6 @@ function TabDetailModalItem(props) {
 
 function TabDetailModal(props) {
 
-    const navigation = useNavigation();
-
-    const onSelectProfileWorkspace = () => {
-        navigation.navigate("ProfileWorkspace");
-    }
-
     // #region Props
     const { showModal, setShowModal = () => { } } = props;
     const { navToTempHumd = () => {}, navToSmartPlug = () => {} }  = props;
@@ -152,11 +145,7 @@ function TabDetailModal(props) {
             onBackButtonPress={closeModal}
             onBackdropPress={closeModal}
             backdropOpacity={.3}>
-            <View py={3} borderRadius={8}
-                alignItems={"center"} bgColor={"#FFF"}>
-
-                {/* <TabDetailModalItem onPress={onSelectProfileWorkspace} 
-                    Btn={Ionicons} btnName={"settings-sharp"} title={"Profile Workspace"} /> */}
+            <View py={3} borderRadius={8} alignItems={"center"} bgColor={"#FFF"}>
                 <TabDetailModalItem onPress={onNavToTempHumd}
                     Btn={FontAwesome5} btnName={"temperature-low"} title={"Temperature & Humidity"} />
                 <TabDetailModalItem onPress={onNavToSmartPlug}
@@ -383,6 +372,7 @@ function Index(props) {
     const [loading, setLoading, toggleLoading] = useToggle(false);
     const [refresh, setRefresh, toggleRefresh] = useToggle(false);
     const [showTGModal, setShowTGModal, toggleTGModal] = useToggle(false);
+    const [showLdModal, setShowLdModal, toggleLdModal] = useToggle(false);
     // #endregion
 
     // #region UseEffect
@@ -445,6 +435,7 @@ function Index(props) {
             onSetLoading: setLoading
         })
             .then(data => {
+                toggleLdModal();
                 toggleRefresh();
             })
             .catch(err => {
@@ -523,15 +514,20 @@ function Index(props) {
 
     return (
         <>
+            <BcYesNoModal 
+                showModal={showLdModal} setShowModal={setShowLdModal}
+                title={"Link Devices"} 
+                description={`Are you sure you want to link these devices?\n\nOnce your downloads have completed, a notification will be send out to alert you!`}
+                titleYes={"Link"} titleNo={"Cancel"}
+                onPressYes={LinkDevice} onPressNo={toggleLdModal}
+            />
             <BcLoading loading={loading} />
             <BcPhotoGalleryModal showModal={showTGModal} setShowModal={updateFirstTimeLink} images={images} />
             <SafeAreaView style={{ flex: 1 }}>
                 <View bgColor={"#FFF"} style={{ flex: 1 }}>
 
                     {/* Header */}
-                    <Header toggleRefresh={toggleRefresh}
-                        flag={deviceSession}
-                        onSelectAdd={LinkDevice} />
+                    <Header toggleRefresh={toggleRefresh} flag={deviceSession} onSelectAdd={toggleLdModal} />
 
                     <View style={{ height: 10 }} />
 

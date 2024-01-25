@@ -19,6 +19,8 @@ import usePayDict from "@screens/PaymentModule/screens/ProSubscription/hooks/use
 import useTabPane from "@screens/PaymentModule/screens/ProSubscription/hooks/useTabPane.js";
 import useYatuIap from "@screens/PaymentModule/screens/ProSubscription/hooks/useYatuIap.js";
 
+import useProfileWs from "./useProfileWs";
+
 export {
     useTimer,
     useWifi,
@@ -42,4 +44,8 @@ export {
     useChartSimple,
     useBarChartSimple,
     useDevDistChart
+}
+
+export {
+    useProfileWs
 }

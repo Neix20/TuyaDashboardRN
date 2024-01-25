@@ -15,7 +15,7 @@ import { BcDateRange, BcViewShot, BcApacheChartFull, BcDataAttribute, BcApacheBa
 import { DateTime } from "luxon";
 
 import { fetchDashboardInfoByProfileWorkspace, fetchReportDataByProfileWorkspace, fetchDeviceDistributionByProfileWorkspace } from "@api";
-import { useDate, useToggle, useOrientation } from "@hooks";
+import { useDate, useToggle, useOrientation, useProfileWs } from "@hooks";
 import { useEChart, useBarChart, useDevDistChart } from "@hooks";
 
 import { useDispatch, useSelector } from 'react-redux';
@@ -33,7 +33,7 @@ function Header(props) {
                     backgroundColor: "#fff",
                 }}>
                 <HStack justifyContent={"space-between"} style={{ width: "90%" }}>                    
-                    <BcProfileWorkspace />
+                    <BcProfileWorkspace {...props} />
                 </HStack>
             </View>
         </BcBoxShadow>
@@ -535,6 +535,9 @@ function Index(props) {
 
     const devDistChartHook = useDevDistChart();
     const [devDistChart, setDevDistChart, devDistChartLegend] = devDistChartHook;
+
+    const profileWsHook = useProfileWs(prwsId);
+    const [profileWs, profileWsLs, setProfileWsLs, selectProfileWs] = profileWsHook;
     // #endregion
 
     // #region UseEffect
@@ -653,14 +656,16 @@ function Index(props) {
     }
     // #endregion
 
+    const { Name = "Default", WsColor = "#c3c3c3" } = profileWs;
+
     return (
         <>
-            <BcLoading loading={false} />
+            <BcLoading loading={loading} />
             <SafeAreaView style={{ flex: 1 }}>
-                <View style={{ flex: 1 }}>
+                <View style={{ flex: 1 }} bgColor={Utility.colorOpacity(WsColor, 0.25)}>
 
                     {/* Header */}
-                    <Header />
+                    <Header hook={profileWsHook}  />
 
                     <View style={{ height: 10 }} />
 
@@ -677,7 +682,6 @@ function Index(props) {
                         )
                     }
 
-                
                     {/* Body */}
                     <ScrollView
                         showsVerticalScrollIndicator={false}
@@ -686,11 +690,8 @@ function Index(props) {
                         {
                             (Object.keys(chart).length > 0 || Object.keys(spBarChart).length > 0 || Object.keys(aqChart).length > 0) ? (
                                 <View flexGrow={1}>
-                                    <HStack
-                                        flexWrap={"wrap"}
-                                        rowGap={10}
-                                        alignItems={"flex-start"}
-                                        justifyContent={"space-between"}>
+                                    <HStack flexWrap={"wrap"} rowGap={10}
+                                        alignItems={"flex-start"} justifyContent={"space-between"}>
                                         {
                                             (Object.keys(chart).length > 0) ? (
                                                 <View px={3} style={{ width: width }}>
@@ -707,7 +708,6 @@ function Index(props) {
                                             (Object.keys(spBarChart).length > 0) ? (
                                                 <View px={3} style={{ width: width }}>
                                                     <BcViewShot title="Total KiloWatt (KWh) Report">
-                                                        {/* <BcApacheChartFull hook={spChartHook} height={400} /> */}
                                                         <BcApacheBarChartFull hook={spBarChartHook} height={400} />
                                                     </BcViewShot>
                                                 </View>

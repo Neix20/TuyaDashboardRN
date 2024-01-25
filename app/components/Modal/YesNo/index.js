@@ -7,8 +7,9 @@ import { BaseModal } from "@components";
 function Index(props) {
 
     const { title = "Title", description = "Description" } = props;
-    const { onPressYes = () => {}, onPressNo = () => {} } = props;
+
     const { titleYes = "Yes", titleNo = "No" } = props;
+    const { onPressYes = () => {}, onPressNo = () => {} } = props;
 
     const style = {
         title: { 
@@ -18,7 +19,7 @@ function Index(props) {
         description: {
             fontFamily: "Roboto-Bold",
             fontSize: 16,
-            textAlign: "justify",
+            textAlign: "center",
             color: "#000",
         },
         titleYes: {

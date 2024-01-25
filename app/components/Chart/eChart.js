@@ -122,7 +122,7 @@ function Index(props) {
 	// #endregion
 
 	// #region Variables
-	let optDataSet = dataset.map(x => ({ ...x, type: "line", symbol: "square", symbolSize: 5 }));
+	let optDataSet = dataset.map(x => ({ ...x, type: "line", symbol: "emptyCircle", symbolSize: 5 }));
 
 	if (comfort) {
 
@@ -305,6 +305,10 @@ function Index(props) {
 							const res = `${marker} ${value.toFixed(2)}${unit}`;
 							resArr.push(res);
 						})
+
+						if (comfort) {
+							resArr = resArr.slice(0, resArr.length - 2);
+						}
 	
 						return resArr.join("\n");
 					}

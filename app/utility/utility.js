@@ -342,7 +342,7 @@ function genLabel(start, end, data_point = 10) {
 	return points;
 }
 
-function genTsLabel(start, end, data_point = 100, format="hh:mma") {
+function genTsLabel(start, end, data_point = 100, format = "hh:mma") {
 	const start_dt = DateTime.fromISO(start);
 	const end_dt = DateTime.fromISO(end);
 
@@ -353,13 +353,13 @@ function genTsLabel(start, end, data_point = 100, format="hh:mma") {
 
 	for (let ind = 0; ind < data_point; ind += 1) {
 		const dt = start_dt.plus({ seconds: ind * step });
-		
+
 		const point = dt.toFormat(format);
 		points.push(point);
 	}
 
 	return points;
-} 
+}
 
 function checkAppVersion(str) {
 	const [a = 0, b = 0, c = 0] = str.split(".");
@@ -402,7 +402,7 @@ function genUnit(key) {
 		"Total KiloWatt (KWh)": "KWh",
 	}
 
-	if(key in dict) {
+	if (key in dict) {
 		return " " + dict[key]
 	}
 
@@ -413,7 +413,7 @@ function getServiceId() {
 
 	const { OS = "" } = Platform;
 
-	if (OS === "android" ) {
+	if (OS === "android") {
 		return 4001;
 	}
 
@@ -422,6 +422,37 @@ function getServiceId() {
 	}
 
 	return 4001;
+}
+
+function colorHue(hex, percent = 0.8) {
+	// Parse the hex color string to RGB
+	let r = parseInt(hex.substring(1, 3), 16);
+	let g = parseInt(hex.substring(3, 5), 16);
+	let b = parseInt(hex.substring(5, 7), 16);
+
+	// Adjust the RGB values to lighten the color
+	r = Math.floor(r * (1 + percent));
+	g = Math.floor(g * (1 + percent));
+	b = Math.floor(b * (1 + percent));
+
+	// Ensure the values are within the valid range
+	r = r > 255 ? 255 : r;
+	g = g > 255 ? 255 : g;
+	b = b > 255 ? 255 : b;
+
+	// Convert the RGB values back to a hexadecimal color
+	const newHex = `#${(r << 16 | g << 8 | b).toString(16).padStart(6, '0')}`;
+	return newHex;
+}
+
+function colorOpacity(hex, opacity = 0.8) {
+	// Parse the hex color string to RGB
+	let r = parseInt(hex.substring(1, 3), 16);
+	let g = parseInt(hex.substring(3, 5), 16);
+	let b = parseInt(hex.substring(5, 7), 16);
+
+	// Return the color in rgba format with the specified opacity
+	return `rgba(${r}, ${g}, ${b}, ${opacity})`;
 }
 
 export {
@@ -481,4 +512,9 @@ export {
 	formatArrWithBase64,
 	roundDown,
 	translate
+}
+
+export {
+	colorHue,
+	colorOpacity
 }
