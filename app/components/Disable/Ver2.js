@@ -4,6 +4,7 @@ import { View } from "native-base";
 
 function Index(props) {
     const { children, backgroundColor = "#fff", opacity = 0.5, style = {} } = props;
+
     return (
         <View style={style}>
             {/* Front Layer */}

@@ -10,7 +10,7 @@ import { Logger, Utility } from "@utility";
 import { Images, Svg } from "@config";
 
 import { BcBoxShadow, BcSvgIcon, BcLoading, BcYatuHome, BcProfileWorkspace } from "@components";
-import { BcDateRange, BcViewShot, BcApacheChartFull, BcDataAttribute, BcApacheBarChartFull, BcApachePieChart}  from "@components";
+import { BcDateRange, BcViewShot, BcApacheChartFull, BcDataAttribute, BcApacheBarChartFull, BcApachePieChart, BcUserStatus } from "@components";
 
 import { DateTime } from "luxon";
 
@@ -32,8 +32,11 @@ function Header(props) {
                     height: 60,
                     backgroundColor: "#fff",
                 }}>
-                <HStack justifyContent={"space-between"} style={{ width: "90%" }}>                    
-                    <BcProfileWorkspace {...props} />
+                <HStack alignItems={"center"} justifyContent={"space-between"} style={{ width: "90%" }}>
+                    <HStack alignItems={"center"} space={3}>
+                        <BcProfileWorkspace {...props} />
+                        <BcUserStatus />
+                    </HStack>
                 </HStack>
             </View>
         </BcBoxShadow>
@@ -417,25 +420,25 @@ function DashboardReport(props) {
     const { humidity = false, voltage = false, airQuality = false } = dashboardReportFlag;
 
     const onChangeHumidity = () => {
-        const next_state = { 
-            ...dashboardReportFlag, 
-            humidity: !humidity 
+        const next_state = {
+            ...dashboardReportFlag,
+            humidity: !humidity
         };
         dispatch(Actions.onChangeDashboardReportFlag(next_state));
     }
 
     const onChangeVoltage = () => {
-        const next_state = { 
-            ...dashboardReportFlag, 
-            voltage: !voltage 
+        const next_state = {
+            ...dashboardReportFlag,
+            voltage: !voltage
         };
         dispatch(Actions.onChangeDashboardReportFlag(next_state));
     }
 
     const onChangeAirQuality = () => {
-        const next_state = { 
-            ...dashboardReportFlag, 
-            airQuality: !airQuality 
+        const next_state = {
+            ...dashboardReportFlag,
+            airQuality: !airQuality
         };
         dispatch(Actions.onChangeDashboardReportFlag(next_state));
     }
@@ -456,7 +459,7 @@ function DashboardReport(props) {
     }
     // #endregion
 
-    const { flag, func = () => {}} = dict[title];
+    const { flag, func = () => { } } = dict[title];
     const [showDaInfo, setShowDaInfo, toggleDaInfo] = useToggle(flag);
     const onToggleDaInfo = () => {
         toggleDaInfo();
@@ -564,32 +567,32 @@ function Index(props) {
             },
             onSetLoading: setLoading,
         })
-        .then(res => {
-            if ("IR Temperature" in res) {
-                const Data = res["IR Temperature"];
-                setChart(Data);
-            } else {
-                setChart({})
-            }
+            .then(res => {
+                if ("IR Temperature" in res) {
+                    const Data = res["IR Temperature"];
+                    setChart(Data);
+                } else {
+                    setChart({})
+                }
 
-            if ("Smart Plug KWh" in res) {
-                const Data = res["Smart Plug KWh"];
-                setSpBarChart(Data);
-            } else {
-                setSpBarChart({});
-            }
+                if ("Smart Plug KWh" in res) {
+                    const Data = res["Smart Plug KWh"];
+                    setSpBarChart(Data);
+                } else {
+                    setSpBarChart({});
+                }
 
-            if ("Air Quality" in res) {
-                const Data = res["Air Quality"];
-                setAqChart(Data);
-            } else {
-                setAqChart({});
-            }
-        })
-        .catch(err => {
-            setLoading(false);
-            console.log(`Error: ${err}`);
-        })
+                if ("Air Quality" in res) {
+                    const Data = res["Air Quality"];
+                    setAqChart(Data);
+                } else {
+                    setAqChart({});
+                }
+            })
+            .catch(err => {
+                setLoading(false);
+                console.log(`Error: ${err}`);
+            })
     }
 
     const ReportData = () => {
@@ -665,15 +668,15 @@ function Index(props) {
                 <View style={{ flex: 1 }} bgColor={Utility.colorOpacity(WsColor, 0.25)}>
 
                     {/* Header */}
-                    <Header hook={profileWsHook}  />
+                    <Header hook={profileWsHook} />
 
                     <View style={{ height: 10 }} />
 
                     {
                         (isPort) ? (
                             <>
-                                <BcDateRange 
-                                    showCompare={false} hook={dateHook} 
+                                <BcDateRange
+                                    showCompare={false} hook={dateHook}
                                     prevHook={cmpDateHook} flagHook={chartCompareHook} />
                                 <View style={{ height: 10 }} />
                             </>

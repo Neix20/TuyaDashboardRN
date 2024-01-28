@@ -94,8 +94,6 @@ function Profile(props) {
 
     const { Email = "temp@gmail.com" } = props;
 
-    const { Created_Date = "2023-07-01", DataAvailableDate = "2023-07-01" } = props;
-
     const subUserAccess = useSelector(Selectors.subUserAccessSelect);
     const { AccountType = -1 } = subUserAccess;
 
@@ -114,7 +112,7 @@ function Profile(props) {
                                 fontSize: 18
                             }}>{Email}</Text>
 
-                            {/* <ProfilePremium AccountType={AccountType} /> */}
+                            <ProfilePremium AccountType={AccountType} />
                         </VStack>
                     </HStack>
 
@@ -128,13 +126,16 @@ function Profile(props) {
 
 function ProfileInfo(props) {
 
-    const { Created_Date = "2023-07-01", DataAvailableDate = "2023-07-01", ExpiryDate = "2023-07-01" } = props;
+    const { Created_Date = "2023-07-01", DataAvailableDate = "2023-07-01" } = props;
+
+    const subUserAccess = useSelector(Selectors.subUserAccessSelect);
+    const { DeviceQty = 0, ExpiryDate = "2023-07-01" } = subUserAccess;
 
     return (
         <VStack bgColor={"#FFF"} borderRadius={8} width={"90%"} alignItems={"center"}>
             <PanelBtnII Btn={FontAwesome} icon={"user"} title={"Joined in " + Utility.formatDt(Created_Date, "yyyy-MM-dd")} />
             <PanelBtnII Btn={FontAwesome5} icon={"user-alt-slash"} title={"Expires In " + Utility.formatDt(ExpiryDate, "yyyy-MM-dd")} />
-            <PanelBtnII Btn={FontAwesome5} icon={"database"} title={"Data available from " + Utility.formatDt(DataAvailableDate, "yyyy-MM-dd")} />
+            <PanelBtnII Btn={FontAwesome5} icon={"tools"} title={`Available Device Count: ${DeviceQty}`} />
         </VStack>
     )
 }
@@ -228,7 +229,8 @@ function NavPanel(props) {
     return (
         <VStack bgColor={"#FFF"} borderRadius={8} width={"90%"} alignItems={"center"}>
             <PanelBtn onPress={GoToProfileWorkspace} Btn={Ionicons} icon={"settings-sharp"} title={"View Profile Workspace"} />
-            {/* <PanelBtn onPress={GoToSubscription} Btn={FontAwesome5} icon={"shopping-cart"} title={"View Purchased Add-Ons"} /> */}
+            <PanelBtn onPress={GoToSubscription} Btn={FontAwesome5} icon={"shopping-cart"} title={"View Purchased Add-Ons"} />
+            <PanelBtn onPress={GoToUserToken} Btn={FontAwesome} icon={"ticket"} title={"View Token Wallet"} />
         </VStack>
     )
 }
@@ -286,6 +288,28 @@ function TokenSubscriptionPanel(props) {
             <PanelBtn
                 onPress={GoToRedeemToken} title={"Redeem your Activation Tokens!"}
                 Btn={FontAwesome} icon={"ticket"}
+                color={"#FFAA00"} showRight={false} />
+        </VStack>
+    )
+}
+
+function AuthUserCheckTuyaEmail(props) {
+
+    const navigation = useNavigation();
+
+    const subUserAccess = useSelector(Selectors.subUserAccessSelect);
+    const { Email = "" } = subUserAccess;
+
+    const AuthUser = () => {
+        navigation.navigate("CheckTuyaEmail", { Email: Email })
+    };
+
+    return (
+        <VStack bgColor={"#FFF"} borderRadius={8}
+            width={"90%"} alignItems={"center"}>
+            <PanelBtn
+                onPress={AuthUser} title={"Authenticate User"}
+                Btn={FontAwesome} icon={"user-plus"}
                 color={"#FFAA00"} showRight={false} />
         </VStack>
     )
@@ -419,7 +443,7 @@ function Index(props) {
     const userId = useSelector(Selectors.userIdSelect);
 
     const subUserAccess = useSelector(Selectors.subUserAccessSelect);
-    const { AccountType = -1 } = subUserAccess;
+    const { AccountType = -1, UserStatus = 0 } = subUserAccess;
 
     // #region UseState
     const [profileInfo, setProfileInfo] = useState({});
@@ -530,10 +554,11 @@ function Index(props) {
                             {/* Join Information */}
                             <ProfileInfo {...profileInfo} />
 
-                            {/* <NavPanel {...profileInfo} /> */}
+                            <NavPanel {...profileInfo} />
 
                             {/* Make Payment */}
-                            {/* {(AccountType <= 2) ? <PaymentSubscriptionPanel /> : <></>} */}
+                            {(AccountType <= 2) ? <PaymentSubscriptionPanel /> : <></>}
+                            {(UserStatus == 0) ? <AuthUserCheckTuyaEmail /> : <></>}
                             {/* <TokenSubscriptionPanel /> */}
 
                             <CompanyInfoPanel />
@@ -557,7 +582,7 @@ function Index(props) {
                                 fontFamily: "Roboto-Medium",
                                 fontSize: 16,
                                 color: "#2898FF"
-                            }}>v{clsConst.APP_VERSION}</Text>
+                            }}>v{clsConst.PRO_APP_VERSION}</Text>
                             <Text style={{
                                 fontFamily: "Roboto-Medium",
                                 fontSize: 16,

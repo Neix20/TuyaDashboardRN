@@ -58,7 +58,7 @@ function ProfilePremium(props) {
             },
             2: {
                 color: "#2898FF",
-                term: "Professional (Trial)"
+                term: "Free"
             },
             3: {
                 color: "#FFAA00",
@@ -114,7 +114,7 @@ function Profile(props) {
                                 fontSize: 18
                             }}>{Email}</Text>
 
-                            {/* <ProfilePremium AccountType={AccountType} /> */}
+                            <ProfilePremium AccountType={AccountType} />
                         </VStack>
                     </HStack>
 
@@ -128,13 +128,16 @@ function Profile(props) {
 
 function ProfileInfo(props) {
 
-    const { Created_Date = "2023-07-01", DataAvailableDate = "2023-07-01", ExpiryDate = "2023-07-01" } = props;
+    const { Created_Date = "2023-07-01", DataAvailableDate = "2023-07-01" } = props;
+
+    const subUserAccess = useSelector(Selectors.subUserAccessSelect);
+    const { DeviceQty = 0, ExpiryDate = "2023-07-01" } = subUserAccess;
 
     return (
         <VStack bgColor={"#FFF"} borderRadius={8} width={"90%"} alignItems={"center"}>
             <PanelBtnII Btn={FontAwesome} icon={"user"} title={"Joined in " + Utility.formatDt(Created_Date, "yyyy-MM-dd")} />
             <PanelBtnII Btn={FontAwesome5} icon={"user-alt-slash"} title={"Expires In " + Utility.formatDt(ExpiryDate, "yyyy-MM-dd")} />
-            <PanelBtnII Btn={FontAwesome5} icon={"database"} title={"Data available from " + Utility.formatDt(DataAvailableDate, "yyyy-MM-dd")} />
+            <PanelBtnII Btn={FontAwesome5} icon={"tools"} title={`Available Device Count: ${DeviceQty}`} />
         </VStack>
     )
 }
@@ -300,7 +303,7 @@ function AuthUserCheckTuyaEmail(props) {
     const { Email = "" } = subUserAccess;
 
     const AuthUser = () => {
-        navigation.navigate("CheckTuyaEmail", { Email })
+        navigation.navigate("CheckTuyaEmail", { Email: Email })
     };
 
     return (
@@ -442,7 +445,7 @@ function Index(props) {
     const userId = useSelector(Selectors.userIdSelect);
 
     const subUserAccess = useSelector(Selectors.subUserAccessSelect);
-    const { AccountType = -1 } = subUserAccess;
+    const { UserStatus = 0 } = subUserAccess;
 
     // #region UseState
     const [profileInfo, setProfileInfo] = useState({});
@@ -558,8 +561,8 @@ function Index(props) {
                             {/* Make Payment */}
                             {/* {(AccountType <= 2) ? <PaymentSubscriptionPanel /> : <></>} */}
                             <TokenSubscriptionPanel />
-                            
-                            <AuthUserCheckTuyaEmail />
+
+                            {(UserStatus == 0) ? <AuthUserCheckTuyaEmail /> : <></>}
 
                             <CompanyInfoPanel />
 
@@ -582,7 +585,7 @@ function Index(props) {
                                 fontFamily: "Roboto-Medium",
                                 fontSize: 16,
                                 color: "#2898FF"
-                            }}>v{clsConst.APP_VERSION}</Text>
+                            }}>v{clsConst.LITE_APP_VERSION}</Text>
                             <Text style={{
                                 fontFamily: "Roboto-Medium",
                                 fontSize: 16,

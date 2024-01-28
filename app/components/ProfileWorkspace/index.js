@@ -125,6 +125,7 @@ function Index(props) {
     };
 
     const ProfileWorkspace = () => {
+        console.log(userId);
         setLoading(true);
 
         fetchProfileWorkspace({
@@ -134,7 +135,6 @@ function Index(props) {
             onSetLoading: setLoading
         })
             .then(data => {
-                console.log(data[0]);
                 setProfileWsLs(data);
             })
             .catch(err => {

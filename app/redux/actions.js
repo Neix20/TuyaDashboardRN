@@ -110,6 +110,13 @@ const onChangeLoginAccess = (loginAccess) => {
     }
 }
 
+const onChangeYatuAuth = (yatuAuth) => {
+    return {
+        type: "SET_YATU_AUTH",
+        yatuAuth: yatuAuth,
+    }
+};
+
 export {
     onChangeDefaultValue,
     onChangeUserId,
@@ -126,5 +133,6 @@ export {
     onChangeDashboardReportFlag,
     onChangePremiumPayFlag,
     onChangeProfileWorkspaceId,
-    onChangeLoginAccess
+    onChangeLoginAccess,
+    onChangeYatuAuth
 }

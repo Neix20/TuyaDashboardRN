@@ -80,11 +80,25 @@ function useFlag() {
 // #endregion
 
 // #region Modals
+
+import { Platform, Linking } from "react-native";
+
 function ATSModal(props) {
 
-    const { onPress = () => { } } = props;
-
+    const { setShowModal = () => { } } = props;
     const [cusToast, showMsg] = useModalToast();
+
+    const onSelect = () => {
+        setShowModal(false);
+
+        const url = Platform.select({
+            ios: "https://apps.apple.com/my/app/smart-life-smart-living/id1115101477",
+            android: "https://play.google.com/store/apps/details?id=com.tuya.smartlife&hl=en&gl=my"
+        })
+
+        Linking.openURL(url)
+
+    }
 
     return (
         <BaseIIModal cusToast={cusToast} style={{ margin: 10 }}
@@ -98,16 +112,16 @@ function ATSModal(props) {
                         color: "#000",
                         textAlign: "center",
                     }}>Sorry, we can't sync your account. Please register a Tuya or Smart Life account before continue on Yatu.</Text>
-                    <TouchableOpacity onPress={onPress}
+                    <TouchableOpacity onPress={onSelect}
                         style={{ height: 48, width: "100%" }}>
                         <View flex={1} backgroundColor={"#2898FF"}
                             borderRadius={8}
                             alignItems={"center"} justifyContent={"center"}>
-                            <Text style={[{
+                            <Text style={{
                                 fontSize: 16,
                                 fontWeight: "bold",
                                 color: "#FFF",
-                            }]}>Exit</Text>
+                            }}>Sync Smart Life</Text>
                         </View>
                     </TouchableOpacity>
                 </VStack>
@@ -401,7 +415,10 @@ function Index(props) {
     const flagHook = useFlag();
     const [flag, setFlag, toggleAts, setAtsOn, setAtsOff, toggleRts, setRtsOn, setRtsOff, syncFlag] = flagHook;
 
-    const emailHook = useState("");
+    const { Email: pEmail = "" } = props.route.params;
+    const userId = useSelector(Selectors.userIdSelect);
+
+    const emailHook = useState(pEmail);
     const [email, setEmail] = emailHook;
 
     const { ats: atsFlag, rts: rtsFlag } = flag;
@@ -428,6 +445,9 @@ function Index(props) {
         navigation.navigate("AuthTuya", {
             Email: email
         });
+        // toast.show({
+        //     description: email
+        // })
     }
 
     const onToggleAtsModal = () => {
@@ -446,6 +466,23 @@ function Index(props) {
     }
     // #endregion
 
+    // [ ] Fix Me
+    const CheckTuyaEmail = () => {
+        fetchCheckTuyaEmail({
+            param: {
+                UserId: userId,
+                TuyaEmail: email
+            },
+            onSetLoading: () => { }
+        })
+            .then(data => {
+                toggleRts();
+            })
+            .catch(err => {
+                console.log(`Error: ${err}`);
+            })
+    }
+
     return (
         <>
             <BcYesNoModal showModal={showExitModal} setShowModal={setShowExitModal}
@@ -453,7 +490,7 @@ function Index(props) {
                 onPressYes={GoBack}
                 onPressNo={toggleExitModal}
                 description={"Are you sure you want to exit this page?"} />
-            <ATSModal showModal={showAtsModal} setShowModal={setShowAtsModal} onPress={GoBack} />
+            <ATSModal showModal={showAtsModal} setShowModal={setShowAtsModal} />
             <RtsEmailModal showModal={showRtsModal} setShowModal={setShowRtsModal} onDone={onEmailDone} emailHook={emailHook} />
             <SafeAreaView style={{ flex: 1 }}>
                 <View bgColor={"#F3F8FC"} style={{ flex: 1 }}>

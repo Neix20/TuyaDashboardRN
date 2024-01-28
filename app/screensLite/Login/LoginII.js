@@ -296,7 +296,13 @@ function ExistLoginForm(props) {
                         // Go To Token
                         if (FirstTimeUserId == 1) {
                             dispatch(Actions.onChangeFirstTimeLink(true));
-                            navigation.navigate("TokenActivation");
+                            GoToDevice();
+                        }
+                        
+                        if (FirstTimeUserId == 2) {
+                            dispatch(Actions.onChangeLoginAccess(1));
+                            dispatch(Actions.onChangeFirstTimeLink(false));
+                            GoToDevice();
                         }
                         // User is Existing User: FirstTimeUserId == -1
                         else if (FirstTimeUserId == -1) {
@@ -341,6 +347,15 @@ function ExistLoginForm(props) {
     const GoToHome = () => {
         navigation.navigate("TabNavigation", {
             screen: "Dashboard",
+        });
+
+        clearForm();
+        setTimer(0);
+    }
+
+    const GoToDevice = () => {
+        navigation.navigate("TabNavigation", {
+            screen: "Device",
         });
 
         clearForm();
@@ -729,7 +744,7 @@ function Index(props) {
                                 style={{ height: 600 }}>
                                 {/* Logo Header */}
                                 <View alignItems={"center"}>
-                                    <BcSvgIcon name={"AppLogo"} width={160} height={160} color={"#2898FF"} />
+                                    <BcSvgIcon name={"AppLogoLite"} width={160} height={160} color={"#2898FF"} />
                                 </View>
 
                                 {/* <LoginForm loading={loading} setLoading={setLoading} /> */}
@@ -737,32 +752,12 @@ function Index(props) {
                                 <VStack width={"100%"} space={5} alignItems={"center"}>
                                     <TouchableOpacity onPress={toggleExLoginModal}
                                         style={{ width: "80%", height: 48 }}>
-                                        <View flex={1} alignItems={"center"} justifyContent={"center"} bgColor={"#2898FF"}>
-                                            <Text style={{
-                                                fontFamily: "Roboto-Bold",
-                                                fontSize: 16,
-                                                color: "#FFF"
-                                            }}>Login</Text>
-                                        </View>
-                                    </TouchableOpacity>
-
-                                    {/* <TouchableOpacity onPress={toggleSubLoginModal}
-                                        style={{ width: "80%", height: 48 }}>
                                         <View flex={1} alignItems={"center"} justifyContent={"center"} bgColor={"#FFF"}>
                                             <Text style={{
                                                 fontFamily: "Roboto-Bold",
-                                                fontSize: 16
-                                            }}>Login as Sub-User</Text>
-                                        </View>
-                                    </TouchableOpacity> */}
-
-                                    <TouchableOpacity onPress={TryAsGuest}
-                                        style={{ width: "80%" }}>
-                                        <View alignItems={"center"}>
-                                            <Text style={{
-                                                fontFamily: "Roboto-Bold",
-                                                fontSize: 16
-                                            }}>Try As Guest</Text>
+                                                fontSize: 16,
+                                                color: "#2898FF"
+                                            }}>Login</Text>
                                         </View>
                                     </TouchableOpacity>
                                 </VStack>
@@ -783,7 +778,7 @@ function Index(props) {
                         <Text style={{
                             fontFamily: "Roboto-Medium",
                             fontSize: 14
-                        }}>© Version {clsConst.APP_VERSION}</Text>
+                        }}>© Version {clsConst.LITE_APP_VERSION}</Text>
                     </View>
 
                 </View>

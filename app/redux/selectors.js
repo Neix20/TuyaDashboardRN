@@ -18,6 +18,8 @@ const premiumPayFlagSelect = (state) => state.premiumPayFlag;
 const profileWorkspaceIdSelect = (state) => state.profileWorkspaceId;
 const loginAccessSelect = (state) => state.loginAccess;
 
+const yatuAuthSelect = (state) => state.yatuAuth;
+
 export {
     defaultValueSelect,
     userIdSelect,
@@ -34,5 +36,6 @@ export {
     dashboardReportFlagSelect,
     premiumPayFlagSelect,
     profileWorkspaceIdSelect,
-    loginAccessSelect
+    loginAccessSelect,
+    yatuAuthSelect
 }

@@ -259,7 +259,80 @@ function PaymentIap() {
     )
 }
 
-export default withIAPContext(PaymentIap);
+import AppLink from 'react-native-app-link';
+
+import { Linking } from "react-native";
+
+function OpenTuyaApp(props) {
+
+    const toast = useToast();
+    const navigation = useNavigation();
+    const isFocused = useIsFocused();
+
+    const links = [
+        "https://apps.apple.com/my/app/smart-life-smart-living/id=1115101477"
+    ];
+
+    const tuyaLink = {
+        appName: "Smart Life",
+        appStoreId: "1115101477",
+        appStoreLocale: "us",
+        playStoreId: "com.tuya.smartlife"
+    }
+
+    const openTuyaLink = () => {
+
+        Linking.openURL(links[0]);
+       
+        // AppLink.openInStore(tuyaLink).then(() => {
+        //     // do stuff
+        //     toast.show({
+        //         description: "Nani the Fuck"
+        //     })
+        //   })
+        //   .catch((err) => {
+        //     // handle error
+        //     console.error(err);
+        //   });
+    }
+
+    return (
+        <SafeAreaView style={{ flex: 1 }}>
+            <View style={{ flex: 1 }}>
+        
+                {/* Header */}
+                <View style={{ height: 80 }} />
+        
+                <View style={{ height: 10 }} />
+        
+                {/* Body */}
+                <ScrollView showsVerticalScrollIndicator={false} 
+                    keyboardShouldPersistTaps={"handled"}
+                    contentContainerStyle={{ flexGrow: 1 }}>
+                    <View flexGrow={1} justifyContent={"center"} alignItems={"center"}>
+                        <TouchableOpacity onPress={openTuyaLink} style={{ width: "60%", height: 40 }}>
+                            <View flex={1} backgroundColor={"#F00"}
+                                alignItems={"center"} justifyContent={"center"}>
+                                <Text style={{
+                                    fontSize: 14,
+                                    fontWeight: "bold",
+                                    color: "white",
+                                }}>Open Smart Life</Text>
+                            </View>
+                        </TouchableOpacity>
+                    </View>
+                </ScrollView>
+        
+                {/* Footer */}
+                <View style={{ height: 60 }} />
+            </View>
+        </SafeAreaView>
+    )
+}
+
+export default OpenTuyaApp;
+
+// export default withIAPContext(PaymentIap);
 
 // import Dashboard from "./Dashboard";
 // export default Dashboard;

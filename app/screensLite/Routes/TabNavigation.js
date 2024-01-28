@@ -49,10 +49,10 @@ function TabIconFontAwesome(props) {
 }
 
 // Screens
-import Dashboard from "@screensPro/Dashboard";
-import Device from "@screensPro/Device";
-import Profile from "@screensPro/Profile";
-import ProfileWorkspace from "@screensPro/ProfileWorkspace";
+import Dashboard from "@screensLite/Dashboard";
+import Device from "@screensLite/Device";
+import Profile from "@screensLite/Profile";
+import ProfileWorkspace from "@screensLite/ProfileWorkspace";
 
 let TabScreens = {};
 
@@ -124,7 +124,8 @@ function Index(props) {
     }, [isFocused]);
     // #endregion
 
-    const defaultScreen = "Dashboard";
+    // const defaultScreen = "Dashboard";
+    const defaultScreen = "Device";
 
     return (
         <BcTabNavigator

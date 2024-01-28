@@ -11,7 +11,7 @@ import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 import { Logger, Utility } from "@utility";
 import { Images, Svg } from "@config";
 
-import { BcHeader, BcLoading, BcBoxShadow, BcSvgIcon } from "@components";
+import { BcHeader, BcLoading, BcBoxShadow, BcSvgIcon, BcUserStatus } from "@components";
 import { fetchGetParamApi, fetchUpdateProfileWorkspace, fetchProfileWorkspace } from "@api";
 
 import { useToggle } from "@hooks";

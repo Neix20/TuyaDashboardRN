@@ -3,7 +3,7 @@ import React, { useEffect } from "react";
 import { Text, BackHandler } from "react-native";
 import { View, VStack } from "native-base";
 
-import { BcTabNavigator } from "@components";
+import { BcTabNavigator, BcSvgIcon, BcPremiumModal } from "@components";
 
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
@@ -104,10 +104,30 @@ TabScreens = {
     }
 };
 
+import PayProSubModal from "@screens/PaymentModule/screens/ProSubscription/Modal";
+
 function Index(props) {
 
     const navigation = useNavigation();
     const isFocused = useIsFocused();
+
+    const dispatch = useDispatch();
+
+    // #region Redux
+    const linkTimer = useSelector(Selectors.linkTimerSelect);
+
+    const subUserAccess = useSelector(Selectors.subUserAccessSelect);
+    const { AccountType = -1 } = subUserAccess;
+
+    const premiumPayFlag = useSelector(Selectors.premiumPayFlagSelect);
+    // #endregion
+
+    // #region UseState
+    const [showPsModal, setShowPsModal, togglePsModal] = useToggle(false);
+    const openPsModal = () => setShowPsModal(true);
+
+    const [showPreModal, setShowPreModal, togglePreModal] = useToggle(false);
+    // #endregion
 
     // #region UseEffect
     useEffect(() => {
@@ -122,15 +142,43 @@ function Index(props) {
         const backHandler = BackHandler.addEventListener("hardwareBackPress", backAction);
         return () => backHandler.remove();
     }, [isFocused]);
+
+    useEffect(() => {
+        const timeout = setTimeout(() => {
+            if (navigation.isFocused()) {
+                openPsModal();
+            }
+        }, 3000)
+        return () => clearTimeout(timeout);
+    }, []);
+
+    useEffect(() => {
+        const timeout = setTimeout(() => {
+            if (premiumPayFlag) {
+                togglePreModal();
+            }
+        }, 3000)
+        return () => clearTimeout(timeout);
+    }, []);
     // #endregion
 
-    const defaultScreen = "Dashboard";
+    const defaultScreen = (linkTimer > 0) ? "Device" : "Dashboard";
+    // const defaultScreen = "Profile";
+
+    const closePreModal = () => {
+        dispatch(Actions.onChangePremiumPayFlag(false));
+        togglePreModal();
+    }
 
     return (
-        <BcTabNavigator
-            screens={TabScreens}
-            defaultScreen={defaultScreen}
-        />
+        <>
+            <BcPremiumModal showModal={premiumPayFlag && showPreModal} setShowModal={closePreModal} />
+            <PayProSubModal showModal={showPsModal && AccountType == 2} setShowModal={setShowPsModal} />
+            <BcTabNavigator
+                screens={TabScreens}
+                defaultScreen={defaultScreen}
+            />
+        </>
     )
 }
 

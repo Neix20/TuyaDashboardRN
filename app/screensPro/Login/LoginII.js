@@ -294,17 +294,19 @@ function ExistLoginForm(props) {
 
                         // If User Logins For First Time
                         if (FirstTimeUserId == 1) {
-                            dispatch(Actions.onChangeFirstTimeLink(true));
-                            navigation.navigate("CheckTuyaEmail", {
-                                Email: email,
-                            })
+                            // Pop Up Message Authenticate at Yatu Lite
+                            dispatch(Actions.onChangeLoginAccess(1));
+                            dispatch(Actions.onChangeFirstTimeLink(false));
+                            GoToProfile();
+                            // toast.show({
+                            //     description: "Please Authenticate at Yatu Lite"
+                            // })
                         }
                         // User has login first time, but failed to authenticate
-                        else if (FirstTimeUserId == 2) {
-                            dispatch(Actions.onChangeFirstTimeLink(true));
-                            navigation.navigate("AuthTuya", {
-                                Email: email,
-                            })
+                        if (FirstTimeUserId == 2) {
+                            dispatch(Actions.onChangeLoginAccess(1));
+                            dispatch(Actions.onChangeFirstTimeLink(false));
+                            GoToProfile();
                         }
                         // User is Existing User: FirstTimeUserId == -1
                         else if (FirstTimeUserId == -1) {
@@ -349,6 +351,15 @@ function ExistLoginForm(props) {
     const GoToHome = () => {
         navigation.navigate("TabNavigation", {
             screen: "Dashboard",
+        });
+
+        clearForm();
+        setTimer(0);
+    }
+
+    const GoToProfile = () => {
+        navigation.navigate("TabNavigation", {
+            screen: "Profile",
         });
 
         clearForm();
@@ -791,7 +802,7 @@ function Index(props) {
                         <Text style={{
                             fontFamily: "Roboto-Medium",
                             fontSize: 14
-                        }}>© Version {clsConst.APP_VERSION}</Text>
+                        }}>© Version {clsConst.PRO_APP_VERSION}</Text>
                     </View>
 
                 </View>

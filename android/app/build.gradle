@@ -101,6 +101,8 @@ android {
         versionCode 12021
         versionName "12021"
 
+        missingDimensionStrategy 'react-native-camera', 'general'
+
 //        ndk {
 //            abiFilters "armeabi-v7a", "arm64-v8a"
 //        }

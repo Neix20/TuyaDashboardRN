@@ -18,6 +18,7 @@ const initialState = {
     premiumPayFlag: false,
     profileWorkspaceId: -1,
     loginAccess: 1,
+    yatuAuth: -1,
 };
 
 function setReducer(state = initialState, action = {}) {
@@ -101,6 +102,11 @@ function setReducer(state = initialState, action = {}) {
             return {
                 ...state,
                 loginAccess: action.loginAccess,
+            };
+        case "SET_YATU_AUTH":
+            return {
+                ...state,
+                yatuAuth: action.yatuAuth,
             };
         default: {
             return {

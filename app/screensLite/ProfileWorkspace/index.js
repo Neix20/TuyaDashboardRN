@@ -8,10 +8,7 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 
-import { Logger, Utility } from "@utility";
-import { Images, Svg } from "@config";
-
-import { BcHeader, BcLoading, BcBoxShadow, BcSvgIcon } from "@components";
+import { BcHeader, BcLoading, BcBoxShadow, BcSvgIcon, BcUserStatus } from "@components";
 import { fetchProfileWorkspace } from "@api";
 
 import { useToggle } from "@hooks";
@@ -28,7 +25,7 @@ function useProfileWs(val = []) {
     const updateLs = (arr = []) => {
         if (arr.length > 0) {
 
-            arr =arr.filter(x => x.Code !== "PFWS0001");
+            arr = arr.filter(x => x.Code !== "PFWS0001");
 
             arr = arr.map((obj, pos) => {
 
@@ -39,7 +36,7 @@ function useProfileWs(val = []) {
                 return {
                     ...obj,
                     img: { uri: Image },
-                    pos, 
+                    pos,
                     flag,
                 }
             });
@@ -90,8 +87,11 @@ function Header(props) {
                     style={{ width: "90%" }}>
 
                     {/* Logo */}
-                    {/* <BcYatuHome /> */}
-                    <BcSvgIcon name={"Yatu"} size={80} color={"#2898FF"} />
+                    <HStack alignItems={"center"} space={3}>
+                        {/* <BcYatuHome /> */}
+                        <BcSvgIcon name={"Yatu"} size={80} color={"#2898FF"} />
+                        <BcUserStatus />
+                    </HStack>
 
                     {
                         (flag) ? (
@@ -161,8 +161,8 @@ function BodyItem(props) {
         frontLayer: {
             position: "absolute",
             zIndex: 2,
-            top: 5, 
-            right: 5 
+            top: 5,
+            right: 5
         }
     };
 
@@ -205,7 +205,7 @@ function BodyItem(props) {
 
 function Body(props) {
 
-    const { data = [], onSelectItem = () => {} } = props;
+    const { data = [], onSelectItem = () => { } } = props;
 
     if (data.length == 0) {
         return (<EmptyList />);
@@ -268,18 +268,18 @@ function Index(props) {
             },
             onSetLoading: setLoading
         })
-        .then(data => {
-            setProfileWsLs(data);
-        })
-        .catch(err => {
-            setLoading(false);
-            console.error(err);
-        })
+            .then(data => {
+                setProfileWsLs(data);
+            })
+            .catch(err => {
+                setLoading(false);
+                console.error(err);
+            })
     }
 
     const SelectProfileWorkspace = (item) => {
         navigation.navigate("ProfileWorkspaceInfo", item);
-        
+
     }
     // #endregion
 
@@ -296,7 +296,7 @@ function Index(props) {
                     <View style={{ height: 10 }} />
 
                     {/* Body */}
-                    <Body 
+                    <Body
                         data={profileWsLs}
                         onSelectItem={SelectProfileWorkspace} />
                 </View>

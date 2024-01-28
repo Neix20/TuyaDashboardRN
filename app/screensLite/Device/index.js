@@ -10,90 +10,25 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 
 import { useNavigation, useIsFocused } from "@react-navigation/native";
 
-import { CheckBox } from "@rneui/base";
-
 import Modal from "react-native-modal";
 
 import { Logger, Utility } from "@utility";
 import { Images } from "@config";
 
-import { BcBoxShadow, BcLoading, BcPhotoGalleryModal, BcSvgIcon, BcYesNoModal } from "@components";
+import { BcBoxShadow, BcLoading, BcPhotoGalleryModal, BcSvgIcon, BcYesNoModal, BcUserStatus } from "@components";
 
-import { fetchDeviceByUserII, fetchToggleFavoriteDevice, fetchLinkDevice } from "@api";
+import { fetchDeviceByUserII, fetchToggleFavoriteDevice, fetchLinkDeviceLite } from "@api";
 
 import { useDispatch, useSelector } from 'react-redux';
 import { Actions, Selectors } from '@redux';
 
+import { UDData, IUDData, IUDDataII } from "./data";
+import { useDeviceLs } from "./hooks";
+import DeviceItem from "./DeviceItem";
+
 import { useToggle } from "@hooks";
 
-// #region Custom Hooks
-function useDeviceLs(val = []) {
-
-    const init = {
-        position: {
-            tempHumd: 0,
-            smartPlug: 1,
-        }
-    }
-
-    const [data, setData] = useState(val);
-    const [oridLs, setOridLs] = useState([]);
-    const [posObj, setPosObj] = useState(init.position);
-
-    const updateData = (arr = []) => {
-        arr = arr.map((obj, pos) => ({
-            ...obj,
-            pos,
-            flag: obj.Status == 1,
-            pwsFlag: obj.ProfileWorkspaceStatus == 1,
-            img: { uri: obj.DeviceImg }
-        }));
-        setData(_ => arr);
-
-        let _oridLs = arr.filter(x => x.flag).map(x => x.Id);
-        setOridLs(_ => _oridLs);
-
-        let _posObj = { ...posObj };
-        for (let ind in arr) {
-            const { IsSmartPlug } = arr[ind];
-
-            if (IsSmartPlug == 1) {
-                _posObj["smartPlug"] = ind;
-                break;
-            }
-        }
-        setPosObj(_ => _posObj);
-    }
-
-    const toggleFlag = (item) => {
-        const { pos, flag = false } = item;
-
-        let arr = [...data];
-        arr[pos].flag = !flag;
-
-        setData(arr);
-    }
-
-    const addToFavorite = (item) => {
-        const { pos, pwsFlag = false } = item;
-
-        let arr = [...data];
-        arr[pos].pwsFlag = !pwsFlag;
-
-        setData(arr);
-    }
-
-    const syncCount = data.filter(x => x.Status).length;
-
-    const nOridLs = data.filter(x => x.flag).map(x => x.Id).join("");
-    const sessionFlag = nOridLs !== oridLs.join("");
-
-    return [data, updateData, toggleFlag, addToFavorite, syncCount, sessionFlag, posObj];
-}
-// #endregion
-
 // #region Tab Detail
-
 function TabDetailModalItem(props) {
     const { onPress = () => { } } = props;
     const { Btn, btnName = "", title = "" } = props;
@@ -122,7 +57,7 @@ function TabDetailModal(props) {
 
     // #region Props
     const { showModal, setShowModal = () => { } } = props;
-    const { navToTempHumd = () => {}, navToSmartPlug = () => {} }  = props;
+    const { navToTempHumd = () => { }, navToSmartPlug = () => { } } = props;
     // #endregion
 
     const closeModal = () => setShowModal(false);
@@ -187,110 +122,14 @@ function TabDetail(props) {
 }
 // #endregion
 
-// #region Device
-function DeviceItem(props) {
-
-    // #region Props
-    const { Title, Online_Status, pwsFlag, img, flag, Status } = props;
-    const { onLinkDevice = () => { }, onAddToFavorite = () => { } } = props;
-    // #endregion
-
-    const borderRadius = 8;
-
-    const ols = (Online_Status === 1) ? ({ color: "#0F0", term: "Online" }) : ({ color: "#F00", term: "Offline" });
-    const pwsColor = pwsFlag ? "#F00" : "#98A0A8";
-
-    const style = {
-        img: {
-            height: 60,
-            width: 60,
-        },
-        title: {
-            fontSize: 14,
-            fontFamily: 'Roboto-Bold',
-            color: "#000",
-        },
-        onlineStatus: {
-            fontSize: 12,
-            fontFamily: 'Roboto-Bold',
-            color: ols.color,
-        },
-        chkBox: {
-            paddingHorizontal: 0,
-            paddingVertical: 0,
-        }
-    }
-
-    return (
-        <TouchableOpacity onPress={onLinkDevice} onLongPress={onAddToFavorite}>
-            <BcBoxShadow style={{ borderRadius, width: "100%" }}>
-                <HStack p={2} bgColor={"#FFF"}
-                    justifyContent={"space-between"} alignItems={"center"}
-                    style={{ borderRadius }}>
-                    <VStack space={2}>
-                        <Image source={img} style={style.img} resizeMode={"cover"} alt={Title} />
-                        <VStack>
-                            <Text style={style.title}>{Title}</Text>
-                            <Text style={style.onlineStatus}>{ols.term}</Text>
-                        </VStack>
-                    </VStack>
-                    <HStack alignItems={"center"} space={2}>
-                        {
-                            (Status == 1) ? (
-                                <FontAwesome name={"star"} size={24} color={pwsColor} />
-                            ) : (
-                                <View style={{ width: 32, height: 32 }} />
-                            )
-                        }
-                        <CheckBox
-                            containerStyle={style.chkBox}
-                            iconType={"material-community"}
-                            checkedIcon={"checkbox-marked"}
-                            uncheckedIcon={"checkbox-blank-outline"}
-                            checked={flag}
-                            onPress={onLinkDevice}
-                            checkedColor={"#F00"} />
-                    </HStack>
-                </HStack>
-            </BcBoxShadow>
-        </TouchableOpacity>
-    )
-}
-
-function DeviceLs(props) {
-    const { deviceLsRef = null, data = [], renderItem = () => { } } = props;
-
-    if (data.length <= 0) {
-        return (<EmptyList />);
-    }
-
-    const style = {
-        flatListContainer: {
-            flexDirection: "column",
-            flexWrap: "nowrap",
-            justifyContent: "flex-start",
-            padding: 5,
-            rowGap: 8,
-            columnGap: 8,
-        }
-    }
-
-    return (
-        <View alignItems={"center"} flexGrow={1}>
-            <FlatList
-                ref={deviceLsRef}
-                data={data}
-                renderItem={renderItem}
-                style={{ width: "90%", flex: 1 }}
-                contentContainerStyle={style.flatListContainer}
-            />
-        </View>
-    )
-}
-// #endregion
-
 // #region Components
 function Header(props) {
+
+    const navigation = useNavigation();
+
+    const GoToScanQr = () => {
+        navigation.navigate("ScanQr");
+    }
 
     const { flag = false } = props;
     const { onSelectAdd = () => { } } = props;
@@ -298,10 +137,13 @@ function Header(props) {
     const style = {
         title: {
             fontFamily: "Roboto-Bold",
-            fontSize: 1,
+            fontSize: 18,
             color: "#FFF"
         }
     }
+
+    const subUserAccess = useSelector(Selectors.subUserAccessSelect);
+    const { Email = "", UserStatus = 0 } = subUserAccess;
 
     return (
         <BcBoxShadow>
@@ -315,18 +157,24 @@ function Header(props) {
                     style={{ width: "90%" }}>
 
                     {/* Logo */}
-                    <BcSvgIcon name={"Yatu"} size={80} color={"#2898FF"} />
+                    <HStack alignItems={"center"} space={3}>
+                        <BcSvgIcon name={"Yatu"} size={80} color={"#2898FF"} />
+                        <BcUserStatus flag={UserStatus == 0} />
+                    </HStack>
+
+                    {/* Qr Scanner */}
+                    <TouchableOpacity onPress={GoToScanQr}>
+                        <View borderRadius={20} bgColor={"#2898FF"}
+                            alignItems={"center"} justifyContent={"center"}
+                            style={{ height: 40, width: 40 }}>
+                            <BcSvgIcon name={"QrScan"} size={28} color={"#FFF"} />
+                        </View>
+                    </TouchableOpacity>
 
                     {
                         (flag) ? (
                             <TouchableOpacity onPress={onSelectAdd}>
-                                {/* <View borderRadius={20}
-                                    bgColor={"#2898FF"}
-                                    alignItems={"center"} justifyContent={"center"}
-                                    style={{ width: 32, height: 32 }}>
-                                    <FontAwesome name={"plus"} size={16} color={"#FFF"} />
-                                </View> */}
-                                <View borderRadius={20} px={3} bgColor={"#2898FF"}>
+                                <View borderRadius={20} px={3} py={1} bgColor={"#2898FF"}>
                                     <Text style={style.title}>Sync Now</Text>
                                 </View>
                             </TouchableOpacity>
@@ -363,6 +211,115 @@ function EmptyList(props) {
 }
 // #endregion
 
+// #region Disable Device
+function DisableDeviceItem(props) {
+    const style = {
+        title: {
+            fontFamily: "Roboto-Bold",
+            fontSize: 18,
+            color: "#000"
+        }
+    }
+    return (
+        <Text style={style.title}>Sync Device With Smart Life</Text>
+    )
+}
+
+function DisableDeviceScreen(props) {
+    const style = {
+        txt: {
+            fontFamily: "Roboto-Medium",
+            fontSize: 18,
+            color: "#d3d3d3",
+            textAlign: "center",
+            fontWeight: "700"
+        }
+    };
+
+    return (
+        <View flexGrow={1} justifyContent={"center"} alignItems={"center"}>
+            <VStack space={2} width={"90%"} alignItems={"center"}>
+                <FontAwesome5 name={"lock"} color={"#d3d3d3"} size={80} />
+                <Text style={style.txt}>Authenticate Your Account with Yatu</Text>
+            </VStack>
+        </View>
+    )
+}
+
+function DisableDevice(props) {
+
+    const { children, backgroundColor = "#fff", opacity = 0.72 } = props;
+    const { flag = true, placeholder = () => <></> } = props;
+
+    if (!flag) {
+        return (
+            <>
+                {children}
+            </>
+        )
+    }
+
+    const style = {
+        frontLayer: {
+            position: "absolute",
+            zIndex: 2,
+            opacity: opacity,
+            backgroundColor: backgroundColor,
+            top: 0, bottom: 0,
+            left: 0, right: 0
+        },
+        textLayer: {
+            position: "absolute",
+            zIndex: 2,
+            top: 0, bottom: 0,
+            left: 0, right: 0
+        }
+    }
+
+    return (
+        <View style={{ flex: 1 }}>
+            {/* Front Layer */}
+            <View style={style.frontLayer} />
+            <View alignItems={"center"} justifyContent={"center"} style={style.textLayer}>
+                {placeholder}
+            </View>
+            {children}
+        </View>
+    );
+}
+// #endregion
+
+// #region Device
+function DeviceLs(props) {
+    const { deviceLsRef = null, data = [], renderItem = () => { } } = props;
+
+    if (data.length <= 0) {
+        return (<EmptyList />);
+    }
+
+    const style = {
+        flatListContainer: {
+            flexDirection: "column",
+            flexWrap: "nowrap",
+            justifyContent: "flex-start",
+            padding: 5,
+            rowGap: 8,
+            columnGap: 8,
+        }
+    }
+
+    return (
+        <View alignItems={"center"} flexGrow={1}>
+            <FlatList ref={deviceLsRef}
+                data={data} renderItem={renderItem}
+                style={{ width: "90%", flex: 1 }}
+                contentContainerStyle={style.flatListContainer}
+            />
+        </View>
+    )
+}
+// #endregion
+
 function Index(props) {
 
     const toast = useToast();
@@ -383,13 +340,49 @@ function Index(props) {
     const [refresh, setRefresh, toggleRefresh] = useToggle(false);
     const [showTGModal, setShowTGModal, toggleTGModal] = useToggle(false);
     const [showLdModal, setShowLdModal, toggleLdModal] = useToggle(false);
+
+    const [temp, setTemp] = useState({
+        DeviceQty: 0,
+        deviceCount: 0,
+    })
     // #endregion
+
+    const qrFlag = props.route?.params?.qrFlag || false;
+    const qrToken = props.route?.params?.qrToken || "";
 
     // #region UseEffect
     useEffect(() => {
         if (isFocused) {
-            // setDeviceData(UserDeviceIIData);
-            GetDeviceByUserII();
+            if (qrFlag) {
+
+                let arr = [];
+                let next_state = {}
+
+                if (qrToken === "VGT752940") {
+                    arr = [...IUDData];
+                    next_state = {
+                        DeviceQty: 5,
+                    };
+                } else if (qrToken === "VGT219742") {
+                    arr = [...IUDDataII];
+                    next_state = {
+                        DeviceQty: 5,
+                    };
+                }
+
+                arr = arr.map(x => ({
+                    ...x,
+                    Status: 1,
+                    Online_Status: 1,
+                }))
+                setDeviceData(arr);
+
+
+                setTemp(_ => next_state)
+            } else {
+                setDeviceData([])
+            }
+            // GetDeviceByUserII();
         }
     }, [homeId, refresh, isFocused]);
     // #endregion
@@ -437,7 +430,7 @@ function Index(props) {
 
     const LinkDevice = () => {
         setLoading(true);
-        fetchLinkDevice({
+        fetchLinkDeviceLite({
             param: {
                 UserId: userId,
                 DeviceLs: deviceData.map(x => ({ Id: x.Id, Status: x.flag ? 1 : 0 }))
@@ -445,8 +438,16 @@ function Index(props) {
             onSetLoading: setLoading
         })
             .then(data => {
+                const { ResponseCode = "", ResponseMessage = "" } = data;
                 toggleLdModal();
-                toggleRefresh();
+                if (ResponseCode == "00") {
+                    toggleRefresh();
+                } else {
+                    // Pop Up Modal Saying Max Device Limit Reached
+                    toast.show({
+                        description: ResponseMessage
+                    })
+                }
             })
             .catch(err => {
                 setLoading(false);
@@ -472,11 +473,9 @@ function Index(props) {
         }
 
         return (
-            <DeviceItem
-                key={index}
-                onLinkDevice={onLinkDevice}
-                onAddToFavorite={onAddToFavorite}
-                {...item} />
+            <DisableDevice flag={true} placeholder={<DisableDeviceItem />}>
+                <DeviceItem key={index} onLinkDevice={onLinkDevice} onAddToFavorite={onAddToFavorite} {...item} />
+            </DisableDevice>
         )
     }
     // #endregion
@@ -525,13 +524,17 @@ function Index(props) {
             bottom: 0,
             right: 0,
         }
-    }
+    };
+
+    const subUserAccess = useSelector(Selectors.subUserAccessSelect);
+    // const { DeviceQty = 0 } = subUserAccess;
+    const { DeviceQty = 0 } = temp;
 
     return (
         <>
-            <BcYesNoModal 
+            <BcYesNoModal
                 showModal={showLdModal} setShowModal={setShowLdModal}
-                title={"Link Devices"} 
+                title={"Link Devices"}
                 description={`Are you sure you want to link these devices?\n\nOnce your downloads have completed, a notification will be send out to alert you!`}
                 titleYes={"Link"} titleNo={"Cancel"}
                 onPressYes={LinkDevice} onPressNo={toggleLdModal}
@@ -544,14 +547,13 @@ function Index(props) {
                     {/* Header */}
                     <Header toggleRefresh={toggleRefresh} flag={deviceSession} onSelectAdd={toggleLdModal} />
 
-                    <View style={{ height: 10 }} />
-
-                    <View style={{ height: 5 }} />
+                    <View style={{ height: 15 }} />
 
                     <View alignItems={"center"}>
                         <HStack alignItems={"center"} width={"90%"}>
-                            <Text style={style.title}>Sync Devices ({deviceCount}/20)</Text>
-                            <View justifyContent={"center"}
+                            <Text style={style.title}>Sync Devices ({deviceCount}/{DeviceQty})</Text>
+                            <View 
+                                justifyContent={"center"}
                                 style={style.tabDetail}>
                                 <TabDetail navToTempHumd={navToTempHumd} navToSmartPlug={navToSmartPlug} />
                             </View>
@@ -559,12 +561,11 @@ function Index(props) {
                     </View>
 
                     {/* Body */}
-                    <DeviceLs
-                        deviceLsRef={machineListView}
-                        data={deviceData} renderItem={renderDeviceItem} />
+                    <DeviceLs deviceLsRef={machineListView} data={deviceData} renderItem={renderDeviceItem} />
 
                     {/* Footer */}
                     <View style={{ height: 70 }} />
+                    
                 </View>
             </SafeAreaView>
         </>

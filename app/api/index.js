@@ -34,6 +34,8 @@ import fetchAddRoom from "./fetchAddRoom";
 import fetchDeleteRoom from "./fetchDeleteRoom";
 
 import fetchLinkDevice from "./fetchLinkDevice";
+import fetchLinkDeviceLite from "./fetchLinkDeviceLite";
+
 import fetchGetLinkedDevice from "./fetchGetLinkedDevice";
 
 import fetchDeviceDataChart from "./fetchDeviceDataChart";
@@ -159,6 +161,7 @@ export {
 
 export {
     fetchLinkDevice,
+    fetchLinkDeviceLite,
     fetchGetLinkedDevice,
     fetchDeviceDataChart
 }

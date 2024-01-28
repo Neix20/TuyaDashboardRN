@@ -9,16 +9,16 @@ import { Platform } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
 // Screens
-import Debug from "@screensPro/Debug";
+import Debug from "@screensLite/Debug";
 
 import TabNavigation from "./TabNavigation";
 
-import LoginII from "@screensPro/Login/LoginII";
+import LoginII from "@screensLite/Login/LoginII";
 
-import ProfileInfo from "@screensPro/Profile/ProfileInfo";
+import ProfileInfo from "@screensLite/Profile/ProfileInfo";
 
-import ProfileWorkspace from "@screensPro/ProfileWorkspace";
-import ProfileWorkspaceInfo from "@screensPro/ProfileWorkspace/ProfileWorkspaceInfo";
+import ProfileWorkspace from "@screensLite/ProfileWorkspace";
+import ProfileWorkspaceInfo from "@screensLite/ProfileWorkspace/ProfileWorkspaceInfo";
 
 // Check Tuya Email & Auth
 import CheckTuyaEmail from "@screens/CheckTuyaEmail";
@@ -31,6 +31,10 @@ import TokenActivation from "@screens/Token/screens/TokenActivation.js";
 import TokenSuccess from "@screens/Token/screens/TokenSuccess.js";
 import UserToken from "@screens/UserToken";
 import UserTokenInfo from "@screens/UserToken/UserTokenInfo.js";
+
+// Qr Scanner
+import ScanQr from "@screens/ScanQr";
+import DeviceResult from "@screensLite/Device/Result";
 
 let StackScreens = {};
 
@@ -142,6 +146,24 @@ StackScreens = {
     }
 };
 
+StackScreens = {
+    ...StackScreens,
+    ScanQr: {
+        component: ScanQr,
+        title: "ScanQr",
+        option: {
+            orientation: "portrait"
+        }
+    },
+    DeviceResult: {
+        component: DeviceResult,
+        title: "DeviceResult",
+        option: {
+            orientation: "portrait"
+        }
+    }
+}
+
 import AboutUs from "@screens/CompanyInfo/screens/AboutUs.js";
 import Tnc from "@screens/CompanyInfo/screens/Tnc.js";
 import Policy from "@screens/CompanyInfo/screens/Policy.js";
@@ -194,7 +216,6 @@ import { Actions, Selectors } from '@redux';
 import { clsConst } from "@config";
 
 import OneSignal from "react-native-onesignal";
-
 
 import { BcAppUpdateModal, BcServerMainModal } from "@components";
 import { fetchGetAppVersion, fetchGetServerStatus, fetchSubUserAccess } from "@api";
@@ -320,7 +341,8 @@ function Index(props) {
     }
     // #endregion
 
-    const defaultScreen = (loginAccess == -1 || userId == -1 || firstTimeLink) ? "LoginII" : "TabNavigation";
+    // const defaultScreen = (loginAccess == -1 || userId == -1 || firstTimeLink) ? "LoginII" : "TabNavigation";
+    const defaultScreen = (userId == -1) ? "LoginII" : "TabNavigation";
     // const defaultScreen = "Debug";
 
     return (

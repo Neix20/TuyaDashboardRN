@@ -1,6 +1,7 @@
 let Data = {};
 
 import AppLogo from "@assets/svg/AppLogo.svg";
+import AppLogoLite from "@assets/svg/AppLogoLite.svg";
 import Yatu from "@assets/svg/Yatu.svg";
 
 import CardGradientBlue from "@assets/svg/card_gradient_blue.svg";
@@ -40,8 +41,11 @@ import InfoIcon from "@assets/svg/info-icon.svg";
 import DataStorage from "@assets/svg/data-storage.svg";
 import EmailArchive from "@assets/svg/email-archive.svg";
 
+import QrScan from "@assets/svg/Qr_Scan.svg";
+
 Data = {
     AppLogo: AppLogo,
+    AppLogoLite: AppLogoLite,
     Yatu: Yatu,
 };
 
@@ -78,6 +82,7 @@ Data = {
     CustSupport: CustSupport,
     LinkDevice: LinkDevice,
     EmailArchive: EmailArchive,
+    QrScan: QrScan
 };
 
 // hack: Temporarily Store Everything in MetaData

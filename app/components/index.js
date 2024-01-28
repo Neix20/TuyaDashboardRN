@@ -24,6 +24,7 @@ import BcSvgIcon from "./SvgIcon";
 import BcTimer from "./Timer/Normal";
 import BcViewShot from "./ViewShot";
 import BcTooltip from "./Tooltip";
+import BcUserStatus from "./UserStatus";
 
 export {
     BcAccordion,
@@ -38,7 +39,8 @@ export {
     BcSvgIcon,
     BcTimer,
     BcViewShot,
-    BcTooltip
+    BcTooltip,
+    BcUserStatus
 }
 
 import BcDisable from "./Disable";
