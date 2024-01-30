@@ -44,6 +44,23 @@ function Index(props) {
 
     const closeModal = () => setShowModal(false);
 
+    const modalStyle = {
+        closeStyle: {
+            position: "absolute",
+            zIndex: 1,
+            top: 20,
+            right: 20,
+        },
+        toastStyle: {
+            position: "absolute",
+            zIndex: 20,
+            bottom: 10,
+            left: 0,
+            right: 0,
+            display: (cusToast.flag) ? "flex" : "none"
+        }
+    }
+
     return (
         <Modal
             isVisible={showModal}
@@ -57,14 +74,7 @@ function Index(props) {
                 {/* Front Layer */}
                 {
                     (showCross) ? (
-                        <View
-                            style={{
-                                position: "absolute",
-                                zIndex: 1,
-                                top: 20,
-                                right: 20,
-                            }}
-                        >
+                        <View style={modalStyle.closeStyle}>
                             <TouchableOpacity onPress={closeModal}>
                                 <CloseBtn />
                             </TouchableOpacity>
@@ -73,19 +83,12 @@ function Index(props) {
                 }
 
                 {/* Front Layer */}
-                <View style={{
-                    position: "absolute",
-                    zIndex: 20,
-                    bottom: 10,
-                    left: 0,
-                    right: 0,
-                    display: (cusToast.flag) ? "flex" : "none"
-                }} alignItems={"center"}>
+                <View alignItems={"center"} style={modalStyle.toastStyle} >
                     <CustomToast>{cusToast.msg}</CustomToast>
                 </View>
 
                 {/* Content */}
-                <View py={5} flexGrow={1}>
+                <View flexGrow={1} py={5}>
                     {children}
                 </View>
             </View>

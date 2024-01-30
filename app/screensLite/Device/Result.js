@@ -10,10 +10,15 @@ import { Logger, Utility } from "@utility";
 import { Images, Svg } from "@config";
 
 import DeviceItem from "./DeviceItem";
-import { BcHeader, BcFooter, BcYesNoModal } from "@components";
+import { BcHeader, BcFooter, BcYesNoModal, BcLoading } from "@components";
+
+import { fetchActivateYatuPackage } from "@api";
 
 import { useDeviceLs } from "./hooks";
 import { useToggle } from "@hooks";
+
+import { useDispatch, useSelector } from 'react-redux';
+import { Actions, Selectors } from '@redux';
 
 function EmptyList(props) {
 
@@ -72,11 +77,14 @@ function Index(props) {
     const navigation = useNavigation();
     const isFocused = useIsFocused();
 
-    const deviceData = props.route?.params?.data || [];
-    const deviceToken = props.route?.params?.token || "";
+    const deviceData = props.route?.params?.DeviceLs || [];
+    const deviceToken = props.route?.params?.Token || "";
 
     const [deviceLs, setDeviceLs, toggleDeviceFlag, addToFavorite, deviceCount, deviceSession, devicePos] = useDeviceLs([]);
     const [showResModal, setShowResModal, toggleResModal] = useToggle(false);
+    const [loading, setLoading, toggleLoading] = useToggle(false);
+
+    const userId = useSelector(Selectors.userIdSelect);
 
     useEffect(() => {
         if (isFocused) {
@@ -93,15 +101,33 @@ function Index(props) {
         }
     }, [isFocused]);
 
-    const renderDeviceItem = ({ item, index }) => (<DeviceItem key={index} showFavorite={false} showCheckbox={false} {...item} />);
+    const renderDeviceItem = ({ item, index }) => {
+        return (<DeviceItem key={index} showFavorite={false} showCheckbox={false} showOnlineStatus={false} {...item} />)
+    };
 
     const GoToDevice = () => {
         navigation.navigate("TabNavigation", {
-            screen: "Device",
-            params: {
-                qrFlag: true,
-                qrToken: deviceToken,
-            }
+            screen: "Device"
+        })
+    }
+
+    const ActivateYatuPackage = () => {
+        setLoading(true);
+        fetchActivateYatuPackage({
+            param: {
+                UserId: userId,
+                Token: deviceToken,
+                DeviceLs: deviceData
+            },
+            onSetLoading: setLoading
+        })
+        .then(data => {
+            toggleResModal();
+            GoToDevice();
+        }) 
+        .catch(err => {
+            setLoading(false);
+            console.error(err);
         })
     }
 
@@ -110,8 +136,9 @@ function Index(props) {
             <BcYesNoModal showModal={showResModal} setShowModal={setShowResModal}
                 title={"Package Activation"}
                 titleYes={"Yes"} titleNo={"Cancel"}
-                onPressYes={GoToDevice} onPressNo={toggleResModal}
+                onPressYes={ActivateYatuPackage} onPressNo={toggleResModal}
                 description={"Would you like to activate?\n\nOnce activated, you will not be able to undo this action."} />
+            <BcLoading loading={loading} />
             <SafeAreaView style={{ flex: 1 }}>
                 <View style={{ flex: 1 }}>
 

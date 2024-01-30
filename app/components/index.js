@@ -72,6 +72,7 @@ import BaseModal from "./Modal";
 import BaseIIModal from "./Modal/CommunityModalsII";
 import BottomModal from "./Modal/BottomModal";
 import TopModal from "./Modal/TopModal";
+import CustomToast from "./Modal/CustomToast";
 
 // import BcReferralModal from "./Modal/Referral";
 import BcBirthdayModal from "./Modal/Birthday";
@@ -96,6 +97,7 @@ export {
     BaseIIModal,
     BottomModal,
     TopModal,
+    CustomToast,
 }
 
 export {
@@ -155,4 +157,12 @@ import BcProfileWorkspace from "./ProfileWorkspace";
 export {
     BcYatuHome,
     BcProfileWorkspace
+}
+
+import { QrCamera as BcQrCamera, QrCameraBtn as BcQrCameraBtn, QrCameraModal as BcQrCameraModal } from "./QrScan";
+
+export {
+    BcQrCamera,
+    BcQrCameraBtn,
+    BcQrCameraModal
 }

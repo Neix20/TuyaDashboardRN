@@ -53,6 +53,7 @@ import Dashboard from "@screensLite/Dashboard";
 import Device from "@screensLite/Device";
 import Profile from "@screensLite/Profile";
 import ProfileWorkspace from "@screensLite/ProfileWorkspace";
+import Viewer from "@screensLite/Viewer";
 
 let TabScreens = {};
 

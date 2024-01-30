@@ -109,6 +109,8 @@ import fetchToggleFavoriteDevice from "./fetchToggleFavoriteDevice";
 import fetchReportDataByProfileWorkspace from "./fetchReportDataByProfileWorkspace";
 import fetchDeviceDistributionByProfileWorkspace from "./fetchDeviceDistributionByProfileWorkspace";
 
+import fetchActivateYatuPackage from "./fetchActivateYatuPackage";
+
 export {
     fetchHomeList,
     fetchHomeInfo,
@@ -248,4 +250,8 @@ export {
     fetchToggleFavoriteDevice,
     fetchReportDataByProfileWorkspace,
     fetchDeviceDistributionByProfileWorkspace,
+}
+
+export {
+    fetchActivateYatuPackage
 }

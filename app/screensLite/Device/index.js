@@ -5,6 +5,7 @@ import { View, VStack, HStack, Divider, useToast } from "native-base";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+
 import Feather from "react-native-vector-icons/Feather";
 import Ionicons from "react-native-vector-icons/Ionicons";
 
@@ -16,13 +17,13 @@ import { Logger, Utility } from "@utility";
 import { Images } from "@config";
 
 import { BcBoxShadow, BcLoading, BcPhotoGalleryModal, BcSvgIcon, BcYesNoModal, BcUserStatus } from "@components";
+import { DisableDevice, DisableDeviceScreen, DisableDeviceItem } from "@componentsLite";
 
-import { fetchDeviceByUserII, fetchToggleFavoriteDevice, fetchLinkDeviceLite } from "@api";
+import { fetchDeviceByUserII, fetchToggleFavoriteDevice, fetchLinkDeviceLite, fetchSubUserAccess } from "@api";
 
 import { useDispatch, useSelector } from 'react-redux';
 import { Actions, Selectors } from '@redux';
 
-import { UDData, IUDData, IUDDataII } from "./data";
 import { useDeviceLs } from "./hooks";
 import DeviceItem from "./DeviceItem";
 
@@ -131,8 +132,7 @@ function Header(props) {
         navigation.navigate("ScanQr");
     }
 
-    const { flag = false } = props;
-    const { onSelectAdd = () => { } } = props;
+    const { flag = false, onSelectAdd = () => { } } = props;
 
     const style = {
         title: {
@@ -159,7 +159,7 @@ function Header(props) {
                     {/* Logo */}
                     <HStack alignItems={"center"} space={3}>
                         <BcSvgIcon name={"Yatu"} size={80} color={"#2898FF"} />
-                        <BcUserStatus flag={UserStatus == 0} />
+                        <BcUserStatus key={UserStatus} flag={UserStatus == 0} />
                     </HStack>
 
                     {/* Qr Scanner */}
@@ -170,18 +170,6 @@ function Header(props) {
                             <BcSvgIcon name={"QrScan"} size={28} color={"#FFF"} />
                         </View>
                     </TouchableOpacity>
-
-                    {
-                        (flag) ? (
-                            <TouchableOpacity onPress={onSelectAdd}>
-                                <View borderRadius={20} px={3} py={1} bgColor={"#2898FF"}>
-                                    <Text style={style.title}>Sync Now</Text>
-                                </View>
-                            </TouchableOpacity>
-                        ) : (
-                            <></>
-                        )
-                    }
                 </HStack>
             </View>
         </BcBoxShadow>
@@ -208,84 +196,6 @@ function EmptyList(props) {
             </VStack>
         </View>
     )
-}
-// #endregion
-
-// #region Disable Device
-function DisableDeviceItem(props) {
-    const style = {
-        title: {
-            fontFamily: "Roboto-Bold",
-            fontSize: 18,
-            color: "#000"
-        }
-    }
-    return (
-        <Text style={style.title}>Sync Device With Smart Life</Text>
-    )
-}
-
-function DisableDeviceScreen(props) {
-    const style = {
-        txt: {
-            fontFamily: "Roboto-Medium",
-            fontSize: 18,
-            color: "#d3d3d3",
-            textAlign: "center",
-            fontWeight: "700"
-        }
-    };
-
-    return (
-        <View flexGrow={1} justifyContent={"center"} alignItems={"center"}>
-            <VStack space={2} width={"90%"} alignItems={"center"}>
-                <FontAwesome5 name={"lock"} color={"#d3d3d3"} size={80} />
-                <Text style={style.txt}>Authenticate Your Account with Yatu</Text>
-            </VStack>
-        </View>
-    )
-}
-
-function DisableDevice(props) {
-
-    const { children, backgroundColor = "#fff", opacity = 0.72 } = props;
-    const { flag = true, placeholder = () => <></> } = props;
-
-    if (!flag) {
-        return (
-            <>
-                {children}
-            </>
-        )
-    }
-
-    const style = {
-        frontLayer: {
-            position: "absolute",
-            zIndex: 2,
-            opacity: opacity,
-            backgroundColor: backgroundColor,
-            top: 0, bottom: 0,
-            left: 0, right: 0
-        },
-        textLayer: {
-            position: "absolute",
-            zIndex: 2,
-            top: 0, bottom: 0,
-            left: 0, right: 0
-        }
-    }
-
-    return (
-        <View style={{ flex: 1 }}>
-            {/* Front Layer */}
-            <View style={style.frontLayer} />
-            <View alignItems={"center"} justifyContent={"center"} style={style.textLayer}>
-                {placeholder}
-            </View>
-            {children}
-        </View>
-    );
 }
 // #endregion
 
@@ -331,6 +241,8 @@ function Index(props) {
 
     const userId = useSelector(Selectors.userIdSelect);
     const homeId = useSelector(Selectors.homeIdSelect);
+
+    const dispatch = useDispatch();
     // #endregion
 
     // #region UseState
@@ -340,49 +252,13 @@ function Index(props) {
     const [refresh, setRefresh, toggleRefresh] = useToggle(false);
     const [showTGModal, setShowTGModal, toggleTGModal] = useToggle(false);
     const [showLdModal, setShowLdModal, toggleLdModal] = useToggle(false);
-
-    const [temp, setTemp] = useState({
-        DeviceQty: 0,
-        deviceCount: 0,
-    })
     // #endregion
-
-    const qrFlag = props.route?.params?.qrFlag || false;
-    const qrToken = props.route?.params?.qrToken || "";
 
     // #region UseEffect
     useEffect(() => {
         if (isFocused) {
-            if (qrFlag) {
-
-                let arr = [];
-                let next_state = {}
-
-                if (qrToken === "VGT752940") {
-                    arr = [...IUDData];
-                    next_state = {
-                        DeviceQty: 5,
-                    };
-                } else if (qrToken === "VGT219742") {
-                    arr = [...IUDDataII];
-                    next_state = {
-                        DeviceQty: 5,
-                    };
-                }
-
-                arr = arr.map(x => ({
-                    ...x,
-                    Status: 1,
-                    Online_Status: 1,
-                }))
-                setDeviceData(arr);
-
-
-                setTemp(_ => next_state)
-            } else {
-                setDeviceData([])
-            }
-            // GetDeviceByUserII();
+            GetDeviceByUserII();
+            RequestAccess(userId);
         }
     }, [homeId, refresh, isFocused]);
     // #endregion
@@ -454,6 +330,21 @@ function Index(props) {
                 console.log(`Error: ${err}`);
             });
     }
+
+    const RequestAccess = (userId) => {
+        fetchSubUserAccess({
+            param: {
+                UserId: userId
+            },
+            onSetLoading: () => { },
+        })
+            .then(data => {
+                dispatch(Actions.onChangeSubUserAccess(data));
+            })
+            .catch(err => {
+                console.log(`Error: ${err}`);
+            })
+    }
     // #endregion
 
     // #region Render Item
@@ -472,9 +363,19 @@ function Index(props) {
             })
         }
 
+        const { DeviceLinkStatus = 0 } = item;
+
+        const flag = DeviceLinkStatus == 0;
+
         return (
-            <DisableDevice flag={true} placeholder={<DisableDeviceItem />}>
-                <DeviceItem key={index} onLinkDevice={onLinkDevice} onAddToFavorite={onAddToFavorite} {...item} />
+            <DisableDevice flag={flag} placeholder={<DisableDeviceItem />}>
+                <DeviceItem key={index}
+                    onLinkDevice={onLinkDevice}
+                    onAddToFavorite={onAddToFavorite}
+                    showFavorite={!flag}
+                    showCheckbox={!flag}
+                    showOnlineStatus={!flag}
+                    {...item} />
             </DisableDevice>
         )
     }
@@ -523,12 +424,18 @@ function Index(props) {
             top: 0,
             bottom: 0,
             right: 0,
+        },
+        syncTitle: {
+
+            fontFamily: "Roboto-Bold",
+            fontSize: 18,
+            paddingHorizontal: 0,
+            color: "#FFF"
         }
     };
 
     const subUserAccess = useSelector(Selectors.subUserAccessSelect);
-    // const { DeviceQty = 0 } = subUserAccess;
-    const { DeviceQty = 0 } = temp;
+    const { DeviceQty = 0 } = subUserAccess;
 
     return (
         <>
@@ -549,23 +456,37 @@ function Index(props) {
 
                     <View style={{ height: 15 }} />
 
-                    <View alignItems={"center"}>
-                        <HStack alignItems={"center"} width={"90%"}>
-                            <Text style={style.title}>Sync Devices ({deviceCount}/{DeviceQty})</Text>
-                            <View 
-                                justifyContent={"center"}
-                                style={style.tabDetail}>
-                                <TabDetail navToTempHumd={navToTempHumd} navToSmartPlug={navToSmartPlug} />
-                            </View>
-                        </HStack>
-                    </View>
+                    <DisableDevice flag={DeviceQty == 0} placeholder={<DisableDeviceScreen />}>
 
-                    {/* Body */}
-                    <DeviceLs deviceLsRef={machineListView} data={deviceData} renderItem={renderDeviceItem} />
+                        <View alignItems={"center"}>
+                            <HStack alignItems={"center"} justifyContent={"space-between"} width={"90%"}>
+                                <Text style={style.title}>Sync Devices ({deviceCount}/{DeviceQty})</Text>
+                                <HStack alignItems={"center"} space={3}>
+                                    {
+                                        (deviceSession) ? (
+                                            <TouchableOpacity onPress={toggleLdModal}>
+                                                <View borderRadius={20} px={3} py={1} bgColor={"#2898FF"}>
+                                                    <Text style={style.syncTitle}>Sync Now</Text>
+                                                </View>
+                                            </TouchableOpacity>
+                                        ) : (
+                                            <></>
+                                        )
+                                    }
+                                    <View justifyContent={"center"}>
+                                        <TabDetail navToTempHumd={navToTempHumd} navToSmartPlug={navToSmartPlug} />
+                                    </View>
+                                </HStack>
+                            </HStack>
+                        </View>
 
-                    {/* Footer */}
-                    <View style={{ height: 70 }} />
-                    
+                        {/* Body */}
+                        <DeviceLs deviceLsRef={machineListView} data={deviceData} renderItem={renderDeviceItem} />
+
+                        {/* Footer */}
+                        <View style={{ height: 70 }} />
+                    </DisableDevice>
+
                 </View>
             </SafeAreaView>
         </>

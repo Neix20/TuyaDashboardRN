@@ -16,7 +16,7 @@ function Index(props) {
     // #region Props
     const { Title, Online_Status, pwsFlag, img, flag, Status } = props;
     const { onLinkDevice = () => { }, onAddToFavorite = () => { } } = props;
-    const { showFavorite = true, showCheckbox = true } = props;
+    const { showFavorite = true, showCheckbox = true, showOnlineStatus = true } = props;
     // #endregion
 
     const borderRadius = 8;
@@ -55,7 +55,9 @@ function Index(props) {
                         <Image source={img} style={style.img} resizeMode={"cover"} alt={Title} />
                         <VStack>
                             <Text style={style.title}>{Title}</Text>
-                            <Text style={style.onlineStatus}>{ols.term}</Text>
+                            {
+                                (showOnlineStatus == 1) ? (<Text style={style.onlineStatus}>{ols.term}</Text>) : (<></>)
+                            }
                         </VStack>
                     </VStack>
                     <HStack alignItems={"center"} space={2}>

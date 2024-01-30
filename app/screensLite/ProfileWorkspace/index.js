@@ -9,7 +9,12 @@ import FontAwesome from "react-native-vector-icons/FontAwesome";
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 
 import { BcHeader, BcLoading, BcBoxShadow, BcSvgIcon, BcUserStatus } from "@components";
+import { DisableDevice, DisableDeviceScreen, DisableDeviceItem } from "@componentsLite";
+
 import { fetchProfileWorkspace } from "@api";
+
+import { Logger, Utility } from "@utility";
+import { Images, Svg } from "@config";
 
 import { useToggle } from "@hooks";
 import { ProfileWsData as TestData } from "./data";
@@ -283,6 +288,9 @@ function Index(props) {
     }
     // #endregion
 
+    const subUserAccess = useSelector(Selectors.subUserAccessSelect);
+    const { DeviceQty = 0 } = subUserAccess;
+
     return (
         <>
             <BcLoading loading={loading} />
@@ -295,10 +303,12 @@ function Index(props) {
 
                     <View style={{ height: 10 }} />
 
-                    {/* Body */}
-                    <Body
-                        data={profileWsLs}
-                        onSelectItem={SelectProfileWorkspace} />
+                    <DisableDevice flag={DeviceQty == 0} placeholder={<DisableDeviceScreen />}>
+                        {/* Body */}
+                        <Body
+                            data={profileWsLs}
+                            onSelectItem={SelectProfileWorkspace} />
+                    </DisableDevice>
                 </View>
             </SafeAreaView>
         </>

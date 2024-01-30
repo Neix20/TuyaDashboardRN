@@ -10,7 +10,7 @@ import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 import { Logger, Utility } from "@utility";
 import { Images, Svg } from "@config";
 
-import { BcHeader, BcLoading, BcSvgIcon, BcDisableII, BcFooter } from "@components";
+import { BcHeaderWithAdd, BcLoading, BcSvgIcon, BcDisableII, BcFooter, BcTooltip } from "@components";
 import { useToggle } from "@hooks";
 import { fetchRedeemToken } from "@api";
 
@@ -60,6 +60,7 @@ function Search(props) {
             justifyContent={"center"}
             bgColor={colors.bg} style={{ height: 48 }}>
             <TextInput
+                autoCapitalize={"characters"}
                 placeholder={"Token Code 12 Digits"}
                 placeholderTextColor={colors.default}
                 defaultValue={query}
@@ -145,6 +146,80 @@ function TnC(props) {
 }
 // #endregion
 
+import { Linking } from "react-native";
+
+const url = {
+    lazada: "https://www.lazada.com.my/shop/wrap2rap/?itemId=3181365586&spm=a2o4k.pdp_revamp.seller.1.6a4f756eqP4ZIJ&path=promotion-42621-0.htm&tab=promotion&channelSource=pdp",
+    shopee: "https://shopee.com.my/wrap2rap?categoryId=100640&entryPoint=ShopByPDP&itemId=18616269176"
+}
+
+function InfoTooltip(props) {
+
+    const { hook = [] } = props;
+    const [open, setOpen, toggleOpen] = hook;
+
+    const navigation = useNavigation();
+
+    const style = {
+        hyperlink: {
+            textDecorationLine: "underline",
+            fontFamily: "Roboto-Medium",
+            color: "#3366CC"
+        },
+        txt: {
+            fontFamily: "Roboto-Medium",
+            fontSize: 14,
+            color: "#484848"
+        }
+    }
+
+    const GoToShopee = () => {
+        Linking.openURL(url["shopee"])
+    }
+
+    const GoToLazada = () => {
+        Linking.openURL(url["lazada"])
+    }
+
+    const Shopee = () => (
+        <TouchableOpacity onPress={GoToShopee}>
+            <Text style={style.hyperlink}>Shopee</Text>
+        </TouchableOpacity>
+    );
+
+    const Lazada = () => (
+        <TouchableOpacity onPress={GoToLazada}>
+            <Text style={style.hyperlink}>Lazada</Text>
+        </TouchableOpacity>
+    );
+
+    return (
+        <VStack>
+            <Text style={{ textAlign: "justify", ...style.txt }}>You can get more tokens by visiting our e-commercee Sites!</Text>
+            <HStack alignItems={"flex-start"} space={1.5}>
+                <Shopee />
+                <Text>&</Text>
+                <Lazada />
+            </HStack>
+        </VStack>
+    )
+}
+
+function InfoIcon(props) {
+
+    const openHook = useToggle(false);
+
+    return (
+        <BcTooltip hook={openHook}
+            placement={"bottom"} bgColor={"#FFF"}
+            modalBgColor={"rgba(0, 0, 0, 0.25)"}
+            borderWidth={0}
+            content={<InfoTooltip hook={openHook} />}>
+            <BcSvgIcon name={"InfoIcon"} size={24} />
+        </BcTooltip>
+    )
+}
+
 function Index(props) {
     const toast = useToast();
     const navigation = useNavigation();
@@ -189,6 +264,14 @@ function Index(props) {
         });
     }
 
+    const GoToShopee = () => {
+        Linking.openURL(url["shopee"])
+    }
+
+    const GoToLazada = () => {
+        Linking.openURL(url["lazada"])
+    }
+
     return (
         <>
             <BcLoading loading={loading} />
@@ -196,7 +279,7 @@ function Index(props) {
                 <View style={{ flex: 1 }}>
 
                     {/* Header */}
-                    <BcHeader>Redeem Tokens</BcHeader>
+                    <BcHeaderWithAdd Right={<InfoIcon />}>Redeem Tokens</BcHeaderWithAdd>
 
                     <View style={{ height: 10 }} />
 
@@ -210,7 +293,27 @@ function Index(props) {
 
                             {/* SVG Icon */}
                             <View alignItems={"center"}>
-                                <BcSvgIcon name={"RedeemTokens"} width={300} height={200} />
+                                <HStack w={"90%"} space={2} alignItems={"flex-start"}>
+                                    <BcSvgIcon name={"RedeemTokens"} width={280} height={200} />
+                                    <VStack space={3}>
+                                        <TouchableOpacity onPress={GoToShopee}>
+                                            <Image source={{
+                                                uri: "https://i.imgur.com/dsMnSNd.png"
+                                            }}
+                                                style={{ width: 60, height: 32 }}
+                                                resizeMode={"contain"}
+                                                alt={"Shopee"} />
+                                        </TouchableOpacity>
+                                        <TouchableOpacity onPress={GoToLazada}>
+                                            <Image source={{
+                                                uri: "https://i.imgur.com/zMRoDRJ.jpg"
+                                            }}
+                                                style={{ width: 60, height: 48 }}
+                                                resizeMode={"contain"}
+                                                alt={"Shopee"} />
+                                        </TouchableOpacity>
+                                    </VStack>
+                                </HStack>
                             </View>
 
                             {/* Text Input */}

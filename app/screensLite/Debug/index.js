@@ -4,6 +4,7 @@ import { View, VStack, HStack, useToast } from "native-base";
 
 import { useNavigation, useIsFocused } from "@react-navigation/native";
 
+import FontAwesome from "react-native-vector-icons/FontAwesome";
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 
 import { Logger, Utility } from "@utility";
@@ -14,7 +15,8 @@ import { fetchGetDeviceDistribution } from "@api";
 
 import { DevDistriData, ChartSimpleData, BarChartSimpleData } from "./data";
 
-function Index(props) {
+// #region Components
+function DebugI(props) {
 
     const toast = useToast();
     const navigation = useNavigation();
@@ -64,6 +66,32 @@ function Index(props) {
             </View>
         </SafeAreaView>
     );
+}
+// #endregion
+
+import { BcSvgIcon, BcQrCameraBtn } from "@components";
+import { useModalToast } from "@hooks";
+
+function Index(props) {
+
+    const navigation = useNavigation();
+    const isFocused = useIsFocused();
+
+    const [qrCode, setQrCode] = useState("");
+
+    const [mToast, showMsg] = useModalToast();
+
+    const onScanQr = (value) => {
+        showMsg(value);
+    }
+
+    return (
+        <SafeAreaView style={{ flex: 1 }}>
+            <View style={{ flex: 1 }}>
+                <BcQrCameraBtn cusToast={mToast} onScanQr={onScanQr} />
+            </View>
+        </SafeAreaView>
+    )
 }
 
 export default Index;

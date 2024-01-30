@@ -36,6 +36,9 @@ import UserTokenInfo from "@screens/UserToken/UserTokenInfo.js";
 import ScanQr from "@screens/ScanQr";
 import DeviceResult from "@screensLite/Device/Result";
 
+// Token Wallet
+import TokenWallet from "@screens/TokenWallet";
+
 let StackScreens = {};
 
 StackScreens = {
@@ -158,6 +161,17 @@ StackScreens = {
     DeviceResult: {
         component: DeviceResult,
         title: "DeviceResult",
+        option: {
+            orientation: "portrait"
+        }
+    }
+}
+
+StackScreens = {
+    ...StackScreens,
+    TokenWallet: {
+        component: TokenWallet,
+        title: "TokenWallet",
         option: {
             orientation: "portrait"
         }
