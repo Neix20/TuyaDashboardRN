@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Text, TouchableOpacity, Image, TextInput, SafeAreaView, ImageBackground, ScrollView } from "react-native";
+import { Text, TouchableOpacity, Image, TextInput, SafeAreaView, BackHandler } from "react-native";
 import { View, VStack, HStack, useToast } from "native-base";
 
 import { useNavigation, useIsFocused } from "@react-navigation/native";
@@ -9,16 +9,14 @@ import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 import { Logger, Utility } from "@utility";
 import { Images, Svg } from "@config";
 
-// import QRCodeScanner from 'react-native-qrcode-scanner';
-
-import { BcHeaderWithAdd, BcYesNoModal, BcLoading, BcTooltip, BcSvgIcon, BcQrCamera } from "@components";
+import { BcYesNoModal, BcLoading, BcTooltip, BcSvgIcon, BcQrCamera, BcBoxShadow } from "@components";
 
 import { useToggle } from "@hooks";
 
 import { fetchGetParamApi } from "@api";
+import { Linking } from "react-native";
 
 // #region InfoTooltip
-import { Linking } from "react-native";
 
 const url = {
     lazada: "https://www.lazada.com.my/shop/wrap2rap/?itemId=3181365586&spm=a2o4k.pdp_revamp.seller.1.6a4f756eqP4ZIJ&path=promotion-42621-0.htm&tab=promotion&channelSource=pdp",
@@ -93,6 +91,40 @@ function InfoIcon(props) {
 }
 // #endregion
 
+// #region Components
+function Header(props) {
+
+    const { children = null, Right = null } = props;
+
+    const style = {
+        main: {
+            backgroundColor: "#FFF",
+            height: 60
+        },
+        title: {
+            fontSize: 20,
+            fontWeight: "bold",
+            color: "#000",
+        }
+    }
+
+    return (
+        <BcBoxShadow>
+            <View pb={2}
+                alignItems={"center"}
+                justifyContent={"flex-end"}
+                style={style.main}>
+
+                <HStack w={"90%"} alignItems={"center"} justifyContent={"space-between"}>
+                    <Text style={style.title}>{children}</Text>
+                    {Right}
+                </HStack>
+            </View>
+        </BcBoxShadow>
+    )
+}
+// #endregion
+
 function Index(props) {
 
     const toast = useToast();
@@ -100,14 +132,42 @@ function Index(props) {
     const isFocused = useIsFocused();
 
     const [loading, setLoading, toggleLoading] = useToggle(false);
+    const [exitModal, showExitModal, toggleExitModal] = useToggle(false);
 
+    useEffect(() => {
+        const backAction = () => {
+            if (!isFocused) {
+                return false;
+            }
+
+            toggleExitModal();
+            return true;
+        };
+        const backHandler = BackHandler.addEventListener("hardwareBackPress", backAction);
+        return () => backHandler.remove();
+    }, [isFocused]);
+
+    const GoBack = () => {
+
+        const prevTitle = props.route?.params?.title || "";
+
+        if (prevTitle === "AuthTuya") {
+            navigation.navigate("TabNavigation", {
+                screen: "Device"
+            })
+        }
+
+        navigation.goBack();
+    }
+
+    // #region Helper
     const readQrCode = (value) => {
         try {
             if (value.length > 0) {
                 GetParamApi(value);
             }
         } catch (error) {
-            
+
         }
     }
 
@@ -119,30 +179,36 @@ function Index(props) {
             },
             onSetLoading: setLoading
         })
-        .then(data => {
-            navigation.navigate("DeviceResult", data);
-        })
-        .catch(err => {
-            setLoading(false);
-            console.error(err);
-        })
+            .then(data => {
+                navigation.navigate("DeviceResult", data);
+            })
+            .catch(err => {
+                setLoading(false);
+                console.error(err);
+            })
     }
+    // #endregion
 
     return (
         <>
+        <BcYesNoModal showModal={exitModal} setShowModal={showExitModal}
+                title={"Warning"}
+                titleYes={"Yes"} titleNo={"Cancel"}
+                onPressYes={GoBack} onPressNo={toggleExitModal}
+                description={"Would you like to exit this page?"} />
             <BcLoading loading={loading} />
             <SafeAreaView style={{ flex: 1 }}>
                 <View style={{ flex: 1 }}>
 
                     {/* Header */}
-                    <BcHeaderWithAdd Right={<InfoIcon />}>Scan QR</BcHeaderWithAdd>
+                    <Header Right={<InfoIcon />}>Scan QR</Header>
 
                     <View style={{ height: 10 }} />
 
                     {/* Body */}
 
                     <View flexGrow={1}>
-                    <BcQrCamera onRead={readQrCode} />
+                        <BcQrCamera onRead={readQrCode} />
                     </View>
 
                 </View>

@@ -293,20 +293,21 @@ function ExistLoginForm(props) {
                         RequestAccess(User_Id);
 
                         // If User Logins For First Time
-                        // Go To Token
-                        if (FirstTimeUserId == 1) {
+                       if (FirstTimeUserId == 1) {
                             dispatch(Actions.onChangeFirstTimeLink(true));
-                            GoToDevice();
+                            navigation.navigate("CheckTuyaEmail", {
+                                Email: email,
+                            })
                         }
-                        
-                        if (FirstTimeUserId == 2) {
-                            dispatch(Actions.onChangeLoginAccess(1));
-                            dispatch(Actions.onChangeFirstTimeLink(false));
-                            GoToDevice();
+                        // User has login first time, but failed to authenticate
+                        else if (FirstTimeUserId == 2) {
+                            dispatch(Actions.onChangeFirstTimeLink(true));
+                            navigation.navigate("AuthTuya", {
+                                Email: email,
+                            })
                         }
                         // User is Existing User: FirstTimeUserId == -1
                         else if (FirstTimeUserId == -1) {
-                            dispatch(Actions.onChangeLoginAccess(1));
                             dispatch(Actions.onChangeFirstTimeLink(false));
                             GoToHome();
                         }

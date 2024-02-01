@@ -220,6 +220,29 @@ function InfoIcon(props) {
     )
 }
 
+function HeaderRightDiv(props) {
+    
+    const navigation = useNavigation();
+
+    const GoToScanQr = () => {
+        navigation.navigate("ScanQr");
+    }
+
+    return (
+        <HStack alignItems={"flex-end"} space={2}>
+            <InfoIcon />
+            <TouchableOpacity onPress={GoToScanQr}>
+                <View borderRadius={20} bgColor={"#2898FF"}
+                    alignItems={"center"} justifyContent={"center"}
+                    style={{ height: 40, width: 40 }}>
+                    <BcSvgIcon name={"QrScan"} size={28} color={"#FFF"} />
+                </View>
+            </TouchableOpacity>
+        </HStack>
+    )
+
+}
+
 function Index(props) {
     const toast = useToast();
     const navigation = useNavigation();
@@ -279,7 +302,7 @@ function Index(props) {
                 <View style={{ flex: 1 }}>
 
                     {/* Header */}
-                    <BcHeaderWithAdd Right={<InfoIcon />}>Redeem Tokens</BcHeaderWithAdd>
+                    <BcHeaderWithAdd Right={<HeaderRightDiv />}>Redeem Tokens</BcHeaderWithAdd>
 
                     <View style={{ height: 10 }} />
 

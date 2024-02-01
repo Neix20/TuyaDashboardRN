@@ -52,13 +52,13 @@ function Screen(props) {
             <VStack space={2} width={"90%"} alignItems={"center"}>
                 <FontAwesome5 name={"lock"} color={"#000"} size={80} />
                 <Text style={style.txt}>Activate your Yatu Account with Tokens</Text>
-                <TouchableOpacity onPress={GoToToken}>
+                {/* <TouchableOpacity onPress={GoToToken}>
                     <View backgroundColor={"#2898FF"}
                         alignItems={"center"} justifyContent={"center"}
                         style={{ width: 120, height: 48 }}>
                         <Text style={style.btnTitle}>Activate Token</Text>
                     </View>
-                </TouchableOpacity>
+                </TouchableOpacity> */}
                 <TouchableOpacity onPress={GoToScanQr}>
                     <View backgroundColor={"#2898FF"}
                         alignItems={"center"} justifyContent={"center"}

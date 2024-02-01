@@ -142,9 +142,6 @@ function Header(props) {
         }
     }
 
-    const subUserAccess = useSelector(Selectors.subUserAccessSelect);
-    const { Email = "", UserStatus = 0 } = subUserAccess;
-
     return (
         <BcBoxShadow>
             <View bgColor={"#FFF"}
@@ -159,7 +156,7 @@ function Header(props) {
                     {/* Logo */}
                     <HStack alignItems={"center"} space={3}>
                         <BcSvgIcon name={"Yatu"} size={80} color={"#2898FF"} />
-                        <BcUserStatus key={UserStatus} flag={UserStatus == 0} />
+                        <BcUserStatus />
                     </HStack>
 
                     {/* Qr Scanner */}
@@ -318,6 +315,9 @@ function Index(props) {
                 toggleLdModal();
                 if (ResponseCode == "00") {
                     toggleRefresh();
+                    toast.show({
+                        description: "Download starting..."
+                    })
                 } else {
                     // Pop Up Modal Saying Max Device Limit Reached
                     toast.show({
@@ -365,17 +365,9 @@ function Index(props) {
 
         const { DeviceLinkStatus = 0 } = item;
 
-        const flag = DeviceLinkStatus == 0;
-
         return (
-            <DisableDevice flag={flag} placeholder={<DisableDeviceItem />}>
-                <DeviceItem key={index}
-                    onLinkDevice={onLinkDevice}
-                    onAddToFavorite={onAddToFavorite}
-                    showFavorite={!flag}
-                    showCheckbox={!flag}
-                    showOnlineStatus={!flag}
-                    {...item} />
+            <DisableDevice flag={false} placeholder={<DisableDeviceItem />}>
+                <DeviceItem key={index} onLinkDevice={onLinkDevice} onAddToFavorite={onAddToFavorite} {...item} />
             </DisableDevice>
         )
     }

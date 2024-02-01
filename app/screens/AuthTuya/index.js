@@ -315,8 +315,12 @@ function Index(props) {
     }
 
     const GoToHome = () => {
-        navigation.navigate("TabNavigation", {
-            screen: "Device",
+        // navigation.navigate("TabNavigation", {
+        //     screen: "Device",
+        // });
+
+        navigation.navigate("ScanQr", {
+            title: "AuthTuya"
         });
     }
 

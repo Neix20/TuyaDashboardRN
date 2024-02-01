@@ -355,9 +355,8 @@ function Index(props) {
     }
     // #endregion
 
-    // const defaultScreen = (loginAccess == -1 || userId == -1 || firstTimeLink) ? "LoginII" : "TabNavigation";
-    const defaultScreen = (userId == -1) ? "LoginII" : "TabNavigation";
-    // const defaultScreen = "Debug";
+    const defaultScreen = (userId == -1 || firstTimeLink) ? "LoginII" : "TabNavigation";
+    // const defaultScreen = "TokenActivation";
 
     return (
         <>
@@ -371,4 +370,3 @@ function Index(props) {
 }
 
 export default Index;
-// export default Debug;

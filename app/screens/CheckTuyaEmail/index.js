@@ -73,7 +73,7 @@ function useFlag() {
         setFlag(_ => next_state);
     }
 
-    const checkFlag = ats && rts;
+    const checkFlag = rts;
 
     return [flag, setFlag, toggleAts, setAtsOn, setAtsOff, toggleRts, setRtsOn, setRtsOff, checkFlag];
 }
@@ -437,6 +437,12 @@ function Index(props) {
         return () => backHandler.remove();
     }, [isFocused]);
 
+    useEffect(() => {
+        if (isFocused) {
+            CheckTuyaEmail();
+        }
+    }, [isFocused]);
+
     const GoBack = () => {
         navigation.goBack();
     }
@@ -466,32 +472,61 @@ function Index(props) {
     }
     // #endregion
 
-    // [ ] Fix Me
     const CheckTuyaEmail = () => {
         fetchCheckTuyaEmail({
             param: {
                 UserId: userId,
-                TuyaEmail: email
+                TuyaEmail: pEmail,
             },
             onSetLoading: () => { }
         })
             .then(data => {
-                toggleRts();
+                const { ResponseCode = "", Message = "" } = data;
+
+                if (ResponseCode == "00") {
+                    toggleRts();
+                } else {
+                    toast.show({
+                        description: "Please Enter a Valid Email"
+                    })
+                }
             })
             .catch(err => {
                 console.log(`Error: ${err}`);
             })
     }
 
+    const style = {
+        instruction: {
+            fontFamily: "Roboto-Bold",
+            fontSize: 18
+        },
+        hyperlink: {
+            textDecorationLine: "underline",
+            fontFamily: "Roboto-Medium",
+            fontSize: 18,
+            color: "#3366CC"
+        }
+    }
+
+    const GoToShopee = () => {
+        const url = Platform.select({
+            ios: "https://apps.apple.com/my/app/smart-life-smart-living/id1115101477",
+            android: "https://play.google.com/store/apps/details?id=com.tuya.smartlife&hl=en&gl=my"
+        })
+
+        Linking.openURL(url)
+    }
+
     return (
         <>
             <BcYesNoModal showModal={showExitModal} setShowModal={setShowExitModal}
                 title={"Warning"} showCross={false}
-                onPressYes={GoBack}
-                onPressNo={toggleExitModal}
+                onPressYes={GoBack} onPressNo={toggleExitModal}
                 description={"Are you sure you want to exit this page?"} />
             <ATSModal showModal={showAtsModal} setShowModal={setShowAtsModal} />
-            <RtsEmailModal showModal={showRtsModal} setShowModal={setShowRtsModal} onDone={onEmailDone} emailHook={emailHook} />
+            <RtsEmailModal showModal={showRtsModal} setShowModal={setShowRtsModal}
+                onDone={onEmailDone} emailHook={emailHook} />
             <SafeAreaView style={{ flex: 1 }}>
                 <View bgColor={"#F3F8FC"} style={{ flex: 1 }}>
 
@@ -502,23 +537,50 @@ function Index(props) {
                     <ScrollView showsVerticalScrollIndicator={false}
                         keyboardShouldPersistTaps={"handled"}
                         contentContainerStyle={{ flexGrow: 1 }}>
-                        <VStack space={5} flexGrow={1}>
+                        <VStack flexGrow={1} space={5}>
 
                             {/* Are you a Tuya or SmartLife User */}
-                            <ATSLogo pos={"1/2"}
+
+                            {/* <ATSLogo pos={"1/2"}
                                 title={"Are you a Tuya or Smart Life user?"}
                                 description={"Yatu is advanced monitoring app for Tuya or Smart Life smart devices. Data will be synced for analysis."}
                                 Icon={FontAwesome5} fontName={"user-alt"}
                                 onPressYes={toggleAts} flag={atsFlag}
-                                onPressNo={onToggleAtsModal} />
+                                onPressNo={onToggleAtsModal} /> */}
 
                             {/* Is Email Same as Your Tuya / SmartLife ? */}
-                            <ATSLogo pos={"2/2"}
+                            <ATSLogo pos={"1/1"}
                                 title={"Is registered email same as your Tuya or Smart Life email?"}
                                 description={"Tuya or Smart Life account’s email is needed for Yatu auto-sync to start generating complete data."}
                                 Icon={FontAwesome} fontName={"envelope"}
                                 onPressYes={toggleRts} flag={rtsFlag}
-                                onPressNo={onToggleRtsModal} />
+                                onPressNo={onToggleRtsModal}
+                            />
+
+                            <View alignItems={"center"}>
+                                <VStack p={3} space={3} width={"90%"}
+                                    borderColor={"#000"} borderWidth={2}>
+
+                                    {/* Title */}
+                                    <Text style={style.instruction}>Notice: </Text>
+
+                                    <VStack space={2}>
+                                        {/* Check Smart Life User */}
+                                        <View>
+                                            <Text style={style.instruction}>1. Ensure that you are a registered</Text>
+                                            <TouchableOpacity onPress={GoToShopee}><Text style={style.hyperlink}>Tuya/SmartLife User</Text></TouchableOpacity>
+                                        </View>
+
+                                        {/* Ready a Computer to do Setup */}
+                                        <Text style={style.instruction}>2. Ready a personal computer to assist you in completing Authentication.</Text>
+                                    </VStack>
+                                </VStack>
+                            </View>
+
+                            {/* Check Smart Life User */}
+
+                            {/* Ready a Computer to do Setup */}
+
                         </VStack>
                     </ScrollView>
 

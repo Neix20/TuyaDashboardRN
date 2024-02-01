@@ -1,6 +1,6 @@
-const APP_VERSION = "1.2.24";
-const PRO_APP_VERSION = "P1.2.24";
-const LITE_APP_VERSION = "L1.2.24";
+const APP_VERSION = "1.2.25";
+const PRO_APP_VERSION = "P1.2.25";
+const LITE_APP_VERSION = "L1.2.25";
 const ORG_NAME = "VIGTECH LABS SDN BHD";
 
 // const SERVER_URL = "https://2452-103-26-251-251.ngrok-free.app";

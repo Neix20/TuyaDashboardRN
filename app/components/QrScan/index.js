@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { TouchableOpacity } from "react-native";
+import { TouchableOpacity, Text, Image } from "react-native";
 import { View, VStack, HStack } from "native-base";
 
 import FontAwesome from "react-native-vector-icons/FontAwesome";
@@ -84,13 +84,21 @@ function Marker(props) {
             height: 320,
             borderWidth: 5,
             borderColor: "#0F0",
+        },
+        title: {
+            fontFamily: "Roboto-Bold",
+            fontSize: 20,
+            color: "#FFF"
         }
     }
 
     return (
-        <View alignItems={"center"} justifyContent={"center"} style={style.frontLayer}>
+        <VStack space={3} alignItems={"center"} justifyContent={"center"} style={style.frontLayer}>
+            <View>
+                <Text style={style.title}>Scan the QR within the border provided!</Text>
+            </View>
             <View style={style.rect} />
-        </View>
+        </VStack>
     )
 }
 
@@ -109,7 +117,7 @@ function QrCamera(props) {
             {/* Front Layer */}
             <Marker />
             {/* Camera */}
-            <Scanner {...props} />
+            <Scanner key={hasPermission} {...props} />
         </>
     )
 }

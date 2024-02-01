@@ -122,7 +122,7 @@ function Index(props) {
             onSetLoading: setLoading
         })
         .then(data => {
-            toggleResModal();
+            // toggleResModal();
             GoToDevice();
         }) 
         .catch(err => {
@@ -152,7 +152,7 @@ function Index(props) {
 
                     {/* Footer */}
                     <BcFooter>
-                        <TouchableOpacity onPress={toggleResModal} style={{ width: "80%", height: "60%" }}>
+                        <TouchableOpacity onPress={ActivateYatuPackage} style={{ width: "80%", height: "60%" }}>
                             <View flex={1} backgroundColor={"#2898FF"}
                                 alignItems={"center"} justifyContent={"center"}>
                                 <Text style={{
