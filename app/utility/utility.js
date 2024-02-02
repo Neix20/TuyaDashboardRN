@@ -369,10 +369,12 @@ function checkAppVersion(str) {
 	return res;
 }
 
-import OneSignal from "react-native-onesignal";
+// import OneSignal from "react-native-onesignal";
+import { OneSignal } from 'react-native-onesignal';
 
 function OneSignalSubscribe(email) {
-	OneSignal.setExternalUserId(email);
+	// OneSignal.User.addEmail(email);
+	OneSignal.login(email);
 }
 
 function genUnit(key) {

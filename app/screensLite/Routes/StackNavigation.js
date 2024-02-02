@@ -259,46 +259,47 @@ function Index(props) {
         // Hide Splash Screen
         SplashScreen.hide();
 
-        // One Signal
-        OneSignal.setAppId(clsConst.ONESIGNAL_APP_ID);
+        // #region OneSignal
+        // OneSignal.setAppId(clsConst.ONESIGNAL_APP_ID);
 
-        OneSignal.promptForPushNotificationsWithUserResponse();
+        // OneSignal.promptForPushNotificationsWithUserResponse();
 
-        //Method for handling notifications received, When App Opened
-        OneSignal.setNotificationWillShowInForegroundHandler(event => {
-            const notification = event.getNotification();
+        // //Method for handling notifications received, When App Opened
+        // OneSignal.setNotificationWillShowInForegroundHandler(event => {
+        //     const notification = event.getNotification();
 
-            const { additionalData = {} } = notification;
+        //     const { additionalData = {} } = notification;
 
-            // Check For Payment Success
-            if ("Action" in additionalData && additionalData["Action"] == "Data_Controller") {
+        //     // Check For Payment Success
+        //     if ("Action" in additionalData && additionalData["Action"] == "Data_Controller") {
 
-            }
+        //     }
 
-            if ("Action" in additionalData && additionalData["Action"] == "Data_Auth") {
-                navigation.navigate("AuthTuyaSessionExpired", additionalData);
-            }
+        //     if ("Action" in additionalData && additionalData["Action"] == "Data_Auth") {
+        //         navigation.navigate("AuthTuyaSessionExpired", additionalData);
+        //     }
 
-            if ("Action" in additionalData && additionalData["Action"] == "Data_Logout") {
-                toast.show({
-                    description: "Logout"
-                })
-                dispatch(Actions.onChangeLoginAccess(-1));
-                navigation.navigate("LoginII");
-            }
+        //     if ("Action" in additionalData && additionalData["Action"] == "Data_Logout") {
+        //         toast.show({
+        //             description: "Logout"
+        //         })
+        //         dispatch(Actions.onChangeLoginAccess(-1));
+        //         navigation.navigate("LoginII");
+        //     }
 
-            // Complete with null means don't show a notification.
-            event.complete(notification);
-        });
+        //     // Complete with null means don't show a notification.
+        //     event.complete(notification);
+        // });
 
-        //Method for handling notifications opened, When App closed
-        OneSignal.setNotificationOpenedHandler(event => {
-            const { additionalData = {} } = event.notification;
+        // //Method for handling notifications opened, When App closed
+        // OneSignal.setNotificationOpenedHandler(event => {
+        //     const { additionalData = {} } = event.notification;
             
-            if ("Action" in additionalData && additionalData["Action"] == "Data_Alert") {
+        //     if ("Action" in additionalData && additionalData["Action"] == "Data_Alert") {
 
-            }
-        });
+        //     }
+        // });
+        // #endregion
 
         getAppVersion();
         getServerStatus();
@@ -355,8 +356,8 @@ function Index(props) {
     }
     // #endregion
 
-    const defaultScreen = (userId == -1 || firstTimeLink) ? "LoginII" : "TabNavigation";
-    // const defaultScreen = "TokenActivation";
+    // const defaultScreen = (userId == -1 || firstTimeLink) ? "LoginII" : "TabNavigation";
+    const defaultScreen = "Debug";
 
     return (
         <>
