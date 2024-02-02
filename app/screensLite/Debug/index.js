@@ -70,7 +70,7 @@ function DebugI(props) {
 // #endregion
 
 import { BcSvgIcon, BcQrCameraBtn } from "@components";
-import { useModalToast } from "@hooks";
+import { useModalToast, useTimer } from "@hooks";
 
 function DebugII(props) {
 
@@ -100,48 +100,35 @@ import { LogLevel, OneSignal } from 'react-native-onesignal';
 function Index() {
 
     const toast = useToast();
+    const navigation = useNavigation();
+    const isFocused = useIsFocused();
 
-    const testSub = () => {
-        const email = "txen2000@gmail.com"
-        Utility.OneSignalSubscribe(email);
-        toast.show({
-            description: `Email: ${email}`
-        })
+    const [timer, setTimer] = useTimer(60);
+    const [timer2, setTimer2] = useTimer(15);
+
+    const style = {
+        title: {
+            fontFamily: "Roboto-Bold",
+            fontSize: 18,
+        },
+        timer: {
+            color: "#F00"
+        }
     }
 
     return (
         <SafeAreaView style={{ flex: 1 }}>
-            <View style={{ flex: 1 }}>
-
-                {/* Header */}
-                <View style={{ height: 80 }} />
-
-                <View style={{ height: 10 }} />
-
-                {/* Body */}
-                <ScrollView showsVerticalScrollIndicator={false}
-                    keyboardShouldPersistTaps={"handled"}
-                    contentContainerStyle={{ flexGrow: 1 }}>
-                    <VStack flexGrow={1} space={3}
-                        justifyContent={"center"} alignItems={"center"}>
-                        <Text>This is to test OneSignal</Text>
-                        <TouchableOpacity onPress={testSub}
-                            style={{ width: "60%", height: 40 }}>
-                            <View flex={1} backgroundColor={"#ff0000"}
-                                alignItems={"center"} justifyContent={"center"}>
-                                <Text style={{
-                                    fontSize: 14,
-                                    fontWeight: "bold",
-                                    color: "white",
-                                }}>Test Sub</Text>
-                            </View>
-                        </TouchableOpacity>
-                    </VStack>
-                </ScrollView>
-
-                {/* Footer */}
-                <View style={{ height: 60 }} />
-            </View>
+            <ScrollView showsVerticalScrollIndicator={false}
+                keyboardShouldPersistTaps={"handled"}
+                contentContainerStyle={{ flexGrow: 1 }}>
+                <VStack flexGrow={1} space={3}
+                    alignItems={"center"}
+                    justifyContent={"center"}>
+                    <Text>This is to test Download Progress</Text>
+                    <Text style={style.title}>Time Left: <Text style={style.timer}>{timer}</Text> seconds</Text>
+                    <Text style={style.title}>Time Left: <Text style={style.timer}>{timer2}</Text> seconds</Text>
+                </VStack>
+            </ScrollView>
         </SafeAreaView>
     )
 

@@ -255,6 +255,7 @@ function Index(props) {
                 if (Flag) {
                     setRefImg(AuthImg);
                     setRefLink(AuthCode);
+                    // [ ] Change To Longer than 60 Seconds
                     setTimer(60);
                 } else {
                     // toast.show({

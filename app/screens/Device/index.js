@@ -134,6 +134,7 @@ function LinkDeviceModal(props) {
     const [loading, setLoading, toggleLoading] = useToggle(false);
     const [tabPaneInd, setTabPaneInd] = useState(0);
 
+    // ! Can Be Removed
     const [timer, setTimer, totalDuration, setTotalDuration, overallPercent] = useTimer(linkTimer, () => onTimerEnd());
     const [subLoadFlag, setSubLoadFlag, toggleSubLoadFlag] = useToggle(false);
     const [curDeviceInd, setCurDeviceInd] = useState(0);

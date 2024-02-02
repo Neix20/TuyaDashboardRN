@@ -235,7 +235,7 @@ function HeaderRightDiv(props) {
                 <View borderRadius={20} bgColor={"#2898FF"}
                     alignItems={"center"} justifyContent={"center"}
                     style={{ height: 40, width: 40 }}>
-                    <BcSvgIcon name={"QrScan"} size={28} color={"#FFF"} />
+                    <BcSvgIcon name={"QrScan"} size={24} color={"#FFF"} />
                 </View>
             </TouchableOpacity>
         </HStack>
