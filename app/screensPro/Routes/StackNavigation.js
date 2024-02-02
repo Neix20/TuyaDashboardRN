@@ -208,8 +208,7 @@ import { Actions, Selectors } from '@redux';
 
 import { clsConst } from "@config";
 
-import OneSignal from "react-native-onesignal";
-
+import { OneSignal } from "react-native-onesignal";
 
 import { BcAppUpdateModal, BcServerMainModal } from "@components";
 import { fetchGetAppVersion, fetchGetServerStatus, fetchSubUserAccess } from "@api";
@@ -239,18 +238,18 @@ function Index(props) {
         // Hide Splash Screen
         SplashScreen.hide();
 
-        // One Signal
-        OneSignal.setAppId(clsConst.ONESIGNAL_APP_ID);
+        // #region OneSignal
+        // OneSignal Initialization
+        OneSignal.initialize(clsConst.ONESIGNAL_APP_ID);
 
-        OneSignal.promptForPushNotificationsWithUserResponse();
+        // requestPermission will show the native iOS or Android notification permission prompt.
+        // We recommend removing the following code and instead using an In-App Message to prompt for notification permission
+        OneSignal.Notifications.requestPermission(true);
 
-        //Method for handling notifications received, When App Opened
-        OneSignal.setNotificationWillShowInForegroundHandler(event => {
-            const notification = event.getNotification();
+        // Method for listening to Notification
+        OneSignal.Notifications.addEventListener('foregroundWillDisplay', event => {
+            const { additionalData = {} } = event.notification;
 
-            const { additionalData = {} } = notification;
-
-            // Check For Payment Success
             if ("Action" in additionalData && additionalData["Action"] == "Data_Controller") {
 
             }
@@ -266,19 +265,17 @@ function Index(props) {
                 dispatch(Actions.onChangeLoginAccess(-1));
                 navigation.navigate("LoginII");
             }
-
-            // Complete with null means don't show a notification.
-            event.complete(notification);
         });
 
-        //Method for handling notifications opened, When App closed
-        OneSignal.setNotificationOpenedHandler(event => {
+        // Method for listening for notification clicks
+        OneSignal.Notifications.addEventListener('click', (event) => {
             const { additionalData = {} } = event.notification;
-            
+
             if ("Action" in additionalData && additionalData["Action"] == "Data_Alert") {
 
             }
         });
+        // #endregion
 
         getAppVersion();
         getServerStatus();

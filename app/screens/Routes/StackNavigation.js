@@ -510,7 +510,7 @@ import { Actions, Selectors } from '@redux';
 
 import { clsConst } from "@config";
 
-import OneSignal from "react-native-onesignal";
+import {OneSignal} from "react-native-onesignal";
 
 // #region Initial
 const init = {
@@ -551,19 +551,18 @@ function Index(props) {
         // Reset Wifi
         dispatch(Actions.onChangeWifi(init.wifi));
 
-        // One Signal
-        OneSignal.setAppId(clsConst.ONESIGNAL_APP_ID);
+        // #region OneSignal
+        // OneSignal Initialization
+        OneSignal.initialize(clsConst.ONESIGNAL_APP_ID);
 
-        OneSignal.promptForPushNotificationsWithUserResponse();
+        // requestPermission will show the native iOS or Android notification permission prompt.
+        // We recommend removing the following code and instead using an In-App Message to prompt for notification permission
+        OneSignal.Notifications.requestPermission(true);
 
-        //Method for handling notifications received while app in foreground
-        OneSignal.setNotificationWillShowInForegroundHandler(event => {
-            const notification = event.getNotification();
+        // Method for listening to Notification
+        OneSignal.Notifications.addEventListener('foregroundWillDisplay', event => {
+            const { additionalData = {} } = event.notification;
 
-            const { additionalData = {} } = notification;
-            console.log(additionalData);
-
-            // Check For Payment Success
             if ("Action" in additionalData && additionalData["Action"] == "Data_Controller") {
 
             }
@@ -572,18 +571,24 @@ function Index(props) {
                 navigation.navigate("AuthTuyaSessionExpired", additionalData);
             }
 
-            // Complete with null means don't show a notification.
-            event.complete(notification);
+            if ("Action" in additionalData && additionalData["Action"] == "Data_Logout") {
+                toast.show({
+                    description: "Logout"
+                })
+                dispatch(Actions.onChangeLoginAccess(-1));
+                navigation.navigate("LoginII");
+            }
         });
 
-        //Method for handling notifications opened
-        OneSignal.setNotificationOpenedHandler(event => {
+        // Method for listening for notification clicks
+        OneSignal.Notifications.addEventListener('click', (event) => {
             const { additionalData = {} } = event.notification;
-            
+
             if ("Action" in additionalData && additionalData["Action"] == "Data_Alert") {
 
             }
         });
+        // #endregion
 
         getAppVersion();
         getServerStatus();
