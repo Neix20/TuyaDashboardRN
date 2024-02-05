@@ -201,7 +201,7 @@ function Index(props) {
                 <View style={{ flex: 1 }}>
 
                     {/* Header */}
-                    <Header Right={<InfoIcon />}>Scan QR</Header>
+                    <Header Right={<InfoIcon />}>Scan Yatu Product QR</Header>
 
                     <View style={{ height: 10 }} />
 

@@ -94,9 +94,10 @@ function Marker(props) {
 
     return (
         <VStack space={3} alignItems={"center"} justifyContent={"center"} style={style.frontLayer}>
-            <View>
-                <Text style={style.title}>Scan the QR within the border provided!</Text>
-            </View>
+            <HStack space={2}>
+                <Text style={style.title}>Scan the QR within the border</Text>
+                <FontAwesome name={"qrcode"} size={24} color={"#FFF"} />
+            </HStack>
             <View style={style.rect} />
         </VStack>
     )

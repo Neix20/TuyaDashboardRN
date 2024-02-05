@@ -19,6 +19,7 @@ const profileWorkspaceIdSelect = (state) => state.profileWorkspaceId;
 const loginAccessSelect = (state) => state.loginAccess;
 
 const yatuAuthSelect = (state) => state.yatuAuth;
+const tutorialSelect = (state) => state.tutorial;
 
 export {
     defaultValueSelect,
@@ -37,5 +38,6 @@ export {
     premiumPayFlagSelect,
     profileWorkspaceIdSelect,
     loginAccessSelect,
-    yatuAuthSelect
+    yatuAuthSelect,
+    tutorialSelect
 }

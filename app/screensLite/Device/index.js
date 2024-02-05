@@ -16,7 +16,7 @@ import Modal from "react-native-modal";
 import { Logger, Utility } from "@utility";
 import { Images } from "@config";
 
-import { BcBoxShadow, BcLoading, BcPhotoGalleryModal, BcSvgIcon, BcYesNoModal, BcUserStatus } from "@components";
+import { BcBoxShadow, BcLoading, BcPhotoGalleryModal, BcSvgIcon, BcYesNoModal, BcUserStatus, BcTooltip } from "@components";
 import { DisableDevice, DisableDeviceScreen, DisableDeviceItem } from "@componentsLite";
 
 import { fetchDeviceByUserII, fetchToggleFavoriteDevice, fetchLinkDeviceLite, fetchSubUserAccess } from "@api";
@@ -160,13 +160,16 @@ function Header(props) {
                     </HStack>
 
                     {/* Qr Scanner */}
-                    <TouchableOpacity onPress={GoToScanQr}>
-                        <View borderRadius={20} bgColor={"#2898FF"}
-                            alignItems={"center"} justifyContent={"center"}
-                            style={{ height: 40, width: 40 }}>
-                            <BcSvgIcon name={"QrScan"} size={24} color={"#FFF"} />
-                        </View>
-                    </TouchableOpacity>
+                    <HStack alignItems={"flex-end"} space={2}>
+            <InfoIcon />
+            <TouchableOpacity onPress={GoToScanQr}>
+                <View borderRadius={20} bgColor={"#2898FF"}
+                    alignItems={"center"} justifyContent={"center"}
+                    style={{ height: 40, width: 40 }}>
+                    <BcSvgIcon name={"QrScan"} size={24} color={"#FFF"} />
+                </View>
+            </TouchableOpacity>
+        </HStack>
                 </HStack>
             </View>
         </BcBoxShadow>
@@ -223,6 +226,51 @@ function DeviceLs(props) {
                 contentContainerStyle={style.flatListContainer}
             />
         </View>
+    )
+}
+// #endregion
+
+// #region Info Tooltip
+function InfoTooltip(props) {
+
+    const { hook = [] } = props;
+
+    const style = {
+        hyperlink: {
+            textDecorationLine: "underline",
+            fontFamily: "Roboto-Medium",
+            color: "#3366CC"
+        },
+        txt: {
+            fontFamily: "Roboto-Medium",
+            fontSize: 14,
+            color: "#484848",
+            textAlign: "justify"
+        }
+    }
+
+    return (
+        <VStack>
+            <Text style={style.txt}>1. If you haven't activate your devices, Use our QR Scanner to scan your Yatu QR!</Text>
+            <Text style={style.txt}>2. Long Press to favorite your Devices</Text>
+        </VStack>
+    )
+}
+
+function InfoIcon(props) {
+
+    const tutorial = useSelector(Selectors.tutorialSelect);
+
+    const openHook = useToggle(tutorial);
+
+    return (
+        <BcTooltip hook={openHook}
+            placement={"bottom"} bgColor={"#FFF"}
+            modalBgColor={"rgba(0, 0, 0, 0.25)"}
+            borderWidth={0}
+            content={<InfoTooltip hook={openHook} />}>
+            <BcSvgIcon name={"InfoIcon"} size={24} />
+        </BcTooltip>
     )
 }
 // #endregion

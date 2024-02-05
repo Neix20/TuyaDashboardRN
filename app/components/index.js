@@ -91,6 +91,7 @@ import BcPremiumModal from "./Modal/Premium";
 
 import BcDeleteAccountModal from "./Modal/DeleteAccount";
 import BcExpiredAccountModal from "./Modal/ExpiredAccount";
+import BcCheckUserModal from "./Modal/CheckUser";
 
 export {
     BaseModal,
@@ -110,7 +111,8 @@ export {
     BcYesNoModal,
     BcPremiumModal,
     BcDeleteAccountModal,
-    BcExpiredAccountModal
+    BcExpiredAccountModal,
+    BcCheckUserModal
 }
 
 import BcGradient from "./Gradient";

@@ -17,14 +17,9 @@ function Index(duration = 180, onTimerEnd = () => { }) {
     const dispatch = useDispatch();
     const progress = (totalDuration - timer) / totalDuration * 100;
 
-    const genEpoch = () => {
-        let ts = 0;
-        
-        ts = new Date().getTime();
-        ts = Math.floor(ts / 1000);
-        
+    const genEpoch = () => {        
         //  1706865087
-        return ts;
+        return Math.floor(new Date().getTime() / 1000);;
     }
 
     const updateDuration = (val = 0) => {

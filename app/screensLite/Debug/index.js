@@ -116,6 +116,10 @@ function Index() {
         }
     }
 
+    const resetTimer = () => {
+        setTimer2(60);
+    }
+
     return (
         <SafeAreaView style={{ flex: 1 }}>
             <ScrollView showsVerticalScrollIndicator={false}
@@ -127,6 +131,16 @@ function Index() {
                     <Text>This is to test Download Progress</Text>
                     <Text style={style.title}>Time Left: <Text style={style.timer}>{timer}</Text> seconds</Text>
                     <Text style={style.title}>Time Left: <Text style={style.timer}>{timer2}</Text> seconds</Text>
+                    <TouchableOpacity onPress={resetTimer} style={{ width: "60%", height: 40 }}>
+                        <View flex={1} backgroundColor={"#ff0000"}
+                            alignItems={"center"} justifyContent={"center"}>
+                            <Text style={{
+                                fontSize: 14,
+                                fontWeight: "bold",
+                                color: "white",
+                            }}>Reset Timer 2</Text>
+                        </View>
+                    </TouchableOpacity>
                 </VStack>
             </ScrollView>
         </SafeAreaView>

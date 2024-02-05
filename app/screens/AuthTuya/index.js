@@ -255,13 +255,10 @@ function Index(props) {
                 if (Flag) {
                     setRefImg(AuthImg);
                     setRefLink(AuthCode);
+
                     // [ ] Change To Longer than 60 Seconds
                     setTimer(60);
                 } else {
-                    // toast.show({
-                    //     description: AuthCode
-                    // });
-                    // navigation.navigate("LoginII");
                     navigation.navigate("AuthTuyaHighTraffic", data);
                 }
             })
@@ -316,10 +313,6 @@ function Index(props) {
     }
 
     const GoToHome = () => {
-        // navigation.navigate("TabNavigation", {
-        //     screen: "Device",
-        // });
-
         navigation.navigate("ScanQr", {
             title: "AuthTuya"
         });
@@ -376,6 +369,17 @@ function Index(props) {
         )
     }
 
+    const style = {
+        title: {
+            fontFamily: "Roboto-Bold",
+            fontSize: 20
+        },
+        instruction: {
+            fontFamily: "Roboto-Medium",
+            fontSize: 18
+        }
+    }
+
     // Never Show Not Once
     return (
         <>
@@ -397,54 +401,34 @@ function Index(props) {
                         ) : (
                             <>
                                 <VStack flexGrow={1} space={5}>
-                                    <VStack space={6} alignItems={"center"}>
+                                    <VStack space={3} alignItems={"center"}>
                                         {/* Instruction */}
                                         <View width={"90%"}>
-                                            <Text style={{
-                                                fontFamily: "Roboto-Bold",
-                                                fontSize: 18
-                                            }}>
-                                                Please use your Tuya or SmartLife app to scan the QR code provided through any web browser.
+                                            <Text style={style.title}>
+                                                Authentication Instructions: 
                                             </Text>
                                         </View>
 
-                                        <View width={"90%"}>
-                                            <Image source={{ uri: refImg }}
+                                        <VStack p={3} space={1} width={"90%"}
+                                            borderColor={"#000"} borderWidth={2}>
+
+                                                {/* Check Smart Life User */}
+                                                <Text style={style.instruction}>1. An Email will be send to your mailbox. The authentication QR is attached within.</Text>
+
+                                                {/* Ready a Computer to do Setup */}
+                                                <Text style={style.instruction}>2. Scan the QR Code using your SmartLife App. Please ensure that your smartlife app is installed.</Text>
+                                                
+                                            </VStack>
+
+                                        <VStack width={"90%"}>
+                                            <Image source={Images.YatuAuthGif}
                                                 style={{
                                                     width: "100%",
                                                     height: 250
                                                 }}
                                                 resizeMode={"contain"}
                                                 alt={"Auth QR Code"} />
-                                        </View>
-
-                                        {/* Copy Link */}
-                                        {
-                                            (false) ? (
-                                                <HStack
-                                                    px={4} borderRadius={4}
-                                                    bgColor={"#E6E6E6"}
-                                                    alignItems={"center"}
-                                                    justifyContent={"space-between"}
-                                                    width={"90%"} style={{ height: 48 }}>
-
-                                                    <View width={"80%"}>
-                                                        <Text style={{ fontFamily: "Roboto-Medium", fontSize: 14 }}>{refLink}</Text>
-                                                    </View>
-
-                                                    <TouchableOpacity onPress={copyRefLink}>
-                                                        <HStack alignItems={"center"} space={1}>
-                                                            <FontAwesome5 name={"clone"} size={20} />
-                                                            <Text style={{ fontFamily: "Roboto-Bold", fontSize: 16 }}>
-                                                                Copy
-                                                            </Text>
-                                                        </HStack>
-                                                    </TouchableOpacity>
-                                                </HStack>
-                                            ) : (
-                                                <></>
-                                            )
-                                        }
+                                        </VStack>
 
                                         {/* Button To Register */}
                                         <HStack space={5}
@@ -463,8 +447,6 @@ function Index(props) {
                                             <RefreshQrBtn onPress={authTuyaCode} timer={timer} />
                                         </HStack>
                                     </VStack>
-
-
                                 </VStack>
                             </>
                         )

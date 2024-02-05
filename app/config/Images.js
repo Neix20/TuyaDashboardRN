@@ -102,5 +102,10 @@ data = {
     SmartLifeLogo: require("@assets/images/smartlife.png")
 }
 
+data = {
+    ...data,
+    YatuAuthGif: require("@assets/gif/YatuAuth.gif")
+}
+
 
 export default data;

@@ -117,6 +117,13 @@ const onChangeYatuAuth = (yatuAuth) => {
     }
 };
 
+const onChangeTutorial = (tutorial) => {
+    return {
+        type: "SET_TUTORIAL",
+        tutorial: tutorial,
+    }
+};
+
 export {
     onChangeDefaultValue,
     onChangeUserId,
@@ -134,5 +141,6 @@ export {
     onChangePremiumPayFlag,
     onChangeProfileWorkspaceId,
     onChangeLoginAccess,
-    onChangeYatuAuth
+    onChangeYatuAuth,
+    onChangeTutorial
 }

@@ -64,3 +64,41 @@
 
 - [x] Disable Back Button
 - [x] Modify GetDeviceByUserII
+
+## 2024-02-03
+
+- [x] Make Gif To Replace QR Code [Yatu-Dashboard]
+  - [x] Show Gif React-Native
+- [ ] Replace Components with Demo Components [Yatu-Dashboard]
+  - [x] Global Tutorial Redux-Replace
+  - [ ] Auto Insert New Devices to Its Associated Profile Workspace [Yatu-Selenium]
+  - [x] Auto Insert New Devices to Its Associated Profile Workspace [Data-Alert] (When Add-New Device)
+- [x] Only Show Yatu Devices [Yatu-WS] (Longer)
+  - [x] Trace Date of Package Active
+  - [x] Assume that Device is Added 6 Hours Prior
+  - [x] Only Add Device That Has Been Added 6 Hours Prior
+- [x] Scenario
+  - [x] SmartLife Account with 2 Device
+    - [x] Email: `neixchobby@gmail.com`
+    - [x] Smart IR
+    - [x] Temperature & Humidity Alarm
+    - [x] Get Device Information
+  - [ ] Differentiate Between Yatu
+    - [x] Add `IsYatu` to Device QR
+    - [ ] C#, Add `IsYatu` Column
+
+- [x]  Insert Yatu Instruction Tutorial to Devices
+- [x]  Alter Scan Yatu Pages
+- [x]  Modify `YatuSelenium`
+
+## Business Requirements (Do Before Sleep)
+
+- [ ] As a new Yatu User, After i Synced the Device, The Device List Should be Empty
+  - [ ] It Should be automatically Inserted into my Profile Workspace (Not Possible)
+- [ ] As a new Yatu User, After I Scan my Yatu Device
+  - [ ] The Device Name in SmartLife Should Change to Yatu device (Advanced)
+  - [ ] The Device Should then only be added to my Yatu Devices
+
+## Bugs
+
+- [ ] If I Press Refresh, I Get Sent Out (High Traffic) (TUserToken)

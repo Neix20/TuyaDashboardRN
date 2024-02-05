@@ -19,6 +19,7 @@ const initialState = {
     profileWorkspaceId: -1,
     loginAccess: 1,
     yatuAuth: -1,
+    tutorial: false,
 };
 
 function setReducer(state = initialState, action = {}) {
@@ -107,6 +108,11 @@ function setReducer(state = initialState, action = {}) {
             return {
                 ...state,
                 yatuAuth: action.yatuAuth,
+            };
+        case "SET_TUTORIAL":
+            return {
+                ...state,
+                tutorial: action.tutorial,
             };
         default: {
             return {
