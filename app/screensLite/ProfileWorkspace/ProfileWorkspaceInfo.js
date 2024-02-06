@@ -8,17 +8,17 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 
-import { Logger, Utility } from "@utility";
 import { Images, Svg } from "@config";
+import { Logger, Utility } from "@utility";
 
-import { BcHeaderWithAdd, BcLoading, BcBoxShadow } from "@components";
+import { BcHeaderWithAdd, BcLoading, BcBoxShadow, BcTooltip, BcSvgIcon } from "@components";
 import { fetchDeviceByProfileWorkspace, fetchToggleDeviceListing } from "@api";
 
 import { useToggle } from "@hooks";
 import { ProfileWsData as TestData } from "./data";
 
-import { useDispatch, useSelector } from 'react-redux';
 import { Actions, Selectors } from '@redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { CheckBox } from "@rneui/base";
 
@@ -172,12 +172,20 @@ function Body(props) {
         return (<EmptyList />);
     }
 
+    const tutorial = useSelector(Selectors.tutorialSelect);
+
     const toast = useToast();
     const navigation = useNavigation();
 
     const renderItem = ({ item, index }) => {
         const onSelect = () => {
             onSelectItem(item);
+            const { Title = "", flag = false } = item;
+
+            const msg = (flag) ? `Device ${Title} is added to workspace!` : `Device ${Title} is removed from workspace!`
+            if (tutorial) {
+                toast.show({ description: msg })
+            }
         }
         return (<BodyItem key={index} data={item} onPress={onSelect} />)
     }
@@ -200,18 +208,97 @@ function Body(props) {
         </VStack>
     );
 }
-// #endregion
 
-function HeaderAddBtn(props) {
+function TutorialBtn(props) {
+
+    const navigation = useNavigation();
+
+    const dispatch = useDispatch();
+    const tutorial = useSelector(Selectors.tutorialSelect);
+
+    if (!tutorial) {
+        return (<></>);
+    }
+
+    const style = {
+        main: {
+            position: "absolute",
+            zIndex: 1,
+            bottom: 10,
+            right: 0, left: 0
+        },
+        btnTxt: {
+            fontSize: 16,
+            fontWeight: "bold",
+            color: "#FFF"
+        }
+    }
+
+    const completeTutorial = () => {
+        // Update Tutorial
+        dispatch(Actions.onChangeTutorial(false));
+
+        navigation.navigate("TabNavigation", {
+            screen: "Dashboard"
+        });
+    } 
+
     return (
-        <View borderRadius={20}
-            bgColor={"#2898FF"}
-            alignItems={"center"} justifyContent={"center"}
-            style={{ width: 32, height: 32 }}>
-            <FontAwesome name={"plus"} size={16} color={"#FFF"} />
+        <View alignItems={"center"} style={style.main}>
+            <TouchableOpacity onPress={completeTutorial} style={{ width: "50%", height: 40 }}>
+                <View flex={1} backgroundColor={"#2898FF"} borderRadius={12}
+                    alignItems={"center"} justifyContent={"center"}>
+                    <Text style={style.btnTxt}>Complete Tutorial</Text>
+                </View>
+            </TouchableOpacity>
         </View>
     )
 }
+// #endregion
+
+// #region Info Tooltip
+function InfoTooltip(props) {
+
+    const { hook = [] } = props;
+
+    const style = {
+        hyperlink: {
+            textDecorationLine: "underline",
+            fontFamily: "Roboto-Medium",
+            color: "#3366CC"
+        },
+        txt: {
+            fontFamily: "Roboto-Medium",
+            fontSize: 14,
+            color: "#484848",
+            textAlign: "justify"
+        }
+    }
+
+    return (
+        <VStack>
+            <Text style={style.txt}>1. Add Device to Workspace by Pressing on the Device</Text>
+            <Text style={style.txt}>2. Devices added to workspace will have a blue checkmark beside it.</Text>
+        </VStack>
+    )
+}
+
+function InfoIcon(props) {
+
+    const tutorial = useSelector(Selectors.tutorialSelect);
+    const openHook = useToggle(tutorial);
+
+    return (
+        <BcTooltip hook={openHook}
+            placement={"bottom"} bgColor={"#FFF"}
+            modalBgColor={"rgba(0, 0, 0, 0.25)"}
+            borderWidth={0}
+            content={<InfoTooltip hook={openHook} />}>
+            <BcSvgIcon name={"InfoIcon"} size={24} />
+        </BcTooltip>
+    )
+}
+// #endregion
 
 function Index(props) {
 
@@ -288,7 +375,7 @@ function Index(props) {
                 Id: item.Id,
                 Status: item.flag ? 1 : 0
             }]
-    
+
             ToggleDeviceListing(t_devLs)
         }, 500);
     }
@@ -300,16 +387,15 @@ function Index(props) {
                 <View style={{ flex: 1 }}>
 
                     {/* Header */}
-                    <BcHeaderWithAdd flag={addFlag} onSelect={ToggleDeviceListing} RightChild={() => {}}>Device List</BcHeaderWithAdd>
+                    <BcHeaderWithAdd Right={<InfoIcon />}>Device List</BcHeaderWithAdd>
 
                     <View style={{ height: 10 }} />
 
                     {/* Body */}
-                    <Body
-                        data={devLs}
-                        onSelectItem={onSelectDevice} />
+                    <Body data={devLs} onSelectItem={onSelectDevice} />
                 </View>
             </SafeAreaView>
+            <TutorialBtn />
         </>
     );
 }

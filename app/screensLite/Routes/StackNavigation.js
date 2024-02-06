@@ -1,43 +1,40 @@
 
 import React, { useState, useEffect } from "react";
-import SplashScreen from "react-native-splash-screen";
-import { BcStackNavigator } from "@components";
+import SplashScreen                   from "react-native-splash-screen";
+import { BcStackNavigator }           from "@components";
 
-import { Logger } from "@utility";
-import { Platform } from "react-native";
+import { Logger }                     from "@utility";
+import { Platform }                   from "react-native";
 
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation }              from "@react-navigation/native";
 
 // Screens
-import Debug from "@screensLite/Debug";
+import Debug                  from "@screensLite/Debug";
+import TabNavigation          from "./TabNavigation";
+import LoginII                from "@screensLite/Login/LoginII";
 
-import TabNavigation from "./TabNavigation";
-
-import LoginII from "@screensLite/Login/LoginII";
-
-import ProfileInfo from "@screensLite/Profile/ProfileInfo";
-
-import ProfileWorkspace from "@screensLite/ProfileWorkspace";
-import ProfileWorkspaceInfo from "@screensLite/ProfileWorkspace/ProfileWorkspaceInfo";
+import ProfileInfo            from "@screensLite/Profile/ProfileInfo";
+import ProfileWorkspace       from "@screensLite/ProfileWorkspace";
+import ProfileWorkspaceInfo   from "@screensLite/ProfileWorkspace/ProfileWorkspaceInfo";
 
 // Check Tuya Email & Auth
-import CheckTuyaEmail from "@screens/CheckTuyaEmail";
-import AuthTuya from "@screens/AuthTuya";
-import AuthTuyaHighTraffic from "@screens/AuthTuya/HighTraffic";
+import CheckTuyaEmail         from "@screens/CheckTuyaEmail";
+import AuthTuya               from "@screens/AuthTuya";
+import AuthTuyaHighTraffic    from "@screens/AuthTuya/HighTraffic";
 import AuthTuyaSessionExpired from "@screens/AuthTuya/SessionExpired";
 
 // Token & UserToken
-import TokenActivation from "@screens/Token/screens/TokenActivation.js";
-import TokenSuccess from "@screens/Token/screens/TokenSuccess.js";
-import UserToken from "@screens/UserToken";
-import UserTokenInfo from "@screens/UserToken/UserTokenInfo.js";
+import TokenActivation        from "@screens/Token/screens/TokenActivation.js";
+import TokenSuccess           from "@screens/Token/screens/TokenSuccess.js";
+import UserToken              from "@screens/UserToken";
+import UserTokenInfo          from "@screens/UserToken/UserTokenInfo.js";
 
 // Qr Scanner
-import ScanQr from "@screens/ScanQr";
-import DeviceResult from "@screensLite/Device/Result";
+import ScanQr                 from "@screens/ScanQr";
+import DeviceResult           from "@screensLite/Device/Result";
 
 // Token Wallet
-import TokenWallet from "@screens/TokenWallet";
+import TokenWallet            from "@screens/TokenWallet";
 
 let StackScreens = {};
 
@@ -178,12 +175,12 @@ StackScreens = {
     }
 }
 
-import AboutUs from "@screens/CompanyInfo/screens/AboutUs.js";
-import Tnc from "@screens/CompanyInfo/screens/Tnc.js";
-import Policy from "@screens/CompanyInfo/screens/Policy.js";
-import Faq from "@screens/CompanyInfo/screens/Faq.js";
+import AboutUs      from "@screens/CompanyInfo/screens/AboutUs.js";
+import Tnc          from "@screens/CompanyInfo/screens/Tnc.js";
+import Policy       from "@screens/CompanyInfo/screens/Policy.js";
+import Faq          from "@screens/CompanyInfo/screens/Faq.js";
 
-import YatuEngine from "@screens/YatuEngine";
+import YatuEngine   from "@screens/YatuEngine";
 
 StackScreens = {
     ...StackScreens,
@@ -237,7 +234,7 @@ import { fetchGetAppVersion, fetchGetServerStatus, fetchSubUserAccess } from "@a
 import { useToggle } from "@hooks";
 import { useToast } from "native-base";
 
-import { initConnection, IapIosSk2, setup } from "react-native-iap";
+import { setup } from "react-native-iap";
 
 function Index(props) {
 
@@ -247,6 +244,7 @@ function Index(props) {
     const userId = useSelector(Selectors.userIdSelect);
     const firstTimeLink = useSelector(Selectors.firstTimeLinkSelect);
     const loginAccess = useSelector(Selectors.loginAccessSelect);
+    const tutorial = useSelector(Selectors.tutorialSelect);
 
     const [appFlag, setAppFlag, toggleAppFlag] = useToggle(false);
     const [serverFlag, setServerFlag, toggleServerFlag] = useToggle(false);
@@ -268,11 +266,17 @@ function Index(props) {
         OneSignal.Notifications.requestPermission(true);
 
         // Method for listening to Notification
-        OneSignal.Notifications.addEventListener('foregroundWillDisplay', event => {
+        const fgEvt = (event) => {
+
             const { additionalData = {} } = event.notification;
 
-            if ("Action" in additionalData && additionalData["Action"] == "Data_Controller") {
+            // console.log(OneSignal.Notifications.hasPermission(), additionalData);
 
+            if ("Action" in additionalData && additionalData["Action"] == "Data_Controller") {
+                const { Message } = additionalData;
+                toast.show({
+                    description: Message
+                })
             }
 
             if ("Action" in additionalData && additionalData["Action"] == "Data_Auth") {
@@ -286,16 +290,33 @@ function Index(props) {
                 dispatch(Actions.onChangeLoginAccess(-1));
                 navigation.navigate("LoginII");
             }
-        });
+
+            if ("Action" in additionalData && additionalData["Action"] == "Data_Alert") {
+                if (!tutorial) {
+                    navigation.navigate("TabNavigation", {
+                        screen: "Dashboard"
+                    })
+                }
+            }
+
+            event.getNotification().display();
+        }
+        OneSignal.Notifications.addEventListener('foregroundWillDisplay', fgEvt);
 
         // Method for listening for notification clicks
-        OneSignal.Notifications.addEventListener('click', (event) => {
+        const ckEvt = (event) => {
+            
             const { additionalData = {} } = event.notification;
 
             if ("Action" in additionalData && additionalData["Action"] == "Data_Alert") {
-
+                navigation.navigate("TabNavigation", {
+                    screen: "Dashboard"
+                })
             }
-        });
+
+            event.getNotification().display();
+        }
+        OneSignal.Notifications.addEventListener('click', ckEvt);
         // #endregion
 
         getAppVersion();
@@ -304,6 +325,9 @@ function Index(props) {
 
         // Setup for Getting Purchase History
         setup({ storekitMode: 'STOREKIT_HYBRID_MODE' });
+
+        // Set Tutorial To True
+        dispatch(Actions.onChangeTutorial(true));
     }, []);
 
     // #region Helper
@@ -354,7 +378,7 @@ function Index(props) {
     // #endregion
 
     const defaultScreen = (userId == -1 || firstTimeLink) ? "LoginII" : "TabNavigation";
-    // const defaultScreen = "Debug";
+    // const defaultScreen = "AuthTuya";
 
     return (
         <>

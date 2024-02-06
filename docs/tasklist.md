@@ -71,7 +71,8 @@
   - [x] Show Gif React-Native
 - [ ] Replace Components with Demo Components [Yatu-Dashboard]
   - [x] Global Tutorial Redux-Replace
-  - [ ] Auto Insert New Devices to Its Associated Profile Workspace [Yatu-Selenium]
+    - [ ] When I Set `Global Tutorial` True, It Will Auto-Start the Tutorial Process
+  - [x] Auto Insert New Devices to Its Associated Profile Workspace [Yatu-Selenium]
   - [x] Auto Insert New Devices to Its Associated Profile Workspace [Data-Alert] (When Add-New Device)
 - [x] Only Show Yatu Devices [Yatu-WS] (Longer)
   - [x] Trace Date of Package Active
@@ -93,8 +94,8 @@
 
 ## Business Requirements (Do Before Sleep)
 
-- [ ] As a new Yatu User, After i Synced the Device, The Device List Should be Empty
-  - [ ] It Should be automatically Inserted into my Profile Workspace (Not Possible)
+- [x] As a new Yatu User, After i Synced the Device, The Device List Should be Empty
+  - [x] It Should be automatically Inserted into my Profile Workspace
 - [ ] As a new Yatu User, After I Scan my Yatu Device
   - [ ] The Device Name in SmartLife Should Change to Yatu device (Advanced)
   - [ ] The Device Should then only be added to my Yatu Devices
@@ -102,3 +103,19 @@
 ## Bugs
 
 - [ ] If I Press Refresh, I Get Sent Out (High Traffic) (TUserToken)
+
+## Tutorial
+
+~~- Sync Data Complete, Data is Downloaded & Devices Added to Home Screen~~
+~~  - Pop Message Saying Sync Your Data by selecting our Device~~
+~~- Select "Sync Now" After Selecting Device~~
+~~  - Select "Link"~~
+~~- Redirect User to "Profile Workspace", to add / remove device ?~~
+~~- When Data has Downloaded, Redirect User To Dashboard~~
+~~Test Notification~~
+
+```mermaid
+flowchart TD
+  1(start)
+  2(end)
+```

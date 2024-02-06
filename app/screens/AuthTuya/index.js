@@ -182,11 +182,12 @@ function RefreshQrBtn(props) {
         <View backgroundColor={"#F00"} borderRadius={12}
             alignItems={"center"} justifyContent={"center"}
             style={{ height: 80, width: 120 }}>
-            <Text style={[{
-                fontSize: 24,
+            <Text style={{
+                fontSize: 16,
                 fontWeight: "bold",
-                color: "white",
-            }]}>Refresh</Text>
+                color: "#FFF",
+                textAlign: "center",
+            }}>Retry After SmartLife Scan</Text>
         </View>
     )
 
@@ -215,15 +216,14 @@ function Index(props) {
 
     const userId = useSelector(Selectors.userIdSelect);
 
-    // const { Email } = props.route.params;
-    const Email = "";
+    const Email = props?.route?.params?.Email || "";
 
     // #region UseState
     const [loading, setLoading] = useState(false);
     const [refLink, setRefLink] = useState("");
     const [refImg, setRefImg] = useState("");
     const [loadingTxt, setLoadingTxt] = useState("");
-    const [timer, setTimer] = useTimer(0);
+    const [timer, setTimer] = useTimer(-1);
 
     const [atcFlag, setAtcFlag] = useState(false);
     const [showExitModal, setShowExitModal, toggleExitModal] = useToggle(false);
@@ -256,7 +256,6 @@ function Index(props) {
                     setRefImg(AuthImg);
                     setRefLink(AuthCode);
 
-                    // [ ] Change To Longer than 60 Seconds
                     setTimer(60);
                 } else {
                     navigation.navigate("AuthTuyaHighTraffic", data);

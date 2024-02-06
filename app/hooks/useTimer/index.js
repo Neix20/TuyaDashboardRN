@@ -23,16 +23,17 @@ function Index(duration = 180, onTimerEnd = () => { }) {
     }
 
     const updateDuration = (val = 0) => {
+        setTotalDuration(_ => val);
+
         const ts = genEpoch();
         setEpoch(_ => ts);
 
-        setTotalDuration(_ => val);
         dispatch(Actions.onChangeLinkTotalDuration(totalDuration));
     }
 
     const updateTimer = (val = 0) => {
-        setTimer(_ => val);
         updateDuration(val);
+        setTimer(_ => val);
     }
 
     useEffect(() => {
@@ -40,6 +41,8 @@ function Index(duration = 180, onTimerEnd = () => { }) {
     }, []);
 
     useEffect(() => {
+        // ! setTimer Fires Earlier than Duration
+        // timer => 120, Duration => 0
         if (timer <= 0) {
             deactivateKeepAwake();
             onTimerEnd();

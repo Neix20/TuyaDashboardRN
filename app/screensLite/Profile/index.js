@@ -1,22 +1,21 @@
 import React, { useState, useEffect } from "react";
-import { Text, TouchableOpacity, Image, TextInput, SafeAreaView, ImageBackground, ScrollView } from "react-native";
 import { View, VStack, HStack, useToast } from "native-base";
+import { Text, TouchableOpacity, Image, SafeAreaView, ScrollView } from "react-native";
 
 import Ionicons from "react-native-vector-icons/Ionicons";
-import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
-import MaterialIcons from "react-native-vector-icons/MaterialIcons";
-import SimpleLineIcons from "react-native-vector-icons/SimpleLineIcons";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
+import MaterialIcons from "react-native-vector-icons/MaterialIcons";
+import SimpleLineIcons from "react-native-vector-icons/SimpleLineIcons";
+import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 
 import { useNavigation, useIsFocused } from "@react-navigation/native";
 
+import { clsConst } from "@config";
 import { Logger, Utility } from "@utility";
 
-import { clsConst } from "@config";
-
-import { useDispatch, useSelector } from 'react-redux';
 import { Actions, Selectors } from '@redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { fetchProfileInfo, fetchSubUserAccess, fetchDeleteAccount, fetchRestoreStorePurchase } from "@api";
 
@@ -149,24 +148,24 @@ function PanelBtn(props) {
     const { title = "", color = "#111111" } = props;
     const { onPress = () => { } } = props;
 
+    const style = {
+        title: {
+            fontFamily: "Roboto-Medium",
+            fontSize: 18,
+            color: color
+        }
+    }
+
     return (
         <TouchableOpacity onPress={onPress} disabled={disabled} style={{ width: "90%" }}>
-            <HStack
-                alignItems={"center"}
-                justifyContent={"space-between"}
-                style={{ height: 60 }}>
+            <HStack alignItems={"center"} justifyContent={"space-between"} style={{ height: 60 }}>
                 {/* Icon & Title */}
                 <HStack alignItems={"center"}>
                     <View alignItems={"flex-start"} style={{ width: 40 }}>
                         <Btn name={icon} color={color} size={24} />
                     </View>
-                    <Text style={{
-                        fontFamily: "Roboto-Medium",
-                        fontSize: 18,
-                        color: color
-                    }}>{title}</Text>
+                    <Text style={style.title}>{title}</Text>
                 </HStack>
-
                 {/* FontAwesome */}
                 {
                     (showRight) ? (
@@ -175,7 +174,6 @@ function PanelBtn(props) {
                         <></>
                     )
                 }
-
             </HStack>
         </TouchableOpacity>
     )
@@ -380,7 +378,7 @@ function RestorePurchasePanel(props) {
     return (
         <>
             <BcYesNoModal
-                showModal={showRpModal} setShowModal={setShowRpModal} 
+                showModal={showRpModal} setShowModal={setShowRpModal}
                 title={"Restore Purchase"}
                 description={`This will restore all your deleted purchases from App Store & Google play store.\n\nWould you like to restore your purchases?`}
                 titleYes={"Restore"} titleNo={"Cancel"}
@@ -431,6 +429,67 @@ function LogoutPanel(props) {
             </VStack>
         </>
     )
+}
+
+import { CheckBox } from "@rneui/base";
+
+function TutorialPanel(props) {
+
+    const dispatch = useDispatch();
+    const navigation = useNavigation();
+
+    const tutorial = useSelector(Selectors.tutorialSelect);
+
+    const toggleTutorial = () => {
+        // Update Tutorial
+        dispatch(Actions.onChangeTutorial(true));
+
+        navigation.navigate("TabNavigation", {
+            screen: "Device"
+        })
+    }
+
+    const color = "#111111";
+
+    const style = {
+        title: {
+            fontFamily: "Roboto-Medium",
+            fontSize: 18,
+            color: color
+        },
+        chkBox: {
+            paddingHorizontal: 0,
+            paddingVertical: 0,
+        }
+    }
+
+    return (
+        <VStack bgColor={"#FFF"} borderRadius={8} width={"90%"} alignItems={"center"}>
+
+            <TouchableOpacity onPress={toggleTutorial} style={{ width: "90%" }}>
+                <HStack alignItems={"center"} justifyContent={"space-between"} style={{ height: 60 }}>
+                    {/* Icon & Title */}
+                    <HStack alignItems={"center"}>
+                        <View alignItems={"flex-start"} style={{ width: 40 }}>
+                            <FontAwesome5 name={"graduation-cap"} size={24} color={color} />
+                        </View>
+                        <Text style={style.title}>Restart Tutorial</Text>
+                    </HStack>
+                    {/* Checkbox */}
+                    {/* <CheckBox
+                        containerStyle={style.chkBox}
+                        iconType={"material-community"}
+                        checkedIcon={"checkbox-marked"}
+                        uncheckedIcon={"checkbox-blank-outline"}
+                        checked={tutorial}
+                        onPress={toggleTutorial}
+                        checkedColor={"#2898FF"} /> */}
+                </HStack>
+            </TouchableOpacity>
+
+        </VStack>
+    )
+
 }
 // #endregion
 
@@ -565,6 +624,8 @@ function Index(props) {
                             {(UserStatus == 0) ? <AuthUserCheckTuyaEmail /> : <></>}
 
                             <CompanyInfoPanel />
+
+                            <TutorialPanel />
 
                             {/* Logout */}
                             <LogoutPanel onLogout={SignOut} onDeleteAccount={DeleteAccount} />

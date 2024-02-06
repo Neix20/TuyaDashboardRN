@@ -62,7 +62,7 @@ function Index(props) {
                     </VStack>
                     <HStack alignItems={"center"} space={2}>
                         {
-                            (Status == 1 && showFavorite) ? (
+                            (showFavorite) ? (
                                 <FontAwesome name={"star"} size={24} color={pwsColor} />
                             ) : (
                                 <View style={{ width: 32, height: 32 }} />

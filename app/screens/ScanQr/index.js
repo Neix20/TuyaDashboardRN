@@ -6,8 +6,8 @@ import { useNavigation, useIsFocused } from "@react-navigation/native";
 
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 
-import { Logger, Utility } from "@utility";
-import { Images, Svg } from "@config";
+import { Logger, Utility }  from "@utility";
+import { Images, Svg }      from "@config";
 
 import { BcYesNoModal, BcLoading, BcTooltip, BcSvgIcon, BcQrCamera, BcBoxShadow } from "@components";
 

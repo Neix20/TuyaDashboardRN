@@ -2,16 +2,13 @@ import React, { useState, useEffect, useRef } from "react";
 import { Text, TouchableOpacity, Image, TextInput, SafeAreaView, FlatList, ScrollView } from "react-native";
 import { View, VStack, HStack, Divider, useToast } from "native-base";
 
-import FontAwesome from "react-native-vector-icons/FontAwesome";
-import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
-import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
-
-import Feather from "react-native-vector-icons/Feather";
-import Ionicons from "react-native-vector-icons/Ionicons";
+import FontAwesome              from "react-native-vector-icons/FontAwesome";
+import FontAwesome5             from "react-native-vector-icons/FontAwesome5";
+import MaterialCommunityIcons   from "react-native-vector-icons/MaterialCommunityIcons";
+import Feather                  from "react-native-vector-icons/Feather";
+import Ionicons                 from "react-native-vector-icons/Ionicons";
 
 import { useNavigation, useIsFocused } from "@react-navigation/native";
-
-import Modal from "react-native-modal";
 
 import { Logger, Utility } from "@utility";
 import { Images } from "@config";
@@ -25,9 +22,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Actions, Selectors } from '@redux';
 
 import { useDeviceLs } from "./hooks";
-import DeviceItem from "./DeviceItem";
-
 import { useToggle } from "@hooks";
+
+import Modal from "react-native-modal";
+import DeviceItem from "./DeviceItem";
 
 // #region Tab Detail
 function TabDetailModalItem(props) {
@@ -161,15 +159,15 @@ function Header(props) {
 
                     {/* Qr Scanner */}
                     <HStack alignItems={"flex-end"} space={2}>
-            <InfoIcon />
-            <TouchableOpacity onPress={GoToScanQr}>
-                <View borderRadius={20} bgColor={"#2898FF"}
-                    alignItems={"center"} justifyContent={"center"}
-                    style={{ height: 40, width: 40 }}>
-                    <BcSvgIcon name={"QrScan"} size={24} color={"#FFF"} />
-                </View>
-            </TouchableOpacity>
-        </HStack>
+                        <InfoIcon />
+                        <TouchableOpacity onPress={GoToScanQr}>
+                            <View borderRadius={20} bgColor={"#2898FF"}
+                                alignItems={"center"} justifyContent={"center"}
+                                style={{ height: 40, width: 40 }}>
+                                <BcSvgIcon name={"QrScan"} size={24} color={"#FFF"} />
+                            </View>
+                        </TouchableOpacity>
+                    </HStack>
                 </HStack>
             </View>
         </BcBoxShadow>
@@ -252,7 +250,8 @@ function InfoTooltip(props) {
     return (
         <VStack>
             <Text style={style.txt}>1. If you haven't activate your devices, Use our QR Scanner to scan your Yatu QR!</Text>
-            <Text style={style.txt}>2. Long Press to favorite your Devices</Text>
+            <Text style={style.txt}>2. Press the device to link its data. Yatu Lite only works with Yatu Device!</Text>
+            <Text style={style.txt}>3. "Long Press" to favorite your Devices</Text>
         </VStack>
     )
 }
@@ -260,7 +259,6 @@ function InfoTooltip(props) {
 function InfoIcon(props) {
 
     const tutorial = useSelector(Selectors.tutorialSelect);
-
     const openHook = useToggle(tutorial);
 
     return (
@@ -308,6 +306,18 @@ function Index(props) {
     }, [homeId, refresh, isFocused]);
     // #endregion
 
+    // Tutorial
+    const tutorial = useSelector(Selectors.tutorialSelect);
+    // useEffect(() => {
+    //     if (isFocused) {
+    //         if (tutorial) {
+    //             toast.show({
+    //                 description: "Welcome to your Yatu Workspace!\nPlease Select The Devices you wish to link data!"
+    //             })
+    //         }
+    //     }
+    // }, [isFocused]);
+
     // #region API List
     const GetDeviceByUserII = () => {
         setLoading(true);
@@ -350,6 +360,7 @@ function Index(props) {
     }
 
     const LinkDevice = () => {
+
         setLoading(true);
         fetchLinkDeviceLite({
             param: {
@@ -363,9 +374,32 @@ function Index(props) {
                 toggleLdModal();
                 if (ResponseCode == "00") {
                     toggleRefresh();
-                    toast.show({
-                        description: "Download starting..."
-                    })
+                    // toast.show({
+                    //     description: "Download starting..."
+                    // });
+
+                    // Think About This, Redirect To ProfileWorkspace
+                    if (tutorial) {
+                        // Send to its Respective Profile Workspace
+                        const { 
+                            IsTempHumd                  = -1,
+                            IsSmartPlug                 = -1,
+                            TempHumdProfileWorkspaceId  = -1,
+                            SmartPlugProfileWorkspaceId = -1
+                        } = deviceData.filter(x => x.flag == 1)[0];
+
+                        if (IsTempHumd >= 1) {
+                            navigation.navigate("ProfileWorkspaceInfo", {
+                                Id: TempHumdProfileWorkspaceId
+                            })
+                        }
+
+                        if (IsSmartPlug >= 1) {
+                            navigation.navigate("ProfileWorkspaceInfo", {
+                                Id: SmartPlugProfileWorkspaceId
+                            })
+                        }
+                    }
                 } else {
                     // Pop Up Modal Saying Max Device Limit Reached
                     toast.show({
@@ -400,6 +434,14 @@ function Index(props) {
 
         const onLinkDevice = () => {
             toggleDeviceFlag(item);
+
+            const { flag = false } = item;
+
+            if (tutorial && flag) {
+                toast.show({
+                    description: "Select \"Next\""
+                })
+            }
         };
 
         const onAddToFavorite = () => {
@@ -450,6 +492,10 @@ function Index(props) {
         })
     }
     // #endregion
+
+    const GoToProfileWorkspace = () => {
+        navigation.navigate("ProfileWorkspace");
+    }
 
     const machineListView = useRef(null);
 
@@ -506,7 +552,7 @@ function Index(props) {
                                         (deviceSession) ? (
                                             <TouchableOpacity onPress={toggleLdModal}>
                                                 <View borderRadius={20} px={3} py={1} bgColor={"#2898FF"}>
-                                                    <Text style={style.syncTitle}>Sync Now</Text>
+                                                    <Text style={style.syncTitle}>{tutorial ? "Next" : "Sync Now"}</Text>
                                                 </View>
                                             </TouchableOpacity>
                                         ) : (
