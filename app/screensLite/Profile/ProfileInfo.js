@@ -23,13 +23,13 @@ function InfoItem(props) {
         <HStack width={"90%"}
             alignItems={"center"}
             style={{ height: 48 }}>
-            <View flex={.3}>
+            <View flex={.25}>
                 <Text style={{
                     fontFamily: "Roboto-Medium",
-                    fontSize: 18
+                    fontSize: 18,
                 }}>{Title}: </Text>
             </View>
-            <View flex={.7}>
+            <View flex={.8}>
                 <TextInput
                     editable={Editable}
                     defaultValue={Value}

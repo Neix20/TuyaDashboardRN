@@ -6,8 +6,8 @@ import { useNavigation, useIsFocused } from "@react-navigation/native";
 
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 
-import { Logger, Utility }  from "@utility";
-import { Images, Svg }      from "@config";
+import { Logger, Utility } from "@utility";
+import { Images, Svg } from "@config";
 
 import { BcYesNoModal, BcLoading, BcTooltip, BcSvgIcon, BcQrCamera, BcBoxShadow } from "@components";
 
@@ -95,6 +95,7 @@ function InfoIcon(props) {
 function Header(props) {
 
     const { children = null, Right = null } = props;
+    const navigation = useNavigation();
 
     const style = {
         main: {
@@ -116,11 +117,14 @@ function Header(props) {
                 style={style.main}>
 
                 <HStack w={"90%"} alignItems={"center"} justifyContent={"space-between"}>
+                    <TouchableOpacity onPress={() => navigation.goBack()}>
+                        <FontAwesome5 name={"arrow-left"} size={24} color={"#000"} />
+                    </TouchableOpacity>
                     <Text style={style.title}>{children}</Text>
                     {Right}
                 </HStack>
             </View>
-        </BcBoxShadow>
+        </BcBoxShadow >
     )
 }
 // #endregion
@@ -191,7 +195,7 @@ function Index(props) {
 
     return (
         <>
-        <BcYesNoModal showModal={exitModal} setShowModal={showExitModal}
+            <BcYesNoModal showModal={exitModal} setShowModal={showExitModal}
                 title={"Warning"}
                 titleYes={"Yes"} titleNo={"Cancel"}
                 onPressYes={GoBack} onPressNo={toggleExitModal}

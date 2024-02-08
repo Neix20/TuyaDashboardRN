@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { TouchableOpacity, Text, Image } from "react-native";
 import { View, VStack, HStack } from "native-base";
+import Lottie from "lottie-react-native";
+import { Animation, Images, clsConst } from "@config";
 
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
@@ -63,7 +65,7 @@ function Scanner(props) {
             codeScanner={codeScanner}
             device={device}
             isActive={true}
-            style={{ flex: 1 }}
+            style={{ height: "60%" }}
         />
     )
 }
@@ -74,16 +76,16 @@ function Marker(props) {
         frontLayer: {
             position: "absolute",
             zIndex: 2,
-            top: 0,
+            top: 30,
             left: 0,
             right: 0,
-            bottom: 0,
+            // bottom: 0,
         },
         rect: {
             width: 320,
             height: 320,
             borderWidth: 5,
-            borderColor: "#0F0",
+            borderColor: "#2898FF",
         },
         title: {
             fontFamily: "Roboto-Bold",
@@ -94,11 +96,20 @@ function Marker(props) {
 
     return (
         <VStack space={3} alignItems={"center"} justifyContent={"center"} style={style.frontLayer}>
-            <HStack space={2}>
+            <HStack space={2} alignItems={'center'}>
                 <Text style={style.title}>Scan the QR within the border</Text>
+
                 <FontAwesome name={"qrcode"} size={24} color={"#FFF"} />
             </HStack>
-            <View style={style.rect} />
+            <Lottie
+                autoPlay
+                source={Animation.CameraScan}
+                loop={true}
+                style={{
+                    width: 360,
+                    height: 360
+                }} />
+            {/* <View style={style.rect} /> */}
         </VStack>
     )
 }

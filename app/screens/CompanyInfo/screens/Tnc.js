@@ -14,7 +14,7 @@ import { useToggle } from "@hooks";
 
 import { BcVersion, BcFooter } from "./../components";
 import { useTextInfo } from "./../hooks";
-import { Tnc as TestData } from "./../data";
+import { Tnc as TestData, TncII as TestDataII } from "./../data";
 import { fetchTnc } from "./../api";
 
 function TnC(props) {
@@ -67,14 +67,21 @@ function Index(props) {
     };
 
     const [data, setData] = useTextInfo(init.data);
+
+    const [proData, setProData] = useTextInfo(init.data);
+    const [liteData, setLiteData] = useTextInfo(init.data);
+
     const [loading, setLoading, toggleLoading] = useToggle(false);
 
     const { content = [] } = data;
+    // const { content: proContent = [] } = proData;
+    // const { content: liteContent = [] } = liteData;
 
     // #region UseEffect
     useEffect(() => {
         if (isFocused) {
-            // setData(TestData)
+            // setProData(TestData);
+            // setLiteData(TestDataII);
             GetData();
         }
     }, [isFocused]);
@@ -88,15 +95,24 @@ function Index(props) {
             },
             onSetLoading: setLoading
         })
-        .then(data => {
-            setData(data);
-        })
-        .catch(err => {
-            setLoading(false);
-            console.log(`Error: ${err}`);
+            .then(data => {
+                // setProData(data);
+                setData(data);
+            })
+            .catch(err => {
+                setLoading(false);
+                console.log(`Error: ${err}`);
 
-            setData(TestData);
-        })
+                // setProData(TestData);
+                setData(TestData);
+            })
+    }
+
+    const style = {
+        title: {
+            fontFamily: "Roboto-Bold",
+            fontSize: 18,
+        }
     }
 
     return (
@@ -114,15 +130,26 @@ function Index(props) {
                     <ScrollView showsVerticalScrollIndicator={false}
                         keyboardShouldPersistTaps={"handled"}
                         contentContainerStyle={{ flexGrow: 1 }}>
-                        <View flexGrow={1} bgColor={"#FFF"} alignItems={"center"}>
+                        <VStack flexGrow={1}
+                            bgColor={"#FFF"} alignItems={"center"}>
                             {/* Version */}
-                            <BcVersion {...data} />
+                            <BcVersion {...proData} />
 
                             {/* Content */}
+                            {/* <VStack width={"90%"} space={3}>
+                                <Text style={style.title}>Yatu Pro Terms & Condition</Text>
+                                <TnC data={proContent} />
+                            </VStack>
+
+                            <VStack width={"90%"} space={3} pt={3}>
+                                <Text style={style.title}>Yatu Lite Terms & Condition</Text>
+                                <TnC data={liteContent} />
+                            </VStack> */}
+
                             <View width={"90%"}>
                                 <TnC data={content} />
                             </View>
-                        </View>
+                        </VStack>
                     </ScrollView>
 
                     <View bgColor={"#FFF"} alignItems={"center"}>

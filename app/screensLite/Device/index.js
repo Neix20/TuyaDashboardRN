@@ -2,11 +2,11 @@ import React, { useState, useEffect, useRef } from "react";
 import { Text, TouchableOpacity, Image, TextInput, SafeAreaView, FlatList, ScrollView } from "react-native";
 import { View, VStack, HStack, Divider, useToast } from "native-base";
 
-import FontAwesome              from "react-native-vector-icons/FontAwesome";
-import FontAwesome5             from "react-native-vector-icons/FontAwesome5";
-import MaterialCommunityIcons   from "react-native-vector-icons/MaterialCommunityIcons";
-import Feather                  from "react-native-vector-icons/Feather";
-import Ionicons                 from "react-native-vector-icons/Ionicons";
+import FontAwesome from "react-native-vector-icons/FontAwesome";
+import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
+import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+import Feather from "react-native-vector-icons/Feather";
+import Ionicons from "react-native-vector-icons/Ionicons";
 
 import { useNavigation, useIsFocused } from "@react-navigation/native";
 
@@ -164,7 +164,8 @@ function Header(props) {
                             <View borderRadius={20} bgColor={"#2898FF"}
                                 alignItems={"center"} justifyContent={"center"}
                                 style={{ height: 40, width: 40 }}>
-                                <BcSvgIcon name={"QrScan"} size={24} color={"#FFF"} />
+                                {/* <BcSvgIcon name={"QrScan"} size={24} color={"#FFF"} /> */}
+                                <MaterialCommunityIcons name={"line-scan"} size={24} color={"#FFF"} />
                             </View>
                         </TouchableOpacity>
                     </HStack>
@@ -381,10 +382,10 @@ function Index(props) {
                     // Think About This, Redirect To ProfileWorkspace
                     if (tutorial) {
                         // Send to its Respective Profile Workspace
-                        const { 
-                            IsTempHumd                  = -1,
-                            IsSmartPlug                 = -1,
-                            TempHumdProfileWorkspaceId  = -1,
+                        const {
+                            IsTempHumd = -1,
+                            IsSmartPlug = -1,
+                            TempHumdProfileWorkspaceId = -1,
                             SmartPlugProfileWorkspaceId = -1
                         } = deviceData.filter(x => x.flag == 1)[0];
 

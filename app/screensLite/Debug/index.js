@@ -69,7 +69,7 @@ function DebugI(props) {
 }
 // #endregion
 
-import { BcSvgIcon, BcQrCameraBtn } from "@components";
+import { BcQrCameraBtn } from "@components";
 import { useModalToast, useTimer } from "@hooks";
 
 function DebugII(props) {
@@ -97,7 +97,7 @@ function DebugII(props) {
 import { LogLevel, OneSignal } from 'react-native-onesignal';
 
 // Add OneSignal within your App's root component
-function Index() {
+function DebugIII() {
 
     const toast = useToast();
     const navigation = useNavigation();
@@ -145,6 +145,28 @@ function Index() {
         </SafeAreaView>
     )
 
+}
+
+import { BcSvgIcon } from "@components";
+
+function Index(props) {
+    const toast = useToast();
+    const navigation = useNavigation();
+    const isFocused = useIsFocused();
+
+    const style = {
+        main: {
+            flex: 1
+        }
+    }
+    return (
+        <SafeAreaView style={style.main}>
+            <View alignItems={"center"} justifyContent={"center"} style={style.main}>
+                <Text>This is Debug Page</Text>
+                <BcSvgIcon name={"Temperature (℃)"} size={80} color={"#000"} />
+            </View>
+        </SafeAreaView>
+    )
 }
 
 export default Index;

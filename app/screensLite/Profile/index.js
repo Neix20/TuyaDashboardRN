@@ -105,9 +105,9 @@ function Profile(props) {
                     alignItems={"center"}
                     justifyContent={"space-between"}>
                     {/* Btn */}
-                    <HStack space={5}>
+                    <HStack space={5} alignItems={'center'}>
                         <FontAwesome name={"user-o"} color={"#000"} size={48} />
-                        <VStack width={"70%"}>
+                        <VStack width={"78%"}>
                             <Text style={{
                                 fontFamily: "Roboto-Bold",
                                 fontSize: 18
@@ -136,7 +136,7 @@ function ProfileInfo(props) {
         <VStack bgColor={"#FFF"} borderRadius={8} width={"90%"} alignItems={"center"}>
             <PanelBtnII Btn={FontAwesome} icon={"user"} title={"Joined in " + Utility.formatDt(Created_Date, "yyyy-MM-dd")} />
             <PanelBtnII Btn={FontAwesome5} icon={"user-alt-slash"} title={"Expires In " + Utility.formatDt(ExpiryDate, "yyyy-MM-dd")} />
-            <PanelBtnII Btn={FontAwesome5} icon={"tools"} title={`Available Device Count: ${DeviceQty}`} />
+            <PanelBtnII Btn={FontAwesome5} icon={"tools"} title={`Yatu Token Count: ${DeviceQty}`} />
         </VStack>
     )
 }
@@ -228,8 +228,8 @@ function NavPanel(props) {
 
     return (
         <VStack bgColor={"#FFF"} borderRadius={8} width={"90%"} alignItems={"center"}>
-            <PanelBtn onPress={GoToProfileWorkspace} Btn={Ionicons} icon={"settings-sharp"} title={"View Profile Workspace"} />
-            <PanelBtn onPress={GoToUserToken} Btn={FontAwesome5} icon={"shopping-cart"} title={"View Token Wallet"} />
+            <PanelBtn onPress={GoToProfileWorkspace} Btn={Ionicons} icon={"settings-sharp"} title={"View Profile Selection"} />
+            <PanelBtn onPress={GoToUserToken} Btn={FontAwesome5} icon={"shopping-cart"} title={"View Yatu Token"} />
             {/* <PanelBtn onPress={GoToSubscription} Btn={FontAwesome5} icon={"shopping-cart"} title={"View Purchased Add-Ons"} /> */}
         </VStack>
     )
@@ -239,16 +239,20 @@ function CompanyInfoPanel(props) {
     const navigation = useNavigation();
 
     const GoToAboutUs = () => navigation.navigate("AboutUs");
+    const GoToYatu = () => navigation.navigate("Yatu");
     const GoToTnc = () => navigation.navigate("Tnc");
     const GoToPolicy = () => navigation.navigate("Policy");
     const GoToFaq = () => navigation.navigate("Faq");
+    const GoContactUs = () => navigation.navigate("ContactUs");
 
     return (
         <VStack bgColor={"#FFF"} borderRadius={8} width={"90%"} alignItems={"center"}>
             <PanelBtn onPress={GoToAboutUs} Btn={FontAwesome5} icon={"info-circle"} title={"About Us"} />
+            <PanelBtn onPress={GoToYatu} Btn={FontAwesome5} icon={"tablet-alt"} title={"What is Yatu"} />
             <PanelBtn onPress={GoToTnc} Btn={FontAwesome5} icon={"clipboard-list"} title={"Terms & Conditions"} />
             <PanelBtn onPress={GoToPolicy} Btn={FontAwesome5} icon={"unlock-alt"} title={"Privacy Policy"} />
             <PanelBtn onPress={GoToFaq} Btn={FontAwesome5} icon={"question-circle"} title={"FAQ"} />
+            <PanelBtn onPress={GoContactUs} Btn={FontAwesome5} icon={"phone-square-alt"} title={"Contact Us"} />
         </VStack>
     )
 }
@@ -286,7 +290,7 @@ function TokenSubscriptionPanel(props) {
         <VStack bgColor={"#FFF"} borderRadius={8}
             width={"90%"} alignItems={"center"}>
             <PanelBtn
-                onPress={GoToRedeemToken} title={"Redeem your Activation Tokens!"}
+                onPress={GoToRedeemToken} title={"Redeem Your Yatu Token!"}
                 Btn={FontAwesome} icon={"ticket"}
                 color={"#FFAA00"} showRight={false} />
         </VStack>

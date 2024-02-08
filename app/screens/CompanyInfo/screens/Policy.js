@@ -34,13 +34,15 @@ function Policy(props) {
                 }}>{index + 1}. {title}</Text>
 
                 <VStack space={1}>
-                    {
-                        (description.length > 0) ? (
-                            description.map(renderDesc)
-                        ) : (
-                            <></>
-                        )
-                    }
+                    <Text style={{ textAlign: 'justify' }}>
+                        {
+                            (description.length > 0) ? (
+                                description.map(renderDesc)
+                            ) : (
+                                <></>
+                            )
+                        }
+                    </Text>
                 </VStack>
             </VStack>
         )
@@ -88,15 +90,15 @@ function Index(props) {
             },
             onSetLoading: setLoading
         })
-        .then(data => {
-            setData(data);
-        })
-        .catch(err => {
-            setLoading(false);
-            console.log(`Error: ${err}`);
+            .then(data => {
+                setData(data);
+            })
+            .catch(err => {
+                setLoading(false);
+                console.log(`Error: ${err}`);
 
-            setData(TestData);
-        })
+                setData(TestData);
+            })
     }
 
     return (
@@ -119,7 +121,7 @@ function Index(props) {
                             <BcVersion {...data} />
 
                             {/* Content */}
-                            <View width={"90%"}>
+                            <View width={"90%"} >
                                 <Policy data={content} />
                             </View>
                         </View>

@@ -156,7 +156,7 @@ function Index(props) {
                 <View style={{ flex: 1 }}>
 
                     {/* Header */}
-                    <BcHeader>{Utility.translate("About Us", lang)}</BcHeader>
+                    <BcHeader>{Utility.translate("Yatu", lang)}</BcHeader>
 
                     <View style={{ height: 10 }} />
 
@@ -169,22 +169,13 @@ function Index(props) {
                             <BcVersion {...data} />
 
                             {/* Logo */}
-                            {/* <View width={"90%"}>
+                            <View width={"90%"}>
                                 <BcSvgIcon name={"Yatu"} color={"#2898FF"} width={100} height={50} />
-                            </View> */}
+                            </View>
 
                             {/* Content */}
                             <View width={"90%"}>
-                                <Text style={{ textAlign: "justify" }}>
-                                    At VigTech Labs Sdn Bhd, we're passionate about protecting what matters most to you. As a leading provider of film protection services, we specialize in a wide range of solutions, from Automotive Protection Films designed to safeguard your vehicle's exterior from scratches and road debris, to Solar Protection Films that help regulate interior temperatures and protect against harmful UV rays.
-                                </Text>
-                                <Text style={{ textAlign: "justify", paddingTop: 10 }}>
-                                    At VigTech, quality is our top priority. We source only the highest quality materials to ensure durability and long-lasting protection for your investments. Our team of experts is committed to delivering personalized solutions tailored to your unique needs, whether you're a car enthusiast looking to preserve your vehicle's pristine finish or a business owner seeking to enhance energy efficiency and comfort in your space.
-                                </Text>
-                                <Text style={{ textAlign: "justify", paddingTop: 10 }}>
-
-                                    What sets us apart is our dedication to customer satisfaction and professionalism. Our specialists are here to guide you every step of the way, providing expert advice and recommendations to help you make informed decisions. Whether you have questions about our products, need assistance with installation, or simply want to explore your options, we're here to help.
-                                </Text>
+                                <AboutUs data={info} />
                             </View>
 
                             <View style={{ height: 20 }} />
