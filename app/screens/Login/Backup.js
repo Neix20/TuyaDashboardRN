@@ -9,8 +9,7 @@ import { Logger, Utility } from "@utility";
 
 import { Animation, clsConst, Images } from "@config";
 
-import { BcSvgIcon, BcLoading, BcDisable, BcDeleteAccountModal, BcExpiredAccountModal, BcYesNoModal, BcCheckUserModal } from "@components";
-import { BottomModal, BaseIIModal } from "@components";
+import { BcSvgIcon, BcLoading, BcDisable, BcCarousel, BottomModal, BcDeleteAccountModal, BcExpiredAccountModal } from "@components";
 
 import { fetchRequestOtp, fetchLogin, fetchDemoLogin, fetchSubUserAccess, fetchSubUserLogin } from "@api";
 
@@ -180,7 +179,7 @@ function ExistLoginForm(props) {
 
     const { toastHook = [], formHook = [] } = props;
 
-    const { delAccHook = [], expAccHook = [], chkUserHook = [] } = props;
+    const { delAccHook = [], expAccHook = [] } = props;
 
     const { showModal, setShowModal = () => { } } = props;
 
@@ -199,11 +198,11 @@ function ExistLoginForm(props) {
     // #endregion
 
     // #region UseState
+    // const [form, clearForm, setEmail, setOtp, setSessionId, loginFlag] = useExistLoginForm();
     const [form, clearForm, setEmail, setOtp, setSessionId, loginFlag] = formHook;
 
     const [showDelAccModal, setShowDelAccModal, toggleDelAccModal] = delAccHook;
     const [showExpAccModal, setShowExpAccModal, toggleExpAccModal] = expAccHook;
-    const [showChkUserModal, setShowChkUserModal, toggleChkUserModal] = chkUserHook;
 
     const [timer, setTimer] = useTimer(0);
     const [otpFlag, setOtpFlag, toggleOtpFlag] = useToggle(false);
@@ -243,7 +242,7 @@ function ExistLoginForm(props) {
             onSetLoading: setLoading,
         })
             .then(data => {
-                const { Otp, SessionId, MsgTemplate, ShowDebugFlag = false, IsFirstTimeSignIn = false } = data;
+                const { Otp, SessionId, MsgTemplate, ShowDebugFlag = false } = data;
                 if (ShowDebugFlag) {
                     // toast.show({
                     //     description: MsgTemplate
@@ -251,10 +250,6 @@ function ExistLoginForm(props) {
                     showMsg(MsgTemplate);
                 }
                 setSessionId(SessionId);
-
-                if (IsFirstTimeSignIn) {
-                    toggleChkUserModal();
-                }
             })
             .catch(err => {
                 console.log(`Error: ${err}`);
@@ -300,10 +295,7 @@ function ExistLoginForm(props) {
                         // If User Logins For First Time
                         if (FirstTimeUserId == 1) {
                             dispatch(Actions.onChangeFirstTimeLink(true));
-                            // navigation.navigate("CheckTuyaEmail", {
-                            //     Email: email,
-                            // })
-                            navigation.navigate("AuthTuya", {
+                            navigation.navigate("CheckTuyaEmail", {
                                 Email: email,
                             })
                         }
@@ -323,7 +315,7 @@ function ExistLoginForm(props) {
                         if (ResponseMessage != "") {
                             showMsg(ResponseMessage);
                         }
-                    }
+                    } 
                     // User has Expired
                     else if (FirstTimeUserId == 3) {
                         toggleExpAccModal();
@@ -361,48 +353,23 @@ function ExistLoginForm(props) {
         clearForm();
         setTimer(0);
     }
-
-    const GoToDevice = () => {
-        navigation.navigate("TabNavigation", {
-            screen: "Device",
-        });
-
-        clearForm();
-        setTimer(0);
-    }
     // #endregion
-
-    const style = {
-        title: {
-            fontSize: 20,
-            fontWeight: "bold"
-        },
-        txtTitle: {
-            fontSize: 14,
-            fontWeight: "bold"
-        },
-        emailTxtInput: {
-            fontFamily: "Roboto-Medium",
-            fontSize: 16,
-            color: "#000",
-        },
-        otpTxtInput: {
-            fontFamily: "Roboto-Medium",
-            fontSize: 20,
-            color: "#000",
-            height: 50,
-        }
-    }
 
     return (
         <>
             <BcLoading loading={loading} />
             <VStack width={"80%"} space={3}>
-                <Text style={style.title}>Login</Text>
+                <Text style={{
+                    fontSize: 20,
+                    fontWeight: "bold"
+                }}>Login</Text>
 
                 {/* Email */}
                 <View>
-                    <Text style={style.txtInput}>Email</Text>
+                    <Text style={{
+                        fontSize: 14,
+                        fontWeight: "bold"
+                    }}>Email</Text>
 
                     <HStack px={1} bgColor={"#EEF3F6"}
                         alignItems={"center"} justifyContent={"space-between"}>
@@ -414,10 +381,13 @@ function ExistLoginForm(props) {
                                 placeholder={"xxx@gmail.com"}
                                 keyboardType={"email-address"}
                                 multiline={true}
-                                style={style.emailTxtInput} />
+                                style={{
+                                    fontFamily: "Roboto-Medium",
+                                    fontSize: 16,
+                                    color: "#000",
+                                }} />
                         </View>
                         <RequestOtpBtn flag={otpFlag} onPress={RequestOtp} />
-                        {/* <RequestOtpBtn flag={otpFlag} onPress={toggleChkUserModal} /> */}
                     </HStack>
 
                     <View alignItems={"flex-end"}>
@@ -427,7 +397,10 @@ function ExistLoginForm(props) {
 
                 {/* Enter OTP */}
                 <View>
-                    <Text style={style.txtInput}>OTP</Text>
+                    <Text style={{
+                        fontSize: 14,
+                        fontWeight: "bold"
+                    }}>OTP</Text>
                     <View bgColor={"#EEF3F6"}>
                         <TextInput
                             defaultValue={otp}
@@ -435,7 +408,12 @@ function ExistLoginForm(props) {
                             autoCapitalize={"none"}
                             keyboardType={"numeric"}
                             // placeholder={"Enter OTP"}
-                            style={style.otpTxtInput} />
+                            style={{
+                                fontFamily: "Roboto-Medium",
+                                fontSize: 20,
+                                color: "#000",
+                                height: 50,
+                            }} />
                     </View>
                 </View>
 
@@ -655,8 +633,6 @@ function SubLoginModal(props) {
 }
 // #endregion
 
-import { Platform, Linking } from "react-native";
-
 function Index(props) {
 
     const toast = useToast();
@@ -673,9 +649,6 @@ function Index(props) {
 
     const expAccHook = useToggle(false);
     const [showExpAccModal, setShowExpAccModal, toggleExpAccModal] = expAccHook;
-
-    const chkUserHook = useToggle(false);
-    const [showChkUserModal, setShowChkUserModal, toggleChkUserModal] = chkUserHook;
 
     const existLoginFormHook = useExistLoginForm();
     const subLoginFormHook = useSubLoginForm();
@@ -735,13 +708,11 @@ function Index(props) {
 
     return (
         <>
-            <BcCheckUserModal showModal={showChkUserModal} setShowModal={setShowChkUserModal} />
             <BcLoading loading={loading} />
             <BcDeleteAccountModal showModal={showDelAccModal} setShowModal={setShowDelAccModal} />
             <BcExpiredAccountModal showModal={showExpAccModal} setShowModal={setShowExpAccModal} />
-            <ExistLoginModal
-                formHook={existLoginFormHook} delAccHook={delAccHook}
-                expAccHook={expAccHook} chkUserHook={chkUserHook}
+            <ExistLoginModal formHook={existLoginFormHook}
+                delAccHook={delAccHook} expAccHook={expAccHook}
                 showModal={showExLoginModal} setShowModal={setShowExLoginModal} />
             <SubLoginModal formHook={subLoginFormHook} showModal={showSubLoginModal} setShowModal={setShowSubLoginModal} />
             <SafeAreaView style={{ flex: 1 }}>
@@ -765,7 +736,7 @@ function Index(props) {
                                 style={{ height: 600 }}>
                                 {/* Logo Header */}
                                 <View alignItems={"center"}>
-                                    <BcSvgIcon name={"AppLogoLite"} width={160} height={160} color={"#2898FF"} />
+                                    <BcSvgIcon name={"AppLogo"} width={160} height={160} color={"#2898FF"} />
                                 </View>
 
                                 {/* <LoginForm loading={loading} setLoading={setLoading} /> */}
@@ -773,12 +744,32 @@ function Index(props) {
                                 <VStack width={"100%"} space={5} alignItems={"center"}>
                                     <TouchableOpacity onPress={toggleExLoginModal}
                                         style={{ width: "80%", height: 48 }}>
-                                        <View flex={1} alignItems={"center"} justifyContent={"center"} bgColor={"#FFF"}>
+                                        <View flex={1} alignItems={"center"} justifyContent={"center"} bgColor={"#2898FF"}>
                                             <Text style={{
                                                 fontFamily: "Roboto-Bold",
                                                 fontSize: 16,
-                                                color: "#2898FF"
+                                                color: "#FFF"
                                             }}>Login</Text>
+                                        </View>
+                                    </TouchableOpacity>
+
+                                    {/* <TouchableOpacity onPress={toggleSubLoginModal}
+                                        style={{ width: "80%", height: 48 }}>
+                                        <View flex={1} alignItems={"center"} justifyContent={"center"} bgColor={"#FFF"}>
+                                            <Text style={{
+                                                fontFamily: "Roboto-Bold",
+                                                fontSize: 16
+                                            }}>Login as Sub-User</Text>
+                                        </View>
+                                    </TouchableOpacity> */}
+
+                                    <TouchableOpacity onPress={TryAsGuest}
+                                        style={{ width: "80%" }}>
+                                        <View alignItems={"center"}>
+                                            <Text style={{
+                                                fontFamily: "Roboto-Bold",
+                                                fontSize: 16
+                                            }}>Try As Guest</Text>
                                         </View>
                                     </TouchableOpacity>
                                 </VStack>
@@ -799,7 +790,7 @@ function Index(props) {
                         <Text style={{
                             fontFamily: "Roboto-Medium",
                             fontSize: 14
-                        }}>© Version {clsConst.LITE_APP_VERSION}</Text>
+                        }}>© Version {clsConst.APP_VERSION}</Text>
                     </View>
 
                 </View>

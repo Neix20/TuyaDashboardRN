@@ -1,8 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { Dimensions } from "react-native";
-
-const screen = Dimensions.get("screen");
-const { width, height } = screen;
 
 import { Shadow } from "react-native-shadow-2";
 

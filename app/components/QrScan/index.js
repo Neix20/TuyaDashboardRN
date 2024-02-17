@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react";
-import { TouchableOpacity, Text, Image } from "react-native";
-import { View, VStack, HStack } from "native-base";
+import React, { useState, useEffect }     from "react";
+import { TouchableOpacity, Text, Image }  from "react-native";
+import { View, VStack, HStack }           from "native-base";
 
-import FontAwesome from "react-native-vector-icons/FontAwesome";
+import FontAwesome  from "react-native-vector-icons/FontAwesome";
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 
 import { Camera, useCameraPermission, useCameraDevice, useCodeScanner } from "react-native-vision-camera";
