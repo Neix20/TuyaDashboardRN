@@ -99,7 +99,9 @@ data = {
 data = {
     ...data,
     TuyaLogo: require("@assets/images/tuya.png"),
-    SmartLifeLogo: require("@assets/images/smartlife.png")
+    SmartLifeLogo: require("@assets/images/smartlife.png"),
+    YatuLiteLogo: require("@assets/images/yatu_lite_logo.png"),
+
 }
 
 data = {

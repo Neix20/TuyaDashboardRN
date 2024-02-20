@@ -131,6 +131,8 @@ function Header(props) {
 
 function Index(props) {
 
+    const prevTitle = props.route?.params?.title || "";
+
     const toast = useToast();
     const navigation = useNavigation();
     const isFocused = useIsFocused();
@@ -152,13 +154,11 @@ function Index(props) {
     }, [isFocused]);
 
     const GoBack = () => {
-
-        const prevTitle = props.route?.params?.title || "";
-
         if (prevTitle === "AuthTuya") {
             navigation.navigate("TabNavigation", {
                 screen: "Device"
-            })
+            });
+            return;
         }
 
         navigation.goBack();
@@ -193,6 +193,8 @@ function Index(props) {
     }
     // #endregion
 
+    const headerTitle = (prevTitle === "AuthTuya") ? "Step 4: Scan Yatu Token QR" : "Scan Yatu Token QR";
+
     return (
         <>
             <BcYesNoModal showModal={exitModal} setShowModal={showExitModal}
@@ -205,7 +207,7 @@ function Index(props) {
                 <View style={{ flex: 1 }}>
 
                     {/* Header */}
-                    <Header Right={<InfoIcon />}>Scan Yatu Product QR</Header>
+                    <Header Right={<InfoIcon />}>{headerTitle}</Header>
 
                     <View style={{ height: 10 }} />
 

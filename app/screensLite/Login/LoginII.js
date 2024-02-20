@@ -762,10 +762,11 @@ function Index(props) {
 
                             <VStack alignItems={"center"}
                                 justifyContent={"space-between"}
-                                style={{ height: 600 }}>
+                                style={{ height: "80%" }}>
                                 {/* Logo Header */}
                                 <View alignItems={"center"}>
-                                    <BcSvgIcon name={"AppLogoLite"} width={160} height={160} color={"#2898FF"} />
+                                    {/* <BcSvgIcon name={"AppLogoLite"} width={160} height={160} color={"#2898FF"} /> */}
+                                    <Image source={Images.YatuLiteLogo} resizeMode={"contain"} style={{ height: 160, width: 160, borderRadius: 20 }} />
                                 </View>
 
                                 {/* <LoginForm loading={loading} setLoading={setLoading} /> */}

@@ -295,6 +295,7 @@ function Index(props) {
                     navigation.navigate("AuthTuyaHighTraffic", data);
                 }
             })
+
             .catch(err => {
                 setLoading(false);
                 console.log(`Error: ${err}`);
@@ -450,10 +451,10 @@ function Index(props) {
                                             borderColor={"#000"} borderWidth={2}>
 
                                             {/* Check Smart Life User */}
-                                            <Text style={style.instruction}>1. An email have been sent to your mailbox.Please check your email for the <Text style={[style.instruction, { fontWeight: '700' }]}>Authentication QR code.</Text></Text>
+                                            <Text style={style.instruction}>1. An email have been sent to your mailbox. Please check your email for the <Text style={[style.instruction, { fontWeight: '700' }]}>Authentication QR code.</Text></Text>
 
                                             {/* Ready a Computer to do Setup */}
-                                            <Text style={style.instruction}>2. <Text style={[style.instruction, { fontWeight: '700' }]}>Scan the QR code</Text> from your email using the <Text style={[style.instruction, { fontWeight: '700' }]}>Smart Life app</Text>. Ensure you have downloaded, installed, registered, and added your device to the app.</Text>
+                                            <Text style={style.instruction}>2. <Text style={[style.instruction, { fontWeight: '700' }]}>Scan the Authentication QR code</Text> from your email using the <Text style={[style.instruction, { fontWeight: '700' }]}>Smart Life app</Text>. Ensure you have downloaded, installed, registered, and added your device to the app.</Text>
 
                                         </VStack>
                                         <View paddingX={5}>

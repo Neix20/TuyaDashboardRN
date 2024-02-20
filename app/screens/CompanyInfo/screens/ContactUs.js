@@ -169,14 +169,14 @@ function Index(props) {
                             <BcVersion {...data} />
 
                             {/* Logo */}
-                            <View width={"90%"}>
+                            <View width={"90%"} style={{ alignItems: "center" }}>
                                 <BcSvgIcon name={"Yatu"} color={"#2898FF"} width={100} height={50} />
                             </View>
 
                             {/* Content */}
                             <View width={"90%"}>
                                 <VStack space={5}>
-                                    <Text>
+                                    <Text style={{ textAlign: "justify", marginTop: 20 }}>
                                         Have questions or need assistance?
                                         Feel free to reach out to us anytime through the provided contact information.
                                         We're here to help!
