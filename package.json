@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "android": "react-native run-android --variant yatuDebug",
+    "yliteAndroid": "react-native run-android --variant yatuDashboardDebug",
     "ios": "react-native run-ios",
     "lint": "eslint .",
     "start": "react-native start",

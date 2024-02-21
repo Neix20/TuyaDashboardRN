@@ -65,7 +65,7 @@ function Scanner(props) {
             codeScanner={codeScanner}
             device={device}
             isActive={true}
-            style={{ height: "60%" }}
+            style={{ height: "75%" }}
         />
     )
 }

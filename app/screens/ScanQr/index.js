@@ -215,6 +215,22 @@ function Index(props) {
 
                     <View flexGrow={1}>
                         <BcQrCamera onRead={readQrCode} />
+                        <VStack space={2} p={3} alignItems={'center'}>
+                            <Text style={{ textAlign: "center", fontWeight: "bold" }}>Please scan the QR code provided inside the box.</Text>
+                            <VStack>
+
+                                <Text style={{ textAlign: "center" }}>If you don't find any QR code, please contact us via</Text>
+                                <Text style={{ textAlign: "center" }}>Shopee or Lazada.</Text>
+                            </VStack>
+                            <HStack space={3}>
+                                <TouchableOpacity onPress={() => Linking.openURL(url["shopee"])}>
+                                    <Image source={Images.Shopee} alt={"Shopee Logo"} style={{ width: 80, height: 40, borderRadius: 5 }} />
+                                </TouchableOpacity>
+                                <TouchableOpacity onPress={() => Linking.openURL(url["lazada"])}>
+                                    <Image source={Images.Lazada} alt={"Lazada Logo"} style={{ width: 80, height: 40, borderRadius: 5 }} />
+                                </TouchableOpacity>
+                            </HStack>
+                        </VStack>
                     </View>
 
                 </View>
