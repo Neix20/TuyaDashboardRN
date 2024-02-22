@@ -184,7 +184,8 @@ function Index(props) {
             onSetLoading: setLoading
         })
             .then(data => {
-                navigation.navigate("DeviceResult", data);
+                const { Content = {} } = data;
+                navigation.navigate("DeviceResult", Content);
             })
             .catch(err => {
                 setLoading(false);

@@ -4,18 +4,16 @@ import { View, VStack, HStack, useToast } from "native-base";
 
 import { useNavigation, useIsFocused } from "@react-navigation/native";
 
-import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
-
 import { Logger, Utility } from "@utility";
 import { Images, Svg, clsConst } from "@config";
 
-import { BcHeader, BcLoading } from "@components";
+import { BcHeader, BcBoxShadow, BcSvgIcon, BcLoading } from "@components";
 import { useToggle } from "@hooks";
+import { fetchGetParamApi } from "@api";
 
 import { BcVersion, BcFooter } from "./../components";
 import { useTextInfo } from "./../hooks";
 import { Policy as TestData } from "./../data";
-import { fetchPolicy } from "./../api";
 
 function Policy(props) {
     const { data = [] } = props;
@@ -84,14 +82,20 @@ function Index(props) {
 
     const GetData = () => {
         setLoading(true);
-        fetchPolicy({
+        fetchGetParamApi({
             param: {
-                UserId: 10
+                ParamKey: "Yatu_PolicyData"
             },
             onSetLoading: setLoading
         })
             .then(data => {
-                setData(data);
+                const { Content = {}, Version = "" } = data;
+
+                const next_state = {
+                    ...Content,
+                    Version: Version
+                }
+                setData(next_state);
             })
             .catch(err => {
                 setLoading(false);

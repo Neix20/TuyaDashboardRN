@@ -103,6 +103,10 @@
 ## Bugs
 
 - [ ] If I Press Refresh, I Get Sent Out (High Traffic) (TUserToken)
+- [ ] Token Activation, Show that `YatuToken` is already activated
+- [ ] Modify Faq
+- [ ] Modifgy Tnc
+- [ ] Modify Policy
 
 ## Tutorial
 
@@ -113,9 +117,3 @@
 ~~- Redirect User to "Profile Workspace", to add / remove device ?~~
 ~~- When Data has Downloaded, Redirect User To Dashboard~~
 ~~Test Notification~~
-
-```mermaid
-flowchart TD
-  1(start)
-  2(end)
-```
