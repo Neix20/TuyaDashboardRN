@@ -3,19 +3,14 @@ import { Text, TouchableOpacity, Linking } from "react-native";
 import { View, VStack, HStack } from "native-base";
 
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
-import { Logger, Utility } from "@utility";
 
 import { clsConst } from "@config";
-
 import { BaseModal } from "@components";
-
 import { useModalToast } from "@hooks";
 
 function Index(props) {
 
     const [cusToast, showMsg] = useModalToast();
-
-    const { showModal = false, setShowModal = () => {} } = props;
 
     const style = {
         hyperlink: {

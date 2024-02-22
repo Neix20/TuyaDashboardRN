@@ -1,87 +1,8 @@
 import React, { useState } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { View } from 'react-native';
 import { Dropdown } from 'react-native-element-dropdown';
 
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
-
-// #region Stylesheet
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-    },
-    dropdown: {
-        flex: 1,
-        borderColor: 'gray',
-        borderWidth: 0.5,
-        borderRadius: 8,
-        paddingHorizontal: 8,
-    },
-    icon: {
-        marginRight: 5,
-    },
-    label: {
-        position: 'absolute',
-        backgroundColor: 'white',
-        left: 22,
-        top: 8,
-        zIndex: 999,
-        paddingHorizontal: 8,
-        fontSize: 14,
-    },
-    placeholderStyle: {
-        fontSize: 16,
-    },
-    selectedTextStyle: {
-        fontSize: 16,
-    },
-    iconStyle: {
-        width: 20,
-        height: 20,
-    },
-    inputSearchStyle: {
-        height: 40,
-        fontSize: 16,
-    },
-});
-
-const colors = {
-    lightGray: "#FFF",
-    darkGray: '#505B67',
-    mgray: '#A0AAB6',
-    gray: "#DAE1EA",
-};
-
-const dd_picker_styles = StyleSheet.create({
-    container: {
-        borderRadius: 8,
-        backgroundColor: colors.lightGray,
-        borderColor: colors.gray,
-        minHeight: 0,
-    },
-    dropDownContainer: {
-        borderColor: colors.gray,
-        alignSelf: "center",
-        zIndex: 100,
-    },
-    placeHolder: {
-        fontFamily: "Roboto-Medium",
-        fontSize: 14,
-        textAlign: "center",
-        color: colors.darkGray
-    },
-    label: {
-        fontFamily: "Roboto-Medium",
-        fontSize: 14,
-        textAlign: "center",
-        color: colors.darkGray
-    },
-    text: {
-        fontFamily: "Roboto-Medium",
-        fontSize: 14,
-        color: colors.darkGray
-    },
-});
-// #endregion
 
 function Index(props) {
 
@@ -94,6 +15,45 @@ function Index(props) {
         setValue(item.value);
         setIsFocus(false);
     }
+
+    const styles = {
+        container: {
+            flex: 1,
+        },
+        dropdown: {
+            flex: 1,
+            borderColor: 'gray',
+            borderWidth: 0.5,
+            borderRadius: 8,
+            paddingHorizontal: 8,
+        },
+        icon: {
+            marginRight: 5,
+        },
+        label: {
+            position: 'absolute',
+            backgroundColor: 'white',
+            left: 22,
+            top: 8,
+            zIndex: 999,
+            paddingHorizontal: 8,
+            fontSize: 14,
+        },
+        placeholderStyle: {
+            fontSize: 16,
+        },
+        selectedTextStyle: {
+            fontSize: 16,
+        },
+        iconStyle: {
+            width: 20,
+            height: 20,
+        },
+        inputSearchStyle: {
+            height: 40,
+            fontSize: 16,
+        },
+    };
 
     return (
         <View style={styles.container}>

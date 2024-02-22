@@ -298,7 +298,7 @@ function Header(props) {
     const style = {
         title: {
             fontFamily: "Roboto-Bold",
-            fontSize: 18,
+            fontSize: 1,
             color: "#FFF"
         }
     }
@@ -326,7 +326,7 @@ function Header(props) {
                                     style={{ width: 32, height: 32 }}>
                                     <FontAwesome name={"plus"} size={16} color={"#FFF"} />
                                 </View> */}
-                                <View borderRadius={20} px={3} py={1} bgColor={"#2898FF"}>
+                                <View borderRadius={20} px={3} bgColor={"#2898FF"}>
                                     <Text style={style.title}>Sync Now</Text>
                                 </View>
                             </TouchableOpacity>
@@ -445,16 +445,8 @@ function Index(props) {
             onSetLoading: setLoading
         })
             .then(data => {
-                const { ResponseCode = "", ResponseMessage = "" } = data;
                 toggleLdModal();
-                if (ResponseCode == "00") {
-                    toggleRefresh();
-                } else {
-                    // Pop Up Modal Saying Max Device Limit Reached
-                    toast.show({
-                        description: ResponseMessage
-                    })
-                }
+                toggleRefresh();
             })
             .catch(err => {
                 setLoading(false);
@@ -535,9 +527,6 @@ function Index(props) {
         }
     }
 
-    const subUserAccess = useSelector(Selectors.subUserAccessSelect);
-    const { DeviceQty = 0 } = subUserAccess;
-
     return (
         <>
             <BcYesNoModal 
@@ -561,7 +550,7 @@ function Index(props) {
 
                     <View alignItems={"center"}>
                         <HStack alignItems={"center"} width={"90%"}>
-                            <Text style={style.title}>Sync Devices ({deviceCount}/{DeviceQty})</Text>
+                            <Text style={style.title}>Sync Devices ({deviceCount}/20)</Text>
                             <View justifyContent={"center"}
                                 style={style.tabDetail}>
                                 <TabDetail navToTempHumd={navToTempHumd} navToSmartPlug={navToSmartPlug} />

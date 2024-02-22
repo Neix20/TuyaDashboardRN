@@ -153,7 +153,8 @@ function Index(props) {
     }, []);
     // #endregion
 
-    const defaultScreen = (linkTimer > 0) ? "Device" : "Dashboard";
+    // const defaultScreen = (linkTimer > 0) ? "Device" : "Dashboard";
+    const defaultScreen = "Device";
     // const defaultScreen = "Profile";
 
     const closePreModal = () => {

@@ -1,73 +1,36 @@
-import React, { useState, useEffect } from "react";
-import { Text, TouchableOpacity, Image, TextInput, Dimensions, SafeAreaView, FlatList, ScrollView } from "react-native";
+import React, { useState, useEffect, useRef } from "react";
+import { Text, TouchableOpacity, Image, TextInput, SafeAreaView, FlatList, ScrollView } from "react-native";
 import { View, VStack, HStack, Divider, useToast } from "native-base";
 
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import Feather from "react-native-vector-icons/Feather";
+import Ionicons from "react-native-vector-icons/Ionicons";
 
 import { useNavigation, useIsFocused } from "@react-navigation/native";
 
-const screen = Dimensions.get("screen");
-const { width, height } = screen;
+import { CheckBox } from "@rneui/base";
 
-// const {width, height} = useWindowDimensions();
-
-import { Logger, Utility } from "@utility";
-
-import { BcBoxShadow, BcLoading, BcYatuHome, BaseModal, BcPhotoGalleryModal, BcProfileWorkspace } from "@components";
-
-import { Devices, Images, Animation, clsConst } from "@config";
+import TopModal from "@components/Modal/TopModal"
+import Modal from "react-native-modal";
 
 import { Tab, TabView } from "@rneui/themed";
 
-import TopModal from "@components/Modal/TopModal";
-import Modal from "react-native-modal";
+import { Logger, Utility } from "@utility";
+import { Animation, Images, clsConst } from "@config";
 
-import { fetchDeviceList, fetchDeleteDevice, fetchGetLinkedDevice, fetchLinkDevice } from "@api";
+import { BcBoxShadow, BcLoading, BcPhotoGalleryModal, BcSvgIcon, BcYesNoModal, BcYatuHome, BaseModal } from "@components";
+
+import { fetchDeviceList, fetchToggleFavoriteDevice, fetchLinkDevice, fetchDeleteDevice, fetchGetLinkedDevice } from "@api";
 
 import { useDispatch, useSelector } from 'react-redux';
 import { Actions, Selectors } from '@redux';
 
 import { useToggle, useModalToast, useTimer } from "@hooks";
 
-import { CheckBox } from "@rneui/base";
-
 import { DateTime } from "luxon";
-
 import Lottie from "lottie-react-native";
-
-// #region Hooks
-function useViewMode(val = "list") {
-    const [viewMode, setViewMode] = useState(val);
-
-    const toggleViewMode = () => {
-        const val = (viewMode === "List") ? "Grid" : "List";
-        setViewMode(val);
-    };
-
-    return [viewMode, toggleViewMode];
-}
-
-function useLinkDevice(val = []) {
-
-    const [ls, setLs] = useState(val);
-
-    const toggleItem = (item) => {
-        const { pos, flag } = item;
-
-        let arr = [...ls];
-        arr[pos].flag = !flag;
-
-        arr[pos].Status = !flag ? 1 : 0;
-
-        setLs(arr);
-    }
-
-    return [ls, setLs, toggleItem];
-}
-// #endregion
 
 // #region Linked Device
 function LinkDeviceItem(props) {
@@ -116,50 +79,26 @@ function LinkDeviceModal(props) {
 
     const dispatch = useDispatch();
 
-    const { tabLs = [] } = init;
-
     const { showModal, setShowModal } = props;
     const { toggleRefresh = () => { } } = props;
 
     // #region Redux
     const userId = useSelector(Selectors.userIdSelect);
     const homeId = useSelector(Selectors.homeIdSelect);
-    const linkTimer = useSelector(Selectors.linkTimerSelect);
-    const linkTsStart = useSelector(Selectors.linkTsStartSelect);
     // #endregion
 
     // #region UseState
     const [cusToast, showMsg] = useModalToast();
     const [data, setData, toggleItem] = useLinkDevice([]);
     const [loading, setLoading, toggleLoading] = useToggle(false);
-    const [tabPaneInd, setTabPaneInd] = useState(0);
 
     // ! Can Be Removed
-    const [timer, setTimer, totalDuration, setTotalDuration, overallPercent] = useTimer(linkTimer, () => onTimerEnd());
+    const [timer, setTimer, totalDuration, setTotalDuration, overallPercent] = useTimer(0, () => onTimerEnd());
     const [subLoadFlag, setSubLoadFlag, toggleSubLoadFlag] = useToggle(false);
-    const [curDeviceInd, setCurDeviceInd] = useState(0);
-    const [percentage, setPercentage] = useState(0);
     // #endregion
 
     useEffect(() => {
         setLoading(true);
-        // const timeout = setTimeout(() => {
-        //     fetchGetLinkedDevice({
-        //         param: {
-        //             UserId: userId,
-        //             HomeId: homeId
-        //         },
-        //         onSetLoading: setLoading
-        //     })
-        //         .then(data => {
-        //             setData(data);
-        //         })
-        //         .catch(err => {
-        //             setLoading(false);
-        //             console.log(`Error: ${err}`);
-        //         })
-        // }, 2000);
-        // return () => clearTimeout(timeout);
 
         fetchGetLinkedDevice({
             param: {
@@ -176,7 +115,7 @@ function LinkDeviceModal(props) {
                 console.log(`Error: ${err}`);
             })
 
-    }, [userId, homeId])
+    }, [userId, homeId, showModal])
 
     // #region Render
     const renderItem = ({ item, index }) => {
@@ -218,44 +157,11 @@ function LinkDeviceModal(props) {
     }
     // #endregion
 
-    const dev_to_update_len = data.filter(x => x.Status).length;
-
-    const time_to_wait = clsConst.TUYA_TIME_TO_WAIT_SYNC;
-
-    useEffect(() => {
-        if (timer > 0 && data.length > 0) {
-            let ind = Math.floor((timer - 1) / time_to_wait);
-            setCurDeviceInd(ind);
-
-            let percent = (time_to_wait - (timer - ind * time_to_wait)) / time_to_wait * 100;
-            setPercentage(percent);
-        }
-    }, [timer]);
-
-    useEffect(() => {
-
-        const ts = Math.floor(DateTime.now().toMillis() / 1000);
-
-        if (linkTimer > -1 && (linkTsStart + linkTimer) > ts) {
-            let duration = linkTimer + linkTsStart - ts;
-            setTimer(duration);
-            setTotalDuration(duration);
-
-            setSubLoadFlag(true);
-
-            dispatch(Actions.onChangeLinkTsStart(ts));
-        } else {
-            dispatch(Actions.onChangeLinkTimer(-1));
-        }
-    }, [])
+    // const time_to_wait = clsConst.TUYA_TIME_TO_WAIT_SYNC;
+    const time_to_wait = 15;
 
     const onSubmit = () => {
         let arr = [];
-
-        dispatch(Actions.onChangeLinkDeviceLs(data));
-
-        const link_ts = Math.floor(DateTime.now().toMillis() / 1000);
-        dispatch(Actions.onChangeLinkTsStart(link_ts));
 
         arr = data.map(obj => {
             const { Id, Status, IsEmpty } = obj;
@@ -295,6 +201,7 @@ function LinkDeviceModal(props) {
     const onTimerEnd = () => {
         setLoading(false);
         setSubLoadFlag(false);
+        setShowModal(false);
         toggleRefresh();
     }
 
@@ -315,19 +222,6 @@ function LinkDeviceModal(props) {
                                     }}>
                                         Sync Data
                                     </Text>
-                                    {
-                                        (data.filter(x => x.Status).length > 0) ? (
-                                            <Text style={{
-                                                fontFamily: "Roboto-Bold",
-                                                fontSize: 20,
-                                                textAlign: "center"
-                                            }}>
-                                                <Text>{data.filter(x => x.Status).sort((a, b) => a.IsEmpty - b.IsEmpty)[dev_to_update_len - curDeviceInd - 1]?.Title}</Text> <Text style={{ color: "#F00" }}>{dev_to_update_len - curDeviceInd}</Text>/{dev_to_update_len}
-                                            </Text>
-                                        ) : (
-                                            <></>
-                                        )
-                                    }
                                     <Text style={{
                                         fontFamily: "Roboto-Bold",
                                         fontSize: 20,
@@ -558,6 +452,31 @@ function AddDeviceBtn(props) {
 // #endregion
 
 // #region Tab Detail
+
+function TabDetailModalItem(props) {
+    const { onPress = () => { } } = props;
+    const { Btn, btnName = "", title = "" } = props;
+
+    const style = {
+        title: {
+            fontFamily: "Roboto-Medium",
+            fontSize: 18
+        }
+    };
+
+    return (
+        <TouchableOpacity onPress={onPress} style={{ width: "90%" }}>
+            <HStack alignItems={"center"} style={{ height: 40 }}>
+                {/* Logo */}
+                <HStack alignItems={"center"} space={3}>
+                    <Btn name={btnName} size={28} />
+                    <Text style={style.title}>{title}</Text>
+                </HStack>
+            </HStack>
+        </TouchableOpacity>
+    )
+}
+
 function TabDetailModal(props) {
 
     // #region Props
@@ -578,36 +497,8 @@ function TabDetailModal(props) {
                 alignItems={"center"}
                 borderRadius={8}
                 bgColor={"#FFF"}>
-
-                <TouchableOpacity onPress={toggleViewMode}
-                    style={{ width: "90%" }}>
-                    <HStack
-                        alignItems={"center"}
-                        style={{ height: 40 }}>
-                        <HStack alignItems={"center"} space={3}>
-                            <MaterialCommunityIcons name={viewMode === "List" ? "view-grid-outline" : "view-list-outline"} size={28} />
-                            <Text style={{
-                                fontFamily: "Roboto-Medium",
-                                fontSize: 18
-                            }}>{viewMode === "List" ? "Grid" : "List"} View</Text>
-                        </HStack>
-                    </HStack>
-                </TouchableOpacity>
-
-                <TouchableOpacity onPress={onSelectRoomManagement} style={{ width: "90%" }}>
-                    <HStack
-                        alignItems={"center"}
-                        style={{ height: 40 }}>
-                        <HStack alignItems={"center"} space={3}>
-                            <MaterialCommunityIcons name={"hexagon-slice-4"} size={28} />
-                            <Text style={{
-                                fontFamily: "Roboto-Medium",
-                                fontSize: 18
-                            }}>Room Management</Text>
-                        </HStack>
-                    </HStack>
-                </TouchableOpacity>
-
+                <TabDetailModalItem onPress={toggleViewMode} title={viewMode === "List" ? "Grid View" : "List View"} btnName={viewMode === "List" ? "view-grid-outline" : "view-list-outline"} Btn={MaterialCommunityIcons} />
+                <TabDetailModalItem onPress={onSelectRoomManagement} title={"Room Management"} btnName={"hexagon-slice-4"} Btn={MaterialCommunityIcons} />
             </View>
         </Modal>
     )
@@ -832,11 +723,42 @@ function DeviceItem(props) {
 }
 // #endregion
 
+// #region Hooks
+function useViewMode(val = "list") {
+    const [viewMode, setViewMode] = useState(val);
+
+    const toggleViewMode = () => {
+        const val = (viewMode === "List") ? "Grid" : "List";
+        setViewMode(val);
+    };
+
+    return [viewMode, toggleViewMode];
+}
+
+function useLinkDevice(val = []) {
+
+    const [ls, setLs] = useState(val);
+
+    const toggleItem = (item) => {
+        const { pos, flag } = item;
+
+        let arr = [...ls];
+        arr[pos].flag = !flag;
+
+        arr[pos].Status = !flag ? 1 : 0;
+
+        setLs(arr);
+    }
+
+    return [ls, setLs, toggleItem];
+}
+// #endregion
+
 // #region Components
 function Header(props) {
 
-    const subUserAccess = useSelector(Selectors.subUserAccessSelect);
-    const { LinkDevice = -1 } = subUserAccess;
+    // const subUserAccess = useSelector(Selectors.subUserAccessSelect);
+    // const { LinkDevice = -1 } = subUserAccess;
 
     return (
         <BcBoxShadow>
@@ -852,17 +774,12 @@ function Header(props) {
                     {/* Logo */}
                     <BcYatuHome />
 
-                    {
-                        (LinkDevice == 1) ? (
-                            <HStack alignItems={"center"} space={3}>
-                                {/* Button */}
-                                <TutorialGuideBtn />
-                                <AddDeviceBtn {...props} />
-                            </HStack>
-                        ) : (
-                            <></>
-                        )
-                    }
+                    <HStack alignItems={"center"} space={3}>
+                        {/* Button */}
+                        <TutorialGuideBtn />
+                        <AddDeviceBtn {...props} />
+                    </HStack>
+
                 </HStack>
             </View>
         </BcBoxShadow>
@@ -890,76 +807,10 @@ function EmptyList(props) {
         </View>
     )
 }
-
-function CardGradientItem(props) {
-    const { bgName = "CardGradientRed" } = props;
-    return (
-        <View style={{ height: 180 }}>
-            <Image source={Images[bgName]} style={{ width: "100%", height: "100%", borderRadius: 15 }} resizeMode={"cover"} alt={bgName} />
-            <VStack p={2}
-                space={4}
-                position={"absolute"} style={{ left: 0, right: 0 }}>
-                <View>
-                    <Text style={{
-                        fontSize: 12,
-                        color: "#FFF",
-                    }}>Cozy Home</Text>
-                </View>
-
-                <HStack space={3}>
-                    <FontAwesome5 name={"cloud"} color={"#FFF"} size={36} />
-                    <Text style={{
-                        fontFamily: "Roboto-Bold",
-                        fontSize: 32,
-                        color: "#f1f1f1"
-                    }}>29°C</Text>
-                </HStack>
-
-                <HStack alignItems={"center"} justifyContent={"space-between"}>
-                    <VStack>
-                        <Text style={{
-                            fontFamily: "Roboto-Medium",
-                            fontSize: 18,
-                            color: "#FFF",
-                        }}>Excellent</Text>
-                        <Text style={{
-                            fontFamily: "Roboto-Medium",
-                            fontSize: 14,
-                            color: "#FFF",
-                        }}>Outdoor PM 2.5</Text>
-                    </VStack>
-                    <VStack>
-                        <Text style={{
-                            fontFamily: "Roboto-Medium",
-                            fontSize: 18,
-                            color: "#FFF",
-                        }}>74.0%</Text>
-                        <Text style={{
-                            fontFamily: "Roboto-Medium",
-                            fontSize: 14,
-                            color: "#FFF",
-                        }}>Outdoor Humidity</Text>
-                    </VStack>
-                    <VStack>
-                        <Text style={{
-                            fontFamily: "Roboto-Medium",
-                            fontSize: 18,
-                            color: "#FFF",
-                        }}>1006.9hPa</Text>
-                        <Text style={{
-                            fontFamily: "Roboto-Medium",
-                            fontSize: 14,
-                            color: "#FFF",
-                        }}>Outdoor Air Pres...</Text>
-                    </VStack>
-                </HStack>
-            </VStack>
-        </View>
-    )
-}
 // #endregion
 
 function TutorialGuideBtn(props) {
+
     const [showTGModal, setShowTGModal, toggleTGModal] = useToggle(false);
 
     const images = [
@@ -991,8 +842,6 @@ function Index(props) {
     const navigation = useNavigation();
     const isFocused = useIsFocused();
 
-    const dispatch = useDispatch();
-
     // #region Redux
     const lang = "en";
 
@@ -1000,64 +849,74 @@ function Index(props) {
     const homeId = useSelector(Selectors.homeIdSelect);
     // #endregion
 
-    // #region Init
-    const init = {
-        txtActive: "#2898FF",
-        txtInActive: "#6A7683",
-        bgActive: "#FFF",
-        bgInActive: "#EDEEEF",
-        roomLs: ["All Devices", "Living Room", "Office", "Kitchen", "Master Bedroom", "Dining Room"],
-        imgLs: ["CardGradientRed", "CardGradientGreen", "CardGradientOrange", "CardGradientBlue"]
-    }
-    // #endregion
-
     // #region UseState
     const [deviceData, setDeviceData] = useState({});
     const [roomPaneInd, setRoomPaneInd] = useState(0);
 
-    const [imgLs, setImgLs] = useState(init.imgLs);
-
     const [loading, setLoading, toggleLoading] = useToggle(false);
     const [refresh, setRefresh, toggleRefresh] = useToggle(false);
+    const [showTGModal, setShowTGModal, toggleTGModal] = useToggle(false);
+    const [showLdModal, setShowLdModal, toggleLdModal] = useToggle(false);
 
     const [viewMode, toggleViewMode] = useViewMode();
     // #endregion
 
-    const roomLs = Object.keys(deviceData);
-
-    const firstTimeLink = useSelector(Selectors.firstTimeLinkSelect);
-
     // #region UseEffect
     useEffect(() => {
+        if (isFocused) {
+            GetDeviceByUser();
+        }
+    }, [homeId, refresh, isFocused]);
+    // #endregion
+
+    // #region API List
+    const GetDeviceByUser = () => {
         setLoading(true);
         fetchDeviceList({
             param: {
                 UserId: userId,
-                HomeId: homeId
+                HomeId: homeId,
             },
             onSetLoading: setLoading,
         })
             .then(data => {
+                console.log(data);
                 setDeviceData(data);
             })
             .catch(err => {
                 setLoading(false);
                 console.log(`Error: ${err}`);
-            })
-    }, [homeId, refresh, isFocused]);
+            });
+    }
 
-    useEffect(() => {
-        if (isFocused && firstTimeLink) {
-            setTimeout(() => {
-                toggleTGModal();
-            }, 3000);
-        }
-    }, [isFocused, firstTimeLink]);
+    const LinkDevice = () => {
+        setLoading(true);
+        fetchLinkDevice({
+            param: {
+                UserId: userId,
+                DeviceLs: deviceData.map(x => ({ Id: x.Id, Status: x.flag ? 1 : 0 }))
+            },
+            onSetLoading: setLoading
+        })
+            .then(data => {
+                const { ResponseCode = "", ResponseMessage = "" } = data;
+                toggleLdModal();
+                if (ResponseCode == "00") {
+                    toggleRefresh();
+                } else {
+                    // Pop Up Modal Saying Max Device Limit Reached
+                    toast.show({
+                        description: ResponseMessage
+                    })
+                }
+            })
+            .catch(err => {
+                setLoading(false);
+                console.log(`Error: ${err}`);
+            });
+    }
     // #endregion
 
-    const [showTGModal, setShowTGModal, toggleTGModal] = useToggle(false);
-
-    // #region Navigation
     const GoToDetail = (item) => {
         const { IsTempHumd = 0, IsSmartPlug = 0, IsAirQuality = 0, IsAirCon = 0, IsSmartCamera = 0 } = item;
 
@@ -1073,9 +932,8 @@ function Index(props) {
             navigation.navigate("DeviceLanding", item);
         }
     };
-    // #endregion
 
-    // #region Render
+    // #region Render Item
     const renderDeviceItem = ({ item, index }) => {
         const onSelect = () => GoToDetail(item);
         return (
@@ -1085,39 +943,11 @@ function Index(props) {
                 onSelect={onSelect} {...item} />
         )
     }
+    // #endregion
 
-    const renderTabItem = (item, index) => {
-        return (
-            <Tab.Item
-                key={index}
-                title={item}
-                titleStyle={(active) => ({
-                    fontSize: 18,
-                    paddingHorizontal: 0,
-                    color: active ? init.txtActive : init.txtInActive
-                })}
-                buttonStyle={(active) => ({
-                    borderRadius: 8,
-                    marginRight: 10,
-                    paddingVertical: 0,
-                    paddingHorizontal: 0,
-                })}
-            />
-        )
-    }
+    const roomLs = Object.keys(deviceData);
 
-    const renderGradientItem = ({ index }) => {
-        const bgName = imgLs[index];
-        return (
-            <CardGradientItem key={index} bgName={bgName} />
-        )
-    }
-
-    const updateFirstTimeLink = () => {
-        toggleTGModal();
-        dispatch(Actions.onChangeFirstTimeLink(false));
-    }
-
+    // #region Tab Detail
     const images = [
         { uri: Images.LinkDeviceI },
         { uri: Images.LinkDeviceII },
@@ -1125,54 +955,71 @@ function Index(props) {
         { uri: Images.LinkDeviceIV },
         { uri: Images.LinkDeviceV },
     ]
+
+    const updateFirstTimeLink = () => {
+        toggleTGModal();
+    }
     // #endregion
+
+    const machineListView = useRef(null);
+
+    const style = {
+        title: {
+            fontFamily: "Roboto-Bold",
+            fontSize: 18,
+            paddingHorizontal: 0,
+        },
+        tabDetail: {
+            position: "absolute",
+            top: 0,
+            bottom: 0,
+            right: 0,
+        }
+    }
+
+    const subUserAccess = useSelector(Selectors.subUserAccessSelect);
+    const { DeviceQty = 0 } = subUserAccess;
 
     return (
         <>
+            <BcYesNoModal
+                showModal={showLdModal} setShowModal={setShowLdModal}
+                title={"Link Devices"}
+                description={`Are you sure you want to link these devices?\n\nOnce your downloads have completed, a notification will be send out to alert you!`}
+                titleYes={"Link"} titleNo={"Cancel"}
+                onPressYes={LinkDevice} onPressNo={toggleLdModal}
+            />
             <BcLoading loading={loading} />
             <BcPhotoGalleryModal showModal={showTGModal} setShowModal={updateFirstTimeLink} images={images} />
             <SafeAreaView style={{ flex: 1 }}>
                 <View bgColor={"#FFF"} style={{ flex: 1 }}>
 
                     {/* Header */}
-                    <Header key={refresh} toggleRefresh={toggleRefresh} />
+                    <Header toggleRefresh={toggleRefresh} />
 
                     <View style={{ height: 10 }} />
-
-                    {/* Card Gradient */}
-                    {/* <View alignItems={"center"}>
-                        <BcCarousel data={imgLs} renderItem={renderGradientItem} />
-                    </View> */}
 
                     <View style={{ height: 5 }} />
 
                     <View alignItems={"center"}>
                         <HStack alignItems={"center"} width={"90%"}>
-                            <Tab
-                                scrollable={true}
-                                disableIndicator={true}
-                                value={roomPaneInd}
-                                onChange={(e) => setRoomPaneInd(e)}>
-                                {roomLs.map(renderTabItem)}
-                            </Tab>
+                            <Text style={style.title}>Sync Devices</Text>
                             <View justifyContent={"center"}
-                                style={{
-                                    position: "absolute",
-                                    top: 0,
-                                    bottom: 0,
-                                    right: 0,
-                                }}>
+                                style={style.tabDetail}>
                                 <TabDetail viewMode={viewMode} toggleViewMode={toggleViewMode} />
                             </View>
                         </HStack>
                     </View>
 
+                    {/* Body */}
                     <TabView
                         value={roomPaneInd}
                         onChange={(e) => setRoomPaneInd(e)}>
                         {
                             roomLs.map((room, ind) => {
+                                console.log(room);
                                 const deviceLs = deviceData[room];
+
                                 return (
                                     <TabView.Item key={ind}
                                         style={{ width: "100%", alignItems: "center" }}>
@@ -1201,7 +1048,7 @@ function Index(props) {
                 </View>
             </SafeAreaView>
         </>
-    )
+    );
 }
 
 export default Index;

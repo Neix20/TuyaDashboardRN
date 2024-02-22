@@ -102,7 +102,13 @@
 
 ## Bugs
 
-- [ ] If I Press Refresh, I Get Sent Out (High Traffic) (TUserToken)
+- [x] If I Press Refresh, I Get Sent Out (High Traffic) (TUserToken)
+- [x] Deleted Login Modal, Popout Deleted
+- [x] Record Video of Adding New Devices
+  - [ ] Try Again
+- [x] Test `txen2000@gmail.com`
+  - [x] Test `neixchobby@gmail.com`
+- [x] Modify `GetParamApi` for Yatu
 
 ## Tutorial
 
@@ -113,9 +119,3 @@
 ~~- Redirect User to "Profile Workspace", to add / remove device ?~~
 ~~- When Data has Downloaded, Redirect User To Dashboard~~
 ~~Test Notification~~
-
-```mermaid
-flowchart TD
-  1(start)
-  2(end)
-```
