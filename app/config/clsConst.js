@@ -1,4 +1,4 @@
-const APP_VERSION = "1.2.26";
+const APP_VERSION = "L1.2.26";
 const PRO_APP_VERSION = "P1.2.25";
 const LITE_APP_VERSION = "L1.2.26";
 const ORG_NAME = "VIGTECH LABS SDN BHD";
