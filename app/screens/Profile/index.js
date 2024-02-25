@@ -18,7 +18,7 @@ import { clsConst } from "@config";
 import { useDispatch, useSelector } from 'react-redux';
 import { Actions, Selectors } from '@redux';
 
-import { fetchProfileInfo, fetchSubUserAccess, fetchDeleteAccount, fetchRestoreStorePurchase } from "@api";
+import { fetchProfileInfo, fetchSubUserAccess, fetchDeleteAccount, fetchRestoreStorePurchase, fetchGetParamApi } from "@api";
 
 import { BcLoading, BaseModal, BcYesNoModal } from "@components";
 

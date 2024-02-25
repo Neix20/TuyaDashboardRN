@@ -183,6 +183,7 @@ import Faq from "@screens/CompanyInfo/screens/Faq.js";
 import ContactUs from "@screens/CompanyInfo/screens/ContactUs.js";
 
 import YatuEngine from "@screens/YatuEngine";
+import ViewerSession from "@screensLite/Session";
 
 StackScreens = {
     ...StackScreens,
@@ -231,6 +232,13 @@ StackScreens = {
     ContactUs: {
         component: ContactUs,
         title: "ContactUs",
+        option: {
+            orientation: "portrait"
+        }
+    },
+    ViewerSession: {
+        component: ViewerSession,
+        title: "ViewerSession",
         option: {
             orientation: "portrait"
         }

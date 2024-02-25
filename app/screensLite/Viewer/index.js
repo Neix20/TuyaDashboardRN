@@ -67,6 +67,8 @@ function Header(props) {
 
 function Body(props) {
 
+    const navigation = useNavigation();
+
     const style = {
         title: {
             fontFamily: "Roboto-Bold",
@@ -85,6 +87,10 @@ function Body(props) {
 
     const [tokenCode, setTokenCode] = useState("");
 
+    const onSubmit = () => {
+        navigation.navigate("ViewerSession");
+    }
+
     return (
         <View style={{ width: "90%" }}>
             <BcBoxShadow>
@@ -100,7 +106,7 @@ function Body(props) {
                         style={style.txtInput} />
 
                     {/* Activate Button */}
-                    <TouchableOpacity style={{ width: "60%", height: 40 }}>
+                    <TouchableOpacity onPress={onSubmit} style={{ width: "60%", height: 40 }}>
                         <View flex={1} backgroundColor={"#2898FF"}
                             alignItems={"center"} justifyContent={"center"}>
                             <Text style={{

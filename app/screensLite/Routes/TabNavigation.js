@@ -81,6 +81,17 @@ TabScreens = {
                 {...props} />
         )
     },
+    // Viewer: {
+    //     component: Viewer,
+    //     title: "Viewer",
+    //     tabBarIcon: (props) => (
+    //         <TabIconFontAwesome
+    //             Btn={FontAwesome}
+    //             icon={"eye"}
+    //             title={"Viewer"}
+    //             {...props} />
+    //     )
+    // },
     ProfileWorkspace: {
         component: ProfileWorkspace,
         title: "ProfileWorkspace",

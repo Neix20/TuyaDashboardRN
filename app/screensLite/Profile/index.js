@@ -17,11 +17,11 @@ import { Logger, Utility } from "@utility";
 import { Actions, Selectors } from '@redux';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { fetchProfileInfo, fetchSubUserAccess, fetchDeleteAccount, fetchRestoreStorePurchase } from "@api";
+import { fetchProfileInfo, fetchSubUserAccess, fetchDeleteAccount, fetchRestoreStorePurchase, fetchGetParamApi } from "@api";
 
-import { BcLoading, BaseModal, BcYesNoModal } from "@components";
+import { BcLoading, BaseModal, BaseIIModal, BcYesNoModal } from "@components";
 
-import { useToggle, useYatuIap } from "@hooks";
+import { useToggle, useYatuIap, useTimer } from "@hooks";
 import { withIAPContext } from "react-native-iap";
 
 // #region Components
@@ -435,8 +435,6 @@ function LogoutPanel(props) {
     )
 }
 
-import { CheckBox } from "@rneui/base";
-
 function TutorialPanel(props) {
 
     const dispatch = useDispatch();
@@ -469,31 +467,171 @@ function TutorialPanel(props) {
 
     return (
         <VStack bgColor={"#FFF"} borderRadius={8} width={"90%"} alignItems={"center"}>
-
             <TouchableOpacity onPress={toggleTutorial} style={{ width: "90%" }}>
-                <HStack alignItems={"center"} justifyContent={"space-between"} style={{ height: 60 }}>
+                <HStack alignItems={"center"} style={{ height: 60 }}>
                     {/* Icon & Title */}
-                    <HStack alignItems={"center"}>
-                        <View alignItems={"flex-start"} style={{ width: 40 }}>
-                            <FontAwesome5 name={"graduation-cap"} size={24} color={color} />
-                        </View>
-                        <Text style={style.title}>Restart Tutorial</Text>
-                    </HStack>
-                    {/* Checkbox */}
-                    {/* <CheckBox
-                        containerStyle={style.chkBox}
-                        iconType={"material-community"}
-                        checkedIcon={"checkbox-marked"}
-                        uncheckedIcon={"checkbox-blank-outline"}
-                        checked={tutorial}
-                        onPress={toggleTutorial}
-                        checkedColor={"#2898FF"} /> */}
+                    <View alignItems={"flex-start"} style={{ width: 40 }}>
+                        <FontAwesome5 name={"graduation-cap"} size={24} color={color} />
+                    </View>
+                    <Text style={style.title}>Restart Tutorial</Text>
                 </HStack>
             </TouchableOpacity>
-
         </VStack>
     )
+}
+// #endregion
 
+// #region Session Modal
+function getRandomNumber(min, max) {
+    // Generate a random number between min and max (inclusive)
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+
+function SessionModal(props) {
+    const { showModal, setShowModal = () => { } } = props;
+    const { timerHook = [], accessCodeHook = [] } = props;
+
+    const [timer, setTimer, t1, t2, progress] = timerHook;
+    const [accessCode, setAccessCode] = accessCodeHook;
+
+    const genAccessCode = () => {
+        fetchGetParamApi({
+            param: {
+                ParamKey: "Yatu_AccessCode_707758"
+            },
+            onSetLoading: () => {}
+        })
+        .then(data => {
+            const { Content = {} } = data;
+            const { AccessCode = "" } = Content;
+            setAccessCode(_ => AccessCode);
+            setTimer(100);
+        })
+        .catch(err => {
+            console.error(err);
+        })
+    }
+
+    const style = {
+        title: {
+            fontFamily: "Roboto-Bold",
+            fontSize: 20,
+            color: "#000",
+        },
+        description: {
+            fontFamily: "Roboto-Bold",
+            fontSize: 20,
+            color: "#000",
+        },
+        btnTitle: {
+            fontSize: 14,
+            fontWeight: "bold",
+            color: "#FFF",
+        }
+    };
+
+    // Session Not Yet Started
+
+    if (timer > 0) {
+        return (
+            <BaseModal {...props}>
+                {/* Content */}
+                <VStack space={3} width={"90%"} alignItems={"center"}>
+                    <Text style={style.title}>Access Code: {accessCode}</Text>
+                    <Text style={style.description}>Timer: {timer}</Text>
+                </VStack>
+            </BaseModal>
+        )
+    }
+
+    return (
+        <BaseModal {...props}>
+            {/* Content */}
+            <VStack space={3} width={"90%"} alignItems={"center"}>
+                <Text style={style.title}>Session has not yet generated!</Text>
+                <TouchableOpacity onPress={genAccessCode} style={{ width: "60%", height: 40 }}>
+                    <View flex={1} backgroundColor={"#ff0000"}
+                        alignItems={"center"} justifyContent={"center"}>
+                        <Text style={style.btnTitle}>Generate Access Code</Text>
+                    </View>
+                </TouchableOpacity>
+            </VStack>
+        </BaseModal>
+    )
+}
+
+function ShareSessionPanel(props) {
+
+    const [sesModal, setSesModal, toggleSesModal] = useToggle(false);
+
+    const timerEnd = () => {
+        setSesModal(_ => false);
+    }
+
+    const timerHook = useTimer(0, timerEnd);
+    const [timer, setTimer, t1, t2, progress] = timerHook;
+
+    const accessCodeHook = useState("");
+    const [accessCode, setAccessCode] = accessCodeHook;
+
+    const color = timer > 0 ? "#FFAA00" : "#212121";
+
+    const style = {
+        title: {
+            fontFamily: "Roboto-Medium",
+            fontSize: 18,
+            color: color
+        },
+        timerTxt: {
+            fontFamily: "Roboto-Medium",
+            fontSize: 18
+        },
+        chkBox: {
+            paddingHorizontal: 0,
+            paddingVertical: 0,
+        }
+    }
+
+    return (
+        <>
+            <SessionModal showModal={sesModal} setShowModal={setSesModal}
+                timerHook={timerHook} accessCodeHook={accessCodeHook} />
+            {
+                (timer == 0) ? (
+                    <VStack bgColor={"#FFF"} borderRadius={8} width={"90%"} alignItems={"center"}>
+                        <TouchableOpacity onPress={toggleSesModal} style={{ width: "90%" }}>
+                            <HStack alignItems={"center"} style={{ height: 60 }}>
+                                <View alignItems={"flex-start"} style={{ width: 40 }}>
+                                    <MaterialCommunityIcons name={"progress-clock"} size={24} color={color} />
+                                </View>
+                                <Text style={style.title}>Share Session</Text>
+                            </HStack>
+                        </TouchableOpacity>
+                    </VStack>
+                ) : (
+                    <VStack bgColor={"#FFF"} borderRadius={8} width={"90%"} alignItems={"center"}>
+                        <TouchableOpacity onPress={toggleSesModal} style={{ width: "90%" }}>
+                            <HStack alignItems={"center"} justifyContent={"space-between"} style={{ height: 60 }}>
+                                {/* Icon & Title */}
+                                <HStack alignItems={"center"}>
+                                    <View alignItems={"flex-start"} style={{ width: 40 }}>
+                                        <MaterialCommunityIcons name={"progress-clock"} size={24} color={color} />
+                                    </View>
+                                    <Text style={style.title}>Share Session: </Text>
+                                    <Text style={[style.title, { color: "#000" }]}>{accessCode}</Text>
+                                </HStack>
+
+                                {/* Timer */}
+                                <Text style={style.timerTxt}>{timer}</Text>
+                            </HStack>
+                        </TouchableOpacity>
+                    </VStack>
+                )
+            }
+
+        </>
+    )
 }
 // #endregion
 
@@ -630,6 +768,8 @@ function Index(props) {
                             <CompanyInfoPanel />
 
                             <TutorialPanel />
+
+                            <ShareSessionPanel />
 
                             {/* Logout */}
                             <LogoutPanel onLogout={SignOut} onDeleteAccount={DeleteAccount} />
