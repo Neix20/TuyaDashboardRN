@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { View, VStack, HStack, useToast } from "native-base";
-import { Text, TouchableOpacity, Image, SafeAreaView, ScrollView } from "react-native";
+import { Text, TouchableOpacity, TextInput, Image, SafeAreaView, ScrollView } from "react-native";
 
 import Ionicons from "react-native-vector-icons/Ionicons";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
@@ -17,11 +17,12 @@ import { Logger, Utility } from "@utility";
 import { Actions, Selectors } from '@redux';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { fetchProfileInfo, fetchSubUserAccess, fetchDeleteAccount, fetchRestoreStorePurchase, fetchGetParamApi } from "@api";
+import { fetchProfileInfo, fetchSubUserAccess, fetchDeleteAccount, fetchRestoreStorePurchase } from "@api";
+import { fetchGetParamApi, fetchGenerateViewerAccessCode, fetchJoinViewerSession } from "@api";
 
-import { BcLoading, BaseModal, BaseIIModal, BcYesNoModal } from "@components";
+import { BcLoading, BaseModal, BaseIIModal, BcYesNoModal, BcDisableII } from "@components";
 
-import { useToggle, useYatuIap, useTimer } from "@hooks";
+import { useToggle, useYatuIap, useTimer, useModalToast } from "@hooks";
 import { withIAPContext } from "react-native-iap";
 
 // #region Components
@@ -482,12 +483,6 @@ function TutorialPanel(props) {
 // #endregion
 
 // #region Session Modal
-function getRandomNumber(min, max) {
-    // Generate a random number between min and max (inclusive)
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-}
-
-
 function SessionModal(props) {
     const { showModal, setShowModal = () => { } } = props;
     const { timerHook = [], accessCodeHook = [] } = props;
@@ -495,18 +490,27 @@ function SessionModal(props) {
     const [timer, setTimer, t1, t2, progress] = timerHook;
     const [accessCode, setAccessCode] = accessCodeHook;
 
+    const userId = useSelector(Selectors.userIdSelect);
+
     const genAccessCode = () => {
-        fetchGetParamApi({
+
+        // setAccessCode(_ => "101010");
+        // setTimer(10080);
+
+        fetchGenerateViewerAccessCode({
             param: {
-                ParamKey: "Yatu_AccessCode_707758"
+                UserId: userId
             },
-            onSetLoading: () => {}
+            onSetLoading: () => { }
         })
         .then(data => {
-            const { Content = {} } = data;
-            const { AccessCode = "" } = Content;
-            setAccessCode(_ => AccessCode);
-            setTimer(100);
+            const { Access_Code = "", Expiry_Date = "" } = data;
+
+            setAccessCode(_ => Access_Code);
+
+            // Get Time Difference Between expiry Date And Now
+            const ts_diff = Utility.timeDiff(Expiry_Date);
+            setTimer(ts_diff);
         })
         .catch(err => {
             console.error(err);
@@ -531,15 +535,19 @@ function SessionModal(props) {
         }
     };
 
-    // Session Not Yet Started
-
     if (timer > 0) {
         return (
             <BaseModal {...props}>
                 {/* Content */}
-                <VStack space={3} width={"90%"} alignItems={"center"}>
-                    <Text style={style.title}>Access Code: {accessCode}</Text>
-                    <Text style={style.description}>Timer: {timer}</Text>
+                <VStack space={3} width={"80%"} alignItems={"center"}>
+                    <HStack alignItems={"center"} justifyContent={"space-between"}>
+                        <Text style={style.title}>Access Code: </Text>
+                        <Text style={style.title}>{accessCode}</Text>
+                    </HStack>
+                    <HStack alignItems={"center"} justifyContent={"space-between"}>
+                        <Text style={style.description}>Timer: </Text>
+                        <Text style={style.description}>{Utility.formatTsTimer(timer)}</Text>
+                    </HStack>
                 </VStack>
             </BaseModal>
         )
@@ -591,7 +599,7 @@ function ShareSessionPanel(props) {
             paddingHorizontal: 0,
             paddingVertical: 0,
         }
-    }
+    };
 
     return (
         <>
@@ -623,7 +631,7 @@ function ShareSessionPanel(props) {
                                 </HStack>
 
                                 {/* Timer */}
-                                <Text style={style.timerTxt}>{timer}</Text>
+                                <Text style={style.timerTxt}>{Utility.formatTsTimer(timer)}</Text>
                             </HStack>
                         </TouchableOpacity>
                     </VStack>
@@ -632,6 +640,175 @@ function ShareSessionPanel(props) {
 
         </>
     )
+}
+
+function useViewerForm(props) {
+
+    const init = {
+        form: {
+            email: "",
+            accessCode: ""
+        }
+    }
+
+    const [form, setForm] = useState(init.form);
+
+    const updateForm = (val, name) => {
+        const next_state = { ...form };
+        next_state[name] = val;
+        setForm(_ => next_state);
+    }
+
+    const setEmail = (val) => updateForm(val, "email");
+    const setAccessCode = (val) => updateForm(val, "accessCode");
+
+    const clearForm = () => {
+        setForm(_ => init.form);
+    }
+
+    const flag = form.email.length > 0 && form.accessCode.length >= 6;
+
+    return [form, clearForm, setEmail, setAccessCode, flag];
+}
+
+function BcViewerModal(props) {
+
+    const { showModal = false, setShowModal = () => { } } = props;
+
+    const style = {
+        title: {
+            fontWeight: "bold",
+            fontSize: 14,
+            color: "#000"
+        },
+        txtInput: {
+            fontFamily: "Roboto-Medium",
+            fontSize: 16,
+            color: "#000"
+        },
+        btnTitle: {
+            fontSize: 14,
+            fontWeight: "bold",
+            color: "#FFF",
+        }
+    }
+
+    const [form, clearForm, setEmail, setAccessCode, formFlag] = useViewerForm();
+    const [cusToast, setToastMsg] = useModalToast();
+
+    const { email, accessCode } = form;
+
+    const submitCode = () => {
+        fetchJoinViewerSession({
+            param: {
+                Email: email,
+                AccessCode: accessCode,
+            },
+            onSetLoading: () => { }
+        })
+            .then(data => {
+                const { ResponseCode = "", FinalResponseMessage = "" } = data;
+
+                if (ResponseCode === "023001" || ResponseCode === "023002" || ResponseCode === "023003" ) {
+                    setAccessCode("");
+                    setToastMsg(FinalResponseMessage);
+                } else {
+                    clearForm();
+                    setShowModal(false);
+                }
+
+                
+            })
+            .catch(err => {
+                console.error(err);
+            })
+    }
+
+    return (
+        <BaseModal cusToast={cusToast} {...props}>
+            <VStack py={3} space={3} width={"100%"} alignItems={"center"}>
+                <View width={"80%"}>
+                    <Text style={style.title}>Email</Text>
+                    <View px={1} bgColor={"#EEF3F6"}>
+                        <TextInput
+                            keyboardType={"email-address"}
+                            defaultValue={email}
+                            onChangeText={setEmail}
+                            autoCapitalize={"none"}
+                            placeholder={"Email"}
+                            multiline={true}
+                            style={style.txtInput} />
+                    </View>
+                </View>
+
+                <View width={"80%"}>
+                    <Text style={style.title}>Viewer Code</Text>
+                    <View px={1} bgColor={"#EEF3F6"}>
+                        <TextInput
+                            keyboardType="numeric"
+                            defaultValue={accessCode}
+                            onChangeText={setAccessCode}
+                            autoCapitalize={"none"}
+                            placeholder={"Access Code"}
+                            multiline={true}
+                            style={style.txtInput} />
+                    </View>
+                </View>
+
+                {
+                    (formFlag) ?
+                        (<TouchableOpacity onPress={submitCode} style={{ width: "60%", height: 40 }}>
+                            <View flex={1} backgroundColor={"#F00"}
+                                alignItems={"center"} justifyContent={"center"}>
+                                <Text style={style.btnTitle}>Submit</Text>
+                            </View>
+                        </TouchableOpacity>) :
+
+                        (<BcDisableII style={{ width: "60%", height: 40 }}>
+                            <View flex={1} backgroundColor={"#F00"}
+                                alignItems={"center"} justifyContent={"center"}>
+                                <Text style={style.btnTitle}>Submit</Text>
+                            </View>
+                        </BcDisableII>)
+                }
+            </VStack>
+        </BaseModal>
+    )
+}
+
+function JoinSessionPanel(props) {
+
+    const color = "#F00";
+
+    const style = {
+        title: {
+            fontFamily: "Roboto-Medium",
+            fontSize: 18,
+            color: color
+        },
+        timerTxt: {
+            fontFamily: "Roboto-Medium",
+            fontSize: 18
+        }
+    };
+
+    const [rvModal, setRvModal, toggleRvModal] = useToggle(false);
+
+    return (
+        <>
+            <BcViewerModal showModal={rvModal} setShowModal={setRvModal} />
+            <VStack bgColor={"#FFF"} borderRadius={8} width={"90%"} alignItems={"center"}>
+                <TouchableOpacity onPress={toggleRvModal} style={{ width: "90%" }}>
+                    <HStack alignItems={"center"} style={{ height: 60 }}>
+                        <View alignItems={"flex-start"} style={{ width: 40 }}>
+                            <MaterialCommunityIcons name={"remote"} size={24} color={color} />
+                        </View>
+                        <Text style={style.title}>Join Session</Text>
+                    </HStack>
+                </TouchableOpacity>
+            </VStack>
+        </>
+    );
 }
 // #endregion
 
@@ -770,6 +947,8 @@ function Index(props) {
                             <TutorialPanel />
 
                             <ShareSessionPanel />
+
+                            <JoinSessionPanel />
 
                             {/* Logout */}
                             <LogoutPanel onLogout={SignOut} onDeleteAccount={DeleteAccount} />

@@ -695,6 +695,7 @@ function BcViewerModal(props) {
                     <Text style={style.title}>Viewer Code</Text>
                     <View px={1} bgColor={"#EEF3F6"}>
                         <TextInput
+                            keyboardType="numeric"
                             defaultValue={accCode}
                             onChangeText={setAccCode}
                             autoCapitalize={"none"}

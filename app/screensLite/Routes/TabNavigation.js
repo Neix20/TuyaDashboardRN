@@ -137,7 +137,8 @@ function Index(props) {
     // #endregion
 
     // const defaultScreen = "Dashboard";
-    const defaultScreen = "Device";
+    // const defaultScreen = "Device";
+    const defaultScreen = "Profile";
 
     return (
         <BcTabNavigator
