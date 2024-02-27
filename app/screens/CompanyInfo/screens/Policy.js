@@ -4,18 +4,16 @@ import { View, VStack, HStack, useToast } from "native-base";
 
 import { useNavigation, useIsFocused } from "@react-navigation/native";
 
-import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
-
 import { Logger, Utility } from "@utility";
 import { Images, Svg, clsConst } from "@config";
 
-import { BcHeader, BcLoading } from "@components";
+import { BcHeader, BcBoxShadow, BcSvgIcon, BcLoading } from "@components";
 import { useToggle } from "@hooks";
+import { fetchGetParamApi } from "@api";
 
 import { BcVersion, BcFooter } from "./../components";
 import { useTextInfo } from "./../hooks";
 import { Policy as TestData } from "./../data";
-import { fetchPolicy } from "./../api";
 
 function Policy(props) {
     const { data = [] } = props;
@@ -34,13 +32,15 @@ function Policy(props) {
                 }}>{index + 1}. {title}</Text>
 
                 <VStack space={1}>
-                    {
-                        (description.length > 0) ? (
-                            description.map(renderDesc)
-                        ) : (
-                            <></>
-                        )
-                    }
+                    <Text style={{ textAlign: 'justify' }}>
+                        {
+                            (description.length > 0) ? (
+                                description.map(renderDesc)
+                            ) : (
+                                <></>
+                            )
+                        }
+                    </Text>
                 </VStack>
             </VStack>
         )
@@ -82,21 +82,27 @@ function Index(props) {
 
     const GetData = () => {
         setLoading(true);
-        fetchPolicy({
+        fetchGetParamApi({
             param: {
-                UserId: 10
+                ParamKey: "Yatu_PolicyData"
             },
             onSetLoading: setLoading
         })
-        .then(data => {
-            setData(data);
-        })
-        .catch(err => {
-            setLoading(false);
-            console.log(`Error: ${err}`);
+            .then(data => {
+                const { Content = {}, Version = "" } = data;
 
-            setData(TestData);
-        })
+                const next_state = {
+                    ...Content,
+                    Version: Version
+                }
+                setData(next_state);
+            })
+            .catch(err => {
+                setLoading(false);
+                console.log(`Error: ${err}`);
+
+                setData(TestData);
+            })
     }
 
     return (
@@ -119,7 +125,7 @@ function Index(props) {
                             <BcVersion {...data} />
 
                             {/* Content */}
-                            <View width={"90%"}>
+                            <View width={"90%"} >
                                 <Policy data={content} />
                             </View>
                         </View>

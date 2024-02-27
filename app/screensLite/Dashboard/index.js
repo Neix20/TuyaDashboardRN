@@ -11,7 +11,7 @@ import { Images, Svg } from "@config";
 
 import { BcBoxShadow, BcSvgIcon, BcLoading, BcYatuHome, BcProfileWorkspace } from "@components";
 import { BcDateRange, BcViewShot, BcApacheChartFull, BcDataAttribute, BcApacheBarChartFull, BcApachePieChart, BcUserStatus } from "@components";
-import { DisableDevice, DisableDeviceScreen, DisableDeviceItem } from "@componentsLite";
+import { DisableDevice, DisableDeviceScreen } from "@componentsLite";
 
 import { DateTime } from "luxon";
 

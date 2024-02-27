@@ -1,4 +1,4 @@
-const APP_VERSION = "1.2.26";
+const APP_VERSION = "L1.2.26";
 const PRO_APP_VERSION = "P1.2.25";
 const LITE_APP_VERSION = "L1.2.26";
 const ORG_NAME = "VIGTECH LABS SDN BHD";
@@ -13,6 +13,8 @@ const ONESIGNAL_APP_ID = "c9ae1fae-6f45-4ec4-8d62-15947a7d9b52";
 const VIGTECH_PHONE_NUMBER = "017-776 8230";
 const VIGTECH_BUSINESS_PHONE_NUMBER = "013-910 0574";
 const VIGTECH_EMAIL = "app.vigtech@gmail.com";
+
+const YATU_URL = "https://yatu.app";
 
 const APP_STORE_SECRET_KEY = "a777595ab0c0401aa4dcc2249f957a2b";
 
@@ -66,6 +68,10 @@ export {
     VIGTECH_PHONE_NUMBER,
     VIGTECH_BUSINESS_PHONE_NUMBER,
     VIGTECH_EMAIL,
+    YATU_URL
+}
+
+export {
     TUYA_TIME_TO_WAIT_SYNC,
     SUBSCRIPTION_SKUS,
     PROFILE_WS_COLORS

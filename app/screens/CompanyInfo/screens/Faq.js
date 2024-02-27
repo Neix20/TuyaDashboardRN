@@ -11,11 +11,11 @@ import { Images, Svg, clsConst } from "@config";
 
 import { BcHeader, BcAccordion, BcLoading } from "@components";
 import { useToggle } from "@hooks";
+import { fetchGetParamApi } from "@api";
 
 import { BcVersion, BcFooter } from "./../components";
 import { useTextInfo } from "./../hooks";
-import { Faq as TestData } from "./../data";
-import { fetchFaq } from "./../api";
+import { FaqII as TestData } from "./../data";
 
 function Index(props) {
 
@@ -46,21 +46,27 @@ function Index(props) {
 
     const GetData = () => {
         setLoading(true);
-        fetchFaq({
+        fetchGetParamApi({
             param: {
-                UserId: 10
+                ParamKey: "Yatu_FaqData"
             },
             onSetLoading: setLoading
         })
-        .then(data => {
-            setData(data);
-        })
-        .catch(err => {
-            setLoading(false);
-            console.log(`Error: ${err}`);
+            .then(data => {
+                const { Content = {}, Version = "" } = data;
 
-            setData(TestData);
-        })
+                const next_state = {
+                    ...Content,
+                    Version: Version
+                }
+                setData(next_state);
+            })
+            .catch(err => {
+                setLoading(false);
+                console.log(`Error: ${err}`);
+
+                setData(TestData);
+            })
     }
 
     return (

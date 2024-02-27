@@ -1,88 +1,88 @@
 {
-	"version": "2.0.0",
-	"tasks": [
-		{
-			"type": "npm",
-			"script": "android",
-			"problemMatcher": [],
-			"label": "yarn: android",
-			"detail": "react-native run-android --variant yatuDebug"
-		},
-		{
-			"type": "npm",
-			"script": "start",
-			"problemMatcher": [],
-			"label": "yarn: React Native",
-			"detail": "react-native start"
-		},
-		{
-			"type": "npm",
-			"script": "ios",
-			"problemMatcher": [],
-			"label": "yarn: ios",
-			"detail": "react-native run-ios --simulator=\"iPhone 15\""
-		},
-		{
-			"type": "npm",
-			"script": "clearWatchman",
-			"group": "build",
-			"problemMatcher": [],
-			"label": "npm: clearWatchman",
-			"detail": "watchman watch-del-all"
-		},
-		{
-			"type": "npm",
-			"script": "fastlaneIos:genIpa",
-			"problemMatcher": [],
-			"label": "npm: fastlaneIos:genIpa",
-			"detail": "cd app && fastlane ios genIpa"
-		},
-		{
-			"type": "npm",
-			"script": "fastlaneAndroid:DeveloperApk",
-			"problemMatcher": [],
-			"label": "npm: fastlaneAndroid:DeveloperApk",
-			"detail": "cd app && fastlane android genDevApk"
-		},
-		{
-			"type": "npm",
-			"script": "fastlaneAndroid:PushToPlayStore",
-			"problemMatcher": [],
-			"label": "npm: fastlaneAndroid:PushToPlayStore",
-			"detail": "cd app && fastlane android pushToPlayStore"
-		},
-		{
-			"type": "npm",
-			"script": "fastlaneAndroid:DeveloperAab",
-			"problemMatcher": [],
-			"label": "npm: fastlaneAndroid:DeveloperAab",
-			"detail": "cd app && fastlane android genDevAab"
-		},
-		{
-			"type": "npm",
-			"script": "fastlaneIos:pushToTestFlight",
-			"problemMatcher": [],
-			"label": "npm: fastlaneIos:pushToTestFlight",
-			"detail": "cd app && fastlane ios pushToTestFlight"
-		},
-		{
-			"type": "npm",
-			"script": "fastlaneAndroid:pushDevApk",
-			"problemMatcher": [],
-			"label": "npm: fastlaneAndroid:pushDevApk",
-			"detail": "cd app && fastlane android pushDevApk"
-		},
-		{
-			"label": "node: sandbox",
-			"type": "shell",
-			"command": "node temp/js/sandbox.js",
-			"problemMatcher": []
-		},
-		{
-			"label": "node: Current File",
-			"type": "shell",
-			"command": "node ${file} | pbcopy",
-			"problemMatcher": []
-		}
-	]
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "type": "npm",
+      "script": "android",
+      "problemMatcher": [],
+      "label": "yarn: android",
+      "detail": "react-native run-android --variant yatuDebug"
+    },
+    {
+      "type": "npm",
+      "script": "start",
+      "problemMatcher": [],
+      "label": "yarn: React Native",
+      "detail": "react-native start"
+    },
+    {
+      "type": "npm",
+      "script": "ios",
+      "problemMatcher": [],
+      "label": "yarn: ios",
+      "detail": "react-native run-ios --simulator=\"iPhone 15\""
+    },
+    {
+      "type": "npm",
+      "script": "clearWatchman",
+      "group": "build",
+      "problemMatcher": [],
+      "label": "npm: clearWatchman",
+      "detail": "watchman watch-del-all"
+    },
+    {
+      "type": "npm",
+      "script": "fastlaneIos:genIpa",
+      "problemMatcher": [],
+      "label": "npm: fastlaneIos:genIpa",
+      "detail": "cd app && fastlane ios genIpa"
+    },
+    {
+      "type": "npm",
+      "script": "fastlaneAndroid:DeveloperApk",
+      "problemMatcher": [],
+      "label": "npm: fastlaneAndroid:DeveloperApk",
+      "detail": "cd app && fastlane android genDevApk"
+    },
+    {
+      "type": "npm",
+      "script": "fastlaneAndroid:PushToPlayStore",
+      "problemMatcher": [],
+      "label": "npm: fastlaneAndroid:PushToPlayStore",
+      "detail": "cd app && fastlane android pushToPlayStore"
+    },
+    {
+      "type": "npm",
+      "script": "fastlaneAndroid:DeveloperAab",
+      "problemMatcher": [],
+      "label": "npm: fastlaneAndroid:DeveloperAab",
+      "detail": "cd app && fastlane android genDevAab"
+    },
+    {
+      "type": "npm",
+      "script": "fastlaneIos:pushToTestFlight",
+      "problemMatcher": [],
+      "label": "npm: fastlaneIos:pushToTestFlight",
+      "detail": "cd app && fastlane ios pushToTestFlight"
+    },
+    {
+      "type": "npm",
+      "script": "fastlaneAndroid:pushDevApk",
+      "problemMatcher": [],
+      "label": "npm: fastlaneAndroid:pushDevApk",
+      "detail": "cd app && fastlane android pushDevApk"
+    },
+    {
+      "label": "node: sandbox",
+      "type": "shell",
+      "command": "node temp/js/sandbox.js",
+      "problemMatcher": []
+    },
+    {
+      "label": "node: Current File",
+      "type": "shell",
+      "command": "node ${file} | pbcopy",
+      "problemMatcher": []
+    }
+  ]
 }

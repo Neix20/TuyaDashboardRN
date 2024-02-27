@@ -2,11 +2,10 @@ import React, { useState, useEffect } from "react";
 
 function Index(val) {
 
-    const [txt, setTxt] = useState(val);
-    const [data, setData] = useState({});
+    const [data, setData] = useState(val);
 
-    useEffect(() => {
-        const { version = "", content = [] } = data;
+    const updateData = (param) => {
+        const { content = [] } = param;
         if (content.length > 0) {
             let arr = [...content];
 
@@ -14,19 +13,19 @@ function Index(val) {
                 const { description = "" } = obj;
                 return {
                     ...obj,
-                    description: description.split("\n")
+                    description: description.split(/\n|<br\/>/g)
                 }
             });
 
             const next_state = {
-                ...data,
+                ...param,
                 content: arr
             }
-            setTxt(_ => next_state);
+            setData(_ => next_state);
         }
-    }, [data]);
+    }
 
-    return [txt, setData];
+    return [data, updateData];
 }
 
 export default Index;

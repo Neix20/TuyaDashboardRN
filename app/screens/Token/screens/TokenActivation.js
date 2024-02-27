@@ -118,7 +118,8 @@ function TnC(props) {
         },
         description: {
             fontFamily: "Roboto-Medium",
-            fontSize: 14
+            fontSize: 14,
+            textAlign: 'justify'
         }
     }
 
@@ -221,7 +222,7 @@ function InfoIcon(props) {
 }
 
 function HeaderRightDiv(props) {
-    
+
     const navigation = useNavigation();
 
     const GoToScanQr = () => {

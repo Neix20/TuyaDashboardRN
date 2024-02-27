@@ -103,6 +103,26 @@
 ## Bugs
 
 - [x] If I Press Refresh, I Get Sent Out (High Traffic) (TUserToken)
+- [ ] Token Activation, Show that `YatuToken` is already activated
+
+## 2024-02-22
+
+- [x] Modify Faq
+- [x] Modify Yatu
+- [x] Modify Faq
+- [x] Modifgy Tnc
+- [x] Modify Policy
+
+## 2024-02-22 FlowChart
+
+Two Actors: Alice, Bob
+
+- [ ] How? Alice Generates Random 6 Digit Code For Share Session When they start Share
+- [ ] How? Bob Joins Alice Session from the Share Code Provided.
+  - [ ] What? The Share Code Allows Bob to View Alice Data
+- [ ] Hint? Session has Expiry, Once Time Limit is Up, auto kick (Zoom Meeting)
+  - [ ] Push Notification
+- [ ] Hint? Limit Number of Active User. Only 5 Max
 - [x] Deleted Login Modal, Popout Deleted
 - [x] Record Video of Adding New Devices
   - [ ] Try Again

@@ -1,3 +1,4 @@
+
 apply plugin: "com.android.application"
 apply plugin: "com.facebook.react"
 
@@ -136,7 +137,7 @@ android {
     flavorDimensions "version"
     productFlavors {
         yatu {
-            resValue "string", "app_name", "Yatu Dashboard"
+            resValue "string", "app_name", "Yatu Lite"
             dimension "version"
             signingConfig signingConfigs.release
             manifestPlaceholders = [

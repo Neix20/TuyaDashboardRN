@@ -6,8 +6,8 @@ import { useNavigation, useIsFocused } from "@react-navigation/native";
 
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 
-import { Logger, Utility }  from "@utility";
-import { Images, Svg }      from "@config";
+import { Logger, Utility } from "@utility";
+import { Images, Svg } from "@config";
 
 import { BcYesNoModal, BcLoading, BcTooltip, BcSvgIcon, BcQrCamera, BcBoxShadow } from "@components";
 
@@ -95,6 +95,7 @@ function InfoIcon(props) {
 function Header(props) {
 
     const { children = null, Right = null } = props;
+    const navigation = useNavigation();
 
     const style = {
         main: {
@@ -116,16 +117,21 @@ function Header(props) {
                 style={style.main}>
 
                 <HStack w={"90%"} alignItems={"center"} justifyContent={"space-between"}>
+                    <TouchableOpacity onPress={() => navigation.goBack()}>
+                        <FontAwesome5 name={"arrow-left"} size={24} color={"#000"} />
+                    </TouchableOpacity>
                     <Text style={style.title}>{children}</Text>
                     {Right}
                 </HStack>
             </View>
-        </BcBoxShadow>
+        </BcBoxShadow >
     )
 }
 // #endregion
 
 function Index(props) {
+
+    const prevTitle = props.route?.params?.title || "";
 
     const toast = useToast();
     const navigation = useNavigation();
@@ -148,13 +154,11 @@ function Index(props) {
     }, [isFocused]);
 
     const GoBack = () => {
-
-        const prevTitle = props.route?.params?.title || "";
-
         if (prevTitle === "AuthTuya") {
             navigation.navigate("TabNavigation", {
                 screen: "Device"
-            })
+            });
+            return;
         }
 
         navigation.goBack();
@@ -180,7 +184,8 @@ function Index(props) {
             onSetLoading: setLoading
         })
             .then(data => {
-                navigation.navigate("DeviceResult", data);
+                const { Content = {} } = data;
+                navigation.navigate("DeviceResult", Content);
             })
             .catch(err => {
                 setLoading(false);
@@ -189,9 +194,11 @@ function Index(props) {
     }
     // #endregion
 
+    const headerTitle = (prevTitle === "AuthTuya") ? "Step 4: Scan Yatu Token QR" : "Scan Yatu Token QR";
+
     return (
         <>
-        <BcYesNoModal showModal={exitModal} setShowModal={showExitModal}
+            <BcYesNoModal showModal={exitModal} setShowModal={showExitModal}
                 title={"Warning"}
                 titleYes={"Yes"} titleNo={"Cancel"}
                 onPressYes={GoBack} onPressNo={toggleExitModal}
@@ -201,7 +208,7 @@ function Index(props) {
                 <View style={{ flex: 1 }}>
 
                     {/* Header */}
-                    <Header Right={<InfoIcon />}>Scan Yatu Product QR</Header>
+                    <Header Right={<InfoIcon />}>{headerTitle}</Header>
 
                     <View style={{ height: 10 }} />
 
@@ -209,6 +216,22 @@ function Index(props) {
 
                     <View flexGrow={1}>
                         <BcQrCamera onRead={readQrCode} />
+                        <VStack space={2} p={3} alignItems={'center'}>
+                            <Text style={{ textAlign: "center", fontWeight: "bold" }}>Please scan the QR code provided inside the box.</Text>
+                            <VStack>
+
+                                <Text style={{ textAlign: "center" }}>If you don't find any QR code, please contact us via</Text>
+                                <Text style={{ textAlign: "center" }}>Shopee or Lazada.</Text>
+                            </VStack>
+                            <HStack space={3}>
+                                <TouchableOpacity onPress={() => Linking.openURL(url["shopee"])}>
+                                    <Image source={Images.Shopee} alt={"Shopee Logo"} style={{ width: 80, height: 40, borderRadius: 5 }} />
+                                </TouchableOpacity>
+                                <TouchableOpacity onPress={() => Linking.openURL(url["lazada"])}>
+                                    <Image source={Images.Lazada} alt={"Lazada Logo"} style={{ width: 80, height: 40, borderRadius: 5 }} />
+                                </TouchableOpacity>
+                            </HStack>
+                        </VStack>
                     </View>
 
                 </View>

@@ -4,18 +4,16 @@ import { View, VStack, HStack, useToast } from "native-base";
 
 import { useNavigation, useIsFocused } from "@react-navigation/native";
 
-import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
-
 import { Logger, Utility } from "@utility";
 import { Images, Svg, clsConst } from "@config";
 
-import { BcHeader, BcLoading } from "@components";
+import { BcHeader, BcBoxShadow, BcSvgIcon, BcLoading } from "@components";
 import { useToggle } from "@hooks";
+import { fetchGetParamApi } from "@api";
 
 import { BcVersion, BcFooter } from "./../components";
 import { useTextInfo } from "./../hooks";
-import { Tnc as TestData } from "./../data";
-import { fetchTnc } from "./../api";
+import { TncII as TestData } from "./../data";
 
 function TnC(props) {
     const { data = [] } = props;
@@ -67,6 +65,7 @@ function Index(props) {
     };
 
     const [data, setData] = useTextInfo(init.data);
+
     const [loading, setLoading, toggleLoading] = useToggle(false);
 
     const { content = [] } = data;
@@ -74,7 +73,8 @@ function Index(props) {
     // #region UseEffect
     useEffect(() => {
         if (isFocused) {
-            // setData(TestData)
+            // setProData(TestData);
+            // setLiteData(TestDataII);
             GetData();
         }
     }, [isFocused]);
@@ -82,21 +82,27 @@ function Index(props) {
 
     const GetData = () => {
         setLoading(true);
-        fetchTnc({
+        fetchGetParamApi({
             param: {
-                UserId: 10
+                ParamKey: "Yatu_TncData"
             },
             onSetLoading: setLoading
         })
-        .then(data => {
-            setData(data);
-        })
-        .catch(err => {
-            setLoading(false);
-            console.log(`Error: ${err}`);
+            .then(data => {
+                const { Content = {}, Version = "" } = data;
 
-            setData(TestData);
-        })
+                const next_state = {
+                    ...Content,
+                    Version: Version
+                }
+                setData(next_state);
+            })
+            .catch(err => {
+                setLoading(false);
+                console.log(`Error: ${err}`);
+
+                setData(TestData);
+            })
     }
 
     return (
@@ -114,7 +120,8 @@ function Index(props) {
                     <ScrollView showsVerticalScrollIndicator={false}
                         keyboardShouldPersistTaps={"handled"}
                         contentContainerStyle={{ flexGrow: 1 }}>
-                        <View flexGrow={1} bgColor={"#FFF"} alignItems={"center"}>
+                        <VStack flexGrow={1}
+                            bgColor={"#FFF"} alignItems={"center"}>
                             {/* Version */}
                             <BcVersion {...data} />
 
@@ -122,7 +129,7 @@ function Index(props) {
                             <View width={"90%"}>
                                 <TnC data={content} />
                             </View>
-                        </View>
+                        </VStack>
                     </ScrollView>
 
                     <View bgColor={"#FFF"} alignItems={"center"}>

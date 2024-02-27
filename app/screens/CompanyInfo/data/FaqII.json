@@ -1,0 +1,41 @@
+{
+    "version": "2023-01-01T00:00:00",
+    "content": [
+        {
+            "title": "How do I download Yatu Lite?",
+            "description": "Yatu Lite can be downloaded from both the App Store (for iOS devices) and the Play Store (for Android devices)."
+        },
+        {
+            "title": "How do I obtain the Yatu QR code?",
+            "description": "You can obtain the Yatu QR code by purchasing a Yatu product directly from us. The QR code is provided with the product."
+        },
+        {
+            "title": "Do I need to download Smart Life?",
+            "description": "Yes, you need to download Smart Life to authenticate your account and enable full functionality with Yatu products."
+        },
+        {
+            "title": "What is the device warranty?",
+            "description": "The device comes with a 30-day warranty, ensuring peace of mind regarding any potential defects or malfunctions."
+        },
+        {
+            "title": "Where can I purchase the device?",
+            "description": "The Yatu device is available for purchase on popular e-commerce platforms such as Shopee and Lazada. Simply search for Yatu products to find available options."
+        },
+        {
+            "title": "How do I set up my Yatu device?",
+            "description": "To set up your Yatu device, simply follow the instructions provided in the user manual or within the Yatu Lite app. Typically, this involves connecting the device to your Wi-Fi network and adding it to your Yatu account."
+        },
+        {
+            "title": "What features does Yatu Lite offer?",
+            "description": "Yatu Lite offers a range of features including remote control of connected devices, scheduling, automation, and report."
+        },
+        {
+            "title": "Is Yatu Lite compatible with other smart home ecosystems?",
+            "description": "Yes, Yatu Lite is compatible with other popular smart home ecosystems such as Smart Life, Tuya, and more. This allows for seamless integration with existing smart home setups."
+        },
+        {
+            "title": "Can I control my Yatu devices when I'm away from home?",
+            "description": "Yes, you can control your Yatu devices remotely using the Yatu Lite app. As long as your device is connected to the internet, you'll be able to access and control it from anywhere."
+        }
+    ]
+}

@@ -33,7 +33,7 @@ function AccordionItem(props) {
                 duration: 100,
                 type: "timing"
             }}
-            icon={<FontAwesome5 name={"chevron-down"} color={'#f00'} size={20} />}
+            icon={<FontAwesome5 name={"chevron-down"} color={"#2898FF"} size={20} />}
             containerStyle={{ paddingHorizontal: 0, paddingVertical: 5 }}
         >
             <ListItem containerStyle={{ padding: 0 }}>

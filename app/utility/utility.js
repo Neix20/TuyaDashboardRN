@@ -81,6 +81,14 @@ function convertSecondsToSeconds(seconds) {
 	return res;
 }
 
+function formatTsTimer(seconds) {
+	let hr = convertSecondsToHours(seconds);
+	let min = convertSecondsToMinutes(seconds);
+	let sec = convertSecondsToSeconds(seconds);
+
+	return `${hr}:${min}:${sec}`;
+}
+
 function genRandomInt(min, max) {
 	min = Math.ceil(min);
 	max = Math.floor(max);
@@ -456,6 +464,19 @@ function colorOpacity(hex, opacity = 0.8) {
 	return `rgba(${r}, ${g}, ${b}, ${opacity})`;
 }
 
+function timeDiff(iso_dt) {
+	const dt = DateTime.fromISO(iso_dt);
+
+	let res = dt.diffNow(["seconds"]).as("seconds");
+	res = Math.floor(res);
+	return res;
+}
+
+function formatTs(num) {
+	
+	return "";
+}
+
 export {
 	checkAppVersion,
 	OneSignalSubscribe
@@ -517,5 +538,7 @@ export {
 
 export {
 	colorHue,
-	colorOpacity
+	colorOpacity,
+	timeDiff,
+	formatTsTimer
 }

@@ -18,7 +18,7 @@ import { clsConst } from "@config";
 import { useDispatch, useSelector } from 'react-redux';
 import { Actions, Selectors } from '@redux';
 
-import { fetchProfileInfo, fetchSubUserAccess, fetchDeleteAccount, fetchRestoreStorePurchase } from "@api";
+import { fetchProfileInfo, fetchSubUserAccess, fetchDeleteAccount, fetchRestoreStorePurchase, fetchGetParamApi } from "@api";
 
 import { BcLoading, BaseModal, BcYesNoModal } from "@components";
 
@@ -111,7 +111,7 @@ function Profile(props) {
                         <VStack width={"70%"}>
                             <Text style={{
                                 fontFamily: "Roboto-Bold",
-                                fontSize: 18
+                                fontSize: 18,
                             }}>{Email}</Text>
 
                             <ProfilePremium AccountType={AccountType} />
@@ -365,7 +365,7 @@ function RestorePurchasePanel(props) {
     return (
         <>
             <BcYesNoModal
-                showModal={showRpModal} setShowModal={setShowRpModal} 
+                showModal={showRpModal} setShowModal={setShowRpModal}
                 title={"Restore Purchase"}
                 description={`This will restore all your deleted purchases from App Store & Google play store.\n\nWould you like to restore your purchases?`}
                 titleYes={"Restore"} titleNo={"Cancel"}

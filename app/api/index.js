@@ -111,6 +111,9 @@ import fetchDeviceDistributionByProfileWorkspace from "./fetchDeviceDistribution
 
 import fetchActivateYatuPackage from "./fetchActivateYatuPackage";
 
+import fetchGenerateViewerAccessCode from "./fetchGenerateViewerAccessCode";
+import fetchJoinViewerSession from "./fetchJoinViewerSession";
+
 export {
     fetchHomeList,
     fetchHomeInfo,
@@ -253,5 +256,7 @@ export {
 }
 
 export {
-    fetchActivateYatuPackage
+    fetchActivateYatuPackage,
+    fetchGenerateViewerAccessCode,
+    fetchJoinViewerSession   
 }

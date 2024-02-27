@@ -10,9 +10,9 @@ import { Logger, Utility } from "@utility";
 import { Animation, clsConst, Images } from "@config";
 
 import { BcSvgIcon, BcLoading, BcDisable, BcDeleteAccountModal, BcExpiredAccountModal, BcYesNoModal, BcCheckUserModal } from "@components";
-import { BottomModal, BaseIIModal } from "@components";
+import { BottomModal, BaseModal } from "@components";
 
-import { fetchRequestOtp, fetchLogin, fetchDemoLogin, fetchSubUserAccess, fetchSubUserLogin } from "@api";
+import { fetchRequestOtp, fetchLogin, fetchDemoLogin, fetchSubUserAccess, fetchSubUserLogin, fetchGetParamApi } from "@api";
 
 import { useDispatch, useSelector } from 'react-redux';
 import { Actions, Selectors } from '@redux';
@@ -580,22 +580,31 @@ function SubLoginForm(props) {
         clearForm();
     }
 
+    const style = {
+        title: {
+            fontSize: 20,
+            fontWeight: "bold"
+        },
+        txtTitle: {
+            fontSize: 14,
+            fontWeight: "bold"
+        },
+        txtInput: {
+            fontFamily: "Roboto-Medium",
+            fontSize: 16,
+            color: "#000"
+        }
+    }
+
     return (
         <>
             <BcLoading loading={loading} />
             <VStack width={"80%"} space={3}>
-                <Text style={{
-                    fontSize: 20,
-                    fontWeight: "bold"
-                }}>Sub-User Login</Text>
+                <Text style={style.title}>Sub-User Login</Text>
 
                 {/* Email */}
                 <View>
-                    <Text style={{
-                        fontSize: 14,
-                        fontWeight: "bold"
-                    }}>Username</Text>
-
+                    <Text style={style.txtTitle}>Username</Text>
                     <View px={1} bgColor={"#EEF3F6"}>
                         <TextInput
                             defaultValue={username}
@@ -603,37 +612,24 @@ function SubLoginForm(props) {
                             placeholder={"XXX"}
                             autoCapitalize={"none"}
                             multiline={true}
-                            style={{
-                                fontFamily: "Roboto-Medium",
-                                fontSize: 16,
-                                color: "#000"
-                            }} />
+                            style={style.txtInput} />
                     </View>
                 </View>
 
                 {/* Enter Password */}
                 <View>
-                    <Text style={{
-                        fontSize: 14,
-                        fontWeight: "bold"
-                    }}>Password</Text>
+                    <Text style={style.txtTitle}>Password</Text>
                     <View bgColor={"#EEF3F6"}>
                         <TextInput
                             secureTextEntry
                             defaultValue={password}
                             onChangeText={setPassword}
                             autoCapitalize={"none"}
-                            style={{
-                                fontFamily: "Roboto-Medium",
-                                fontSize: 16,
-                            }} />
+                            style={style.txtInput} />
                     </View>
                 </View>
 
-
-
                 {/* Login Btn */}
-                {/* <LoginBtn flag={loginFlag} onPress={Login} /> */}
                 <LoginBtn flag={loginFlag} onPress={SubUserLogin} />
             </VStack>
         </>
@@ -655,7 +651,74 @@ function SubLoginModal(props) {
 }
 // #endregion
 
-import { Platform, Linking } from "react-native";
+function BcViewerModal(props) {
+
+    const { showModal = false, setShowModal = () => {}} = props;
+
+    const dispatch = useDispatch();
+    const navigation = useNavigation();
+
+    const style = {
+        title: {
+            fontWeight: "bold",
+            fontSize: 14,
+            color: "#000"
+        },
+        txtInput: {
+            fontFamily: "Roboto-Medium",
+            fontSize: 16,
+            color: "#000"
+        }
+    }
+
+    const [accCode, setAccCode] = useState("");
+
+    const submitCode = () => {
+        fetchGetParamApi({
+            param: {
+                ParamKey: `Yatu_JoinSession_${accCode}`
+            },
+            onSetLoading: () => {}
+        })
+        .then(data => {
+            setShowModal(false);
+        })
+        .catch(err => {
+            console.error(err);
+        })
+    }
+
+    return (
+        <BaseModal {...props}>
+            <VStack py={3} space={3} width={"100%"} alignItems={"center"}>
+                <View width={"80%"}>
+                    <Text style={style.title}>Viewer Code</Text>
+                    <View px={1} bgColor={"#EEF3F6"}>
+                        <TextInput
+                            keyboardType="numeric"
+                            defaultValue={accCode}
+                            onChangeText={setAccCode}
+                            autoCapitalize={"none"}
+                            placeholder={"Access Code"}
+                            multiline={true}
+                            style={style.txtInput} />
+                    </View>
+                </View>
+
+                <TouchableOpacity onPress={submitCode} style={{ width: "60%", height: 40 }}>
+                    <View flex={1} backgroundColor={"#F00"}
+                        alignItems={"center"} justifyContent={"center"}>
+                        <Text style={{
+                            fontSize: 14,
+                            fontWeight: "bold",
+                            color: "#FFF",
+                        }}>Submit</Text>
+                    </View>
+                </TouchableOpacity>
+            </VStack>
+        </BaseModal>
+    )
+}
 
 function Index(props) {
 
@@ -665,6 +728,7 @@ function Index(props) {
 
     const dispatch = useDispatch();
 
+    // #region UseState
     const [showExLoginModal, setShowExLoginModal, toggleExLoginModal] = useToggle(false);
     const [showSubLoginModal, setShowSubLoginModal, toggleSubLoginModal] = useToggle(false);
 
@@ -677,12 +741,15 @@ function Index(props) {
     const chkUserHook = useToggle(false);
     const [showChkUserModal, setShowChkUserModal, toggleChkUserModal] = chkUserHook;
 
+    const [showViewerModal, setShowViewerModal, toggleViewerModal] = useToggle(false);
+
     const existLoginFormHook = useExistLoginForm();
     const subLoginFormHook = useSubLoginForm();
 
     const [loading, setLoading, toggleLoading] = useToggle(false);
 
     const [img] = useChangeBg();
+    // #endregion
 
     // #region Helper
     const TryAsGuest = () => {
@@ -735,6 +802,7 @@ function Index(props) {
 
     return (
         <>
+            <BcViewerModal showModal={showViewerModal} setShowModal={setShowViewerModal} />
             <BcCheckUserModal showModal={showChkUserModal} setShowModal={setShowChkUserModal} />
             <BcLoading loading={loading} />
             <BcDeleteAccountModal showModal={showDelAccModal} setShowModal={setShowDelAccModal} />
@@ -749,7 +817,6 @@ function Index(props) {
                     source={img}
                     resizeMode={"cover"}
                     style={{ flex: 1, opacity: 0.4 }} />
-
                 <View position={"absolute"} style={{ top: insets.top, bottom: insets.bottom, left: 0, right: 0 }}>
                     <View style={{ height: 40 }} />
 
@@ -762,10 +829,11 @@ function Index(props) {
 
                             <VStack alignItems={"center"}
                                 justifyContent={"space-between"}
-                                style={{ height: 600 }}>
+                                style={{ height: "80%" }}>
                                 {/* Logo Header */}
                                 <View alignItems={"center"}>
-                                    <BcSvgIcon name={"AppLogoLite"} width={160} height={160} color={"#2898FF"} />
+                                    {/* <BcSvgIcon name={"AppLogoLite"} width={160} height={160} color={"#2898FF"} /> */}
+                                    <Image source={Images.YatuLiteLogo} resizeMode={"contain"} style={{ height: 160, width: 160, borderRadius: 20 }} />
                                 </View>
 
                                 {/* <LoginForm loading={loading} setLoading={setLoading} /> */}
@@ -781,6 +849,17 @@ function Index(props) {
                                             }}>Login</Text>
                                         </View>
                                     </TouchableOpacity>
+
+                                    <TouchableOpacity onPress={toggleViewerModal} style={{ width: "80%", height: 48 }}>
+                                        <View flex={1} backgroundColor={"#F00"}
+                                            alignItems={"center"} justifyContent={"center"}>
+                                            <Text style={{
+                                                fontSize: 14,
+                                                fontWeight: "bold",
+                                                color: "#FFF",
+                                            }}>Viewer</Text>
+                                        </View>
+                                    </TouchableOpacity>
                                 </VStack>
 
                             </VStack>
@@ -788,9 +867,7 @@ function Index(props) {
                     </ScrollView>
 
                     {/* Footer */}
-                    <View
-                        justifyContent={"center"}
-                        alignItems={"center"}
+                    <View justifyContent={"center"} alignItems={"center"}
                         style={{ height: 80 }}>
                         <Text style={{
                             fontFamily: "Roboto-Medium",

@@ -1,7 +1,9 @@
-import BcFooter from "./Footer";
-import BcVersion from "./Version";
+import BcFooter   from "./Footer";
+import BcVersion  from "./Version";
+import BcReachUs  from "./ReachUs";
 
 export {
     BcFooter,
-    BcVersion
+    BcVersion,
+    BcReachUs
 }

@@ -81,6 +81,17 @@ TabScreens = {
                 {...props} />
         )
     },
+    // Viewer: {
+    //     component: Viewer,
+    //     title: "Viewer",
+    //     tabBarIcon: (props) => (
+    //         <TabIconFontAwesome
+    //             Btn={FontAwesome}
+    //             icon={"eye"}
+    //             title={"Viewer"}
+    //             {...props} />
+    //     )
+    // },
     ProfileWorkspace: {
         component: ProfileWorkspace,
         title: "ProfileWorkspace",
@@ -88,7 +99,7 @@ TabScreens = {
             <TabIconFontAwesome
                 Btn={Ionicons}
                 icon={"settings-sharp"}
-                title={"Profile Workspace"}
+                title={"Profile Selection"}
                 {...props} />
         )
     },
@@ -126,7 +137,8 @@ function Index(props) {
     // #endregion
 
     // const defaultScreen = "Dashboard";
-    const defaultScreen = "Device";
+    // const defaultScreen = "Device";
+    const defaultScreen = "Profile";
 
     return (
         <BcTabNavigator

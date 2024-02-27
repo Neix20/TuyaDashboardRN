@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { View, VStack, HStack, useToast } from "native-base";
-import { Text, TouchableOpacity, Image, SafeAreaView, ScrollView } from "react-native";
+import { Text, TouchableOpacity, TextInput, Image, SafeAreaView, ScrollView } from "react-native";
 
 import Ionicons from "react-native-vector-icons/Ionicons";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
@@ -18,10 +18,11 @@ import { Actions, Selectors } from '@redux';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { fetchProfileInfo, fetchSubUserAccess, fetchDeleteAccount, fetchRestoreStorePurchase } from "@api";
+import { fetchGetParamApi, fetchGenerateViewerAccessCode, fetchJoinViewerSession } from "@api";
 
-import { BcLoading, BaseModal, BcYesNoModal } from "@components";
+import { BcLoading, BaseModal, BaseIIModal, BcYesNoModal, BcDisableII } from "@components";
 
-import { useToggle, useYatuIap } from "@hooks";
+import { useToggle, useYatuIap, useTimer, useModalToast } from "@hooks";
 import { withIAPContext } from "react-native-iap";
 
 // #region Components
@@ -105,9 +106,9 @@ function Profile(props) {
                     alignItems={"center"}
                     justifyContent={"space-between"}>
                     {/* Btn */}
-                    <HStack space={5}>
+                    <HStack space={5} alignItems={'center'}>
                         <FontAwesome name={"user-o"} color={"#000"} size={48} />
-                        <VStack width={"70%"}>
+                        <VStack width={"78%"}>
                             <Text style={{
                                 fontFamily: "Roboto-Bold",
                                 fontSize: 18
@@ -136,7 +137,7 @@ function ProfileInfo(props) {
         <VStack bgColor={"#FFF"} borderRadius={8} width={"90%"} alignItems={"center"}>
             <PanelBtnII Btn={FontAwesome} icon={"user"} title={"Joined in " + Utility.formatDt(Created_Date, "yyyy-MM-dd")} />
             <PanelBtnII Btn={FontAwesome5} icon={"user-alt-slash"} title={"Expires In " + Utility.formatDt(ExpiryDate, "yyyy-MM-dd")} />
-            <PanelBtnII Btn={FontAwesome5} icon={"tools"} title={`Available Device Count: ${DeviceQty}`} />
+            <PanelBtnII Btn={FontAwesome5} icon={"tools"} title={`Yatu Token Count: ${DeviceQty}`} />
         </VStack>
     )
 }
@@ -228,8 +229,8 @@ function NavPanel(props) {
 
     return (
         <VStack bgColor={"#FFF"} borderRadius={8} width={"90%"} alignItems={"center"}>
-            <PanelBtn onPress={GoToProfileWorkspace} Btn={Ionicons} icon={"settings-sharp"} title={"View Profile Workspace"} />
-            <PanelBtn onPress={GoToUserToken} Btn={FontAwesome5} icon={"shopping-cart"} title={"View Token Wallet"} />
+            <PanelBtn onPress={GoToProfileWorkspace} Btn={Ionicons} icon={"settings-sharp"} title={"View Profile Selection"} />
+            <PanelBtn onPress={GoToUserToken} Btn={FontAwesome5} icon={"shopping-cart"} title={"View Yatu Token"} />
             {/* <PanelBtn onPress={GoToSubscription} Btn={FontAwesome5} icon={"shopping-cart"} title={"View Purchased Add-Ons"} /> */}
         </VStack>
     )
@@ -239,16 +240,20 @@ function CompanyInfoPanel(props) {
     const navigation = useNavigation();
 
     const GoToAboutUs = () => navigation.navigate("AboutUs");
+    const GoToYatu = () => navigation.navigate("Yatu");
     const GoToTnc = () => navigation.navigate("Tnc");
     const GoToPolicy = () => navigation.navigate("Policy");
     const GoToFaq = () => navigation.navigate("Faq");
+    const GoContactUs = () => navigation.navigate("ContactUs");
 
     return (
         <VStack bgColor={"#FFF"} borderRadius={8} width={"90%"} alignItems={"center"}>
             <PanelBtn onPress={GoToAboutUs} Btn={FontAwesome5} icon={"info-circle"} title={"About Us"} />
+            <PanelBtn onPress={GoToYatu} Btn={FontAwesome5} icon={"tablet-alt"} title={"What is Yatu"} />
             <PanelBtn onPress={GoToTnc} Btn={FontAwesome5} icon={"clipboard-list"} title={"Terms & Conditions"} />
             <PanelBtn onPress={GoToPolicy} Btn={FontAwesome5} icon={"unlock-alt"} title={"Privacy Policy"} />
             <PanelBtn onPress={GoToFaq} Btn={FontAwesome5} icon={"question-circle"} title={"FAQ"} />
+            <PanelBtn onPress={GoContactUs} Btn={FontAwesome5} icon={"phone-square-alt"} title={"Contact Us"} />
         </VStack>
     )
 }
@@ -286,7 +291,7 @@ function TokenSubscriptionPanel(props) {
         <VStack bgColor={"#FFF"} borderRadius={8}
             width={"90%"} alignItems={"center"}>
             <PanelBtn
-                onPress={GoToRedeemToken} title={"Redeem your Activation Tokens!"}
+                onPress={GoToRedeemToken} title={"Redeem Your Yatu Token!"}
                 Btn={FontAwesome} icon={"ticket"}
                 color={"#FFAA00"} showRight={false} />
         </VStack>
@@ -431,8 +436,6 @@ function LogoutPanel(props) {
     )
 }
 
-import { CheckBox } from "@rneui/base";
-
 function TutorialPanel(props) {
 
     const dispatch = useDispatch();
@@ -465,31 +468,347 @@ function TutorialPanel(props) {
 
     return (
         <VStack bgColor={"#FFF"} borderRadius={8} width={"90%"} alignItems={"center"}>
-
             <TouchableOpacity onPress={toggleTutorial} style={{ width: "90%" }}>
-                <HStack alignItems={"center"} justifyContent={"space-between"} style={{ height: 60 }}>
+                <HStack alignItems={"center"} style={{ height: 60 }}>
                     {/* Icon & Title */}
-                    <HStack alignItems={"center"}>
-                        <View alignItems={"flex-start"} style={{ width: 40 }}>
-                            <FontAwesome5 name={"graduation-cap"} size={24} color={color} />
-                        </View>
-                        <Text style={style.title}>Restart Tutorial</Text>
-                    </HStack>
-                    {/* Checkbox */}
-                    {/* <CheckBox
-                        containerStyle={style.chkBox}
-                        iconType={"material-community"}
-                        checkedIcon={"checkbox-marked"}
-                        uncheckedIcon={"checkbox-blank-outline"}
-                        checked={tutorial}
-                        onPress={toggleTutorial}
-                        checkedColor={"#2898FF"} /> */}
+                    <View alignItems={"flex-start"} style={{ width: 40 }}>
+                        <FontAwesome5 name={"graduation-cap"} size={24} color={color} />
+                    </View>
+                    <Text style={style.title}>Restart Tutorial</Text>
                 </HStack>
             </TouchableOpacity>
-
         </VStack>
     )
+}
+// #endregion
 
+// #region Session Modal
+function SessionModal(props) {
+    const { showModal, setShowModal = () => { } } = props;
+    const { timerHook = [], accessCodeHook = [] } = props;
+
+    const [timer, setTimer, t1, t2, progress] = timerHook;
+    const [accessCode, setAccessCode] = accessCodeHook;
+
+    const userId = useSelector(Selectors.userIdSelect);
+
+    const genAccessCode = () => {
+
+        // setAccessCode(_ => "101010");
+        // setTimer(10080);
+
+        fetchGenerateViewerAccessCode({
+            param: {
+                UserId: userId
+            },
+            onSetLoading: () => { }
+        })
+        .then(data => {
+            const { Access_Code = "", Expiry_Date = "" } = data;
+
+            setAccessCode(_ => Access_Code);
+
+            // Get Time Difference Between expiry Date And Now
+            const ts_diff = Utility.timeDiff(Expiry_Date);
+            setTimer(ts_diff);
+        })
+        .catch(err => {
+            console.error(err);
+        })
+    }
+
+    const style = {
+        title: {
+            fontFamily: "Roboto-Bold",
+            fontSize: 20,
+            color: "#000",
+        },
+        description: {
+            fontFamily: "Roboto-Bold",
+            fontSize: 20,
+            color: "#000",
+        },
+        btnTitle: {
+            fontSize: 14,
+            fontWeight: "bold",
+            color: "#FFF",
+        }
+    };
+
+    if (timer > 0) {
+        return (
+            <BaseModal {...props}>
+                {/* Content */}
+                <VStack space={3} width={"80%"} alignItems={"center"}>
+                    <HStack alignItems={"center"} justifyContent={"space-between"}>
+                        <Text style={style.title}>Access Code: </Text>
+                        <Text style={style.title}>{accessCode}</Text>
+                    </HStack>
+                    <HStack alignItems={"center"} justifyContent={"space-between"}>
+                        <Text style={style.description}>Timer: </Text>
+                        <Text style={style.description}>{Utility.formatTsTimer(timer)}</Text>
+                    </HStack>
+                </VStack>
+            </BaseModal>
+        )
+    }
+
+    return (
+        <BaseModal {...props}>
+            {/* Content */}
+            <VStack space={3} width={"90%"} alignItems={"center"}>
+                <Text style={style.title}>Session has not yet generated!</Text>
+                <TouchableOpacity onPress={genAccessCode} style={{ width: "60%", height: 40 }}>
+                    <View flex={1} backgroundColor={"#ff0000"}
+                        alignItems={"center"} justifyContent={"center"}>
+                        <Text style={style.btnTitle}>Generate Access Code</Text>
+                    </View>
+                </TouchableOpacity>
+            </VStack>
+        </BaseModal>
+    )
+}
+
+function ShareSessionPanel(props) {
+
+    const [sesModal, setSesModal, toggleSesModal] = useToggle(false);
+
+    const timerEnd = () => {
+        setSesModal(_ => false);
+    }
+
+    const timerHook = useTimer(0, timerEnd);
+    const [timer, setTimer, t1, t2, progress] = timerHook;
+
+    const accessCodeHook = useState("");
+    const [accessCode, setAccessCode] = accessCodeHook;
+
+    const color = timer > 0 ? "#FFAA00" : "#212121";
+
+    const style = {
+        title: {
+            fontFamily: "Roboto-Medium",
+            fontSize: 18,
+            color: color
+        },
+        timerTxt: {
+            fontFamily: "Roboto-Medium",
+            fontSize: 18
+        },
+        chkBox: {
+            paddingHorizontal: 0,
+            paddingVertical: 0,
+        }
+    };
+
+    return (
+        <>
+            <SessionModal showModal={sesModal} setShowModal={setSesModal}
+                timerHook={timerHook} accessCodeHook={accessCodeHook} />
+            {
+                (timer == 0) ? (
+                    <VStack bgColor={"#FFF"} borderRadius={8} width={"90%"} alignItems={"center"}>
+                        <TouchableOpacity onPress={toggleSesModal} style={{ width: "90%" }}>
+                            <HStack alignItems={"center"} style={{ height: 60 }}>
+                                <View alignItems={"flex-start"} style={{ width: 40 }}>
+                                    <MaterialCommunityIcons name={"progress-clock"} size={24} color={color} />
+                                </View>
+                                <Text style={style.title}>Share Session</Text>
+                            </HStack>
+                        </TouchableOpacity>
+                    </VStack>
+                ) : (
+                    <VStack bgColor={"#FFF"} borderRadius={8} width={"90%"} alignItems={"center"}>
+                        <TouchableOpacity onPress={toggleSesModal} style={{ width: "90%" }}>
+                            <HStack alignItems={"center"} justifyContent={"space-between"} style={{ height: 60 }}>
+                                {/* Icon & Title */}
+                                <HStack alignItems={"center"}>
+                                    <View alignItems={"flex-start"} style={{ width: 40 }}>
+                                        <MaterialCommunityIcons name={"progress-clock"} size={24} color={color} />
+                                    </View>
+                                    <Text style={style.title}>Share Session: </Text>
+                                    <Text style={[style.title, { color: "#000" }]}>{accessCode}</Text>
+                                </HStack>
+
+                                {/* Timer */}
+                                <Text style={style.timerTxt}>{Utility.formatTsTimer(timer)}</Text>
+                            </HStack>
+                        </TouchableOpacity>
+                    </VStack>
+                )
+            }
+
+        </>
+    )
+}
+
+function useViewerForm(props) {
+
+    const init = {
+        form: {
+            email: "",
+            accessCode: ""
+        }
+    }
+
+    const [form, setForm] = useState(init.form);
+
+    const updateForm = (val, name) => {
+        const next_state = { ...form };
+        next_state[name] = val;
+        setForm(_ => next_state);
+    }
+
+    const setEmail = (val) => updateForm(val, "email");
+    const setAccessCode = (val) => updateForm(val, "accessCode");
+
+    const clearForm = () => {
+        setForm(_ => init.form);
+    }
+
+    const flag = form.email.length > 0 && form.accessCode.length >= 6;
+
+    return [form, clearForm, setEmail, setAccessCode, flag];
+}
+
+function BcViewerModal(props) {
+
+    const { showModal = false, setShowModal = () => { } } = props;
+
+    const style = {
+        title: {
+            fontWeight: "bold",
+            fontSize: 14,
+            color: "#000"
+        },
+        txtInput: {
+            fontFamily: "Roboto-Medium",
+            fontSize: 16,
+            color: "#000"
+        },
+        btnTitle: {
+            fontSize: 14,
+            fontWeight: "bold",
+            color: "#FFF",
+        }
+    }
+
+    const [form, clearForm, setEmail, setAccessCode, formFlag] = useViewerForm();
+    const [cusToast, setToastMsg] = useModalToast();
+
+    const { email, accessCode } = form;
+
+    const submitCode = () => {
+        fetchJoinViewerSession({
+            param: {
+                Email: email,
+                AccessCode: accessCode,
+            },
+            onSetLoading: () => { }
+        })
+            .then(data => {
+                const { ResponseCode = "", FinalResponseMessage = "" } = data;
+
+                if (ResponseCode === "023001" || ResponseCode === "023002" || ResponseCode === "023003" ) {
+                    setAccessCode("");
+                    setToastMsg(FinalResponseMessage);
+                } else {
+                    clearForm();
+                    setShowModal(false);
+                }
+
+                
+            })
+            .catch(err => {
+                console.error(err);
+            })
+    }
+
+    return (
+        <BaseModal cusToast={cusToast} {...props}>
+            <VStack py={3} space={3} width={"100%"} alignItems={"center"}>
+                <View width={"80%"}>
+                    <Text style={style.title}>Email</Text>
+                    <View px={1} bgColor={"#EEF3F6"}>
+                        <TextInput
+                            keyboardType={"email-address"}
+                            defaultValue={email}
+                            onChangeText={setEmail}
+                            autoCapitalize={"none"}
+                            placeholder={"Email"}
+                            multiline={true}
+                            style={style.txtInput} />
+                    </View>
+                </View>
+
+                <View width={"80%"}>
+                    <Text style={style.title}>Viewer Code</Text>
+                    <View px={1} bgColor={"#EEF3F6"}>
+                        <TextInput
+                            keyboardType="numeric"
+                            defaultValue={accessCode}
+                            onChangeText={setAccessCode}
+                            autoCapitalize={"none"}
+                            placeholder={"Access Code"}
+                            multiline={true}
+                            style={style.txtInput} />
+                    </View>
+                </View>
+
+                {
+                    (formFlag) ?
+                        (<TouchableOpacity onPress={submitCode} style={{ width: "60%", height: 40 }}>
+                            <View flex={1} backgroundColor={"#F00"}
+                                alignItems={"center"} justifyContent={"center"}>
+                                <Text style={style.btnTitle}>Submit</Text>
+                            </View>
+                        </TouchableOpacity>) :
+
+                        (<BcDisableII style={{ width: "60%", height: 40 }}>
+                            <View flex={1} backgroundColor={"#F00"}
+                                alignItems={"center"} justifyContent={"center"}>
+                                <Text style={style.btnTitle}>Submit</Text>
+                            </View>
+                        </BcDisableII>)
+                }
+            </VStack>
+        </BaseModal>
+    )
+}
+
+function JoinSessionPanel(props) {
+
+    const color = "#F00";
+
+    const style = {
+        title: {
+            fontFamily: "Roboto-Medium",
+            fontSize: 18,
+            color: color
+        },
+        timerTxt: {
+            fontFamily: "Roboto-Medium",
+            fontSize: 18
+        }
+    };
+
+    const [rvModal, setRvModal, toggleRvModal] = useToggle(false);
+
+    return (
+        <>
+            <BcViewerModal showModal={rvModal} setShowModal={setRvModal} />
+            <VStack bgColor={"#FFF"} borderRadius={8} width={"90%"} alignItems={"center"}>
+                <TouchableOpacity onPress={toggleRvModal} style={{ width: "90%" }}>
+                    <HStack alignItems={"center"} style={{ height: 60 }}>
+                        <View alignItems={"flex-start"} style={{ width: 40 }}>
+                            <MaterialCommunityIcons name={"remote"} size={24} color={color} />
+                        </View>
+                        <Text style={style.title}>Join Session</Text>
+                    </HStack>
+                </TouchableOpacity>
+            </VStack>
+        </>
+    );
 }
 // #endregion
 
@@ -626,6 +945,10 @@ function Index(props) {
                             <CompanyInfoPanel />
 
                             <TutorialPanel />
+
+                            <ShareSessionPanel />
+
+                            <JoinSessionPanel />
 
                             {/* Logout */}
                             <LogoutPanel onLogout={SignOut} onDeleteAccount={DeleteAccount} />

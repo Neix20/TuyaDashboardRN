@@ -12,7 +12,7 @@ import { Logger, Utility } from "@utility";
 import { Images, Svg } from "@config";
 
 import { BcHeader, BcLoading, BcBoxShadow, BcSvgIcon, BcUserStatus } from "@components";
-import { fetchGetParamApi, fetchUpdateProfileWorkspace, fetchProfileWorkspace } from "@api";
+import { fetchUpdateProfileWorkspace, fetchProfileWorkspace } from "@api";
 
 import { useToggle } from "@hooks";
 import { ProfileWsData as TestData } from "./data";

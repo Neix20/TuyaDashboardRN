@@ -1,40 +1,40 @@
 
 import React, { useState, useEffect } from "react";
-import SplashScreen                   from "react-native-splash-screen";
-import { BcStackNavigator }           from "@components";
+import SplashScreen from "react-native-splash-screen";
+import { BcStackNavigator } from "@components";
 
-import { Logger }                     from "@utility";
-import { Platform }                   from "react-native";
+import { Logger } from "@utility";
+import { Platform } from "react-native";
 
-import { useNavigation }              from "@react-navigation/native";
+import { useNavigation } from "@react-navigation/native";
 
 // Screens
-import Debug                  from "@screensLite/Debug";
-import TabNavigation          from "./TabNavigation";
-import LoginII                from "@screensLite/Login/LoginII";
+import Debug from "@screensLite/Debug";
+import TabNavigation from "./TabNavigation";
+import LoginII from "@screensLite/Login/LoginII";
 
-import ProfileInfo            from "@screensLite/Profile/ProfileInfo";
-import ProfileWorkspace       from "@screensLite/ProfileWorkspace";
-import ProfileWorkspaceInfo   from "@screensLite/ProfileWorkspace/ProfileWorkspaceInfo";
+import ProfileInfo from "@screensLite/Profile/ProfileInfo";
+import ProfileWorkspace from "@screensLite/ProfileWorkspace";
+import ProfileWorkspaceInfo from "@screensLite/ProfileWorkspace/ProfileWorkspaceInfo";
 
 // Check Tuya Email & Auth
-import CheckTuyaEmail         from "@screens/CheckTuyaEmail";
-import AuthTuya               from "@screens/AuthTuya";
-import AuthTuyaHighTraffic    from "@screens/AuthTuya/HighTraffic";
+import CheckTuyaEmail from "@screens/CheckTuyaEmail";
+import AuthTuya from "@screens/AuthTuya";
+import AuthTuyaHighTraffic from "@screens/AuthTuya/HighTraffic";
 import AuthTuyaSessionExpired from "@screens/AuthTuya/SessionExpired";
 
 // Token & UserToken
-import TokenActivation        from "@screens/Token/screens/TokenActivation.js";
-import TokenSuccess           from "@screens/Token/screens/TokenSuccess.js";
-import UserToken              from "@screens/UserToken";
-import UserTokenInfo          from "@screens/UserToken/UserTokenInfo.js";
+import TokenActivation from "@screens/Token/screens/TokenActivation.js";
+import TokenSuccess from "@screens/Token/screens/TokenSuccess.js";
+import UserToken from "@screens/UserToken";
+import UserTokenInfo from "@screens/UserToken/UserTokenInfo.js";
 
 // Qr Scanner
-import ScanQr                 from "@screens/ScanQr";
-import DeviceResult           from "@screensLite/Device/Result";
+import ScanQr from "@screens/ScanQr";
+import DeviceResult from "@screensLite/Device/Result";
 
 // Token Wallet
-import TokenWallet            from "@screens/TokenWallet";
+import TokenWallet from "@screens/TokenWallet";
 
 let StackScreens = {};
 
@@ -175,18 +175,28 @@ StackScreens = {
     }
 }
 
-import AboutUs      from "@screens/CompanyInfo/screens/AboutUs.js";
-import Tnc          from "@screens/CompanyInfo/screens/Tnc.js";
-import Policy       from "@screens/CompanyInfo/screens/Policy.js";
-import Faq          from "@screens/CompanyInfo/screens/Faq.js";
+import AboutUs from "@screens/CompanyInfo/screens/AboutUs.js";
+import Yatu from "@screens/CompanyInfo/screens/Yatu.js";
+import Tnc from "@screens/CompanyInfo/screens/Tnc.js";
+import Policy from "@screens/CompanyInfo/screens/Policy.js";
+import Faq from "@screens/CompanyInfo/screens/Faq.js";
+import ContactUs from "@screens/CompanyInfo/screens/ContactUs.js";
 
-import YatuEngine   from "@screens/YatuEngine";
+import YatuEngine from "@screens/YatuEngine";
+import ViewerSession from "@screensLite/Session";
 
 StackScreens = {
     ...StackScreens,
     AboutUs: {
         component: AboutUs,
         title: "AboutUs",
+        option: {
+            orientation: "portrait"
+        }
+    },
+    Yatu: {
+        component: Yatu,
+        title: "Yatu",
         option: {
             orientation: "portrait"
         }
@@ -215,6 +225,20 @@ StackScreens = {
     YatuEngine: {
         component: YatuEngine,
         title: "YatuEngine",
+        option: {
+            orientation: "portrait"
+        }
+    },
+    ContactUs: {
+        component: ContactUs,
+        title: "ContactUs",
+        option: {
+            orientation: "portrait"
+        }
+    },
+    ViewerSession: {
+        component: ViewerSession,
+        title: "ViewerSession",
         option: {
             orientation: "portrait"
         }
@@ -305,7 +329,7 @@ function Index(props) {
 
         // Method for listening for notification clicks
         const ckEvt = (event) => {
-            
+
             const { additionalData = {} } = event.notification;
 
             if ("Action" in additionalData && additionalData["Action"] == "Data_Alert") {
@@ -378,7 +402,7 @@ function Index(props) {
     // #endregion
 
     const defaultScreen = (userId == -1 || firstTimeLink) ? "LoginII" : "TabNavigation";
-    // const defaultScreen = "AuthTuya";
+    // const defaultScreen = "Yatu";
 
     return (
         <>
