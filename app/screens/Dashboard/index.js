@@ -17,7 +17,7 @@ import {
 import { DateTime } from "luxon";
 
 import { fetchDashboardInfo, fetchReportData, fetchGetDeviceDistribution } from "@api";
-import { useDate, useToggle, useEChart, useOrientation, useBarChart, useDevDistChart } from "@hooks";
+import { useDate, useToggle, useEChart, useOrientation, useBarChart, useBarChartSimple, useDevDistChart } from "@hooks";
 
 import { useDispatch, useSelector } from 'react-redux';
 import { Actions, Selectors } from '@redux';
@@ -557,34 +557,6 @@ function Index(props) {
             setLoading(false);
         }
     }, [isFocused, JSON.stringify(startDt + endDt + homeId + prwsId)]);
-
-    // useEffect(() => {
-    //     if (isFocused) {
-    //         setTimeout(() => {
-    //             fetchDashboardInfo({
-    //                 param: {
-    //                     UserId: userId,
-    //                     HomeId: homeId,
-    //                     StartDate: cmpStartDt,
-    //                     EndDate: `${cmpEndDt} 23:59:59`
-    //                 },
-    //                 onSetLoading: () => { },
-    //             })
-    //                 .then(res => {
-    //                     if ("IR Temperature" in res) {
-    //                         const Data = res["IR Temperature"]
-    //                         setPrevChart(Data);
-    //                     } else {
-    //                         setPrevChart({})
-    //                     }
-    //                 })
-    //                 .catch(err => {
-    //                     setLoading(false);
-    //                     console.log(`Error: ${err}`);
-    //                 })
-    //         }, 10 * 1000);
-    //     }
-    // }, [isFocused, JSON.stringify(cmpStartDt + cmpEndDt + homeId)]);
     // #endregion
 
     // #region API

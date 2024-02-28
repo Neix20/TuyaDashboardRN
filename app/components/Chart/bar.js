@@ -91,6 +91,7 @@ function Index(props) {
 
 	// #region UseState
 	const [chart, setChart, chartKey, setChartKey, chartData, setChartData, chartLegend, chartKeyOption, setChartKeyOption] = hook;
+
 	const { label = [], dataset = [] } = chartData;
 
 	const [width] = useOrientation();
@@ -240,6 +241,7 @@ function Index(props) {
 	}
 
 	if (tariff) {
+		Logger.info({ content: option });
 		option = {
 			...option,
 			...TariffChartData

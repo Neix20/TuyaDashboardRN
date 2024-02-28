@@ -1,35 +1,31 @@
 {
     "java.compile.nullAnalysis.mode": "disabled",
     "cmake.configureOnOpen": false,
-    "workbench.colorCustomizations": {
-        "activityBar.activeBackground": "#1f6fd0",
-        "activityBar.background": "#1f6fd0",
-        "activityBar.foreground": "#e7e7e7",
-        "activityBar.inactiveForeground": "#e7e7e799",
-        "activityBarBadge.background": "#ee90bb",
-        "activityBarBadge.foreground": "#15202b",
-        "commandCenter.border": "#e7e7e799",
-        "editorGroup.border": "#1f6fd0",
-        "panel.border": "#1f6fd0",
-        "sash.hoverBorder": "#1f6fd0",
-        "sideBar.border": "#1f6fd0",
-        "statusBar.background": "#1857a4",
-        "statusBar.border": "#1857a4",
-        "statusBar.foreground": "#e7e7e7",
-        "statusBarItem.hoverBackground": "#1f6fd0",
-        "statusBarItem.remoteBackground": "#1857a4",
-        "statusBarItem.remoteForeground": "#e7e7e7",
-        "titleBar.activeBackground": "#1857a4",
-        "titleBar.activeForeground": "#e7e7e7",
-        "titleBar.border": "#1857a4",
-        "titleBar.inactiveBackground": "#1857a499",
-        "titleBar.inactiveForeground": "#e7e7e799"
-    },
-    "peacock.color": "#1857a4",
     "files.exclude": {
         "**/.yarn/cache": true
     },
     "files.watcherExclude": {
         "**/.yarn/cache/**": true
-    }
+    },
+    "workbench.colorCustomizations": {
+        "titleBar.activeBackground": "#000000",
+        "titleBar.inactiveBackground": "#00000099",
+        "commandCenter.border": "#e7e7e799",
+        "titleBar.activeForeground": "#e7e7e7",
+        "titleBar.inactiveForeground": "#e7e7e799",
+        "statusBar.background": "#000000",
+        "statusBar.foreground": "#e7e7e7",
+        "statusBarItem.hoverBackground": "#1a1a1a",
+        "statusBarItem.remoteBackground": "#000000",
+        "statusBarItem.remoteForeground": "#e7e7e7",
+        "sash.hoverBorder": "#1a1a1a",
+        "sideBar.border": "#1a1a1a",
+        "editorGroup.border": "#1a1a1a",
+        "panel.border": "#1a1a1a",
+        "activityBar.activeBackground": "#1a1a1a",
+        "activityBar.background": "#1a1a1a",
+        "activityBar.foreground": "#e7e7e7",
+        "activityBar.inactiveForeground": "#e7e7e799"
+    },
+    "peacock.color": "#000000"
 }

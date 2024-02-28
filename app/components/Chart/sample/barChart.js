@@ -9,7 +9,7 @@ option = {
         backgroundColor: "rgba(255, 255, 255, 1)",
     },
     legend: {
-        data: ["Total KiloWatt (KWh)"],
+        data: ["B8 Study LG Monitor Smart Plug"],
         orient: 'horizontal',
         bottom: 0,
     },

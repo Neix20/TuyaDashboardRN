@@ -154,7 +154,7 @@ function Index(props) {
     // #endregion
 
     // const defaultScreen = (linkTimer > 0) ? "Device" : "Dashboard";
-    const defaultScreen = "Device";
+    const defaultScreen = "Dashboard";
     // const defaultScreen = "Profile";
 
     const closePreModal = () => {

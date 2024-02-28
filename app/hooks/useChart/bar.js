@@ -2,127 +2,111 @@ import { useState, useEffect } from "react";
 
 import { DateTime } from "luxon";
 
-function Index(default_key, onSetLoading = () => {}) {
+const genDataset = (data = {}) => {
 
-    // #region UseState
+    let res = [];
+    const legends = Object.keys(data);
+
+    if (legends.length > 0) {
+
+        // [ '11-29', '05-22', '12-31', '04-20', '02-12' ]
+        const label = data[legends[0]]
+            .map(x => x["Timestamp"])
+            .map(x => DateTime.fromISO(x).toFormat("MM-dd"));
+
+        const keys = Object.keys(data[legends[0]][0])
+            .filter(x => !["Device_Id", "Timestamp"].includes(x));
+
+        const dataset = [];
+
+        // Chart Key
+        for (const _legend of legends) {
+
+            const _data = data[_legend];
+
+            const obj = {
+                name: _legend
+            }
+
+            for (const _key of keys) {
+                const val = _data.map(x => +x[_key]);
+
+                if (val.length == 0) continue;
+                obj[_key] = val;
+            }
+
+            dataset.push(obj)
+        }
+
+        res = [legends, keys, label, dataset];
+    }
+
+    return res;
+}
+
+
+function Index(default_key) {
     const [chart, setChart] = useState([]);
-    const [chartII, setChartII] = useState({});
 
-    const [chartData, setChartData] = useState({});
-
+    const [chartDataset, setChartDataset] = useState([]);
     const [chartLegend, setChartLegend] = useState([]);
 
     const [chartKey, setChartKey] = useState(default_key);
     const [chartKeyOption, setChartKeyOption] = useState([]);
-    // #endregion
 
-    // #region Helper
-    const gen_device_log = (arr = []) => {
+    const updateChart = (data = {}) => {
+        const dataArr = genDataset(data);
+        if (dataArr.length > 0) {
+            const [legends, keys, label, dataset] = dataArr;
+            setChartLegend(_ => legends);
+            setChartKeyOption(_ => keys);
+            setChartDataset(_ => dataset);
 
-        const dataDict = {};
+            const _dataset = dataset.map(x => {
+                const { name } = x;
 
-        for (const obj of arr) {
-
-            delete obj["Device_Id"];
-
-            // Input: [ { "Temperature": 1, "Humidity": 1 }, { "Temperature": 2, "Humidity": 2 } ]
-
-            for (const o_key in obj) {
-                const o_val = obj[o_key];
-
-                if (o_key in dataDict) {
-                    dataDict[o_key].push(o_val);
+                return {
+                    name: name,
+                    data: x[chartKey]
                 }
-                else {
-                    dataDict[o_key] = [o_val];
-                }
-            }
+            })
+
+            const next_state = { label: label, dataset: _dataset };
+            setChart(_ => next_state);
         }
-
-        return dataDict;
     }
-    // Output: { "Temperature": [1, 2, 3], "Humidity": [1, 2, 3] }
-    // #endregion
 
-    useEffect(() => {
+    const updateChartKey = (val) => {
 
-        let data_dict = {};
+        const _dataset = chartDataset.map(x => {
+            const { name } = x;
 
-        for (const key in chart) {
-            const val = chart[key];
-            data_dict[key] = gen_device_log(val);
-        }
-
-        setChartII(_ => data_dict);
-
-        let ck_arr = [];
-
-        for (const key in chart) {
-
-            if (chart[key].length <= 0) continue;
-
-            const ck_obj = chart[key][0];
-
-            for (const ck_key in ck_obj) {
-
-                if (ck_key === "Timestamp") {
-                    continue;
-                }
-
-                ck_arr.push(ck_key);
+            return {
+                name: name,
+                data: x[val]
             }
+        })
 
-            break;
+        setChartKey(_ => val);
+
+        const next_state = {
+            ...chart,
+            dataset: _dataset
         }
+        setChart(_ => next_state);
+    }
 
-        setChartKeyOption(ck_arr);
-    }, [chart]);
-
-    useEffect(() => {
-
-        onSetLoading(true);
-
-        let dataset = [];
-        let label = [];
-
-        for (const key in chartII) {
-            const device_log = chartII[key];
-
-            let val = [0];
-
-            if (chartKey in device_log) {
-                val = device_log[chartKey];
-                val = val.map(x => +x);
-            }
-
-            label = device_log["Timestamp"].map(x => DateTime.fromISO(x).toFormat("MM-dd"));
-
-            val = val.map(x => +x);
-
-            if (val.length == 0) continue;
-
-            let obj = {
-                name: key,
-                data: val
-            }
-
-            dataset.push(obj);
-        }
-
-        setChartData(() => ({ label, dataset }));
-
-        const legend = Object.keys(chartII);
-        setChartLegend(() => legend);
-
-        onSetLoading(false);
-    }, [chartKey, chartII]);
+    // Legend : [ "B8 Study LG Monitor Smart Plug", "B8 Study LG Monitor Smart Plug II" ]
+    // Keys   : [ "Total Kilowatt (KWH)"]
+    // Label  : [ "11-23", "11-24", "11-25", "11-26", "11-27", "11-28", "11-29" ]
+    // Dataset: [ { "name": "B8 Study LG Monitor Smart Plug", "data": [ 0.3, 0.66, 0.84, 1.24, 0.46, 0, 1.01 ] }, { "name": "B8 Study LG Monitor Smart Plug II", "data": [ 0.97, 0.98, 0.2, 0.71, 0.75, 0.32, 0.97 ] } ]
 
     return [
-        chart, setChart,
-        chartKey, setChartKey,
-        chartData, setChartData,
+        chart, updateChart,
+        chartKey, updateChartKey,
+        chart, () => { },
         chartLegend,
-        chartKeyOption, setChartKeyOption
+        chartKeyOption, setChartKeyOption,
     ];
 }
 

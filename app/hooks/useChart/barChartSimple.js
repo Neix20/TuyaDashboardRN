@@ -37,14 +37,12 @@ const genDataset = (data = []) => {
     return res;
 }
 
-function Index(onSetLoading = () => { }) {
+function Index() {
 
     const [chart, setChart] = useState([]);
     const [chartLegend, setChartLegend] = useState([])
 
     const updateChart = (data = []) => {
-        onSetLoading(true);
-
         const dataArr = genDataset(data);
         if (dataArr.length > 0) {
             const [keys, label, dataset] = dataArr;
@@ -55,11 +53,12 @@ function Index(onSetLoading = () => { }) {
                 dataset: dataset 
             };
             setChart(_ => next_state);
-        }
-        
-        onSetLoading(false);
+        }        
     }
 
+    // Chart
+    // Chart Data: { "label": [ "11-23", "11-24", "11-25", "11-26", "11-27", "11-28", "11-29" ], "dataset": [ { "name": "Total KiloWatt (KWh)", "data": [ 0.3, 0.66, 0.84, 1.24, 0.46, 0, 1.01 ] } ] }
+    // Chart Legend: ["Total KiloWatt (KWh)"]
     return [chart, updateChart, chart, () => { }, chartLegend];
 }
 
