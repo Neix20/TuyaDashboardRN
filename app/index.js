@@ -4,10 +4,10 @@ import { PersistGate } from "redux-persist/integration/react";
 
 import { SafeAreaProvider } from "react-native-safe-area-context";
 
-import App from "@screens";
+// import App from "@screens";
 
 // import App from "@screensPro";
-// import App from "@screensLite";
+import App from "@screensLite";
 
 import { persistor, store } from "@redux";
 

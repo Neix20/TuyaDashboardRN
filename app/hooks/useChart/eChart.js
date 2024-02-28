@@ -13,7 +13,7 @@ const genDataset = (data = {}) => {
 
     if (legends.length > 0) {
 
-        // [ '11-29', '05-22', '12-31', '04-20', '02-12' ]
+        // [ "00:00", "00:15", "00:30", "00:45", "01:00", "01:15", "01:30" ]
         const label = data[legends[0]]
             .map(x => x["Timestamp"])
             .map(x => DateTime.fromISO(x).toFormat("T"));
@@ -74,14 +74,7 @@ function Index(default_key) {
             setChartKeyOption(_ => keys);
             setChartDataset(_ => dataset);
 
-            const _dataset = dataset.map(x => {
-
-                return {
-                    name: x.name,
-                    data: x[chartKey]
-                }
-            })
-
+            const _dataset = dataset.map(x => ({ name: x.name, data: x[chartKey] }));
             const next_state = { label: label, dataset: _dataset };
             setChart(_ => next_state);
         }
@@ -89,17 +82,10 @@ function Index(default_key) {
 
     const updateChartKey = (val) => {
 
-        const _dataset = chartDataset.map(x => {
-            const { name } = x;
-
-            return {
-                name: name,
-                data: x[val]
-            }
-        })
-
+        // Update Chart Key
         setChartKey(_ => val);
 
+        const _dataset = chartDataset.map(x => ({ name: x.name, data: x[val] }));
         const next_state = {
             ...chart,
             dataset: _dataset

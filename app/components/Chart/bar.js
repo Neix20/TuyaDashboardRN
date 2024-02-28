@@ -153,42 +153,19 @@ function Index(props) {
 		},
 		xAxis: {
 			type: "category",
-			axisLabel: {
-				rotate: 45,
-				showMinLabel: true,
-				showMaxLabel: true
-			},
+			axisLabel: { rotate: 45, showMinLabel: true, showMaxLabel: true },
 			data: label,
 			axisPointer: {
 				snap: true,
-				lineStyle: {
-					color: '#7581BD',
-					width: 2
-				},
-				label: {
-					show: true,
-					formatter: function (params) {
-						return params.value;
-					},
-					backgroundColor: '#7581BD'
-				},
-				handle: {
-					show: true,
-					color: '#7581BD',
-					size: [48, 48]
-				},
+				lineStyle: { color: '#7581BD', width: 2 },
+				label: { show: true, formatter: function (params) { return params.value; }, backgroundColor: '#7581BD' },
+				handle: { show: true, color: '#7581BD', size: [48, 48] },
 				zlevel: 0,
 			}
 		},
 		yAxis: {
 			type: 'value',
 			renderMode: "richText",
-			min: (val) => {
-				return Math.floor(val.min * 0.9);
-			},
-			max: (val) => {
-				return Math.ceil(val.max * 1.1);
-			}
 		},
 		dataZoom: [
 			{
@@ -241,7 +218,6 @@ function Index(props) {
 	}
 
 	if (tariff) {
-		Logger.info({ content: option });
 		option = {
 			...option,
 			...TariffChartData

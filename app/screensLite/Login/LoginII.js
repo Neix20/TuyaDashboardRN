@@ -9,10 +9,10 @@ import { Logger, Utility } from "@utility";
 
 import { Animation, clsConst, Images } from "@config";
 
-import { BcSvgIcon, BcLoading, BcDisable, BcDeleteAccountModal, BcExpiredAccountModal, BcYesNoModal, BcCheckUserModal } from "@components";
+import { BcSvgIcon, BcLoading, BcDisable, BcDeleteAccountModal, BcExpiredAccountModal, BcYesNoModal, BcCheckUserModal, BcDisableII } from "@components";
 import { BottomModal, BaseModal } from "@components";
 
-import { fetchRequestOtp, fetchLogin, fetchDemoLogin, fetchSubUserAccess, fetchSubUserLogin, fetchGetParamApi } from "@api";
+import { fetchRequestOtp, fetchLogin, fetchDemoLogin, fetchSubUserAccess, fetchSubUserLogin, fetchJoinViewerSession } from "@api";
 
 import { useDispatch, useSelector } from 'react-redux';
 import { Actions, Selectors } from '@redux';
@@ -651,9 +651,38 @@ function SubLoginModal(props) {
 }
 // #endregion
 
+function useViewerForm(props) {
+
+    const init = {
+        form: {
+            email: "",
+            accessCode: ""
+        }
+    }
+
+    const [form, setForm] = useState(init.form);
+
+    const updateForm = (val, name) => {
+        const next_state = { ...form };
+        next_state[name] = val;
+        setForm(_ => next_state);
+    }
+
+    const setEmail = (val) => updateForm(val, "email");
+    const setAccessCode = (val) => updateForm(val, "accessCode");
+
+    const clearForm = () => {
+        setForm(_ => init.form);
+    }
+
+    const flag = form.email.length > 0 && form.accessCode.length >= 6;
+
+    return [form, clearForm, setEmail, setAccessCode, flag];
+}
+
 function BcViewerModal(props) {
 
-    const { showModal = false, setShowModal = () => {}} = props;
+    const { showModal = false, setShowModal = () => { } } = props;
 
     const dispatch = useDispatch();
     const navigation = useNavigation();
@@ -668,36 +697,73 @@ function BcViewerModal(props) {
             fontFamily: "Roboto-Medium",
             fontSize: 16,
             color: "#000"
+        },
+        btnTitle: {
+            fontSize: 14,
+            fontWeight: "bold",
+            color: "#FFF",
         }
     }
 
-    const [accCode, setAccCode] = useState("");
+    const [form, clearForm, setEmail, setAccessCode, formFlag] = useViewerForm();
+    const [cusToast, setToastMsg] = useModalToast();
+
+    const { email, accessCode } = form;
 
     const submitCode = () => {
-        fetchGetParamApi({
+        fetchJoinViewerSession({
             param: {
-                ParamKey: `Yatu_JoinSession_${accCode}`
+                Email: email,
+                AccessCode: accessCode,
             },
-            onSetLoading: () => {}
+            onSetLoading: () => { }
         })
-        .then(data => {
-            setShowModal(false);
-        })
-        .catch(err => {
-            console.error(err);
-        })
+            .then(data => {
+                const { ResponseCode = "", FinalResponseMessage = "" } = data;
+
+                if (ResponseCode === "023001" || ResponseCode === "023002" || ResponseCode === "023003") {
+                    setAccessCode("");
+                    setToastMsg(FinalResponseMessage);
+                } else {
+
+                    const { Data = {} } = data;
+                    navigation.navigate("ViewerSession", Data);
+
+                    clearForm();
+                    setShowModal(false);
+                }
+
+
+            })
+            .catch(err => {
+                console.error(err);
+            })
     }
 
     return (
-        <BaseModal {...props}>
+        <BaseModal cusToast={cusToast} {...props}>
             <VStack py={3} space={3} width={"100%"} alignItems={"center"}>
+                <View width={"80%"}>
+                    <Text style={style.title}>Email</Text>
+                    <View px={1} bgColor={"#EEF3F6"}>
+                        <TextInput
+                            keyboardType={"email-address"}
+                            defaultValue={email}
+                            onChangeText={setEmail}
+                            autoCapitalize={"none"}
+                            placeholder={"Email"}
+                            multiline={true}
+                            style={style.txtInput} />
+                    </View>
+                </View>
+
                 <View width={"80%"}>
                     <Text style={style.title}>Viewer Code</Text>
                     <View px={1} bgColor={"#EEF3F6"}>
                         <TextInput
                             keyboardType="numeric"
-                            defaultValue={accCode}
-                            onChangeText={setAccCode}
+                            defaultValue={accessCode}
+                            onChangeText={setAccessCode}
                             autoCapitalize={"none"}
                             placeholder={"Access Code"}
                             multiline={true}
@@ -705,16 +771,22 @@ function BcViewerModal(props) {
                     </View>
                 </View>
 
-                <TouchableOpacity onPress={submitCode} style={{ width: "60%", height: 40 }}>
-                    <View flex={1} backgroundColor={"#F00"}
-                        alignItems={"center"} justifyContent={"center"}>
-                        <Text style={{
-                            fontSize: 14,
-                            fontWeight: "bold",
-                            color: "#FFF",
-                        }}>Submit</Text>
-                    </View>
-                </TouchableOpacity>
+                {
+                    (formFlag) ?
+                        (<TouchableOpacity onPress={submitCode} style={{ width: "60%", height: 40 }}>
+                            <View flex={1} backgroundColor={"#F00"}
+                                alignItems={"center"} justifyContent={"center"}>
+                                <Text style={style.btnTitle}>Submit</Text>
+                            </View>
+                        </TouchableOpacity>) :
+
+                        (<BcDisableII style={{ width: "60%", height: 40 }}>
+                            <View flex={1} backgroundColor={"#F00"}
+                                alignItems={"center"} justifyContent={"center"}>
+                                <Text style={style.btnTitle}>Submit</Text>
+                            </View>
+                        </BcDisableII>)
+                }
             </VStack>
         </BaseModal>
     )

@@ -43,7 +43,7 @@ function Index(duration = 180, onTimerEnd = () => { }) {
     useEffect(() => {
         // ! setTimer Fires Earlier than Duration
         // timer => 120, Duration => 0
-        if (timer <= 0) {
+        if (timer < 0) {
             deactivateKeepAwake();
             onTimerEnd();
             // dispatch(Actions.onChangeLinkTimer(-1));

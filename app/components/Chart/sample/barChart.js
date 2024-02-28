@@ -9,18 +9,18 @@ option = {
         backgroundColor: "rgba(255, 255, 255, 1)",
     },
     legend: {
-        data: ["B8 Study LG Monitor Smart Plug"],
+        data: [ "B8 Study LG Monitor Smart Plug", "B8 Study LG Monitor Smart Plug II" ],
         orient: 'horizontal',
         bottom: 0,
     },
     xAxis: {
         type: "category",
+        data: [ "10-20", "10-21", "10-22", "10-23", "10-24", "10-25", "10-26" ],
         axisLabel: {
             rotate: 45,
             showMinLabel: true,
             showMaxLabel: true
         },
-        data: [ "10-20", "10-21", "10-22", "10-23", "10-24", "10-25", "10-26" ],
         axisPointer: {
             snap: true,
             lineStyle: {
@@ -66,38 +66,14 @@ option = {
     },
     series: [
         {
-            "name": "Total KiloWatt (KWh)",
-            "data": [
-                {
-                    "value": 7.9,
-                    "label": { "show": true, "position": "top" }
-                },
-                {
-                    "value": 7.27,
-                    "label": { "show": true, "position": "top" }
-                },
-                {
-                    "value": 7.44,
-                    "label": { "show": true, "position": "top" }
-                },
-                {
-                    "value": 7.77,
-                    "label": { "show": true, "position": "top" }
-                },
-                {
-                    "value": 7.43,
-                    "label": { "show": true, "position": "top" }
-                },
-                {
-                    "value": 7.54,
-                    "label": { "show": true, "position": "top" }
-                },
-                {
-                    "value": 4.24,
-                    "label": { "show": true, "position": "top" }
-                },
-            ],
+            "name": "B8 Study LG Monitor Smart Plug",
+            "data": [ 0.3, 0.66, 0.84, 1.24, 0.46, 0, 1.01 ],
+            "type": "bar"
+        },
+        {
+            "name": "B8 Study LG Monitor Smart Plug II",
+            "data": [ 0.53, 0.55, 0.76, 0.97, 0.34, 0.41, 0.86 ],
             "type": "bar"
         }
     ]
-}
+};

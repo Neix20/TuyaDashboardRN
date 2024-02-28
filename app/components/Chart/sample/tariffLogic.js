@@ -7,27 +7,155 @@ let series = [
         },
         "type": "bar",
         "stack": "a",
-        "name": "a"
+        "name": "0-200"
     },
     {
-        "data": [0, 0, 60, 50, 100, 80, 40],
+        "data": [0, 0, 60, 50, 100, 80],
         "itemStyle": {
             "color": "#AEFFDF"
         },
         "type": "bar",
         "stack": "a",
-        "name": "b"
+        "name": "201-500"
     },
     {
-        "data": [0, 0, 0, 0, 100, 0, 0],
+        "data": [0, 0, 0, 0, 100, 0],
         "itemStyle": {
             "color": "#FFF300"
         },
         "type": "bar",
         "stack": "a",
-        "name": "c"
+        "name": "501++"
     }
 ];
+
+function organizeStackData(arr) {
+    const stackInfo = {};
+    for (const stackSeries of arr) {
+        let { stack = "", data = [] } = stackSeries;
+
+        // Convert "-" to 0
+        data = data.map(x => x === "-" ? 0 : x);
+
+        // Group data by stack
+        if (stack in stackInfo) {
+            stackInfo[stack].push(data);
+        } else {
+            stackInfo[stack] = [data];
+        }
+    }
+    return stackInfo;
+}
+
+function calculateFurthermostPoints(data = []) {
+
+    const furthermostPoints = data[0].map(() => data.length - 1);
+
+    for (let colIndex = 0; colIndex < furthermostPoints.length; colIndex += 1) {
+        for (let rowIndex = 0; rowIndex < data.length; rowIndex += 1) {
+            if (data[rowIndex][colIndex] === 0) {
+                furthermostPoints[colIndex] = rowIndex - 1;
+                break;
+            }
+        }
+    }
+
+    return furthermostPoints;
+}
+
+function calculateTotalSumArray(data, m_rate) {
+    // Sample Input: [[200, 10, 0], [200, 10, 10], [100, 200, 20]]
+    const totalSumArray = data[0].map(() => "");
+    for (let colIndex = 0; colIndex < totalSumArray.length; colIndex += 1) {
+        let total = data
+            .map(x => x[colIndex])
+            .reduce((a, b) => a + b, 0);
+        total = total * m_rate / 100;
+        totalSumArray[colIndex] = `RM ${total.toFixed(2)}`;
+    }
+    return totalSumArray;
+}
+
+function formatDataPoints(data, furthermostPoints, totalSumArray, borderRadius = 20) {
+    const res = [...data];
+
+    for (let rowIndex = 0; rowIndex < res.length; rowIndex += 1) {
+        res[rowIndex] = res[rowIndex].map((value, pos) => {
+            if (furthermostPoints[pos] === rowIndex) {
+                return {
+                    value,
+                    itemStyle: { borderRadius: [borderRadius, borderRadius, 0, 0] },
+                    label: { show: true, position: "top", formatter: totalSumArray[pos] }
+                };
+            }
+            return {
+                value,
+                itemStyle: { borderRadius: [0, 0, 0, 0] }
+            };
+        });
+    }
+
+    return res;
+}
+
+function assignFormattedData(arr, stackInfo) {
+
+    // Sort the result array by stack
+    const sortedArr = arr.sort((objA, objB) => objA.stack - objB.stack);
+
+    // Assign formatted data to original objects
+    let stackIndex = 0;
+    let previousStack = null;
+    
+    for (const entry of sortedArr) {
+        if (entry.stack !== previousStack) {
+            stackIndex = 0;
+            previousStack = entry.stack;
+        }
+        entry.data = stackInfo[entry.stack][stackIndex];
+        stackIndex += 1;
+    }
+
+    return sortedArr;
+}
+
+
+function getStackInfo(arr, m_rate) {
+
+    // Step 1: Organize stack data
+    const stackInfo = organizeStackData(arr);
+
+    for (const stack in stackInfo) {
+
+        const data = stackInfo[stack];
+
+        // Step 2.1: Calculate furthermost points for each stack
+        const furthermostPoints = calculateFurthermostPoints(data);
+
+        // Step 2.2: Calculate total and format as required
+        const totalSumArray = calculateTotalSumArray(data, m_rate);
+
+        // Step 2.3: Apply formatting to each data point
+        const borderRadius = 20;
+
+        stackInfo[stack] = formatDataPoints(data, furthermostPoints, totalSumArray, borderRadius);
+    }
+
+    // Step 3: Assign formatted data to original objects
+    const sortedArr = assignFormattedData(arr, stackInfo);
+
+    return sortedArr;
+}
+
+// Price
+const price = {
+    "Sep": 14.75,
+    "Oct": 4.55,
+    "Nov": 62.20,
+    "Dec": 54.95,
+    "Jan": 105.60,
+    "Feb": 63.70,
+}
 
 const rate = {
     residential: 21.8,
@@ -37,115 +165,12 @@ const rate = {
 
 const m_rate = rate.commercial;
 
-function getStackInfo(arr = []) {
-
-    const stackInfo = {};
-
-    for (const stackSeries of arr) {
-        let { stack = "", data = [] } = stackSeries;
-
-        data = data.map(x => x === "-" ? 0 : x);
-
-        if (stack in stackInfo) {
-            stackInfo[stack].push(data);
-        }
-        else {
-            stackInfo[stack] = [data];
-        }
-    }
-
-    // Output: { "a": [ [ 142, 97, 43, 70, 127 ], [ 21, 0, 26, 168, 0 ], [ 0, 0, 59, 0, 0 ] ], "b": [ [ 142, 97, 43, 70, 127 ], [ 21, 12, 26, 168, 57 ] ] }
-    // Get Furthermost of Each Stack Info
-    for (const stack in stackInfo) {
-
-        // Input
-        const data = stackInfo[stack];
-
-        // Assume Best Case
-        let info_arr = data[0].map(x => data.length - 1);
-
-        for (let col_ind = 0; col_ind < data[0].length; col_ind += 1) {
-            for (let row_ind = 0; row_ind < data.length; row_ind += 1) {
-                if (data[row_ind][col_ind] === 0) {
-                    info_arr[col_ind] = row_ind - 1;
-                    break;
-                }
-            }
-        }
-        // Output: [ 0, 0, 1, 1, 2, 1 ]
-        // data[0].length
-
-        // Output: [ 14.75, 4.55, 62.20, 54.95, 105.60, 63.70 ]
-        // data[0].length
-        const ts_arr = data[0].map(x => "");
-
-        for (let col_ind = 0; col_ind < data[0].length; col_ind += 1) {
-            let total = 0;
-            for (let row_ind = 0; row_ind < data.length; row_ind += 1) {
-                total += data[row_ind][col_ind];
-            }
-            total = total * m_rate / 100;
-            
-            ts_arr[col_ind] = `RM ${total.toFixed(2)}`;
-        }
-
-        const borderRadius = 20;
-
-        for (let ind = 0; ind < data.length; ind += 1) {
-            data[ind] = data[ind].map((value, pos) => {
-
-                if (info_arr[pos] === ind) {
-
-                    return {
-                        value, 
-                        itemStyle: { borderRadius: [borderRadius, borderRadius, 0, 0] },
-                        label: { show: true, position: "top", formatter: ts_arr[pos] },
-                        
-                    };
-                }
-
-                return { 
-                    value, 
-                    itemStyle: { borderRadius: [0, 0, 0, 0] } 
-                };
-            })
-        }
-
-        stackInfo[stack] = data;
-    }
-
-    // Sort By Stack
-    const res = arr.sort((objA, objB) => objA.stack - objB.stack);
-    let stackInd = 0;
-
-    for (let ind = 0; ind < res.length; ind += 1) {
-        if (ind > 0 && res[ind].stack !== res[ind - 1].stack) {
-            stackInd = 0;
-        }
-
-        res[ind]["data"] = stackInfo[res[ind].stack][stackInd];
-        stackInd += 1;
-    }
-
-    return res;
-}
-
-// Price
-price = {
-    "Sep": 14.75,
-    "Oct": 4.55,
-    "Nov": 62.20,
-    "Dec": 54.95,
-    "Jan": 105.60,
-    "Feb": 63.70,
-}
-
-// Return Total
-series = getStackInfo(series);
-option = {
+// Return Tota
+series = getStackInfo(series, m_rate);
+const option = {
     xAxis: {
         type: "category",
-        data: [ "01-18", "01-19", "01-20", "01-21", "01-22", "01-23", "01-24" ]
+        data: ["01-18", "01-19", "01-20", "01-21", "01-22", "01-23", "01-24"]
     },
     yAxis: { type: "value" },
     series

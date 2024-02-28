@@ -62,14 +62,7 @@ function Index(default_key) {
             setChartKeyOption(_ => keys);
             setChartDataset(_ => dataset);
 
-            const _dataset = dataset.map(x => {
-                const { name } = x;
-
-                return {
-                    name: name,
-                    data: x[chartKey]
-                }
-            })
+            const _dataset = dataset.map(x => ({ name: x.name, data: x[chartKey] }));
 
             const next_state = { label: label, dataset: _dataset };
             setChart(_ => next_state);
@@ -77,18 +70,11 @@ function Index(default_key) {
     }
 
     const updateChartKey = (val) => {
-
-        const _dataset = chartDataset.map(x => {
-            const { name } = x;
-
-            return {
-                name: name,
-                data: x[val]
-            }
-        })
-
+        
+        // Update Chart Key
         setChartKey(_ => val);
-
+        
+        const _dataset = chartDataset.map(x => ({ name: x.name, data: x[val] }));
         const next_state = {
             ...chart,
             dataset: _dataset
