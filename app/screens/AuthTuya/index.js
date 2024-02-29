@@ -350,12 +350,12 @@ function Index(props) {
     }
 
     const GoToHome = () => {
-        // navigation.navigate("ScanQr", {
-        //     title: "AuthTuya"
-        // });
-        navigation.navigate("TabNavigation", {
-            screen: "Device",
+        navigation.navigate("ScanQr", {
+            title: "AuthTuya"
         });
+        // navigation.navigate("TabNavigation", {
+        //     screen: "Device",
+        // });
     }
 
     // Disable Back Button

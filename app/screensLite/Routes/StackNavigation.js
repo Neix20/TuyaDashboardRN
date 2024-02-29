@@ -183,7 +183,7 @@ import Faq from "@screens/CompanyInfo/screens/Faq.js";
 import ContactUs from "@screens/CompanyInfo/screens/ContactUs.js";
 
 import YatuEngine from "@screens/YatuEngine";
-import ViewerSession from "@screensLite/Session";
+import ViewerSession from "@screensLite/Session/TabNavigation";
 
 StackScreens = {
     ...StackScreens,
@@ -282,7 +282,6 @@ function Index(props) {
         SplashScreen.hide();
 
         // #region OneSignal
-        // OneSignal Initialization
         OneSignal.initialize(clsConst.ONESIGNAL_APP_ID);
 
         // requestPermission will show the native iOS or Android notification permission prompt.
@@ -402,7 +401,7 @@ function Index(props) {
     // #endregion
 
     const defaultScreen = (userId == -1 || firstTimeLink) ? "LoginII" : "TabNavigation";
-    // const defaultScreen = "Yatu";
+    // const defaultScreen = "Debug";
 
     return (
         <>

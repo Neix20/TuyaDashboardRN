@@ -1,0 +1,29 @@
+[
+    {
+        "Id": 641,
+        "Code": "SP0014",
+        "Title": "Smart Plug",
+        "Description": "S8-Plug",
+        "Tuya_Id": "ebe87da632d74e6ee4rljj",
+        "Ip_Addr": "124.13.81.165",
+        "Mac_Addr": "",
+        "Timezone": "+08:00",
+        "M_Device_Id": 3,
+        "Parent_Device_Id": -1,
+        "Is_Parent": 0,
+        "Merchant_Id": 64,
+        "Home_Id": 121,
+        "Room_Id": -1,
+        "MetaData": "{\"user_id\": \"az1686639458025Jbx6K\", \"home_id\": 158697666}",
+        "Status": 0,
+        "Remark": "",
+        "Created_By": "YatuDataAlert",
+        "Created_Date": "2023-10-17T14:20:54",
+        "Last_Updated_By": "YatuDataAlert",
+        "Last_Updated_Date": "2024-01-23T12:02:43.25",
+        "Online_Status": 0,
+        "Type": "Smart Plug",
+        "DeviceImg": "https://images.tuyaus.com/smart/icon/non-session-user/16284966837aeacdf1e39.png",
+        "ProfileWorkspaceStatus": 0
+    }
+]

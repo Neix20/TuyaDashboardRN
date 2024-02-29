@@ -20,6 +20,14 @@ import ProfileInfo from "@screensPro/Profile/ProfileInfo";
 import ProfileWorkspace from "@screensPro/ProfileWorkspace";
 import ProfileWorkspaceInfo from "@screensPro/ProfileWorkspace/ProfileWorkspaceInfo";
 
+// Token
+import UserToken from "@screens/UserToken";
+import UserTokenInfo from "@screens/UserToken/UserTokenInfo.js";
+
+// Qr Scanner
+import ScanQr from "@screens/ScanQr";
+import DeviceResult from "@screensLite/Device/Result";
+
 let StackScreens = {};
 
 StackScreens = {
@@ -65,6 +73,42 @@ StackScreens = {
         title: "TabNavigation"
     }
 };
+
+StackScreens = {
+    ...StackScreens,
+    UserToken: {
+        component: UserToken,
+        title: "UserToken",
+        option: {
+            orientation: "portrait"
+        }
+    },
+    UserTokenInfo: {
+        component: UserTokenInfo,
+        title: "UserTokenInfo",
+        option: {
+            orientation: "portrait"
+        }
+    }
+}
+
+StackScreens = {
+    ...StackScreens,
+    ScanQr: {
+        component: ScanQr,
+        title: "ScanQr",
+        option: {
+            orientation: "portrait"
+        }
+    },
+    DeviceResult: {
+        component: DeviceResult,
+        title: "DeviceResult",
+        option: {
+            orientation: "portrait"
+        }
+    }
+}
 
 import Subscription from "@screens/Subscription";
 import SubscriptionInfo from "@screens/Subscription/SubscriptionInfo";

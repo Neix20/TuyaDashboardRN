@@ -42,7 +42,7 @@ function Header(props) {
                     {/* Logo */}
                     <HStack alignItems={"center"} space={3}>
                         {/* <BcYatuHome /> */}
-                        <BcSvgIcon name={"Yatu"} size={80} color={"#2898FF"} />
+                        <BcSvgIcon name={"YatuLite"} size={80} color={"#2898FF"} />
                     </HStack>
                     {
                         (flag) ? (

@@ -20,6 +20,7 @@ const initialState = {
     loginAccess: 1,
     yatuAuth: -1,
     tutorial: false,
+    viewerSession: {},
 };
 
 function setReducer(state = initialState, action = {}) {
@@ -113,6 +114,11 @@ function setReducer(state = initialState, action = {}) {
             return {
                 ...state,
                 tutorial: action.tutorial,
+            };
+        case "SET_VIEWER_SESSION":
+            return {
+                ...state,
+                viewerSession: action.viewerSession,
             };
         default: {
             return {

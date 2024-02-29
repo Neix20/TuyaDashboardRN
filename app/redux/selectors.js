@@ -20,6 +20,7 @@ const loginAccessSelect = (state) => state.loginAccess;
 
 const yatuAuthSelect = (state) => state.yatuAuth;
 const tutorialSelect = (state) => state.tutorial;
+const viewerSessionSelect = (state) => state.viewerSession;
 
 export {
     defaultValueSelect,
@@ -39,5 +40,6 @@ export {
     profileWorkspaceIdSelect,
     loginAccessSelect,
     yatuAuthSelect,
-    tutorialSelect
+    tutorialSelect,
+    viewerSessionSelect
 }

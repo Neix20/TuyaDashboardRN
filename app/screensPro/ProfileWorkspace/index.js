@@ -28,7 +28,7 @@ function useProfileWs(val = []) {
     const updateLs = (arr = []) => {
         if (arr.length > 0) {
 
-            arr =arr.filter(x => x.Code !== "PFWS0001");
+            arr = arr.filter(x => x.Code !== "PFWS0001");
 
             arr = arr.map((obj, pos) => {
 
@@ -39,7 +39,7 @@ function useProfileWs(val = []) {
                 return {
                     ...obj,
                     img: { uri: Image },
-                    pos, 
+                    pos,
                     flag,
                 }
             });
@@ -161,8 +161,8 @@ function BodyItem(props) {
         frontLayer: {
             position: "absolute",
             zIndex: 2,
-            top: 5, 
-            right: 5 
+            top: 5,
+            right: 5
         }
     };
 
@@ -205,7 +205,7 @@ function BodyItem(props) {
 
 function Body(props) {
 
-    const { data = [], onSelectItem = () => {} } = props;
+    const { data = [], onSelectItem = () => { } } = props;
 
     if (data.length == 0) {
         return (<EmptyList />);
@@ -221,14 +221,18 @@ function Body(props) {
         return (<BodyItem key={index} data={item} onPress={onSelect} />)
     }
 
+    const style = {
+        title: {
+            fontFamily: "Roboto-Bold",
+            fontSize: 16,
+        }
+    }
+
     return (
         <VStack flex={1} py={3} space={2}
             bgColor={"#FFF"} alignItems={"center"}>
             <View width={"90%"} style={{ paddingHorizontal: 2 }}>
-                <Text style={{
-                    fontFamily: "Roboto-Bold",
-                    fontSize: 16,
-                }}>Active Profiles</Text>
+                <Text style={style.title}>Active Profiles</Text>
             </View>
             <FlatList
                 data={data}
@@ -268,18 +272,18 @@ function Index(props) {
             },
             onSetLoading: setLoading
         })
-        .then(data => {
-            setProfileWsLs(data);
-        })
-        .catch(err => {
-            setLoading(false);
-            console.error(err);
-        })
+            .then(data => {
+                setProfileWsLs(data);
+            })
+            .catch(err => {
+                setLoading(false);
+                console.error(err);
+            })
     }
 
     const SelectProfileWorkspace = (item) => {
         navigation.navigate("ProfileWorkspaceInfo", item);
-        
+
     }
     // #endregion
 
@@ -287,7 +291,7 @@ function Index(props) {
         <>
             <BcLoading loading={loading} />
             <SafeAreaView style={{ flex: 1 }}>
-                <View style={{ flex: 1 }}>
+                <View bgColor={"#f6f6f6"} style={{ flex: 1 }}>
 
                     {/* Header */}
                     {/* <BcHeader>Profiles Workspace</BcHeader> */}
@@ -296,10 +300,13 @@ function Index(props) {
                     <View style={{ height: 10 }} />
 
                     {/* Body */}
-                    <Body 
+                    <Body
                         data={profileWsLs}
                         onSelectItem={SelectProfileWorkspace} />
+
+                    <View style={{ height: 70 }} />
                 </View>
+
             </SafeAreaView>
         </>
     );

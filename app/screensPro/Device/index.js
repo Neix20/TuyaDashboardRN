@@ -10,90 +10,24 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 
 import { useNavigation, useIsFocused } from "@react-navigation/native";
 
-import { CheckBox } from "@rneui/base";
-
-import Modal from "react-native-modal";
-
 import { Logger, Utility } from "@utility";
 import { Images } from "@config";
 
-import { BcBoxShadow, BcLoading, BcPhotoGalleryModal, BcSvgIcon, BcYesNoModal } from "@components";
+import { BcBoxShadow, BcLoading, BcPhotoGalleryModal, BcSvgIcon, BcYesNoModal, BcUserStatus, BcTooltip } from "@components";
+import { DisableDevice, DisableDeviceScreen, DisableDeviceItem } from "@componentsLite";
 
-import { fetchDeviceByUserII, fetchToggleFavoriteDevice, fetchLinkDevice } from "@api";
+import { fetchDeviceByUserII, fetchToggleFavoriteDevice, fetchLinkDeviceLite, fetchSubUserAccess } from "@api";
 
 import { useDispatch, useSelector } from 'react-redux';
 import { Actions, Selectors } from '@redux';
 
+import { useDeviceLs } from "./hooks";
 import { useToggle } from "@hooks";
 
-// #region Custom Hooks
-function useDeviceLs(val = []) {
-
-    const init = {
-        position: {
-            tempHumd: 0,
-            smartPlug: 1,
-        }
-    }
-
-    const [data, setData] = useState(val);
-    const [oridLs, setOridLs] = useState([]);
-    const [posObj, setPosObj] = useState(init.position);
-
-    const updateData = (arr = []) => {
-        arr = arr.map((obj, pos) => ({
-            ...obj,
-            pos,
-            flag: obj.Status == 1,
-            pwsFlag: obj.ProfileWorkspaceStatus == 1,
-            img: { uri: obj.DeviceImg }
-        }));
-        setData(_ => arr);
-
-        let _oridLs = arr.filter(x => x.flag).map(x => x.Id);
-        setOridLs(_ => _oridLs);
-
-        let _posObj = { ...posObj };
-        for (let ind in arr) {
-            const { IsSmartPlug } = arr[ind];
-
-            if (IsSmartPlug == 1) {
-                _posObj["smartPlug"] = ind;
-                break;
-            }
-        }
-        setPosObj(_ => _posObj);
-    }
-
-    const toggleFlag = (item) => {
-        const { pos, flag = false } = item;
-
-        let arr = [...data];
-        arr[pos].flag = !flag;
-
-        setData(arr);
-    }
-
-    const addToFavorite = (item) => {
-        const { pos, pwsFlag = false } = item;
-
-        let arr = [...data];
-        arr[pos].pwsFlag = !pwsFlag;
-
-        setData(arr);
-    }
-
-    const syncCount = data.filter(x => x.Status).length;
-
-    const nOridLs = data.filter(x => x.flag).map(x => x.Id).join("");
-    const sessionFlag = nOridLs !== oridLs.join("");
-
-    return [data, updateData, toggleFlag, addToFavorite, syncCount, sessionFlag, posObj];
-}
-// #endregion
+import Modal from "react-native-modal";
+import DeviceItem from "./DeviceItem";
 
 // #region Tab Detail
-
 function TabDetailModalItem(props) {
     const { onPress = () => { } } = props;
     const { Btn, btnName = "", title = "" } = props;
@@ -122,7 +56,7 @@ function TabDetailModal(props) {
 
     // #region Props
     const { showModal, setShowModal = () => { } } = props;
-    const { navToTempHumd = () => {}, navToSmartPlug = () => {} }  = props;
+    const { navToTempHumd = () => { }, navToSmartPlug = () => { } } = props;
     // #endregion
 
     const closeModal = () => setShowModal(false);
@@ -187,118 +121,21 @@ function TabDetail(props) {
 }
 // #endregion
 
-// #region Device
-function DeviceItem(props) {
-
-    // #region Props
-    const { Title, Online_Status, pwsFlag, img, flag, Status } = props;
-    const { onLinkDevice = () => { }, onAddToFavorite = () => { } } = props;
-    // #endregion
-
-    const borderRadius = 8;
-
-    const ols = (Online_Status === 1) ? ({ color: "#0F0", term: "Online" }) : ({ color: "#F00", term: "Offline" });
-    const pwsColor = pwsFlag ? "#F00" : "#98A0A8";
-
-    const style = {
-        img: {
-            height: 60,
-            width: 60,
-        },
-        title: {
-            fontSize: 14,
-            fontFamily: 'Roboto-Bold',
-            color: "#000",
-        },
-        onlineStatus: {
-            fontSize: 12,
-            fontFamily: 'Roboto-Bold',
-            color: ols.color,
-        },
-        chkBox: {
-            paddingHorizontal: 0,
-            paddingVertical: 0,
-        }
-    }
-
-    return (
-        <TouchableOpacity onPress={onLinkDevice} onLongPress={onAddToFavorite}>
-            <BcBoxShadow style={{ borderRadius, width: "100%" }}>
-                <HStack p={2} bgColor={"#FFF"}
-                    justifyContent={"space-between"} alignItems={"center"}
-                    style={{ borderRadius }}>
-                    <VStack space={2}>
-                        <Image source={img} style={style.img} resizeMode={"cover"} alt={Title} />
-                        <VStack>
-                            <Text style={style.title}>{Title}</Text>
-                            <Text style={style.onlineStatus}>{ols.term}</Text>
-                        </VStack>
-                    </VStack>
-                    <HStack alignItems={"center"} space={2}>
-                        {
-                            (Status == 1) ? (
-                                <FontAwesome name={"star"} size={24} color={pwsColor} />
-                            ) : (
-                                <View style={{ width: 32, height: 32 }} />
-                            )
-                        }
-                        <CheckBox
-                            containerStyle={style.chkBox}
-                            iconType={"material-community"}
-                            checkedIcon={"checkbox-marked"}
-                            uncheckedIcon={"checkbox-blank-outline"}
-                            checked={flag}
-                            onPress={onLinkDevice}
-                            checkedColor={"#F00"} />
-                    </HStack>
-                </HStack>
-            </BcBoxShadow>
-        </TouchableOpacity>
-    )
-}
-
-function DeviceLs(props) {
-    const { deviceLsRef = null, data = [], renderItem = () => { } } = props;
-
-    if (data.length <= 0) {
-        return (<EmptyList />);
-    }
-
-    const style = {
-        flatListContainer: {
-            flexDirection: "column",
-            flexWrap: "nowrap",
-            justifyContent: "flex-start",
-            padding: 5,
-            rowGap: 8,
-            columnGap: 8,
-        }
-    }
-
-    return (
-        <View alignItems={"center"} flexGrow={1}>
-            <FlatList
-                ref={deviceLsRef}
-                data={data}
-                renderItem={renderItem}
-                style={{ width: "90%", flex: 1 }}
-                contentContainerStyle={style.flatListContainer}
-            />
-        </View>
-    )
-}
-// #endregion
-
 // #region Components
 function Header(props) {
 
-    const { flag = false } = props;
-    const { onSelectAdd = () => { } } = props;
+    const navigation = useNavigation();
+
+    const GoToScanQr = () => {
+        navigation.navigate("ScanQr");
+    }
+
+    const { flag = false, onSelectAdd = () => { } } = props;
 
     const style = {
         title: {
             fontFamily: "Roboto-Bold",
-            fontSize: 1,
+            fontSize: 18,
             color: "#FFF"
         }
     }
@@ -315,25 +152,22 @@ function Header(props) {
                     style={{ width: "90%" }}>
 
                     {/* Logo */}
-                    <BcSvgIcon name={"Yatu"} size={80} color={"#2898FF"} />
+                    <HStack alignItems={"center"} space={3}>
+                        <BcSvgIcon name={"Yatu"} size={80} color={"#2898FF"} />
+                        <BcUserStatus />
+                    </HStack>
 
-                    {
-                        (flag) ? (
-                            <TouchableOpacity onPress={onSelectAdd}>
-                                {/* <View borderRadius={20}
-                                    bgColor={"#2898FF"}
-                                    alignItems={"center"} justifyContent={"center"}
-                                    style={{ width: 32, height: 32 }}>
-                                    <FontAwesome name={"plus"} size={16} color={"#FFF"} />
-                                </View> */}
-                                <View borderRadius={20} px={3} bgColor={"#2898FF"}>
-                                    <Text style={style.title}>Sync Now</Text>
-                                </View>
-                            </TouchableOpacity>
-                        ) : (
-                            <></>
-                        )
-                    }
+                    {/* Qr Scanner */}
+                    <HStack alignItems={"flex-end"} space={2}>
+                        <TouchableOpacity onPress={GoToScanQr}>
+                            <View borderRadius={20} bgColor={"#2898FF"}
+                                alignItems={"center"} justifyContent={"center"}
+                                style={{ height: 40, width: 40 }}>
+                                {/* <BcSvgIcon name={"QrScan"} size={24} color={"#FFF"} /> */}
+                                <MaterialCommunityIcons name={"line-scan"} size={24} color={"#FFF"} />
+                            </View>
+                        </TouchableOpacity>
+                    </HStack>
                 </HStack>
             </View>
         </BcBoxShadow>
@@ -363,6 +197,82 @@ function EmptyList(props) {
 }
 // #endregion
 
+// #region Device
+function DeviceLs(props) {
+    const { deviceLsRef = null, data = [], renderItem = () => { } } = props;
+
+    if (data.length <= 0) {
+        return (<EmptyList />);
+    }
+
+    const style = {
+        flatListContainer: {
+            flexDirection: "column",
+            flexWrap: "nowrap",
+            justifyContent: "flex-start",
+            padding: 5,
+            rowGap: 8,
+            columnGap: 8,
+        }
+    }
+
+    return (
+        <View alignItems={"center"} flexGrow={1}>
+            <FlatList ref={deviceLsRef}
+                data={data} renderItem={renderItem}
+                style={{ width: "90%", flex: 1 }}
+                contentContainerStyle={style.flatListContainer}
+            />
+        </View>
+    )
+}
+// #endregion
+
+// #region Info Tooltip
+function InfoTooltip(props) {
+
+    const { hook = [] } = props;
+
+    const style = {
+        hyperlink: {
+            textDecorationLine: "underline",
+            fontFamily: "Roboto-Medium",
+            color: "#3366CC"
+        },
+        txt: {
+            fontFamily: "Roboto-Medium",
+            fontSize: 14,
+            color: "#484848",
+            textAlign: "justify"
+        }
+    }
+
+    return (
+        <VStack>
+            <Text style={style.txt}>1. If you haven't activate your devices, Use our QR Scanner to scan your Yatu QR!</Text>
+            <Text style={style.txt}>2. Press the device to link its data. Yatu Lite only works with Yatu Device!</Text>
+            <Text style={style.txt}>3. "Long Press" to favorite your Devices</Text>
+        </VStack>
+    )
+}
+
+function InfoIcon(props) {
+
+    const tutorial = useSelector(Selectors.tutorialSelect);
+    const openHook = useToggle(tutorial);
+
+    return (
+        <BcTooltip hook={openHook}
+            placement={"bottom"} bgColor={"#FFF"}
+            modalBgColor={"rgba(0, 0, 0, 0.25)"}
+            borderWidth={0}
+            content={<InfoTooltip hook={openHook} />}>
+            <BcSvgIcon name={"InfoIcon"} size={24} />
+        </BcTooltip>
+    )
+}
+// #endregion
+
 function Index(props) {
 
     const toast = useToast();
@@ -374,6 +284,8 @@ function Index(props) {
 
     const userId = useSelector(Selectors.userIdSelect);
     const homeId = useSelector(Selectors.homeIdSelect);
+
+    const dispatch = useDispatch();
     // #endregion
 
     // #region UseState
@@ -388,11 +300,23 @@ function Index(props) {
     // #region UseEffect
     useEffect(() => {
         if (isFocused) {
-            // setDeviceData(UserDeviceIIData);
             GetDeviceByUserII();
+            RequestAccess(userId);
         }
     }, [homeId, refresh, isFocused]);
     // #endregion
+
+    // Tutorial
+    const tutorial = useSelector(Selectors.tutorialSelect);
+    // useEffect(() => {
+    //     if (isFocused) {
+    //         if (tutorial) {
+    //             toast.show({
+    //                 description: "Welcome to your Yatu Workspace!\nPlease Select The Devices you wish to link data!"
+    //             })
+    //         }
+    //     }
+    // }, [isFocused]);
 
     // #region API List
     const GetDeviceByUserII = () => {
@@ -436,8 +360,9 @@ function Index(props) {
     }
 
     const LinkDevice = () => {
+
         setLoading(true);
-        fetchLinkDevice({
+        fetchLinkDeviceLite({
             param: {
                 UserId: userId,
                 DeviceLs: deviceData.map(x => ({ Id: x.Id, Status: x.flag ? 1 : 0 }))
@@ -445,13 +370,62 @@ function Index(props) {
             onSetLoading: setLoading
         })
             .then(data => {
+                const { ResponseCode = "", ResponseMessage = "" } = data;
                 toggleLdModal();
-                toggleRefresh();
+                if (ResponseCode == "00") {
+                    toggleRefresh();
+                    // toast.show({
+                    //     description: "Download starting..."
+                    // });
+
+                    // Think About This, Redirect To ProfileWorkspace
+                    if (tutorial) {
+                        // Send to its Respective Profile Workspace
+                        const {
+                            IsTempHumd = -1,
+                            IsSmartPlug = -1,
+                            TempHumdProfileWorkspaceId = -1,
+                            SmartPlugProfileWorkspaceId = -1
+                        } = deviceData.filter(x => x.flag == 1)[0];
+
+                        if (IsTempHumd >= 1) {
+                            navigation.navigate("ProfileWorkspaceInfo", {
+                                Id: TempHumdProfileWorkspaceId
+                            })
+                        }
+
+                        if (IsSmartPlug >= 1) {
+                            navigation.navigate("ProfileWorkspaceInfo", {
+                                Id: SmartPlugProfileWorkspaceId
+                            })
+                        }
+                    }
+                } else {
+                    // Pop Up Modal Saying Max Device Limit Reached
+                    toast.show({
+                        description: ResponseMessage
+                    })
+                }
             })
             .catch(err => {
                 setLoading(false);
                 console.log(`Error: ${err}`);
             });
+    }
+
+    const RequestAccess = (userId) => {
+        fetchSubUserAccess({
+            param: {
+                UserId: userId
+            },
+            onSetLoading: () => { },
+        })
+            .then(data => {
+                dispatch(Actions.onChangeSubUserAccess(data));
+            })
+            .catch(err => {
+                console.log(`Error: ${err}`);
+            })
     }
     // #endregion
 
@@ -460,6 +434,14 @@ function Index(props) {
 
         const onLinkDevice = () => {
             toggleDeviceFlag(item);
+
+            const { flag = false } = item;
+
+            if (tutorial && flag) {
+                toast.show({
+                    description: "Select \"Next\""
+                })
+            }
         };
 
         const onAddToFavorite = () => {
@@ -471,12 +453,12 @@ function Index(props) {
             })
         }
 
+        const { DeviceLinkStatus = 0 } = item;
+
         return (
-            <DeviceItem
-                key={index}
-                onLinkDevice={onLinkDevice}
-                onAddToFavorite={onAddToFavorite}
-                {...item} />
+            <DisableDevice flag={false} placeholder={<DisableDeviceItem />}>
+                <DeviceItem key={index} onLinkDevice={onLinkDevice} onAddToFavorite={onAddToFavorite} {...item} />
+            </DisableDevice>
         )
     }
     // #endregion
@@ -511,6 +493,10 @@ function Index(props) {
     }
     // #endregion
 
+    const GoToProfileWorkspace = () => {
+        navigation.navigate("ProfileWorkspace");
+    }
+
     const machineListView = useRef(null);
 
     const style = {
@@ -524,14 +510,24 @@ function Index(props) {
             top: 0,
             bottom: 0,
             right: 0,
+        },
+        syncTitle: {
+
+            fontFamily: "Roboto-Bold",
+            fontSize: 18,
+            paddingHorizontal: 0,
+            color: "#FFF"
         }
-    }
+    };
+
+    const subUserAccess = useSelector(Selectors.subUserAccessSelect);
+    const { DeviceQty = 0 } = subUserAccess;
 
     return (
         <>
-            <BcYesNoModal 
+            <BcYesNoModal
                 showModal={showLdModal} setShowModal={setShowLdModal}
-                title={"Link Devices"} 
+                title={"Link Devices"}
                 description={`Are you sure you want to link these devices?\n\nOnce your downloads have completed, a notification will be send out to alert you!`}
                 titleYes={"Link"} titleNo={"Cancel"}
                 onPressYes={LinkDevice} onPressNo={toggleLdModal}
@@ -544,27 +540,39 @@ function Index(props) {
                     {/* Header */}
                     <Header toggleRefresh={toggleRefresh} flag={deviceSession} onSelectAdd={toggleLdModal} />
 
-                    <View style={{ height: 10 }} />
+                    <View style={{ height: 15 }} />
 
-                    <View style={{ height: 5 }} />
+                    <DisableDevice flag={DeviceQty == 0} placeholder={<DisableDeviceScreen />}>
 
-                    <View alignItems={"center"}>
-                        <HStack alignItems={"center"} width={"90%"}>
-                            <Text style={style.title}>Sync Devices ({deviceCount}/20)</Text>
-                            <View justifyContent={"center"}
-                                style={style.tabDetail}>
-                                <TabDetail navToTempHumd={navToTempHumd} navToSmartPlug={navToSmartPlug} />
-                            </View>
-                        </HStack>
-                    </View>
+                        <View alignItems={"center"}>
+                            <HStack alignItems={"center"} justifyContent={"space-between"} width={"90%"}>
+                                <Text style={style.title}>Sync Devices ({deviceCount}/{DeviceQty})</Text>
+                                <HStack alignItems={"center"} space={3}>
+                                    {
+                                        (deviceSession) ? (
+                                            <TouchableOpacity onPress={toggleLdModal}>
+                                                <View borderRadius={20} px={3} py={1} bgColor={"#2898FF"}>
+                                                    <Text style={style.syncTitle}>{tutorial ? "Next" : "Sync Now"}</Text>
+                                                </View>
+                                            </TouchableOpacity>
+                                        ) : (
+                                            <></>
+                                        )
+                                    }
+                                    <View justifyContent={"center"}>
+                                        <TabDetail navToTempHumd={navToTempHumd} navToSmartPlug={navToSmartPlug} />
+                                    </View>
+                                </HStack>
+                            </HStack>
+                        </View>
 
-                    {/* Body */}
-                    <DeviceLs
-                        deviceLsRef={machineListView}
-                        data={deviceData} renderItem={renderDeviceItem} />
+                        {/* Body */}
+                        <DeviceLs deviceLsRef={machineListView} data={deviceData} renderItem={renderDeviceItem} />
 
-                    {/* Footer */}
-                    <View style={{ height: 70 }} />
+                        {/* Footer */}
+                        <View style={{ height: 70 }} />
+                    </DisableDevice>
+
                 </View>
             </SafeAreaView>
         </>

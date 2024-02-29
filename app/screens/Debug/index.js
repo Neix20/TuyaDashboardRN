@@ -330,9 +330,32 @@ function OpenTuyaApp(props) {
     )
 }
 
-export default OpenTuyaApp;
+// export default OpenTuyaApp;
 
-// export default withIAPContext(PaymentIap);
+function TestNotification(props) {
+    return (
+        <SafeAreaView style={{ flex: 1 }}>
+            <View style={{ flex: 1 }}>
+        
+                {/* Header */}
+                <View style={{ height: 80 }} />
+        
+                <View style={{ height: 10 }} />
+        
+                {/* Body */}
+                <ScrollView showsVerticalScrollIndicator={false} 
+                    keyboardShouldPersistTaps={"handled"}
+                    contentContainerStyle={{ flexGrow: 1 }}>
+                    <View flexGrow={1} justifyContent={"center"} alignItems={"center"}>
+                        <Text>This is to Test Notification</Text>
+                    </View>
+                </ScrollView>
+        
+                {/* Footer */}
+                <View style={{ height: 60 }} />
+            </View>
+        </SafeAreaView>
+    )
+}
 
-// import Dashboard from "./Dashboard";
-// export default Dashboard;
+export default TestNotification;

@@ -99,8 +99,8 @@ android {
         applicationId "com.yatudashboard"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 12023
-        versionName "12023"
+        versionCode 12028
+        versionName "12028"
 //        ndk {
 //            abiFilters "armeabi-v7a", "arm64-v8a"
 //        }
@@ -136,13 +136,24 @@ android {
 
     flavorDimensions "version"
     productFlavors {
+        // yatu {
+        //     resValue "string", "app_name", "Yatu Lite"
+        //     dimension "version"
+        //     signingConfig signingConfigs.release
+        //     manifestPlaceholders = [
+        //         appIcon: "@mipmap/ic_launcher",
+        //         appIconRound: "@mipmap/ic_launcher_round",
+        //     ]
+        //     missingDimensionStrategy "store", "play"
+        // }
+
         yatu {
-            resValue "string", "app_name", "Yatu Lite"
+            resValue "string", "app_name", "Yatu Pro"
             dimension "version"
             signingConfig signingConfigs.release
             manifestPlaceholders = [
-                appIcon: "@mipmap/ic_launcher",
-                appIconRound: "@mipmap/ic_launcher_round",
+                appIcon: "@mipmap/pro_launcher",
+                appIconRound: "@mipmap/pro_launcher_round",
             ]
             missingDimensionStrategy "store", "play"
         }
@@ -154,8 +165,8 @@ android {
             versionNameSuffix "-lite"
             signingConfig signingConfigs.release
             manifestPlaceholders = [
-                    appIcon: "@mipmap/lite_launcher",
-                    appIconRound: "@mipmap/lite_launcher_round",
+                appIcon: "@mipmap/lite_launcher",
+                appIconRound: "@mipmap/lite_launcher_round",
             ]
             missingDimensionStrategy "store", "play"
         }

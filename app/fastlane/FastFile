@@ -57,6 +57,26 @@ platform :android do
         )
     end
 
+    desc "Build Yatu Lite APK"
+    lane :genYatuLiteApk do 
+        gradle(
+            task: "assemble",
+            flavor: "YatuLite",
+            build_type: "release",
+            project_dir: './../android'
+        )
+    end
+
+    desc "Build Yatu Pro APK"
+    lane :genYatuProApk do 
+        gradle(
+            task: "assemble",
+            flavor: "YatuPro",
+            build_type: "release",
+            project_dir: './../android'
+        )
+    end
+
     desc "Release for the Android production"
     lane :pushToPlayStore do
 

@@ -727,7 +727,9 @@ function BcViewerModal(props) {
                 } else {
 
                     const { Data = {} } = data;
-                    navigation.navigate("ViewerSession", Data);
+                    
+                    dispatch(Actions.onChangeViewerSession(Data));
+                    navigation.navigate("ViewerSession");
 
                     clearForm();
                     setShowModal(false);

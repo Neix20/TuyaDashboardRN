@@ -168,3 +168,9 @@ export {
     BcQrCameraBtn,
     BcQrCameraModal
 }
+
+import BcSessionPanel from "./Session";
+
+export {
+    BcSessionPanel
+}

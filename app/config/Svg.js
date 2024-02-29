@@ -3,6 +3,7 @@ let Data = {};
 import AppLogo from "@assets/svg/AppLogo.svg";
 import AppLogoLite from "@assets/svg/AppLogoLite.svg";
 import Yatu from "@assets/svg/Yatu.svg";
+import YatuLite from "@assets/svg/Yatu_Lite.svg";
 
 import CardGradientBlue from "@assets/svg/card_gradient_blue.svg";
 import CardGradientGreen from "@assets/svg/card_gradient_green.svg";
@@ -47,6 +48,7 @@ Data = {
     AppLogo: AppLogo,
     AppLogoLite: AppLogoLite,
     Yatu: Yatu,
+    YatuLite: YatuLite
 };
 
 Data = {

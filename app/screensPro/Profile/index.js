@@ -20,7 +20,7 @@ import { Actions, Selectors } from '@redux';
 
 import { fetchProfileInfo, fetchSubUserAccess, fetchDeleteAccount, fetchRestoreStorePurchase } from "@api";
 
-import { BcLoading, BaseModal, BcYesNoModal } from "@components";
+import { BcLoading, BaseModal, BcYesNoModal, BcSessionPanel } from "@components";
 
 import { useToggle, useYatuIap } from "@hooks";
 import { withIAPContext } from "react-native-iap";
@@ -562,6 +562,8 @@ function Index(props) {
                             {/* <TokenSubscriptionPanel /> */}
 
                             <CompanyInfoPanel />
+
+                            <BcSessionPanel />
 
                             {/* Logout */}
                             <LogoutPanel onLogout={SignOut} onDeleteAccount={DeleteAccount} />

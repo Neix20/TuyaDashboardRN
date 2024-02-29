@@ -100,9 +100,15 @@ data = {
     ...data,
     TuyaLogo: require("@assets/images/tuya.png"),
     SmartLifeLogo: require("@assets/images/smartlife.png"),
-    YatuLiteLogo: require("@assets/images/yatu_lite_logo.png"),
     Shopee: require("@assets/images/shopee.png"),
     Lazada: require("@assets/images/lazada.jpeg"),
+}
+
+data = {
+    ...data,
+    YatuLiteLogo: require("@assets/images/yatu_lite_logo.png"),
+    YatuProLogo: require("@assets/images/yatu_pro_logo.png"),
+    YatuViewerLogo: require("@assets/images/yatu_viewer_logo.png"),
 }
 
 data = {

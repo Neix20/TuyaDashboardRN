@@ -1,3 +1,4 @@
+let option = {};
 option = {
     tooltip: {
         show: true,

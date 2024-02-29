@@ -52,6 +52,22 @@ Build Android Developer AAB
 
 Build Android Developer APK
 
+### android genYatuLiteApk
+
+```sh
+[bundle exec] fastlane android genYatuLiteApk
+```
+
+Build Yatu Lite APK
+
+### android genYatuProApk
+
+```sh
+[bundle exec] fastlane android genYatuProApk
+```
+
+Build Yatu Pro APK
+
 ### android pushToPlayStore
 
 ```sh

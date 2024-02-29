@@ -503,9 +503,8 @@ function Index(props) {
     const isFocused = useIsFocused();
 
     // #region Redux
-    const userId = props?.route?.params?.User_Id;
-    const prwsId = props?.route?.params?.ViewerProfileWorkspaceId;
-    const expiryDt = props?.route?.params?.SessionExpiryDate || 100;
+    const viewerSession = useSelector(Selectors.viewerSessionSelect);
+    const { User_Id: userId, ViewerProfileWorkspaceId: prwsId, SessionExpiryDate: expiryDt = 100 } = viewerSession;
     // #endregion
 
     // #region Initial

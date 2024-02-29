@@ -748,7 +748,8 @@ function Index(props) {
                                 style={{ height: 600 }}>
                                 {/* Logo Header */}
                                 <View alignItems={"center"}>
-                                    <BcSvgIcon name={"AppLogo"} width={160} height={160} color={"#2898FF"} />
+                                    {/* <BcSvgIcon name={"AppLogo"} width={160} height={160} color={"#2898FF"} /> */}
+                                    <Image source={Images.YatuProLogo} resizeMode={"contain"} style={{ height: 160, width: 160, borderRadius: 20 }} />
                                 </View>
 
                                 {/* <LoginForm loading={loading} setLoading={setLoading} /> */}

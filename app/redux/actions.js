@@ -124,6 +124,13 @@ const onChangeTutorial = (tutorial) => {
     }
 };
 
+const onChangeViewerSession = (viewerSession) => {
+    return {
+        type: "SET_VIEWER_SESSION",
+        viewerSession: viewerSession,
+    }
+};
+
 export {
     onChangeDefaultValue,
     onChangeUserId,
@@ -142,5 +149,6 @@ export {
     onChangeProfileWorkspaceId,
     onChangeLoginAccess,
     onChangeYatuAuth,
-    onChangeTutorial
+    onChangeTutorial,
+    onChangeViewerSession
 }

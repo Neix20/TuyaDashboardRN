@@ -94,7 +94,7 @@ function Header(props) {
                     {/* Logo */}
                     <HStack alignItems={"center"} space={3}>
                         {/* <BcYatuHome /> */}
-                        <BcSvgIcon name={"Yatu"} size={80} color={"#2898FF"} />
+                        <BcSvgIcon name={"YatuLite"} size={80} color={"#2898FF"} />
                         <BcUserStatus />
                     </HStack>
 
@@ -309,6 +309,8 @@ function Index(props) {
                             data={profileWsLs}
                             onSelectItem={SelectProfileWorkspace} />
                     </DisableDevice>
+
+                    <View style={{ height: 70 }} />
                 </View>
             </SafeAreaView>
         </>
