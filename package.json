@@ -12,6 +12,8 @@
     "clearWatchman": "watchman watch-del-all",
     "fastlaneAndroid:pushDevApk": "cd app && fastlane android pushDevApk",
     "fastlaneAndroid:DeveloperApk": "cd app && fastlane android genDevApk",
+    "fastlaneAndroid:YatuLite": "cd app && fastlane android genYatuLiteApk",
+    "fastlaneAndroid:YatuPro": "cd app && fastlane android genYatuProApk",
     "fastlaneAndroid:DeveloperAab": "cd app && fastlane android genDevAab",
     "fastlaneAndroid:PushToPlayStore": "cd app && fastlane android pushToPlayStore",
     "fastlaneIos:genIpa": "cd app && fastlane ios genIpa",

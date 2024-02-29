@@ -146,16 +146,29 @@ android {
             ]
             missingDimensionStrategy "store", "play"
         }
-
-        yatuDeveloper {
+        
+        yatuLite {
             resValue "string", "app_name", "Yatu Lite"
             dimension "version"
-            applicationIdSuffix ".developer"
-            versionNameSuffix "-developer"
+            applicationIdSuffix ".lite"
+            versionNameSuffix "-lite"
             signingConfig signingConfigs.release
             manifestPlaceholders = [
                     appIcon: "@mipmap/lite_launcher",
                     appIconRound: "@mipmap/lite_launcher_round",
+            ]
+            missingDimensionStrategy "store", "play"
+        }
+
+        yatuPro {
+            resValue "string", "app_name", "Yatu Pro"
+            dimension "version"
+            applicationIdSuffix ".pro"
+            versionNameSuffix "-pro"
+            signingConfig signingConfigs.release
+            manifestPlaceholders = [
+                    appIcon: "@mipmap/pro_launcher",
+                    appIconRound: "@mipmap/pro_launcher_round",
             ]
             missingDimensionStrategy "store", "play"
         }

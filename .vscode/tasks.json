@@ -83,6 +83,20 @@
       "type": "shell",
       "command": "node ${file} | pbcopy",
       "problemMatcher": []
+    },
+    {
+      "type": "npm",
+      "script": "fastlaneAndroid:YatuLite",
+      "problemMatcher": [],
+      "label": "npm: fastlaneAndroid:YatuLite",
+      "detail": "cd app && fastlane android genYatuLiteApk"
+    },
+    {
+      "type": "npm",
+      "script": "fastlaneAndroid:YatuPro",
+      "problemMatcher": [],
+      "label": "npm: fastlaneAndroid:YatuPro",
+      "detail": "cd app && fastlane android genYatuProApk"
     }
   ]
 }
