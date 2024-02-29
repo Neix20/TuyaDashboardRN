@@ -65,7 +65,7 @@ function Scanner(props) {
             codeScanner={codeScanner}
             device={device}
             isActive={true}
-            style={{ height: "75%" }}
+            style={{ height: "70%" }}
         />
     )
 }
@@ -97,7 +97,7 @@ function Marker(props) {
     return (
         <VStack space={3} alignItems={"center"} justifyContent={"center"} style={style.frontLayer}>
             <HStack space={2} alignItems={'center'}>
-                <Text style={style.title}>Scan the QR within the border</Text>
+                <Text style={style.title}>Scan the QR in the camera</Text>
 
                 <FontAwesome name={"qrcode"} size={24} color={"#FFF"} />
             </HStack>

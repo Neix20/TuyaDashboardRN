@@ -2,7 +2,8 @@ let Data = {};
 
 import AppLogo from "@assets/svg/AppLogo.svg";
 import AppLogoLite from "@assets/svg/AppLogoLite.svg";
-import Yatu from "@assets/svg/Yatu.svg";
+// import Yatu from "@assets/svg/Yatu.svg";
+import Yatu from "@assets/svg/yatulite_header_logo.svg";
 
 import CardGradientBlue from "@assets/svg/card_gradient_blue.svg";
 import CardGradientGreen from "@assets/svg/card_gradient_green.svg";
@@ -174,7 +175,7 @@ import RedeemTokens from "@assets/svg/tokens/redeem_tokens.svg";
 Data = {
     ...Data,
     RedeemSucess: RedeemSucess,
-    RedeemTokens: RedeemTokens,    
+    RedeemTokens: RedeemTokens,
 }
 
 export default Data;

@@ -103,6 +103,7 @@ data = {
     YatuLiteLogo: require("@assets/images/yatu_lite_logo.png"),
     Shopee: require("@assets/images/shopee.png"),
     Lazada: require("@assets/images/lazada.jpeg"),
+    Wrap2rap: require("@assets/images/wrap2rap.png"),
 }
 
 data = {

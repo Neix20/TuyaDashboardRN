@@ -219,9 +219,8 @@ function Index(props) {
                         <VStack space={2} p={3} alignItems={'center'}>
                             <Text style={{ textAlign: "center", fontWeight: "bold" }}>Please scan the QR code provided inside the box.</Text>
                             <VStack>
-
                                 <Text style={{ textAlign: "center" }}>If you don't find any QR code, please contact us via</Text>
-                                <Text style={{ textAlign: "center" }}>Shopee or Lazada.</Text>
+                                <Text style={{ textAlign: "center" }}>Shopee or Lazada [@wrap2rap].</Text>
                             </VStack>
                             <HStack space={3}>
                                 <TouchableOpacity onPress={() => Linking.openURL(url["shopee"])}>
@@ -231,6 +230,7 @@ function Index(props) {
                                     <Image source={Images.Lazada} alt={"Lazada Logo"} style={{ width: 80, height: 40, borderRadius: 5 }} />
                                 </TouchableOpacity>
                             </HStack>
+                            <Image source={Images.Wrap2rap} alt={"Lazada Logo"} style={{ width: 80, height: 40, borderRadius: 5 }} />
                         </VStack>
                     </View>
 
