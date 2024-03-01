@@ -44,13 +44,13 @@ For _fastlane_ installation instructions, see [Installing _fastlane_](https://do
 
 Build Android Developer AAB
 
-### android genDevApk
+### android genYatuApk
 
 ```sh
-[bundle exec] fastlane android genDevApk
+[bundle exec] fastlane android genYatuApk
 ```
 
-Build Android Developer APK
+Build Yatu APK
 
 ### android genYatuLiteApk
 
@@ -60,13 +60,13 @@ Build Android Developer APK
 
 Build Yatu Lite APK
 
-### android genYatuProApk
+### android genYatuViewerApk
 
 ```sh
-[bundle exec] fastlane android genYatuProApk
+[bundle exec] fastlane android genYatuViewerApk
 ```
 
-Build Yatu Pro APK
+Build Yatu Viewer APK
 
 ### android pushToPlayStore
 
@@ -75,14 +75,6 @@ Build Yatu Pro APK
 ```
 
 Release for the Android production
-
-### android pushDevApk
-
-```sh
-[bundle exec] fastlane android pushDevApk
-```
-
-Push Apk To Phone
 
 ----
 

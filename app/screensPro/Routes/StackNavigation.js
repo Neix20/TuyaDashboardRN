@@ -294,9 +294,7 @@ function Index(props) {
         OneSignal.Notifications.addEventListener('foregroundWillDisplay', event => {
             const { additionalData = {} } = event.notification;
 
-            if ("Action" in additionalData && additionalData["Action"] == "Data_Controller") {
-
-            }
+            if ("Action" in additionalData && additionalData["Action"] == "Data_Controller") {}
 
             if ("Action" in additionalData && additionalData["Action"] == "Data_Auth") {
                 navigation.navigate("AuthTuyaSessionExpired", additionalData);
@@ -315,9 +313,7 @@ function Index(props) {
         OneSignal.Notifications.addEventListener('click', (event) => {
             const { additionalData = {} } = event.notification;
 
-            if ("Action" in additionalData && additionalData["Action"] == "Data_Alert") {
-
-            }
+            if ("Action" in additionalData && additionalData["Action"] == "Data_Alert") {}
         });
         // #endregion
 
@@ -360,7 +356,12 @@ function Index(props) {
             })
     }
 
+    /**
+     * Get Sub User Access Based on Current User Id
+     * @param {int} userId 
+     */
     const RequestAccess = (userId) => {
+        
         fetchSubUserAccess({
             param: {
                 UserId: userId

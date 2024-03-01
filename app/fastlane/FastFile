@@ -47,8 +47,8 @@ platform :android do
         )
     end
 
-    desc "Build Android Developer APK"
-    lane :genDevApk do 
+    desc "Build Yatu APK"
+    lane :genYatuApk do 
         gradle(
             task: "assemble",
             flavor: "Yatu",
@@ -67,11 +67,11 @@ platform :android do
         )
     end
 
-    desc "Build Yatu Pro APK"
-    lane :genYatuProApk do 
+    desc "Build Yatu Viewer APK"
+    lane :genYatuViewerApk do 
         gradle(
             task: "assemble",
-            flavor: "YatuPro",
+            flavor: "YatuViewer",
             build_type: "release",
             project_dir: './../android'
         )
@@ -101,16 +101,5 @@ platform :android do
             }
         )
         supply(track: 'production', aab: './../android/app/build/outputs/bundle/YatuRelease/app-yatu-release.aab')
-    end
-
-    desc "Push Apk To Phone"
-    lane :pushDevApk do 
-        adb(
-            command: "push ./../android/app/build/outputs/apk/yatuDeveloper/release/app-yatuDeveloper-release.apk /sdcard"
-        )
-
-        adb(
-            command: "uninstall com.yatudashboard.developer"
-        )
     end
 end

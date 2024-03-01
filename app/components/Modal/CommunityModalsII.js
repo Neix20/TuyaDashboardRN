@@ -64,10 +64,10 @@ function Index(props) {
     return (
         <Modal
             isVisible={showModal}
-            animationIn={'slideInUp'}
-            animationOut={'slideOutDown'}
-            onBackButtonPress={closeModal}
-            onBackdropPress={closeModal}
+            animationIn={{ from: { opacity: 1 }, to: { opacity: 1 } }}
+            animationOut={{ from: { opacity: 0 }, to: { opacity: 0 } }}
+            animationInTiming={10}
+            animationOutTiming={10}
             backdropOpacity={backdropOpacity}
             style={style}>
             <View bgColor={"#FFF"} borderRadius={20}>

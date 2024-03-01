@@ -941,7 +941,8 @@ function Index(props) {
                     </ScrollView>
 
                     {/* Footer */}
-                    <View justifyContent={"center"} alignItems={"center"}
+                    
+                    <TouchableOpacity justifyContent={"center"} alignItems={"center"}
                         style={{ height: 80 }}>
                         <Text style={{
                             fontFamily: "Roboto-Medium",
@@ -951,7 +952,7 @@ function Index(props) {
                             fontFamily: "Roboto-Medium",
                             fontSize: 14
                         }}>© Version {clsConst.LITE_APP_VERSION}</Text>
-                    </View>
+                    </TouchableOpacity>
 
                 </View>
             </SafeAreaView>

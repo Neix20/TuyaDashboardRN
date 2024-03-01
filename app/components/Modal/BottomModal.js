@@ -53,8 +53,10 @@ function Index(props) {
                 margin: 0,
             }}
             avoidKeyboard={true}
-            animationIn={'slideInUp'}
-            animationOut={'slideOutDown'}
+            animationIn={{ from: { opacity: 1 }, to: { opacity: 1 } }}
+            animationOut={{ from: { opacity: 0 }, to: { opacity: 0 } }}
+            animationInTiming={10}
+            animationOutTiming={10}
             onBackButtonPress={() => setShowModal(false)}
             onBackdropPress={() => setShowModal(false)}>
             <View

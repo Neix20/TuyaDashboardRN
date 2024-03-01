@@ -171,15 +171,15 @@ android {
             missingDimensionStrategy "store", "play"
         }
 
-        yatuPro {
-            resValue "string", "app_name", "Yatu Pro"
+        yatuViewer {
+            resValue "string", "app_name", "Yatu Viewer"
             dimension "version"
-            applicationIdSuffix ".pro"
-            versionNameSuffix "-pro"
+            applicationIdSuffix ".viewer"
+            versionNameSuffix "-viewer"
             signingConfig signingConfigs.release
             manifestPlaceholders = [
-                    appIcon: "@mipmap/pro_launcher",
-                    appIconRound: "@mipmap/pro_launcher_round",
+                appIcon: "@mipmap/viewer_launcher",
+                appIconRound: "@mipmap/viewer_launcher_round",
             ]
             missingDimensionStrategy "store", "play"
         }

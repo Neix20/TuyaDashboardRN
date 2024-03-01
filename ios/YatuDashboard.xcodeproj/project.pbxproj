@@ -669,7 +669,7 @@
 				ENABLE_BITCODE = NO;
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "i386 arm64";
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
-				GCC_PREFIX_HEADER = /Users/imac/Documents/GitHub/TuyaDashboardRN/ios/PrefixHeader.pch;
+				GCC_PREFIX_HEADER = /Users/justin/Documents/ReactNative/YatuDashboard/ios/PrefixHeader.pch;
 				INFOPLIST_FILE = YatuDashboard/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = YatuDashboard;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -702,7 +702,7 @@
 				DEVELOPMENT_TEAM = G64S5HN2AP;
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "i386 arm64";
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
-				GCC_PREFIX_HEADER = /Users/imac/Documents/GitHub/TuyaDashboardRN/ios/PrefixHeader.pch;
+				GCC_PREFIX_HEADER = /Users/justin/Documents/ReactNative/YatuDashboard/ios/PrefixHeader.pch;
 				INFOPLIST_FILE = YatuDashboard/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = YatuDashboard;
 				LD_RUNPATH_SEARCH_PATHS = (
