@@ -727,7 +727,7 @@ function BcViewerModal(props) {
                 } else {
 
                     const { Data = {} } = data;
-                    
+
                     dispatch(Actions.onChangeViewerSession(Data));
                     navigation.navigate("ViewerSession");
 
@@ -906,8 +906,9 @@ function Index(props) {
                                 style={{ height: "80%" }}>
                                 {/* Logo Header */}
                                 <View alignItems={"center"}>
-                                    {/* <BcSvgIcon name={"AppLogoLite"} width={160} height={160} color={"#2898FF"} /> */}
-                                    <Image source={Images.YatuLiteLogo} resizeMode={"contain"} style={{ height: 160, width: 160, borderRadius: 20 }} />
+                                    <Image source={Images.YatuProLogo} resizeMode={"contain"} style={{ height: 160, width: 160, borderRadius: 20 }} />
+                                    {/* <Image source={Images.YatuLiteLogo} resizeMode={"contain"} style={{ height: 160, width: 160, borderRadius: 20 }} /> */}
+                                    {/* <Image source={Images.YatuViewerLogo} resizeMode={"contain"} style={{ height: 160, width: 160, borderRadius: 20 }} /> */}
                                 </View>
 
                                 {/* <LoginForm loading={loading} setLoading={setLoading} /> */}
@@ -915,11 +916,11 @@ function Index(props) {
                                 <VStack width={"100%"} space={5} alignItems={"center"}>
                                     <TouchableOpacity onPress={toggleExLoginModal}
                                         style={{ width: "80%", height: 48 }}>
-                                        <View flex={1} alignItems={"center"} justifyContent={"center"} bgColor={"#FFF"}>
+                                        <View flex={1} alignItems={"center"} justifyContent={"center"} bgColor={"#fb7304"}>
                                             <Text style={{
                                                 fontFamily: "Roboto-Bold",
                                                 fontSize: 16,
-                                                color: "#2898FF"
+                                                color: "#FFF"
                                             }}>Login</Text>
                                         </View>
                                     </TouchableOpacity>
@@ -941,9 +942,8 @@ function Index(props) {
                     </ScrollView>
 
                     {/* Footer */}
-                    
-                    <TouchableOpacity justifyContent={"center"} alignItems={"center"}
-                        style={{ height: 80 }}>
+
+                    <View alignItems={"center"} justifyContent={"center"} style={{ height: 80 }}>
                         <Text style={{
                             fontFamily: "Roboto-Medium",
                             fontSize: 16
@@ -952,7 +952,7 @@ function Index(props) {
                             fontFamily: "Roboto-Medium",
                             fontSize: 14
                         }}>© Version {clsConst.LITE_APP_VERSION}</Text>
-                    </TouchableOpacity>
+                    </View>
 
                 </View>
             </SafeAreaView>

@@ -2,6 +2,8 @@ import React from "react";
 import { Text, TouchableOpacity, Image } from "react-native";
 import { View, VStack, HStack } from "native-base";
 
+import { useIsFocused, useNavigation } from "@react-navigation/native";
+
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 
 import { CheckBox } from "@rneui/base";
@@ -18,6 +20,11 @@ function Index(props) {
     const { onLinkDevice = () => { }, onAddToFavorite = () => { } } = props;
     const { showFavorite = true, showCheckbox = true, showOnlineStatus = true } = props;
     // #endregion
+
+    const navigation = useNavigation();
+    const GoToDeviceItem = () => {
+        navigation.navigate("DeviceLanding", props);
+    }
 
     const borderRadius = 8;
 

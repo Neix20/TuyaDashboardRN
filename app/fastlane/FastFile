@@ -27,8 +27,8 @@ end
   
 platform :android do 
 
-    desc "Build Android Developer AAB"
-    lane :genDevAab do 
+    desc "Build Yatu AAB"
+    lane :genYatuAab do 
         gradle(
             task: "clean", 
             project_dir: './../android'
@@ -36,6 +36,47 @@ platform :android do
         gradle(
             task: 'bundle', 
             flavor: "Yatu",
+            build_type: "release",
+            project_dir: './../android', 
+            properties: {
+                "android.injected.signing.store.file" => ENV['PWD'] + "/../android/app/yatu.jks",
+                "android.injected.signing.store.password" => "vt8888",
+                "android.injected.signing.key.alias" => "yatu",
+                "android.injected.signing.key.password" => "vt8888"
+            }
+        )
+    end
+
+    desc "Build Yatu Lite AAB"
+    lane :genYatuLiteAab do 
+        gradle(
+            task: "clean", 
+            project_dir: './../android'
+        )
+        gradle(
+            task: 'bundle',
+            flavor: "YatuLite",
+            build_type: "release",
+            project_dir: './../android', 
+            properties: {
+                "android.injected.signing.store.file" => ENV['PWD'] + "/../android/app/yatu.jks",
+                "android.injected.signing.store.password" => "vt8888",
+                "android.injected.signing.key.alias" => "yatu",
+                "android.injected.signing.key.password" => "vt8888"
+            }
+        )
+    end
+
+    desc "Build Yatu Viewer AAB"
+    lane :genYatuViewerAab do 
+        gradle(
+            task: "clean", 
+            project_dir: './../android'
+        )
+
+        gradle(
+            task: 'bundle',
+            flavor: "YatuViewer",
             build_type: "release",
             project_dir: './../android', 
             properties: {
@@ -102,4 +143,11 @@ platform :android do
         )
         supply(track: 'production', aab: './../android/app/build/outputs/bundle/YatuRelease/app-yatu-release.aab')
     end
+
+    desc "Test command"
+    lane :testCommand do
+        sh("script/change_app.sh", "1", "./../../app/index.js")
+    end
+
+    
 end

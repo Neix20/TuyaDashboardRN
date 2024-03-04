@@ -120,22 +120,39 @@ android {
     }
 
     signingConfigs {
+        
         debug {
             storeFile file('yatu.jks')
             storePassword 'vt8888'
             keyAlias 'yatu'
             keyPassword 'vt8888'
         }
-        release {
+
+        yatuRelease {
             storeFile file('yatu.jks')
             storePassword 'vt8888'
             keyAlias 'yatu'
+            keyPassword 'vt8888'
+        }
+
+        yatuLiteRelease {
+            storeFile file('yatuLite.jks')
+            storePassword 'vt8888'
+            keyAlias 'yatuLite'
+            keyPassword 'vt8888'
+        }
+
+        yatuViewerRelease {
+            storeFile file('yatuViewer.jks')
+            storePassword 'vt8888'
+            keyAlias 'yatuViewer'
             keyPassword 'vt8888'
         }
     }
 
     flavorDimensions "version"
     productFlavors {
+
         // yatu {
         //     resValue "string", "app_name", "Yatu Lite"
         //     dimension "version"
@@ -150,7 +167,7 @@ android {
         yatu {
             resValue "string", "app_name", "Yatu Pro"
             dimension "version"
-            signingConfig signingConfigs.release
+            signingConfig signingConfigs.yatuRelease
             manifestPlaceholders = [
                 appIcon: "@mipmap/pro_launcher",
                 appIconRound: "@mipmap/pro_launcher_round",
@@ -163,7 +180,7 @@ android {
             dimension "version"
             applicationIdSuffix ".lite"
             versionNameSuffix "-lite"
-            signingConfig signingConfigs.release
+            signingConfig signingConfigs.yatuLiteRelease
             manifestPlaceholders = [
                 appIcon: "@mipmap/lite_launcher",
                 appIconRound: "@mipmap/lite_launcher_round",
@@ -176,7 +193,7 @@ android {
             dimension "version"
             applicationIdSuffix ".viewer"
             versionNameSuffix "-viewer"
-            signingConfig signingConfigs.release
+            signingConfig signingConfigs.yatuViewerRelease
             manifestPlaceholders = [
                 appIcon: "@mipmap/viewer_launcher",
                 appIconRound: "@mipmap/viewer_launcher_round",

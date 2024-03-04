@@ -28,6 +28,11 @@ import UserTokenInfo from "@screens/UserToken/UserTokenInfo.js";
 import ScanQr from "@screens/ScanQr";
 import DeviceResult from "@screensLite/Device/Result";
 
+// Device
+import DeviceLanding from "@screens/Device/DeviceLanding";
+import DeviceLandingSmartPlug from "@screens/Device/DeviceLanding/SmartPlug";
+import DeviceLandingAirCon from "@screens/Device/DeviceLanding/AirCon";
+
 let StackScreens = {};
 
 StackScreens = {
@@ -104,6 +109,13 @@ StackScreens = {
     DeviceResult: {
         component: DeviceResult,
         title: "DeviceResult",
+        option: {
+            orientation: "portrait"
+        }
+    },
+    DeviceLanding: {
+        component: DeviceLanding,
+        title: "DeviceLanding",
         option: {
             orientation: "portrait"
         }

@@ -68,6 +68,17 @@ TabScreens = {
                 title={"Device"}
                 {...props} />
         )
+    },
+    Profile: {
+        component: Device,
+        title: "Profile",
+        tabBarIcon: (props) => (
+            <TabIconFontAwesome
+                Btn={FontAwesome}
+                icon={"user"}
+                title={"Profile"}
+                {...props} />
+        )
     }
 };
 

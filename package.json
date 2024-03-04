@@ -10,13 +10,14 @@
     "start": "react-native start",
     "test": "jest",
     "clearWatchman": "watchman watch-del-all",
-    "fastlaneAndroid:DeveloperAab": "cd app && fastlane android genDevAab",
-    "fastlaneAndroid:Yatu": "cd app && fastlane android genYatuApk",
-    "fastlaneAndroid:YatuLite": "cd app && fastlane android genYatuLiteApk",
-    "fastlaneAndroid:YatuViewer": "cd app && fastlane android genYatuViewerApk",
+    "fastlaneAndroid:YatuAab": "cd app && fastlane android genYatuAab",
+    "fastlaneAndroid:YatuApk": "cd app && fastlane android genYatuApk",
+    "fastlaneAndroid:YatuLiteApk": "cd app && fastlane android genYatuLiteApk",
+    "fastlaneAndroid:YatuViewerApk": "cd app && fastlane android genYatuViewerApk",
     "fastlaneAndroid:PushToPlayStore": "cd app && fastlane android pushToPlayStore",
     "fastlaneIos:genIpa": "cd app && fastlane ios genIpa",
-    "fastlaneIos:pushToTestFlight": "cd app && fastlane ios pushToTestFlight"
+    "fastlaneIos:pushToTestFlight": "cd app && fastlane ios pushToTestFlight",
+    "fastlaneIos:testCommand": "cd app && fastlane android testCommand"
   },
   "dependencies": {
     "@react-native-async-storage/async-storage": "^1.19.1",

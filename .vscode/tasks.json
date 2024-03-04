@@ -10,13 +10,6 @@
     },
     {
       "type": "npm",
-      "script": "start",
-      "problemMatcher": [],
-      "label": "yarn: React Native",
-      "detail": "react-native start"
-    },
-    {
-      "type": "npm",
       "script": "ios",
       "problemMatcher": [],
       "label": "yarn: ios",
@@ -46,44 +39,23 @@
     },
     {
       "type": "npm",
-      "script": "fastlaneAndroid:DeveloperAab",
-      "problemMatcher": [],
-      "label": "npm: fastlaneAndroid:DeveloperAab",
-      "detail": "cd app && fastlane android genDevAab"
-    },
-    {
-      "type": "npm",
       "script": "fastlaneIos:pushToTestFlight",
       "problemMatcher": [],
       "label": "npm: fastlaneIos:pushToTestFlight",
       "detail": "cd app && fastlane ios pushToTestFlight"
     },
     {
-      "label": "node: Current File",
-      "type": "shell",
-      "command": "node ${file} | pbcopy",
-      "problemMatcher": []
+      "type": "npm",
+      "script": "fastlaneIos:testCommand",
+      "problemMatcher": [],
+      "label": "npm: fastlaneIos:testCommand",
+      "detail": "cd app && fastlane android testCommand"
     },
     {
-      "type": "npm",
-      "script": "fastlaneAndroid:YatuLite",
-      "problemMatcher": [],
-      "label": "npm: fastlaneAndroid:YatuLite",
-      "detail": "cd app && fastlane android genYatuLiteApk"
-    },
-    {
-      "type": "npm",
-      "script": "fastlaneAndroid:YatuViewer",
-      "problemMatcher": [],
-      "label": "npm: fastlaneAndroid:YatuViewer",
-      "detail": "cd app && fastlane android genYatuViewerApk"
-    },
-    {
-      "type": "npm",
-      "script": "fastlaneAndroid:Yatu",
-      "problemMatcher": [],
-      "label": "npm: fastlaneAndroid:Yatu",
-      "detail": "cd app && fastlane android genYatuApk"
+        "label": "Change Startup App",
+        "type": "shell",
+        "command": "bash ~/Documents/ReactNative/YatuDashboard/app/fastlane/script/change_app.sh 0 ./app/index.js",
+        "problemMatcher": []
     }
   ]
 }

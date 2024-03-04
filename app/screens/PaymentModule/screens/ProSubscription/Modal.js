@@ -191,7 +191,7 @@ function Index(props) {
                     const { data: { StoreCode } } = x;
                     return {
                         ...x,
-                        ...subPriceDict[StoreCode]
+                        ...subPriceDict[StoreCode],
                     }
                 });
     

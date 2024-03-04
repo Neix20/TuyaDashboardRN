@@ -6,32 +6,8 @@ function Index(val = []) {
     const [data, setData] = useState(val);
     const [img, setImg] = useState({ uri: "https://i.imgur.com/lwNqBtJ.png" });
 
-    /* Input:
-        {
-            "key": "1 Month",
-            "title": "1 Month",
-            "showBtn": true,
-            "detail": [
-                {
-                    "title": "Real-Time Data Analysis",
-                    "description": "Data sync across linked devices for real-time analysis.",
-                    "icon": "DataAnalysis",
-                    "showInfo": false,
-                    "info": ""
-                }
-            ],
-            "data": {
-                "Code": "MSPP0100",
-                "Price": 39.99,
-                "TypeCode": "MSP_PP",
-                "DurationTypeCode": "DT_MM",
-                "Status": 1,
-                "Image": "https://i.imgur.com/duGvnXn.png",
-                "StoreCode": "com.subscription.mspp0100"
-            }
-        } 
-     */
-
+    // Input: { "key": "1 Month", "title": "1 Month", "showBtn": true, "detail": [ { "title": "Real-Time Data Analysis", "description": "Data sync across linked devices for real-time analysis.", "icon": "DataAnalysis", "showInfo": false, "info": "" } ], "data": { "Code": "MSPP0100", "Price": 39.99, "TypeCode": "MSP_PP", "DurationTypeCode": "DT_MM", "Status": 1, "Image": "https://i.imgur.com/duGvnXn.png", "StoreCode": "com.subscription.mspp0100" } }
+    // TODO: Dont Use UseEffect
     useEffect(() => {
         if (data.length > 0) {
             let arr = [...data];
@@ -66,33 +42,7 @@ function Index(val = []) {
         }
     }, [data]);
 
-    /* Output:
-        {
-            "1 Month": {
-                "key": "1 Month",
-                "title": "1 Month",
-                "showBtn": true,
-                "detail": [
-                    {
-                        "title": "Real-Time Data Analysis",
-                        "description": "Data sync across linked devices for real-time analysis.",
-                        "icon": "DataAnalysis",
-                        "showInfo": false,
-                        "info": ""
-                    }
-                ],
-                "data": {
-                    "Code": "MSPP0100",
-                    "Price": 39.99,
-                    "TypeCode": "MSP_PP",
-                    "DurationTypeCode": "DT_MM",
-                    "Status": 1,
-                    "Image": { uri: "https://i.imgur.com/duGvnXn.png" },
-                    "StoreCode": "com.subscription.mspp0100"
-                }
-            }
-        }
-     */
+    // Output: { "1 Month": { "key": "1 Month", "title": "1 Month", "showBtn": true, "detail": [ { "title": "Real-Time Data Analysis", "description": "Data sync across linked devices for real-time analysis.", "icon": "DataAnalysis", "showInfo": false, "info": "" } ], "data": { "Code": "MSPP0100", "Price": 39.99, "TypeCode": "MSP_PP", "DurationTypeCode": "DT_MM", "Status": 1, "Image": { uri: "https://i.imgur.com/duGvnXn.png" }, "StoreCode": "com.subscription.mspp0100" } } }
 
     const key = Object.keys(dict);
 
