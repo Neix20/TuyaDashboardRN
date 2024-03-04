@@ -17,8 +17,6 @@ import { Logger, Utility } from "@utility";
 import { ChartSvg } from "@config";
 import { TariffChartData } from "./data";
 
-import { ConvertNormalToTariff } from "./utils";
-
 // Register extensions
 echarts.use([
 	SVGRenderer,
@@ -116,7 +114,7 @@ function Index(props) {
 	}, [chartKey]);
 
 	useEffect(() => {
-		const res = ConvertNormalToTariff(dataset, 16.8);
+		const res = Utility.ConvertNormalToTariff(dataset, 16.8);
 		setTariffData(_ => res);
 	}, [])
 

@@ -477,6 +477,12 @@ function formatTs(num) {
 	return "";
 }
 
+import { ConvertNormalToTariff } from "./tariff";
+
+export {
+	ConvertNormalToTariff
+}
+
 export {
 	checkAppVersion,
 	OneSignalSubscribe
