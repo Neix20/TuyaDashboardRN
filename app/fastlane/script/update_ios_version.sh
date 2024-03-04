@@ -1,7 +1,8 @@
 #!/bin/bash
 
-file_path=$1
+IOS_PATH=$1
 
+#region Utilities
 convert_ver_to_num() {
     local version=$1
     local major=$(echo "$version" | cut -d '.' -f1)
@@ -17,16 +18,17 @@ convert_num_to_ver() {
     local patch=$(( $1 % 100 ))
     echo "$major.$minor.$patch"
 }
+#endregion
 
 # Use grep to extract the version code
-version_code=$(grep -Ezo '<key>CFBundleShortVersionString<\/key>\n\s+<string>(.*?)<\/string>' $file_path | grep -Eo '<string>.*?</string>' | sed -E 's/<string>//' | sed -E 's/<\/string>//')
+ios_version_code=$(grep -Ezo '<key>CFBundleShortVersionString<\/key>\n\s+<string>(.*?)<\/string>' $IOS_PATH | grep -Eo '<string>.*?</string>' | sed -E 's/<string>//' | sed -E 's/<\/string>//')
 
 # Get Last
-new_version_code=$(convert_ver_to_num $version_code)
-new_version_code=$((new_version_code + 1))
-new_version_code=$(convert_num_to_ver $new_version_code)
+new_ios_version_code=$(convert_ver_to_num $ios_version_code)
+new_ios_version_code=$((new_ios_version_code + 1))
+new_ios_version_code=$(convert_num_to_ver $new_ios_version_code)
 
-sed -i '' "s/${version_code}/${new_version_code}/g" $file_path
+sed -i '' "s/${ios_version_code}/${new_ios_version_code}/g" $IOS_PATH
 
 echo "Replacement successful."
 

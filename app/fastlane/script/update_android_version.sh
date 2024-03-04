@@ -1,13 +1,13 @@
 #!/bin/bash
 
-file_path=$1
+ANDROID_PATH=$1
 
 # Use grep to extract the version code
-version_code=$(grep -Eo "versionCode [0-9]+" $file_path | sed -E 's/versionCode //' | head -n 1)
+android_version_code=$(grep -Eo "versionCode [0-9]+" $ANDROID_PATH | sed -E 's/versionCode //' | head -n 1)
 
 # Update New Version Code
-new_version_code=$((version_code + 1))
+new_android_version_code=$((android_version_code + 1))
 
-sed -i '' "s/${version_code}/${new_version_code}/g" $file_path
+sed -i '' "s/${android_version_code}/${new_android_version_code}/g" $ANDROID_PATH
 
 echo "Replacement successful."
