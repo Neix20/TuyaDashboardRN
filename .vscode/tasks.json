@@ -45,17 +45,73 @@
       "detail": "cd app && fastlane ios pushToTestFlight"
     },
     {
-      "type": "npm",
-      "script": "fastlaneIos:testCommand",
-      "problemMatcher": [],
-      "label": "npm: fastlaneIos:testCommand",
-      "detail": "cd app && fastlane android testCommand"
+      "label": "Change To Yatu Pro",
+      "type": "shell",
+      "command": "bash ~/Documents/ReactNative/YatuDashboard/app/fastlane/script/change_app.sh 0 ./app/index.js",
+      "problemMatcher": []
     },
     {
-        "label": "Change Startup App",
-        "type": "shell",
-        "command": "bash ~/Documents/ReactNative/YatuDashboard/app/fastlane/script/change_app.sh 0 ./app/index.js",
-        "problemMatcher": []
+      "label": "Change To Yatu Lite",
+      "type": "shell",
+      "command": "bash ~/Documents/ReactNative/YatuDashboard/app/fastlane/script/change_app.sh 1 ./app/index.js",
+      "problemMatcher": []
+    },
+    {
+      "label": "Change To Yatu Viewer",
+      "type": "shell",
+      "command": "bash ~/Documents/ReactNative/YatuDashboard/app/fastlane/script/change_app.sh 2 ./app/index.js",
+      "problemMatcher": []
+    },
+    {
+      "type": "npm",
+      "script": "fastlaneAndroid:YatuAab",
+      "problemMatcher": [],
+      "label": "npm: fastlaneAndroid:YatuAab",
+      "detail": "cd app && fastlane android genYatuAab",
+      "group": "build"
+    },
+    {
+      "type": "npm",
+      "script": "fastlaneAndroid:YatuApk",
+      "problemMatcher": [],
+      "label": "npm: fastlaneAndroid:YatuApk",
+      "detail": "cd app && fastlane android genYatuApk",
+      "group": "build"
+    },
+    {
+      "type": "npm",
+      "script": "fastlaneAndroid:YatuViewerApk",
+      "problemMatcher": [],
+      "label": "npm: fastlaneAndroid:YatuViewerApk",
+      "detail": "cd app && fastlane android genYatuViewerApk",
+      "group": "build"
+    },
+    {
+      "type": "npm",
+      "script": "fastlaneAndroid:YatuLiteApk",
+      "problemMatcher": [],
+      "label": "npm: fastlaneAndroid:YatuLiteApk",
+      "detail": "cd app && fastlane android genYatuLiteApk",
+      "group": "build"
+    },
+    {
+      "type": "npm",
+      "script": "fastlaneAndroid:YatuLiteAab",
+      "problemMatcher": [],
+      "label": "npm: fastlaneAndroid:YatuLiteAab",
+      "detail": "cd app && fastlane android genYatuLiteAab",
+      "group": "build"
+    },
+    {
+      "type": "npm",
+      "script": "fastlaneAndroid:YatuViewerAab",
+      "problemMatcher": [],
+      "label": "npm: fastlaneAndroid:YatuViewerAab",
+      "detail": "cd app && fastlane android genYatuViewerAab",
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      }
     }
   ]
 }

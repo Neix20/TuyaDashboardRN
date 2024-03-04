@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 
 import { DateTime } from "luxon";
 
+import { ConvertNormalToTariff } from "./utils";
+
 const genDataset = (data = {}) => {
 
     let res = [];
@@ -77,7 +79,7 @@ function Index(default_key) {
         const _dataset = chartDataset.map(x => ({ name: x.name, data: x[val] }));
         const next_state = {
             ...chart,
-            dataset: _dataset
+            dataset: _dataset,
         }
         setChart(_ => next_state);
     }

@@ -17,6 +17,8 @@ import { Logger, Utility } from "@utility";
 import { ChartSvg } from "@config";
 import { TariffChartData } from "./data";
 
+import { ConvertNormalToTariff } from "./utils";
+
 // Register extensions
 echarts.use([
 	SVGRenderer,
@@ -99,6 +101,8 @@ function Index(props) {
 
 	const [toolTip, setToolTip, toggleToolTip] = useToggle(true);
 	const [tariff, setTariff, toggleTariff] = useToggle(false);
+
+	const [tariffData, setTariffData] = useState([]);
 	// #endregion
 
 	const optDataSet = dataset.map(x => ({ ...x, type: "bar" }));
@@ -111,7 +115,12 @@ function Index(props) {
 		setUnit(_ => ut);
 	}, [chartKey]);
 
-	const test = () => {
+	useEffect(() => {
+		const res = ConvertNormalToTariff(dataset, 16.8);
+		setTariffData(_ => res);
+	}, [])
+
+	const showTnB = () => {
 		toggleTariff();
 	}
 
@@ -127,7 +136,7 @@ function Index(props) {
 						borderColor: trfColor
 					},
 					icon: `path://${ChartSvg["tariff"]}`,
-					onclick: test,
+					onclick: showTnB,
 				},
 				myToggleToolTip: {
 					show: true,
@@ -220,7 +229,7 @@ function Index(props) {
 	if (tariff) {
 		option = {
 			...option,
-			...TariffChartData
+			series: tariffData
 		}
 	}
 

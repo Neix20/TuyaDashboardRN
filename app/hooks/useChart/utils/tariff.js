@@ -196,33 +196,6 @@ function ConvertNormalToTariff(arr, m_rate) {
     return sortedArr;
 }
 
-const rate = {
-    residential: 21.8,
-    commercial: 43.5,
-    industrial: 38
+export {
+    ConvertNormalToTariff
 }
-
-const m_rate = rate.commercial;
-
-let series = [
-    {
-        "name": "B8 Study LG Monitor Smart Plug",
-        "data": [0.3, 0.66, 0.84, 1.24, 0.46, 0, 1.01]
-    },
-    {
-        "name": "LF upstairs blue delonghi dehumidifier",
-        "data": [6.65, 7.59, 7.36, 7.56, 7.41, 7.67, 0]
-    }
-];
-
-series = ConvertNormalToTariff(series, m_rate);
-
-const option = {
-    xAxis: {
-        type: "category",
-        data: ["01-18", "01-19", "01-20", "01-21", "01-22", "01-23", "01-24"]
-    },
-    yAxis: { type: "value" },
-    series
-};
-console.log(`option = ${JSON.stringify(option, null, 4)}`);

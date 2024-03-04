@@ -29,6 +29,7 @@ platform :android do
     desc "Build Yatu AAB"
     lane :genYatuAab do 
         sh("script/change_app.sh", "0", "./../../app/index.js")
+
         gradle(
             task: "clean", 
             project_dir: './../android'
@@ -50,6 +51,7 @@ platform :android do
     desc "Build Yatu Lite AAB"
     lane :genYatuLiteAab do 
         sh("script/change_app.sh", "1", "./../../app/index.js")
+
         gradle(
             task: "clean", 
             project_dir: './../android'
@@ -71,6 +73,7 @@ platform :android do
     desc "Build Yatu Viewer AAB"
     lane :genYatuViewerAab do 
         sh("script/change_app.sh", "2", "./../../app/index.js")
+
         gradle(
             task: "clean", 
             project_dir: './../android'
@@ -126,14 +129,13 @@ platform :android do
     desc "Release for the Android production"
     lane :pushToPlayStore do
 
-        # android_set_version_code(gradle_file: "./../android/app/build.gradle")
-        # version_name = android_get_version_code(gradle_file: "./../android/app/build.gradle")
-        # android_set_version_name(version_name: version_name, gradle_file: "./../android/app/build.gradle")
+        sh("script/change_app.sh", "0", "./../../app/index.js") 
 
         gradle(
             task: "clean", 
             project_dir: './../android'
         )
+
         gradle(
             task: 'bundle', 
             flavor: "Yatu",
@@ -152,7 +154,6 @@ platform :android do
     desc "Test command"
     lane :testCommand do
         sh("script/change_app.sh", "1", "./../../app/index.js")
+        sh("script/update_android_version.sh", "./../../android/app/build.gradle")
     end
-
-    
 end
