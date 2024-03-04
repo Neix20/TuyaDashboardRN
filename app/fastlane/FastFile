@@ -11,9 +11,9 @@ platform :ios do
     end
 
     lane :pushToTestFlight do
-        ios_set_build_number(xcodeproj: "./../ios/YatuDashboard.xcodeproj")
-        version_name = ios_get_build_number(xcodeproj: "./../ios/YatuDashboard.xcodeproj")
-        ios_set_version(version: version_name, xcodeproj: "./../ios/YatuDashboard.xcodeproj")
+        # ios_set_build_number(xcodeproj: "./../ios/YatuDashboard.xcodeproj")
+        # version_name = ios_get_build_number(xcodeproj: "./../ios/YatuDashboard.xcodeproj")
+        # ios_set_version(version: version_name, xcodeproj: "./../ios/YatuDashboard.xcodeproj")
 
         build_app(scheme: "YatuDashboard", workspace: "./../ios/YatuDashboard.xcworkspace", include_bitcode: true)
 
@@ -26,9 +26,9 @@ platform :ios do
 end
   
 platform :android do 
-
     desc "Build Yatu AAB"
     lane :genYatuAab do 
+        sh("script/change_app.sh", "0", "./../../app/index.js")
         gradle(
             task: "clean", 
             project_dir: './../android'
@@ -49,6 +49,7 @@ platform :android do
 
     desc "Build Yatu Lite AAB"
     lane :genYatuLiteAab do 
+        sh("script/change_app.sh", "1", "./../../app/index.js")
         gradle(
             task: "clean", 
             project_dir: './../android'
@@ -59,9 +60,9 @@ platform :android do
             build_type: "release",
             project_dir: './../android', 
             properties: {
-                "android.injected.signing.store.file" => ENV['PWD'] + "/../android/app/yatu.jks",
+                "android.injected.signing.store.file" => ENV['PWD'] + "/../android/app/yatuLite.jks",
                 "android.injected.signing.store.password" => "vt8888",
-                "android.injected.signing.key.alias" => "yatu",
+                "android.injected.signing.key.alias" => "yatuLite",
                 "android.injected.signing.key.password" => "vt8888"
             }
         )
@@ -69,6 +70,7 @@ platform :android do
 
     desc "Build Yatu Viewer AAB"
     lane :genYatuViewerAab do 
+        sh("script/change_app.sh", "2", "./../../app/index.js")
         gradle(
             task: "clean", 
             project_dir: './../android'
@@ -80,9 +82,9 @@ platform :android do
             build_type: "release",
             project_dir: './../android', 
             properties: {
-                "android.injected.signing.store.file" => ENV['PWD'] + "/../android/app/yatu.jks",
+                "android.injected.signing.store.file" => ENV['PWD'] + "/../android/app/yatuViewer.jks",
                 "android.injected.signing.store.password" => "vt8888",
-                "android.injected.signing.key.alias" => "yatu",
+                "android.injected.signing.key.alias" => "yatuViewer",
                 "android.injected.signing.key.password" => "vt8888"
             }
         )
@@ -90,6 +92,7 @@ platform :android do
 
     desc "Build Yatu APK"
     lane :genYatuApk do 
+        sh("script/change_app.sh", "0", "./../../app/index.js")
         gradle(
             task: "assemble",
             flavor: "Yatu",
@@ -100,6 +103,7 @@ platform :android do
 
     desc "Build Yatu Lite APK"
     lane :genYatuLiteApk do 
+        sh("script/change_app.sh", "1", "./../../app/index.js")
         gradle(
             task: "assemble",
             flavor: "YatuLite",
@@ -109,7 +113,8 @@ platform :android do
     end
 
     desc "Build Yatu Viewer APK"
-    lane :genYatuViewerApk do 
+    lane :genYatuViewerApk do
+        sh("script/change_app.sh", "2", "./../../app/index.js") 
         gradle(
             task: "assemble",
             flavor: "YatuViewer",
@@ -121,9 +126,9 @@ platform :android do
     desc "Release for the Android production"
     lane :pushToPlayStore do
 
-        android_set_version_code(gradle_file: "./../android/app/build.gradle")
-        version_name = android_get_version_code(gradle_file: "./../android/app/build.gradle")
-        android_set_version_name(version_name: version_name, gradle_file: "./../android/app/build.gradle")
+        # android_set_version_code(gradle_file: "./../android/app/build.gradle")
+        # version_name = android_get_version_code(gradle_file: "./../android/app/build.gradle")
+        # android_set_version_name(version_name: version_name, gradle_file: "./../android/app/build.gradle")
 
         gradle(
             task: "clean", 
