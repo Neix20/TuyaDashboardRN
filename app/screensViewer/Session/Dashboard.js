@@ -14,7 +14,7 @@ import { BcDateRange, BcViewShot, BcApacheChartFull, BcDataAttribute, BcApacheBa
 
 import { DateTime } from "luxon";
 
-import { fetchDashboardInfoByProfileWorkspace, fetchReportDataByProfileWorkspace, fetchDeviceDistributionByProfileWorkspace } from "@api";
+import { fetchDashboardInfoByProfileWorkspace, fetchReportDataByProfileWorkspace, fetchDeviceDistributionByProfileWorkspace, fetchGetDashboardInfoByYatuSession } from "@api";
 import { useDate, useToggle, useOrientation, useProfileWs } from "@hooks";
 import { useEChart, useBarChart, useDevDistChart, useTimer } from "@hooks";
 
@@ -44,11 +44,12 @@ function Header(props) {
                     height: 60,
                     backgroundColor: "#fff",
                 }}>
-                <HStack alignItems={"center"} justifyContent={"flex-end"} style={{ width: "90%" }}>
-                    <View bgColor={require("@utility").Utility.getColor()} alignItems={"center"} justifyContent={"center"}
+                <HStack alignItems={"center"} justifyContent={"flex-start"} style={{ width: "90%" }}>
+                    <BcSvgIcon name={"Yatu"} size={80} color={Utility.getColor()} />
+                    {/* <View bgColor={Utility.getColor()} alignItems={"center"} justifyContent={"center"}
                         style={{ width: "40%", height: 48, borderRadius: 12 }}>
                         <Text style={style.timer}>{Utility.formatTsTimer(timer)}</Text>
-                    </View>
+                    </View> */}
                 </HStack>
             </View>
         </BcBoxShadow>
@@ -504,7 +505,7 @@ function Index(props) {
 
     // #region Redux
     const viewerSession = useSelector(Selectors.viewerSessionSelect);
-    const { User_Id: userId, ViewerProfileWorkspaceId: prwsId, SessionExpiryDate: expiryDt = 100 } = viewerSession;
+    const { User_Id: userId, YatuSessionId: prwsId, SessionExpiryDate: expiryDt = 100 } = viewerSession;
     // #endregion
 
     // #region Initial
@@ -570,10 +571,10 @@ function Index(props) {
     // #region API
     const DashboardInfo = () => {
         setLoading(true);
-        fetchDashboardInfoByProfileWorkspace({
+        fetchGetDashboardInfoByYatuSession({
             param: {
                 UserId: userId,
-                ProfileWorkspaceId: prwsId,
+                YatuSessionId: prwsId,
                 StartDate: startDt,
                 EndDate: `${endDt} 23:59:59`
             },

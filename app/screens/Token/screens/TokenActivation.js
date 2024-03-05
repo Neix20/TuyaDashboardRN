@@ -233,7 +233,7 @@ function HeaderRightDiv(props) {
         <HStack alignItems={"flex-end"} space={2}>
             <InfoIcon />
             <TouchableOpacity onPress={GoToScanQr}>
-                <View borderRadius={20} bgColor={require("@utility").Utility.getColor()}
+                <View borderRadius={20} bgColor={Utility.getColor()}
                     alignItems={"center"} justifyContent={"center"}
                     style={{ height: 40, width: 40 }}>
                     <BcSvgIcon name={"QrScan"} size={24} color={"#FFF"} />

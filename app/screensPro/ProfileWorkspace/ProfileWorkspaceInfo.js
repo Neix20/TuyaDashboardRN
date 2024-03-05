@@ -205,7 +205,7 @@ function Body(props) {
 function HeaderAddBtn(props) {
     return (
         <View borderRadius={20}
-            bgColor={require("@utility").Utility.getColor()}
+            bgColor={Utility.getColor()}
             alignItems={"center"} justifyContent={"center"}
             style={{ width: 32, height: 32 }}>
             <FontAwesome name={"plus"} size={16} color={"#FFF"} />

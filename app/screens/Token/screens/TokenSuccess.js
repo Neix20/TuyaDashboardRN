@@ -106,7 +106,7 @@ function RedeemedToken(props) {
 
 function Header(props) {
     const { children } = props;
-    const { color = require("@utility").Utility.getColor(), txtColor = "#000", bgColor = "#FFF" } = props;
+    const { color = Utility.getColor(), txtColor = "#000", bgColor = "#FFF" } = props;
 
     const navigation = useNavigation();
 

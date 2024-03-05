@@ -112,7 +112,7 @@ function LoginBtn(props) {
     const { flag = true, onPress = () => { } } = props;
 
     const Item = () => (
-        <View backgroundColor={require("@utility").Utility.getColor()}
+        <View backgroundColor={Utility.getColor()}
             alignItems={"center"} justifyContent={"center"}
             style={{ height: 50 }}>
             <Text style={[{
@@ -906,8 +906,8 @@ function Index(props) {
                                 style={{ height: "80%" }}>
                                 {/* Logo Header */}
                                 <View alignItems={"center"}>
-                                    <Image source={Images.YatuProLogo} resizeMode={"contain"} style={{ height: 160, width: 160, borderRadius: 20 }} />
-                                    {/* <Image source={Images.YatuLiteLogo} resizeMode={"contain"} style={{ height: 160, width: 160, borderRadius: 20 }} /> */}
+                                    {/* <Image source={Images.YatuProLogo} resizeMode={"contain"} style={{ height: 160, width: 160, borderRadius: 20 }} /> */}
+                                    <Image source={Images.YatuLiteLogo} resizeMode={"contain"} style={{ height: 160, width: 160, borderRadius: 20 }} />
                                     {/* <Image source={Images.YatuViewerLogo} resizeMode={"contain"} style={{ height: 160, width: 160, borderRadius: 20 }} /> */}
                                 </View>
 
@@ -916,23 +916,12 @@ function Index(props) {
                                 <VStack width={"100%"} space={5} alignItems={"center"}>
                                     <TouchableOpacity onPress={toggleExLoginModal}
                                         style={{ width: "80%", height: 48 }}>
-                                        <View flex={1} alignItems={"center"} justifyContent={"center"} bgColor={"#fb7304"}>
+                                        <View flex={1} alignItems={"center"} justifyContent={"center"} bgColor={Utility.getColor()}>
                                             <Text style={{
                                                 fontFamily: "Roboto-Bold",
                                                 fontSize: 16,
                                                 color: "#FFF"
                                             }}>Login</Text>
-                                        </View>
-                                    </TouchableOpacity>
-
-                                    <TouchableOpacity onPress={toggleViewerModal} style={{ width: "80%", height: 48 }}>
-                                        <View flex={1} backgroundColor={"#F00"}
-                                            alignItems={"center"} justifyContent={"center"}>
-                                            <Text style={{
-                                                fontSize: 14,
-                                                fontWeight: "bold",
-                                                color: "#FFF",
-                                            }}>Viewer</Text>
                                         </View>
                                     </TouchableOpacity>
                                 </VStack>

@@ -479,7 +479,7 @@ function Index(props) {
                                         <HStack space={5}
                                             alignItems={"center"} justifyContent={"center"}>
                                             <TouchableOpacity onPress={register}>
-                                                <View backgroundColor={require("@utility").Utility.getColor()} borderRadius={12}
+                                                <View backgroundColor={Utility.getColor()} borderRadius={12}
                                                     alignItems={"center"} justifyContent={"center"}
                                                     style={{ height: 60, width: 130 }}>
                                                     <Text style={[{

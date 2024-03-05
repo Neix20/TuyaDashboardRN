@@ -100,7 +100,7 @@ function HeaderRight() {
     return (
         <Text style={{
             fontSize: 20,
-            color: require("@utility").Utility.getColor()
+            color: Utility.getColor()
         }}>Save</Text>
     )
 }

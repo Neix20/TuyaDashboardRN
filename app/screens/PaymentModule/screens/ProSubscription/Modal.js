@@ -115,7 +115,7 @@ function Logo(props) {
                     <Text style={style.txt}>Get on top of devices data</Text>
                     <HStack space={1} alignItems={"center"}>
                         <Text style={style.titleTxt}>Subscribe</Text>
-                        <Text style={{ ...style.titleTxt, color: require("@utility").Utility.getColor() }}>Yatu Plan</Text>
+                        <Text style={{ ...style.titleTxt, color: Utility.getColor() }}>Yatu Plan</Text>
                     </HStack>
                 </VStack>
             </HStack>
@@ -155,7 +155,7 @@ function Index(props) {
     const userId = useSelector(Selectors.userIdSelect);
     
     const colors = {
-        activeColor: require("@utility").Utility.getColor(),
+        activeColor: Utility.getColor(),
         inActiveColor: "#FFF",
     }
 

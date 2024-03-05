@@ -57,7 +57,7 @@ function ProfilePremium(props) {
                 term: "Free"
             },
             2: {
-                color: require("@utility").Utility.getColor(),
+                color: Utility.getColor(),
                 term: "Free"
             },
             3: {
@@ -430,7 +430,7 @@ function LogoutPanel(props) {
             <VStack bgColor={"#FFF"} borderRadius={8} width={"90%"} alignItems={"center"}>
                 <PanelBtn onPress={toggleLgModal} title={"Log Out"}
                     Btn={MaterialIcons} icon={"logout"}
-                    color={require("@utility").Utility.getColor()} showRight={false} />
+                    color={Utility.getColor()} showRight={false} />
             </VStack>
         </>
     )
@@ -636,7 +636,7 @@ function Index(props) {
                             <Text style={{
                                 fontFamily: "Roboto-Medium",
                                 fontSize: 16,
-                                color: require("@utility").Utility.getColor()
+                                color: Utility.getColor()
                             }}>v{clsConst.LITE_APP_VERSION}</Text>
                             <Text style={{
                                 fontFamily: "Roboto-Medium",

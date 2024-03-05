@@ -315,18 +315,18 @@ function Header(props) {
                     style={{ width: "90%" }}>
 
                     {/* Logo */}
-                    <BcSvgIcon name={"Yatu"} size={80} color={require("@utility").Utility.getColor()} />
+                    <BcSvgIcon name={"Yatu"} size={80} color={Utility.getColor()} />
 
                     {
                         (flag) ? (
                             <TouchableOpacity onPress={onSelectAdd}>
                                 {/* <View borderRadius={20}
-                                    bgColor={require("@utility").Utility.getColor()}
+                                    bgColor={Utility.getColor()}
                                     alignItems={"center"} justifyContent={"center"}
                                     style={{ width: 32, height: 32 }}>
                                     <FontAwesome name={"plus"} size={16} color={"#FFF"} />
                                 </View> */}
-                                <View borderRadius={20} px={3} bgColor={require("@utility").Utility.getColor()}>
+                                <View borderRadius={20} px={3} bgColor={Utility.getColor()}>
                                     <Text style={style.title}>Sync Now</Text>
                                 </View>
                             </TouchableOpacity>

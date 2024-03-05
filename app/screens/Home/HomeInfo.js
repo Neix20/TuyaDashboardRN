@@ -58,7 +58,7 @@ function Header(props) {
                         top: -19,
                         zIndex: 1,
                     }}>
-                    <FontAwesome5 name={"chevron-left"} size={20} color={require("@utility").Utility.getColor()} />
+                    <FontAwesome5 name={"chevron-left"} size={20} color={Utility.getColor()} />
                 </TouchableOpacity>
 
                 <View style={{
@@ -81,7 +81,7 @@ function Header(props) {
                         <TouchableOpacity>
                             <Text style={{
                                 fontSize: 20,
-                                color: require("@utility").Utility.getColor()
+                                color: Utility.getColor()
                             }}>Save</Text>
                         </TouchableOpacity>
                     ) : (
@@ -173,7 +173,7 @@ function AddRoom(props) {
                 <View width={"90%"}>
                     <Text style={{
                         fontSize: 16,
-                        color: require("@utility").Utility.getColor(),
+                        color: Utility.getColor(),
                         fontFamily: "Roboto-Medium",
                     }}>Add Room</Text>
                 </View>

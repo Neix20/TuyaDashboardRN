@@ -85,7 +85,7 @@ function Index(props) {
             tabBar={props => <MyTabBar {...props} />}
             screenOptions={{
                 headerShown: false,
-                tabBarActiveTintColor: require("@utility").Utility.getColor(),
+                tabBarActiveTintColor: Utility.getColor(),
                 tabBarInactiveTintColor: "#98A0A8"
             }}
             tabBarOptions={{ showLabel: false }}>

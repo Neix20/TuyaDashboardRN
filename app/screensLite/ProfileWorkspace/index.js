@@ -94,7 +94,7 @@ function Header(props) {
                     {/* Logo */}
                     <HStack alignItems={"center"} space={3}>
                         {/* <BcYatuHome /> */}
-                        <BcSvgIcon name={"YatuLite"} size={80} color={require("@utility").Utility.getColor()} />
+                        <BcSvgIcon name={"YatuLite"} size={80} color={Utility.getColor()} />
                         <BcUserStatus />
                     </HStack>
 
@@ -102,7 +102,7 @@ function Header(props) {
                         (flag) ? (
                             <TouchableOpacity onPress={onSelectAdd}>
                                 <View borderRadius={20}
-                                    bgColor={require("@utility").Utility.getColor()}
+                                    bgColor={Utility.getColor()}
                                     alignItems={"center"} justifyContent={"center"}
                                     style={{ width: 32, height: 32 }}>
                                     <FontAwesome name={"plus"} size={16} color={"#FFF"} />

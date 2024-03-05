@@ -52,7 +52,7 @@ function Index(props) {
                 <HStack space={3}>
                     <TouchableOpacity onPress={onPressYes}>
                         <HStack
-                            borderRadius={8} bgColor={require("@utility").Utility.getColor()}
+                            borderRadius={8} bgColor={Utility.getColor()}
                             alignItems={"center"} justifyContent={"center"}
                             style={{ width: 120, height: 40 }}>
                             <Text style={style.titleYes}>{titleYes}</Text>

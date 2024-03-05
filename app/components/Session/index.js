@@ -299,7 +299,7 @@ function Debug(props) {
         }
     };
 
-    const color = require("@utility").Utility.getColor();
+    const color = Utility.getColor();
 
     const navigation = useNavigation();
 

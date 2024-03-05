@@ -99,7 +99,7 @@ function LoadingItem(props) {
                 <Text style={{
                     fontFamily: "Roboto-Bold",
                     fontSize: 24,
-                    color: require("@utility").Utility.getColor()
+                    color: Utility.getColor()
                 }}>Loading ...</Text>
             </View>
         </View>
@@ -242,7 +242,7 @@ function WifiModal(props) {
 
                 {/* Submit */}
                 <TouchableOpacity onPress={onSubmit}>
-                    <View backgroundColor={require("@utility").Utility.getColor()}
+                    <View backgroundColor={Utility.getColor()}
                         borderRadius={15}
                         alignItems={"center"} justifyContent={"center"}
                         style={{ width: 120, height: 40 }}>
@@ -383,7 +383,7 @@ function AddDeviceModal(props) {
                     {/* Control */}
                     <HStack alignItems={"center"} space={5}>
                         <TouchableOpacity onPress={onAddDevice}>
-                            <View backgroundColor={require("@utility").Utility.getColor()}
+                            <View backgroundColor={Utility.getColor()}
                                 borderRadius={8}
                                 alignItems={"center"} justifyContent={"center"}
                                 style={{ width: 60, height: 40 }}>
@@ -452,7 +452,7 @@ function DevicePanelItem(props) {
 
                 {/* Button */}
                 <TouchableOpacity onPress={toggleAdModal}>
-                    <View backgroundColor={require("@utility").Utility.getColor()}
+                    <View backgroundColor={Utility.getColor()}
                         borderRadius={8}
                         alignItems={"center"}
                         justifyContent={"center"}

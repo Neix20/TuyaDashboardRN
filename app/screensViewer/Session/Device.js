@@ -21,11 +21,11 @@ import { fetchDeviceByUserII, fetchToggleFavoriteDevice, fetchLinkDeviceLite, fe
 import { useDispatch, useSelector } from 'react-redux';
 import { Actions, Selectors } from '@redux';
 
-import { useDeviceLs } from "./../Device/hooks";
+import { useDeviceLs } from "@screensLite/Device/hooks";
 import { useToggle, useTimer } from "@hooks";
 
 import Modal from "react-native-modal";
-import DeviceItem from "./../Device/DeviceItem";
+import DeviceItem from "@screensLite/Device/DeviceItem";
 
 // #region Tab Detail
 function TabDetailModalItem(props) {
@@ -144,11 +144,12 @@ function Header(props) {
                     height: 60,
                     backgroundColor: "#fff",
                 }}>
-                <HStack alignItems={"center"} justifyContent={"flex-end"} style={{ width: "90%" }}>
-                    <View bgColor={require("@utility").Utility.getColor()} alignItems={"center"} justifyContent={"center"}
+                <HStack alignItems={"center"} justifyContent={"flex-start"} style={{ width: "90%" }}>
+                <BcSvgIcon name={"Yatu"} size={80} color={Utility.getColor()} />
+                    {/* <View bgColor={Utility.getColor()} alignItems={"center"} justifyContent={"center"}
                         style={{ width: "40%", height: 48, borderRadius: 12 }}>
                         <Text style={style.timer}>{Utility.formatTsTimer(timer)}</Text>
-                    </View>
+                    </View> */}
                 </HStack>
             </View>
         </BcBoxShadow>
@@ -488,7 +489,7 @@ function Index(props) {
                                 {
                                     (deviceSession) ? (
                                         <TouchableOpacity onPress={toggleLdModal}>
-                                            <View borderRadius={20} px={3} py={1} bgColor={require("@utility").Utility.getColor()}>
+                                            <View borderRadius={20} px={3} py={1} bgColor={Utility.getColor()}>
                                                 <Text style={style.syncTitle}>{tutorial ? "Next" : "Sync Now"}</Text>
                                             </View>
                                         </TouchableOpacity>

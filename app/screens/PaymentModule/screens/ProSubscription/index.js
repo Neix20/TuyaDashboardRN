@@ -148,7 +148,7 @@ function Index(props) {
     const isFocused = useIsFocused();
 
     const colors = {
-        activeColor: require("@utility").Utility.getColor(),
+        activeColor: Utility.getColor(),
         inActiveColor: "#FFF",
     }
 

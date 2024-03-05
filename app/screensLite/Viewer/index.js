@@ -42,13 +42,13 @@ function Header(props) {
                     {/* Logo */}
                     <HStack alignItems={"center"} space={3}>
                         {/* <BcYatuHome /> */}
-                        <BcSvgIcon name={"YatuLite"} size={80} color={require("@utility").Utility.getColor()} />
+                        <BcSvgIcon name={"YatuLite"} size={80} color={Utility.getColor()} />
                     </HStack>
                     {
                         (flag) ? (
                             <TouchableOpacity onPress={onSelectAdd}>
                                 <View borderRadius={20}
-                                    bgColor={require("@utility").Utility.getColor()}
+                                    bgColor={Utility.getColor()}
                                     alignItems={"center"} justifyContent={"center"}
                                     style={{ width: 32, height: 32 }}>
                                     <FontAwesome name={"plus"} size={16} color={"#FFF"} />
@@ -107,7 +107,7 @@ function Body(props) {
 
                     {/* Activate Button */}
                     <TouchableOpacity onPress={onSubmit} style={{ width: "60%", height: 40 }}>
-                        <View flex={1} backgroundColor={require("@utility").Utility.getColor()}
+                        <View flex={1} backgroundColor={Utility.getColor()}
                             alignItems={"center"} justifyContent={"center"}>
                             <Text style={{
                                 fontSize: 14,

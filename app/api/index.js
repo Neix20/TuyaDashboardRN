@@ -120,6 +120,7 @@ import fetchToggleYatuSessionDevice from "./fetchToggleYatuSessionDevice";
 import fetchGetDeviceByYatuSession from "./fetchGetDeviceByYatuSession";
 import fetchGetDashboardInfoByYatuSession from "./fetchGetDashboardInfoByYatuSession";
 import fetchGetYatuSessionInfo from "./fetchGetYatuSessionInfo";
+import fetchRemoveYatuSession from "./fetchRemoveYatuSession";
 
 export {
     fetchGenerateViewerAccessCodeInf,
@@ -127,7 +128,8 @@ export {
     fetchToggleYatuSessionDevice,
     fetchGetDeviceByYatuSession,
     fetchGetDashboardInfoByYatuSession,
-    fetchGetYatuSessionInfo
+    fetchGetYatuSessionInfo,
+    fetchRemoveYatuSession
 }
 
 export {

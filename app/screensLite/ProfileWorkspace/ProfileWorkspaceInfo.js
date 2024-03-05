@@ -246,7 +246,7 @@ function TutorialBtn(props) {
     return (
         <View alignItems={"center"} style={style.main}>
             <TouchableOpacity onPress={completeTutorial} style={{ width: "50%", height: 40 }}>
-                <View flex={1} backgroundColor={require("@utility").Utility.getColor()} borderRadius={12}
+                <View flex={1} backgroundColor={Utility.getColor()} borderRadius={12}
                     alignItems={"center"} justifyContent={"center"}>
                     <Text style={style.btnTxt}>Complete Tutorial</Text>
                 </View>

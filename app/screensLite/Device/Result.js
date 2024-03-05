@@ -153,7 +153,7 @@ function Index(props) {
                     {/* Footer */}
                     <BcFooter>
                         <TouchableOpacity onPress={ActivateYatuPackage} style={{ width: "80%", height: "60%" }}>
-                            <View flex={1} backgroundColor={require("@utility").Utility.getColor()}
+                            <View flex={1} backgroundColor={Utility.getColor()}
                                 alignItems={"center"} justifyContent={"center"}>
                                 <Text style={{
                                     fontSize: 14,

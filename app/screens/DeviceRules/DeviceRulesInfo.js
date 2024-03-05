@@ -47,7 +47,7 @@ function Header(props) {
                         top: -19,
                         zIndex: 1,
                     }}>
-                    <FontAwesome5 name={"chevron-left"} size={20} color={require("@utility").Utility.getColor()} />
+                    <FontAwesome5 name={"chevron-left"} size={20} color={Utility.getColor()} />
                 </TouchableOpacity>
 
                 <View style={{
@@ -69,7 +69,7 @@ function Header(props) {
                     {
                         (AddDeviceRules == 1) ? (
                             <TouchableOpacity onPress={GoToAddDeviceRule}>
-                                <View borderRadius={16} bgColor={require("@utility").Utility.getColor()}
+                                <View borderRadius={16} bgColor={Utility.getColor()}
                                     alignItems={"center"} justifyContent={"center"}
                                     style={{ width: 32, height: 32 }}>
                                     <FontAwesome name={"plus"} size={16} color={"#FFF"} />

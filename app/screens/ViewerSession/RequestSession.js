@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Text, TouchableOpacity, Image, TextInput, SafeAreaView, ScrollView, FlatList } from "react-native";
+import { Text, TouchableOpacity, Image, TextInput, SafeAreaView, FlatList } from "react-native";
 import { View, VStack, HStack, useToast } from "native-base";
 
 import { useNavigation, useIsFocused } from "@react-navigation/native";
@@ -15,7 +15,7 @@ import { useToggle, useModalToast } from "@hooks";
 
 import { MasterUserDevice, MasterUserYatuSession as TestData, MasterUserDevice as TestMasterData } from "./data";
 
-import { fetchGetDeviceByYatuSession, fetchDeviceByUserII, fetchToggleYatuSessionDevice } from "@api";
+import { fetchGetDeviceByYatuSession, fetchToggleYatuSessionDevice, fetchRemoveYatuSession, fetchGetYatuSessionByMasterUser, fetchGenerateViewerAccessCodeInf } from "@api";
 
 import { useDispatch, useSelector } from 'react-redux';
 import { Actions, Selectors } from '@redux';
@@ -57,8 +57,9 @@ function useSessionDeviceLs() {
         for (let ind = 0; ind < arr.length; ind += 1) {
             const obj = {
                 ...arr[ind],
-                flag: arr[ind].Status == 1,
-                pos: ind
+                flag: arr[ind].SessionStatus == 1,
+                pos: ind,
+                img: { uri: arr[ind].DeviceImg }
             }
             arr[ind] = obj;
         }
@@ -152,7 +153,7 @@ import { CheckBox } from "@rneui/base";
 
 function SessionDeviceItem(props) {
 
-    const { TuyaId = "", flag } = props;
+    const { Title = "", flag } = props;
     const { onSelect = () => { } } = props;
 
     const style = {
@@ -169,7 +170,9 @@ function SessionDeviceItem(props) {
     return (
         <TouchableOpacity onPress={onSelect}>
             <HStack alignItems={"center"} justifyContent={"space-between"}>
-                <Text style={style.title}>{TuyaId}</Text>
+                <HStack space={2}>
+                    <Text style={style.title}>{Title}</Text>
+                </HStack>
                 <CheckBox
                     containerStyle={style.chkBox}
                     iconType={"material-community"}
@@ -217,23 +220,7 @@ function SessionModal(props) {
             onSetLoading: () => { }
         })
             .then(data => {
-                if (data.length <= 0) {
-                    fetchDeviceByUserII({
-                        param: {
-                            UserId: userId
-                        },
-                        onSetLoading: () => { }
-                    })
-                        .then(data_b => {
-                            data_b = data_b.map(x => ({ ...x, TuyaId: x.Title, DeviceId: x.Id }))
-                            setDevLs(data_b);
-                        })
-                        .catch(err_b => {
-                            console.error(err_b);
-                        })
-                } else {
-                    setDevLs(data);
-                }
+                setDevLs(data);
             })
             .catch(err => {
                 console.error(err);
@@ -253,7 +240,7 @@ function SessionModal(props) {
             param: {
                 UserId: userId,
                 YatuSessionId: Id,
-                DeviceLs: devLs.map(x => ({ Id: x.DeviceId, Status: x.flag }))
+                DeviceLs: devLs.map(x => ({ Id: x.Id, Status: x.flag }))
             },
             onSetLoading: () => { }
         })
@@ -310,23 +297,32 @@ function SessionUserItem(props) {
             fontFamily: "Roboto-Bold",
             fontSize: 14
         },
+        txtAccess: {
+            fontFamily: "Roboto-Bold",
+            fontSize: 14,
+            textAlign: "center"
+        },
         img: {
-            width: 40,
-            height: 40
+            width: 160,
+            height: 160
         }
     }
 
     return (
-        <BcBoxShadow>
-            <View bgColor={"#FFF"} alignItems={"center"}>
-                <HStack py={2} width={"90%"} justifyContent={"space-between"} alignItems={"center"}>
-                    <HStack space={3} alignItems={"center"}>
-                        <Image source={Images.person} style={style.img} />
-                        <Text style={style.title}>{Access_Code}</Text>
+        <BcBoxShadow style={{ width: "100%" }}>
+            <View flex={1} bgColor={"#FFF"} alignItems={"center"}>
+                <VStack py={2} width={"90%"} alignItems={"center"} space={3}>
+                    <Image source={Images.person} style={style.img} />
+                    <View width={"100%"}>
+                        <Text style={style.title}>Access Code</Text>
+                        <Text style={style.email}>{Access_Code}</Text>
+                    </View>
+                    <View width={"100%"}>
+                        <Text style={style.title}>Email</Text>
                         <Text style={style.email}>{Email}</Text>
-                    </HStack>
-                    <FontAwesome name={"angle-right"} size={32} />
-                </HStack>
+                    </View>
+                </VStack>
+
             </View>
         </BcBoxShadow>
     )
@@ -335,23 +331,26 @@ function SessionUserItem(props) {
 function SessionList(props) {
 
     const { data = [], loadingHook = [] } = props;
-
-    if (data.length == 0) {
-        return (
-            <EmptyList />
-        )
-    }
+    const { refreshHook = [] } = props;
 
     // #region Use State
     const toast = useToast();
+    const userId = useSelector(Selectors.userIdSelect);
 
     const [loading, setLoading, toggleLoading] = loadingHook;
+    const [refresh, setRefresh, toggleRefresh] = refreshHook;
 
     const [rdModal, setRdModal, toggleRdModal] = useToggle(false);
     const [sesModal, setSesModal, toggleSesModal] = useToggle(false);
 
     const [selUser, setSelUser] = useState({});
     // #endregion
+
+    if (data.length == 0) {
+        return (
+            <EmptyList />
+        )
+    }
 
     const renderItem = ({ item, index }) => {
 
@@ -365,20 +364,43 @@ function SessionList(props) {
             setSesModal(_ => true);
         }
 
+
         return (
-            <TouchableOpacity key={index} onLongPress={onRemoveUser} onPress={onSelectUser}>
+            <TouchableOpacity key={index} onLongPress={onRemoveUser} onPress={onSelectUser} style={{ flex: 1 }}>
                 <SessionUserItem {...item} />
             </TouchableOpacity>
         )
     };
 
     const RemoveUser = () => {
-        setRdModal(_ => false);
-        const { Email = "" } = selUser;
+        const { Id } = selUser;
 
-        toast.show({
-            description: "Email: " + Email
+        setLoading(true);
+        fetchRemoveYatuSession({
+            param: {
+                UserId: userId,
+                YatuSessionId: Id
+            },
+            onSetLoading: setLoading
         })
+            .then(data => {
+                setRdModal(_ => false);
+                toggleRefresh();
+            })
+            .catch(err => {
+                setLoading(false);
+                console.error(err);
+            })
+    }
+
+    const style = {
+        flatListContainer: {
+            flexDirection: "row",
+            flexWrap: "wrap",
+            justifyContent: "space-between",
+            rowGap: 8,
+            columnGap: 8,
+        }
     }
 
     return (
@@ -389,13 +411,16 @@ function SessionList(props) {
                 onPressYes={RemoveUser}
                 onPressNo={toggleRdModal}
                 description={"Are you sure you want to remove this user?"} />
-            <View flexGrow={1} py={3}>
+            <View flexGrow={1} py={3} alignItems={"center"}>
                 <FlatList
                     data={data}
                     renderItem={renderItem}
                     showsVerticalScrollIndicator={false}
                     ItemSeparatorComponent={<View style={{ height: 10 }} />}
-                    style={{ flex: 1 }}
+                    style={{ width: "90%", flex: 1 }}
+                    // contentContainerStyle={style.flatListContainer}
+                    numColumns={2}
+                    columnWrapperStyle={{ columnGap: 8 }}
                 />
             </View>
         </>
@@ -405,6 +430,10 @@ function SessionList(props) {
 function EmailModal(props) {
 
     const { showModal = false, setShowModal = () => { } } = props;
+    const { refreshHook = [] } = props;
+
+    const userId = useSelector(Selectors.userIdSelect);
+    const [refresh, setRefresh, toggleRefresh] = refreshHook;
 
     const style = {
 
@@ -427,6 +456,30 @@ function EmailModal(props) {
 
     const closeModal = () => setShowModal(_ => false);
 
+    const [email, setEmail] = useState("");
+
+    const emailFlag = email.length > 0;
+    const clearEmail = () => setEmail(_ => "");
+
+
+    const GenerateAccessCode = () => {
+        fetchGenerateViewerAccessCodeInf({
+            param: {
+                UserId: userId,
+                Email: email
+            },
+            onSetLoading: () => { }
+        })
+            .then(data => {
+                closeModal();
+                clearEmail();
+                toggleRefresh();
+            })
+            .catch(err => {
+                console.error(err);
+            })
+    }
+
     return (
 
         <BaseModal {...props}>
@@ -435,8 +488,9 @@ function EmailModal(props) {
                     <Text style={style.title}>Email</Text>
                     <View px={1} bgColor={"#EEF3F6"}>
                         <TextInput
+                            defaultValue={email}
+                            onChangeText={setEmail}
                             keyboardType={"email-address"}
-
                             autoCapitalize={"none"}
                             placeholder={"Email"}
                             multiline={true}
@@ -444,12 +498,25 @@ function EmailModal(props) {
                     </View>
                 </View>
 
-                <TouchableOpacity onPress={closeModal} style={{ width: "60%", height: 40 }}>
-                    <View flex={1} backgroundColor={"#F00"}
-                        alignItems={"center"} justifyContent={"center"}>
-                        <Text style={style.btnTitle}>Submit</Text>
-                    </View>
-                </TouchableOpacity>
+                {
+                    (emailFlag) ? (
+                        <TouchableOpacity onPress={GenerateAccessCode} style={{ width: "60%", height: 40 }}>
+                            <View flex={1} backgroundColor={"#F00"}
+                                alignItems={"center"} justifyContent={"center"}>
+                                <Text style={style.btnTitle}>Submit</Text>
+                            </View>
+                        </TouchableOpacity>
+                    ) : (
+                        <BcDisableII style={{ width: "60%", height: 40 }}>
+                            <View flex={1} backgroundColor={"#F00"}
+                                alignItems={"center"} justifyContent={"center"}>
+                                <Text style={style.btnTitle}>Submit</Text>
+                            </View>
+                        </BcDisableII>
+                    )
+                }
+
+
             </VStack>
         </BaseModal>
 
@@ -458,10 +525,12 @@ function EmailModal(props) {
 
 function HeaderRight(props) {
 
+    const { refreshHook = [] } = props;
+
     const [viewModal, setViewModal, toggleViewModal] = useToggle(false);
     return (
         <>
-            <EmailModal showModal={viewModal} setShowModal={setViewModal} />
+            <EmailModal showModal={viewModal} setShowModal={setViewModal} {...props} />
             <TouchableOpacity onPress={toggleViewModal}>
                 <View bgColor={Utility.getColor()} alignItems={"center"} justifyContent={"center"}
                     style={{ height: 40, width: 40, borderRadius: 20 }}>
@@ -492,13 +561,35 @@ function Index(props) {
     const loadingHook = useToggle(false);
     const [loading, setLoading, toggleLoading] = loadingHook;
 
+    const refreshHook = useToggle(false);
+    const [refresh, setRefresh, toggleRefresh] = refreshHook;
+
     const [sessionLs, setSessionLs] = useSessionLs();
+
+    const userId = useSelector(Selectors.userIdSelect);
 
     useEffect(() => {
         if (isFocused) {
-            setSessionLs(TestData);
+            GetYatuSession();
         }
-    }, [isFocused]);
+    }, [isFocused, refresh]);
+
+    const GetYatuSession = () => {
+        setLoading(true);
+        fetchGetYatuSessionByMasterUser({
+            param: {
+                UserId: userId
+            },
+            onSetLoading: setLoading
+        })
+            .then(data => {
+                setSessionLs(data);
+            })
+            .catch(err => {
+                setLoading(false);
+                console.error(err);
+            })
+    }
 
     return (
         <>
@@ -507,12 +598,12 @@ function Index(props) {
                 <View style={{ flex: 1 }}>
 
                     {/* Header */}
-                    <BcHeaderWithAdd Right={<HeaderRight />}>Viewer Session</BcHeaderWithAdd>
+                    <BcHeaderWithAdd Right={<HeaderRight refreshHook={refreshHook} />}>Viewer Session</BcHeaderWithAdd>
 
                     <View style={{ height: 5 }} />
 
                     {/* Body */}
-                    <SessionList data={sessionLs} loadingHook={loadingHook} />
+                    <SessionList data={sessionLs} loadingHook={loadingHook} refreshHook={refreshHook} />
 
                     <View style={{ height: 5 }} />
                 </View>

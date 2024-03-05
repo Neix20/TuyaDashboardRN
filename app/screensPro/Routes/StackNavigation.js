@@ -33,6 +33,9 @@ import DeviceLanding from "@screens/Device/DeviceLanding";
 import DeviceLandingSmartPlug from "@screens/Device/DeviceLanding/SmartPlug";
 import DeviceLandingAirCon from "@screens/Device/DeviceLanding/AirCon";
 
+import RequestViewerSession from "@screens/ViewerSession/RequestSession.js";
+
+
 let StackScreens = {};
 
 StackScreens = {
@@ -116,6 +119,13 @@ StackScreens = {
     DeviceLanding: {
         component: DeviceLanding,
         title: "DeviceLanding",
+        option: {
+            orientation: "portrait"
+        }
+    },
+    RequestViewerSession: {
+        component: RequestViewerSession,
+        title: "RequestViewerSession",
         option: {
             orientation: "portrait"
         }

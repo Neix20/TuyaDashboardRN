@@ -55,14 +55,14 @@ function Screen(props) {
                 <FontAwesome5 name={"lock"} color={"#000"} size={80} />
                 <Text style={style.txt}>Activate your Yatu Account with Tokens</Text>
                 {/* <TouchableOpacity onPress={GoToToken}>
-                    <View backgroundColor={require("@utility").Utility.getColor()}
+                    <View backgroundColor={Utility.getColor()}
                         alignItems={"center"} justifyContent={"center"}
                         style={{ width: 120, height: 48 }}>
                         <Text style={style.btnTitle}>Activate Token</Text>
                     </View>
                 </TouchableOpacity> */}
                 <TouchableOpacity onPress={GoToScanQr}>
-                    <View backgroundColor={require("@utility").Utility.getColor()}
+                    <View backgroundColor={Utility.getColor()}
                         alignItems={"center"} justifyContent={"center"}
                         style={{ width: 120, height: 48 }}>
                         <Text style={style.btnTitle}>Scan QR</Text>

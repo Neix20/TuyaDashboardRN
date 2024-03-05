@@ -6,15 +6,6 @@ import { View, VStack } from "native-base";
 import { BcTabNavigator } from "@components";
 
 import FontAwesome from "react-native-vector-icons/FontAwesome";
-import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
-import Ionicons from "react-native-vector-icons/Ionicons";
-
-import { useIsFocused, useNavigation } from "@react-navigation/native";
-
-import { useDispatch, useSelector } from 'react-redux';
-import { Actions, Selectors } from '@redux';
-
-import { useToggle } from "@hooks";
 
 function TabIconFontAwesome(props) {
     const { icon, title, color, focused, Btn } = props;
@@ -49,11 +40,8 @@ function TabIconFontAwesome(props) {
 }
 
 // Screens
-import Dashboard from "@screensLite/Dashboard";
-import Device from "@screensLite/Device";
-import Profile from "@screensLite/Profile";
-import ProfileWorkspace from "@screensLite/ProfileWorkspace";
-import Viewer from "@screensLite/Viewer";
+import Dashboard from "../Session/Dashboard.js";
+import Device from "../Session/Device.js";
 
 let TabScreens = {};
 
@@ -81,30 +69,8 @@ TabScreens = {
                 {...props} />
         )
     },
-    // Viewer: {
-    //     component: Viewer,
-    //     title: "Viewer",
-    //     tabBarIcon: (props) => (
-    //         <TabIconFontAwesome
-    //             Btn={FontAwesome}
-    //             icon={"eye"}
-    //             title={"Viewer"}
-    //             {...props} />
-    //     )
-    // },
-    ProfileWorkspace: {
-        component: ProfileWorkspace,
-        title: "ProfileWorkspace",
-        tabBarIcon: (props) => (
-            <TabIconFontAwesome
-                Btn={Ionicons}
-                icon={"settings-sharp"}
-                title={"Profile Selection"}
-                {...props} />
-        )
-    },
     Profile: {
-        component: Profile,
+        component: Device,
         title: "Profile",
         tabBarIcon: (props) => (
             <TabIconFontAwesome
@@ -118,26 +84,7 @@ TabScreens = {
 
 function Index(props) {
 
-    const navigation = useNavigation();
-    const isFocused = useIsFocused();
-
-    // #region UseEffect
-    useEffect(() => {
-        // Disable Back Button
-        const backAction = () => {
-            if (!isFocused) {
-                return false;
-            }
-
-            return true;
-        };
-        const backHandler = BackHandler.addEventListener("hardwareBackPress", backAction);
-        return () => backHandler.remove();
-    }, [isFocused]);
-    // #endregion
-
-    // const defaultScreen = "Dashboard";
-    const defaultScreen = "Profile";
+    const defaultScreen = "Dashboard";
 
     return (
         <BcTabNavigator

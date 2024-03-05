@@ -31,7 +31,7 @@ function ReachUsBtn(props) {
         <VStack space={2} alignItems={"center"} flex={1}>
             <TouchableOpacity onPress={onPress} style={{ width: "100%" }}>
                 <View alignItems={"center"} justifyContent={"center"} style={style.btnBg}>
-                    <Btn name={btnName} size={24} color={require("@utility").Utility.getColor()} />
+                    <Btn name={btnName} size={24} color={Utility.getColor()} />
                 </View>
             </TouchableOpacity>
             <Text style={style.btnTitle}>{children}</Text>

@@ -14,7 +14,7 @@ import RenderHtml from 'react-native-render-html';
 
 function Header(props) {
     const { children, onBack = () => { } } = props;
-    const { color = require("@utility").Utility.getColor(), txtColor = "#000", bgColor = "#FFF" } = props;
+    const { color = Utility.getColor(), txtColor = "#000", bgColor = "#FFF" } = props;
 
     const navigation = useNavigation();
     const toast = useToast();
@@ -121,7 +121,7 @@ function Index(props) {
                 <View alignItems={"center"} justifyContent={"center"} style={{ height: 60 }}>
                     <TouchableOpacity onPress={goBack}>
                         <HStack
-                            bgColor={require("@utility").Utility.getColor()}
+                            bgColor={Utility.getColor()}
                             borderRadius={8}
                             alignItems={"center"}
                             justifyContent={"center"}

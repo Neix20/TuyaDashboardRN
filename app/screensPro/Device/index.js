@@ -153,14 +153,14 @@ function Header(props) {
 
                     {/* Logo */}
                     <HStack alignItems={"center"} space={3}>
-                        <BcSvgIcon name={"Yatu"} size={80} color={require("@utility").Utility.getColor()} />
+                        <BcSvgIcon name={"Yatu"} size={80} color={Utility.getColor()} />
                         <BcUserStatus />
                     </HStack>
 
                     {/* Qr Scanner */}
                     <HStack alignItems={"flex-end"} space={2}>
                         <TouchableOpacity onPress={GoToScanQr}>
-                            <View borderRadius={20} bgColor={require("@utility").Utility.getColor()}
+                            <View borderRadius={20} bgColor={Utility.getColor()}
                                 alignItems={"center"} justifyContent={"center"}
                                 style={{ height: 40, width: 40 }}>
                                 {/* <BcSvgIcon name={"QrScan"} size={24} color={"#FFF"} /> */}
@@ -551,7 +551,7 @@ function Index(props) {
                                     {
                                         (deviceSession) ? (
                                             <TouchableOpacity onPress={toggleLdModal}>
-                                                <View borderRadius={20} px={3} py={1} bgColor={require("@utility").Utility.getColor()}>
+                                                <View borderRadius={20} px={3} py={1} bgColor={Utility.getColor()}>
                                                     <Text style={style.syncTitle}>{tutorial ? "Next" : "Sync Now"}</Text>
                                                 </View>
                                             </TouchableOpacity>

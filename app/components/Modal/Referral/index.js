@@ -182,7 +182,7 @@
 //                     space={3}>
 
 //                     {/* Logo */}
-//                     <BcSvgIcon name={"ReferralPerson"} width={48} height={48} fill={require("@utility").Utility.getColor()} />
+//                     <BcSvgIcon name={"ReferralPerson"} width={48} height={48} fill={Utility.getColor()} />
 
 
 //                     {/* Title */}

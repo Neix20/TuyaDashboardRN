@@ -19,7 +19,7 @@ function MyDrawerContainerItem(props) {
     return (
         <HStack flex={1}
             alignItems={"center"} space={3}>
-            <FontAwesome name={"chevron-right"} color={require("@utility").Utility.getColor()} size={18} />
+            <FontAwesome name={"chevron-right"} color={Utility.getColor()} size={18} />
             <Text>{title}</Text>
         </HStack>
     )

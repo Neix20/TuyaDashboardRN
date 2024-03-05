@@ -33,7 +33,7 @@ function OptionElem(props) {
                 style={{
                     borderWidth: flag ? 5 : 0,
                     borderRadius: borderRadius,
-                    borderColor: require("@utility").Utility.getColor()
+                    borderColor: Utility.getColor()
                 }}>
                 {/* Background */}
                 <View
@@ -63,7 +63,7 @@ function OptionElem(props) {
                             <View
                                 py={1} px={1} maxW={120}
                                 borderRadius={borderRadius}
-                                bgColor={require("@utility").Utility.getColor()}>
+                                bgColor={Utility.getColor()}>
                                 <Text style={{
                                     fontFamily: "Roboto-Bold",
                                     fontSize: 16,
@@ -302,7 +302,7 @@ function Index(props) {
                             (ansFlag) ? (
                                 <TouchableOpacity onPress={GoToHome}>
                                     <View 
-                                        backgroundColor={require("@utility").Utility.getColor()}
+                                        backgroundColor={Utility.getColor()}
                                         borderRadius={20}
                                         alignItems={"center"} justifyContent={"center"}
                                         style={{ width: 40, height: 40 }}

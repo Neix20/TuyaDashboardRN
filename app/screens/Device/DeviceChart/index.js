@@ -50,7 +50,7 @@ function Index(props) {
     const dt = DateTime.now();
 
     const init = {
-        activeColor: require("@utility").Utility.getColor(),
+        activeColor: Utility.getColor(),
         inActiveColor: "#000",
         dateObj: {
             startDt: dt.toFormat("yyyy-MM-dd"),

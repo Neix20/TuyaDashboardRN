@@ -87,7 +87,7 @@ function LoginBtn(props) {
     const { flag = true, onPress = () => { } } = props;
 
     const Item = () => (
-        <View backgroundColor={require("@utility").Utility.getColor()}
+        <View backgroundColor={Utility.getColor()}
             alignItems={"center"} justifyContent={"center"}
             style={{ height: 50 }}>
             <Text style={[{

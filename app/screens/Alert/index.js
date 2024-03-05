@@ -73,7 +73,7 @@ function Loading(props) {
                 <Text style={{
                     fontFamily: "Roboto-Bold",
                     fontSize: 24,
-                    color: require("@utility").Utility.getColor()
+                    color: Utility.getColor()
                 }}>Loading ...</Text>
             </View>
         </View>
@@ -118,7 +118,7 @@ function Header(props) {
                         top: -19,
                         zIndex: 1,
                     }}>
-                    <FontAwesome5 name={"chevron-left"} size={20} color={require("@utility").Utility.getColor()} />
+                    <FontAwesome5 name={"chevron-left"} size={20} color={Utility.getColor()} />
                 </TouchableOpacity>
 
                 <View style={{
