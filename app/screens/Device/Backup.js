@@ -9,9 +9,6 @@ import Feather from "react-native-vector-icons/Feather";
 
 import { useNavigation, useIsFocused } from "@react-navigation/native";
 
-const screen = Dimensions.get("screen");
-const { width, height } = screen;
-
 // const {width, height} = useWindowDimensions();
 
 import { Logger, Utility } from "@utility";

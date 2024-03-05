@@ -3,6 +3,7 @@ import { Text } from "react-native";
 import { View, VStack } from "native-base";
 
 import { Animation } from "@config";
+import { Utility } from "@utility";
 
 import Lottie from "lottie-react-native";
 

@@ -7,6 +7,8 @@ import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityI
 import { clsConst } from "@config";
 import { BcSvgIcon } from "@components";
 
+import { Utility } from "@utility";
+
 function ReachUsBtn(props) {
     const { children = "", onPress = () => { } } = props;
     const { Btn, btnName = "" } = props;
@@ -20,7 +22,7 @@ function ReachUsBtn(props) {
         btnTitle: {
             fontFamily: "Roboto-Medium",
             fontSize: 10,
-            color: require("@utility").Utility.getColor(),
+            color: Utility.getColor(),
             textAlign: "center"
         }
     }

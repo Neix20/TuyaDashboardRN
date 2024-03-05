@@ -12,6 +12,8 @@ import { Camera, useCameraPermission, useCameraDevice, useCodeScanner } from "re
 import { BcSvgIcon, CustomToast } from "@components";
 import { useToggle } from "@hooks";
 
+import { Utility } from "@utility";
+
 function Scanner(props) {
 
     const { hasPermission } = useCameraPermission();

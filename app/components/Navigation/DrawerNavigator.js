@@ -10,6 +10,8 @@ import { BcSvgIcon, BcBoxShadow } from "@components";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 
+import { Utility } from "@utility";
+
 const Drawer = createDrawerNavigator();
 
 function MyDrawerContainerItem(props) {

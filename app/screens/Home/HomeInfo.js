@@ -5,7 +5,6 @@ import { View, VStack, HStack, useToast } from "native-base";
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 import { useNavigation, useIsFocused } from "@react-navigation/native";
 
-
 import { Logger, Utility } from "@utility";
 
 import { Images } from "@config";

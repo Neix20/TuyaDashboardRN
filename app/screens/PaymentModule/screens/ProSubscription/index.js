@@ -18,8 +18,6 @@ import { Logger, Utility } from "@utility";
 
 import { withIAPContext, PurchaseError } from "react-native-iap";
 
-import { Alert } from "react-native";
-
 import { clsConst } from "@config";
 const { SUBSCRIPTION_SKUS } = clsConst;
 

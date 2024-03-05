@@ -176,7 +176,8 @@ function SessionDeviceItem(props) {
                     checkedIcon={"checkbox-marked"}
                     uncheckedIcon={"checkbox-blank-outline"}
                     onPress={onSelect}
-                    checked={flag} />
+                    checked={flag}
+                    checkedColor={Utility.getColor()} />
             </HStack>
         </TouchableOpacity>
     )

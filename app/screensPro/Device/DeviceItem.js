@@ -29,7 +29,7 @@ function Index(props) {
     const borderRadius = 8;
 
     const ols = (Online_Status === 1) ? ({ color: "#0F0", term: "Online" }) : ({ color: "#F00", term: "Offline" });
-    const pwsColor = pwsFlag ? "#F00" : "#98A0A8";
+    const pwsColor = pwsFlag ? Utility.getColor() : "#98A0A8";
 
     const style = {
         img: {
@@ -84,7 +84,7 @@ function Index(props) {
                                     uncheckedIcon={"checkbox-blank-outline"}
                                     checked={flag}
                                     onPress={onLinkDevice}
-                                    checkedColor={"#F00"} />
+                                    checkedColor={Utility.getColor()} />
                             ) : (
                                 <></>
                             )

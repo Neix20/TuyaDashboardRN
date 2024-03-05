@@ -4,6 +4,8 @@ import { View, VStack, HStack, useToast, Divider } from "native-base";
 
 import { BaseModal } from "@components";
 
+import { Utility } from "@utility";
+
 function Index(props) {
 
     const { title = "Title", description = "Description" } = props;

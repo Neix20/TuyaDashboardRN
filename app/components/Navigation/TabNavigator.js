@@ -9,6 +9,8 @@ import { BcBoxShadow } from "@components";
 
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
+import { Utility } from "@utility";
+
 const Tab = createBottomTabNavigator();
 
 function MyTabBar(props) {

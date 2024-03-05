@@ -20,6 +20,8 @@ import { Body, EmptyList, Footer } from "./components";
 
 import { withIAPContext } from "react-native-iap";
 
+import { Utility } from "@utility";
+
 import { clsConst } from "@config";
 const { SUBSCRIPTION_SKUS } = clsConst;
 
