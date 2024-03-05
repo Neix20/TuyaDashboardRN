@@ -477,10 +477,16 @@ function formatTs(num) {
 	return "";
 }
 
+function getColor() {
+	return "#000";
+	// return "#2898FF";
+}
+
 import { ConvertNormalToTariff } from "./tariff";
 
 export {
-	ConvertNormalToTariff
+	ConvertNormalToTariff,
+	getColor
 }
 
 export {

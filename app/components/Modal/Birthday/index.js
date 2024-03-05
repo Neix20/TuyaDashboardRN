@@ -5,9 +5,6 @@ import FontAwesome from "react-native-vector-icons/FontAwesome";
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 import { useNavigation, useIsFocused } from "@react-navigation/native";
 
-const screen = Dimensions.get("screen");
-const { width, height } = screen;
-
 import { info, error, Utility } from "@utility";
 
 import { Images, GlobalStyles, GlobalColors, Svg } from "@config";

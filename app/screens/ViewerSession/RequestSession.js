@@ -388,7 +388,7 @@ function SessionList(props) {
 function HeaderRight(props) {
     return (
         <TouchableOpacity>
-            <View bgColor={"#2898FF"} alignItems={"center"} justifyContent={"center"}
+            <View bgColor={require("@utility").Utility.getColor()} alignItems={"center"} justifyContent={"center"}
                 style={{ height: 40, width: 40, borderRadius: 20 }}>
                 <FontAwesome5 name={"plus"} color={"#FFF"} size={24} />
             </View>
@@ -420,7 +420,7 @@ function Index(props) {
 
     useEffect(() => {
         if (isFocused) {
-            setSessionLs(TestData);
+            // setSessionLs(TestData);
         }
     }, [isFocused]);
 
