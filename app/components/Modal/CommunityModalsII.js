@@ -68,6 +68,8 @@ function Index(props) {
             animationOut={{ from: { opacity: 0 }, to: { opacity: 0 } }}
             animationInTiming={10}
             animationOutTiming={10}
+            onBackButtonPress={closeModal}
+            onBackdropPress={closeModal}
             backdropOpacity={backdropOpacity}
             style={style}>
             <View bgColor={"#FFF"} borderRadius={20}>

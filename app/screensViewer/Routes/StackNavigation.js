@@ -183,6 +183,7 @@ import Faq from "@screens/CompanyInfo/screens/Faq.js";
 import ContactUs from "@screens/CompanyInfo/screens/ContactUs.js";
 
 import YatuEngine from "@screens/YatuEngine";
+import ViewerSession from "@screensLite/Session/TabNavigation";
 
 StackScreens = {
     ...StackScreens,
@@ -234,24 +235,10 @@ StackScreens = {
         option: {
             orientation: "portrait"
         }
-    }
-}
-
-import ViewerSession from "@screensLite/Session/TabNavigation";
-import RequestViewerSession from "@screens/ViewerSession/RequestSession.js";
-
-StackScreens = {
-    ...StackScreens,
+    },
     ViewerSession: {
         component: ViewerSession,
         title: "ViewerSession",
-        option: {
-            orientation: "portrait"
-        }
-    },
-    RequestViewerSession: {
-        component: RequestViewerSession,
-        title: "RequestViewerSession",
         option: {
             orientation: "portrait"
         }
@@ -415,7 +402,6 @@ function Index(props) {
 
     const defaultScreen = (userId == -1 || firstTimeLink) ? "LoginII" : "TabNavigation";
     // const defaultScreen = "Debug";
-    // const defaultScreen = "RequestViewerSession";
 
     return (
         <>

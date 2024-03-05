@@ -9,10 +9,10 @@ import { Logger, Utility } from "@utility";
 import { Actions, Selectors } from '@redux';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { fetchGetParamApi, fetchGenerateViewerAccessCode, fetchDeviceListII } from "@api";
+import { fetchGenerateViewerAccessCode, fetchDeviceListII } from "@api";
 import { BaseModal, BcDisableII } from "@components";
 
-import { useToggle, useTimer, useModalToast } from "@hooks";
+import { useToggle, useTimer } from "@hooks";
 
 function useDeviceLs() {
     const [ls, setLs] = useState([]);
@@ -103,7 +103,6 @@ function SessionModal(props) {
         })
             .then(data => {
                 const { Access_Code = "", Expiry_Date = "" } = data;
-
                 setAccessCode(_ => Access_Code);
 
                 // Get Time Difference Between expiry Date And Now
@@ -288,4 +287,39 @@ function Index(props) {
     )
 }
 
-export default Index
+import { useNavigation, useIsFocused } from "@react-navigation/native";
+
+function Debug(props) {
+
+    const style = {
+        title: {
+            fontFamily: "Roboto-Medium",
+            fontSize: 18,
+            color: color
+        }
+    };
+
+    const color = "#2898FF";
+
+    const navigation = useNavigation();
+
+    const GoToRequestViewerSession = () => {
+        navigation.navigate("RequestViewerSession");
+    }
+
+    return (
+        <VStack bgColor={"#FFF"} borderRadius={8} width={"90%"} alignItems={"center"}>
+            <TouchableOpacity onPress={GoToRequestViewerSession} style={{ width: "90%" }}>
+                <HStack alignItems={"center"} style={{ height: 60 }}>
+                    <View alignItems={"flex-start"} style={{ width: 40 }}>
+                        <MaterialCommunityIcons name={"progress-clock"} size={24} color={color} />
+                    </View>
+                    <Text style={style.title}>Share Session</Text>
+                </HStack>
+            </TouchableOpacity>
+        </VStack>
+    )
+}
+
+
+export default Debug;

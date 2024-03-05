@@ -114,6 +114,22 @@ import fetchActivateYatuPackage from "./fetchActivateYatuPackage";
 import fetchGenerateViewerAccessCode from "./fetchGenerateViewerAccessCode";
 import fetchJoinViewerSession from "./fetchJoinViewerSession";
 
+import fetchGenerateViewerAccessCodeInf from "./fetchGenerateViewerAccessCodeInf";
+import fetchGetYatuSessionByMasterUser from "./fetchGetYatuSessionByMasterUser";
+import fetchToggleYatuSessionDevice from "./fetchToggleYatuSessionDevice";
+import fetchGetDeviceByYatuSession from "./fetchGetDeviceByYatuSession";
+import fetchGetDashboardInfoByYatuSession from "./fetchGetDashboardInfoByYatuSession";
+import fetchGetYatuSessionInfo from "./fetchGetYatuSessionInfo";
+
+export {
+    fetchGenerateViewerAccessCodeInf,
+    fetchGetYatuSessionByMasterUser,
+    fetchToggleYatuSessionDevice,
+    fetchGetDeviceByYatuSession,
+    fetchGetDashboardInfoByYatuSession,
+    fetchGetYatuSessionInfo
+}
+
 export {
     fetchHomeList,
     fetchHomeInfo,
@@ -258,5 +274,5 @@ export {
 export {
     fetchActivateYatuPackage,
     fetchGenerateViewerAccessCode,
-    fetchJoinViewerSession   
+    fetchJoinViewerSession
 }
