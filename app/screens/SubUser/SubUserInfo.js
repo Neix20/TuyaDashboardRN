@@ -158,7 +158,7 @@ function SetAdmin(props) {
                     <Text style={{
                         fontFamily: "Roboto-Medium",
                         fontSize: 18,
-                        color: (IsManager == -1) ? "#28984f" : "#2898FF"
+                        color: (IsManager == -1) ? "#28984f" : require("@utility").Utility.getColor()
                     }}>Set {(IsManager == -1) ? "Admin" : "Member"}</Text>
                 </View>
             </TouchableOpacity>

@@ -118,14 +118,14 @@ function Header(props) {
                         <TouchableOpacity onPress={onSave}>
                             <Text style={{
                                 fontSize: 20,
-                                color: "#2898FF"
+                                color: require("@utility").Utility.getColor()
                             }}>Save</Text>
                         </TouchableOpacity>
                     ) : (
                         <BcDisable>
                             <Text style={{
                                 fontSize: 20,
-                                color: "#2898FF"
+                                color: require("@utility").Utility.getColor()
                             }}>Save</Text>
                         </BcDisable>
                     )
@@ -150,7 +150,7 @@ function Title(props) {
                     }}>{children}</Text>
                 </View>
                 {/* <TouchableOpacity onPress={onPress}>
-                    <View borderRadius={16} bgColor={"#2898FF"}
+                    <View borderRadius={16} bgColor={require("@utility").Utility.getColor()}
                         alignItems={"center"} justifyContent={"center"}
                         style={{ width: 32, height: 32 }}>
                         <FontAwesome name={"plus"} size={16} color={"#FFF"} />

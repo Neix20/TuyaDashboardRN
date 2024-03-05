@@ -6,6 +6,8 @@ import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 import { ListItem } from '@rneui/themed';
 import { useToggle } from "@hooks";
 
+import { Utility } from "@utility";
+
 function AccordionTitle(props) {
     const { children } = props;
     return (
@@ -33,7 +35,7 @@ function AccordionItem(props) {
                 duration: 100,
                 type: "timing"
             }}
-            icon={<FontAwesome5 name={"chevron-down"} color={"#2898FF"} size={20} />}
+            icon={<FontAwesome5 name={"chevron-down"} color={Utility.getColor()} size={20} />}
             containerStyle={{ paddingHorizontal: 0, paddingVertical: 5 }}
         >
             <ListItem containerStyle={{ padding: 0 }}>

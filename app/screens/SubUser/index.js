@@ -240,7 +240,7 @@ function SubUserModal(props) {
 
 function HeaderRight() {
     return (
-        <View bgColor={"#2898FF"} borderRadius={20}
+        <View bgColor={require("@utility").Utility.getColor()} borderRadius={20}
             alignItems={"center"} justifyContent={"center"}
             style={{ width: 32, height: 32 }}>
             {/* <FontAwesome name={"info"} size={16} color={"#FFF"} /> */}

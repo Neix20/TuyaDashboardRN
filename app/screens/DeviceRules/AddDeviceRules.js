@@ -56,14 +56,14 @@ function Header(props) {
                         <TouchableOpacity onPress={onSave}>
                             <Text style={{
                                 fontSize: 20,
-                                color: "#2898FF"
+                                color: require("@utility").Utility.getColor()
                             }}>Save</Text>
                         </TouchableOpacity>
                     ) : (
                         <BcDisable>
                             <Text style={{
                                 fontSize: 20,
-                                color: "#2898FF"
+                                color: require("@utility").Utility.getColor()
                             }}>Save</Text>
                         </BcDisable>
                     )

@@ -19,7 +19,7 @@ function Index(props) {
             }}>{Utility.translate("App Version", lang)}</Text>
             <Text style={{
                 fontFamily: "Roboto-Medium",
-                color: "#2898FF"
+                color: require("@utility").Utility.getColor()
             }}>v{clsConst.APP_VERSION}</Text>
         </View>
     );

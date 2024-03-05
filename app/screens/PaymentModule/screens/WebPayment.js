@@ -17,7 +17,7 @@ import { useToggle } from "@hooks";
 
 function Header(props) {
     const { children, onBack = () => { } } = props;
-    const { color = "#2898FF", txtColor = "#000", bgColor = "#FFF" } = props;
+    const { color = require("@utility").Utility.getColor(), txtColor = "#000", bgColor = "#FFF" } = props;
 
     return (
         <BcBoxShadow>

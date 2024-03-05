@@ -10,6 +10,8 @@ import { useNavigation } from "@react-navigation/native";
 
 import { BcBoxShadow, BcDisable } from "@components";
 
+import { Utility } from "@utility";
+
 function Index(props) {
 
     // #region Props
@@ -49,7 +51,7 @@ function Index(props) {
                             top: -19,
                             zIndex: 1,
                         }}>
-                        <FontAwesome5 name={"chevron-left"} size={20} color={"#2898FF"} />
+                        <FontAwesome5 name={"chevron-left"} size={20} color={Utility.getColor()} />
                     </TouchableOpacity>
                     <View style={{
                         position: "absolute",
@@ -93,7 +95,7 @@ function Index(props) {
                         top: -19,
                         zIndex: 1,
                     }}>
-                    <FontAwesome5 name={"chevron-left"} size={20} color={"#2898FF"} />
+                    <FontAwesome5 name={"chevron-left"} size={20} color={Utility.getColor()} />
                 </TouchableOpacity>
                 <View style={{
                     position: "absolute",

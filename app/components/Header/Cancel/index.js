@@ -10,6 +10,8 @@ import { useNavigation } from "@react-navigation/native";
 
 import { BcBoxShadow, BcDisable } from "@components";
 
+import { Utility } from "@utility";
+
 function Index(props) {
     
     // #region Props
@@ -49,14 +51,14 @@ function Index(props) {
                             <TouchableOpacity onPress={onSelect}>
                                 <Text style={{
                                     fontSize: 20,
-                                    color: "#2898FF"
+                                    color: Utility.getColor()
                                 }}>Save</Text>
                             </TouchableOpacity>
                         ) : (
                             <BcDisable>
                                 <Text style={{
                                     fontSize: 20,
-                                    color: "#2898FF"
+                                    color: Utility.getColor()
                                 }}>Save</Text>
                             </BcDisable>
                         )

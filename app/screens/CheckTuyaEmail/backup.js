@@ -61,7 +61,7 @@ function OwnTuya(props) {
                 <HStack space={3}>
                     <TouchableOpacity onPress={onPressYes}>
                         <HStack
-                            bgColor={"#2898FF"}
+                            bgColor={require("@utility").Utility.getColor()}
                             borderRadius={8}
                             alignItems={"center"}
                             justifyContent={"center"}
@@ -102,7 +102,7 @@ function CheckEmailBtn(props) {
     const Item = () => {
         return (
             <HStack px={3}
-                bgColor={"#2898FF"}
+                bgColor={require("@utility").Utility.getColor()}
                 borderRadius={8}
                 alignItems={"center"}
                 style={{ height: 40 }}>
@@ -239,7 +239,7 @@ function OnlySmartLife(props) {
             <View alignItems={"center"}>
                 <TouchableOpacity onPress={goBack}>
                     <HStack
-                        bgColor={"#2898FF"}
+                        bgColor={require("@utility").Utility.getColor()}
                         borderRadius={8}
                         alignItems={"center"}
                         justifyContent={"center"}
@@ -276,7 +276,7 @@ function SameEmail(props) {
                 <HStack space={3}>
                     <TouchableOpacity onPress={onPressYes}>
                         <HStack
-                            bgColor={"#2898FF"}
+                            bgColor={require("@utility").Utility.getColor()}
                             borderRadius={8}
                             alignItems={"center"}
                             justifyContent={"center"}

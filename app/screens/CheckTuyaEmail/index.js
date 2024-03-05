@@ -114,7 +114,7 @@ function ATSModal(props) {
                     }}>Sorry, we can't sync your account. Please register a Tuya or Smart Life account before continue on Yatu.</Text>
                     <TouchableOpacity onPress={onSelect}
                         style={{ height: 48, width: "100%" }}>
-                        <View flex={1} backgroundColor={"#2898FF"}
+                        <View flex={1} backgroundColor={require("@utility").Utility.getColor()}
                             borderRadius={8}
                             alignItems={"center"} justifyContent={"center"}>
                             <Text style={{
@@ -193,7 +193,7 @@ function RtsEmailModal(props) {
 
         return (
             <TouchableOpacity onPress={onPress} style={{ height: 48, width: "100%" }}>
-                <View flex={1} backgroundColor={"#2898FF"}
+                <View flex={1} backgroundColor={require("@utility").Utility.getColor()}
                     borderRadius={8}
                     alignItems={"center"} justifyContent={"center"}>
                     <Text style={[{
@@ -283,7 +283,7 @@ function Footer(props) {
             <TouchableOpacity onPress={onPress} style={{ width: "80%" }}>
                 <View borderRadius={8}
                     alignItems={"center"} justifyContent={"center"}
-                    bgColor={"#2898FF"} style={{ height: 60 }}>
+                    bgColor={require("@utility").Utility.getColor()} style={{ height: 60 }}>
                     <Text style={{
                         fontFamily: "Roboto-Bold",
                         fontSize: 18,

@@ -72,7 +72,7 @@ function AddRoom(props) {
                 <View width={"90%"}>
                     <Text style={[{
                         fontSize: 16,
-                        color: "#2898FF",
+                        color: require("@utility").Utility.getColor(),
                         fontFamily: "Roboto-Medium",
                     }]}>Create Room</Text>
                 </View>

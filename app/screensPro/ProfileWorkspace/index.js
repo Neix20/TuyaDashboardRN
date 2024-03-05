@@ -91,13 +91,13 @@ function Header(props) {
 
                     {/* Logo */}
                     {/* <BcYatuHome /> */}
-                    <BcSvgIcon name={"Yatu"} size={80} color={"#2898FF"} />
+                    <BcSvgIcon name={"Yatu"} size={80} color={require("@utility").Utility.getColor()} />
 
                     {
                         (flag) ? (
                             <TouchableOpacity onPress={onSelectAdd}>
                                 <View borderRadius={20}
-                                    bgColor={"#2898FF"}
+                                    bgColor={require("@utility").Utility.getColor()}
                                     alignItems={"center"} justifyContent={"center"}
                                     style={{ width: 32, height: 32 }}>
                                     <FontAwesome name={"plus"} size={16} color={"#FFF"} />

@@ -56,7 +56,7 @@ function HeaderRight(props) {
     const Item = () => (
         <Text style={{
             fontSize: 20,
-            color: "#2898FF"
+            color: require("@utility").Utility.getColor()
         }}>Save</Text>
     )
 
@@ -119,7 +119,7 @@ function InfoPanel(props) {
                 term: "Free"
             },
             2: {
-                color: "#2898FF",
+                color: require("@utility").Utility.getColor(),
                 term: "Standard"
             },
             3: {

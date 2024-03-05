@@ -44,7 +44,7 @@ function Index(props) {
 
                             {/* Logo */}
                             <View width={"90%"} style={{ alignItems: "center" }}>
-                                <BcSvgIcon name={"Yatu"} color={"#2898FF"} width={100} height={50} />
+                                <BcSvgIcon name={"Yatu"} color={require("@utility").Utility.getColor()} width={100} height={50} />
                             </View>
 
                             {/* Content */}
@@ -57,19 +57,19 @@ function Index(props) {
                                     </Text>
                                     <VStack space={4} alignItems={'center'}>
 
-                                        <FontAwesome5 name={"map-marker-alt"} size={24} color={"#2898FF"} />
+                                        <FontAwesome5 name={"map-marker-alt"} size={24} color={require("@utility").Utility.getColor()} />
 
                                         <Text style={{ textAlign: "center" }}>G2, Skyville, 8 @ Benteng, 439, Old Klang Rd, 58000 Kuala Lumpur, Federal Territory of Kuala Lumpur</Text>
 
                                         <Divider />
-                                        <FontAwesome5 name={"clock"} size={24} color={"#2898FF"} />
+                                        <FontAwesome5 name={"clock"} size={24} color={require("@utility").Utility.getColor()} />
 
                                         <VStack alignItems={'center'}>
                                             <Text>Monday - Friday</Text>
                                             <Text>9:00 a.m. - 6:00 p.m.</Text>
                                         </VStack>
                                         <Divider />
-                                        <FontAwesome5 name={"address-book"} size={24} color={"#2898FF"} />
+                                        <FontAwesome5 name={"address-book"} size={24} color={require("@utility").Utility.getColor()} />
 
                                     </VStack>
                                 </VStack>

@@ -145,7 +145,7 @@ function Header(props) {
                     backgroundColor: "#fff",
                 }}>
                 <HStack alignItems={"center"} justifyContent={"flex-end"} style={{ width: "90%" }}>
-                    <View bgColor={"#2898FF"} alignItems={"center"} justifyContent={"center"}
+                    <View bgColor={require("@utility").Utility.getColor()} alignItems={"center"} justifyContent={"center"}
                         style={{ width: "40%", height: 48, borderRadius: 12 }}>
                         <Text style={style.timer}>{Utility.formatTsTimer(timer)}</Text>
                     </View>
@@ -488,7 +488,7 @@ function Index(props) {
                                 {
                                     (deviceSession) ? (
                                         <TouchableOpacity onPress={toggleLdModal}>
-                                            <View borderRadius={20} px={3} py={1} bgColor={"#2898FF"}>
+                                            <View borderRadius={20} px={3} py={1} bgColor={require("@utility").Utility.getColor()}>
                                                 <Text style={style.syncTitle}>{tutorial ? "Next" : "Sync Now"}</Text>
                                             </View>
                                         </TouchableOpacity>

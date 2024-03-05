@@ -10,7 +10,7 @@ import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 import { Logger, Utility } from "@utility";
 import { Images, Svg } from "@config";
 
-import { BcHeaderWithAdd, BcDisableII, BcLoading, BcBoxShadow, BcYesNoModal, BaseIIModal } from "@components";
+import { BcHeaderWithAdd, BcDisableII, BcLoading, BcBoxShadow, BcYesNoModal, BaseIIModal, BaseModal } from "@components";
 import { useToggle, useModalToast } from "@hooks";
 
 import { MasterUserDevice, MasterUserYatuSession as TestData, MasterUserDevice as TestMasterData } from "./data";
@@ -130,7 +130,7 @@ function SessionSubmitBtn(props) {
     }
 
     const Item = () => (
-        <View flex={1} backgroundColor={"#2898FF"} borderRadius={12}
+        <View flex={1} backgroundColor={Utility.getColor()} borderRadius={12}
             alignItems={"center"} justifyContent={"center"}>
             <Text style={style.btnTitle}>Submit</Text>
         </View>
@@ -184,7 +184,7 @@ function SessionDeviceItem(props) {
 
 function SessionModal(props) {
 
-    const { data = {}, showModal = false, setShowModal = () => {} } = props;
+    const { data = {}, showModal = false, setShowModal = () => { } } = props;
     const { Access_Code = "", Email = "", Id = -1 } = data;
 
     const closeModal = () => setShowModal(false);
@@ -216,7 +216,23 @@ function SessionModal(props) {
             onSetLoading: () => { }
         })
             .then(data => {
-                setDevLs(data);
+                if (data.length <= 0) {
+                    fetchDeviceByUserII({
+                        param: {
+                            UserId: userId
+                        },
+                        onSetLoading: () => { }
+                    })
+                        .then(data_b => {
+                            data_b = data_b.map(x => ({ ...x, TuyaId: x.Title, DeviceId: x.Id }))
+                            setDevLs(data_b);
+                        })
+                        .catch(err_b => {
+                            console.error(err_b);
+                        })
+                } else {
+                    setDevLs(data);
+                }
             })
             .catch(err => {
                 console.error(err);
@@ -240,12 +256,12 @@ function SessionModal(props) {
             },
             onSetLoading: () => { }
         })
-        .then(data => {
-            closeModal();
-        })
-        .catch(err => {
-            console.error(err);
-        })
+            .then(data => {
+                closeModal();
+            })
+            .catch(err => {
+                console.error(err);
+            })
     }
     // #endregion
 
@@ -385,14 +401,73 @@ function SessionList(props) {
     )
 }
 
-function HeaderRight(props) {
+function EmailModal(props) {
+
+    const { showModal = false, setShowModal = () => { } } = props;
+
+    const style = {
+
+        title: {
+            fontWeight: "bold",
+            fontSize: 14,
+            color: "#000"
+        },
+        txtInput: {
+            fontFamily: "Roboto-Medium",
+            fontSize: 16,
+            color: "#000"
+        },
+        btnTitle: {
+            fontSize: 14,
+            fontWeight: "bold",
+            color: "#FFF",
+        }
+    }
+
+    const closeModal = () => setShowModal(_ => false);
+
     return (
-        <TouchableOpacity>
-            <View bgColor={require("@utility").Utility.getColor()} alignItems={"center"} justifyContent={"center"}
-                style={{ height: 40, width: 40, borderRadius: 20 }}>
-                <FontAwesome5 name={"plus"} color={"#FFF"} size={24} />
-            </View>
-        </TouchableOpacity>
+
+        <BaseModal {...props}>
+            <VStack py={3} space={3} width={"100%"} alignItems={"center"}>
+                <View width={"80%"}>
+                    <Text style={style.title}>Email</Text>
+                    <View px={1} bgColor={"#EEF3F6"}>
+                        <TextInput
+                            keyboardType={"email-address"}
+
+                            autoCapitalize={"none"}
+                            placeholder={"Email"}
+                            multiline={true}
+                            style={style.txtInput} />
+                    </View>
+                </View>
+
+                <TouchableOpacity onPress={closeModal} style={{ width: "60%", height: 40 }}>
+                    <View flex={1} backgroundColor={"#F00"}
+                        alignItems={"center"} justifyContent={"center"}>
+                        <Text style={style.btnTitle}>Submit</Text>
+                    </View>
+                </TouchableOpacity>
+            </VStack>
+        </BaseModal>
+
+    )
+}
+
+function HeaderRight(props) {
+
+    const [viewModal, setViewModal, toggleViewModal] = useToggle(false);
+    return (
+        <>
+            <EmailModal showModal={viewModal} setShowModal={setViewModal} />
+            <TouchableOpacity onPress={toggleViewModal}>
+                <View bgColor={Utility.getColor()} alignItems={"center"} justifyContent={"center"}
+                    style={{ height: 40, width: 40, borderRadius: 20 }}>
+                    <FontAwesome5 name={"plus"} color={"#FFF"} size={24} />
+                </View>
+            </TouchableOpacity>
+        </>
     )
 }
 
@@ -420,7 +495,7 @@ function Index(props) {
 
     useEffect(() => {
         if (isFocused) {
-            // setSessionLs(TestData);
+            setSessionLs(TestData);
         }
     }, [isFocused]);
 

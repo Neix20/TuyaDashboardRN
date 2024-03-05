@@ -111,7 +111,7 @@ function LoginBtn(props) {
     const { flag = true, onPress = () => { } } = props;
 
     const Item = () => (
-        <View backgroundColor={"#2898FF"}
+        <View backgroundColor={require("@utility").Utility.getColor()}
             alignItems={"center"} justifyContent={"center"}
             style={{ height: 50 }}>
             <Text style={[{
@@ -736,7 +736,7 @@ function Index(props) {
                                 style={{ height: 600 }}>
                                 {/* Logo Header */}
                                 <View alignItems={"center"}>
-                                    <BcSvgIcon name={"AppLogo"} width={160} height={160} color={"#2898FF"} />
+                                    <BcSvgIcon name={"AppLogo"} width={160} height={160} color={require("@utility").Utility.getColor()} />
                                 </View>
 
                                 {/* <LoginForm loading={loading} setLoading={setLoading} /> */}
@@ -744,7 +744,7 @@ function Index(props) {
                                 <VStack width={"100%"} space={5} alignItems={"center"}>
                                     <TouchableOpacity onPress={toggleExLoginModal}
                                         style={{ width: "80%", height: 48 }}>
-                                        <View flex={1} alignItems={"center"} justifyContent={"center"} bgColor={"#2898FF"}>
+                                        <View flex={1} alignItems={"center"} justifyContent={"center"} bgColor={require("@utility").Utility.getColor()}>
                                             <Text style={{
                                                 fontFamily: "Roboto-Bold",
                                                 fontSize: 16,

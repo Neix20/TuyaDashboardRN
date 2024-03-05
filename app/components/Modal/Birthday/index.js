@@ -36,7 +36,7 @@ function DateText(props) {
                 <Svg.Calendar
                     width={21}
                     height={21}
-                    fill={"#2898FF"} />
+                    fill={require("@utility").Utility.getColor()} />
             </View>
             <Text style={{
                 textAlign: "center",

@@ -89,7 +89,7 @@ function Index(props) {
                 {/* Button Panel */}
                 <HStack space={3}>
                     <TouchableOpacity onPress={closeModal}>
-                        <HStack borderRadius={8} bgColor={"#2898FF"}
+                        <HStack borderRadius={8} bgColor={require("@utility").Utility.getColor()}
                             alignItems={"center"} justifyContent={"center"}
                             style={{ width: 120, height: 40 }}>
                             <Text style={style.titleYes}>Confirm</Text>

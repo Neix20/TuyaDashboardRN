@@ -8,6 +8,8 @@ import { Animation } from "@config";
 
 import Lottie from "lottie-react-native";
 
+import { Utility } from "@utility";
+
 function Index(props) {
 
     // #region Props
@@ -32,12 +34,12 @@ function Index(props) {
                         height: 360
                     }} /> */}
                 {/* <VStack space={3}>
-                    <Spinner size={128} color={"#2898FF"} />
+                    <Spinner size={128} color={Utility.getColor()} />
 
                     <Text style={{
                         fontFamily: "Roboto-Bold",
                         fontSize: 24,
-                        color: "#2898FF"
+                        color: Utility.getColor()
                     }}>Loading ...</Text>
                 </VStack> */}
                 <VStack space={3} alignItems={"center"}>
@@ -53,7 +55,7 @@ function Index(props) {
                     <Text style={{
                         fontFamily: "Roboto-Bold",
                         fontSize: 24,
-                        color: "#2898FF"
+                        color: Utility.getColor()
                     }}>Loading ...</Text>
                 </VStack>
             </View>

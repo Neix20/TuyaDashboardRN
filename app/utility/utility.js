@@ -473,12 +473,11 @@ function timeDiff(iso_dt) {
 }
 
 function formatTs(num) {
-	
 	return "";
 }
 
 function getColor() {
-	return "#000";
+	return "#F00";
 	// return "#2898FF";
 }
 

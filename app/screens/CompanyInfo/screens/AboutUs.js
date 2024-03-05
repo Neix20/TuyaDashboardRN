@@ -132,7 +132,7 @@ function Index(props) {
 
                             {/* Logo */}
                             {/* <View width={"90%"}>
-                                <BcSvgIcon name={"Yatu"} color={"#2898FF"} width={100} height={50} />
+                                <BcSvgIcon name={"Yatu"} color={require("@utility").Utility.getColor()} width={100} height={50} />
                             </View> */}
 
                             {/* Content */}

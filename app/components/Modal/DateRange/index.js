@@ -85,7 +85,7 @@ function DRangeItem(props) {
                     <Text style={{
                         fontFamily: "Roboto-Medium",
                         fontSize: 16,
-                        color: flag ? "#2898FF" : "#000"
+                        color: flag ? require("@utility").Utility.getColor() : "#000"
                     }}>{title}</Text>
                     <Text style={{
                         fontFamily: "Roboto-Medium",
@@ -97,7 +97,7 @@ function DRangeItem(props) {
                     display={flag ? "flex" : "none"}
                     alignItems={"center"} justifyContent={"center"}
                     style={{ width: 40, height: 40 }}>
-                    <AntDesign name={"check"} size={25} color={"#2898FF"} />
+                    <AntDesign name={"check"} size={25} color={require("@utility").Utility.getColor()} />
                 </View>
             </HStack>
         </TouchableOpacity>
@@ -322,7 +322,7 @@ function useDateRange() {
 function Index(props) {
 
     const colors = {
-        activeColor: "#2898FF",
+        activeColor: require("@utility").Utility.getColor(),
         inActiveColor: "#000",
     }
 

@@ -53,14 +53,14 @@ function Header(props) {
                         <TouchableOpacity onPress={onSave}>
                             <Text style={{
                                 fontSize: 20,
-                                color: "#2898FF"
+                                color: require("@utility").Utility.getColor()
                             }}>Save</Text>
                         </TouchableOpacity>
                     ) : (
                         <BcDisable>
                             <Text style={{
                                 fontSize: 20,
-                                color: "#2898FF"
+                                color: require("@utility").Utility.getColor()
                             }}>Save</Text>
                         </BcDisable>
                     )
@@ -161,7 +161,7 @@ function HomeForm(props) {
                         uncheckedIcon={"checkbox-blank-outline"}
                         checked={flag}
                         onPress={selectItem}
-                        checkedColor={"#2898ff"} />
+                        checkedColor={require("@utility").Utility.getColor()} />
                 </HStack>
             </TouchableOpacity>
         )

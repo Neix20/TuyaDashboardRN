@@ -86,7 +86,7 @@ function Marker(props) {
             width: 320,
             height: 320,
             borderWidth: 5,
-            borderColor: "#2898FF",
+            borderColor: require("@utility").Utility.getColor(),
         },
         title: {
             fontFamily: "Roboto-Bold",
@@ -228,7 +228,7 @@ function QrCameraBtn(props) {
         <>
             <QrCameraModal showModal={showQrModal} setShowModal={setShowQrModal} {...props} />
             <TouchableOpacity onPress={toggleQrModal}>
-                <View borderRadius={20} bgColor={"#2898FF"}
+                <View borderRadius={20} bgColor={require("@utility").Utility.getColor()}
                     alignItems={"center"} justifyContent={"center"}
                     style={{ height: 40, width: 40 }}>
                     <BcSvgIcon name={"QrScan"} size={24} color={"#FFF"} />

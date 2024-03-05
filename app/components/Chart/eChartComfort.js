@@ -165,7 +165,7 @@ function Index(props) {
 	const seTerm = seLs[flag ? 0 : 1];
 	const itvTerm = itvLs[pos];
 
-	const mtgColor = flag ? "#F01421" : "#2898FF";
+	const mtgColor = flag ? "#F01421" : Utility.getColor();
 	const mtgTitle = flag ? "Toggle End" : "Toggle Start";
 
 	const ttColor = toolTip ? "#39B54A" : "#98A0A8";

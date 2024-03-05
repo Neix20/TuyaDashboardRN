@@ -9,9 +9,11 @@ import { useNavigation } from "@react-navigation/native";
 
 import { BcBoxShadow } from "@components";
 
+import { Utility } from "@utility";
+
 function Index(props) {
     const { children, onBack = () => { } } = props;
-    const { color = "#2898FF", txtColor = "#000", bgColor = "#FFF" } = props;
+    const { color = Utility.getColor(), txtColor = "#000", bgColor = "#FFF" } = props;
 
     const navigation = useNavigation();
     const toast = useToast();

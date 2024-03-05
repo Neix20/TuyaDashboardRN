@@ -22,7 +22,7 @@ function Index(props) {
                 <Text style={{
                     fontFamily: "Roboto-Bold",
                     fontSize: 24,
-                    color: "#2898FF"
+                    color: require("@utility").Utility.getColor()
                 }}>Loading ...</Text>
             </VStack>
         </View>

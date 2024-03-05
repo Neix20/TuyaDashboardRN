@@ -107,7 +107,7 @@ function LinkDeviceItem(props) {
 function LinkDeviceModal(props) {
 
     const init = {
-        txtActive: "#2898FF",
+        txtActive: require("@utility").Utility.getColor(),
         txtInActive: "#6A7683",
         bgActive: "#FFF",
         bgInActive: "#EDEEEF",
@@ -527,7 +527,7 @@ function AddDeviceBtn(props) {
             <AddDeviceModal onLinkedDevice={GoToLinkDevice} showModal={showAdModal} setShowModal={setShowAdModal} />
             <TouchableOpacity onPress={toggleLdModal}>
                 <View borderRadius={20}
-                    bgColor={"#2898FF"}
+                    bgColor={require("@utility").Utility.getColor()}
                     alignItems={"center"} justifyContent={"center"}
                     style={{ width: 32, height: 32 }}>
                     <FontAwesome name={"plus"} size={16} color={"#FFF"} />
@@ -912,7 +912,7 @@ function Index(props) {
 
     // #region Init
     const init = {
-        txtActive: "#2898FF",
+        txtActive: require("@utility").Utility.getColor(),
         txtInActive: "#6A7683",
         bgActive: "#FFF",
         bgInActive: "#EDEEEF",
