@@ -57,7 +57,7 @@ function useSessionDeviceLs() {
         for (let ind = 0; ind < arr.length; ind += 1) {
             const obj = {
                 ...arr[ind],
-                flag: false,
+                flag: arr[ind].Status == 1,
                 pos: ind
             }
             arr[ind] = obj;
@@ -152,7 +152,7 @@ import { CheckBox } from "@rneui/base";
 
 function SessionDeviceItem(props) {
 
-    const { Title, flag } = props;
+    const { TuyaId = "", flag } = props;
     const { onSelect = () => { } } = props;
 
     const style = {
@@ -169,7 +169,7 @@ function SessionDeviceItem(props) {
     return (
         <TouchableOpacity onPress={onSelect}>
             <HStack alignItems={"center"} justifyContent={"space-between"}>
-                <Text style={style.title}>{Title}</Text>
+                <Text style={style.title}>{TuyaId}</Text>
                 <CheckBox
                     containerStyle={style.chkBox}
                     iconType={"material-community"}
@@ -216,23 +216,7 @@ function SessionModal(props) {
             onSetLoading: () => { }
         })
             .then(data => {
-                if (data.length <= 0) {
-                    fetchDeviceByUserII({
-                        param: {
-                            UserId: userId
-                        },
-                        onSetLoading: () => { }
-                    })
-                        .then(data_b => {
-                            data_b = data_b.map(x => ({ ...x, DeviceId: x.Id }))
-                            setDevLs(data_b);
-                        })
-                        .catch(err_b => {
-                            console.error(err_b);
-                        })
-                } else {
-                    setDevLs(data);
-                }
+                setDevLs(data);
             })
             .catch(err => {
                 console.error(err);
@@ -249,7 +233,6 @@ function SessionModal(props) {
 
     const submitDev = () => {
         fetchToggleYatuSessionDevice({
-
             param: {
                 UserId: userId,
                 YatuSessionId: Id,
@@ -260,9 +243,9 @@ function SessionModal(props) {
         .then(data => {
             closeModal();
         })
-            .catch(err => {
-                console.error(err);
-            })
+        .catch(err => {
+            console.error(err);
+        })
     }
     // #endregion
 
