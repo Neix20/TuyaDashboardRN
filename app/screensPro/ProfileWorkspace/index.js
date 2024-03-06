@@ -91,7 +91,7 @@ function Header(props) {
 
                     {/* Logo */}
                     {/* <BcYatuHome /> */}
-                    <BcSvgIcon name={"Yatu"} size={80} color={Utility.getColor()} />
+                    <BcSvgIcon name={"YatuPro"} size={80} color={Utility.getColor()} />
 
                     {
                         (flag) ? (

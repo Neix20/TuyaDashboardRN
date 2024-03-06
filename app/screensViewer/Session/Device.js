@@ -145,7 +145,7 @@ function Header(props) {
                     backgroundColor: "#fff",
                 }}>
                 <HStack alignItems={"center"} justifyContent={"flex-start"} style={{ width: "90%" }}>
-                    <BcSvgIcon name={"Yatu"} size={80} color={Utility.getColor()} />
+                    <BcSvgIcon name={"YatuViewer"} size={80} color={Utility.getColor()} />
                     {/* <View bgColor={Utility.getColor()} alignItems={"center"} justifyContent={"center"}
                         style={{ width: "40%", height: 48, borderRadius: 12 }}>
                         <Text style={style.timer}>{Utility.formatTsTimer(timer)}</Text>

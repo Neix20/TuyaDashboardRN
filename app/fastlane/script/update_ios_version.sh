@@ -1,6 +1,9 @@
 #!/bin/bash
 
-IOS_PATH=$1
+FILE_HEADER=${1:-"./"}
+
+IOS_PATH="$FILE_HEADER""ios/YatuDashboard/Info.plist"
+RN_CONST_PATH="$FILE_HEADER""app/config/clsConst.js"
 
 #region Utilities
 convert_ver_to_num() {
@@ -30,5 +33,9 @@ new_ios_version_code=$(convert_num_to_ver $new_ios_version_code)
 
 sed -i '' "s/${ios_version_code}/${new_ios_version_code}/g" $IOS_PATH
 
-echo "Replacement successful."
+echo "Replacement successful for $IOS_PATH"
+
+sed -i '' "s/${ios_version_code}/${new_ios_version_code}/g" $RN_CONST_PATH
+
+echo "Replacement successful for $RN_CONST_PATH"
 

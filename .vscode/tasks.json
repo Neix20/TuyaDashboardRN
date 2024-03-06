@@ -112,6 +112,13 @@
         "kind": "build",
         "isDefault": true
       }
+    },
+    {
+      "type": "npm",
+      "script": "fastlaneAndroid:testCommand",
+      "problemMatcher": [],
+      "label": "npm: fastlaneAndroid:testCommand",
+      "detail": "cd app && fastlane android testCommand"
     }
   ]
 }

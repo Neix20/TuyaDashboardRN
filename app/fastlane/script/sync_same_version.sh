@@ -1,7 +1,10 @@
 #!/bin/bash
 
-ANDROID_PATH=$1
-IOS_PATH=$2
+FILE_HEADER=${1:-"./"}
+
+ANDROID_PATH="$FILE_HEADER""android/app/build.gradle"
+IOS_PATH="$FILE_HEADER""ios/YatuDashboard/Info.plist"
+RN_CONST_PATH="$FILE_HEADER""app/config/clsConst.js"
 
 #region Utilities
 convert_ver_to_num() {
@@ -27,6 +30,14 @@ get_max() {
         echo "$2"
     fi
 }
+
+get_min() {
+    if [ "$1" -lt "$2" ]; then
+        echo "$1"
+    else
+        echo "$2"
+    fi
+}
 #endregion
 
 # Use grep to extract the version code
@@ -43,12 +54,19 @@ new_ios_version_code=$(convert_ver_to_num $ios_version_code)
 
 # Get Max Between Android Version Code and iOS Version Code
 new_version_code=$(get_max $new_android_version_code $new_ios_version_code)
+
+old_version_code=$(get_min $new_android_version_code $new_ios_version_code)
+old_version_code=$(convert_num_to_ver $old_version_code)
 # new_version_code=$((new_version_code + 1))
 
 new_android_version_code=$new_version_code
 new_ios_version_code=$(convert_num_to_ver $new_version_code)
 
 sed -i '' "s/${android_version_code}/${new_android_version_code}/g" $ANDROID_PATH
-sed -i '' "s/${ios_version_code}/${new_ios_version_code}/g" $IOS_PATH
+echo "Replacement Successful for $ANDROID_PATH"
 
-echo "Replacement Successful"
+sed -i '' "s/${ios_version_code}/${new_ios_version_code}/g" $IOS_PATH
+echo "Replacement Successful for $IOS_PATH"
+
+sed -i '' "s/${old_version_code}/${new_ios_version_code}/g" $RN_CONST_PATH
+echo "Replacement Successful for $RN_CONST_PATH"

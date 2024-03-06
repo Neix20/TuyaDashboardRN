@@ -477,9 +477,8 @@ function formatTs(num) {
 }
 
 function getColor() {
-	// return "#FB7304";
-	return "#6334D3";
-	// return "#2898FF";
+	const { APP_COLOR = "#000" } = clsConst;
+	return APP_COLOR;
 }
 
 import { ConvertNormalToTariff } from "./tariff";

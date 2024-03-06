@@ -28,7 +28,7 @@ end
 platform :android do 
     desc "Build Yatu AAB"
     lane :genYatuAab do 
-        sh("script/change_app.sh", "0", "./../../app/index.js")
+        sh("script/change_app.sh", "0", "./../../")
 
         gradle(
             task: "clean", 
@@ -50,7 +50,7 @@ platform :android do
 
     desc "Build Yatu Lite AAB"
     lane :genYatuLiteAab do 
-        sh("script/change_app.sh", "1", "./../../app/index.js")
+        sh("script/change_app.sh", "1", "./../../")
 
         gradle(
             task: "clean", 
@@ -72,7 +72,7 @@ platform :android do
 
     desc "Build Yatu Viewer AAB"
     lane :genYatuViewerAab do 
-        sh("script/change_app.sh", "2", "./../../app/index.js")
+        sh("script/change_app.sh", "2", "./../../")
 
         gradle(
             task: "clean", 
@@ -95,7 +95,7 @@ platform :android do
 
     desc "Build Yatu APK"
     lane :genYatuApk do 
-        sh("script/change_app.sh", "0", "./../../app/index.js")
+        sh("script/change_app.sh", "0", "./../../")
         gradle(
             task: "assemble",
             flavor: "Yatu",
@@ -106,7 +106,7 @@ platform :android do
 
     desc "Build Yatu Lite APK"
     lane :genYatuLiteApk do 
-        sh("script/change_app.sh", "1", "./../../app/index.js")
+        sh("script/change_app.sh", "1", "./../../")
         gradle(
             task: "assemble",
             flavor: "YatuLite",
@@ -117,7 +117,7 @@ platform :android do
 
     desc "Build Yatu Viewer APK"
     lane :genYatuViewerApk do
-        sh("script/change_app.sh", "2", "./../../app/index.js") 
+        sh("script/change_app.sh", "2", "./../../") 
         gradle(
             task: "assemble",
             flavor: "YatuViewer",
@@ -129,7 +129,7 @@ platform :android do
     desc "Release for the Android production"
     lane :pushToPlayStore do
 
-        sh("script/change_app.sh", "0", "./../../app/index.js") 
+        sh("script/change_app.sh", "0", "./../../") 
 
         gradle(
             task: "clean", 
@@ -153,7 +153,7 @@ platform :android do
 
     desc "Test command"
     lane :testCommand do
-        sh("script/change_app.sh", "1", "./../../app/index.js")
-        sh("script/update_android_version.sh", "./../../android/app/build.gradle")
+        sh("script/change_app.sh", "1", "./../../")
+        sh("script/update_android_version.sh", "./../../")
     end
 end
