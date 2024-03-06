@@ -501,14 +501,14 @@ function EmailModal(props) {
                 {
                     (emailFlag) ? (
                         <TouchableOpacity onPress={GenerateAccessCode} style={{ width: "60%", height: 40 }}>
-                            <View flex={1} backgroundColor={"#F00"}
+                            <View flex={1} backgroundColor={Utility.getColor()}
                                 alignItems={"center"} justifyContent={"center"}>
                                 <Text style={style.btnTitle}>Submit</Text>
                             </View>
                         </TouchableOpacity>
                     ) : (
                         <BcDisableII style={{ width: "60%", height: 40 }}>
-                            <View flex={1} backgroundColor={"#F00"}
+                            <View flex={1} backgroundColor={Utility.getColor()}
                                 alignItems={"center"} justifyContent={"center"}>
                                 <Text style={style.btnTitle}>Submit</Text>
                             </View>

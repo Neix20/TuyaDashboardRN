@@ -42,6 +42,7 @@ function TabIconFontAwesome(props) {
 // Screens
 import Dashboard from "../Session/Dashboard.js";
 import Device from "../Session/Device.js";
+import Profile from "../Session/Profile.js";
 
 let TabScreens = {};
 
@@ -70,7 +71,7 @@ TabScreens = {
         )
     },
     Profile: {
-        component: Device,
+        component: Profile,
         title: "Profile",
         tabBarIcon: (props) => (
             <TabIconFontAwesome

@@ -477,7 +477,8 @@ function formatTs(num) {
 }
 
 function getColor() {
-	return "#F00";
+	// return "#FB7304";
+	return "#6334D3";
 	// return "#2898FF";
 }
 

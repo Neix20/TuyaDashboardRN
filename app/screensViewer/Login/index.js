@@ -388,7 +388,7 @@ function Index(props) {
                             <Text style={{
                                 fontFamily: "Roboto-Medium",
                                 fontSize: 14
-                            }}>© Version {clsConst.APP_VERSION}</Text>
+                            }}>© Version {clsConst.VIEWER_APP_VERSION}</Text>
                         </View>
                     </ScrollView>
 

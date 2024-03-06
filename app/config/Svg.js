@@ -4,6 +4,8 @@ import AppLogo from "@assets/svg/AppLogo.svg";
 import AppLogoLite from "@assets/svg/AppLogoLite.svg";
 import Yatu from "@assets/svg/Yatu.svg";
 import YatuLite from "@assets/svg/Yatu_Lite.svg";
+import YatuPro from "@assets/svg/Yatu_Pro.svg";
+import YatuViewer from "@assets/svg/Yatu_Viewer.svg";
 
 import CardGradientBlue from "@assets/svg/card_gradient_blue.svg";
 import CardGradientGreen from "@assets/svg/card_gradient_green.svg";
@@ -48,7 +50,9 @@ Data = {
     AppLogo: AppLogo,
     AppLogoLite: AppLogoLite,
     Yatu: Yatu,
-    YatuLite: YatuLite
+    YatuLite: YatuLite,
+    YatuPro: YatuPro,
+    YatuViewer: YatuViewer,
 };
 
 Data = {

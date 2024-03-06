@@ -14,7 +14,7 @@ import { BcDateRange, BcViewShot, BcApacheChartFull, BcDataAttribute, BcApacheBa
 
 import { DateTime } from "luxon";
 
-import { fetchDashboardInfoByProfileWorkspace, fetchReportDataByProfileWorkspace, fetchDeviceDistributionByProfileWorkspace, fetchGetDashboardInfoByYatuSession } from "@api";
+import { fetchReportDataByProfileWorkspace, fetchDeviceDistributionByProfileWorkspace, fetchGetDashboardInfoByYatuSession } from "@api";
 import { useDate, useToggle, useOrientation, useProfileWs } from "@hooks";
 import { useEChart, useBarChart, useDevDistChart, useTimer } from "@hooks";
 
@@ -830,6 +830,8 @@ function Index(props) {
                             )
                         }
                     </ScrollView>
+
+                    <View style={{ height: 70 }} />
                 </View>
             </SafeAreaView>
         </>

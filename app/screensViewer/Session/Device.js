@@ -14,9 +14,9 @@ import { Logger, Utility } from "@utility";
 import { Images } from "@config";
 
 import { BcBoxShadow, BcLoading, BcPhotoGalleryModal, BcSvgIcon, BcYesNoModal, BcUserStatus, BcTooltip } from "@components";
-import { DisableDevice, DisableDeviceScreen, DisableDeviceItem } from "@componentsLite";
+import { DisableDevice, DisableDeviceItem } from "@componentsLite";
 
-import { fetchDeviceByUserII, fetchToggleFavoriteDevice, fetchLinkDeviceLite, fetchSubUserAccess } from "@api";
+import { fetchDeviceByUserII, fetchToggleFavoriteDevice, fetchLinkDeviceLite, fetchSubUserAccess, fetchGetDeviceByYatuSession } from "@api";
 
 import { useDispatch, useSelector } from 'react-redux';
 import { Actions, Selectors } from '@redux';
@@ -145,7 +145,7 @@ function Header(props) {
                     backgroundColor: "#fff",
                 }}>
                 <HStack alignItems={"center"} justifyContent={"flex-start"} style={{ width: "90%" }}>
-                <BcSvgIcon name={"Yatu"} size={80} color={Utility.getColor()} />
+                    <BcSvgIcon name={"Yatu"} size={80} color={Utility.getColor()} />
                     {/* <View bgColor={Utility.getColor()} alignItems={"center"} justifyContent={"center"}
                         style={{ width: "40%", height: 48, borderRadius: 12 }}>
                         <Text style={style.timer}>{Utility.formatTsTimer(timer)}</Text>
@@ -220,7 +220,7 @@ function Index(props) {
     const lang = "en";
 
     const viewerSession = useSelector(Selectors.viewerSessionSelect);
-    const { User_Id: userId, ViewerProfileWorkspaceId: prwsId, SessionExpiryDate: expiryDt = 100 } = viewerSession;
+    const { User_Id: userId, YatuSessionId: prwsId, SessionExpiryDate: expiryDt = 100 } = viewerSession;
 
     const dispatch = useDispatch();
     // #endregion
@@ -249,14 +249,16 @@ function Index(props) {
     // #region API List
     const GetDeviceByUserII = () => {
         setLoading(true);
-        fetchDeviceByUserII({
+        fetchGetDeviceByYatuSession({
             param: {
                 UserId: userId,
+                YatuSessionId: prwsId
             },
             onSetLoading: setLoading,
         })
             .then(data => {
-                setDeviceData(data);
+                let arr = data.filter(x => x.SessionStatus === 1);
+                setDeviceData(arr);
             })
             .catch(err => {
                 setLoading(false);
