@@ -47,19 +47,19 @@
     {
       "label": "Change To Yatu Pro",
       "type": "shell",
-      "command": "bash ~/Documents/ReactNative/YatuDashboard/app/fastlane/script/change_app.sh 0 ./app/index.js",
+      "command": "bash ~/Documents/ReactNative/YatuDashboard/app/fastlane/script/change_app.sh 0",
       "problemMatcher": []
     },
     {
       "label": "Change To Yatu Lite",
       "type": "shell",
-      "command": "bash ~/Documents/ReactNative/YatuDashboard/app/fastlane/script/change_app.sh 1 ./app/index.js",
+      "command": "bash ~/Documents/ReactNative/YatuDashboard/app/fastlane/script/change_app.sh 1",
       "problemMatcher": []
     },
     {
       "label": "Change To Yatu Viewer",
       "type": "shell",
-      "command": "bash ~/Documents/ReactNative/YatuDashboard/app/fastlane/script/change_app.sh 2 ./app/index.js",
+      "command": "bash ~/Documents/ReactNative/YatuDashboard/app/fastlane/script/change_app.sh 2",
       "problemMatcher": []
     },
     {

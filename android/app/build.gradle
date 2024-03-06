@@ -99,8 +99,8 @@ android {
         applicationId "com.yatudashboard"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 12028
-        versionName "12028"
+        versionCode 12029
+        versionName "12029"
 //        ndk {
 //            abiFilters "armeabi-v7a", "arm64-v8a"
 //        }

@@ -153,36 +153,41 @@ import { CheckBox } from "@rneui/base";
 
 function SessionDeviceItem(props) {
 
-    const { Title = "", flag } = props;
+    const { Title = "", flag, img } = props;
     const { onSelect = () => { } } = props;
 
     const style = {
         title: {
             fontFamily: "Roboto-Medium",
             fontSize: 16,
+            textAlign: "justify"
         },
         chkBox: {
             paddingHorizontal: 5,
             paddingVertical: 0,
+        },
+        img: {
+            width: 40,
+            height: 40
         }
     }
 
     return (
-        <TouchableOpacity onPress={onSelect}>
-            <HStack alignItems={"center"} justifyContent={"space-between"}>
-                <HStack space={2}>
-                    <Text style={style.title}>{Title}</Text>
-                </HStack>
-                <CheckBox
-                    containerStyle={style.chkBox}
-                    iconType={"material-community"}
-                    checkedIcon={"checkbox-marked"}
-                    uncheckedIcon={"checkbox-blank-outline"}
-                    onPress={onSelect}
-                    checked={flag}
-                    checkedColor={Utility.getColor()} />
+        <HStack flex={1} alignItems={"center"} justifyContent={"space-between"}>
+            <HStack width={"80%"} space={2} alignItems={"center"}>
+                <Image source={img} style={style.img} resizeMode={"contain"} alt={Title} />
+                <Text style={style.title}>{Title}</Text>
             </HStack>
-        </TouchableOpacity>
+            <CheckBox
+                containerStyle={style.chkBox}
+                iconType={"material-community"}
+                checkedIcon={"checkbox-marked"}
+                uncheckedIcon={"checkbox-blank-outline"}
+                onPress={onSelect}
+                checked={flag}
+                checkedColor={Utility.getColor()} />
+        </HStack>
+
     )
 }
 
@@ -220,6 +225,10 @@ function SessionModal(props) {
             onSetLoading: () => { }
         })
             .then(data => {
+                console.log({
+                    UserId: userId,
+                    YatuSessionId: Id
+                });
                 setDevLs(data);
             })
             .catch(err => {
@@ -256,7 +265,9 @@ function SessionModal(props) {
     const renderItem = ({ item, index }) => {
         const onSelect = () => toggleItem(item);
         return (
-            <SessionDeviceItem key={index} onSelect={onSelect} {...item} />
+            <TouchableOpacity onPress={onSelect} style={{ width: "100%" }}>
+                <SessionDeviceItem key={index} onSelect={onSelect} {...item} />
+            </TouchableOpacity>
         )
     }
 

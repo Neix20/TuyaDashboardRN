@@ -9,7 +9,7 @@ import { Logger, Utility } from "@utility";
 
 import { Animation, clsConst, Images } from "@config";
 
-import { BcSvgIcon, BcLoading, BcDisable, BcCarousel, BottomModal, BcDeleteAccountModal, BcExpiredAccountModal } from "@components";
+import { BcSvgIcon, BcLoading, BcDisable, BcCarousel, BottomModal, BcDeleteAccountModal, BcExpiredAccountModal, BcYesNoModal, BcCheckUserProModal } from "@components";
 
 import { fetchRequestOtp, fetchLogin, fetchDemoLogin, fetchSubUserAccess, fetchSubUserLogin } from "@api";
 
@@ -178,8 +178,7 @@ function ExistLoginForm(props) {
     // const { loading, setLoading = () => { } } = props;
 
     const { toastHook = [], formHook = [] } = props;
-
-    const { delAccHook = [], expAccHook = [] } = props;
+    const { delAccHook = [], expAccHook = [], chkUserProHook = [] } = props;
 
     const { showModal, setShowModal = () => { } } = props;
 
@@ -204,9 +203,12 @@ function ExistLoginForm(props) {
     const [showDelAccModal, setShowDelAccModal, toggleDelAccModal] = delAccHook;
     const [showExpAccModal, setShowExpAccModal, toggleExpAccModal] = expAccHook;
 
+    const [showChkUserProModal, setShowChkUserProModal, toggleChkUserProModal] = chkUserProHook;
+    
     const [timer, setTimer] = useTimer(0);
     const [otpFlag, setOtpFlag, toggleOtpFlag] = useToggle(false);
     const [loading, setLoading, toggleLoading] = useToggle(false);
+    const [newUser, setNewUser, toggleNewUser] = useToggle(false);
     // #endregion
 
     const { email, otp, sessionId } = form;
@@ -242,7 +244,7 @@ function ExistLoginForm(props) {
             onSetLoading: setLoading,
         })
             .then(data => {
-                const { Otp, SessionId, MsgTemplate, ShowDebugFlag = false } = data;
+                const { Otp, SessionId, MsgTemplate, ShowDebugFlag = false, IsFirstTimeSignIn = false } = data;
                 if (ShowDebugFlag) {
                     // toast.show({
                     //     description: MsgTemplate
@@ -250,6 +252,11 @@ function ExistLoginForm(props) {
                     showMsg(MsgTemplate);
                 }
                 setSessionId(SessionId);
+
+                if (IsFirstTimeSignIn) {
+                    toggleChkUserProModal();
+                    setNewUser(_ => true);
+                }
             })
             .catch(err => {
                 console.log(`Error: ${err}`);
@@ -271,6 +278,14 @@ function ExistLoginForm(props) {
             })
     }
 
+    const WantToLogin = () => {
+        if (newUser) {
+            toggleChkUserProModal();
+        } else {
+            Login();
+        }
+    }
+
     const Login = () => {
         setLoading(true);
         fetchLogin({
@@ -284,11 +299,12 @@ function ExistLoginForm(props) {
             .then(data => {
                 if (data !== null) {
 
-                    const { Data: { User_Id, FirstTimeUserId, ResponseMessage } } = data;
+                    const { Data: { User_Id, FirstTimeUserId, ResponseMessage, UserTariff = "Residential" } } = data;
 
                     if (FirstTimeUserId < 3) {
                         Utility.OneSignalSubscribe(email);
                         dispatch(Actions.onChangeUserId(User_Id));
+                        dispatch(Actions.onChangeUserTariff(UserTariff));
 
                         RequestAccess(User_Id);
 
@@ -430,7 +446,7 @@ function ExistLoginForm(props) {
                 </View>
 
                 {/* Login Btn */}
-                <LoginBtn flag={loginFlag} onPress={Login} />
+                <LoginBtn flag={loginFlag} onPress={WantToLogin} />
             </VStack>
         </>
     )
@@ -662,6 +678,9 @@ function Index(props) {
     const expAccHook = useToggle(false);
     const [showExpAccModal, setShowExpAccModal, toggleExpAccModal] = expAccHook;
 
+    const chkUserProHook = useToggle(false);
+    const [chkUserProModal, setChkUserProModal, toggleChkUserProModal] = chkUserProHook;
+
     const existLoginFormHook = useExistLoginForm();
     const subLoginFormHook = useSubLoginForm();
 
@@ -723,8 +742,10 @@ function Index(props) {
             <BcLoading loading={loading} />
             <BcDeleteAccountModal showModal={showDelAccModal} setShowModal={setShowDelAccModal} />
             <BcExpiredAccountModal showModal={showExpAccModal} setShowModal={setShowExpAccModal} />
-            <ExistLoginModal formHook={existLoginFormHook}
-                delAccHook={delAccHook} expAccHook={expAccHook}
+            <BcCheckUserProModal showModal={chkUserProModal} setShowModal={setChkUserProModal} />
+            <ExistLoginModal 
+                formHook={existLoginFormHook} delAccHook={delAccHook} 
+                expAccHook={expAccHook} chkUserProHook={chkUserProHook}
                 showModal={showExLoginModal} setShowModal={setShowExLoginModal} />
             <SubLoginModal formHook={subLoginFormHook} showModal={showSubLoginModal} setShowModal={setShowSubLoginModal} />
             <SafeAreaView style={{ flex: 1 }}>

@@ -31,10 +31,6 @@ platform :android do
         sh("script/change_app.sh", "0", "./../../")
 
         gradle(
-            task: "clean", 
-            project_dir: './../android'
-        )
-        gradle(
             task: 'bundle', 
             flavor: "Yatu",
             build_type: "release",
@@ -53,10 +49,6 @@ platform :android do
         sh("script/change_app.sh", "1", "./../../")
 
         gradle(
-            task: "clean", 
-            project_dir: './../android'
-        )
-        gradle(
             task: 'bundle',
             flavor: "YatuLite",
             build_type: "release",
@@ -73,11 +65,6 @@ platform :android do
     desc "Build Yatu Viewer AAB"
     lane :genYatuViewerAab do 
         sh("script/change_app.sh", "2", "./../../")
-
-        gradle(
-            task: "clean", 
-            project_dir: './../android'
-        )
 
         gradle(
             task: 'bundle',

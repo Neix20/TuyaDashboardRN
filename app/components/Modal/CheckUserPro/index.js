@@ -1,16 +1,19 @@
 
 import React, { useState, useEffect } from "react";
-import { Text, TouchableOpacity } from "react-native";
+import { Text, TouchableOpacity, Image } from "react-native";
 import { View, VStack, HStack, useToast } from "native-base";
 
 import { useNavigation, useIsFocused } from "@react-navigation/native";
 
 import { Logger, Utility } from "@utility";
-import { clsConst } from "@config";
+import { clsConst, Images } from "@config";
 
 import { BaseIIModal } from "@components";
 
 import { Platform, Linking } from "react-native";
+
+import FontAwesome from "react-native-vector-icons/FontAwesome";
+import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 
 function Index(props) {
 
@@ -52,8 +55,8 @@ function Index(props) {
 
     const GoToShopee = () => {
         const url = Platform.select({
-            ios: "https://apps.apple.com/my/app/smart-life-smart-living/id1115101477",
-            android: "https://play.google.com/store/apps/details?id=com.tuya.smartlife&hl=en&gl=my"
+            ios: "https://play.google.com/store/apps/details?id=com.yatudashboard&hl=en&gl=US",
+            android: "https://play.google.com/store/apps/details?id=com.yatudashboard&hl=en&gl=US"
         })
 
         Linking.openURL(url)
@@ -64,8 +67,14 @@ function Index(props) {
             <VStack alignItems={"center"} space={3}>
                 {/* Title */}
                 <View alignItems={"center"} width={"90%"}>
-                    <Text style={style.title}>New User Checkpoint</Text>
+                    <Text style={style.title}>Error! Not Existing Yatu Lite User!</Text>
                 </View>
+
+                {/* Warning */}
+                <HStack space={3}>
+                    <FontAwesome name={"warning"} color={"#F00"} size={80} />
+                    <Image source={Images.YatuLiteLogo} resizeMode={"contain"} style={{ height: 80, width: 80, borderRadius: 20 }} />
+                </HStack>
 
                 {/* Description */}
                 <VStack p={3} space={3} width={"90%"}
@@ -78,12 +87,12 @@ function Index(props) {
                         <View>
                             <Text style={style.instruction}>1. Ensure that you are a registered</Text>
                             <TouchableOpacity onPress={GoToShopee}>
-                                <Text style={style.hyperlink}>Tuya/SmartLife User</Text>
+                                <Text style={style.hyperlink}>Yatu Lite User</Text>
                             </TouchableOpacity>
                         </View>
 
                         {/* Ready a Computer to do Setup */}
-                        <Text style={style.instruction}>2. Prepare a personal computer to help you in completing authentication!</Text>
+                        <Text style={style.instruction}>2. This app is an enhancement from Yatu Lite! Please ensure that you have Yatu Lite installed first!</Text>
                     </VStack>
                 </VStack>
 

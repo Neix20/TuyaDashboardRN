@@ -21,6 +21,7 @@ const initialState = {
     yatuAuth: -1,
     tutorial: false,
     viewerSession: {},
+    userTariff: "Residential"
 };
 
 function setReducer(state = initialState, action = {}) {
@@ -119,6 +120,11 @@ function setReducer(state = initialState, action = {}) {
             return {
                 ...state,
                 viewerSession: action.viewerSession,
+            };
+        case "SET_USER_TARIFF":
+            return {
+                ...state,
+                userTariff: action.userTariff,
             };
         default: {
             return {

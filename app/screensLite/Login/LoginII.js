@@ -245,14 +245,15 @@ function ExistLoginForm(props) {
             .then(data => {
                 const { Otp, SessionId, MsgTemplate, ShowDebugFlag = false, IsFirstTimeSignIn = false } = data;
                 if (ShowDebugFlag) {
-                    // toast.show({
-                    //     description: MsgTemplate
-                    // })
                     showMsg(MsgTemplate);
                 }
                 setSessionId(SessionId);
 
                 if (IsFirstTimeSignIn) {
+                    // setTimeout(() => {
+                    //     toggleChkUserModal();
+                    // }, 100);
+                    // setShowModal(_ => false);
                     toggleChkUserModal();
                 }
             })
@@ -289,20 +290,19 @@ function ExistLoginForm(props) {
             .then(data => {
                 if (data !== null) {
 
-                    const { Data: { User_Id, FirstTimeUserId, ResponseMessage } } = data;
+                    const { Data: { User_Id, FirstTimeUserId, ResponseMessage, UserTariff = "Residential" } } = data;
 
                     if (FirstTimeUserId < 3) {
+                        
                         Utility.OneSignalSubscribe(email);
                         dispatch(Actions.onChangeUserId(User_Id));
+                        dispatch(Actions.onChangeUserTariff(UserTariff));
 
                         RequestAccess(User_Id);
 
                         // If User Logins For First Time
                         if (FirstTimeUserId == 1) {
                             dispatch(Actions.onChangeFirstTimeLink(true));
-                            // navigation.navigate("CheckTuyaEmail", {
-                            //     Email: email,
-                            // })
                             navigation.navigate("AuthTuya", {
                                 Email: email,
                             })
@@ -874,10 +874,15 @@ function Index(props) {
 
     const insets = useSafeAreaInsets();
 
+    const onPressCheckUserConfirm = () => {
+        setShowChkUserModal(false);
+        setShowExLoginModal(true);
+    }
+
     return (
         <>
             <BcViewerModal showModal={showViewerModal} setShowModal={setShowViewerModal} />
-            <BcCheckUserModal showModal={showChkUserModal} setShowModal={setShowChkUserModal} />
+            <BcCheckUserModal showModal={showChkUserModal} setShowModal={setShowChkUserModal} onPressYes={onPressCheckUserConfirm} />
             <BcLoading loading={loading} />
             <BcDeleteAccountModal showModal={showDelAccModal} setShowModal={setShowDelAccModal} />
             <BcExpiredAccountModal showModal={showExpAccModal} setShowModal={setShowExpAccModal} />
