@@ -495,8 +495,6 @@ function DashboardReport(props) {
 }
 // #endregion
 
-import { DashboardInfoData, DeviceDistriData, ReportDataJson } from "./data";
-
 function Index(props) {
 
     const toast = useToast();

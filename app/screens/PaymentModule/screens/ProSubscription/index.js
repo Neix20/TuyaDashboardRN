@@ -295,7 +295,7 @@ function Index(props) {
                 <View bgColor={"#F3F8FC"} style={{ flex: 1 }}>
 
                     {/* Header */}
-                    <BcHeaderWithAdd Right={<InfoIcon />}>Subscription</BcHeaderWithAdd>
+                    <BcHeaderWithAdd Right={<InfoIcon />}>Yatu Pro Subscription</BcHeaderWithAdd>
 
                     <View style={{ height: 10 }} />
 

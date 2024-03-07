@@ -20,7 +20,6 @@ import { fetchGetDeviceByYatuSession, fetchToggleYatuSessionDevice, fetchRemoveY
 import { useDispatch, useSelector } from 'react-redux';
 import { Actions, Selectors } from '@redux';
 
-// [ ] Modal Must Keep refreshing to Change Product Loadout
 // [ ] Modal Must Have Loading
 
 // [x] Long Press to Remove Session
@@ -462,6 +461,14 @@ function EmailModal(props) {
             fontSize: 14,
             fontWeight: "bold",
             color: "#FFF",
+        },
+        headerTitle: {
+            fontWeight: "bold",
+            fontSize: 18,
+            color: "#000"
+        },
+        headerDescription: {
+            textAlign: "justify",
         }
     }
 
@@ -492,9 +499,12 @@ function EmailModal(props) {
     }
 
     return (
-
         <BaseModal {...props}>
             <VStack py={3} space={3} width={"100%"} alignItems={"center"}>
+                <VStack space={2} width={"80%"} alignItems={"center"}>
+                    <Text style={style.headerTitle}>Invitee Recipient</Text>
+                    <Text style={style.headerDescription}>Enter the recipient email to share them your session devices!</Text>
+                </VStack>
                 <View width={"80%"}>
                     <Text style={style.title}>Email</Text>
                     <View px={1} bgColor={"#EEF3F6"}>

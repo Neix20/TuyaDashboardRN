@@ -314,7 +314,7 @@ function Debug(props) {
                     <View alignItems={"flex-start"} style={{ width: 40 }}>
                         <MaterialCommunityIcons name={"progress-clock"} size={24} color={color} />
                     </View>
-                    <Text style={style.title}>Share Session</Text>
+                    <Text style={style.title}>Share Viewer Session</Text>
                 </HStack>
             </TouchableOpacity>
         </VStack>

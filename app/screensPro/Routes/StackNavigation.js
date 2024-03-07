@@ -224,9 +224,11 @@ StackScreens = {
 }
 
 import AboutUs from "@screens/CompanyInfo/screens/AboutUs.js";
+import Yatu from "@screens/CompanyInfo/screens/Yatu.js";
 import Tnc from "@screens/CompanyInfo/screens/Tnc.js";
 import Policy from "@screens/CompanyInfo/screens/Policy.js";
 import Faq from "@screens/CompanyInfo/screens/Faq.js";
+import ContactUs from "@screens/CompanyInfo/screens/ContactUs.js";
 
 import YatuEngine from "@screens/YatuEngine";
 
@@ -235,6 +237,13 @@ StackScreens = {
     AboutUs: {
         component: AboutUs,
         title: "AboutUs",
+        option: {
+            orientation: "portrait"
+        }
+    },
+    Yatu: {
+        component: Yatu,
+        title: "Yatu",
         option: {
             orientation: "portrait"
         }
@@ -263,6 +272,13 @@ StackScreens = {
     YatuEngine: {
         component: YatuEngine,
         title: "YatuEngine",
+        option: {
+            orientation: "portrait"
+        }
+    },
+    ContactUs: {
+        component: ContactUs,
+        title: "ContactUs",
         option: {
             orientation: "portrait"
         }

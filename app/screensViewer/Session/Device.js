@@ -14,7 +14,7 @@ import { Logger, Utility } from "@utility";
 import { Images } from "@config";
 
 import { BcBoxShadow, BcLoading, BcPhotoGalleryModal, BcSvgIcon, BcYesNoModal, BcUserStatus, BcTooltip } from "@components";
-import { DisableDevice, DisableDeviceItem } from "@componentsLite";
+import { DisableDevice, DisableDeviceItem } from "@components";
 
 import { fetchDeviceByUserII, fetchToggleFavoriteDevice, fetchLinkDeviceLite, fetchSubUserAccess, fetchGetDeviceByYatuSession } from "@api";
 

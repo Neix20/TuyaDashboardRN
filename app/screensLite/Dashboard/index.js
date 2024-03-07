@@ -11,7 +11,7 @@ import { Images, Svg } from "@config";
 
 import { BcBoxShadow, BcSvgIcon, BcLoading, BcYatuHome, BcProfileWorkspace } from "@components";
 import { BcDateRange, BcViewShot, BcApacheChartFull, BcDataAttribute, BcApacheBarChartFull, BcApachePieChart, BcUserStatus } from "@components";
-import { DisableDevice, DisableDeviceScreen } from "@componentsLite";
+import { DisableDevice, DisableDeviceScreen } from "@components";
 
 import { DateTime } from "luxon";
 
@@ -553,7 +553,7 @@ function Index(props) {
             ReportData();
             GetDeviceDistribution();
         }
-    }, [isFocused, JSON.stringify(startDt + endDt + prwsId)]);
+    }, [isFocused, JSON.stringify(startDt + endDt + prwsId + userId)]);
     // #endregion
 
     // #region API
@@ -811,7 +811,7 @@ function Index(props) {
                     {/* Footer */}
                     <View style={{ height: 70 }} />
                 </View>
-            </SafeAreaView >
+            </SafeAreaView>
         </>
     );
 }

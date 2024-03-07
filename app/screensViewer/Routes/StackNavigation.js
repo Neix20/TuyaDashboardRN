@@ -111,10 +111,8 @@ function Index(props) {
     // #region UseState
     const dispatch = useDispatch();
 
-    const userId = useSelector(Selectors.userIdSelect);
-    const firstTimeLink = useSelector(Selectors.firstTimeLinkSelect);
-    const loginAccess = useSelector(Selectors.loginAccessSelect);
-    const tutorial = useSelector(Selectors.tutorialSelect);
+    const viewerSession = useSelector(Selectors.viewerSessionSelect);
+    const { User_Id: userId = -1, YatuSessionId: prwsId, SessionExpiryDate: expiryDt = 100 } = viewerSession;
 
     const [appFlag, setAppFlag, toggleAppFlag] = useToggle(false);
     const [serverFlag, setServerFlag, toggleServerFlag] = useToggle(false);
@@ -160,14 +158,6 @@ function Index(props) {
                 navigation.navigate("LoginII");
             }
 
-            if ("Action" in additionalData && additionalData["Action"] == "Data_Alert") {
-                if (!tutorial) {
-                    navigation.navigate("TabNavigation", {
-                        screen: "Dashboard"
-                    })
-                }
-            }
-
             event.getNotification().display();
         }
         OneSignal.Notifications.addEventListener('foregroundWillDisplay', fgEvt);
@@ -194,9 +184,6 @@ function Index(props) {
 
         // Setup for Getting Purchase History
         setup({ storekitMode: 'STOREKIT_HYBRID_MODE' });
-
-        // Set Tutorial To True
-        dispatch(Actions.onChangeTutorial(true));
     }, []);
 
     // #region Helper
@@ -246,7 +233,7 @@ function Index(props) {
     }
     // #endregion
 
-    const defaultScreen = (userId == -1 || firstTimeLink) ? "LoginII" : "TabNavigation";
+    const defaultScreen = (userId == -1) ? "LoginII" : "TabNavigation";
     // const defaultScreen = "Debug";
 
     return (

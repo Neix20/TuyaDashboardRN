@@ -614,9 +614,9 @@ function Index(props) {
 
                             <CompanyInfoPanel />
 
-                            <TutorialPanel />
+                            {/* <TutorialPanel /> */}
 
-                            <BcSessionPanel />
+                            {/* <BcSessionPanel /> */}
 
                             {/* Logout */}
                             <LogoutPanel onLogout={SignOut} onDeleteAccount={DeleteAccount} />

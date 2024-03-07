@@ -18,12 +18,10 @@ import { Actions, Selectors } from '@redux';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { fetchProfileInfo, fetchSubUserAccess, fetchDeleteAccount, fetchRestoreStorePurchase } from "@api";
-import { fetchGetParamApi, fetchGenerateViewerAccessCode, fetchJoinViewerSession } from "@api";
 
-import { BcLoading, BaseModal, BaseIIModal, BcYesNoModal, BcDisableII, BcSessionPanel } from "@components";
+import { BcLoading, BcYesNoModal, BcDisableII, BcSessionPanel } from "@components";
 
-import { useToggle, useYatuIap, useTimer, useModalToast } from "@hooks";
-import { withIAPContext } from "react-native-iap";
+import { useToggle } from "@hooks";
 
 // #region Components
 function Header(props) {
@@ -94,34 +92,21 @@ function Profile(props) {
 
     const { Email = "temp@gmail.com" } = props;
 
-    const { Created_Date = "2023-07-01", DataAvailableDate = "2023-07-01" } = props;
-
     const subUserAccess = useSelector(Selectors.subUserAccessSelect);
     const { AccountType = -1 } = subUserAccess;
 
     return (
         <View width={"90%"} alignItems={"center"} style={{ minHeight: 60 }}>
-            <TouchableOpacity {...props} style={{ width: "90%" }}>
-                <HStack
-                    alignItems={"center"}
-                    justifyContent={"space-between"}>
-                    {/* Btn */}
-                    <HStack space={5} alignItems={'center'}>
-                        <FontAwesome name={"user-o"} color={"#000"} size={48} />
-                        <VStack width={"78%"}>
-                            <Text style={{
-                                fontFamily: "Roboto-Bold",
-                                fontSize: 18
-                            }}>{Email}</Text>
-
-                            <ProfilePremium AccountType={AccountType} />
-                        </VStack>
-                    </HStack>
-
-                    {/* Angle-Right */}
-                    <FontAwesome name={"angle-right"} color={"#000"} size={32} />
-                </HStack>
-            </TouchableOpacity>
+            <HStack space={5} alignItems={'center'}>
+                <FontAwesome name={"user-o"} color={"#000"} size={48} />
+                <VStack width={"78%"}>
+                    <Text style={{
+                        fontFamily: "Roboto-Bold",
+                        fontSize: 18
+                    }}>{Email}</Text>
+                    <ProfilePremium AccountType={AccountType} />
+                </VStack>
+            </HStack>
         </View>
     )
 }
@@ -136,7 +121,6 @@ function ProfileInfo(props) {
     return (
         <VStack bgColor={"#FFF"} borderRadius={8} width={"90%"} alignItems={"center"}>
             <PanelBtnII Btn={FontAwesome} icon={"user"} title={"Joined in " + Utility.formatDt(Created_Date, "yyyy-MM-dd")} />
-            <PanelBtnII Btn={FontAwesome5} icon={"user-alt-slash"} title={"Expires In " + Utility.formatDt(ExpiryDate, "yyyy-MM-dd")} />
             <PanelBtnII Btn={FontAwesome5} icon={"tools"} title={`Yatu Token Count: ${DeviceQty}`} />
         </VStack>
     )
@@ -202,40 +186,6 @@ function PanelBtnII(props) {
     )
 }
 
-function NavPanel(props) {
-
-    const toast = useToast();
-    const navigation = useNavigation();
-
-    const GoToHomeManagement = () => navigation.navigate("HomeManagement");
-    const GoToAlert = () => navigation.navigate("Alert");
-    const GoToReportSchedule = () => navigation.navigate("ReportSchedule");
-
-    const GoToSubUser = () => navigation.navigate("SubUser");
-    const GoToAddSubUser = () => navigation.navigate("AddSubUserWithCode");
-
-    const GoToSubscription = () => navigation.navigate("Subscription");
-    const GoToUserToken = () => navigation.navigate("UserToken");
-    const GoToProfileWorkspace = () => navigation.navigate("ProfileWorkspace");
-
-    const workInProgress = () => {
-        toast.show({
-            description: "Work In-Progress!"
-        })
-    }
-
-    const subUserAccess = useSelector(Selectors.subUserAccessSelect);
-    const { MS_Email = -1, MS_User = -1 } = subUserAccess;
-
-    return (
-        <VStack bgColor={"#FFF"} borderRadius={8} width={"90%"} alignItems={"center"}>
-            <PanelBtn onPress={GoToProfileWorkspace} Btn={Ionicons} icon={"settings-sharp"} title={"View Profile Selection"} />
-            <PanelBtn onPress={GoToUserToken} Btn={FontAwesome5} icon={"shopping-cart"} title={"View Yatu Token"} />
-            {/* <PanelBtn onPress={GoToSubscription} Btn={FontAwesome5} icon={"shopping-cart"} title={"View Purchased Add-Ons"} /> */}
-        </VStack>
-    )
-}
-
 function CompanyInfoPanel(props) {
     const navigation = useNavigation();
 
@@ -255,147 +205,6 @@ function CompanyInfoPanel(props) {
             <PanelBtn onPress={GoToFaq} Btn={FontAwesome5} icon={"question-circle"} title={"FAQ"} />
             <PanelBtn onPress={GoContactUs} Btn={FontAwesome5} icon={"phone-square-alt"} title={"Contact Us"} />
         </VStack>
-    )
-}
-
-function PaymentSubscriptionPanel(props) {
-
-    const toast = useToast();
-    const navigation = useNavigation();
-
-    const GoToPayment = () => {
-        navigation.navigate("PaymentProSubscription");
-    };
-
-    return (
-        <VStack bgColor={"#FFF"} borderRadius={8}
-            width={"90%"} alignItems={"center"}>
-            <PanelBtn
-                onPress={GoToPayment} title={"Get Value with Pro Subscription"}
-                Btn={FontAwesome5} icon={"crown"}
-                color={"#FFAA00"} showRight={false} />
-        </VStack>
-    )
-}
-
-function TokenSubscriptionPanel(props) {
-
-    const toast = useToast();
-    const navigation = useNavigation();
-
-    const GoToRedeemToken = () => {
-        navigation.navigate("TokenActivation");
-    };
-
-    return (
-        <VStack bgColor={"#FFF"} borderRadius={8}
-            width={"90%"} alignItems={"center"}>
-            <PanelBtn
-                onPress={GoToRedeemToken} title={"Redeem Your Yatu Token!"}
-                Btn={FontAwesome} icon={"ticket"}
-                color={"#FFAA00"} showRight={false} />
-        </VStack>
-    )
-}
-
-function AuthUserCheckTuyaEmail(props) {
-
-    const navigation = useNavigation();
-
-    const subUserAccess = useSelector(Selectors.subUserAccessSelect);
-    const { Email = "" } = subUserAccess;
-
-    const AuthUser = () => {
-        navigation.navigate("CheckTuyaEmail", { Email: Email })
-    };
-
-    return (
-        <VStack bgColor={"#FFF"} borderRadius={8}
-            width={"90%"} alignItems={"center"}>
-            <PanelBtn
-                onPress={AuthUser} title={"Authenticate User"}
-                Btn={FontAwesome} icon={"user-plus"}
-                color={"#FFAA00"} showRight={false} />
-        </VStack>
-    )
-}
-
-function RestorePurchasePanel(props) {
-
-    const toast = useToast();
-
-    const { onGetPurchaseHistory = () => { } } = props;
-
-    const userId = useSelector(Selectors.userIdSelect);
-
-    // #region Restore Purchase Helper
-    const [showRpModal, setShowRpModal, toggleRpModal] = useToggle();
-
-    const closeRpModal = () => setShowRpModal(false);
-
-    const RestoreStorePurchase = (SubscriptionCode = "") => {
-        setLoading(true);
-        fetchRestoreStorePurchase({
-            param: {
-                UserId: userId,
-                SubscriptionCode
-            },
-            onSetLoading: setLoading
-        })
-            .catch(err => {
-                setLoading(false);
-                console.error(`Error: ${err}`);
-            })
-    }
-
-    const RestorePurchase = () => {
-        const onEndTrue = () => {
-            if (purchaseHistoryLs.length > 0) {
-
-                const { productId = "" } = purchaseHistoryLs[0];
-
-                // const sku = "com.subscription.mspp0100";
-                const sku = productId.split(".").at(-1);
-                RestoreStorePurchase(sku);
-
-                toast.show({
-                    description: "Successfully restored your subscription."
-                })
-            } else {
-                toast.show({
-                    description: "No subscription available to restore."
-                })
-            }
-            closeRpModal();
-        }
-
-        const onEndFalse = () => {
-            toast.show({
-                description: "No subscription available to restore."
-            })
-            closeRpModal();
-        }
-
-        onGetPurchaseHistory({ onEndTrue, onEndFalse });
-    };
-    // #endregion
-
-    return (
-        <>
-            <BcYesNoModal
-                showModal={showRpModal} setShowModal={setShowRpModal}
-                title={"Restore Purchase"}
-                description={`This will restore all your deleted purchases from App Store & Google play store.\n\nWould you like to restore your purchases?`}
-                titleYes={"Restore"} titleNo={"Cancel"}
-                onPressYes={RestorePurchase} onPressNo={toggleRpModal}
-            />
-            <VStack bgColor={"#FFF"} borderRadius={8}
-                width={"90%"} alignItems={"center"}>
-                <PanelBtn onPress={toggleRpModal}
-                    Btn={FontAwesome5} icon={"cart-arrow-down"}
-                    title={"Restore Purchases"} showRight={false} />
-            </VStack>
-        </>
     )
 }
 
@@ -435,51 +244,6 @@ function LogoutPanel(props) {
         </>
     )
 }
-
-function TutorialPanel(props) {
-
-    const dispatch = useDispatch();
-    const navigation = useNavigation();
-
-    const tutorial = useSelector(Selectors.tutorialSelect);
-
-    const toggleTutorial = () => {
-        // Update Tutorial
-        dispatch(Actions.onChangeTutorial(true));
-
-        navigation.navigate("TabNavigation", {
-            screen: "Device"
-        })
-    }
-
-    const color = "#111111";
-
-    const style = {
-        title: {
-            fontFamily: "Roboto-Medium",
-            fontSize: 18,
-            color: color
-        },
-        chkBox: {
-            paddingHorizontal: 0,
-            paddingVertical: 0,
-        }
-    }
-
-    return (
-        <VStack bgColor={"#FFF"} borderRadius={8} width={"90%"} alignItems={"center"}>
-            <TouchableOpacity onPress={toggleTutorial} style={{ width: "90%" }}>
-                <HStack alignItems={"center"} style={{ height: 60 }}>
-                    {/* Icon & Title */}
-                    <View alignItems={"flex-start"} style={{ width: 40 }}>
-                        <FontAwesome5 name={"graduation-cap"} size={24} color={color} />
-                    </View>
-                    <Text style={style.title}>Restart Tutorial</Text>
-                </HStack>
-            </TouchableOpacity>
-        </VStack>
-    )
-}
 // #endregion
 
 function Index(props) {
@@ -490,18 +254,14 @@ function Index(props) {
 
     const dispatch = useDispatch();
 
-    const userId = useSelector(Selectors.userIdSelect);
-
-    const subUserAccess = useSelector(Selectors.subUserAccessSelect);
-    const { UserStatus = 0 } = subUserAccess;
+    const viewerSession = useSelector(Selectors.viewerSessionSelect);
+    const { User_Id: userId, YatuSessionId: prwsId, SessionExpiryDate: expiryDt = 100 } = viewerSession;
 
     // #region UseState
     const [profileInfo, setProfileInfo] = useState({});
 
     const loadingHook = useState(false);
     const [loading, setLoading] = loadingHook;
-
-    const [t1, t2, t3, t4, t5, purchaseHistoryLs, getPurchaseHistory] = useYatuIap(setLoading);
     // #endregion
 
     useEffect(() => {
@@ -522,11 +282,8 @@ function Index(props) {
 
     const SignOut = () => {
 
-        // Reset User Id
-        dispatch(Actions.onChangeUserId(-1));
-
-        // Reset Home Id
-        dispatch(Actions.onChangeHomeId(-1));
+        // Reset Viewer Session
+        dispatch(Actions.onChangeViewerSession({}));
 
         navigation.navigate("LoginII");
     }
@@ -604,19 +361,7 @@ function Index(props) {
                             {/* Join Information */}
                             <ProfileInfo {...profileInfo} />
 
-                            <NavPanel {...profileInfo} />
-
-                            {/* Make Payment */}
-                            {/* {(AccountType <= 2) ? <PaymentSubscriptionPanel /> : <></>} */}
-                            {/* <TokenSubscriptionPanel /> */}
-
-                            {/* {(UserStatus == 0) ? <AuthUserCheckTuyaEmail /> : <></>} */}
-
                             <CompanyInfoPanel />
-
-                            {/* <TutorialPanel /> */}
-
-                            {/* <BcSessionPanel /> */}
 
                             {/* Logout */}
                             <LogoutPanel onLogout={SignOut} onDeleteAccount={DeleteAccount} />
@@ -657,4 +402,4 @@ function Index(props) {
     );
 }
 
-export default withIAPContext(Index);
+export default Index;

@@ -87,7 +87,7 @@ TabScreens = {
             <TabIconFontAwesome
                 Btn={Ionicons}
                 icon={"settings-sharp"}
-                title={"Profile Workspace"}
+                title={"Profile Selection"}
                 {...props} />
         )
     },

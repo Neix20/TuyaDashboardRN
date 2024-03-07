@@ -9,7 +9,7 @@ import FontAwesome from "react-native-vector-icons/FontAwesome";
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 
 import { BcHeader, BcLoading, BcBoxShadow, BcSvgIcon, BcUserStatus } from "@components";
-import { DisableDevice, DisableDeviceScreen, DisableDeviceItem } from "@componentsLite";
+import { DisableDevice, DisableDeviceScreen, DisableDeviceItem } from "@components";
 
 import { fetchProfileWorkspace } from "@api";
 
@@ -30,7 +30,8 @@ function useProfileWs(val = []) {
     const updateLs = (arr = []) => {
         if (arr.length > 0) {
 
-            arr = arr.filter(x => x.Code !== "PFWS0001");
+            const pws_arr = ["PFWS0001", "PFWS0006", "PFWS0007"];
+            arr = arr.filter(x => !pws_arr.includes(x.Code));
 
             arr = arr.map((obj, pos) => {
 

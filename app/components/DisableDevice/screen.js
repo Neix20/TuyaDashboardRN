@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect, useRef } from "react";
 import { Text, TouchableOpacity } from "react-native";
 import { View, VStack, HStack, Divider, useToast } from "native-base";
@@ -6,25 +7,9 @@ import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 
 import { useNavigation } from "@react-navigation/native";
 
-import { useDispatch, useSelector } from 'react-redux';
-import { Actions, Selectors } from '@redux';
-
 import { Utility } from "@utility";
 
-function Item(props) {
-    const style = {
-        title: {
-            fontFamily: "Roboto-Bold",
-            fontSize: 18,
-            color: "#000"
-        }
-    }
-    return (
-        <Text style={style.title}>Sync Device With Smart Life</Text>
-    )
-}
-
-function Screen(props) {
+function Index(props) {
     const style = {
         txt: {
             fontFamily: "Roboto-Medium",
@@ -41,9 +26,6 @@ function Screen(props) {
     };
 
     const navigation = useNavigation();
-    const GoToToken = () => {
-        navigation.navigate("TokenActivation");
-    }
 
     const GoToScanQr = () => {
         navigation.navigate("ScanQr");
@@ -73,51 +55,4 @@ function Screen(props) {
     )
 }
 
-function Index(props) {
-
-
-    const { children, backgroundColor = "#fff", opacity = 0.72 } = props;
-    const { flag = false, placeholder = () => <></> } = props;
-
-    if (!flag) {
-        return (
-            <>
-                {children}
-            </>
-        )
-    }
-
-    const style = {
-        frontLayer: {
-            position: "absolute",
-            zIndex: 2,
-            opacity: opacity,
-            backgroundColor: backgroundColor,
-            top: 0, bottom: 0,
-            left: 0, right: 0
-        },
-        textLayer: {
-            position: "absolute",
-            zIndex: 2,
-            top: 0, bottom: 0,
-            left: 0, right: 0
-        }
-    }
-
-    return (
-        <View style={{ flex: 1 }}>
-            {/* Front Layer */}
-            <View style={style.frontLayer} />
-            <View alignItems={"center"} justifyContent={"center"} style={style.textLayer}>
-                {placeholder}
-            </View>
-            {children}
-        </View>
-    );
-}
-
-export {
-    Index,
-    Screen,
-    Item
-}
+export default Index;

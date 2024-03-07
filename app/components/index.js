@@ -176,3 +176,12 @@ import BcSessionPanel from "./Session";
 export {
     BcSessionPanel
 }
+
+import { Screen as DisableDeviceScreen, Item as DisableDeviceItem, Index as DisableDevice, ScreenPro as DisableDeviceScreenPro } from "./DisableDevice";
+
+export {
+    DisableDeviceScreen,
+    DisableDeviceScreenPro,
+    DisableDeviceItem,
+    DisableDevice
+}

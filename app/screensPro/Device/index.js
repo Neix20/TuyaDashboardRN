@@ -14,7 +14,7 @@ import { Logger, Utility } from "@utility";
 import { Images } from "@config";
 
 import { BcBoxShadow, BcLoading, BcPhotoGalleryModal, BcSvgIcon, BcYesNoModal, BcUserStatus, BcTooltip } from "@components";
-import { DisableDevice, DisableDeviceScreen, DisableDeviceItem } from "@componentsLite";
+import { DisableDevice, DisableDeviceScreenPro as DisableDeviceScreen, DisableDeviceItem } from "@components";
 
 import { fetchDeviceByUserII, fetchToggleFavoriteDevice, fetchLinkDeviceLite, fetchSubUserAccess } from "@api";
 
@@ -521,7 +521,7 @@ function Index(props) {
     };
 
     const subUserAccess = useSelector(Selectors.subUserAccessSelect);
-    const { DeviceQty = 0 } = subUserAccess;
+    const { DeviceQty = 0, AccountType = -1 } = subUserAccess;
 
     return (
         <>
@@ -542,7 +542,7 @@ function Index(props) {
 
                     <View style={{ height: 15 }} />
 
-                    <DisableDevice flag={DeviceQty == 0} placeholder={<DisableDeviceScreen />}>
+                    <DisableDevice flag={AccountType == 2} placeholder={<DisableDeviceScreen />}>
 
                         <View alignItems={"center"}>
                             <HStack alignItems={"center"} justifyContent={"space-between"} width={"90%"}>

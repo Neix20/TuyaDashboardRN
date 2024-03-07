@@ -11,6 +11,7 @@ import { Images, Svg } from "@config";
 
 import { BcBoxShadow, BcSvgIcon, BcLoading, BcYatuHome, BcProfileWorkspace } from "@components";
 import { BcDateRange, BcViewShot, BcApacheChartFull, BcDataAttribute, BcApacheBarChartFull, BcApachePieChart}  from "@components";
+import { DisableDevice, DisableDeviceScreenPro as DisableDeviceScreen, DisableDeviceItem } from "@components";
 
 import { DateTime } from "luxon";
 
@@ -658,6 +659,9 @@ function Index(props) {
 
     const { Name = "Default", WsColor = "#c3c3c3" } = profileWs;
 
+    const subUserAccess = useSelector(Selectors.subUserAccessSelect);
+    const { DeviceQty = 0, AccountType = -1 } = subUserAccess;
+
     return (
         <>
             <BcLoading loading={loading} />
@@ -669,135 +673,130 @@ function Index(props) {
 
                     <View style={{ height: 10 }} />
 
-                    {
-                        (isPort) ? (
-                            <>
-                                <BcDateRange 
-                                    showCompare={false} hook={dateHook} 
-                                    prevHook={cmpDateHook} flagHook={chartCompareHook} />
-                                <View style={{ height: 10 }} />
-                            </>
-                        ) : (
-                            <></>
-                        )
-                    }
-
-                    {/* Body */}
-                    <ScrollView
-                        showsVerticalScrollIndicator={false}
-                        keyboardShouldPersistTaps={"handled"}
-                        contentContainerStyle={{ flexGrow: 1 }}>
+                    <DisableDevice flag={AccountType == 2} placeholder={<DisableDeviceScreen />}>
                         {
-                            (Object.keys(chart).length > 0 || Object.keys(spBarChart).length > 0 || Object.keys(aqChart).length > 0) ? (
-                                <View flexGrow={1}>
-                                    <HStack flexWrap={"wrap"} rowGap={10}
-                                        alignItems={"flex-start"} justifyContent={"space-between"}>
-                                        {
-                                            (Object.keys(chart).length > 0) ? (
-                                                <View px={3} style={{ width: width }}>
-                                                    <BcViewShot title="Daily Humidity Device Report">
-                                                        <BcApacheChartFull hook={chartHook} height={400} />
-                                                    </BcViewShot>
-                                                </View>
-                                            ) : (
-                                                <></>
-                                            )
-                                        }
-
-                                        {
-                                            (Object.keys(spBarChart).length > 0) ? (
-                                                <View px={3} style={{ width: width }}>
-                                                    <BcViewShot title="Total KiloWatt (KWh) Report">
-                                                        <BcApacheBarChartFull hook={spBarChartHook} height={400} />
-                                                    </BcViewShot>
-                                                </View>
-                                            ) : (
-                                                <></>
-                                            )
-                                        }
-
-                                        {
-                                            (Object.keys(aqChart).length > 0) ? (
-                                                <View px={3} style={{ width: width }}>
-                                                    <BcViewShot title="Daily Air Quality Data">
-                                                        <BcApacheChartFull hook={aqChartHook} height={400} />
-                                                    </BcViewShot>
-                                                </View>
-                                            ) : (
-                                                <></>
-                                            )
-                                        }
-
-                                        {
-                                            (devDistChart.length > 0) ? (
-                                                <View px={3} style={{ width: width }}>
-                                                    <BcViewShot title={"Total Device Distribution"}>
-                                                        <BcApachePieChart hook={devDistChartHook} />
-                                                    </BcViewShot>
-                                                </View>
-                                            ) : (
-                                                <></>
-                                            )
-                                        }
-
-                                        {
-                                            (Object.keys(drData).length > 0) ? (
-                                                <View px={3} style={{ width: c_width }}>
-                                                    <DashboardReport
-                                                        title={"Daily Humidity Average Report"}
-                                                        daData={[{
-                                                            "Average Absolute Humidity": 0,
-                                                            "Average Temperature (℃)": 0,
-                                                            "Average Relative Humidity (%)": 0,
-                                                        }]}
-                                                        Report={DashboardHumidityReport} rptData={drData} />
-                                                </View>
-                                            ) : (
-                                                <></>
-                                            )
-                                        }
-
-                                        {
-                                            (Object.keys(drSpData).length > 0) ? (
-                                                <View px={3} style={{ width: c_width }}>
-                                                    <DashboardReport
-                                                        title={"Daily Smart Plug Average Report"}
-                                                        daData={[{
-                                                            "Average Total KiloWatt (KWh)": 0,
-                                                            "Average Current (mA)": 0,
-                                                            "Average Power (W)": 0,
-                                                            "Average Voltage (V)": 0,
-                                                        }]}
-                                                        Report={DashboardVoltageReport} rptData={drSpData} />
-                                                </View>
-                                            ) : (
-                                                <></>
-                                            )
-                                        }
-
-                                        {
-                                            (Object.keys(drAqData).length > 0) ? (
-                                                <View px={3} style={{ width: c_width }}>
-                                                    <DashboardReport
-                                                        title={"Daily Air Quality Average Report"}
-                                                        daData={[{
-                                                            "Average Formaldehyde (mg/m3)": 0,
-                                                            "Average Particle Matter (ug/m3)": 0,
-                                                            "Average Carbon Dioxide (ppm)": 0,
-                                                        }]}
-                                                        Report={DashboardAirQualityReport} rptData={drAqData} />
-                                                </View>
-                                            ) : (
-                                                <></>
-                                            )
-                                        }
-                                    </HStack>
-                                </View>
+                            (isPort) ? (
+                                <>
+                                    <BcDateRange
+                                        showCompare={false} hook={dateHook}
+                                        prevHook={cmpDateHook} flagHook={chartCompareHook} />
+                                    <View style={{ height: 10 }} />
+                                </>
                             ) : (
-                                <EmptyList />
+                                <></>
                             )
                         }
-                    </ScrollView>
+                        {/* Body */}
+                        <ScrollView
+                            showsVerticalScrollIndicator={false}
+                            keyboardShouldPersistTaps={"handled"}
+                            contentContainerStyle={{ flexGrow: 1 }}>
+                            {
+                                (Object.keys(chart).length > 0 || Object.keys(spBarChart).length > 0 || Object.keys(aqChart).length > 0) ? (
+                                    <View flexGrow={1}>
+                                        <HStack flexWrap={"wrap"} rowGap={10}
+                                            alignItems={"flex-start"} justifyContent={"space-between"}>
+                                            {
+                                                (Object.keys(chart).length > 0) ? (
+                                                    <View px={3} style={{ width: width }}>
+                                                        <BcViewShot title="Daily Humidity Device Report">
+                                                            <BcApacheChartFull hook={chartHook} height={400} />
+                                                        </BcViewShot>
+                                                    </View>
+                                                ) : (
+                                                    <></>
+                                                )
+                                            }
+                                            {
+                                                (Object.keys(spBarChart).length > 0) ? (
+                                                    <View px={3} style={{ width: width }}>
+                                                        <BcViewShot title="Total KiloWatt (KWh) Report">
+                                                            <BcApacheBarChartFull hook={spBarChartHook} height={400} />
+                                                        </BcViewShot>
+                                                    </View>
+                                                ) : (
+                                                    <></>
+                                                )
+                                            }
+                                            {
+                                                (Object.keys(aqChart).length > 0) ? (
+                                                    <View px={3} style={{ width: width }}>
+                                                        <BcViewShot title="Daily Air Quality Data">
+                                                            <BcApacheChartFull hook={aqChartHook} height={400} />
+                                                        </BcViewShot>
+                                                    </View>
+                                                ) : (
+                                                    <></>
+                                                )
+                                            }
+                                            {
+                                                (devDistChart.length > 0) ? (
+                                                    <View px={3} style={{ width: width }}>
+                                                        <BcViewShot title={"Total Device Distribution"}>
+                                                            <BcApachePieChart hook={devDistChartHook} />
+                                                        </BcViewShot>
+                                                    </View>
+                                                ) : (
+                                                    <></>
+                                                )
+                                            }
+                                            {
+                                                (Object.keys(drData).length > 0) ? (
+                                                    <View px={3} style={{ width: c_width }}>
+                                                        <DashboardReport
+                                                            title={"Daily Humidity Average Report"}
+                                                            daData={[{
+                                                                "Average Absolute Humidity": 0,
+                                                                "Average Temperature (℃)": 0,
+                                                                "Average Relative Humidity (%)": 0,
+                                                            }]}
+                                                            Report={DashboardHumidityReport} rptData={drData} />
+                                                    </View>
+                                                ) : (
+                                                    <></>
+                                                )
+                                            }
+                                            {
+                                                (Object.keys(drSpData).length > 0) ? (
+                                                    <View px={3} style={{ width: c_width }}>
+                                                        <DashboardReport
+                                                            title={"Daily Smart Plug Average Report"}
+                                                            daData={[{
+                                                                "Average Total KiloWatt (KWh)": 0,
+                                                                "Average Current (mA)": 0,
+                                                                "Average Power (W)": 0,
+                                                                "Average Voltage (V)": 0,
+                                                            }]}
+                                                            Report={DashboardVoltageReport} rptData={drSpData} />
+                                                    </View>
+                                                ) : (
+                                                    <></>
+                                                )
+                                            }
+                                            {
+                                                (Object.keys(drAqData).length > 0) ? (
+                                                    <View px={3} style={{ width: c_width }}>
+                                                        <DashboardReport
+                                                            title={"Daily Air Quality Average Report"}
+                                                            daData={[{
+                                                                "Average Formaldehyde (mg/m3)": 0,
+                                                                "Average Particle Matter (ug/m3)": 0,
+                                                                "Average Carbon Dioxide (ppm)": 0,
+                                                            }]}
+                                                            Report={DashboardAirQualityReport} rptData={drAqData} />
+                                                    </View>
+                                                ) : (
+                                                    <></>
+                                                )
+                                            }
+                                        </HStack>
+                                    </View>
+                                ) : (
+                                    <EmptyList />
+                                )
+                            }
+                        </ScrollView>
+                    </DisableDevice>
 
                     {/* Footer */}
                     <View style={{ height: 70 }} />

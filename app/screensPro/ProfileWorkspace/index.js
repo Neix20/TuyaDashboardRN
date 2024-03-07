@@ -12,6 +12,8 @@ import { Logger, Utility } from "@utility";
 import { Images, Svg } from "@config";
 
 import { BcHeader, BcLoading, BcBoxShadow, BcSvgIcon } from "@components";
+import { DisableDevice, DisableDeviceScreenPro as DisableDeviceScreen, DisableDeviceItem } from "@components";
+
 import { fetchProfileWorkspace } from "@api";
 
 import { useToggle } from "@hooks";
@@ -19,6 +21,7 @@ import { ProfileWsData as TestData } from "./data";
 
 import { useDispatch, useSelector } from 'react-redux';
 import { Actions, Selectors } from '@redux';
+
 
 // #region Custom Hook
 function useProfileWs(val = []) {
@@ -28,7 +31,8 @@ function useProfileWs(val = []) {
     const updateLs = (arr = []) => {
         if (arr.length > 0) {
 
-            arr = arr.filter(x => x.Code !== "PFWS0001");
+            const pws_arr = ["PFWS0001", "PFWS0006", "PFWS0007"];
+            arr = arr.filter(x => !pws_arr.includes(x.Code));
 
             arr = arr.map((obj, pos) => {
 
@@ -257,6 +261,9 @@ function Index(props) {
 
     const userId = useSelector(Selectors.userIdSelect);
 
+    const subUserAccess = useSelector(Selectors.subUserAccessSelect);
+    const { DeviceQty = 0, AccountType = -1 } = subUserAccess;
+
     useEffect(() => {
         if (isFocused) {
             GetProfileWorkspaceData();
@@ -300,9 +307,11 @@ function Index(props) {
                     <View style={{ height: 10 }} />
 
                     {/* Body */}
-                    <Body
-                        data={profileWsLs}
-                        onSelectItem={SelectProfileWorkspace} />
+                    <DisableDevice flag={AccountType == 2} placeholder={<DisableDeviceScreen />}>
+                        <Body
+                            data={profileWsLs}
+                            onSelectItem={SelectProfileWorkspace} />
+                    </DisableDevice>
 
                     <View style={{ height: 70 }} />
                 </View>
