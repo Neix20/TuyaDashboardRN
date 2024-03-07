@@ -52,7 +52,7 @@ const PROFILE_WS_COLORS = [
 // const APP_VARIANT_COLOR = "#2898FF";
 // const APP_VARIANT_COLOR = "#6334D3";
 
-const APP_COLOR = "#2898FF";
+const APP_COLOR = "#FB7304";
 
 export {
     APP_VERSION,

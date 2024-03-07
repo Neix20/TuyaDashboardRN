@@ -797,7 +797,7 @@ function Index(props) {
 										</View>
 									</TouchableOpacity> */}
 
-									<TouchableOpacity onPress={TryAsGuest}
+									{/* <TouchableOpacity onPress={TryAsGuest}
 										style={{ width: "80%" }}>
 										<View alignItems={"center"}>
 											<Text style={{
@@ -805,7 +805,7 @@ function Index(props) {
 												fontSize: 16
 											}}>Try As Guest</Text>
 										</View>
-									</TouchableOpacity>
+									</TouchableOpacity> */}
 								</VStack>
 
 							</VStack>
