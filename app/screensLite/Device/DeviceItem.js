@@ -22,12 +22,12 @@ function Index(props) {
     const borderRadius = 8;
 
     const ols = (Online_Status === 1) ? ({ color: "#0F0", term: "Online" }) : ({ color: "#F00", term: "Offline" });
-    const pwsColor = pwsFlag ? "#F00" : "#98A0A8";
+    const pwsColor = pwsFlag ? Utility.getColor() : "#98A0A8";
 
     const style = {
         img: {
             height: 60,
-            width: 60,
+            width: "25%",
         },
         title: {
             fontSize: 14,
@@ -47,19 +47,19 @@ function Index(props) {
 
     return (
         <TouchableOpacity onPress={onLinkDevice} onLongPress={onAddToFavorite} disabled={!showCheckbox}>
-            <BcBoxShadow style={{ borderRadius, width: "100%" }}>
-                <HStack p={2} bgColor={"#FFF"}
+            <BcBoxShadow style={{ borderRadius: borderRadius, width: "100%" }}>
+                <HStack py={2} px={2} bgColor={"#FFF"}
                     justifyContent={"space-between"} alignItems={"center"}
-                    style={{ borderRadius }}>
-                    <VStack space={2}>
+                    style={{ borderRadius: borderRadius }}>
+                    <HStack space={2} alignItems={"center"} w={"75%"}>
                         <Image source={img} style={style.img} resizeMode={"cover"} alt={Title} />
-                        <VStack>
+                        <VStack width={"68%"}>
                             <Text style={style.title}>{Title}</Text>
-                            {
+                            { 
                                 (showOnlineStatus == 1) ? (<Text style={style.onlineStatus}>{ols.term}</Text>) : (<></>)
                             }
                         </VStack>
-                    </VStack>
+                    </HStack>
                     <HStack alignItems={"center"} space={2}>
                         {
                             (showFavorite) ? (
@@ -77,7 +77,7 @@ function Index(props) {
                                     uncheckedIcon={"checkbox-blank-outline"}
                                     checked={flag}
                                     onPress={onLinkDevice}
-                                    checkedColor={"#F00"} />
+                                    checkedColor={Utility.getColor()} />
                             ) : (
                                 <></>
                             )

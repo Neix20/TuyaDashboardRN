@@ -237,18 +237,10 @@ StackScreens = {
     }
 }
 
-import ViewerSession from "@screensLite/Session/TabNavigation";
 import RequestViewerSession from "@screens/ViewerSession/RequestSession.js";
 
 StackScreens = {
     ...StackScreens,
-    ViewerSession: {
-        component: ViewerSession,
-        title: "ViewerSession",
-        option: {
-            orientation: "portrait"
-        }
-    },
     RequestViewerSession: {
         component: RequestViewerSession,
         title: "RequestViewerSession",

@@ -16,6 +16,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Actions, Selectors } from '@redux';
 
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { fetchSubUserAccess } from "@api";
 
 function Header(props) {
     const { children, onBack = () => { } } = props;
@@ -49,21 +50,44 @@ function Header(props) {
 }
 
 function Index(props) {
+
     const toast = useToast();
     const navigation = useNavigation();
     const isFocused = useIsFocused();
 
     const dispatch = useDispatch();
 
+    const userId = useSelector(Selectors.userIdSelect);
+
     useEffect(() => {
-        dispatch(Actions.onChangePremiumPayFlag(true));
-    }, [])
+        if (isFocused) {
+            dispatch(Actions.onChangePremiumPayFlag(true));
+            RequestAccess(userId);
+        }
+    }, [isFocused]);
 
     const onExit = () => {
         navigation.navigate("TabNavigation", {
             screen: "Dashboard"
         })
     }
+
+    // Request Access Here
+    const RequestAccess = (userId) => {
+        fetchSubUserAccess({
+            param: {
+                UserId: userId
+            },
+            onSetLoading: () => { },
+        })
+            .then(data => {
+                dispatch(Actions.onChangeSubUserAccess(data));
+            })
+            .catch(err => {
+                console.log(`Error: ${err}`);
+            })
+    }
+
 
     const insets = useSafeAreaInsets();
 
@@ -86,7 +110,7 @@ function Index(props) {
                     keyboardShouldPersistTaps={"handled"}
                     contentContainerStyle={{ flexGrow: 1 }}>
                     <View flexGrow={1} justifyContent={"center"} alignItems={"center"}>
-                        <View width={"80%"}>
+                        <VStack width={"80%"} space={5}>
                             <BcBoxShadow>
                                 <VStack alignItems={"center"} justifyContent={"center"}
                                     p={3} space={3}
@@ -104,12 +128,25 @@ function Index(props) {
                                     }}>Thank you for making a purchase!</Text>
                                 </VStack>
                             </BcBoxShadow>
-                        </View>
+
+                            <TouchableOpacity onPress={onExit} style={{ height: 48 }}>
+                                <View bgColor={Utility.getColor()} flex={1}
+                                    alignItems={"center"} justifyContent={"center"}>
+                                    <Text style={{
+                                        fontFamily: "Roboto-Bold",
+                                        fontSize: 16,
+                                        color: "#FFF"
+                                    }}>Go To Dashboard</Text>
+                                </View>
+                            </TouchableOpacity>
+                        </VStack>
 
                     </View>
                 </ScrollView>
 
-                <BcFooter>
+                <View style={{ height: 70 }} />
+
+                {/* <BcFooter>
                     <TouchableOpacity onPress={onExit} style={{ width: "80%" }}>
                         <View bgColor={"#F00"} style={{ height: 48 }} alignItems={"center"} justifyContent={"center"}>
                             <Text style={{
@@ -119,7 +156,7 @@ function Index(props) {
                             }}>Go To Dashboard</Text>
                         </View>
                     </TouchableOpacity>
-                </BcFooter>
+                </BcFooter> */}
             </View>
         </SafeAreaView>
     );

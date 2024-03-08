@@ -100,7 +100,7 @@ function Profile(props) {
 
     return (
         <View width={"90%"} alignItems={"center"} style={{ minHeight: 60 }}>
-            <TouchableOpacity {...props} style={{ width: "90%" }}>
+            <TouchableOpacity style={{ width: "90%" }} disabled={true} {...props}>
                 <HStack
                     alignItems={"center"}
                     justifyContent={"space-between"}>
@@ -135,7 +135,7 @@ function ProfileInfo(props) {
     return (
         <VStack bgColor={"#FFF"} borderRadius={8} width={"90%"} alignItems={"center"}>
             <PanelBtnII Btn={FontAwesome} icon={"user"} title={"Joined in " + Utility.formatDt(Created_Date, "yyyy-MM-dd")} />
-            {/* <PanelBtnII Btn={FontAwesome5} icon={"user-alt-slash"} title={"Expires In " + Utility.formatDt(ExpiryDate, "yyyy-MM-dd")} /> */}
+            <PanelBtnII Btn={FontAwesome5} icon={"user-alt-slash"} title={"Expires In " + Utility.formatDt(ExpiryDate, "yyyy-MM-dd")} />
             <PanelBtnII Btn={FontAwesome5} icon={"tools"} title={`Available Device Count: ${DeviceQty}`} />
         </VStack>
     )

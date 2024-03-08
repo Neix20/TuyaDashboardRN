@@ -101,7 +101,7 @@ function Profile(props) {
 
     return (
         <View width={"90%"} alignItems={"center"} style={{ minHeight: 60 }}>
-            <TouchableOpacity {...props} style={{ width: "90%" }}>
+            <TouchableOpacity style={{ width: "90%" }} disabled={true} {...props}>
                 <HStack
                     alignItems={"center"}
                     justifyContent={"space-between"}>

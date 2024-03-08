@@ -44,37 +44,8 @@ function Header(props) {
 }
 
 function ProfilePremium(props) {
-    const { AccountType = 1 } = props;
 
-    const AccountStatus = (val = 1) => {
-        val = +val;
-
-        let dict = {
-            1: {
-                color: "#000",
-                term: "Free"
-            },
-            2: {
-                color: Utility.getColor(),
-                term: "Free"
-            },
-            3: {
-                color: "#FFAA00",
-                term: "Premium"
-            }
-        }
-
-        if (val in dict) {
-            return dict[val];
-        }
-
-        return {
-            color: "#000",
-            term: "Free"
-        };
-    }
-
-    const { color, term } = AccountStatus(AccountType);
+    const color = Utility.getColor();
 
     return (
         <HStack alignItems={"center"} space={1.5}>
@@ -83,7 +54,7 @@ function ProfilePremium(props) {
                 fontFamily: "Roboto-Bold",
                 fontSize: 18,
                 color: color
-            }}>{term}</Text>
+            }}>Viewer</Text>
         </HStack>
     )
 }
@@ -97,16 +68,27 @@ function Profile(props) {
 
     return (
         <View width={"90%"} alignItems={"center"} style={{ minHeight: 60 }}>
-            <HStack space={5} alignItems={'center'}>
-                <FontAwesome name={"user-o"} color={"#000"} size={48} />
-                <VStack width={"78%"}>
-                    <Text style={{
-                        fontFamily: "Roboto-Bold",
-                        fontSize: 18
-                    }}>{Email}</Text>
-                    <ProfilePremium AccountType={AccountType} />
-                </VStack>
-            </HStack>
+            <TouchableOpacity style={{ width: "90%" }} disabled={true} {...props}>
+                <HStack
+                    alignItems={"center"}
+                    justifyContent={"space-between"}>
+                    {/* Btn */}
+                    <HStack space={5} alignItems={'center'}>
+                        <FontAwesome name={"user-o"} color={"#000"} size={48} />
+                        <VStack width={"78%"}>
+                            <Text style={{
+                                fontFamily: "Roboto-Bold",
+                                fontSize: 18
+                            }}>{Email}</Text>
+
+                            <ProfilePremium AccountType={AccountType} />
+                        </VStack>
+                    </HStack>
+
+                    {/* Angle-Right */}
+                    <FontAwesome name={"angle-right"} color={"#000"} size={32} />
+                </HStack>
+            </TouchableOpacity>
         </View>
     )
 }
@@ -121,7 +103,7 @@ function ProfileInfo(props) {
     return (
         <VStack bgColor={"#FFF"} borderRadius={8} width={"90%"} alignItems={"center"}>
             <PanelBtnII Btn={FontAwesome} icon={"user"} title={"Joined in " + Utility.formatDt(Created_Date, "yyyy-MM-dd")} />
-            <PanelBtnII Btn={FontAwesome5} icon={"tools"} title={`Yatu Token Count: ${DeviceQty}`} />
+            <PanelBtnII Btn={FontAwesome5} icon={"tools"} title={`Yatu Device Count: ${DeviceQty}`} />
         </VStack>
     )
 }
@@ -233,8 +215,8 @@ function LogoutPanel(props) {
             <BcYesNoModal
                 showModal={showLgModal} setShowModal={setShowLgModal}
                 title={"Confirm Log Out"} description={"Are you sure you want to log out? You will be returned to the login screen."}
-                titleYes={"Delete"} titleNo={"Logout"}
-                onPressYes={DeleteAccount} onPressNo={Logout}
+                titleYes={"Confirm"} titleNo={"Cancel"}
+                onPressYes={Logout} onPressNo={closeLgModal}
             />
             <VStack bgColor={"#FFF"} borderRadius={8} width={"90%"} alignItems={"center"}>
                 <PanelBtn onPress={toggleLgModal} title={"Log Out"}
@@ -255,7 +237,7 @@ function Index(props) {
     const dispatch = useDispatch();
 
     const viewerSession = useSelector(Selectors.viewerSessionSelect);
-    const { User_Id: userId, YatuSessionId: prwsId, SessionExpiryDate: expiryDt = 100 } = viewerSession;
+    const { User_Id: userId, YatuSessionId: prwsId, SessionExpiryDate: expiryDt = 100, ViewerEmail: email = "temp@gmail.com" } = viewerSession;
 
     // #region UseState
     const [profileInfo, setProfileInfo] = useState({});
@@ -356,7 +338,7 @@ function Index(props) {
                         contentContainerStyle={{ flexGrow: 1 }}>
                         <VStack flexGrow={1} alignItems={"center"} space={4}>
                             {/* User */}
-                            <Profile {...profileInfo} onPress={GoToProfileInfo} />
+                            <Profile Email={email} onPress={GoToProfileInfo} />
 
                             {/* Join Information */}
                             <ProfileInfo {...profileInfo} />

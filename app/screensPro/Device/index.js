@@ -13,7 +13,7 @@ import { useNavigation, useIsFocused } from "@react-navigation/native";
 import { Logger, Utility } from "@utility";
 import { Images } from "@config";
 
-import { BcBoxShadow, BcLoading, BcPhotoGalleryModal, BcSvgIcon, BcYesNoModal, BcUserStatus, BcTooltip } from "@components";
+import { BcBoxShadow, BcLoading, BcPhotoGalleryModal, BcSvgIcon, BcYesNoModal, BcUserStatus, BcTooltip, BaseIIModal } from "@components";
 import { DisableDevice, DisableDeviceScreenPro as DisableDeviceScreen, DisableDeviceItem } from "@components";
 
 import { fetchDeviceByUserII, fetchToggleFavoriteDevice, fetchLinkDeviceLite, fetchSubUserAccess } from "@api";
@@ -21,11 +21,11 @@ import { fetchDeviceByUserII, fetchToggleFavoriteDevice, fetchLinkDeviceLite, fe
 import { useDispatch, useSelector } from 'react-redux';
 import { Actions, Selectors } from '@redux';
 
-import { useDeviceLs } from "./hooks";
 import { useToggle } from "@hooks";
-
 import Modal from "react-native-modal";
-import DeviceItem from "./DeviceItem";
+
+import { useDeviceLs } from "@screensLite/Device/hooks";
+import DeviceItem from "@screensLite/Device/DeviceItem";
 
 // #region Tab Detail
 function TabDetailModalItem(props) {
@@ -40,7 +40,7 @@ function TabDetailModalItem(props) {
     };
 
     return (
-        <TouchableOpacity onPress={onPress} style={{ width: "90%" }}>
+        <TouchableOpacity onPress={onPress} style={{ width: "80%" }}>
             <HStack alignItems={"center"} style={{ height: 40 }}>
                 {/* Logo */}
                 <HStack alignItems={"center"} space={3}>
@@ -72,20 +72,14 @@ function TabDetailModal(props) {
     }
 
     return (
-        <Modal
-            isVisible={showModal}
-            animationInTiming={1}
-            animationOutTiming={1}
-            onBackButtonPress={closeModal}
-            onBackdropPress={closeModal}
-            backdropOpacity={.3}>
-            <View py={3} borderRadius={8} alignItems={"center"} bgColor={"#FFF"}>
+        <BaseIIModal {...props}>
+            <View borderRadius={8} alignItems={"center"} bgColor={"#FFF"}>
                 <TabDetailModalItem onPress={onNavToTempHumd}
                     Btn={FontAwesome5} btnName={"temperature-low"} title={"Temperature & Humidity"} />
                 <TabDetailModalItem onPress={onNavToSmartPlug}
                     Btn={FontAwesome5} btnName={"plug"} title={"Smart Plug"} />
             </View>
-        </Modal>
+        </BaseIIModal>
     )
 }
 
@@ -113,10 +107,50 @@ function TabDetail(props) {
                 toggleViewMode={onSelectViewMode}
                 onSelectRoomManagement={GoToRoomManagement}
                 showModal={showTdModal} setShowModal={setShowTdModal} />
-            <TouchableOpacity onPress={toggleTabDetail}>
+            <TouchableOpacity onPress={toggleTabDetail} style={{ display: "none" }}>
                 <MaterialCommunityIcons name={"dots-horizontal"} size={32} />
             </TouchableOpacity>
         </>
+    )
+}
+// #endregion
+
+// #region Device Long Press Modal
+function DeviceLongPressItem(props) {
+
+    const { children = null, onPress = () => { } } = props;
+
+    const style = {
+        btnTitle: {
+            fontSize: 14,
+            fontWeight: "bold",
+            color: "#FFF",
+        }
+    }
+
+    return (
+        <TouchableOpacity onPress={onPress} style={{ width: "60%", height: 40 }}>
+            <View flex={1} backgroundColor={Utility.getColor()}
+                alignItems={"center"} justifyContent={"center"}>
+                <Text style={style.btnTitle}>{children}</Text>
+            </View>
+        </TouchableOpacity>
+    )
+}
+
+function DeviceLongPressModal(props) {
+
+    // #region Props
+    const { onSelectItem = () => { }, onAddToFavorite = () => { } } = props;
+    // #endregion
+
+    return (
+        <BaseIIModal {...props}>
+            <VStack py={3} space={3} borderRadius={8} alignItems={"center"} bgColor={"#FFF"}>
+                <DeviceLongPressItem onPress={onSelectItem}>View Device Item</DeviceLongPressItem>
+                <DeviceLongPressItem onPress={onAddToFavorite}>Add To Favorite</DeviceLongPressItem>
+            </VStack>
+        </BaseIIModal>
     )
 }
 // #endregion
@@ -374,9 +408,6 @@ function Index(props) {
                 toggleLdModal();
                 if (ResponseCode == "00") {
                     toggleRefresh();
-                    // toast.show({
-                    //     description: "Download starting..."
-                    // });
 
                     // Think About This, Redirect To ProfileWorkspace
                     if (tutorial) {
@@ -430,31 +461,23 @@ function Index(props) {
     // #endregion
 
     // #region Render Item
+
+    const [lgPressModal, setLgPressModal, toggleLgPressModal] = useToggle(false);
+    const [lgItem, setLgItem] = useState({});
+
     const renderDeviceItem = ({ item, index }) => {
 
         const onLinkDevice = () => {
             toggleDeviceFlag(item);
-
-            const { flag = false } = item;
-
-            if (tutorial && flag) {
-                toast.show({
-                    description: "Select \"Next\""
-                })
-            }
         };
 
         const onAddToFavorite = () => {
-            ToggleFavoriteDevice(item);
-
-            const { Title = "" } = item;
-            toast.show({
-                description: `${Title} has been added to favorites!`
-            })
+            // ToggleFavoriteDevice(item);
+            toggleLgPressModal();
+            setLgItem(item);
         }
 
         const { DeviceLinkStatus = 0 } = item;
-
         return (
             <DisableDevice flag={false} placeholder={<DisableDeviceItem />}>
                 <DeviceItem key={index} onLinkDevice={onLinkDevice} onAddToFavorite={onAddToFavorite} {...item} />
@@ -523,8 +546,34 @@ function Index(props) {
     const subUserAccess = useSelector(Selectors.subUserAccessSelect);
     const { DeviceQty = 0, AccountType = -1 } = subUserAccess;
 
+    const LgSelectItem = () => {
+        const { IsTempHumd = 0, IsSmartPlug = 0, IsAirQuality = 0, IsAirCon = 0, IsSmartCamera = 0 } = lgItem;
+
+        setLgPressModal(_ => false);
+
+        if (IsSmartPlug == 1) {
+            navigation.navigate("DeviceLandingSmartPlug", lgItem);
+        }
+
+        else if (IsAirCon == 1) {
+            navigation.navigate("DeviceLandingAirCon", lgItem);
+        }
+
+        else {
+            navigation.navigate("DeviceLanding", lgItem);
+        }
+    };
+
+    const LgAddToFavorite = () => {
+        ToggleFavoriteDevice(lgItem);
+        setLgPressModal(_ => false);
+    }
+
     return (
         <>
+            <DeviceLongPressModal 
+                showModal={lgPressModal} setShowModal={setLgPressModal}
+                onSelectItem={LgSelectItem} onAddToFavorite={LgAddToFavorite} />
             <BcYesNoModal
                 showModal={showLdModal} setShowModal={setShowLdModal}
                 title={"Link Devices"}

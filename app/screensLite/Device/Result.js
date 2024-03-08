@@ -122,8 +122,18 @@ function Index(props) {
             onSetLoading: setLoading
         })
         .then(data => {
+            const { ResponseCode = "99", ResponseMessage = "Invalid Token Code! Please Contact Us at shopee!" } = data;
             // toggleResModal();
-            GoToDevice();
+            // GoToDevice();
+
+            if (ResponseCode == "00") {
+                GoToDevice();
+            } else {
+                toast.show({
+                    description: ResponseMessage
+                });
+                navigation.goBack();
+            }
         }) 
         .catch(err => {
             setLoading(false);

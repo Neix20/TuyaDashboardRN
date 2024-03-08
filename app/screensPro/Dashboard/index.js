@@ -22,6 +22,8 @@ import { useEChart, useBarChart, useDevDistChart } from "@hooks";
 import { useDispatch, useSelector } from 'react-redux';
 import { Actions, Selectors } from '@redux';
 
+import { BcPremiumModal } from "@components";
+
 // #region Components
 function Header(props) {
     return (
@@ -539,6 +541,8 @@ function Index(props) {
 
     const profileWsHook = useProfileWs(prwsId);
     const [profileWs, profileWsLs, setProfileWsLs, selectProfileWs] = profileWsHook;
+
+    const premiumPayFlag = useSelector(Selectors.premiumPayFlagSelect);
     // #endregion
 
     // #region UseEffect
@@ -662,8 +666,15 @@ function Index(props) {
     const subUserAccess = useSelector(Selectors.subUserAccessSelect);
     const { DeviceQty = 0, AccountType = -1 } = subUserAccess;
 
+    const closePreModal = () => {
+        dispatch(Actions.onChangePremiumPayFlag(false));
+    }
+
+    const dispatch = useDispatch();
+
     return (
         <>
+            <BcPremiumModal showModal={premiumPayFlag} setShowModal={closePreModal} />
             <BcLoading loading={loading} />
             <SafeAreaView style={{ flex: 1 }}>
                 <View style={{ flex: 1 }} bgColor={Utility.colorOpacity(WsColor, 0.25)}>

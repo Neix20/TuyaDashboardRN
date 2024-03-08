@@ -180,12 +180,11 @@ function Body(props) {
     const renderItem = ({ item, index }) => {
         const onSelect = () => {
             onSelectItem(item);
-            const { Title = "", flag = false } = item;
-
-            const msg = (flag) ? `Device ${Title} is added to workspace!` : `Device ${Title} is removed from workspace!`
-            if (tutorial) {
-                toast.show({ description: msg })
-            }
+            // const { Title = "", flag = false } = item;
+            // const msg = (flag) ? `Device ${Title} is added to workspace!` : `Device ${Title} is removed from workspace!`
+            // if (tutorial) {
+            //     toast.show({ description: msg })
+            // }
         }
         return (<BodyItem key={index} data={item} onPress={onSelect} />)
     }

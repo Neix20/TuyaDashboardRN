@@ -16,6 +16,9 @@ import { useToggle } from "@hooks";
 import { fetchGetParamApi } from "@api";
 import { Linking } from "react-native";
 
+import { useDispatch, useSelector } from 'react-redux';
+import { Actions, Selectors } from '@redux';
+
 // #region InfoTooltip
 
 const url = {
@@ -137,6 +140,8 @@ function Index(props) {
     const navigation = useNavigation();
     const isFocused = useIsFocused();
 
+    const dispatch = useDispatch();
+
     const [loading, setLoading, toggleLoading] = useToggle(false);
     const [exitModal, showExitModal, toggleExitModal] = useToggle(false);
 
@@ -152,6 +157,12 @@ function Index(props) {
         const backHandler = BackHandler.addEventListener("hardwareBackPress", backAction);
         return () => backHandler.remove();
     }, [isFocused]);
+
+    const userId = useSelector(Selectors.userIdSelect);
+
+    useEffect(() => {
+        dispatch(Actions.onChangeUserId(userId));
+    }, []);
 
     const GoBack = () => {
         if (prevTitle === "AuthTuya") {

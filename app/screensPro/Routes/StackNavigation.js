@@ -28,13 +28,7 @@ import UserTokenInfo from "@screens/UserToken/UserTokenInfo.js";
 import ScanQr from "@screens/ScanQr";
 import DeviceResult from "@screensLite/Device/Result";
 
-// Device
-import DeviceLanding from "@screens/Device/DeviceLanding";
-import DeviceLandingSmartPlug from "@screens/Device/DeviceLanding/SmartPlug";
-import DeviceLandingAirCon from "@screens/Device/DeviceLanding/AirCon";
-
 import RequestViewerSession from "@screens/ViewerSession/RequestSession.js";
-
 
 let StackScreens = {};
 
@@ -98,7 +92,7 @@ StackScreens = {
             orientation: "portrait"
         }
     }
-}
+};
 
 StackScreens = {
     ...StackScreens,
@@ -116,6 +110,33 @@ StackScreens = {
             orientation: "portrait"
         }
     },
+    RequestViewerSession: {
+        component: RequestViewerSession,
+        title: "RequestViewerSession",
+        option: {
+            orientation: "portrait"
+        }
+    }
+};
+
+// Device
+import DeviceLanding from "@screens/Device/DeviceLanding";
+import DeviceLandingSmartPlug from "@screens/Device/DeviceLanding/SmartPlug";
+import DeviceLandingAirCon from "@screens/Device/DeviceLanding/AirCon";
+
+import DeviceInfo from "@screens/Device/DeviceInfo";
+import DeviceAlert from "@screens/Device/DeviceAlert";
+import DeviceTable from "@screens/Device/DeviceTable";
+
+import DeviceChart from "@screens/Device/DeviceChart";
+import DeviceSPChart from "@screens/Device/DeviceChart/SmartPlug";
+
+import DeviceRulesInfo from "@screens/DeviceRules/DeviceRulesInfo";
+import AddDeviceRules from "@screens/DeviceRules/AddDeviceRules";
+import UpdateDeviceRules from "@screens/DeviceRules/UpdateDeviceRules";
+
+StackScreens = {
+    ...StackScreens,
     DeviceLanding: {
         component: DeviceLanding,
         title: "DeviceLanding",
@@ -123,9 +144,72 @@ StackScreens = {
             orientation: "portrait"
         }
     },
-    RequestViewerSession: {
-        component: RequestViewerSession,
-        title: "RequestViewerSession",
+    DeviceLandingAirCon: {
+        component: DeviceLandingAirCon,
+        title: "DeviceLandingAirCon",
+        option: {
+            orientation: "portrait"
+        }
+    },
+    DeviceLandingSmartPlug: {
+        component: DeviceLandingSmartPlug,
+        title: "DeviceLandingSmartPlug",
+        option: {
+            orientation: "portrait"
+        }
+    },
+    DeviceInfo: {
+        component: DeviceInfo,
+        title: "DeviceInfo",
+        option: {
+            orientation: "portrait"
+        }
+    },
+    DeviceAlert: {
+        component: DeviceAlert,
+        title: "DeviceAlert",
+        option: {
+            orientation: "portrait"
+        }
+    },
+    DeviceTable: {
+        component: DeviceTable,
+        title: "DeviceTable",
+        option: {
+            orientation: "portrait"
+        }
+    },
+    DeviceChart: {
+        component: DeviceChart,
+        title: "DeviceChart",
+        option: {
+            orientation: "portrait"
+        }
+    },
+    DeviceSPChart: {
+        component: DeviceSPChart,
+        title: "DeviceSPChart",
+        option: {
+            orientation: "portrait"
+        }
+    },
+    DeviceRulesInfo: {
+        component: DeviceRulesInfo,
+        title: "DeviceRulesInfo",
+        option: {
+            orientation: "portrait"
+        }
+    },
+    AddDeviceRules: {
+        component: AddDeviceRules,
+        title: "AddDeviceRules",
+        option: {
+            orientation: "portrait"
+        }
+    },
+    UpdateDeviceRules: {
+        component: UpdateDeviceRules,
+        title: "UpdateDeviceRules",
         option: {
             orientation: "portrait"
         }

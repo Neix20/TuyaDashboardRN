@@ -113,7 +113,7 @@ function TabDetail(props) {
                 toggleViewMode={onSelectViewMode}
                 onSelectRoomManagement={GoToRoomManagement}
                 showModal={showTdModal} setShowModal={setShowTdModal} />
-            <TouchableOpacity onPress={toggleTabDetail}>
+            <TouchableOpacity onPress={toggleTabDetail} style={{ display: "none" }}>
                 <MaterialCommunityIcons name={"dots-horizontal"} size={32} />
             </TouchableOpacity>
         </>
@@ -439,9 +439,9 @@ function Index(props) {
             const { flag = false } = item;
 
             if (tutorial && flag) {
-                toast.show({
-                    description: "Select \"Next\""
-                })
+                // toast.show({
+                //     description: "Select \"Next\""
+                // })
             }
         };
 
@@ -449,9 +449,9 @@ function Index(props) {
             ToggleFavoriteDevice(item);
 
             const { Title = "" } = item;
-            toast.show({
-                description: `${Title} has been added to favorites!`
-            })
+            // toast.show({
+            //     description: `${Title} has been added to favorites!`
+            // })
         }
 
         const { DeviceLinkStatus = 0 } = item;

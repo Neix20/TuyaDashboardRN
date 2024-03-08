@@ -21,10 +21,10 @@ import { fetchDeviceByUserII, fetchToggleFavoriteDevice, fetchLinkDeviceLite, fe
 import { useDispatch, useSelector } from 'react-redux';
 import { Actions, Selectors } from '@redux';
 
-import { useDeviceLs } from "@screensLite/Device/hooks";
 import { useToggle, useTimer } from "@hooks";
-
 import Modal from "react-native-modal";
+
+import { useDeviceLs } from "@screensLite/Device/hooks";
 import DeviceItem from "@screensLite/Device/DeviceItem";
 
 // #region Tab Detail
@@ -113,7 +113,7 @@ function TabDetail(props) {
                 toggleViewMode={onSelectViewMode}
                 onSelectRoomManagement={GoToRoomManagement}
                 showModal={showTdModal} setShowModal={setShowTdModal} />
-            <TouchableOpacity onPress={toggleTabDetail}>
+            <TouchableOpacity onPress={toggleTabDetail} style={{ display: "none" }}>
                 <MaterialCommunityIcons name={"dots-horizontal"} size={32} />
             </TouchableOpacity>
         </>
@@ -383,11 +383,28 @@ function Index(props) {
             })
         }
 
+        const style = {
+            fLayer: {
+                position: "absolute",
+                zIndex: 3,
+                top: 0,
+                bottom: 0,
+                left: 0,
+                right: 0,
+                // backgroundColor: "#F00"
+            }
+        }
+
         const { DeviceLinkStatus = 0 } = item;
 
         return (
             <DisableDevice flag={false} placeholder={<DisableDeviceItem />}>
-                <DeviceItem key={index} onLinkDevice={onLinkDevice} onAddToFavorite={onAddToFavorite} {...item} />
+                <View>
+                    <View style={style.fLayer} />
+                    <DeviceItem key={index} onLinkDevice={() => { }} onAddToFavorite={onAddToFavorite} 
+                    showFavorite={false}
+                        {...item} />
+                </View>
             </DisableDevice>
         )
     }
@@ -489,7 +506,7 @@ function Index(props) {
                             <Text style={style.title}>Sync Devices ({deviceCount}/{DeviceQty})</Text>
                             <HStack alignItems={"center"} space={3}>
                                 {
-                                    (deviceSession) ? (
+                                    (false) ? (
                                         <TouchableOpacity onPress={toggleLdModal}>
                                             <View borderRadius={20} px={3} py={1} bgColor={Utility.getColor()}>
                                                 <Text style={style.syncTitle}>{tutorial ? "Next" : "Sync Now"}</Text>

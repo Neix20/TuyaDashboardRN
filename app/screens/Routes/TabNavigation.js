@@ -102,22 +102,14 @@ function Index(props) {
     const navigation = useNavigation();
     const isFocused = useIsFocused();
 
-    const dispatch = useDispatch();
-
     // #region Redux
-    const linkTimer = useSelector(Selectors.linkTimerSelect);
-
     const subUserAccess = useSelector(Selectors.subUserAccessSelect);
     const { AccountType = -1 } = subUserAccess;
-
-    const premiumPayFlag = useSelector(Selectors.premiumPayFlagSelect);
     // #endregion
 
     // #region UseState
     const [showPsModal, setShowPsModal, togglePsModal] = useToggle(false);
     const openPsModal = () => setShowPsModal(true);
-
-    const [showPreModal, setShowPreModal, togglePreModal] = useToggle(false);
     // #endregion
 
     // #region UseEffect
@@ -142,29 +134,14 @@ function Index(props) {
         }, 3000)
         return () => clearTimeout(timeout);
     }, []);
-
-    useEffect(() => {
-        const timeout = setTimeout(() => {
-            if (premiumPayFlag) {
-                togglePreModal();
-            }
-        }, 3000)
-        return () => clearTimeout(timeout);
-    }, []);
     // #endregion
 
     // const defaultScreen = (linkTimer > 0) ? "Device" : "Dashboard";
     const defaultScreen = "Dashboard";
     // const defaultScreen = "Profile";
 
-    const closePreModal = () => {
-        dispatch(Actions.onChangePremiumPayFlag(false));
-        togglePreModal();
-    }
-
     return (
         <>
-            <BcPremiumModal showModal={premiumPayFlag && showPreModal} setShowModal={closePreModal} />
             <PayProSubModal showModal={showPsModal && AccountType == 2} setShowModal={setShowPsModal} />
             <BcTabNavigator
                 screens={TabScreens}

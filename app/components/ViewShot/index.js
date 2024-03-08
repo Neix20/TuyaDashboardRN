@@ -70,12 +70,12 @@ function VSModal(props) {
             Icon: FontAwesome5,
             IconName: "share-alt"
         },
-        {
-            Title: "Download",
-            onPress: onDownload,
-            Icon: FontAwesome5,
-            IconName: "download"
-        },
+        // {
+        //     Title: "Download",
+        //     onPress: onDownload,
+        //     Icon: FontAwesome5,
+        //     IconName: "download"
+        // },
     ]
 
     const renderDefaultItem = (item, index) => (<VSItem key={index} {...item} />);
