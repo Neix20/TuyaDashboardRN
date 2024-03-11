@@ -122,6 +122,16 @@ import fetchGetDashboardInfoByYatuSession from "./fetchGetDashboardInfoByYatuSes
 import fetchGetYatuSessionInfo from "./fetchGetYatuSessionInfo";
 import fetchRemoveYatuSession from "./fetchRemoveYatuSession";
 
+import fetchGetStatusList from "./fetchGetStatusList";
+import fetchGetTariffRates from "./fetchGetTariffRates";
+import fetchDeleteViewerSession from "./fetchDeleteViewerSession";
+
+export {
+    fetchGetStatusList,
+    fetchGetTariffRates,
+    fetchDeleteViewerSession
+}
+
 export {
     fetchGenerateViewerAccessCodeInf,
     fetchGetYatuSessionByMasterUser,

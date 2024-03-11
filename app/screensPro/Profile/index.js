@@ -100,7 +100,7 @@ function Profile(props) {
 
     return (
         <View width={"90%"} alignItems={"center"} style={{ minHeight: 60 }}>
-            <TouchableOpacity style={{ width: "90%" }} disabled={true} {...props}>
+            <TouchableOpacity style={{ width: "90%" }} {...props}>
                 <HStack
                     alignItems={"center"}
                     justifyContent={"space-between"}>
@@ -231,7 +231,7 @@ function NavPanel(props) {
         <VStack bgColor={"#FFF"} borderRadius={8} width={"90%"} alignItems={"center"}>
             <PanelBtn onPress={GoToProfileWorkspace} Btn={Ionicons} icon={"settings-sharp"} title={"View Profile Selection"} />
             <PanelBtn onPress={GoToSubscription} Btn={FontAwesome5} icon={"shopping-cart"} title={"View Paid Subscriptions"} />
-            <PanelBtn onPress={GoToUserToken} Btn={FontAwesome} icon={"ticket"} title={"View Yatu Tokens"} />
+            <PanelBtn onPress={GoToUserToken} Btn={FontAwesome} icon={"ticket"} title={"View Yatu Paid QR"} />
         </VStack>
     )
 }
@@ -293,7 +293,7 @@ function TokenSubscriptionPanel(props) {
         <VStack bgColor={"#FFF"} borderRadius={8}
             width={"90%"} alignItems={"center"}>
             <PanelBtn
-                onPress={GoToRedeemToken} title={"Redeem your Activation Tokens!"}
+                onPress={GoToRedeemToken} title={"Redeem your Activation Yatu Paid QR!"}
                 Btn={FontAwesome} icon={"ticket"}
                 color={"#FFAA00"} showRight={false} />
         </VStack>
@@ -561,6 +561,8 @@ function Index(props) {
                             {/* Join Information */}
                             <ProfileInfo {...profileInfo} />
 
+                            {(AccountType == 3) ? <BcSessionPanel /> : <></>}
+
                             <NavPanel {...profileInfo} />
 
                             {/* Make Payment */}
@@ -569,8 +571,6 @@ function Index(props) {
                             {/* <TokenSubscriptionPanel /> */}
 
                             <CompanyInfoPanel />
-
-                            <BcSessionPanel />
 
                             {/* Logout */}
                             <LogoutPanel onLogout={SignOut} onDeleteAccount={DeleteAccount} />

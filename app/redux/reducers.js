@@ -21,7 +21,11 @@ const initialState = {
     yatuAuth: -1,
     tutorial: false,
     viewerSession: {},
-    userTariff: "Residential"
+    userTariff: {
+        Id: -1,
+        Title: "",
+        Value: -1
+    }
 };
 
 function setReducer(state = initialState, action = {}) {

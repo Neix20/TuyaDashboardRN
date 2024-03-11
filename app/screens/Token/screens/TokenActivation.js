@@ -6,6 +6,7 @@ import { useNavigation, useIsFocused } from "@react-navigation/native";
 
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
+import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 
 import { Logger, Utility } from "@utility";
 import { Images, Svg } from "@config";
@@ -95,7 +96,7 @@ function RedeemTokenBtn(props) {
             <View flex={1}
                 backgroundColor={"#6c63ff"} borderRadius={12}
                 alignItems={"center"} justifyContent={"center"}>
-                <Text style={style.txt}>Redeem Token</Text>
+                <Text style={style.txt}>Redeem Yatu Paid QR</Text>
             </View>
         </Elem>
     );
@@ -236,7 +237,8 @@ function HeaderRightDiv(props) {
                 <View borderRadius={20} bgColor={Utility.getColor()}
                     alignItems={"center"} justifyContent={"center"}
                     style={{ height: 40, width: 40 }}>
-                    <BcSvgIcon name={"QrScan"} size={24} color={"#FFF"} />
+                    {/* <BcSvgIcon name={"QrScan"} size={24} color={"#FFF"} /> */}
+                    <MaterialCommunityIcons name={"line-scan"} size={24} color={"#FFF"} />
                 </View>
             </TouchableOpacity>
         </HStack>
@@ -303,7 +305,7 @@ function Index(props) {
                 <View style={{ flex: 1 }}>
 
                     {/* Header */}
-                    <BcHeaderWithAdd Right={<HeaderRightDiv />}>Redeem Tokens</BcHeaderWithAdd>
+                    <BcHeaderWithAdd Right={<HeaderRightDiv />}>Redeem Yatu Paid QR</BcHeaderWithAdd>
 
                     <View style={{ height: 10 }} />
 

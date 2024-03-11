@@ -1,5 +1,5 @@
 const APP_VERSION = "1.2.33";
-const PRO_APP_VERSION = "PT1.2.33";
+const PRO_APP_VERSION = "PR1.2.33";
 const LITE_APP_VERSION = "LT1.2.33";
 const VIEWER_APP_VERSION = "VR1.2.33";
 const ORG_NAME = "VIGTECH LABS SDN BHD";
@@ -50,10 +50,10 @@ const PROFILE_WS_COLORS = [
 ];
 
 // const APP_VARIANT_COLOR = "#FB7304";
-// const APP_VARIANT_COLOR = "#2898FF";
+// const APP_VARIANT_COLOR = "#3398FF";
 // const APP_VARIANT_COLOR = "#6334D3";
 
-const APP_COLOR = "#2898FF";
+const APP_COLOR = "#FB7304";
 
 export {
     APP_VERSION,

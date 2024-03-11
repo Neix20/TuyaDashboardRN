@@ -205,7 +205,7 @@ function Index(props) {
     }
     // #endregion
 
-    const headerTitle = (prevTitle === "AuthTuya") ? "Step 4: Scan Yatu Token QR" : "Scan Yatu Token QR";
+    const headerTitle = (prevTitle === "AuthTuya") ? "Step 4: Scan Yatu Paid QR" : "Scan Yatu Paid QR";
 
     return (
         <>

@@ -20,6 +20,7 @@ import useTabPane from "@screens/PaymentModule/screens/ProSubscription/hooks/use
 import useYatuIap from "@screens/PaymentModule/screens/ProSubscription/hooks/useYatuIap.js";
 
 import useProfileWs from "./useProfileWs";
+import useTariff from "./useTariff";
 
 export {
     useTimer,
@@ -29,7 +30,8 @@ export {
     useDate,
     useOrientation,
     useCoor,
-    useCalendarDate
+    useCalendarDate,
+    useTariff
 }
 
 export {

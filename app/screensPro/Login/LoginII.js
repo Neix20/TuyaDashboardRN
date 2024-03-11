@@ -11,12 +11,12 @@ import { Animation, clsConst, Images } from "@config";
 
 import { BcSvgIcon, BcLoading, BcDisable, BcCarousel, BottomModal, BcDeleteAccountModal, BcExpiredAccountModal, BcYesNoModal, BcCheckUserProModal } from "@components";
 
-import { fetchRequestOtp, fetchLogin, fetchDemoLogin, fetchSubUserAccess, fetchSubUserLogin } from "@api";
+import { fetchRequestOtp, fetchLogin, fetchDemoLogin, fetchSubUserAccess, fetchSubUserLogin, fetchGetStatusList } from "@api";
 
 import { useDispatch, useSelector } from 'react-redux';
 import { Actions, Selectors } from '@redux';
 
-import { useTimer, useToggle, useModalToast } from "@hooks";
+import { useTimer, useToggle, useModalToast, useTariff } from "@hooks";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 // #region Custom Hooks
@@ -286,6 +286,28 @@ function ExistLoginForm(props) {
 		}
 	}
 
+	const [tariffData, setTariffData, toggleTariff, selectByTariff] = useTariff();
+
+    const GetStatusList = () => {
+        setLoading(true);
+        fetchGetStatusList({
+            param: {
+                UserId: 10
+            },
+            onSetLoading: () => {},
+        })
+        .then(data => {
+            setTariffData(data);
+        })
+        .catch(err => {
+            console.log(`Error: ${err}`);
+        })
+    }
+
+    useEffect(() => {
+        GetStatusList();
+    }, []);
+
 	const Login = () => {
 		setLoading(true);
 		fetchLogin({
@@ -299,12 +321,14 @@ function ExistLoginForm(props) {
 			.then(data => {
 				if (data !== null) {
 
-					const { Data: { User_Id, FirstTimeUserId, ResponseMessage, UserTariff = "Residential" } } = data;
+					const { Data: { User_Id, FirstTimeUserId, ResponseMessage, UserTariff = -1 } } = data;
 
 					if (FirstTimeUserId < 3) {
 						Utility.OneSignalSubscribe(email);
 						dispatch(Actions.onChangeUserId(User_Id));
-						dispatch(Actions.onChangeUserTariff(UserTariff));
+						
+						const item = selectByTariff(UserTariff);
+                        dispatch(Actions.onChangeUserTariff(item));
 
 						RequestAccess(User_Id);
 

@@ -1,50 +1,187 @@
 import React, { useState, useEffect } from "react";
-import { Text, TouchableOpacity, Image, TextInput, SafeAreaView, ImageBackground, ScrollView } from "react-native";
-import { View, VStack, HStack, useToast } from "native-base";
+import { Text, TouchableOpacity, Image, TextInput, SafeAreaView, ImageBackground, ScrollView, FlatList } from "react-native";
+import { View, VStack, HStack, Divider, useToast } from "native-base";
 
+import FontAwesome from "react-native-vector-icons/FontAwesome";
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
+
 import { useNavigation, useIsFocused } from "@react-navigation/native";
 
 import { Logger, Utility } from "@utility";
 
 import { fetchProfileInfo, fetchUpdateProfile } from "@api";
 
-import { BcLoading, BcBoxShadow, BcDisable, BcHeaderWithAdd } from "@components";
+import { BcLoading, BcBoxShadow, BcDisable, BcHeaderWithAdd, BaseIIModal, BcUserTariffModal } from "@components";
 
 import { useDispatch, useSelector } from 'react-redux';
 import { Actions, Selectors } from '@redux';
 
-import { useToggle } from "@hooks";
+import { useToggle, useTariff } from "@hooks";
+
+function InfoTariff(props) {
+
+    const { Title, Value, onChangeValue = () => { } } = props;
+
+    const style = {
+        title: {
+            fontFamily: "Roboto-Medium",
+            fontSize: 18
+        },
+        txtInput: {
+            fontFamily: "Roboto-Medium",
+            fontSize: 18,
+            color: "#000",
+        }
+    }
+
+    const [trfModal, setTrfModal, toggleTrfModal] = useToggle(false);
+
+    const tariff = useSelector(Selectors.userTariffSelect);
+
+    return (
+        <>
+            <BcUserTariffModal showModal={trfModal} setShowModal={setTrfModal} />
+            <TouchableOpacity onPress={toggleTrfModal}>
+                <HStack width={"90%"}
+                    alignItems={"center"}
+                    style={{ height: 48 }}>
+                    <View flex={.3}>
+                        <Text style={style.title}>{Title}: </Text>
+                    </View>
+                    <View flex={.7}>
+                        <Text style={style.txtInput}>{tariff.Title}</Text>
+                    </View>
+                </HStack>
+            </TouchableOpacity>
+        </>
+    )
+}
 
 // #region Components
-function InfoItem(props) {
+function InfoTxt(props) {
     const { Title, Value, Placeholder = "", onChangeValue = () => { }, Editable = true } = props;
+
+    const style = {
+        title: {
+            fontFamily: "Roboto-Medium",
+            fontSize: 18
+        },
+        txtInput: {
+            fontFamily: "Roboto-Medium",
+            fontSize: 18,
+            color: "#000",
+        }
+    }
+
     return (
         <HStack width={"90%"}
             alignItems={"center"}
             style={{ height: 48 }}>
-            <View flex={.25}>
-                <Text style={{
-                    fontFamily: "Roboto-Medium",
-                    fontSize: 18,
-                }}>{Title}: </Text>
+            <View flex={.3}>
+                <Text style={style.title}>{Title}: </Text>
             </View>
-            <View flex={.8}>
+            <View flex={.7}>
                 <TextInput
                     editable={Editable}
                     defaultValue={Value}
                     onChangeText={onChangeValue}
                     placeholder={Placeholder}
                     autoCapitalize={"none"}
-                    style={{
-                        fontFamily: "Roboto-Medium",
-                        fontSize: 18,
-                        color: "#000",
-                    }} />
+                    style={style.txtInput} />
             </View>
         </HStack>
     )
 }
+
+function InfoMobileNo(props) {
+    const { Title, Value, Placeholder = "", onChangeValue = () => { }, Editable = true } = props;
+    const style = {
+        title: {
+            fontFamily: "Roboto-Medium",
+            fontSize: 18
+        },
+        txtInput: {
+            fontFamily: "Roboto-Medium",
+            fontSize: 18,
+            color: "#000",
+        }
+    }
+
+    return (
+        <HStack width={"90%"}
+            alignItems={"center"}
+            style={{ height: 48 }}>
+            <View flex={.3}>
+                <Text style={style.title}>{Title}: </Text>
+            </View>
+            <View flex={.7}>
+                <TextInput
+                    keyboardType="number-pad"
+                    editable={Editable}
+                    defaultValue={Value}
+                    onChangeText={onChangeValue}
+                    placeholder={Placeholder}
+                    autoCapitalize={"none"}
+                    style={style.txtInput} />
+            </View>
+        </HStack>
+    )
+}
+
+function InfoPassword(props) {
+    const { Title, Value, Placeholder = "", onChangeValue = () => { }, Editable = true } = props;
+
+    const style = {
+        title: {
+            fontFamily: "Roboto-Medium",
+            fontSize: 18
+        },
+        txtInput: {
+            fontFamily: "Roboto-Medium",
+            fontSize: 18,
+            color: "#000",
+        }
+    }
+
+    return (
+        <HStack width={"90%"}
+            alignItems={"center"}
+            style={{ height: 48 }}>
+            <View flex={.3}>
+                <Text style={style.title}>{Title}: </Text>
+            </View>
+            <View flex={.7}>
+                <TextInput
+                    secureTextEntry
+                    editable={Editable}
+                    defaultValue={Value}
+                    onChangeText={onChangeValue}
+                    placeholder={Placeholder}
+                    autoCapitalize={"none"}
+                    style={style.txtInput} />
+            </View>
+        </HStack>
+    )
+}
+
+function InfoPanel(props) {
+
+    const { hook = [] } = props;
+    const [profile, setProfile, onChangeUsername, onChangeMobileNo, onChangeEmail, onChangeAddress, onChangeTariffType] = hook;
+
+    const { Username, MobileNo, Email, Address, TariffType } = profile;
+
+    return (
+        <BcBoxShadow>
+            <View bgColor={"#FFF"} alignItems={"center"}>
+                <InfoTxt Title={"Email"} Value={Email} Placeholder={"xxx@gmail.com"} />
+                <InfoMobileNo Title={"MobileNo"} Value={MobileNo} onChangeValue={onChangeMobileNo} Placeholder={"+60 XXX-XXXX"} />
+                <InfoTariff Title={"Tariff"} Value={TariffType} onChangeValue={onChangeTariffType} Placeholder={"Residential"} />
+            </View>
+        </BcBoxShadow>
+    )
+}
+// #endregion
 
 function HeaderRight(props) {
     const { flag = true, showFlag = true, onSelect = () => { } } = props;
@@ -71,87 +208,7 @@ function HeaderRight(props) {
     )
 }
 
-function InfoPassword(props) {
-    const { Title, Value, onChangeValue = () => { } } = props;
-    return (
-        <HStack width={"90%"}
-            alignItems={"center"}
-            style={{ height: 48 }}>
-            <View flex={.3}>
-                <Text style={{
-                    fontFamily: "Roboto-Medium",
-                    fontSize: 18
-                }}>{Title}: </Text>
-            </View>
-            <View flex={.7}>
-                <TextInput
-                    secureTextEntry
-                    defaultValue={Value}
-                    onChangeValue={onChangeValue}
-                    placeholder={""}
-                    autoCapitalize={"none"}
-                    style={{
-                        fontFamily: "Roboto-Medium",
-                        fontSize: 18,
-                        color: "#000",
-                    }} />
-            </View>
-        </HStack>
-    )
-}
-
-function InfoPanel(props) {
-
-    const { hook = [] } = props;
-    const [profile, setProfile, onChangeUsername, onChangeMobileNo, onChangeEmail, onChangeAddress] = hook;
-
-    const { Username, MobileNo, Email, Address } = profile;
-
-    const subUserAccess = useSelector(Selectors.subUserAccessSelect);
-    const { AccountType = -1 } = subUserAccess;
-
-    const AccountStatus = (val = 1) => {
-        val = +val;
-
-        let dict = {
-            1: {
-                color: "#000",
-                term: "Free"
-            },
-            2: {
-                color: Utility.getColor(),
-                term: "Standard"
-            },
-            3: {
-                color: "#FFAA00",
-                term: "Premium"
-            }
-        }
-
-        if (val in dict) {
-            return dict[val];
-        }
-
-        return {
-            color: "#000",
-            term: "Free"
-        };
-    }
-
-    const { color, term } = AccountStatus(AccountType);
-
-    return (
-        <BcBoxShadow>
-            <View bgColor={"#FFF"} alignItems={"center"}>
-                <InfoItem Title={"Email"} Value={Email} Placeholder={"xxx@gmail.com"} />
-                <InfoItem Title={"Name"} Value={Username} onChangeValue={onChangeUsername} Placeholder={"Name"} />
-                <InfoItem Title={"MobileNo"} Value={MobileNo} onChangeValue={onChangeMobileNo} Placeholder={"+60 XXX-XXXX"} />
-            </View>
-        </BcBoxShadow>
-    )
-}
-// #endregion
-
+// #region Custom Hooks
 function useProfile() {
     const [profile, setProfile] = useState({});
 
@@ -166,9 +223,11 @@ function useProfile() {
     const onChangeMobileNo = (val) => updateProfile("MobileNo", val);
     const onChangeEmail = (val) => updateProfile("Email", val);
     const onChangeAddress = (val) => updateProfile("Address", val);
+    const onChangeTariffType = (val) => updateProfile("TariffType", val);
 
-    return [profile, setProfile, onChangeUsername, onChangeMobileNo, onChangeEmail, onChangeAddress];
+    return [profile, setProfile, onChangeUsername, onChangeMobileNo, onChangeEmail, onChangeAddress, onChangeTariffType];
 }
+// #endregion
 
 function Index(props) {
     const toast = useToast();
@@ -190,21 +249,7 @@ function Index(props) {
     // #region UseEffect
     useEffect(() => {
         if (isFocused) {
-            setLoading(true);
-            fetchProfileInfo({
-                param: {
-                    UserId: userId,
-                },
-                onSetLoading: setLoading,
-            })
-                .then(data => {
-                    setProfile(() => data);
-                    setOProfile(() => data);
-                })
-                .catch(err => {
-                    setLoading(false);
-                    console.log(`Error: ${err}`);
-                })
+            getProfile();
         }
     }, [isFocused, userId]);
 
@@ -217,6 +262,24 @@ function Index(props) {
         setFlag(() => t_flag);
     }, [profile])
     // #endregion
+
+    const getProfile = () => {
+        setLoading(true);
+        fetchProfileInfo({
+            param: {
+                UserId: userId,
+            },
+            onSetLoading: setLoading,
+        })
+            .then(data => {
+                setProfile(() => data);
+                setOProfile(() => data);
+            })
+            .catch(err => {
+                setLoading(false);
+                console.log(`Error: ${err}`);
+            })
+    }
 
     const updateProfile = () => {
         setLoading(true);
@@ -244,7 +307,7 @@ function Index(props) {
                 <View style={{ flex: 1 }}>
 
                     {/* Header */}
-                    <BcHeaderWithAdd Right={<HeaderRight flag={UpdateProfile == 1} showFlag={flag} onSelect={updateProfile} />}>Profile Info</BcHeaderWithAdd>
+                    <BcHeaderWithAdd Right={<HeaderRight flag={true} showFlag={flag} onSelect={updateProfile} />}>Profile Info</BcHeaderWithAdd>
 
                     <View style={{ height: 10 }} />
 

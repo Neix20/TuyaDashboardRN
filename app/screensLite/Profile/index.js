@@ -101,10 +101,8 @@ function Profile(props) {
 
     return (
         <View width={"90%"} alignItems={"center"} style={{ minHeight: 60 }}>
-            <TouchableOpacity style={{ width: "90%" }} disabled={true} {...props}>
-                <HStack
-                    alignItems={"center"}
-                    justifyContent={"space-between"}>
+            <TouchableOpacity style={{ width: "90%" }} {...props}>
+                <HStack alignItems={"center"} justifyContent={"space-between"}>
                     {/* Btn */}
                     <HStack space={5} alignItems={'center'}>
                         <FontAwesome name={"user-o"} color={"#000"} size={48} />
@@ -137,7 +135,7 @@ function ProfileInfo(props) {
         <VStack bgColor={"#FFF"} borderRadius={8} width={"90%"} alignItems={"center"}>
             <PanelBtnII Btn={FontAwesome} icon={"user"} title={"Joined in " + Utility.formatDt(Created_Date, "yyyy-MM-dd")} />
             <PanelBtnII Btn={FontAwesome5} icon={"user-alt-slash"} title={"Expires In " + Utility.formatDt(ExpiryDate, "yyyy-MM-dd")} />
-            <PanelBtnII Btn={FontAwesome5} icon={"tools"} title={`Yatu Token Count: ${DeviceQty}`} />
+            <PanelBtnII Btn={FontAwesome5} icon={"tools"} title={`Yatu Paid QR Count: ${DeviceQty}`} />
         </VStack>
     )
 }
@@ -230,7 +228,7 @@ function NavPanel(props) {
     return (
         <VStack bgColor={"#FFF"} borderRadius={8} width={"90%"} alignItems={"center"}>
             <PanelBtn onPress={GoToProfileWorkspace} Btn={Ionicons} icon={"settings-sharp"} title={"View Profile Selection"} />
-            <PanelBtn onPress={GoToUserToken} Btn={FontAwesome5} icon={"shopping-cart"} title={"View Yatu Token"} />
+            <PanelBtn onPress={GoToUserToken} Btn={FontAwesome5} icon={"shopping-cart"} title={"View Yatu Paid QR"} />
             {/* <PanelBtn onPress={GoToSubscription} Btn={FontAwesome5} icon={"shopping-cart"} title={"View Purchased Add-Ons"} /> */}
         </VStack>
     )
@@ -291,7 +289,7 @@ function TokenSubscriptionPanel(props) {
         <VStack bgColor={"#FFF"} borderRadius={8}
             width={"90%"} alignItems={"center"}>
             <PanelBtn
-                onPress={GoToRedeemToken} title={"Redeem Your Yatu Token!"}
+                onPress={GoToRedeemToken} title={"Redeem Your Yatu Paid QR!"}
                 Btn={FontAwesome} icon={"ticket"}
                 color={"#FFAA00"} showRight={false} />
         </VStack>
