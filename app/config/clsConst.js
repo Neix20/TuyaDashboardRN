@@ -1,7 +1,7 @@
-const APP_VERSION = "1.2.32";
-const PRO_APP_VERSION = "P1.2.32";
-const LITE_APP_VERSION = "L1.2.32";
-const VIEWER_APP_VERSION = "V1.2.32";
+const APP_VERSION = "1.2.33";
+const PRO_APP_VERSION = "PT1.2.33";
+const LITE_APP_VERSION = "LT1.2.33";
+const VIEWER_APP_VERSION = "VR1.2.33";
 const ORG_NAME = "VIGTECH LABS SDN BHD";
 
 // const SERVER_URL = "https://2452-103-26-251-251.ngrok-free.app";
@@ -11,7 +11,8 @@ const LOG_URL = "https://2cde-2001-e68-69aa-a000-301d-21af-ad7a-39b1.ngrok-free.
 
 const ONESIGNAL_APP_ID = "c9ae1fae-6f45-4ec4-8d62-15947a7d9b52";
 
-const VIGTECH_PHONE_NUMBER = "017-776 8230";
+// const VIGTECH_PHONE_NUMBER = "017-776 8230";
+const VIGTECH_PHONE_NUMBER = "016-648 9466";
 const VIGTECH_BUSINESS_PHONE_NUMBER = "013-910 0574";
 const VIGTECH_EMAIL = "app.vigtech@gmail.com";
 
@@ -52,7 +53,7 @@ const PROFILE_WS_COLORS = [
 // const APP_VARIANT_COLOR = "#2898FF";
 // const APP_VARIANT_COLOR = "#6334D3";
 
-const APP_COLOR = "#FB7304";
+const APP_COLOR = "#2898FF";
 
 export {
     APP_VERSION,

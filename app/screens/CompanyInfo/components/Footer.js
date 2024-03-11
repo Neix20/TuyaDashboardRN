@@ -20,7 +20,7 @@ function Index(props) {
             <Text style={{
                 fontFamily: "Roboto-Medium",
                 color: Utility.getColor()
-            }}>v{clsConst.APP_VERSION}</Text>
+            }}>{clsConst.APP_VERSION}</Text>
         </View>
     );
 }

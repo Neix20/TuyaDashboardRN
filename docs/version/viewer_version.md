@@ -16,3 +16,7 @@
 - Remove "Download" from View Shot Modal
 - Remove "Add To Favorite" from "Devices"
 - Re-design "Device Item"
+
+## 1.2.33
+
+- Fix: Camera QR Crashing after Scan QR Code

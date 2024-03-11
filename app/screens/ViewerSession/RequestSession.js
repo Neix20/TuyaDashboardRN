@@ -274,7 +274,7 @@ function SessionModal(props) {
         <BaseIIModal cusToast={cusToast} {...props}>
             <View alignItems={"center"}>
                 <VStack width={"90%"} alignItems={"center"} space={3}>
-                    <Text style={style.title}>New Session</Text>
+                    <Text style={style.title}>{Email}</Text>
 
                     {/* Access Code */}
                     <SessionAccessCode data={Access_Code} onCopy={copyReferralCode} />

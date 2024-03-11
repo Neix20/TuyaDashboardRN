@@ -12,9 +12,13 @@ import { Camera, useCameraPermission, useCameraDevice, useCodeScanner } from "re
 import { BcSvgIcon, CustomToast } from "@components";
 import { useToggle } from "@hooks";
 
+import { useIsFocused } from "@react-navigation/native";
+
 import { Utility } from "@utility";
 
 function Scanner(props) {
+
+    const isFocused = useIsFocused();
 
     const { hasPermission } = useCameraPermission();
     const device = useCameraDevice("back");
@@ -26,6 +30,7 @@ function Scanner(props) {
     const { onRead = () => { } } = props;
 
     const [qrFlag, setQrFlag] = useState(false);
+    const [camActive, setCamActive, toggleCamActive] = useToggle(true);
 
     const codeScanner = useCodeScanner({
         codeTypes: ['qr', 'ean-13'],
@@ -39,6 +44,7 @@ function Scanner(props) {
 
                 if (value.length > 0 && !qrFlag) {
                     setQrFlag(_ => true);
+                    setCamActive(_ => false);
                     onRead(value);
                 }
             } catch (err) {
@@ -58,16 +64,24 @@ function Scanner(props) {
 
     useEffect(() => {
         if (qrFlag) {
-            const timer = setTimeout(() => setQrFlag(_ => false), 1000 * 1.5);
+            const timer = setTimeout(() => {
+                setQrFlag(_ => false);
+            }, 1000 * 1.5);
             return () => clearTimeout(timer);
         }
     }, [qrFlag]);
+
+    useEffect(() => {
+        if (isFocused) {
+            setCamActive(_ => true);
+        }
+    }, [isFocused]);
 
     return (
         <Camera
             codeScanner={codeScanner}
             device={device}
-            isActive={true}
+            isActive={camActive}
             style={{ height: "75%" }}
         />
     )

@@ -12,3 +12,7 @@
 - Removed Functions that are "unnecessary"
 - Added Error to "Scan Qr"
 - Remove Tutorial "Toast Message"
+
+## 1.2.33
+
+- Fix: Camera QR Crashing after Scan QR Code

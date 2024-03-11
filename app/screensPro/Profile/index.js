@@ -591,7 +591,7 @@ function Index(props) {
                                 fontFamily: "Roboto-Medium",
                                 fontSize: 16,
                                 color: Utility.getColor()
-                            }}>v{clsConst.PRO_APP_VERSION}</Text>
+                            }}>{clsConst.PRO_APP_VERSION}</Text>
                             <Text style={{
                                 fontFamily: "Roboto-Medium",
                                 fontSize: 16,

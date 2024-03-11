@@ -68,27 +68,17 @@ function Profile(props) {
 
     return (
         <View width={"90%"} alignItems={"center"} style={{ minHeight: 60 }}>
-            <TouchableOpacity style={{ width: "90%" }} disabled={true} {...props}>
-                <HStack
-                    alignItems={"center"}
-                    justifyContent={"space-between"}>
-                    {/* Btn */}
-                    <HStack space={5} alignItems={'center'}>
-                        <FontAwesome name={"user-o"} color={"#000"} size={48} />
-                        <VStack width={"78%"}>
-                            <Text style={{
-                                fontFamily: "Roboto-Bold",
-                                fontSize: 18
-                            }}>{Email}</Text>
+            <HStack width={"90%"} space={5} alignItems={'center'}>
+                <FontAwesome name={"user-o"} color={"#000"} size={48} />
+                <VStack width={"78%"}>
+                    <Text style={{
+                        fontFamily: "Roboto-Bold",
+                        fontSize: 18
+                    }}>{Email}</Text>
 
-                            <ProfilePremium AccountType={AccountType} />
-                        </VStack>
-                    </HStack>
-
-                    {/* Angle-Right */}
-                    <FontAwesome name={"angle-right"} color={"#000"} size={32} />
-                </HStack>
-            </TouchableOpacity>
+                    <ProfilePremium AccountType={AccountType} />
+                </VStack>
+            </HStack>
         </View>
     )
 }
@@ -364,7 +354,7 @@ function Index(props) {
                                 fontFamily: "Roboto-Medium",
                                 fontSize: 16,
                                 color: Utility.getColor()
-                            }}>v{clsConst.VIEWER_APP_VERSION}</Text>
+                            }}>{clsConst.VIEWER_APP_VERSION}</Text>
                             <Text style={{
                                 fontFamily: "Roboto-Medium",
                                 fontSize: 16,
