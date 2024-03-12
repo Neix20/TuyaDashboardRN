@@ -23,6 +23,7 @@ const tutorialSelect = (state) => state.tutorial;
 const viewerSessionSelect = (state) => state.viewerSession;
 
 const userTariffSelect = (state) => state.userTariff;
+const viewSesTutorialSelect = (state) => state.viewSesTutorial;
 
 export {
     defaultValueSelect,
@@ -44,5 +45,6 @@ export {
     yatuAuthSelect,
     tutorialSelect,
     viewerSessionSelect,
-    userTariffSelect
+    userTariffSelect,
+    viewSesTutorialSelect
 }

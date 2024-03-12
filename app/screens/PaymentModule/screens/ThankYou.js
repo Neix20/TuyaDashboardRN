@@ -61,7 +61,13 @@ function Index(props) {
 
     useEffect(() => {
         if (isFocused) {
+
+            // Set Premium Flag to Be True
             dispatch(Actions.onChangePremiumPayFlag(true));
+
+            // Set Viewer Session Flag To Be True
+            dispatch(Actions.onChangeViewSesTutorial(true));
+
             RequestAccess(userId);
         }
     }, [isFocused]);

@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { View, VStack, HStack, useToast } from "native-base";
 import { Text, TouchableOpacity, FlatList } from "react-native";
 
+import FontAwesome from "react-native-vector-icons/FontAwesome";
+import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 
 import { Logger, Utility } from "@utility";
@@ -10,10 +12,13 @@ import { Actions, Selectors } from '@redux';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { fetchGenerateViewerAccessCode, fetchDeviceListII } from "@api";
-import { BaseModal, BcDisableII } from "@components";
+import { BaseModal, BcDisableII, BaseIIModal } from "@components";
 
 import { useToggle, useTimer } from "@hooks";
 
+import { CheckBox } from "@rneui/base";
+
+// #region Version 1.0
 function useDeviceLs() {
     const [ls, setLs] = useState([]);
 
@@ -45,8 +50,6 @@ function useDeviceLs() {
 
     return [ls, updateLs, toggleItem, flag];
 }
-
-import { CheckBox } from "@rneui/base";
 
 function LinkDeviceItem(props) {
 
@@ -213,6 +216,7 @@ function SessionModal(props) {
         </BaseModal>
     )
 }
+// #endregion
 
 function Index(props) {
 
@@ -289,7 +293,60 @@ function Index(props) {
 
 import { useNavigation, useIsFocused } from "@react-navigation/native";
 
-function Debug(props) {
+function TutorialModal(props) {
+
+    const { showModal = false, setShowModal = () => { } } = props;
+
+    const style = {
+        title: {
+            fontFamily: "Roboto-Bold",
+            fontSize: 20,
+            color: "#000"
+        },
+        description: {
+            fontFamily: "Roboto-Medium",
+            fontSize: 14,
+            color: "#000",
+            textAlign: "justify",
+        },
+        btnTitle: {
+            fontSize: 14,
+            fontWeight: "bold",
+            color: "#FFF",
+        }
+    }
+
+    const navigation = useNavigation();
+
+    const GoToShareSession = () => {
+        setShowModal(false);
+        navigation.navigate("RequestViewerSession");
+    }
+
+    return (
+        <BaseIIModal {...props}>
+            <VStack py={3} space={3} alignItems={"center"}>
+                <Text style={style.title}><Text>Viewer Session</Text> Tutorial</Text>
+
+                <FontAwesome5 name={"smile-wink"} size={36} color={Utility.getColor()} />
+                <View w={"90%"}>
+                <Text style={style.description}>
+                    It seems like this is your first time generating viewer session
+                </Text>
+                </View>
+
+                <TouchableOpacity onPress={GoToShareSession} style={{ width: "80%", height: 40 }}>
+                    <View flex={1} backgroundColor={Utility.getColor()}
+                        alignItems={"center"} justifyContent={"center"}>
+                        <Text style={style.btnTitle}>Share Session</Text>
+                    </View>
+                </TouchableOpacity>
+            </VStack>
+        </BaseIIModal>
+    )
+}
+
+function IndexII(props) {
 
     const style = {
         title: {
@@ -299,27 +356,41 @@ function Debug(props) {
         }
     };
 
-    const color = Utility.getColor();
+    const dispatch = useDispatch();
 
+    const isFocused = useIsFocused();
     const navigation = useNavigation();
 
+    const viewSesTutorialSelect = useSelector(Selectors.viewSesTutorialSelect);
+
+    const [tutModal, setTutModal, toggleTutModal] = useToggle(false);
+
     const GoToRequestViewerSession = () => {
-        navigation.navigate("RequestViewerSession");
+        if (isFocused && viewSesTutorialSelect) {
+            toggleTutModal();
+        } else {
+            navigation.navigate("RequestViewerSession");
+        }
     }
 
+    const color = Utility.getColor();
+
     return (
-        <VStack bgColor={"#FFF"} borderRadius={8} width={"90%"} alignItems={"center"}>
-            <TouchableOpacity onPress={GoToRequestViewerSession} style={{ width: "90%" }}>
-                <HStack alignItems={"center"} style={{ height: 60 }}>
-                    <View alignItems={"flex-start"} style={{ width: 40 }}>
-                        <MaterialCommunityIcons name={"progress-clock"} size={24} color={color} />
-                    </View>
-                    <Text style={style.title}>Share Viewer Session</Text>
-                </HStack>
-            </TouchableOpacity>
-        </VStack>
+        <>
+            <TutorialModal showModal={tutModal} setShowModal={setTutModal} />
+            <VStack bgColor={"#FFF"} borderRadius={8} width={"90%"} alignItems={"center"}>
+                <TouchableOpacity onPress={GoToRequestViewerSession} style={{ width: "90%" }}>
+                    <HStack alignItems={"center"} style={{ height: 60 }}>
+                        <View alignItems={"flex-start"} style={{ width: 40 }}>
+                            <MaterialCommunityIcons name={"progress-clock"} size={24} color={color} />
+                        </View>
+                        <Text style={style.title}>Share Viewer Session</Text>
+                    </HStack>
+                </TouchableOpacity>
+            </VStack>
+        </>
     )
 }
 
 
-export default Debug;
+export default IndexII;

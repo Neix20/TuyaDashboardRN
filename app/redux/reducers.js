@@ -25,7 +25,8 @@ const initialState = {
         Id: -1,
         Title: "",
         Value: -1
-    }
+    },
+    viewSesTutorial: false
 };
 
 function setReducer(state = initialState, action = {}) {
@@ -129,6 +130,11 @@ function setReducer(state = initialState, action = {}) {
             return {
                 ...state,
                 userTariff: action.userTariff,
+            };
+        case "SET_VIEWER_SESSION_TUTORIAL":
+            return {
+                ...state,
+                viewSesTutorial: action.viewSesTutorial,
             };
         default: {
             return {

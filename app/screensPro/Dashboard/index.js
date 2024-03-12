@@ -11,7 +11,7 @@ import { Images, Svg } from "@config";
 
 import { BcBoxShadow, BcSvgIcon, BcLoading, BcYatuHome, BcProfileWorkspace } from "@components";
 import { BcDateRange, BcViewShot, BcApacheChartFull, BcDataAttribute, BcApacheBarChartFull, BcApachePieChart}  from "@components";
-import { DisableDevice, DisableDeviceScreenPro as DisableDeviceScreen, DisableDeviceItem } from "@components";
+import { DisableDevice, DisableDeviceScreenPro as DisableDeviceScreen } from "@components";
 
 import { DateTime } from "luxon";
 
@@ -666,15 +666,16 @@ function Index(props) {
     const subUserAccess = useSelector(Selectors.subUserAccessSelect);
     const { DeviceQty = 0, AccountType = -1 } = subUserAccess;
 
+    const dispatch = useDispatch();
+
     const closePreModal = () => {
         dispatch(Actions.onChangePremiumPayFlag(false));
     }
 
-    const dispatch = useDispatch();
 
     return (
         <>
-            <BcPremiumModal showModal={premiumPayFlag} setShowModal={closePreModal} />
+            <BcPremiumModal showModal={isFocused && premiumPayFlag} setShowModal={closePreModal} />
             <BcLoading loading={loading} />
             <SafeAreaView style={{ flex: 1 }}>
                 <View style={{ flex: 1 }} bgColor={Utility.colorOpacity(WsColor, 0.25)}>

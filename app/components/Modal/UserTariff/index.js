@@ -77,9 +77,12 @@ function Index(props) {
         }
     }
 
+    // #region UseEffect
     useEffect(() => {
-        setTariffData(UserTariffData);
-    }, []);
+        if (showModal) {
+            GetStatusList();
+        }
+    }, [showModal]);
 
     useEffect(() => {
         if (tariffData.length > 0) {
@@ -87,6 +90,23 @@ function Index(props) {
             dispatch(Actions.onChangeUserTariff(item));
         }
     }, [tariffData]);
+    // #endregion
+
+    // #region Helper
+    const GetStatusList = () => {
+        fetchGetStatusList({
+            param: {
+                UserId: 10,
+                StatusType: "UserTariff"
+            },
+            onSetLoading: () => {}
+        }).then(data => {
+            setTariffData(data);
+        })
+        .catch(err => {
+            console.error(err);
+        })
+    }
 
     const renderItem = ({ item, index }) => {
         const onSelect = () => {
@@ -100,6 +120,7 @@ function Index(props) {
             </>
         )
     }
+    // #endregion
 
     return (
         <BaseIIModal {...props}>

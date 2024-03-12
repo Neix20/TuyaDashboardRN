@@ -138,6 +138,13 @@ const onChangeUserTariff = (userTariff) => {
     }
 };
 
+const onChangeViewSesTutorial = (viewSesTutorial) => {
+    return {
+        type: "SET_VIEWER_SESSION_TUTORIAL",
+        viewSesTutorial: viewSesTutorial,
+    }
+};
+
 export {
     onChangeDefaultValue,
     onChangeUserId,
@@ -158,5 +165,6 @@ export {
     onChangeYatuAuth,
     onChangeTutorial,
     onChangeViewerSession,
-    onChangeUserTariff
+    onChangeUserTariff,
+    onChangeViewSesTutorial
 }
