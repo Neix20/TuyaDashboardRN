@@ -15,9 +15,9 @@ import { Platform, Linking } from "react-native";
 function Index(props) {
 
     const { showModal = false, setShowModal = () => { } } = props;
+    
     const closeModal = () => setShowModal(false);
-
-    // const { onPressYes = closeModal } = props;
+    const { onPressYes = closeModal } = props;
 
     const style = {
         title: {
@@ -90,7 +90,7 @@ function Index(props) {
                 {/* Yes / No */}
                 {/* Button Panel */}
                 <HStack space={3}>
-                    <TouchableOpacity onPress={closeModal}>
+                    <TouchableOpacity onPress={onPressYes}>
                         <HStack borderRadius={8} bgColor={Utility.getColor()}
                             alignItems={"center"} justifyContent={"center"}
                             style={{ width: 120, height: 40 }}>

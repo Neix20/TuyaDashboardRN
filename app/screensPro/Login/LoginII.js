@@ -289,7 +289,6 @@ function ExistLoginForm(props) {
 	const [tariffData, setTariffData, toggleTariff, selectByTariff] = useTariff();
 
     const GetStatusList = () => {
-        setLoading(true);
         fetchGetStatusList({
             param: {
                 UserId: 10

@@ -13,7 +13,7 @@
       "script": "ios",
       "problemMatcher": [],
       "label": "yarn: ios",
-      "detail": "react-native run-ios --simulator=\"iPhone 15\""
+      "detail": "react-native run-ios"
     },
     {
       "type": "npm",

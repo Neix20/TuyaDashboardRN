@@ -407,7 +407,7 @@ function Index(props) {
 
     const defaultScreen = (userId == -1 || firstTimeLink) ? "LoginII" : "TabNavigation";
     // const defaultScreen = "Debug";
-    // const defaultScreen = "RequestViewerSession";
+    // const defaultScreen = "AuthTuya";
 
     return (
         <>

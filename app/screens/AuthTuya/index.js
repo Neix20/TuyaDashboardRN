@@ -26,114 +26,120 @@ import { BackHandler } from "react-native";
 
 // #region Components
 function GenQrLoading(props) {
+
+    const { onTimerEnd = () => { } } = props;
+
     const [timer, setTimer, totalDuration, setTotalDuration, progress] = useTimer(45);
+
+    const style = {
+        center: {
+            textAlign: "center"
+        },
+        loading: {
+            color: "#F00",
+            fontSize: 36
+        }
+    }
+
     return (
         <View mt={3}>
-            {/* <Text style={{
-                fontFamily: "Roboto-Bold",
-                fontSize: 18,
-                textAlign: "center"
-            }}>
-                Overall Loading: <Text style={{ color: "#F00" }}>{progress.toFixed(1)}</Text>%
-            </Text>
-            <Text style={{
-                fontFamily: "Roboto-Bold",
-                fontSize: 18,
-                textAlign: "center"
-            }}>
-                Time Left: <Text style={{ color: "#F00" }}>{timer}</Text> seconds
-            </Text> */}
-            <Text style={{ textAlign: "center" }}>
+            <Text style={style.center}>
                 Please wait for the generating process to complete.
             </Text>
-            <Text style={{ textAlign: "center" }}>
-                This process will finish in <Text style={{ color: "#F00" }}>{timer}</Text> seconds.
-            </Text>
+            <VStack space={3}>
+                <Text style={style.center}>
+                    This process will finish in
+                </Text>
+                <Text style={[style.center, style.loading]}>{timer}</Text>
+                <Text style={style.center}>
+                    seconds
+                </Text>
+            </VStack>
         </View>
     )
 }
 
 function SyncWithSmartLife(props) {
+
+    const { onTimerEnd = () => { } } = props;
+
     const [timer, setTimer, totalDuration, setTotalDuration, progress] = useTimer(180);
+
+    useEffect(() => {
+        if (timer == 1) {
+            onTimerEnd();
+        }
+    }, [timer]);
+
+    const style = {
+        center: {
+            textAlign: "center"
+        },
+        loading: {
+            color: "#F00",
+            fontSize: 36
+        }
+    }
+
     return (
         <>
-            {/* <Text style={{
-                fontFamily: "Roboto-Bold",
-                fontSize: 18,
-                textAlign: "center",
-                color: "#7c7c7c"
-            }}>(It May take 1 to 5 Minutes to Sync Data)</Text> */}
-            <View View mt={3}>
-                {/* <Text style={{
-                    fontFamily: "Roboto-Bold",
-                    fontSize: 18,
-                    textAlign: "center"
-                }}>
-                    Overall Loading: <Text style={{ color: "#F00" }}>{progress.toFixed(1)}</Text>%
+            <VStack space={2} mt={3}>
+                <View width={"80%"}>
+                    <Text style={style.center}>
+                        Please wait for the data synchronization process to complete.
+                    </Text>
+                </View>
+                <Text style={style.center}>
+                    This process will finish in
                 </Text>
-                <Text style={{
-                    fontFamily: "Roboto-Bold",
-                    fontSize: 18,
-                    textAlign: "center"
-                }}>
-                    Time Left: <Text style={{ color: "#F00" }}>{timer}</Text> seconds
-                </Text> */}
-                <Text style={{ textAlign: "center", paddingHorizontal: 50 }}>
-                    Please wait for the data synchronization process to complete.
+                <Text style={[style.center, style.loading]}>{timer}</Text>
+                <Text style={style.center}>
+                    seconds
                 </Text>
-                <Text style={{ textAlign: "center" }}>
-                    This process will finish in <Text style={{ color: "#F00" }}>{timer}</Text> seconds.
-                </Text>
-            </View>
+            </VStack>
         </>
     )
 }
 
 function Loading(props) {
 
-    const { children } = props;
-    const LoadingTxt = (children === "Syncing Data With Smart Life App...") ? SyncWithSmartLife : GenQrLoading;
-    const animation = (children === "Syncing Data With Smart Life App...") ? Animation.SyncData : Animation.Qrgenerate;
+    const { children = "", onGenQrDone = () => {}, onSyncSmart = () => {} } = props;
 
-    // const loadingCond = [
-    //     {
-    //         children: "Generating Smart Home QR Code...",
-    //         animation: Animation.Qrgenerate,
-    //         LoadingTxt: GenQrLoading
-    //     },
-    //     {
-    //         children: "Syncing Data With Smart Life App...",
-    //         animation: Animation.SyncData,
-    //         LoadingTxt: SyncWithSmartLife
-    //     }
-    // ]
+    const flag = children === "Syncing Data With Smart Life App...";
 
-    // const { children, LoadingTxt, animation } = loadingCond[1];
+    const style = {
+        title: {
+            fontFamily: "Roboto-Bold",
+            fontSize: 20,
+            textAlign: "center"
+        },
+        animation: {
+            width: 200,
+            height: 360
+        }
+    }
+
+    if (flag) {
+        return (
+            <View flexGrow={1} alignItems={"center"} justifyContent={"center"}>
+                <Text style={style.title}>Please Refrain from Closing the App</Text>
+                <Lottie loop={true} autoPlay
+                    source={Animation.SyncData}
+                    style={style.animation} />
+                <Text style={style.title}>{children}</Text>
+                <SyncWithSmartLife onTimerEnd={onSyncSmart} />
+            </View>
+        )
+    }
 
     return (
-        <View flexGrow={1}
-            alignItems={"center"}
-            justifyContent={"center"}>
-
-            <Text style={{
-                fontFamily: "Roboto-Bold",
-                fontSize: 20,
-                textAlign: "center"
-            }}>Please Refrain from Closing the App</Text>
-            <Lottie
-                autoPlay
-                source={animation}
-                loop={true}
-                style={{
-                    width: 200,
-                    height: 360
-                }} />
-            <Text style={{
-                fontFamily: "Roboto-Bold",
-                fontSize: 20,
-                textAlign: "center"
-            }}>{children}</Text>
-            <LoadingTxt />
+        <View flexGrow={1} alignItems={"center"} justifyContent={"center"}>
+            <Text style={style.title}>Please Refrain from Closing the App</Text>
+            <Lottie loop={true} autoPlay
+                source={Animation.Qrgenerate}
+                style={style.animation} />
+            <Text style={style.title}>{children}</Text>
+            <GenQrLoading onTimerEnd={onGenQrDone} />
         </View>
     )
 }
@@ -260,7 +266,7 @@ function Index(props) {
     const [showExitModal, setShowExitModal, toggleExitModal] = useToggle(false);
     // #endregion
 
-    const upadteAtcFlag = () => {
+    const updateAtcFlag = () => {
         const timeout = setTimeout(() => {
             if (navigation.isFocused()) {
                 setAtcFlag(_ => true);
@@ -298,7 +304,7 @@ function Index(props) {
 
             .catch(err => {
                 setLoading(false);
-                console.log(`Error: ${err}`);
+                console.log(`AuthTuyaCode Error: ${err}`);
             })
     }
 
@@ -329,7 +335,7 @@ function Index(props) {
             })
             .catch(err => {
                 setLoading(false);
-                console.log(`Error: ${err}`);
+                console.log(`Register Error: ${err}`);
             })
     }
     // #endregion
@@ -337,8 +343,9 @@ function Index(props) {
     useEffect(() => {
         if (isFocused) {
             authTuyaCode();
-            setTitleTxt(_ => "STEP 1 : QR Generator")
-            upadteAtcFlag();
+            updateAtcFlag();
+
+            setTitleTxt(_ => "STEP 1 : QR Generator");
         }
     }, [isFocused]);
 
@@ -353,9 +360,6 @@ function Index(props) {
         navigation.navigate("ScanQr", {
             title: "AuthTuya"
         });
-        // navigation.navigate("TabNavigation", {
-        //     screen: "Device",
-        // });
     }
 
     // Disable Back Button
@@ -376,6 +380,10 @@ function Index(props) {
         navigation.goBack();
     }
 
+    const GenQrDone = () => {
+        navigation.navigate("AuthTuyaHighTraffic", data);
+    }
+
     // Shown at False
     if (!atcFlag) {
         return (
@@ -388,7 +396,7 @@ function Index(props) {
                 <SafeAreaView style={{ flex: 1 }}>
                     <View style={{ flex: 1 }}>
                         <View style={{ height: 80 }} />
-                        <Loading>{loadingTxt}</Loading>
+                        <Loading onGenQrDone={GenQrDone} onSyncSmart={GoToHome}>{loadingTxt}</Loading>
                     </View>
 
                     <View

@@ -331,14 +331,14 @@ function TutorialModal(props) {
                 <FontAwesome5 name={"smile-wink"} size={36} color={Utility.getColor()} />
                 <View w={"90%"}>
                 <Text style={style.description}>
-                    It seems like this is your first time generating viewer session
+                    It seems like this is you have just purchased premium subscription. Premium Subscribers have a new option of sharing their profiles to pre-selected viewers.
                 </Text>
                 </View>
 
                 <TouchableOpacity onPress={GoToShareSession} style={{ width: "80%", height: 40 }}>
                     <View flex={1} backgroundColor={Utility.getColor()}
                         alignItems={"center"} justifyContent={"center"}>
-                        <Text style={style.btnTitle}>Share Session</Text>
+                        <Text style={style.btnTitle}>Start Tutorial</Text>
                     </View>
                 </TouchableOpacity>
             </VStack>
@@ -356,24 +356,29 @@ function IndexII(props) {
         }
     };
 
+    // #region UseState
     const dispatch = useDispatch();
 
     const isFocused = useIsFocused();
     const navigation = useNavigation();
 
     const viewSesTutorialSelect = useSelector(Selectors.viewSesTutorialSelect);
-
     const [tutModal, setTutModal, toggleTutModal] = useToggle(false);
+    // #endregion
 
-    const GoToRequestViewerSession = () => {
+    useEffect(( ) => {
         if (isFocused && viewSesTutorialSelect) {
-            toggleTutModal();
-        } else {
-            navigation.navigate("RequestViewerSession");
+            setTutModal(_ => true)
         }
+    }, [isFocused])
+
+    // #region Helper
+    const GoToRequestViewerSession = () => {
+        navigation.navigate("RequestViewerSession");
     }
 
     const color = Utility.getColor();
+    // #endregion
 
     return (
         <>

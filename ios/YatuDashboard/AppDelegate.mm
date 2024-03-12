@@ -1,4 +1,4 @@
-21#import "AppDelegate.h"
+#import "AppDelegate.h"
 
 #import <React/RCTBundleURLProvider.h>
 #import "RNSplashScreen.h"  // here

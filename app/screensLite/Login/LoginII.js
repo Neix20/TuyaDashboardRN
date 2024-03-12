@@ -250,11 +250,11 @@ function ExistLoginForm(props) {
                 setSessionId(SessionId);
 
                 if (IsFirstTimeSignIn) {
-                    // setTimeout(() => {
-                    //     toggleChkUserModal();
-                    // }, 100);
-                    // setShowModal(_ => false);
-                    toggleChkUserModal();
+                    setTimeout(() => {
+                        toggleChkUserModal();
+                    }, 100);
+                    setShowModal(_ => false);
+                    // toggleChkUserModal();
                 }
             })
             .catch(err => {
@@ -280,7 +280,6 @@ function ExistLoginForm(props) {
     const [tariffData, setTariffData, toggleTariff, selectByTariff] = useTariff();
 
     const GetStatusList = () => {
-        setLoading(true);
         fetchGetStatusList({
             param: {
                 UserId: 10
@@ -899,8 +898,12 @@ function Index(props) {
     const insets = useSafeAreaInsets();
 
     const onPressCheckUserConfirm = () => {
+        
         setShowChkUserModal(false);
-        setShowExLoginModal(true);
+        setTimeout(() => {
+            setShowExLoginModal(true);
+        }, 100);
+        
     }
 
     return (

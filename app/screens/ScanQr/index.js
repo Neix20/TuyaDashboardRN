@@ -228,7 +228,9 @@ function Index(props) {
                     <View flexGrow={1}>
                         <BcQrCamera onRead={readQrCode} />
                         <VStack space={2} p={3} alignItems={'center'}>
-                            <Text style={{ textAlign: "center", fontWeight: "bold" }}>Please scan the QR code provided inside the box.</Text>
+                            <View width={"80%"}>
+                                <Text style={{ textAlign: "center", fontWeight: "bold" }}>Please scan the Paid QR code provided with the device.</Text>
+                            </View>
                             <VStack>
 
                                 <Text style={{ textAlign: "center" }}>If you don't find any QR code, please contact us via</Text>
