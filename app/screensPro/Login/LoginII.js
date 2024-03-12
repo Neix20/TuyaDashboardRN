@@ -328,6 +328,7 @@ function ExistLoginForm(props) {
 						dispatch(Actions.onChangeUserId(User_Id));
 						
 						const item = selectByTariff(UserTariff);
+						console.log(item);
                         dispatch(Actions.onChangeUserTariff(item));
 
 						RequestAccess(User_Id);

@@ -30,46 +30,46 @@ function Index(props) {
     }
     // #endregion
 
+    const style = {
+        leftBtn: {
+            alignItems: "center",
+            justifyContent: "center",
+            width: 120,
+            height: 120,
+            position: "absolute",
+            left: -30,
+            top: -19,
+            zIndex: 1,
+        },
+        titleDiv: {
+            position: "absolute",
+            height: 120,
+            left: 45,
+            top: -20,
+            alignItems: "center",
+            justifyContent: "center",
+        },
+        txtTitle: {
+            fontSize: 20,
+            fontWeight: "bold",
+            color: "#000",
+        }
+    }
+
     if (Right != null) {
         return (
             <BcBoxShadow>
-                <View pb={2}
-                    bgColor={"#FFF"}
-                    alignItems={"center"}
-                    justifyContent={"flex-end"}
+                <View pb={2} bgColor={"#FFF"}
+                    alignItems={"center"} justifyContent={"flex-end"}
                     style={{ height: 60 }}>
                     {/* Front Layer */}
-                    <TouchableOpacity
-                        onPress={GoBack}
-                        style={{
-                            alignItems: "center",
-                            justifyContent: "center",
-                            width: 120,
-                            height: 120,
-                            position: "absolute",
-                            left: -30,
-                            top: -19,
-                            zIndex: 1,
-                        }}>
+                    <TouchableOpacity onPress={GoBack} style={style.leftBtn}>
                         <FontAwesome5 name={"chevron-left"} size={20} color={Utility.getColor()} />
                     </TouchableOpacity>
-                    <View style={{
-                        position: "absolute",
-                        height: 120,
-                        left: 45,
-                        top: -20,
-                        alignItems: "center",
-                        justifyContent: "center",
-                    }}>
-                        <Text style={{
-                            fontSize: 20,
-                            fontWeight: "bold",
-                            color: "#000",
-                        }}>{children}</Text>
+                    <View style={style.titleDiv}>
+                        <Text style={style.txtTitle}>{children}</Text>
                     </View>
-                    <View width={"90%"} alignItems={"flex-end"}>
-                    {Right}
-                    </View>
+                    <View width={"90%"} alignItems={"flex-end"}>{Right}</View>
                 </View>
             </BcBoxShadow>
         )
@@ -77,39 +77,15 @@ function Index(props) {
 
     return (
         <BcBoxShadow>
-            <View px={3} pb={2}
-                bgColor={"#FFF"}
-                alignItems={"flex-end"}
-                justifyContent={"flex-end"}
+            <View px={3} pb={2} bgColor={"#FFF"}
+                alignItems={"flex-end"} justifyContent={"flex-end"}
                 style={{ height: 60 }}>
                 {/* Front Layer */}
-                <TouchableOpacity
-                    onPress={GoBack}
-                    style={{
-                        alignItems: "center",
-                        justifyContent: "center",
-                        width: 120,
-                        height: 120,
-                        position: "absolute",
-                        left: -30,
-                        top: -19,
-                        zIndex: 1,
-                    }}>
+                <TouchableOpacity onPress={GoBack} style={style.leftBtn}>
                     <FontAwesome5 name={"chevron-left"} size={20} color={Utility.getColor()} />
                 </TouchableOpacity>
-                <View style={{
-                    position: "absolute",
-                    height: 120,
-                    left: 45,
-                    top: -20,
-                    alignItems: "center",
-                    justifyContent: "center",
-                }}>
-                    <Text style={{
-                        fontSize: 20,
-                        fontWeight: "bold",
-                        color: "#000",
-                    }}>{children}</Text>
+                <View style={style.titleDiv}>
+                    <Text style={style.txtTitle}>{children}</Text>
                 </View>
                 {
                     (flag) ? (

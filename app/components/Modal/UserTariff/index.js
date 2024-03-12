@@ -17,6 +17,9 @@ import { useTariff } from "@hooks";
 
 import { UserTariffData } from "./data";
 
+import { useDispatch, useSelector } from 'react-redux';
+import { Actions, Selectors } from '@redux';
+
 function TariffItemElem(props) {
     const { flag = false, Title = "" } = props;
     const { onPress = () => { } } = props;
@@ -60,7 +63,11 @@ function Index(props) {
 
     const { showModal = false, setShowModal = () => {} } = props;
 
-    const [tariffData, setTariffData, toggleTariffItem] = useTariff();
+    const dispatch = useDispatch();
+    const [tariffData, setTariffData, toggleTariffItem, selectByTariff] = useTariff();
+
+    const userTariff = useSelector(Selectors.userTariffSelect);
+    const { Id: tariffId } = userTariff;
 
     const style = {
         title: {
@@ -73,6 +80,13 @@ function Index(props) {
     useEffect(() => {
         setTariffData(UserTariffData);
     }, []);
+
+    useEffect(() => {
+        if (tariffData.length > 0) {
+            const item = selectByTariff(tariffId);
+            dispatch(Actions.onChangeUserTariff(item));
+        }
+    }, [tariffData]);
 
     const renderItem = ({ item, index }) => {
         const onSelect = () => {

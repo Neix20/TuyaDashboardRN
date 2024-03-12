@@ -416,7 +416,9 @@ function Index(props) {
         OneSignal.Notifications.addEventListener('foregroundWillDisplay', event => {
             const { additionalData = {} } = event.notification;
 
-            if ("Action" in additionalData && additionalData["Action"] == "Data_Controller") {}
+            if ("Action" in additionalData && additionalData["Action"] == "Data_Controller") {
+                console.log();
+            }
 
             if ("Action" in additionalData && additionalData["Action"] == "Data_Auth") {
                 navigation.navigate("AuthTuyaSessionExpired", additionalData);
@@ -435,7 +437,9 @@ function Index(props) {
         OneSignal.Notifications.addEventListener('click', (event) => {
             const { additionalData = {} } = event.notification;
 
-            if ("Action" in additionalData && additionalData["Action"] == "Data_Alert") {}
+            if ("Action" in additionalData && additionalData["Action"] == "Data_Alert") {
+                console.log();
+            }
         });
         // #endregion
 
@@ -500,8 +504,7 @@ function Index(props) {
     // #endregion
 
     // const defaultScreen = (loginAccess == -1 || userId == -1 || firstTimeLink) ? "LoginII" : "TabNavigation";
-    // const defaultScreen = (userId == -1) ? "LoginII" : "TabNavigation";
-    const defaultScreen = "ProfileInfo";
+    const defaultScreen = (userId == -1) ? "LoginII" : "TabNavigation";
 
     return (
         <>

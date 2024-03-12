@@ -38,7 +38,9 @@ function Index(props) {
             arr[ind].flag = false;
         }
 
-        arr[pos].flag = true;
+        if (pos >= 0 && pos < arr.length) {
+            arr[pos].flag = true;
+        }
 
         setData(_ => arr);
         dispatch(Actions.onChangeUserTariff(item));
@@ -50,6 +52,8 @@ function Index(props) {
 
         if (arr.length > 0) {
             const item = arr[0];
+            item.flag = true;
+
             return item;
         }
 

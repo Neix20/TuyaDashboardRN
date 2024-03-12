@@ -17,7 +17,7 @@ import { Logger, Utility } from "@utility";
 import { Actions, Selectors } from '@redux';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { fetchProfileInfo, fetchSubUserAccess, fetchDeleteAccount, fetchRestoreStorePurchase } from "@api";
+import { fetchProfileInfo, fetchSubUserAccess, fetchDeleteAccount, fetchRestoreStorePurchase, fetchDeleteViewerSession } from "@api";
 
 import { BcLoading, BcYesNoModal, BcDisableII, BcSessionPanel } from "@components";
 
@@ -32,12 +32,6 @@ function Header(props) {
                 alignItems={"center"}
                 justifyContent={"flex-end"}
                 style={{ height: 60 }}>
-                {/* Btn */}
-                {/* <HStack alignItems={"center"} space={3}>
-                    <TouchableOpacity onPress={onSelectSetting}>
-                        <FontAwesome name={"gear"} color={"#000"} size={30} />
-                    </TouchableOpacity>
-                </HStack> */}
             </HStack>
         </View>
     )
@@ -206,7 +200,7 @@ function LogoutPanel(props) {
                 showModal={showLgModal} setShowModal={setShowLgModal}
                 title={"Confirm Log Out"} description={"Are you sure you want to log out? You will be returned to the login screen."}
                 titleYes={"Confirm"} titleNo={"Cancel"}
-                onPressYes={Logout} onPressNo={closeLgModal}
+                onPressYes={DeleteAccount} onPressNo={Logout}
             />
             <VStack bgColor={"#FFF"} borderRadius={8} width={"90%"} alignItems={"center"}>
                 <PanelBtn onPress={toggleLgModal} title={"Log Out"}
@@ -227,7 +221,7 @@ function Index(props) {
     const dispatch = useDispatch();
 
     const viewerSession = useSelector(Selectors.viewerSessionSelect);
-    const { User_Id: userId, YatuSessionId: prwsId, SessionExpiryDate: expiryDt = 100, ViewerEmail: email = "temp@gmail.com" } = viewerSession;
+    const { User_Id: userId, YatuSessionId: yatuSesId, SessionExpiryDate: expiryDt = 100, ViewerEmail: email = "temp@gmail.com" } = viewerSession;
 
     // #region UseState
     const [profileInfo, setProfileInfo] = useState({});
@@ -296,19 +290,20 @@ function Index(props) {
 
     const DeleteAccount = () => {
         setLoading(true);
-        fetchDeleteAccount({
+        fetchDeleteViewerSession({
             param: {
-                UserId: userId
+                UserId: userId,
+            YatuSessionId: yatuSesId
             },
             onSetLoading: setLoading
         })
-            .then(data => {
-                SignOut();
-            })
-            .catch(err => {
-                setLoading(false);
-                console.log(`Error: ${err}`);
-            });
+        .then(data => {
+            SignOut();
+        })
+        .catch(err => {
+            setLoading(false);
+            console.log(`Error: ${err}`);
+        });
     }
     // #endregion
 

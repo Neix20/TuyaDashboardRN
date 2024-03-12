@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Text, TouchableOpacity, Image, TextInput, SafeAreaView, FlatList } from "react-native";
+import { Text, TouchableOpacity, Image, TextInput, SafeAreaView, FlatList, Dimensions } from "react-native";
 import { View, VStack, HStack, useToast } from "native-base";
 
 import { useNavigation, useIsFocused } from "@react-navigation/native";
@@ -19,6 +19,9 @@ import { fetchGetDeviceByYatuSession, fetchToggleYatuSessionDevice, fetchRemoveY
 
 import { useDispatch, useSelector } from 'react-redux';
 import { Actions, Selectors } from '@redux';
+
+const screen = Dimensions.get("screen");
+const { width, height } = screen;
 
 // [ ] Modal Must Have Loading
 
@@ -319,22 +322,21 @@ function SessionUserItem(props) {
     }
 
     return (
-        <BcBoxShadow style={{ width: "100%" }}>
-            <View flex={1} bgColor={"#FFF"} alignItems={"center"}>
-                <VStack py={2} width={"90%"} alignItems={"center"} space={3}>
-                    <Image source={Images.person} style={style.img} />
-                    <View width={"100%"}>
-                        <Text style={style.title}>Access Code</Text>
-                        <Text style={style.email}>{Access_Code}</Text>
-                    </View>
-                    <View width={"100%"}>
-                        <Text style={style.title}>Email</Text>
-                        <Text style={style.email}>{Email}</Text>
-                    </View>
-                </VStack>
-
-            </View>
-        </BcBoxShadow>
+        <View flex={1} bgColor={"#FFF"}
+            alignItems={"center"}
+            style={{ maxWidth: width / 2 * 0.9 }}>
+            <VStack py={2} width={"90%"} alignItems={"center"} space={3}>
+                <Image source={Images.person} style={style.img} />
+                <View width={"100%"}>
+                    <Text style={style.title}>Access Code</Text>
+                    <Text style={style.email}>{Access_Code}</Text>
+                </View>
+                <View width={"100%"}>
+                    <Text style={style.title}>Email</Text>
+                    <Text style={style.email}>{Email}</Text>
+                </View>
+            </VStack>
+        </View>
     )
 }
 
@@ -373,7 +375,6 @@ function SessionList(props) {
             setSelUser(_ => item);
             setSesModal(_ => true);
         }
-
 
         return (
             <TouchableOpacity key={index} onLongPress={onRemoveUser} onPress={onSelectUser} style={{ flex: 1 }}>
@@ -421,14 +422,13 @@ function SessionList(props) {
                 onPressYes={RemoveUser}
                 onPressNo={toggleRdModal}
                 description={"Are you sure you want to remove this user?"} />
-            <View flexGrow={1} py={3} alignItems={"center"}>
+            <View flexGrow={1} pb={3} alignItems={"center"}>
                 <FlatList
                     data={data}
                     renderItem={renderItem}
                     showsVerticalScrollIndicator={false}
                     ItemSeparatorComponent={<View style={{ height: 10 }} />}
                     style={{ width: "90%", flex: 1 }}
-                    // contentContainerStyle={style.flatListContainer}
                     numColumns={2}
                     columnWrapperStyle={{ columnGap: 8 }}
                 />
@@ -502,8 +502,8 @@ function EmailModal(props) {
         <BaseModal {...props}>
             <VStack py={3} space={3} width={"100%"} alignItems={"center"}>
                 <VStack space={2} width={"80%"} alignItems={"center"}>
-                    <Text style={style.headerTitle}>Invitee Recipient</Text>
-                    <Text style={style.headerDescription}>Enter the recipient email to share them your session devices!</Text>
+                    <Text style={style.headerTitle}>Invite Viewer</Text>
+                    <Text style={style.headerDescription}>Enter the viewer email to share them your session devices!</Text>
                 </VStack>
                 <View width={"80%"}>
                     <Text style={style.title}>Email</Text>
@@ -536,25 +536,77 @@ function EmailModal(props) {
                         </BcDisableII>
                     )
                 }
-
-
             </VStack>
         </BaseModal>
-
     )
+}
+
+function ViewerSessionErrorModal(props) {
+
+
+    const [cusToast, showMsg] = useModalToast();
+
+    const style = {
+        title: {
+            fontFamily: "Roboto-Bold",
+            fontSize: 24,
+            color: "#000"
+        },
+        description: {
+            fontFamily: "Roboto-Medium",
+            fontSize: 18,
+            color: "#000",
+            textAlign: "justify",
+        }
+    }
+
+    return (
+        <BaseModal cusToast={cusToast} {...props}>
+            <VStack width={"90%"} space={5} alignItems={"center"}>
+                <Text style={style.title}>Max Viewer Limit</Text>
+                <FontAwesome5 name={"user-edit"} size={84} color={"#d3d3d3"} />
+                <Text style={style.description}>
+                    Uh-oh! Viewer Session Limit has been reached! Kindly purchase more Viewer Tokens from Shopee & Lazada, thanks!
+                </Text>
+
+                {/* Insert Shopee & Lazada */}
+            </VStack>
+        </BaseModal>
+    );
 }
 
 function HeaderRight(props) {
 
-    const { refreshHook = [] } = props;
+    const { refreshHook = [], flag = false } = props;
 
+    const [refresh, setRefresh, toggleRefresh] = refreshHook;
+
+    const [emailModal, setEmailModal, toggleEmailModal] = useToggle(false);
     const [viewModal, setViewModal, toggleViewModal] = useToggle(false);
+
+    const style = {
+        btn: { 
+            height: 40, 
+            width: 40, 
+            borderRadius: 20
+        }
+    };
+
+    const addViewSession = () => {
+        if (flag) {
+            toggleViewModal();
+        } else {
+            toggleEmailModal();
+        }
+    }
+
     return (
         <>
-            <EmailModal showModal={viewModal} setShowModal={setViewModal} {...props} />
-            <TouchableOpacity onPress={toggleViewModal}>
-                <View bgColor={Utility.getColor()} alignItems={"center"} justifyContent={"center"}
-                    style={{ height: 40, width: 40, borderRadius: 20 }}>
+            <ViewerSessionErrorModal showModal={viewModal} setShowModal={setViewModal} />
+            <EmailModal showModal={emailModal} setShowModal={setEmailModal} {...props} />
+            <TouchableOpacity onPress={addViewSession}>
+                <View bgColor={Utility.getColor()} 
+                    alignItems={"center"} justifyContent={"center"} style={style.btn}>
                     <FontAwesome5 name={"plus"} color={"#FFF"} size={24} />
                 </View>
             </TouchableOpacity>
@@ -578,7 +630,7 @@ function Index(props) {
     const navigation = useNavigation();
     const isFocused = useIsFocused();
 
-    // Lets Think About This
+    // #region UseState
     const loadingHook = useToggle(false);
     const [loading, setLoading, toggleLoading] = loadingHook;
 
@@ -589,12 +641,21 @@ function Index(props) {
 
     const userId = useSelector(Selectors.userIdSelect);
 
+    const subUserAccess = useSelector(Selectors.subUserAccessSelect);
+    const { ViewerSessionCount = 5 } = subUserAccess;
+
+    const addViewSesFlag = sessionLs.length >= ViewerSessionCount;
+    // #endregion
+
+    // #region UseEffect
     useEffect(() => {
         if (isFocused) {
             GetYatuSession();
         }
     }, [isFocused, refresh]);
+    // #endregion
 
+    // #region Helper
     const GetYatuSession = () => {
         setLoading(true);
         fetchGetYatuSessionByMasterUser({
@@ -611,6 +672,20 @@ function Index(props) {
                 console.error(err);
             })
     }
+    // #endregion
+
+    const style = {
+        title: {
+            fontSize: 16,
+            fontFamily: "Roboto-Bold",
+            color: "#000"
+        },
+        countTxt: {
+            fontSize: 18,
+            fontFamily: "Roboto-Bold",
+            color: "#000"
+        }
+    }
 
     return (
         <>
@@ -619,12 +694,29 @@ function Index(props) {
                 <View style={{ flex: 1 }}>
 
                     {/* Header */}
-                    <BcHeaderWithAdd Right={<HeaderRight refreshHook={refreshHook} />}>Viewer Session</BcHeaderWithAdd>
+                    <BcHeaderWithAdd Right={<HeaderRight flag={addViewSesFlag} refreshHook={refreshHook} />}>Viewer Session</BcHeaderWithAdd>
 
-                    <View style={{ height: 5 }} />
+                    <View style={{ height: 10 }} />
+
+                    <BcBoxShadow style={{ height: 48, width: "100%" }}>
+                        <View flex={1} bgColor={"#FFF"} alignItems={"center"}>
+                            <HStack width={"90%"} height={"100%"}
+                                space={2} alignItems={"center"}>
+                                <Text style={style.title}>Total Viewer Session: </Text>
+                                <HStack space={1}>
+                                    <Text style={[style.countTxt, { color: Utility.getColor() }]}>{sessionLs.length}</Text>
+                                    <Text style={style.countTxt}>/</Text>
+                                    <Text style={style.countTxt}>{ViewerSessionCount}</Text>
+                                </HStack>
+                            </HStack>
+                        </View>
+                    </BcBoxShadow>
+
+                    <View style={{ height: 10 }} />
 
                     {/* Body */}
-                    <SessionList data={sessionLs} loadingHook={loadingHook} refreshHook={refreshHook} />
+                    <SessionList data={sessionLs}
+                        loadingHook={loadingHook} refreshHook={refreshHook} />
 
                     <View style={{ height: 5 }} />
                 </View>

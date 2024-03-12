@@ -16,7 +16,7 @@ import { BcLoading, BcBoxShadow, BcDisable, BcHeaderWithAdd, BaseIIModal, BcUser
 import { useDispatch, useSelector } from 'react-redux';
 import { Actions, Selectors } from '@redux';
 
-import { useToggle, useTariff } from "@hooks";
+import { useToggle } from "@hooks";
 
 function InfoTariff(props) {
 

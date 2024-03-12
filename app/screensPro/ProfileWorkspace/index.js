@@ -215,9 +215,6 @@ function Body(props) {
         return (<EmptyList />);
     }
 
-    const toast = useToast();
-    const navigation = useNavigation();
-
     const renderItem = ({ item, index }) => {
         const onSelect = () => {
             onSelectItem(item);
