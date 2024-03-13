@@ -411,7 +411,7 @@ function IndexII(props) {
 	const navigation = useNavigation();
 
 	const viewSesTutorialSelect = useSelector(Selectors.viewSesTutorialSelect);
-	const [tutModal, setTutModal, toggleTutModal] = useToggle(true);
+	const [tutModal, setTutModal, toggleTutModal] = useToggle(false);
 	// #endregion
 
 	useEffect(() => {

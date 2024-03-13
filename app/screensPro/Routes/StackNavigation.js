@@ -504,8 +504,8 @@ function Index(props) {
     // #endregion
 
     // const defaultScreen = (loginAccess == -1 || userId == -1 || firstTimeLink) ? "LoginII" : "TabNavigation";
-    const defaultScreen = (userId == -1) ? "LoginII" : "TabNavigation";
-    // const defaultScreen = "RequestViewerSession";
+    // const defaultScreen = (userId == -1) ? "LoginII" : "TabNavigation";
+    const defaultScreen = "Debug";
 
     return (
         <>

@@ -95,6 +95,8 @@ import BcCheckUserModal from "./Modal/CheckUser";
 import BcCheckUserProModal from "./Modal/CheckUserPro";
 import BcUserTariffModal from "./Modal/UserTariff";
 
+import { Modal as BcAdModal, Index as BcAdFullModal } from "./Modal/Advertisement";
+
 export {
     BaseModal,
     BaseIIModal,
@@ -104,6 +106,8 @@ export {
 }
 
 export {
+    BcAdModal,
+    BcAdFullModal,
     BcGenderModal,
     BcBirthdayModal,
     BcDateRangeModal,

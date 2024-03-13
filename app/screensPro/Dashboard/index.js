@@ -22,7 +22,7 @@ import { useEChart, useBarChart, useDevDistChart } from "@hooks";
 import { useDispatch, useSelector } from 'react-redux';
 import { Actions, Selectors } from '@redux';
 
-import { BcPremiumModal } from "@components";
+import { BcPremiumModal, BcAdFullModal } from "@components";
 
 // #region Components
 function Header(props) {
