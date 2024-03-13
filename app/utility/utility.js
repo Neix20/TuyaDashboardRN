@@ -481,11 +481,26 @@ function getColor() {
 	return APP_COLOR;
 }
 
+function getViewerColor() {
+	return "#6334D3";
+}
+
+function getLiteColor() {
+	return "#2898FF";
+}
+
+function getProColor() {
+	return "#FB7304"
+}
+
 import { ConvertNormalToTariff } from "./tariff";
 
 export {
 	ConvertNormalToTariff,
-	getColor
+	getColor,
+	getViewerColor,
+	getLiteColor,
+	getProColor
 }
 
 export {
