@@ -1,7 +1,7 @@
-const APP_VERSION = "1.2.33";
-const PRO_APP_VERSION = "PR1.2.33";
-const LITE_APP_VERSION = "LT1.2.33";
-const VIEWER_APP_VERSION = "VR1.2.33";
+const APP_VERSION = "1.2.34";
+const PRO_APP_VERSION = "PR1.2.34";
+const LITE_APP_VERSION = "LT1.2.34";
+const VIEWER_APP_VERSION = "VR1.2.34";
 const ORG_NAME = "VIGTECH LABS SDN BHD";
 
 // const SERVER_URL = "https://2452-103-26-251-251.ngrok-free.app";
@@ -53,7 +53,7 @@ const PROFILE_WS_COLORS = [
 // const APP_VARIANT_COLOR = "#3398FF";
 // const APP_VARIANT_COLOR = "#6334D3";
 
-const APP_COLOR = "#2898FF";
+const APP_COLOR = "#6334D3";
 
 export {
     APP_VERSION,

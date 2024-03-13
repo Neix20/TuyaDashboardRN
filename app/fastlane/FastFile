@@ -2,52 +2,25 @@ fastlane_version '2.53.1'
 
 platform :ios do
     # iOS Lanes
-    lane :genYatuIpa do
-        sh("script/change_app.sh", "0", "./../../")
-        build_app(scheme: "YatuDashboard", workspace: "./../ios/YatuDashboard.xcworkspace", include_bitcode: true)
-    end
-
-    lane :genYatuLiteIpa do
-        sh("script/change_app.sh", "1", "./../../")
-        build_app(scheme: "YatuLite", workspace: "./../ios/YatuDashboard.xcworkspace", include_bitcode: true)
-    end
-
-    lane :genYatuViewerIpa do
-        sh("script/change_app.sh", "2", "./../../")
-        build_app(scheme: "YatuViewer", workspace: "./../ios/YatuDashboard.xcworkspace", include_bitcode: true)
-    end
-
     lane :pushYatuToTestFlight do
         sh("script/change_app.sh", "0", "./../../")
         build_app(scheme: "YatuDashboard", workspace: "./../ios/YatuDashboard.xcworkspace", include_bitcode: true)
 
-        upload_to_testflight(
-            app_version: version_name,
-            skip_waiting_for_build_processing: true,
-            reject_build_waiting_for_review: true
-        )
+        # upload_to_testflight(
+        #     app_version: version_name,
+        #     skip_waiting_for_build_processing: true,
+        #     reject_build_waiting_for_review: true
+        # )
     end
 
     lane :pushYatuLiteToTestFlight do
         sh("script/change_app.sh", "1", "./../../")
         build_app(scheme: "YatuLite", workspace: "./../ios/YatuDashboard.xcworkspace", include_bitcode: true)
-
-        upload_to_testflight(
-            app_version: version_name,
-            skip_waiting_for_build_processing: true,
-            reject_build_waiting_for_review: true
-        )
     end
 
     lane :pushYatuViewerToTestFlight do
         sh("script/change_app.sh", "2", "./../../")
         build_app(scheme: "YatuViewer", workspace: "./../ios/YatuDashboard.xcworkspace", include_bitcode: true)
-
-        upload_to_testflight(
-            app_version: version_name,
-            skip_waiting_for_build_processing: true,
-            reject_build_waiting_for_review: true
-        )
     end
 end
   
@@ -69,7 +42,8 @@ platform :android do
             }
         )
 
-        upload_to_play_store(track: 'internal')
+        upload_to_play_store(track: 'internal', aab: './../android/app/build/outputs/bundle/yatuRelease/app-yatu-release.aab')
+        # upload_to_play_store(track: 'production', aab: './../android/app/build/outputs/bundle/yatuRelease/app-yatu-release.aab')
     end
 
     desc "Build Yatu Lite AAB"
@@ -88,8 +62,6 @@ platform :android do
                 "android.injected.signing.key.password" => "vt8888"
             }
         )
-
-        upload_to_play_store(track: 'internal')
     end
 
     desc "Build Yatu Viewer AAB"
@@ -108,8 +80,6 @@ platform :android do
                 "android.injected.signing.key.password" => "vt8888"
             }
         )
-
-        upload_to_play_store(track: 'internal')
     end
 
     desc "Build Yatu APK"
@@ -143,31 +113,5 @@ platform :android do
             build_type: "release",
             project_dir: './../android'
         )
-    end
-
-    desc "Release for the Android production"
-    lane :pushToPlayStore do
-
-        sh("script/change_app.sh", "0", "./../../") 
-
-        gradle(
-            task: "clean", 
-            project_dir: './../android'
-        )
-
-        gradle(
-            task: 'bundle', 
-            flavor: "Yatu",
-            build_type: "release",
-            project_dir: './../android', 
-            properties: {
-                "android.injected.signing.store.file" => ENV['PWD'] + "/../android/app/yatu.jks",
-                "android.injected.signing.store.password" => "vt8888",
-                "android.injected.signing.key.alias" => "yatu",
-                "android.injected.signing.key.password" => "vt8888"
-            }
-        )
-        
-        supply(track: 'production', aab: './../android/app/build/outputs/bundle/YatuRelease/app-yatu-release.aab')
     end
 end

@@ -15,18 +15,50 @@ For _fastlane_ installation instructions, see [Installing _fastlane_](https://do
 
 ## iOS
 
-### ios genIpa
+### ios genYatuIpa
 
 ```sh
-[bundle exec] fastlane ios genIpa
+[bundle exec] fastlane ios genYatuIpa
 ```
 
 
 
-### ios pushToTestFlight
+### ios genYatuLiteIpa
 
 ```sh
-[bundle exec] fastlane ios pushToTestFlight
+[bundle exec] fastlane ios genYatuLiteIpa
+```
+
+
+
+### ios genYatuViewerIpa
+
+```sh
+[bundle exec] fastlane ios genYatuViewerIpa
+```
+
+
+
+### ios pushYatuToTestFlight
+
+```sh
+[bundle exec] fastlane ios pushYatuToTestFlight
+```
+
+
+
+### ios pushYatuLiteToTestFlight
+
+```sh
+[bundle exec] fastlane ios pushYatuLiteToTestFlight
+```
+
+
+
+### ios pushYatuViewerToTestFlight
+
+```sh
+[bundle exec] fastlane ios pushYatuViewerToTestFlight
 ```
 
 
@@ -91,14 +123,6 @@ Build Yatu Viewer APK
 ```
 
 Release for the Android production
-
-### android testCommand
-
-```sh
-[bundle exec] fastlane android testCommand
-```
-
-Test command
 
 ----
 
