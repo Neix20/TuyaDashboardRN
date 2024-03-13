@@ -25,15 +25,25 @@ import { useToggle } from "@hooks";
 
 // #region Components
 function Header(props) {
-    const { onSelectSetting = () => { } } = props;
+
+    const color = Utility.getColor();
+
     return (
-        <View alignItems={"center"}>
-            <HStack width={"90%"}
+        <BcBoxShadow>
+            <View bgColor={"#FFF"}
                 alignItems={"center"}
-                justifyContent={"flex-end"}
+                justifyContent={"center"}
                 style={{ height: 60 }}>
-            </HStack>
-        </View>
+                <HStack
+                    alignItems={"center"}
+                    justifyContent={"space-between"}
+                    style={{ width: "90%" }}>
+                    {/* Logo */}
+                    <BcSvgIcon name={"YatuViewer"} size={80} color={color} />
+                </HStack>
+            </View>
+        </BcBoxShadow>
+    
     )
 }
 

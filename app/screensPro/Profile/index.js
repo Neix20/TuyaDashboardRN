@@ -22,27 +22,32 @@ import { fetchProfileInfo, fetchSubUserAccess, fetchDeleteAccount, fetchRestoreS
 import { DisableDevice, DisableDeviceScreen, DisableDeviceItem } from "@components";
 
 import { BcLoading, BaseModal, BcYesNoModal, BcSessionPanel } from "@components";
+import { BcBoxShadow, BcSvgIcon } from "@components";
 
 import { useToggle, useYatuIap } from "@hooks";
 import { withIAPContext } from "react-native-iap";
 
 // #region Components
 function Header(props) {
-    const { onSelectSetting = () => { } } = props;
+
+    const color = Utility.getColor();
+
     return (
-        <View alignItems={"center"}>
-            <HStack width={"90%"}
+        <BcBoxShadow>
+            <View bgColor={"#FFF"}
                 alignItems={"center"}
-                justifyContent={"flex-end"}
+                justifyContent={"center"}
                 style={{ height: 60 }}>
-                {/* Btn */}
-                {/* <HStack alignItems={"center"} space={3}>
-                    <TouchableOpacity onPress={onSelectSetting}>
-                        <FontAwesome name={"gear"} color={"#000"} size={30} />
-                    </TouchableOpacity>
-                </HStack> */}
-            </HStack>
-        </View>
+                <HStack
+                    alignItems={"center"}
+                    justifyContent={"space-between"}
+                    style={{ width: "90%" }}>
+                    {/* Logo */}
+                    <BcSvgIcon name={"YatuPro"} size={80} color={color} />
+                </HStack>
+            </View>
+        </BcBoxShadow>
+    
     )
 }
 
@@ -549,7 +554,7 @@ function Index(props) {
                     {/* Header */}
                     <Header onSelectSetting={GoToTuyaPanel} />
 
-                    <View style={{ height: 10 }} />
+                    <View style={{ height: 20 }} />
 
                     {/* Body */}
                     <ScrollView showsVerticalScrollIndicator={false} keyboardShouldPersistTaps={"handled"}
