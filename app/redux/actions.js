@@ -145,6 +145,13 @@ const onChangeViewSesTutorial = (viewSesTutorial) => {
     }
 };
 
+const onChangeAdvertisement = (advertisement) => {
+    return {
+        type: "SET_ADVERTISEMENT",
+        advertisement: advertisement,
+    }
+};
+
 export {
     onChangeDefaultValue,
     onChangeUserId,
@@ -166,5 +173,6 @@ export {
     onChangeTutorial,
     onChangeViewerSession,
     onChangeUserTariff,
-    onChangeViewSesTutorial
+    onChangeViewSesTutorial,
+    onChangeAdvertisement
 }

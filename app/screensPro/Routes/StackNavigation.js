@@ -449,6 +449,9 @@ function Index(props) {
 
         // Setup for Getting Purchase History
         setup({ storekitMode: 'STOREKIT_HYBRID_MODE' });
+
+        // Set Advertisement Flag True
+        dispatch(Actions.onChangeAdvertisement(true));
     }, []);
 
     // #region Helper
@@ -504,8 +507,8 @@ function Index(props) {
     // #endregion
 
     // const defaultScreen = (loginAccess == -1 || userId == -1 || firstTimeLink) ? "LoginII" : "TabNavigation";
-    // const defaultScreen = (userId == -1) ? "LoginII" : "TabNavigation";
-    const defaultScreen = "Debug";
+    const defaultScreen = (userId == -1) ? "LoginII" : "TabNavigation";
+    // const defaultScreen = "Debug";
 
     return (
         <>

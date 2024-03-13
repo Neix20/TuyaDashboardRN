@@ -207,7 +207,7 @@ function Index(props) {
                 <View style={{ flex: 1 }}>
 
                     {/* Header */}
-                    <BcHeader>User Tokens</BcHeader>
+                    <BcHeader>Paid Yatu QR</BcHeader>
 
                     <View style={{ height: 10 }} />
 

@@ -3,7 +3,7 @@ import React, { useEffect } from "react";
 import { Text, BackHandler } from "react-native";
 import { View, VStack } from "native-base";
 
-import { BcTabNavigator, BcSvgIcon, BcPremiumModal } from "@components";
+import { BcTabNavigator, BcSvgIcon, BcPremiumModal, BcAdFullModal } from "@components";
 
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
@@ -119,14 +119,14 @@ function Index(props) {
     const subUserAccess = useSelector(Selectors.subUserAccessSelect);
     const { AccountType = -1 } = subUserAccess;
 
-    const premiumPayFlag = useSelector(Selectors.premiumPayFlagSelect);
+    const adFlag = useSelector(Selectors.advertisementSelect);
     // #endregion
 
     // #region UseState
     const [showPsModal, setShowPsModal, togglePsModal] = useToggle(false);
     const openPsModal = () => setShowPsModal(true);
 
-    const [showPreModal, setShowPreModal, togglePreModal] = useToggle(false);
+    const [adModal, setAdModal, toggleAdModal] = useToggle(false);
     // #endregion
 
     // #region UseEffect
@@ -154,8 +154,8 @@ function Index(props) {
 
     useEffect(() => {
         const timeout = setTimeout(() => {
-            if (premiumPayFlag) {
-                togglePreModal();
+            if (adFlag) {
+                toggleAdModal();
             }
         }, 3000)
         return () => clearTimeout(timeout);
@@ -165,14 +165,14 @@ function Index(props) {
     const defaultScreen = (linkTimer > 0) ? "Device" : "Dashboard";
     // const defaultScreen = "Profile";
 
-    const closePreModal = () => {
-        dispatch(Actions.onChangePremiumPayFlag(false));
-        togglePreModal();
+    const closeAdModal = () => {
+        dispatch(Actions.onChangeAdvertisement(false));
+        setAdModal(_ => false);
     }
 
     return (
         <>
-            <BcPremiumModal showModal={premiumPayFlag && showPreModal} setShowModal={closePreModal} />
+            <BcAdFullModal showModal={adFlag && adModal && !(showPsModal && AccountType == 2)} setShowModal={closeAdModal} />
             <PayProSubModal showModal={showPsModal && AccountType == 2} setShowModal={setShowPsModal} />
             <BcTabNavigator
                 screens={TabScreens}

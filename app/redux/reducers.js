@@ -26,7 +26,8 @@ const initialState = {
         Title: "",
         Value: -1
     },
-    viewSesTutorial: false
+    viewSesTutorial: false,
+    advertisement: false,
 };
 
 function setReducer(state = initialState, action = {}) {
@@ -135,6 +136,11 @@ function setReducer(state = initialState, action = {}) {
             return {
                 ...state,
                 viewSesTutorial: action.viewSesTutorial,
+            };
+        case "SET_ADVERTISEMENT":
+            return {
+                ...state,
+                advertisement: action.advertisement,
             };
         default: {
             return {

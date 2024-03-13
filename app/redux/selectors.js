@@ -24,6 +24,7 @@ const viewerSessionSelect = (state) => state.viewerSession;
 
 const userTariffSelect = (state) => state.userTariff;
 const viewSesTutorialSelect = (state) => state.viewSesTutorial;
+const advertisementSelect = (state) => state.advertisement;
 
 export {
     defaultValueSelect,
@@ -46,5 +47,6 @@ export {
     tutorialSelect,
     viewerSessionSelect,
     userTariffSelect,
-    viewSesTutorialSelect
+    viewSesTutorialSelect,
+    advertisementSelect
 }
