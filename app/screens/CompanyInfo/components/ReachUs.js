@@ -13,16 +13,18 @@ function ReachUsBtn(props) {
     const { children = "", onPress = () => { } } = props;
     const { Btn, btnName = "" } = props;
 
+    const color = Utility.getColor();
+
     const style = {
         btnBg: {
-            backgroundColor: "rgba(40, 152, 255, 0.25)",
+            backgroundColor: Utility.colorOpacity(color, 0.2),
             height: 50,
             borderRadius: 8,
         },
         btnTitle: {
             fontFamily: "Roboto-Medium",
             fontSize: 10,
-            color: Utility.getColor(),
+            color: color,
             textAlign: "center"
         }
     }
@@ -31,7 +33,7 @@ function ReachUsBtn(props) {
         <VStack space={2} alignItems={"center"} flex={1}>
             <TouchableOpacity onPress={onPress} style={{ width: "100%" }}>
                 <View alignItems={"center"} justifyContent={"center"} style={style.btnBg}>
-                    <Btn name={btnName} size={24} color={Utility.getColor()} />
+                    <Btn name={btnName} size={24} color={color} />
                 </View>
             </TouchableOpacity>
             <Text style={style.btnTitle}>{children}</Text>

@@ -6,13 +6,15 @@ import { View, VStack } from "native-base";
 import { BcTabNavigator } from "@components";
 
 import FontAwesome from "react-native-vector-icons/FontAwesome";
+import { Utility } from "@utility";
+
 
 function TabIconFontAwesome(props) {
     const { icon, title, color, focused, Btn } = props;
 
     const styles = {
         activeDot: {
-            width: 5, height: 5, borderRadius: 5, backgroundColor: "rgba(40, 152, 255, 0.35)"
+            width: 5, height: 5, borderRadius: 5, backgroundColor: Utility.colorOpacity(color, 0.5)
         },
         inActiveDot: {
             width: 5, height: 5
