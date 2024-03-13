@@ -2,20 +2,46 @@ fastlane_version '2.53.1'
 
 platform :ios do
     # iOS Lanes
-    lane :genIpa do
-        # ios_set_build_number(xcodeproj: "./ios/YatuDashboard.xcodeproj")
-        # version_name = ios_get_build_number(xcodeproj: "./../ios/YatuDashboard.xcodeproj")
-        # ios_set_version(version: version_name, xcodeproj: "./ios/YatuDashboard.xcodeproj")
-
+    lane :genYatuIpa do
+        sh("script/change_app.sh", "0", "./../../")
         build_app(scheme: "YatuDashboard", workspace: "./../ios/YatuDashboard.xcworkspace", include_bitcode: true)
     end
 
-    lane :pushToTestFlight do
-        # ios_set_build_number(xcodeproj: "./../ios/YatuDashboard.xcodeproj")
-        # version_name = ios_get_build_number(xcodeproj: "./../ios/YatuDashboard.xcodeproj")
-        # ios_set_version(version: version_name, xcodeproj: "./../ios/YatuDashboard.xcodeproj")
+    lane :genYatuLiteIpa do
+        sh("script/change_app.sh", "1", "./../../")
+        build_app(scheme: "YatuLite", workspace: "./../ios/YatuDashboard.xcworkspace", include_bitcode: true)
+    end
 
+    lane :genYatuViewerIpa do
+        sh("script/change_app.sh", "2", "./../../")
+        build_app(scheme: "YatuViewer", workspace: "./../ios/YatuDashboard.xcworkspace", include_bitcode: true)
+    end
+
+    lane :pushYatuToTestFlight do
+        sh("script/change_app.sh", "0", "./../../")
         build_app(scheme: "YatuDashboard", workspace: "./../ios/YatuDashboard.xcworkspace", include_bitcode: true)
+
+        upload_to_testflight(
+            app_version: version_name,
+            skip_waiting_for_build_processing: true,
+            reject_build_waiting_for_review: true
+        )
+    end
+
+    lane :pushYatuLiteToTestFlight do
+        sh("script/change_app.sh", "1", "./../../")
+        build_app(scheme: "YatuLite", workspace: "./../ios/YatuDashboard.xcworkspace", include_bitcode: true)
+
+        upload_to_testflight(
+            app_version: version_name,
+            skip_waiting_for_build_processing: true,
+            reject_build_waiting_for_review: true
+        )
+    end
+
+    lane :pushYatuViewerToTestFlight do
+        sh("script/change_app.sh", "2", "./../../")
+        build_app(scheme: "YatuViewer", workspace: "./../ios/YatuDashboard.xcworkspace", include_bitcode: true)
 
         upload_to_testflight(
             app_version: version_name,
@@ -42,6 +68,8 @@ platform :android do
                 "android.injected.signing.key.password" => "vt8888"
             }
         )
+
+        upload_to_play_store(track: 'internal')
     end
 
     desc "Build Yatu Lite AAB"
@@ -60,6 +88,8 @@ platform :android do
                 "android.injected.signing.key.password" => "vt8888"
             }
         )
+
+        upload_to_play_store(track: 'internal')
     end
 
     desc "Build Yatu Viewer AAB"
@@ -78,6 +108,8 @@ platform :android do
                 "android.injected.signing.key.password" => "vt8888"
             }
         )
+
+        upload_to_play_store(track: 'internal')
     end
 
     desc "Build Yatu APK"
@@ -135,12 +167,7 @@ platform :android do
                 "android.injected.signing.key.password" => "vt8888"
             }
         )
+        
         supply(track: 'production', aab: './../android/app/build/outputs/bundle/YatuRelease/app-yatu-release.aab')
-    end
-
-    desc "Test command"
-    lane :testCommand do
-        sh("script/change_app.sh", "1", "./../../")
-        sh("script/update_android_version.sh", "./../../")
     end
 end

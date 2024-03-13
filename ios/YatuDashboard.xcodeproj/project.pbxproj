@@ -12,7 +12,6 @@
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		257B478BAC70480E70E215DD /* libPods-YatuDashboard-OneSignalNotificationServiceExtension.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 472B01C2E595E52DAFDF6314 /* libPods-YatuDashboard-OneSignalNotificationServiceExtension.a */; };
-		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		8BB66E565F2CBBCB0B912698 /* libPods-YatuDashboard.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 585B555D71E1F59D21CD59DD /* libPods-YatuDashboard.a */; };
 		8C1E6206A960490AB0C3D9E9 /* Montserrat-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EC9CBEA42F674938A737D1FA /* Montserrat-Regular.ttf */; };
 		93D85277D625061760EAEACD /* libPods-YatuDashboard-YatuDashboardTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0093006C8914343B7020766B /* libPods-YatuDashboard-YatuDashboardTests.a */; };
@@ -59,13 +58,14 @@
 		00E356EE1AD99517003FC87E /* YatuDashboardTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = YatuDashboardTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* YatuDashboardTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YatuDashboardTests.m; sourceTree = "<group>"; };
-		13B07F961A680F5B00A75B9A /* YatuDashboard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YatuDashboard.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		13B07F961A680F5B00A75B9A /* YatuPro.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YatuPro.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = YatuDashboard/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = YatuDashboard/AppDelegate.mm; sourceTree = "<group>"; };
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = YatuDashboard/Images.xcassets; sourceTree = "<group>"; };
-		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = YatuDashboard/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = YatuDashboard/main.m; sourceTree = "<group>"; };
 		17499A7A6686441B9FBA4D4A /* Roboto-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Roboto-Bold.ttf"; path = "../app/assets/fonts/Roboto-Bold.ttf"; sourceTree = "<group>"; };
+		248DBEA267C6AA56E2E9500B /* Pods-YatuDashboard-YatuDashboardTests.yatuviewer.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YatuDashboard-YatuDashboardTests.yatuviewer.xcconfig"; path = "Target Support Files/Pods-YatuDashboard-YatuDashboardTests/Pods-YatuDashboard-YatuDashboardTests.yatuviewer.xcconfig"; sourceTree = "<group>"; };
+		3A1EE9A5B1E9B6C2EB46A48F /* Pods-YatuDashboard.yatulite.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YatuDashboard.yatulite.xcconfig"; path = "Target Support Files/Pods-YatuDashboard/Pods-YatuDashboard.yatulite.xcconfig"; sourceTree = "<group>"; };
 		3C9B51D56F29B75D3D571213 /* Pods-YatuDashboard-OneSignalNotificationServiceExtension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YatuDashboard-OneSignalNotificationServiceExtension.debug.xcconfig"; path = "Target Support Files/Pods-YatuDashboard-OneSignalNotificationServiceExtension/Pods-YatuDashboard-OneSignalNotificationServiceExtension.debug.xcconfig"; sourceTree = "<group>"; };
 		41048F4BB38B0B6BBA92B7CC /* Pods-YatuDashboard.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YatuDashboard.release.xcconfig"; path = "Target Support Files/Pods-YatuDashboard/Pods-YatuDashboard.release.xcconfig"; sourceTree = "<group>"; };
 		472B01C2E595E52DAFDF6314 /* libPods-YatuDashboard-OneSignalNotificationServiceExtension.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-YatuDashboard-OneSignalNotificationServiceExtension.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -75,11 +75,15 @@
 		5AF1D21C787F45F19B087C66 /* Montserrat-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Montserrat-Bold.ttf"; path = "../app/assets/fonts/Montserrat-Bold.ttf"; sourceTree = "<group>"; };
 		5D84CCC5089469F9D350D460 /* Pods-YatuDashboard-OneSignalNotificationServiceExtension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YatuDashboard-OneSignalNotificationServiceExtension.release.xcconfig"; path = "Target Support Files/Pods-YatuDashboard-OneSignalNotificationServiceExtension/Pods-YatuDashboard-OneSignalNotificationServiceExtension.release.xcconfig"; sourceTree = "<group>"; };
 		60042A614CD92B1CD2536984 /* Pods-YatuDashboard.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YatuDashboard.debug.xcconfig"; path = "Target Support Files/Pods-YatuDashboard/Pods-YatuDashboard.debug.xcconfig"; sourceTree = "<group>"; };
-		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = YatuDashboard/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		77BB81723C599F5923126F8B /* Pods-YatuDashboard-YatuDashboardTests.yatulite.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YatuDashboard-YatuDashboardTests.yatulite.xcconfig"; path = "Target Support Files/Pods-YatuDashboard-YatuDashboardTests/Pods-YatuDashboard-YatuDashboardTests.yatulite.xcconfig"; sourceTree = "<group>"; };
+		866FD25E5AB89199EFDE7103 /* Pods-YatuDashboard.yatuviewer.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YatuDashboard.yatuviewer.xcconfig"; path = "Target Support Files/Pods-YatuDashboard/Pods-YatuDashboard.yatuviewer.xcconfig"; sourceTree = "<group>"; };
 		B7AE30666F200716A7897EC9 /* Pods-YatuDashboard-YatuDashboardTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YatuDashboard-YatuDashboardTests.debug.xcconfig"; path = "Target Support Files/Pods-YatuDashboard-YatuDashboardTests/Pods-YatuDashboard-YatuDashboardTests.debug.xcconfig"; sourceTree = "<group>"; };
 		BE4FD643D008A495D36B26D3 /* Pods-YatuDashboard-YatuDashboardTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YatuDashboard-YatuDashboardTests.release.xcconfig"; path = "Target Support Files/Pods-YatuDashboard-YatuDashboardTests/Pods-YatuDashboard-YatuDashboardTests.release.xcconfig"; sourceTree = "<group>"; };
 		D02DC12C2B3529A7004D4977 /* AppCenter-Config.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "AppCenter-Config.plist"; sourceTree = "<group>"; };
 		D06442892A9ED977001F139F /* PrefixHeader.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
+		D087702E2BA0D95A002A53A5 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = YatuDashboard/Info.plist; sourceTree = "<group>"; };
+		D087704C2BA146A6002A53A5 /* YatuDashboard copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "YatuDashboard copy-Info.plist"; path = "/Users/justin/Documents/ReactNative/YatuDashboard/ios/YatuDashboard copy-Info.plist"; sourceTree = "<absolute>"; };
+		D08770692BA146AC002A53A5 /* YatuDashboard copy copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "YatuDashboard copy copy-Info.plist"; path = "/Users/justin/Documents/ReactNative/YatuDashboard/ios/YatuDashboard copy copy-Info.plist"; sourceTree = "<absolute>"; };
 		D08F33322AC3DC7500965385 /* OneSignalNotificationServiceExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = OneSignalNotificationServiceExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		D08F33342AC3DC7500965385 /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
 		D08F33362AC3DC7500965385 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -87,8 +91,10 @@
 		D0927AC32B33CED70088DABB /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		D0CAFA6A2AD7ADB400609DCA /* YatuDashboard.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = YatuDashboard.entitlements; path = YatuDashboard/YatuDashboard.entitlements; sourceTree = "<group>"; };
 		D0EB0EA12B3ABD4E00EDC690 /* yatuProSub.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = yatuProSub.storekit; sourceTree = "<group>"; };
+		D6052D84B5636F0AECEB3126 /* Pods-YatuDashboard-OneSignalNotificationServiceExtension.yatulite.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YatuDashboard-OneSignalNotificationServiceExtension.yatulite.xcconfig"; path = "Target Support Files/Pods-YatuDashboard-OneSignalNotificationServiceExtension/Pods-YatuDashboard-OneSignalNotificationServiceExtension.yatulite.xcconfig"; sourceTree = "<group>"; };
 		EC9CBEA42F674938A737D1FA /* Montserrat-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Montserrat-Regular.ttf"; path = "../app/assets/fonts/Montserrat-Regular.ttf"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
+		EEDDB58779CF96685C0F5162 /* Pods-YatuDashboard-OneSignalNotificationServiceExtension.yatuviewer.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YatuDashboard-OneSignalNotificationServiceExtension.yatuviewer.xcconfig"; path = "Target Support Files/Pods-YatuDashboard-OneSignalNotificationServiceExtension/Pods-YatuDashboard-OneSignalNotificationServiceExtension.yatuviewer.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -146,6 +152,12 @@
 				5D84CCC5089469F9D350D460 /* Pods-YatuDashboard-OneSignalNotificationServiceExtension.release.xcconfig */,
 				B7AE30666F200716A7897EC9 /* Pods-YatuDashboard-YatuDashboardTests.debug.xcconfig */,
 				BE4FD643D008A495D36B26D3 /* Pods-YatuDashboard-YatuDashboardTests.release.xcconfig */,
+				3A1EE9A5B1E9B6C2EB46A48F /* Pods-YatuDashboard.yatulite.xcconfig */,
+				866FD25E5AB89199EFDE7103 /* Pods-YatuDashboard.yatuviewer.xcconfig */,
+				D6052D84B5636F0AECEB3126 /* Pods-YatuDashboard-OneSignalNotificationServiceExtension.yatulite.xcconfig */,
+				EEDDB58779CF96685C0F5162 /* Pods-YatuDashboard-OneSignalNotificationServiceExtension.yatuviewer.xcconfig */,
+				77BB81723C599F5923126F8B /* Pods-YatuDashboard-YatuDashboardTests.yatulite.xcconfig */,
+				248DBEA267C6AA56E2E9500B /* Pods-YatuDashboard-YatuDashboardTests.yatuviewer.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -153,12 +165,11 @@
 		13B07FAE1A68108700A75B9A /* YatuDashboard */ = {
 			isa = PBXGroup;
 			children = (
+				D087702E2BA0D95A002A53A5 /* Info.plist */,
 				D0CAFA6A2AD7ADB400609DCA /* YatuDashboard.entitlements */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.mm */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
-				13B07FB61A68108700A75B9A /* Info.plist */,
-				81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */,
 				13B07FB71A68108700A75B9A /* main.m */,
 			);
 			name = YatuDashboard;
@@ -209,6 +220,8 @@
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				62FE578E6B204EFAB5B36EA8 /* Resources */,
 				0C1D467812955702EF1D5D78 /* Pods */,
+				D087704C2BA146A6002A53A5 /* YatuDashboard copy-Info.plist */,
+				D08770692BA146AC002A53A5 /* YatuDashboard copy copy-Info.plist */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -218,7 +231,7 @@
 		83CBBA001A601CBA00E9B192 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				13B07F961A680F5B00A75B9A /* YatuDashboard.app */,
+				13B07F961A680F5B00A75B9A /* YatuPro.app */,
 				00E356EE1AD99517003FC87E /* YatuDashboardTests.xctest */,
 				D08F33322AC3DC7500965385 /* OneSignalNotificationServiceExtension.appex */,
 			);
@@ -280,7 +293,7 @@
 			);
 			name = YatuDashboard;
 			productName = YatuDashboard;
-			productReference = 13B07F961A680F5B00A75B9A /* YatuDashboard.app */;
+			productReference = 13B07F961A680F5B00A75B9A /* YatuPro.app */;
 			productType = "com.apple.product-type.application";
 		};
 		D08F33312AC3DC7500965385 /* OneSignalNotificationServiceExtension */ = {
@@ -355,7 +368,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				A84D3C8CF5CB40F1894D3716 /* Montserrat-Bold.ttf in Resources */,
 				F1865D799E5341BBA9994445 /* Montserrat-Medium.ttf in Resources */,
@@ -661,7 +673,8 @@
 			baseConfigurationReference = 60042A614CD92B1CD2536984 /* Pods-YatuDashboard.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				APP_NAME = "Yatu Pro";
+				ASSETCATALOG_COMPILER_APPICON_NAME = YatuProAppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = YatuDashboard/YatuDashboard.entitlements;
 				CURRENT_PROJECT_VERSION = 2;
@@ -672,6 +685,8 @@
 				GCC_PREFIX_HEADER = /Users/justin/Documents/ReactNative/YatuDashboard/ios/PrefixHeader.pch;
 				INFOPLIST_FILE = YatuDashboard/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = YatuDashboard;
+				LAUNCH_BG = YatuProBg;
+				LAUNCH_IMG = YatuPro;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -682,8 +697,8 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.yatudashboard;
-				PRODUCT_NAME = YatuDashboard;
+				PRODUCT_BUNDLE_IDENTIFIER = com.yatudashboard.debug;
+				PRODUCT_NAME = YatuPro;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -695,7 +710,8 @@
 			baseConfigurationReference = 41048F4BB38B0B6BBA92B7CC /* Pods-YatuDashboard.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				APP_NAME = "Yatu Pro";
+				ASSETCATALOG_COMPILER_APPICON_NAME = YatuProAppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = YatuDashboard/YatuDashboard.entitlements;
 				CURRENT_PROJECT_VERSION = 2;
@@ -705,6 +721,8 @@
 				GCC_PREFIX_HEADER = /Users/justin/Documents/ReactNative/YatuDashboard/ios/PrefixHeader.pch;
 				INFOPLIST_FILE = YatuDashboard/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = YatuDashboard;
+				LAUNCH_BG = YatuProBg;
+				LAUNCH_IMG = YatuPro;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -717,7 +735,7 @@
 					"-lc++",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.yatudashboard;
-				PRODUCT_NAME = YatuDashboard;
+				PRODUCT_NAME = YatuPro;
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -860,6 +878,342 @@
 			};
 			name = Release;
 		};
+		D08770202BA0D732002A53A5 /* YatuLite */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "c++17";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = i386;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					/usr/lib/swift,
+					"$(inherited)",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"\"$(SDKROOT)/usr/lib/swift\"",
+					"\"$(TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME)\"",
+					"\"$(inherited)\"",
+				);
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_CPLUSPLUSFLAGS = (
+					"$(OTHER_CFLAGS)",
+					"-DFOLLY_NO_CONFIG",
+					"-DFOLLY_MOBILE=1",
+					"-DFOLLY_USE_LIBCPP=1",
+				);
+				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = YatuLite;
+		};
+		D08770212BA0D732002A53A5 /* YatuLite */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3A1EE9A5B1E9B6C2EB46A48F /* Pods-YatuDashboard.yatulite.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				APP_NAME = "Yatu Lite";
+				ASSETCATALOG_COMPILER_APPICON_NAME = YatuLiteAppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = YatuDashboard/YatuDashboard.entitlements;
+				CURRENT_PROJECT_VERSION = 2;
+				DEVELOPMENT_TEAM = G64S5HN2AP;
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "i386 arm64";
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				GCC_PREFIX_HEADER = /Users/justin/Documents/ReactNative/YatuDashboard/ios/PrefixHeader.pch;
+				INFOPLIST_FILE = YatuDashboard/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = YatuDashboard;
+				LAUNCH_BG = YatuLiteBg;
+				LAUNCH_IMG = YatuLite;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				ONLY_ACTIVE_ARCH = YES;
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-lc++",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.yatudashboard.lite;
+				PRODUCT_NAME = YatuLite;
+				SWIFT_VERSION = 5.0;
+				VERSIONING_SYSTEM = "apple-generic";
+			};
+			name = YatuLite;
+		};
+		D08770222BA0D732002A53A5 /* YatuLite */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 77BB81723C599F5923126F8B /* Pods-YatuDashboard-YatuDashboardTests.yatulite.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COPY_PHASE_STRIP = NO;
+				INFOPLIST_FILE = YatuDashboardTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-lc++",
+					"$(inherited)",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.yatudashboard;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/YatuDashboard.app/YatuDashboard";
+			};
+			name = YatuLite;
+		};
+		D08770232BA0D732002A53A5 /* YatuLite */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = D6052D84B5636F0AECEB3126 /* Pods-YatuDashboard-OneSignalNotificationServiceExtension.yatulite.xcconfig */;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_ENTITLEMENTS = OneSignalNotificationServiceExtension/OneSignalNotificationServiceExtension.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 2;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = G64S5HN2AP;
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "i386 arm64";
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = OneSignalNotificationServiceExtension/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = OneSignalNotificationServiceExtension;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.yatudashboard.OneSignalNotificationServiceExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SKIP_INSTALL = YES;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = YatuLite;
+		};
+		D08770242BA0D740002A53A5 /* YatuViewer */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "c++17";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = i386;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					/usr/lib/swift,
+					"$(inherited)",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"\"$(SDKROOT)/usr/lib/swift\"",
+					"\"$(TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME)\"",
+					"\"$(inherited)\"",
+				);
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_CPLUSPLUSFLAGS = (
+					"$(OTHER_CFLAGS)",
+					"-DFOLLY_NO_CONFIG",
+					"-DFOLLY_MOBILE=1",
+					"-DFOLLY_USE_LIBCPP=1",
+				);
+				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = YatuViewer;
+		};
+		D08770252BA0D740002A53A5 /* YatuViewer */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 866FD25E5AB89199EFDE7103 /* Pods-YatuDashboard.yatuviewer.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				APP_NAME = "Yatu Viewer";
+				ASSETCATALOG_COMPILER_APPICON_NAME = YatuViewerAppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = YatuDashboard/YatuDashboard.entitlements;
+				CURRENT_PROJECT_VERSION = 2;
+				DEVELOPMENT_TEAM = G64S5HN2AP;
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "i386 arm64";
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				GCC_PREFIX_HEADER = /Users/justin/Documents/ReactNative/YatuDashboard/ios/PrefixHeader.pch;
+				INFOPLIST_FILE = YatuDashboard/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = YatuDashboard;
+				LAUNCH_BG = YatuViewerBg;
+				LAUNCH_IMG = YatuViewer;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				ONLY_ACTIVE_ARCH = YES;
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-lc++",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.yatudashboard.viewer;
+				PRODUCT_NAME = YatuViewer;
+				SWIFT_VERSION = 5.0;
+				VERSIONING_SYSTEM = "apple-generic";
+			};
+			name = YatuViewer;
+		};
+		D08770262BA0D740002A53A5 /* YatuViewer */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 248DBEA267C6AA56E2E9500B /* Pods-YatuDashboard-YatuDashboardTests.yatuviewer.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COPY_PHASE_STRIP = NO;
+				INFOPLIST_FILE = YatuDashboardTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-lc++",
+					"$(inherited)",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.yatudashboard;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/YatuDashboard.app/YatuDashboard";
+			};
+			name = YatuViewer;
+		};
+		D08770272BA0D740002A53A5 /* YatuViewer */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = EEDDB58779CF96685C0F5162 /* Pods-YatuDashboard-OneSignalNotificationServiceExtension.yatuviewer.xcconfig */;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_ENTITLEMENTS = OneSignalNotificationServiceExtension/OneSignalNotificationServiceExtension.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 2;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = G64S5HN2AP;
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "i386 arm64";
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = OneSignalNotificationServiceExtension/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = OneSignalNotificationServiceExtension;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.yatudashboard.OneSignalNotificationServiceExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SKIP_INSTALL = YES;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = YatuViewer;
+		};
 		D08F333B2AC3DC7500965385 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 3C9B51D56F29B75D3D571213 /* Pods-YatuDashboard-OneSignalNotificationServiceExtension.debug.xcconfig */;
@@ -954,6 +1308,8 @@
 			buildConfigurations = (
 				00E356F61AD99517003FC87E /* Debug */,
 				00E356F71AD99517003FC87E /* Release */,
+				D08770222BA0D732002A53A5 /* YatuLite */,
+				D08770262BA0D740002A53A5 /* YatuViewer */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -963,6 +1319,8 @@
 			buildConfigurations = (
 				13B07F941A680F5B00A75B9A /* Debug */,
 				13B07F951A680F5B00A75B9A /* Release */,
+				D08770212BA0D732002A53A5 /* YatuLite */,
+				D08770252BA0D740002A53A5 /* YatuViewer */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -972,6 +1330,8 @@
 			buildConfigurations = (
 				83CBBA201A601CBA00E9B192 /* Debug */,
 				83CBBA211A601CBA00E9B192 /* Release */,
+				D08770202BA0D732002A53A5 /* YatuLite */,
+				D08770242BA0D740002A53A5 /* YatuViewer */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -981,6 +1341,8 @@
 			buildConfigurations = (
 				D08F333B2AC3DC7500965385 /* Debug */,
 				D08F333C2AC3DC7500965385 /* Release */,
+				D08770232BA0D732002A53A5 /* YatuLite */,
+				D08770272BA0D740002A53A5 /* YatuViewer */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

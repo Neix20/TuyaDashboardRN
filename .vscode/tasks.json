@@ -25,100 +25,45 @@
     },
     {
       "type": "npm",
-      "script": "fastlaneIos:genIpa",
-      "problemMatcher": [],
-      "label": "npm: fastlaneIos:genIpa",
-      "detail": "cd app && fastlane ios genIpa"
-    },
-    {
-      "type": "npm",
-      "script": "fastlaneAndroid:PushToPlayStore",
-      "problemMatcher": [],
-      "label": "npm: fastlaneAndroid:PushToPlayStore",
-      "detail": "cd app && fastlane android pushToPlayStore"
-    },
-    {
-      "type": "npm",
-      "script": "fastlaneIos:pushToTestFlight",
-      "problemMatcher": [],
-      "label": "npm: fastlaneIos:pushToTestFlight",
-      "detail": "cd app && fastlane ios pushToTestFlight"
-    },
-    {
-      "label": "Change To Yatu Pro",
-      "type": "shell",
-      "command": "bash ~/Documents/ReactNative/YatuDashboard/app/fastlane/script/change_app.sh 0",
-      "problemMatcher": []
-    },
-    {
-      "label": "Change To Yatu Lite",
-      "type": "shell",
-      "command": "bash ~/Documents/ReactNative/YatuDashboard/app/fastlane/script/change_app.sh 1",
-      "problemMatcher": []
-    },
-    {
-      "label": "Change To Yatu Viewer",
-      "type": "shell",
-      "command": "bash ~/Documents/ReactNative/YatuDashboard/app/fastlane/script/change_app.sh 2",
-      "problemMatcher": []
-    },
-    {
-      "type": "npm",
       "script": "fastlaneAndroid:YatuAab",
       "problemMatcher": [],
       "label": "npm: fastlaneAndroid:YatuAab",
-      "detail": "cd app && fastlane android genYatuAab",
-      "group": "build"
-    },
-    {
-      "type": "npm",
-      "script": "fastlaneAndroid:YatuApk",
-      "problemMatcher": [],
-      "label": "npm: fastlaneAndroid:YatuApk",
-      "detail": "cd app && fastlane android genYatuApk",
-      "group": "build"
-    },
-    {
-      "type": "npm",
-      "script": "fastlaneAndroid:YatuViewerApk",
-      "problemMatcher": [],
-      "label": "npm: fastlaneAndroid:YatuViewerApk",
-      "detail": "cd app && fastlane android genYatuViewerApk",
-      "group": "build"
-    },
-    {
-      "type": "npm",
-      "script": "fastlaneAndroid:YatuLiteApk",
-      "problemMatcher": [],
-      "label": "npm: fastlaneAndroid:YatuLiteApk",
-      "detail": "cd app && fastlane android genYatuLiteApk",
-      "group": "build"
+      "detail": "cd app && fastlane android genYatuAab"
     },
     {
       "type": "npm",
       "script": "fastlaneAndroid:YatuLiteAab",
       "problemMatcher": [],
       "label": "npm: fastlaneAndroid:YatuLiteAab",
-      "detail": "cd app && fastlane android genYatuLiteAab",
-      "group": "build"
+      "detail": "cd app && fastlane android genYatuLiteAab"
     },
     {
       "type": "npm",
       "script": "fastlaneAndroid:YatuViewerAab",
       "problemMatcher": [],
       "label": "npm: fastlaneAndroid:YatuViewerAab",
-      "detail": "cd app && fastlane android genYatuViewerAab",
-      "group": {
-        "kind": "build",
-        "isDefault": true
-      }
+      "detail": "cd app && fastlane android genYatuViewerAab"
     },
     {
       "type": "npm",
-      "script": "fastlaneAndroid:testCommand",
+      "script": "fastlaneIos:YatuIpa",
       "problemMatcher": [],
-      "label": "npm: fastlaneAndroid:testCommand",
-      "detail": "cd app && fastlane android testCommand"
+      "label": "npm: fastlaneIos:YatuIpa",
+      "detail": "cd app && fastlane ios pushYatuToTestFlight"
+    },
+    {
+      "type": "npm",
+      "script": "fastlaneIos:YatuLiteIpa",
+      "problemMatcher": [],
+      "label": "npm: fastlaneIos:YatuLiteIpa",
+      "detail": "cd app && fastlane ios pushYatuLiteToTestFlight"
+    },
+    {
+      "type": "npm",
+      "script": "fastlaneIos:YatuViewerIpa",
+      "problemMatcher": [],
+      "label": "npm: fastlaneIos:YatuViewerIpa",
+      "detail": "cd app && fastlane ios pushYatuViewerToTestFlight"
     }
   ]
 }
