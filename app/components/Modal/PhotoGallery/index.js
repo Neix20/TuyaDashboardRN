@@ -102,8 +102,7 @@ function Index(props) {
     return (
         <BaseModal {...props}>
             {/* Close Button */}
-            <VStack flexGrow={1} 
-                space={3}>
+            <VStack flexGrow={1} space={3}>
 
                 <View alignItems={"center"}>
                     <Text style={{

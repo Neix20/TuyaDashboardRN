@@ -265,8 +265,6 @@ function DeviceLs(props) {
 // #region Info Tooltip
 function InfoTooltip(props) {
 
-    const { hook = [] } = props;
-
     const style = {
         hyperlink: {
             textDecorationLine: "underline",

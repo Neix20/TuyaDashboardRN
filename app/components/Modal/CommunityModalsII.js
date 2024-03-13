@@ -36,7 +36,7 @@ function Index(props) {
     // #endregion
 
     // #region Props
-    const { children } = props;
+    const { children, noAnimation = false } = props;
     const { showCross = true } = props;
     const { showModal, setShowModal } = props;
     const { cusToast = init.toast, backdropOpacity = 0.7, style = {} } = props;
@@ -61,13 +61,49 @@ function Index(props) {
         }
     }
 
+    if (noAnimation) {
+        return (
+            <Modal
+                isVisible={showModal}
+                animationIn={{ from: { opacity: 1 }, to: { opacity: 1 } }}
+                animationOut={{ from: { opacity: 0 }, to: { opacity: 0 } }}
+                animationInTiming={1}
+                animationOutTiming={1}
+                onBackButtonPress={closeModal}
+                onBackdropPress={closeModal}
+                backdropOpacity={backdropOpacity}
+                style={style}>
+                <View bgColor={"#FFF"} borderRadius={20}>
+                    {/* Front Layer */}
+                    {
+                        (showCross) ? (
+                            <View style={modalStyle.closeStyle}>
+                                <TouchableOpacity onPress={closeModal}>
+                                    <CloseBtn />
+                                </TouchableOpacity>
+                            </View>
+                        ) : (<></>)
+                    }
+    
+                    {/* Front Layer */}
+                    <View alignItems={"center"} style={modalStyle.toastStyle} >
+                        <CustomToast>{cusToast.msg}</CustomToast>
+                    </View>
+    
+                    {/* Content */}
+                    <View flexGrow={1} py={5}>
+                        {children}
+                    </View>
+                </View>
+            </Modal>
+        )
+    }
+
     return (
         <Modal
             isVisible={showModal}
-            animationIn={{ from: { opacity: 1 }, to: { opacity: 1 } }}
-            animationOut={{ from: { opacity: 0 }, to: { opacity: 0 } }}
-            animationInTiming={10}
-            animationOutTiming={10}
+            animationIn={'slideInUp'}
+            animationOut={'slideOutDown'}
             onBackButtonPress={closeModal}
             onBackdropPress={closeModal}
             backdropOpacity={backdropOpacity}

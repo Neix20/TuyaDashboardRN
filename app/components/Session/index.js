@@ -330,9 +330,9 @@ function TutorialModal(props) {
 
                 <FontAwesome5 name={"smile-wink"} size={36} color={Utility.getColor()} />
                 <View w={"90%"}>
-                <Text style={style.description}>
-                    It seems like this is you have just purchased premium subscription. Premium Subscribers have a new option of sharing their profiles to pre-selected viewers.
-                </Text>
+                    <Text style={style.description}>
+                        It seems like this is you have just purchased premium subscription. Premium Subscribers have a new option of sharing their profiles to pre-selected viewers.
+                    </Text>
                 </View>
 
                 <TouchableOpacity onPress={GoToShareSession} style={{ width: "80%", height: 40 }}>
@@ -363,10 +363,10 @@ function IndexII(props) {
     const navigation = useNavigation();
 
     const viewSesTutorialSelect = useSelector(Selectors.viewSesTutorialSelect);
-    const [tutModal, setTutModal, toggleTutModal] = useToggle(false);
+    const [tutModal, setTutModal, toggleTutModal] = useToggle(true);
     // #endregion
 
-    useEffect(( ) => {
+    useEffect(() => {
         if (isFocused && viewSesTutorialSelect) {
             setTutModal(_ => true)
         }

@@ -10,10 +10,8 @@ import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 import { Logger, Utility } from "@utility";
 import { Images, Svg } from "@config";
 
-import { BcHeaderWithAdd, BcDisableII, BcLoading, BcBoxShadow, BcYesNoModal, BaseIIModal, BaseModal } from "@components";
+import { BcHeaderWithAdd, BcDisableII, BcLoading, BcBoxShadow, BcYesNoModal, BaseIIModal, BaseModal, BcSvgIcon, BcPhotoGalleryModal } from "@components";
 import { useToggle, useModalToast } from "@hooks";
-
-import { MasterUserDevice, MasterUserYatuSession as TestData, MasterUserDevice as TestMasterData } from "./data";
 
 import { fetchGetDeviceByYatuSession, fetchToggleYatuSessionDevice, fetchRemoveYatuSession, fetchGetYatuSessionByMasterUser, fetchGenerateViewerAccessCodeInf } from "@api";
 
@@ -23,33 +21,16 @@ import { Actions, Selectors } from '@redux';
 const screen = Dimensions.get("screen");
 const { width, height } = screen;
 
-// [ ] Modal Must Have Loading
+// #region Hooks
+function useSessionLs() {
+    const [data, setData] = useState([]);
 
-// [x] Long Press to Remove Session
-
-// [x] Sample Item
-// [x] FlatList Render Item
-
-// #region Components
-function EmptyList(props) {
-    const style = {
-        txt: {
-            fontFamily: "Roboto-Bold",
-            fontSize: 18,
-            color: "#d3d3d3",
-            fontWeight: "700"
-        }
+    const updateData = (val) => {
+        setData(_ => val);
     }
-    return (
-        <View flexGrow={1} justifyContent={"center"} alignItems={"center"} bgColor={"#FFF"}>
-            <VStack space={2} width={"90%"} alignItems={"center"}>
-                <FontAwesome5 name={"clock"} color={"#d3d3d3"} size={80} />
-                <Text style={style.txt}>No Session Created</Text>
-            </VStack>
-        </View>
-    )
+
+    return [data, updateData];
 }
-// #endregion
 
 function useSessionDeviceLs() {
     const [ls, setLs] = useState([]);
@@ -83,7 +64,98 @@ function useSessionDeviceLs() {
 
     return [ls, updateLs, toggleItem, flag];
 }
+// #endregion
 
+// #region Components
+function EmptyList(props) {
+    const style = {
+        txt: {
+            fontFamily: "Roboto-Bold",
+            fontSize: 18,
+            color: "#d3d3d3",
+            fontWeight: "700"
+        }
+    }
+    return (
+        <View flexGrow={1} justifyContent={"center"} alignItems={"center"} bgColor={"#FFF"}>
+            <VStack space={2} width={"90%"} alignItems={"center"}>
+                <FontAwesome5 name={"clock"} color={"#d3d3d3"} size={80} />
+                <Text style={style.txt}>No Session Created</Text>
+            </VStack>
+        </View>
+    )
+}
+
+function HeaderRight(props) {
+
+    const { refreshHook = [], flag = false } = props;
+
+    // #region Use State
+    const [refresh, setRefresh, toggleRefresh] = refreshHook;
+
+    const [emailModal, setEmailModal, toggleEmailModal] = useToggle(false);
+    const [viewModal, setViewModal, toggleViewModal] = useToggle(false);
+
+    const viewSesTutorial = useSelector(Selectors.viewSesTutorialSelect);
+    const [photoModal, setPhotoModal, togglePhotoModal]  = useToggle(viewSesTutorial);
+
+    const dispatch = useDispatch();
+
+    // #endregion
+
+    const style = {
+        btn: {
+            height: 40,
+            width: 40,
+            borderRadius: 20
+        }
+    };
+
+    const images = [
+        { uri: Images.LinkDeviceI },
+        { uri: Images.LinkDeviceII },
+        { uri: Images.LinkDeviceIII },
+        { uri: Images.LinkDeviceIV },
+        { uri: Images.LinkDeviceV },
+    ];
+
+    const addViewSession = () => {
+        if (flag) {
+            toggleViewModal();
+        } else {
+            toggleEmailModal();
+        }
+    }
+
+    const onSelectTooltip = () => {
+        togglePhotoModal();
+        dispatch(Actions.onChangeViewSesTutorial(false));
+    }
+
+
+    return (
+        <>
+            <BcPhotoGalleryModal showModal={photoModal} setShowModal={onSelectTooltip} images={images} />
+            <ViewerSessionErrorModal showModal={viewModal} setShowModal={setViewModal} />
+            <EmailModal showModal={emailModal} setShowModal={setEmailModal} {...props} />
+            <HStack space={2} alignItems={"flex-end"}>
+                <TouchableOpacity onPress={onSelectTooltip}>
+                    <BcSvgIcon name={"InfoIcon"} size={28} />
+                </TouchableOpacity>
+                <TouchableOpacity onPress={addViewSession}>
+                    <View bgColor={Utility.getColor()}
+                        alignItems={"center"} justifyContent={"center"} style={style.btn}>
+                        <FontAwesome5 name={"plus"} color={"#FFF"} size={24} />
+                    </View>
+                </TouchableOpacity>
+            </HStack>
+        </>
+    )
+}
+// #endregion
+
+// #region Session Modal
+import { CheckBox } from "@rneui/base";
 import Clipboard from '@react-native-clipboard/clipboard';
 
 function SessionAccessCode(props) {
@@ -150,8 +222,6 @@ function SessionSubmitBtn(props) {
         </BcDisableII>
     )
 }
-
-import { CheckBox } from "@rneui/base";
 
 function SessionDeviceItem(props) {
 
@@ -296,7 +366,9 @@ function SessionModal(props) {
         </BaseIIModal>
     )
 }
+// #endregion
 
+// #region Session List
 function SessionUserItem(props) {
 
     const { Email = "", Expiry_Date = "", Access_Code = "" } = props;
@@ -436,7 +508,9 @@ function SessionList(props) {
         </>
     )
 }
+// #endregion
 
+// #region Modal
 function EmailModal(props) {
 
     const { showModal = false, setShowModal = () => { } } = props;
@@ -574,55 +648,7 @@ function ViewerSessionErrorModal(props) {
         </BaseModal>
     );
 }
-
-function HeaderRight(props) {
-
-    const { refreshHook = [], flag = false } = props;
-
-    const [refresh, setRefresh, toggleRefresh] = refreshHook;
-
-    const [emailModal, setEmailModal, toggleEmailModal] = useToggle(false);
-    const [viewModal, setViewModal, toggleViewModal] = useToggle(false);
-
-    const style = {
-        btn: { 
-            height: 40, 
-            width: 40, 
-            borderRadius: 20
-        }
-    };
-
-    const addViewSession = () => {
-        if (flag) {
-            toggleViewModal();
-        } else {
-            toggleEmailModal();
-        }
-    }
-
-    return (
-        <>
-            <ViewerSessionErrorModal showModal={viewModal} setShowModal={setViewModal} />
-            <EmailModal showModal={emailModal} setShowModal={setEmailModal} {...props} />
-            <TouchableOpacity onPress={addViewSession}>
-                <View bgColor={Utility.getColor()} 
-                    alignItems={"center"} justifyContent={"center"} style={style.btn}>
-                    <FontAwesome5 name={"plus"} color={"#FFF"} size={24} />
-                </View>
-            </TouchableOpacity>
-        </>
-    )
-}
-
-function useSessionLs() {
-    const [data, setData] = useState([]);
-
-    const updateData = (val) => {
-        setData(_ => val);
-    }
-
-    return [data, updateData];
-}
+// #endregion
 
 function Index(props) {
 

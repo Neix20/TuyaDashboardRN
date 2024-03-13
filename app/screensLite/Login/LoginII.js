@@ -909,11 +909,11 @@ function Index(props) {
     return (
         <>
             <BcViewerModal showModal={showViewerModal} setShowModal={setShowViewerModal} />
-            <BcCheckUserModal showModal={showChkUserModal} setShowModal={setShowChkUserModal} onPressYes={onPressCheckUserConfirm} />
+            <BcCheckUserModal showModal={showChkUserModal} setShowModal={setShowChkUserModal} onPressYes={onPressCheckUserConfirm} noAnimation={true} />
             <BcLoading loading={loading} />
-            <BcDeleteAccountModal showModal={showDelAccModal} setShowModal={setShowDelAccModal} />
-            <BcExpiredAccountModal showModal={showExpAccModal} setShowModal={setShowExpAccModal} />
-            <ExistLoginModal
+            <BcDeleteAccountModal showModal={showDelAccModal} setShowModal={setShowDelAccModal} noAnimation={true} />
+            <BcExpiredAccountModal showModal={showExpAccModal} setShowModal={setShowExpAccModal} noAnimation={true} />
+            <ExistLoginModal noAnimation={true}
                 formHook={existLoginFormHook} delAccHook={delAccHook}
                 expAccHook={expAccHook} chkUserHook={chkUserHook}
                 showModal={showExLoginModal} setShowModal={setShowExLoginModal} />
