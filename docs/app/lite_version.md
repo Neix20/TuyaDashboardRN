@@ -16,3 +16,12 @@
 ## 1.2.33
 
 - Fix: Camera QR Crashing after Scan QR Code
+
+## 1.2.34
+
+- Feature: Energy Cost Usage are now calculated based on User Tariff Rates
+- Feature: Added Tutorial for First Time Setup for Yatu Viewer
+- Fix: Color Opacity for App Variants
+- Fix: Update Landing Page on App Store for Yatu Pro
+- Fix: Enhanced Animation for Pop-Up Modal. Added User-Controls to switch between photo Gallery
+

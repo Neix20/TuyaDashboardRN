@@ -20,6 +20,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchProfileInfo, fetchSubUserAccess, fetchDeleteAccount, fetchRestoreStorePurchase, fetchDeleteViewerSession } from "@api";
 
 import { BcLoading, BcYesNoModal, BcDisableII, BcSessionPanel } from "@components";
+import { BcBoxShadow, BcSvgIcon } from "@components";
 
 import { useToggle } from "@hooks";
 

@@ -30,7 +30,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-               BuildableName = "YatuDashboard.app"
+               BuildableName = "YatuPro.app"
                BlueprintName = "YatuDashboard"
                ReferencedContainer = "container:YatuDashboard.xcodeproj">
             </BuildableReference>
@@ -61,7 +61,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "YatuDashboard.app"
+            BuildableName = "YatuPro.app"
             BlueprintName = "YatuDashboard"
             ReferencedContainer = "container:YatuDashboard.xcodeproj">
          </BuildableReference>
@@ -80,7 +80,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "YatuDashboard.app"
+            BuildableName = "YatuPro.app"
             BlueprintName = "YatuDashboard"
             ReferencedContainer = "container:YatuDashboard.xcodeproj">
          </BuildableReference>

@@ -21,6 +21,7 @@ import { fetchProfileInfo, fetchSubUserAccess, fetchDeleteAccount, fetchRestoreS
 import { fetchGetParamApi, fetchGenerateViewerAccessCode, fetchJoinViewerSession } from "@api";
 
 import { BcLoading, BaseModal, BaseIIModal, BcYesNoModal, BcDisableII, BcSessionPanel } from "@components";
+import { BcBoxShadow, BcSvgIcon } from "@components";
 
 import { useToggle, useYatuIap, useTimer, useModalToast } from "@hooks";
 import { withIAPContext } from "react-native-iap";
