@@ -30,41 +30,42 @@ end
 platform :android do 
     desc "Build Yatu AAB"
     lane :genYatuAab do 
-        sh("script/change_app.sh", "0", "./../../")
+        # sh("script/change_app.sh", "0", "./../../")
 
-        gradle(
-            task: 'bundle', 
-            flavor: "Yatu",
-            build_type: "release",
-            project_dir: './../android', 
-            properties: {
-                "android.injected.signing.store.file" => ENV['PWD'] + "/../android/app/yatu.jks",
-                "android.injected.signing.store.password" => "vt8888",
-                "android.injected.signing.key.alias" => "yatu",
-                "android.injected.signing.key.password" => "vt8888"
-            }
-        )
+        # gradle(
+        #     task: 'bundle', 
+        #     flavor: "Yatu",
+        #     build_type: "release",
+        #     project_dir: './../android', 
+        #     properties: {
+        #         "android.injected.signing.store.file" => ENV['PWD'] + "/../android/app/yatu.jks",
+        #         "android.injected.signing.store.password" => "vt8888",
+        #         "android.injected.signing.key.alias" => "yatu",
+        #         "android.injected.signing.key.password" => "vt8888"
+        #     }
+        # )
 
-        # upload_to_play_store(track: 'internal', aab: './../android/app/build/outputs/bundle/yatuRelease/app-yatu-release.aab')
-        # upload_to_play_store(track: 'production', aab: './../android/app/build/outputs/bundle/yatuRelease/app-yatu-release.aab')
+        upload_to_play_store(track: 'internal', aab: './../android/app/build/outputs/bundle/yatuRelease/app-yatu-release.aab', skip_upload_metadata: true, skip_upload_apk: true)
     end
 
     desc "Build Yatu Lite AAB"
     lane :genYatuLiteAab do 
-        sh("script/change_app.sh", "1", "./../../")
+        # sh("script/change_app.sh", "1", "./../../")
 
-        gradle(
-            task: 'bundle',
-            flavor: "YatuLite",
-            build_type: "release",
-            project_dir: './../android', 
-            properties: {
-                "android.injected.signing.store.file" => ENV['PWD'] + "/../android/app/yatuLite.jks",
-                "android.injected.signing.store.password" => "vt8888",
-                "android.injected.signing.key.alias" => "yatuLite",
-                "android.injected.signing.key.password" => "vt8888"
-            }
-        )
+        # gradle(
+        #     task: 'bundle',
+        #     flavor: "YatuLite",
+        #     build_type: "release",
+        #     project_dir: './../android', 
+        #     properties: {
+        #         "android.injected.signing.store.file" => ENV['PWD'] + "/../android/app/yatuLite.jks",
+        #         "android.injected.signing.store.password" => "vt8888",
+        #         "android.injected.signing.key.alias" => "yatuLite",
+        #         "android.injected.signing.key.password" => "vt8888"
+        #     }
+        # )
+
+        upload_to_play_store(track: 'internal', aab: './../android/app/build/outputs/bundle/yatuLiteRelease/app-yatuLite-release.aab', skip_upload_metadata: true, skip_upload_apk: true) 
     end
 
     desc "Build Yatu Viewer AAB"
@@ -83,6 +84,8 @@ platform :android do
                 "android.injected.signing.key.password" => "vt8888"
             }
         )
+
+        upload_to_play_store(track: 'internal', aab: './../android/app/build/outputs/bundle/yatuViewerRelease/app-yatuViewer-release.aab', skip_upload_metadata: true, skip_upload_apk: true) 
     end
 
     desc "Build Yatu APK"

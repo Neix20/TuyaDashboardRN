@@ -25,6 +25,12 @@ app_icon_arr=(
     "yatu_viewer"
 )
 
+android_bundle_name=(
+    "com.yatudashboard"
+    "com.yatudashboard.lite"
+    "com.yatudashboard.viewer"
+)
+
 prefix="\/\/"
 
 # if [ $APP_VARIANT -eq 0 ]; then
@@ -45,7 +51,7 @@ for i in $(seq 0 2); do
 done
 
 # Replace line 9 with the replacement text
-FILE_PATH="$FILE_HEADER""/app/index.js"
+FILE_PATH="$FILE_HEADER""app/index.js"
 
 replacement_text="${app_screen_arr[0]}"
 sed -i '' "$line_num""s/.*/$replacement_text/" $FILE_PATH
@@ -87,3 +93,13 @@ replacement_text="android:src=\"@drawable\/${app_icon_arr[APP_VARIANT]}\""
 sed -i '' "$line_num""s/.*/$replacement_text/" $SPLASH_SCREEN_PATH
 
 echo "Replacement successful for $SPLASH_SCREEN_PATH."
+
+# Change Fastlane Page
+FASTLANE_PATH="$FILE_HEADER""app/fastlane/Appfile"
+
+line_num=$(grep -n "package_name" $FASTLANE_PATH | head -n 1 | cut -d ':' -f 1)
+replacement_text="package_name(\"${android_bundle_name[APP_VARIANT]}\")"
+
+sed -i '' "$line_num""s/.*/$replacement_text/" $FASTLANE_PATH
+
+echo "Replacement successful for $FASTLANE_PATH."

@@ -71,3 +71,5 @@ temp/*
 creds/*
 
 *.apk
+
+/app/fastlane/metadata/

@@ -1,5 +1,0 @@
-    Features:
-    1. Enhanced Dashboard: Advanced charting, versatile views, and intuitive controls for improved data visualization.
-    2. Device Management: New rules, expanded device support, and improved information display for efficient management.
-    3. Efficient Data Sync: Enhanced capabilities and live synchronization for seamless device logging.
-    4. Dynamic Chart Widgets: Advance widgets enhance data monitoring on your dashboard.

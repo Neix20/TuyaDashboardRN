@@ -1,9 +1,9 @@
 import { Platform } from "react-native";
 
-const APP_VERSION = "1.2.34";
-const PRO_APP_VERSION = "PR1.2.34";
-const LITE_APP_VERSION = "LT1.2.34";
-const VIEWER_APP_VERSION = "VW1.2.34";
+const APP_VERSION = "1.2.35";
+const PRO_APP_VERSION = "PR1.2.35";
+const LITE_APP_VERSION = "LT1.2.35";
+const VIEWER_APP_VERSION = "VW1.2.35";
 const ORG_NAME = "VIGTECH LABS SDN BHD";
 
 // const SERVER_URL = "https://2452-103-26-251-251.ngrok-free.app";
@@ -56,7 +56,7 @@ const PROFILE_WS_COLORS = [
 // const APP_VARIANT_COLOR = "#6334D3";
 
 const APP_COLOR = "#FB7304";
-const TEST_REVIEW = `AppReview_${Platform.OS}_1.2.34`;
+const TEST_REVIEW = `AppReview_${Platform.OS}_1.2.35`;
 
 export {
     APP_VERSION,
