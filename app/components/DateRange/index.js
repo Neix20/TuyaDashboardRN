@@ -26,6 +26,14 @@ function Index(props) {
     const subUserAccess = useSelector(Selectors.subUserAccessSelect);
     const { AccountType = -1 } = subUserAccess;
 
+    const style = {
+        btnView: { height: 40, width: 40 },
+        title: {
+            fontFamily: "Roboto-Bold",
+            fontSize: 16,
+        }
+    }
+
     return (
         <>
             <BcDateRangeModal showModal={showDtModal} setShowModal={setShowDtModal} {...props} />
@@ -43,10 +51,7 @@ function Index(props) {
                             <HStack space={3} alignItems={"center"}>
                                 <FontAwesome5 name={"calendar-alt"} size={27} color={"#606267"} />
                                 <VStack space={1}>
-                                    <Text style={{
-                                        fontFamily: "Roboto-Bold",
-                                        fontSize: 16,
-                                    }}>{Utility.formatDt(startDt, "EEE, d MMMM yyyy")}</Text>
+                                    <Text style={style.title}>{Utility.formatDt(startDt, "EEE, d MMMM yyyy")}</Text>
                                 </VStack>
                             </HStack>
 
@@ -59,7 +64,7 @@ function Index(props) {
                                             <View
                                                 justifyContent={"center"}
                                                 alignItems={"center"}
-                                                style={{ height: 40, width: 40 }}>
+                                                style={style.btnView}>
                                                 <FontAwesome name={"angle-left"} size={27} />
                                             </View>
                                         </BcDisable>
@@ -68,7 +73,7 @@ function Index(props) {
                                             <View
                                                 justifyContent={"center"}
                                                 alignItems={"center"}
-                                                style={{ height: 40, width: 40 }}>
+                                                style={style.btnView}>
                                                 <FontAwesome name={"angle-left"} size={27} />
                                             </View>
                                         </TouchableOpacity>
@@ -81,7 +86,7 @@ function Index(props) {
                                             <View
                                                 justifyContent={"center"}
                                                 alignItems={"center"}
-                                                style={{ height: 40, width: 40 }}>
+                                                style={style.btnView}>
                                                 <FontAwesome name={"angle-right"} size={27} />
                                             </View>
                                         </BcDisable>
@@ -90,7 +95,7 @@ function Index(props) {
                                             <View
                                                 justifyContent={"center"}
                                                 alignItems={"center"}
-                                                style={{ height: 40, width: 40 }}>
+                                                style={style.btnView}>
                                                 <FontAwesome name={"angle-right"} size={27} />
                                             </View>
                                         </TouchableOpacity>

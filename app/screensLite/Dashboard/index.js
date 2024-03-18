@@ -663,7 +663,7 @@ function Index(props) {
     const { Name = "Default", WsColor = "#c3c3c3" } = profileWs;
 
     const subUserAccess = useSelector(Selectors.subUserAccessSelect);
-    const { DeviceQty = 0 } = subUserAccess;
+    const { AccountType = -1, DataStartDate = "2024-03-01", DataEndDate = "2024-03-10", DeviceQty = 0 } = subUserAccess;
 
     return (
         <>

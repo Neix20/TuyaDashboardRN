@@ -15,7 +15,6 @@ import { DateTime } from "luxon";
 import { CheckBox, Tab, TabView } from "@rneui/themed";
 
 import CustomToast from "./../CustomToast";
-
 import YtCalendar from "./Calendar";
 
 import { dateArrGen, weekArrGen, monthArrGen, customArrGen } from "./Generator";
@@ -38,6 +37,17 @@ function BaseModal(props) {
 
     const closeModal = () => setShowModal(false);
 
+    const style = {
+        cusToast: {
+            position: "absolute",
+            zIndex: 20,
+            bottom: 10,
+            left: 0,
+            right: 0,
+            display: (cusToast.flag) ? "flex" : "none"
+        }
+    }
+
     return (
         <Modal
             isVisible={showModal}
@@ -50,14 +60,7 @@ function BaseModal(props) {
                 <View style={{ flex: 1 }}>
 
                     {/* Front Layer */}
-                    <View style={{
-                        position: "absolute",
-                        zIndex: 20,
-                        bottom: 10,
-                        left: 0,
-                        right: 0,
-                        display: (cusToast.flag) ? "flex" : "none"
-                    }} alignItems={"center"}>
+                    <View style={style.cusToast} alignItems={"center"}>
                         <CustomToast>{cusToast.msg}</CustomToast>
                     </View>
 
@@ -111,6 +114,7 @@ function DateView(props) {
     const { prevData, setPrevData = () => { } } = props;
 
     const { hook = [], prevHook = [], flagHook = [], showCompare } = props;
+
     const [startDt, setStartDt, endDt, setEndDt] = hook.slice(0, 4);
     const [pStartDt, setPStartDt, pEndDt, setPEndDt] = prevHook.slice(0, 4);
 
@@ -450,13 +454,13 @@ function Index(props) {
 
     const subUserAccess = useSelector(Selectors.subUserAccessSelect);
     const { AccountType = -1 } = subUserAccess;
-
+    
     return (
         <BaseModal cusToast={cusToast} {...props}>
-            <YtCalendar dt={fStartDt} setDt={updateCSDt} showModal={showCSDt} setShowModal={setShowCSDt} />
-            <YtCalendar dt={fEndDt} setDt={updateCEDt} showModal={showCEDt} setShowModal={setShowCEDt} />
-            <YtCalendar dt={fPrevStartDt} setDt={updatePSDt} showModal={showPSDt} setShowModal={setShowPSDt} />
-            <YtCalendar dt={fPrevEndDt} setDt={updatePEDt} showModal={showPEDt} setShowModal={setShowPEDt} />
+            <YtCalendar {...props} dt={fStartDt} setDt={updateCSDt} showModal={showCSDt} setShowModal={setShowCSDt}/>
+            <YtCalendar {...props} dt={fEndDt} setDt={updateCEDt} showModal={showCEDt} setShowModal={setShowCEDt} />
+            <YtCalendar {...props} dt={fPrevStartDt} setDt={updatePSDt} showModal={showPSDt} setShowModal={setShowPSDt} />
+            <YtCalendar {...props} dt={fPrevEndDt} setDt={updatePEDt} showModal={showPEDt} setShowModal={setShowPEDt} />
             <View bgColor={"#FFF"} style={{ flexGrow: 1 }}>
                 <View alignItems={"center"}>
                     <HStack py={3}

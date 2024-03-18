@@ -55,13 +55,12 @@ function genYearArr(year = 2023, num = 12) {
 function Index(props) {
 
     const { calHook = [], onUpdateDay = () => { } } = props;
+    // const { DataStartDate = "2024-03-03", DataEndDate = "2024-03-10" } = props;
+
     const flagHook = useToggle(true);
 
     const [dt, parseDt, addDay, minusDay, setDay, updateCalendarDay] = calHook;
     const [mFlag, setMFlag, toggleMFlag] = flagHook;
-
-    const subUserAccess = useSelector(Selectors.subUserAccessSelect);
-    const { AccountType = -1, DataStartDate = "", DataEndDate = "" } = subUserAccess;
 
     // [{ "name": "2012", "value": 2012 }]
     const [termArr, setTermArr] = useState([]);
@@ -118,6 +117,9 @@ function Index(props) {
 
     const onPressLeft = () => minusDay(-1, "months");
     const onPressRight = () => addDay(1, "months");
+
+    const subUserAccess = useSelector(Selectors.subUserAccessSelect);
+    const { AccountType = -1, DataStartDate = "2024-03-01", DataEndDate = "2024-03-10" } = subUserAccess;
 
     return (
         <Calendar

@@ -9,8 +9,6 @@ import { BcCalendar } from "@components";
 
 import { useCalendarDate } from "@hooks";
 
-import { Calendar } from 'react-native-calendars';
-
 function Index(props) {
 
     const { showModal = false, setShowModal = () => { } } = props;
@@ -35,7 +33,7 @@ function Index(props) {
             backdropOpacity={.5}>
             <View alignItems={"center"} justifyContent={"center"}>
                 <View bgColor={"#FFF"} style={{ width: "90%", height: 360 }}>
-                    <BcCalendar calHook={calHook} onUpdateDay={closeModal} />
+                    <BcCalendar calHook={calHook} onUpdateDay={closeModal} {...props} />
                 </View>
             </View>
         </Modal>
