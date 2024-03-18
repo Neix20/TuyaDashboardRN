@@ -66,6 +66,16 @@ data = {
 
 data = {
     ...data,
+    ViewerSessionI: require("@assets/images/Tutorial/ViewerSession/1.jpg"),
+    ViewerSessionII: require("@assets/images/Tutorial/ViewerSession/2.jpg"),
+    ViewerSessionIII: require("@assets/images/Tutorial/ViewerSession/3.jpg"),
+    ViewerSessionIV: require("@assets/images/Tutorial/ViewerSession/4.jpg"),
+    ViewerSessionV: require("@assets/images/Tutorial/ViewerSession/5.jpg"),
+
+}
+
+data = {
+    ...data,
     sunsetBg: require("@assets/images/Bg/sunset_bg.jpg"),
     sunsetBgII: require("@assets/images/Bg/sunset_bg_ii.jpg"),
     sunsetBgIII: require("@assets/images/Bg/sunset_bg_iii.jpg"),
