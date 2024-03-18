@@ -55,7 +55,7 @@ const PROFILE_WS_COLORS = [
 // const APP_VARIANT_COLOR = "#3398FF";
 // const APP_VARIANT_COLOR = "#6334D3";
 
-const APP_COLOR = "#FB7304";
+const APP_COLOR = "#2898FF";
 const TEST_REVIEW = `AppReview_${Platform.OS}_1.2.35`;
 
 export {
