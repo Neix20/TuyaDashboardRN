@@ -1,3 +1,5 @@
+import { Platform } from "react-native";
+
 const APP_VERSION = "1.2.34";
 const PRO_APP_VERSION = "PR1.2.34";
 const LITE_APP_VERSION = "LT1.2.34";
@@ -53,7 +55,8 @@ const PROFILE_WS_COLORS = [
 // const APP_VARIANT_COLOR = "#3398FF";
 // const APP_VARIANT_COLOR = "#6334D3";
 
-const APP_COLOR = "#FB7304";
+const APP_COLOR = "#6334D3";
+const TEST_REVIEW = `AppReview_${Platform.OS}_1.2.34`;
 
 export {
     APP_VERSION,
@@ -61,7 +64,8 @@ export {
     LITE_APP_VERSION,
     VIEWER_APP_VERSION,
     ORG_NAME,
-    APP_COLOR
+    APP_COLOR,
+    TEST_REVIEW
 }
 
 export {

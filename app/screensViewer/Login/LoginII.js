@@ -680,7 +680,7 @@ function useViewerForm(props) {
     return [form, clearForm, setEmail, setAccessCode, flag];
 }
 
-function BcViewerModal(props) {
+function ViewerModal(props) {
 
     const { showModal = false, setShowModal = () => { } } = props;
 
@@ -696,7 +696,8 @@ function BcViewerModal(props) {
         txtInput: {
             fontFamily: "Roboto-Medium",
             fontSize: 16,
-            color: "#000"
+            color: "#000",
+            height: 48,
         },
         btnTitle: {
             fontSize: 14,
@@ -743,7 +744,7 @@ function BcViewerModal(props) {
     }
 
     return (
-        <BaseModal cusToast={cusToast} {...props}>
+        <BottomModal cusToast={cusToast} {...props}>
             <VStack py={3} space={3} width={"100%"} alignItems={"center"}>
                 <View width={"80%"}>
                     <Text style={style.title}>Email</Text>
@@ -773,6 +774,8 @@ function BcViewerModal(props) {
                     </View>
                 </View>
 
+                <View style={{ height: 20 }} />
+
                 {
                     (formFlag) ?
                         (<TouchableOpacity onPress={submitCode} style={{ width: "60%", height: 40 }}>
@@ -782,7 +785,7 @@ function BcViewerModal(props) {
                             </View>
                         </TouchableOpacity>) :
 
-                        (<BcDisableII style={{ width: "60%", height: 40 }}>
+                        (<BcDisableII style={{ width: "80%", height: 48 }}>
                             <View flex={1} backgroundColor={Utility.getColor()}
                                 alignItems={"center"} justifyContent={"center"}>
                                 <Text style={style.btnTitle}>Submit</Text>
@@ -790,7 +793,7 @@ function BcViewerModal(props) {
                         </BcDisableII>)
                 }
             </VStack>
-        </BaseModal>
+        </BottomModal>
     )
 }
 
@@ -876,7 +879,7 @@ function Index(props) {
 
     return (
         <>
-            <BcViewerModal showModal={showViewerModal} setShowModal={setShowViewerModal} noAnimation={true} />
+            <ViewerModal showModal={showViewerModal} setShowModal={setShowViewerModal} noAnimation={true} />
             <BcCheckUserModal showModal={showChkUserModal} setShowModal={setShowChkUserModal} noAnimation={true} />
             <BcLoading loading={loading} />
             <BcDeleteAccountModal showModal={showDelAccModal} setShowModal={setShowDelAccModal} noAnimation={true} />

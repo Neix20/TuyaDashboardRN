@@ -210,7 +210,7 @@ function LogoutPanel(props) {
             <BcYesNoModal
                 showModal={showLgModal} setShowModal={setShowLgModal}
                 title={"Confirm Log Out"} description={"Are you sure you want to log out? You will be returned to the login screen."}
-                titleYes={"Confirm"} titleNo={"Cancel"}
+                titleYes={"Delete"} titleNo={"Logout"}
                 onPressYes={DeleteAccount} onPressNo={Logout}
             />
             <VStack bgColor={"#FFF"} borderRadius={8} width={"90%"} alignItems={"center"}>

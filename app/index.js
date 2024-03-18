@@ -6,9 +6,9 @@ import { SafeAreaProvider } from "react-native-safe-area-context";
 
 // import App from "@screens";
 
-import App from "@screensPro";
+// import App from "@screensPro";
 // import App from "@screensLite";
-// import App from "@screensViewer";
+import App from "@screensViewer";
 
 import { persistor, store } from "@redux";
 

@@ -529,7 +529,8 @@ function EmailModal(props) {
         txtInput: {
             fontFamily: "Roboto-Medium",
             fontSize: 16,
-            color: "#000"
+            color: "#000",
+            height: 48
         },
         btnTitle: {
             fontSize: 14,

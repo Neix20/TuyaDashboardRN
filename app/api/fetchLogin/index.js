@@ -1,4 +1,5 @@
 import { Logger, Utility } from "@utility";
+import { clsConst } from "@config";
 
 // import { loginWithEmail } from "@volst/react-native-tuya";
 
@@ -11,7 +12,10 @@ const Index = async (props) => {
     const url = Utility.genServerUrl(action);
 
     // Static Data
-    let obj = Utility.requestObj(param);
+    let obj = Utility.requestObj({
+        ...param,
+        TestReview: clsConst.TEST_REVIEW,
+    });
 
     const resp = await fetch(url, {
         method: "POST",
@@ -35,9 +39,6 @@ const Index = async (props) => {
         // res = await Logger.info({ content: res, page: "App", fileName: "tuya_login" });
         
         return data;
-    }
-    else if (data["ResponseCode"] === "011001") {
-
     }
     else {
         console.log(`Login - Login - Request - ${JSON.stringify(obj)}`);

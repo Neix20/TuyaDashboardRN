@@ -121,8 +121,8 @@ function Index(props) {
                 margin: 0,
             }}
             avoidKeyboard={true}
-            animationIn={'slideInUp'}
-            animationOut={'slideOutDown'}
+            animationIn={'slideInDown'}
+            animationOut={'slideOutUp'}
             onBackButtonPress={closeModal}
             onBackdropPress={closeModal}>
             <View

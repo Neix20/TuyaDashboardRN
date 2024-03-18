@@ -1,4 +1,5 @@
 import { Utility } from "@utility";
+import { clsConst } from "@config";
 
 const Index = async (props) => {
 
@@ -9,7 +10,10 @@ const Index = async (props) => {
     const url = Utility.genServerUrl(action);
 
     // Static Data
-    let obj = Utility.requestObj(param);
+    let obj = Utility.requestObj({
+        ...param,
+        TestReview: clsConst.TEST_REVIEW,
+    });
 
     const resp = await fetch(url, {
         method: "POST",
