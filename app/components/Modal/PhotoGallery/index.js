@@ -118,6 +118,7 @@ function Index(props) {
 
                 {/* Pagination */}
                 <View alignItems={"center"}>
+                    <View w={"50%"}>
                     <PaginationDot
                         activeDotColor={"#FFF"}
                         inactiveDotColor={"#FFF"}
@@ -125,6 +126,7 @@ function Index(props) {
                         maxPage={images.length}
                         sizeRatio={2}
                     />
+                    </View>
                 </View>
             </VStack>
         </BaseModal>

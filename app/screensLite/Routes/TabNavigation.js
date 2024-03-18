@@ -3,7 +3,7 @@ import React, { useEffect } from "react";
 import { Text, BackHandler } from "react-native";
 import { View, VStack } from "native-base";
 
-import { BcTabNavigator } from "@components";
+import { BcTabNavigator, BcAdFullModal } from "@components";
 
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
@@ -122,6 +122,8 @@ function Index(props) {
     const navigation = useNavigation();
     const isFocused = useIsFocused();
 
+    const [adModal, setAdModal, toggleAdModal] = useToggle(false);
+
     // #region UseEffect
     useEffect(() => {
         // Disable Back Button
@@ -129,22 +131,33 @@ function Index(props) {
             if (!isFocused) {
                 return false;
             }
-
+            
+            console.log("Hello World");
             return true;
         };
         const backHandler = BackHandler.addEventListener("hardwareBackPress", backAction);
         return () => backHandler.remove();
     }, [isFocused]);
+
+    useEffect(() => {
+        const timeout = setTimeout(() => {
+            toggleAdModal();
+        }, 3000)
+        return () => clearTimeout(timeout);
+    }, []);
     // #endregion
 
     const defaultScreen = "Dashboard";
     // const defaultScreen = "Profile";
 
     return (
-        <BcTabNavigator
-            screens={TabScreens}
-            defaultScreen={defaultScreen}
-        />
+        <>
+            <BcAdFullModal showModal={adModal} setShowModal={setAdModal} ParamKey={"Yatu_Lite_AdUrl"} />
+            <BcTabNavigator
+                screens={TabScreens}
+                defaultScreen={defaultScreen}
+            />
+        </>
     )
 }
 

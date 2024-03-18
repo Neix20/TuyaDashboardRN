@@ -76,7 +76,7 @@ function Index(props) {
 
     return (
         <>
-            <BcAdFullModal showModal={adModal} setShowModal={setAdModal} />
+            <BcAdFullModal ParamKey={"Yatu_AdUrl"} showModal={adModal} setShowModal={setAdModal} />
             <SafeAreaView style={{ flex: 1 }}>
                 <View style={{ flex: 1 }}>
 

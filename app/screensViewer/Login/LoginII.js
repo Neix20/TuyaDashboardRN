@@ -778,7 +778,7 @@ function ViewerModal(props) {
 
                 {
                     (formFlag) ?
-                        (<TouchableOpacity onPress={submitCode} style={{ width: "60%", height: 40 }}>
+                        (<TouchableOpacity onPress={submitCode} style={{ width: "80%", height: 48 }}>
                             <View flex={1} backgroundColor={Utility.getColor()}
                                 alignItems={"center"} justifyContent={"center"}>
                                 <Text style={style.btnTitle}>Submit</Text>

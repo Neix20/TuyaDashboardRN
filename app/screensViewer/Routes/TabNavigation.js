@@ -3,11 +3,12 @@ import React, { useEffect } from "react";
 import { Text, BackHandler } from "react-native";
 import { View, VStack } from "native-base";
 
-import { BcTabNavigator } from "@components";
+import { BcTabNavigator, BcAdFullModal } from "@components";
 
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import { Utility } from "@utility";
 
+import { useToggle } from "@hooks";
 
 function TabIconFontAwesome(props) {
     const { icon, title, color, focused, Btn } = props;
@@ -89,11 +90,23 @@ function Index(props) {
 
     const defaultScreen = "Dashboard";
 
+    const [adModal, setAdModal, toggleAdModal] = useToggle(false);
+
+    useEffect(() => {
+        const timeout = setTimeout(() => {
+            toggleAdModal();
+        }, 3000)
+        return () => clearTimeout(timeout);
+    }, []);
+
     return (
-        <BcTabNavigator
-            screens={TabScreens}
-            defaultScreen={defaultScreen}
-        />
+        <>
+            <BcAdFullModal showModal={adModal} setShowModal={setAdModal} ParamKey={"Yatu_Viewer_AdUrl"} />
+            <BcTabNavigator
+                screens={TabScreens}
+                defaultScreen={defaultScreen}
+            />
+        </>
     )
 }
 

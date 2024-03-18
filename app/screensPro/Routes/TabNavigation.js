@@ -113,15 +113,11 @@ function Index(props) {
     const navigation = useNavigation();
     const isFocused = useIsFocused();
 
-    const dispatch = useDispatch();
-
     // #region Redux
     const linkTimer = useSelector(Selectors.linkTimerSelect);
 
     const subUserAccess = useSelector(Selectors.subUserAccessSelect);
     const { AccountType = -1 } = subUserAccess;
-
-    const adFlag = useSelector(Selectors.advertisementSelect);
     // #endregion
 
     // #region UseState
@@ -156,9 +152,8 @@ function Index(props) {
 
     useEffect(() => {
         const timeout = setTimeout(() => {
-            if (adFlag) {
-                toggleAdModal();
-            }
+            toggleAdModal();
+
         }, 3000)
         return () => clearTimeout(timeout);
     }, []);
@@ -167,14 +162,9 @@ function Index(props) {
     const defaultScreen = (linkTimer > 0) ? "Device" : "Dashboard";
     // const defaultScreen = "Profile";
 
-    const closeAdModal = () => {
-        dispatch(Actions.onChangeAdvertisement(false));
-        setAdModal(_ => false);
-    }
-
     return (
         <>
-            <BcAdFullModal showModal={adFlag && adModal && !(showPsModal && AccountType == 2)} setShowModal={closeAdModal} />
+            <BcAdFullModal ParamKey={"Yatu_AdUrl"} showModal={adModal && !(showPsModal && AccountType == 2)} setShowModal={setAdModal} />
             <PayProSubModal showModal={showPsModal && AccountType == 2} setShowModal={setShowPsModal} />
             <BcTabNavigator
                 screens={TabScreens}

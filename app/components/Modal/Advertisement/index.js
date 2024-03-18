@@ -139,6 +139,8 @@ function useAdImgLs() {
 
 function Index(props) {
 
+    const { ParamKey = "Yatu_AdUrl" } = props;
+
     const [adLs, setAdLs] = useAdImgLs();
 
     useEffect(() => {
@@ -148,7 +150,7 @@ function Index(props) {
     const GetAdList = () => {
         fetchGetParamApi({
             param: {
-                ParamKey: "Yatu_AdUrl"
+                ParamKey: ParamKey
             },
             onSetLoading: () => { }
         })

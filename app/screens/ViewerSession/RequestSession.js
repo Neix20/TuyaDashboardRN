@@ -112,11 +112,11 @@ function HeaderRight(props) {
     };
 
     const images = [
-        { uri: Images.LinkDeviceI },
-        { uri: Images.LinkDeviceII },
-        { uri: Images.LinkDeviceIII },
-        { uri: Images.LinkDeviceIV },
-        { uri: Images.LinkDeviceV },
+        { uri: Images.ViewerSessionI },
+        { uri: Images.ViewerSessionII },
+        { uri: Images.ViewerSessionIII },
+        { uri: Images.ViewerSessionIV },
+        { uri: Images.ViewerSessionV },
     ];
 
     const addViewSession = () => {
@@ -552,7 +552,9 @@ function EmailModal(props) {
     const [email, setEmail] = useState("");
 
     const emailFlag = email.length > 0;
-    const clearEmail = () => setEmail(_ => "");
+    const clearEmail = () => {
+        setEmail(_ => "");
+    };
 
 
     const GenerateAccessCode = () => {

@@ -430,7 +430,7 @@ function IndexII(props) {
 
 	return (
 		<>
-			<TutorialModal showModal={tutModal} setShowModal={setTutModal} />
+			<TutorialModal noAnimation={true} showModal={tutModal} setShowModal={setTutModal} />
 			<VStack bgColor={"#FFF"} borderRadius={8} width={"90%"} alignItems={"center"}>
 				<TouchableOpacity onPress={GoToRequestViewerSession} style={{ width: "90%" }}>
 					<HStack alignItems={"center"} style={{ height: 60 }}>
