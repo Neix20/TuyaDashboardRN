@@ -414,9 +414,13 @@ function IndexII(props) {
 	const [tutModal, setTutModal, toggleTutModal] = useToggle(false);
 	// #endregion
 
+
 	useEffect(() => {
+		console.log(isFocused && viewSesTutorialSelect)
 		if (isFocused && viewSesTutorialSelect) {
-			setTutModal(_ => true)
+			setTimeout(() => {
+				setTutModal(true);
+			}, 500)
 		}
 	}, [isFocused])
 
@@ -430,7 +434,7 @@ function IndexII(props) {
 
 	return (
 		<>
-			<TutorialModal noAnimation={true} showModal={tutModal} setShowModal={setTutModal} />
+			<TutorialModal key={isFocused} noAnimation={false} showModal={tutModal} setShowModal={setTutModal} />
 			<VStack bgColor={"#FFF"} borderRadius={8} width={"90%"} alignItems={"center"}>
 				<TouchableOpacity onPress={GoToRequestViewerSession} style={{ width: "90%" }}>
 					<HStack alignItems={"center"} style={{ height: 60 }}>

@@ -13,7 +13,7 @@ import { BcYesNoModal, BcLoading, BcTooltip, BcSvgIcon, BcQrCamera, BcBoxShadow 
 
 import { useToggle } from "@hooks";
 
-import { fetchGetParamApi } from "@api";
+import { fetchGetParamApi, fetchGetTokenDeviceList } from "@api";
 import { Linking } from "react-native";
 
 import { useDispatch, useSelector } from 'react-redux';
@@ -179,24 +179,25 @@ function Index(props) {
     const readQrCode = (value) => {
         try {
             if (value.length > 0) {
-                GetParamApi(value);
+                GetDeviceToken(value);
             }
         } catch (error) {
 
         }
     }
 
-    const GetParamApi = (token) => {
+    const GetDeviceToken = (token) => {
         setLoading(true);
-        fetchGetParamApi({
+        fetchGetTokenDeviceList({
             param: {
-                ParamKey: token
+                UserId: userId,
+                TokenCode: token
             },
             onSetLoading: setLoading
         })
             .then(data => {
-                const { Content = {} } = data;
-                navigation.navigate("DeviceResult", Content);
+                // const { Content = {} } = data;
+                navigation.navigate("DeviceResult", data);
             })
             .catch(err => {
                 setLoading(false);

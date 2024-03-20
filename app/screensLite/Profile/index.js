@@ -42,7 +42,10 @@ function Header(props) {
                     justifyContent={"space-between"}
                     style={{ width: "90%" }}>
                     {/* Logo */}
-                    <BcSvgIcon name={"YatuLite"} size={80} color={color} />
+                    <HStack alignItems={"center"} space={3}>
+                        <BcSvgIcon name={"YatuLite"} size={80} color={Utility.getColor()} />
+                        <BcUserStatus />
+                    </HStack>
                 </HStack>
             </View>
         </BcBoxShadow>

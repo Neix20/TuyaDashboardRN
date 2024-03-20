@@ -53,6 +53,8 @@ function Index() {
                 dataset: dataset 
             };
             setChart(_ => next_state);
+        } else {
+            setChart([])
         }        
     }
 

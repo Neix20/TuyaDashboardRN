@@ -13,7 +13,7 @@ import { useNavigation, useIsFocused } from "@react-navigation/native";
 import { Logger, Utility } from "@utility";
 import { Images } from "@config";
 
-import { BcBoxShadow, BcLoading, BcPhotoGalleryModal, BcSvgIcon, BcYesNoModal, BcUserStatus, BcTooltip } from "@components";
+import { BcBoxShadow, BcLoading, BcPhotoGalleryModal, BcSvgIcon, BcYesNoModal, BcUserStatus, BcTooltip, BcUserStatus } from "@components";
 import { DisableDevice, DisableDeviceScreen, DisableDeviceItem } from "@components";
 
 import { fetchDeviceByUserII, fetchToggleFavoriteDevice, fetchLinkDeviceLite, fetchSubUserAccess } from "@api";

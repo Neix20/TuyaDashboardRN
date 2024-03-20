@@ -21,7 +21,7 @@ import { Actions, Selectors } from '@redux';
 import { fetchProfileInfo, fetchSubUserAccess, fetchDeleteAccount, fetchRestoreStorePurchase } from "@api";
 import { DisableDevice, DisableDeviceScreen, DisableDeviceItem } from "@components";
 
-import { BcLoading, BaseModal, BcYesNoModal, BcSessionPanel } from "@components";
+import { BcLoading, BaseModal, BcYesNoModal, BcSessionPanel, BcUserStatus } from "@components";
 import { BcBoxShadow, BcSvgIcon } from "@components";
 
 import { useToggle, useYatuIap } from "@hooks";
@@ -43,7 +43,10 @@ function Header(props) {
                     justifyContent={"space-between"}
                     style={{ width: "90%" }}>
                     {/* Logo */}
-                    <BcSvgIcon name={"YatuPro"} size={80} color={color} />
+                    <HStack alignItems={"center"} space={3}>
+                        <BcSvgIcon name={"YatuPro"} size={80} color={Utility.getColor()} />
+                        <BcUserStatus />
+                    </HStack>
                 </HStack>
             </View>
         </BcBoxShadow>

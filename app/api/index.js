@@ -126,6 +126,12 @@ import fetchGetStatusList from "./fetchGetStatusList";
 import fetchGetTariffRates from "./fetchGetTariffRates";
 import fetchDeleteViewerSession from "./fetchDeleteViewerSession";
 
+import fetchGetTokenDeviceList from "./fetchGetTokenDeviceList";
+
+export {
+    fetchGetTokenDeviceList
+}
+
 export {
     fetchGetStatusList,
     fetchGetTariffRates,

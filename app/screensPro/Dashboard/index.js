@@ -554,7 +554,7 @@ function Index(props) {
             ReportData();
             GetDeviceDistribution();
         }
-    }, [isFocused, JSON.stringify(startDt + endDt + prwsId)]);
+    }, [isFocused, startDt, endDt, prwsId, userId]);
     // #endregion
 
     // #region API

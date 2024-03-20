@@ -187,9 +187,9 @@ function Header(props) {
 
                     {/* Logo */}
                     <HStack alignItems={"center"} space={3}>
-                        <BcSvgIcon name={"Yatu"} size={80} color={Utility.getColor()} />
+                        <BcSvgIcon name={"YatuPro"} size={80} color={Utility.getColor()} />
                         <BcUserStatus />
-                    </HStack>
+                    </HStack> 
 
                     {/* Qr Scanner */}
                     <HStack alignItems={"flex-end"} space={2}>

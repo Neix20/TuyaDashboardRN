@@ -68,6 +68,8 @@ function Index(default_key) {
 
             const next_state = { label: label, dataset: _dataset };
             setChart(_ => next_state);
+        } else {
+            setChart({});
         }
     }
 

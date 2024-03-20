@@ -11,7 +11,7 @@ import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 import { Logger, Utility } from "@utility";
 import { Images, Svg } from "@config";
 
-import { BcHeader, BcLoading, BcBoxShadow, BcSvgIcon } from "@components";
+import { BcHeader, BcLoading, BcBoxShadow, BcSvgIcon, BcUserStatus } from "@components";
 import { DisableDevice, DisableDeviceScreenPro as DisableDeviceScreen, DisableDeviceItem } from "@components";
 
 import { fetchProfileWorkspace } from "@api";
@@ -94,8 +94,10 @@ function Header(props) {
                     style={{ width: "90%" }}>
 
                     {/* Logo */}
-                    {/* <BcYatuHome /> */}
-                    <BcSvgIcon name={"YatuPro"} size={80} color={Utility.getColor()} />
+                    <HStack alignItems={"center"} space={3}>
+                        <BcSvgIcon name={"YatuPro"} size={80} color={Utility.getColor()} />
+                        <BcUserStatus />
+                    </HStack>
 
                     {
                         (flag) ? (

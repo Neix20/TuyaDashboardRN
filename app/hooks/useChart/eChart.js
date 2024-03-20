@@ -77,6 +77,8 @@ function Index(default_key) {
             const _dataset = dataset.map(x => ({ name: x.name, data: x[chartKey] }));
             const next_state = { label: label, dataset: _dataset };
             setChart(_ => next_state);
+        } else {
+            setChart({})
         }
     }
 

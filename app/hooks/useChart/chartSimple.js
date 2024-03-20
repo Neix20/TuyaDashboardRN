@@ -67,7 +67,10 @@ function Index(onSetLoading = () => {}) {
                 dataset: dataset 
             };
             setChart(_ => next_state);
+        } else {
+            setChart([]);
         }
+
         onSetLoading(false);
     }
 

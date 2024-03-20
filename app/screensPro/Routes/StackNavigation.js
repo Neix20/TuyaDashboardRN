@@ -447,7 +447,7 @@ function Index(props) {
         getServerStatus();
         RequestAccess(userId);
 
-        // Setup for Getting Purchase History
+    // Setup for Getting Purchase History
         setup({ storekitMode: 'STOREKIT_HYBRID_MODE' });
 
         // Set Advertisement Flag True
