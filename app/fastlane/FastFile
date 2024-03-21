@@ -91,6 +91,8 @@ platform :android do
             track: 'internal', 
             aab: './../android/app/build/outputs/bundle/yatuRelease/app-yatu-release.aab', 
             package_name: "com.yatudashboard",
+            skip_upload_images: true,
+            skip_upload_screenshots: true,
             skip_upload_metadata: true, 
             skip_upload_apk: true
         )
@@ -117,6 +119,8 @@ platform :android do
             track: 'internal', 
             aab: './../android/app/build/outputs/bundle/yatuLiteRelease/app-yatuLite-release.aab', 
             package_name: "com.yatudashboard.lite",
+            skip_upload_images: true,
+            skip_upload_screenshots: true,
             skip_upload_metadata: true, 
             skip_upload_apk: true
         )   
@@ -143,6 +147,8 @@ platform :android do
             track: 'internal', 
             aab: './../android/app/build/outputs/bundle/yatuViewerRelease/app-yatuViewer-release.aab', 
             package_name: "com.yatudashboard.viewer",
+            skip_upload_images: true,
+            skip_upload_screenshots: true,
             skip_upload_metadata: true, 
             skip_upload_apk: true
         )

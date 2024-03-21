@@ -192,3 +192,11 @@
 - Fix: Color Opacity for App Variants
 - Fix: Update Landing Page on App Store for Yatu Pro
 - Fix: Enhanced Animation for Pop-Up Modal. Added User-Controls to switch between photo Gallery
+
+## 1.2.36
+
+- Feature: Enhance Scan Tokens Feature to have faster device retrieval
+- Feature: Added Viewer Session Tutorial Steps
+- Fix: Viewer Tutorial won't launch, after User has purchased premium Subscription
+- UI Enhancement: Added Pro Logo to Every Page
+- UI Enhancement: Update APK Landing Page

@@ -15,7 +15,7 @@
 
 ## 1.2.33
 
-- Fix: Camera QR Crashing after Scan QR Code
+- Fix: Camera QR Crashing after Scan QR Codex
 
 ## 1.2.34
 
@@ -25,3 +25,9 @@
 - Fix: Update Landing Page on App Store for Yatu Pro
 - Fix: Enhanced Animation for Pop-Up Modal. Added User-Controls to switch between photo Gallery
 
+## 1.2.36
+
+- Feature: Enhance Scan Tokens Feature to have faster device retrieval
+- Feature: Added Viewer Session Tutorial Steps
+- UI Enhancement: Added Lite Logo to Every Page
+- UI Enhancement: Update APK Landing Page
