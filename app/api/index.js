@@ -127,9 +127,11 @@ import fetchGetTariffRates from "./fetchGetTariffRates";
 import fetchDeleteViewerSession from "./fetchDeleteViewerSession";
 
 import fetchGetTokenDeviceList from "./fetchGetTokenDeviceList";
+import fetchMoveDeviceRulesSeq from "./fetchMoveDeviceRulesSeq";
 
 export {
-    fetchGetTokenDeviceList
+    fetchGetTokenDeviceList,
+    fetchMoveDeviceRulesSeq
 }
 
 export {

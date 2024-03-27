@@ -77,8 +77,8 @@ function Index(props) {
 
     return (
         <BcBoxShadow>
-            <View px={3} pb={2} bgColor={"#FFF"}
-                alignItems={"flex-end"} justifyContent={"flex-end"}
+            <View pb={2} bgColor={"#FFF"}
+                alignItems={"center"} justifyContent={"flex-end"}
                 style={{ height: 60 }}>
                 {/* Front Layer */}
                 <TouchableOpacity onPress={GoBack} style={style.leftBtn}>
@@ -87,17 +87,19 @@ function Index(props) {
                 <View style={style.titleDiv}>
                     <Text style={style.txtTitle}>{children}</Text>
                 </View>
-                {
-                    (flag) ? (
-                        <TouchableOpacity onPress={onSelect}>
-                            <RightChild />
-                        </TouchableOpacity>
-                    ) : (
-                        <BcDisable>
-                            <RightChild />
-                        </BcDisable>
-                    )
-                }
+                <View width={"90%"} alignItems={"flex-end"}>
+                    {
+                        (flag) ? (
+                            <TouchableOpacity onPress={onSelect}>
+                                <RightChild />
+                            </TouchableOpacity>
+                        ) : (
+                            <BcDisable>
+                                <RightChild />
+                            </BcDisable>
+                        )
+                    }
+                </View>
             </View>
         </BcBoxShadow>
     )

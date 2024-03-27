@@ -7,8 +7,8 @@ import { Svg } from "@config";
 const genDataset = (data = {}) => {
 
     let res = [];
-    const legends = Object.keys(data);
 
+    const legends = Object.keys(data);
     const svg_key = Object.keys(Svg["MetaData_Header"]);
 
     if (legends.length > 0) {
@@ -23,8 +23,10 @@ const genDataset = (data = {}) => {
             .map(x => DateTime.fromISO(x).toSeconds())
             .map(x => Math.floor(x * 1000));
 
+        // const keys = Object.keys(data[legends[0]][0])
+        //     .filter(x => svg_key.includes(x));
         const keys = Object.keys(data[legends[0]][0])
-            .filter(x => svg_key.includes(x));
+            .filter(x => !["Device_Id", "Timestamp"].includes(x));
 
         const dataset = [];
 
