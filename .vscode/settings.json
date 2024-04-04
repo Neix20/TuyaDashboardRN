@@ -26,5 +26,6 @@
         "activityBar.inactiveForeground": "#15202b99"
     },
     "peacock.color": "#83769C",
-    "svg.preview.background": "white"
+    "svg.preview.background": "white",
+    "git.ignoreLimitWarning": true
 }

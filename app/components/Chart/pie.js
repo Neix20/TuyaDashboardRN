@@ -7,7 +7,7 @@ import { useNavigation, useIsFocused } from "@react-navigation/native";
 import { Logger, Utility } from "@utility";
 
 import * as echarts from 'echarts/core';
-import { SVGRenderer, SkiaChart } from '@wuba/react-native-echarts';
+import { SvgChart, SVGRenderer, SkiaChart } from '@wuba/react-native-echarts';
 import { PieChart } from 'echarts/charts';
 import { TitleComponent, TooltipComponent, GridComponent, LegendComponent, ToolboxComponent, DataZoomComponent, DatasetComponent } from 'echarts/components';
 

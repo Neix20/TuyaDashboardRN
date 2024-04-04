@@ -250,7 +250,7 @@ function Index(props) {
 
     // #region Initital
     const init = {
-        svgLs: ["CardGradientRed", "CardGradientGreen", "CardGradientOrange", "CardGradientBlue"]
+        svgLs: []
     }
     // #endregion
 

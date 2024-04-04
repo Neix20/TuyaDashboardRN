@@ -914,7 +914,7 @@ function Index(props) {
         bgActive: "#FFF",
         bgInActive: "#EDEEEF",
         roomLs: ["All Devices", "Living Room", "Office", "Kitchen", "Master Bedroom", "Dining Room"],
-        imgLs: ["CardGradientRed", "CardGradientGreen", "CardGradientOrange", "CardGradientBlue"]
+        imgLs: []
     }
     // #endregion
 

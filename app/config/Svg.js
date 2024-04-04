@@ -7,13 +7,6 @@ import YatuLite from "@assets/svg/Yatu_Lite.svg";
 import YatuPro from "@assets/svg/Yatu_Pro.svg";
 import YatuViewer from "@assets/svg/Yatu_Viewer.svg";
 
-import CardGradientBlue from "@assets/svg/card_gradient_blue.svg";
-import CardGradientGreen from "@assets/svg/card_gradient_green.svg";
-import CardGradientGrey from "@assets/svg/card_gradient_grey.svg";
-import CardGradientOrange from "@assets/svg/card_gradient_orange.svg";
-import CardGradientPurple from "@assets/svg/card_gradient_purple.svg";
-import CardGradientRed from "@assets/svg/card_gradient_red.svg";
-
 import WhatsApp from "@assets/svg/WhatsApp.svg";
 import Envelope from "@assets/svg/Envelope.svg";
 import PhoneBook from "@assets/svg/PhoneBook.svg";
@@ -54,16 +47,6 @@ Data = {
     YatuPro: YatuPro,
     YatuViewer: YatuViewer,
 };
-
-Data = {
-    ...Data,
-    CardGradientBlue: CardGradientBlue,
-    CardGradientGreen: CardGradientGreen,
-    CardGradientGrey: CardGradientGrey,
-    CardGradientOrange: CardGradientOrange,
-    CardGradientPurple: CardGradientPurple,
-    CardGradientRed: CardGradientRed,
-}
 
 Data = {
     ...Data,

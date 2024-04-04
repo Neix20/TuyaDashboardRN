@@ -323,7 +323,7 @@ function Index(props) {
                     onChange={(e) => setQuesInd(e)}>
                     {
                         welcomeLs.map((obj, ind) => (
-                            <TabView.Item key={ind}>
+                            <TabView.Item>
                                 <Welcome qInd={ind}
                                     onSetAns={toggleAns}
                                     onNextTab={nextTab}

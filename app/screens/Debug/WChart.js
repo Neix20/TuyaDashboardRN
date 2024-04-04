@@ -1,16 +1,9 @@
 // Choose your preferred renderer
-// import { SkiaChart, SVGRenderer } from '@wuba/react-native-echarts';
-import { SvgChart, SVGRenderer } from '@wuba/react-native-echarts';
+import { SvgChart, SVGRenderer, SkiaChart } from '@wuba/react-native-echarts';
 import * as echarts from 'echarts/core';
 import { useRef, useEffect } from 'react';
-import {
-    BarChart,
-} from 'echarts/charts';
-import {
-    TitleComponent,
-    TooltipComponent,
-    GridComponent,
-} from 'echarts/components';
+import { BarChart, } from 'echarts/charts';
+import { TitleComponent, TooltipComponent, GridComponent, } from 'echarts/components';
 
 // Register extensions
 echarts.use([
@@ -43,8 +36,7 @@ function ChartComponent({ option }) {
     }, [option]);
 
     // Choose your preferred chart component
-    // return <SkiaChart ref={chartRef} />;
-    return <SvgChart ref={chartRef} />;
+    return <SkiaChart ref={chartRef} />;
 }
 
 // Component usage

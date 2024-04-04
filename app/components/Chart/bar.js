@@ -5,7 +5,7 @@ import { View, useToast } from "native-base";
 import { useNavigation, useIsFocused } from "@react-navigation/native";
 
 import * as echarts from 'echarts/core';
-import { SVGRenderer, SkiaChart } from '@wuba/react-native-echarts';
+import { SvgChart, SVGRenderer, SkiaChart } from '@wuba/react-native-echarts';
 import { LineChart, BarChart } from 'echarts/charts';
 
 import { TitleComponent, TooltipComponent, GridComponent, LegendComponent, ToolboxComponent, DataZoomComponent } from 'echarts/components';

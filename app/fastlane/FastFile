@@ -87,15 +87,15 @@ platform :android do
             }
         )
 
-        upload_to_play_store(
-            track: 'internal', 
-            aab: './../android/app/build/outputs/bundle/yatuRelease/app-yatu-release.aab', 
-            package_name: "com.yatudashboard",
-            skip_upload_images: true,
-            skip_upload_screenshots: true,
-            skip_upload_metadata: true, 
-            skip_upload_apk: true
-        )
+        # upload_to_play_store(
+        #     track: 'internal', 
+        #     aab: './../android/app/build/outputs/bundle/yatuRelease/app-yatu-release.aab', 
+        #     package_name: "com.yatudashboard",
+        #     skip_upload_images: true,
+        #     skip_upload_screenshots: true,
+        #     skip_upload_metadata: true, 
+        #     skip_upload_apk: true
+        # )
     end
 
     desc "Build Yatu Lite AAB"
@@ -115,15 +115,15 @@ platform :android do
             }
         )
 
-        upload_to_play_store(
-            track: 'internal', 
-            aab: './../android/app/build/outputs/bundle/yatuLiteRelease/app-yatuLite-release.aab', 
-            package_name: "com.yatudashboard.lite",
-            skip_upload_images: true,
-            skip_upload_screenshots: true,
-            skip_upload_metadata: true, 
-            skip_upload_apk: true
-        )   
+        # upload_to_play_store(
+        #     track: 'internal', 
+        #     aab: './../android/app/build/outputs/bundle/yatuLiteRelease/app-yatuLite-release.aab', 
+        #     package_name: "com.yatudashboard.lite",
+        #     skip_upload_images: true,
+        #     skip_upload_screenshots: true,
+        #     skip_upload_metadata: true, 
+        #     skip_upload_apk: true
+        # )   
     end
 
     desc "Build Yatu Viewer AAB"
@@ -143,15 +143,15 @@ platform :android do
             }
         )
 
-        upload_to_play_store(
-            track: 'internal', 
-            aab: './../android/app/build/outputs/bundle/yatuViewerRelease/app-yatuViewer-release.aab', 
-            package_name: "com.yatudashboard.viewer",
-            skip_upload_images: true,
-            skip_upload_screenshots: true,
-            skip_upload_metadata: true, 
-            skip_upload_apk: true
-        )
+        # upload_to_play_store(
+        #     track: 'internal', 
+        #     aab: './../android/app/build/outputs/bundle/yatuViewerRelease/app-yatuViewer-release.aab', 
+        #     package_name: "com.yatudashboard.viewer",
+        #     skip_upload_images: true,
+        #     skip_upload_screenshots: true,
+        #     skip_upload_metadata: true, 
+        #     skip_upload_apk: true
+        # )
     end
 
     desc "Build Yatu APK"
