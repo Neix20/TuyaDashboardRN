@@ -7,12 +7,15 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - name: Set up ruby env
+      - uses: actions/checkout@v3
+
+      - name: Set up ruby
         uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: 2.7.2
-          bundler-cache: true
- 
-      - name: Run tests
-        run: npm run fastlaneAndroid:YatuApk
+
+      - name: Setup Fastlane
+        working-directory: ./app  # <-- Make sure you have this
+        run: bundle install
+
+      - name: Run Fastlane
+        working-directory: ./app # <-- Make sure you have this
+        run: bundle exec fastlane android genYatuApk
