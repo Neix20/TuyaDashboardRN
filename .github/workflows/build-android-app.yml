@@ -16,4 +16,4 @@ jobs:
  
       - name: Run tests
         working-directory: ./app
-        run: cat ./fastlane/FastFile
+        run: bundle exec fastlane android genYatuApk
