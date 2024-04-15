@@ -15,4 +15,5 @@ jobs:
           bundler-cache: true
  
       - name: Run tests
-        run: cd app & fastlane android genYatuApk
+        working-directory: ./app
+        run: fastlane android genYatuApk
