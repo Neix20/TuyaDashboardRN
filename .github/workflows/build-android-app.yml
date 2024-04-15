@@ -15,5 +15,4 @@ jobs:
           bundler-cache: true
  
       - name: Run tests
-        working-directory: ./app
-        run: bundle exec fastlane android genYatuApk
+        run: npm run fastlaneAndroid:YatuApk
