@@ -16,7 +16,7 @@ import { Images } from "@config";
 import { BcBoxShadow, BcLoading, BcPhotoGalleryModal, BcSvgIcon, BcYesNoModal, BcUserStatus, BcTooltip } from "@components";
 import { DisableDevice, DisableDeviceItem } from "@components";
 
-import { fetchDeviceByUserII, fetchToggleFavoriteDevice, fetchLinkDeviceLite, fetchSubUserAccess, fetchGetDeviceByYatuSession } from "@api";
+import { fetchToggleFavoriteDevice, fetchLinkDeviceLite, fetchSubUserAccess, fetchGetDeviceByYatuSession } from "@api";
 
 import { useDispatch, useSelector } from 'react-redux';
 import { Actions, Selectors } from '@redux';

@@ -200,3 +200,9 @@
 - Fix: Viewer Tutorial won't launch, after User has purchased premium Subscription
 - UI Enhancement: Added Pro Logo to Every Page
 - UI Enhancement: Update APK Landing Page
+- Build: Reduce APK Bundle Size by 200%
+- UX Enhancement: Improve App Smooth Process
+
+## 1.2.39
+
+- Build: Reduce APK Bundle Size by 200%

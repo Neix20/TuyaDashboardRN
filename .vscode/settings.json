@@ -1,6 +1,7 @@
 {
     "files.exclude": {
-        "**/.yarn/cache": true
+        "**/.yarn/cache": true,
+        "**/.git": false,
     },
     "files.watcherExclude": {
         "**/.yarn/cache/**": true

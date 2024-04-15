@@ -313,15 +313,8 @@ function Index(props) {
 
                     {/* Background */}
                     <View flexGrow={1}>
-                        <View flex={.4}>
-                            <Image source={Images[init.svgLs[ind]]}
-                                style={{
-                                    width: "100%",
-                                    height: "100%"
-                                }}
-                                resizeMode="cover"
-                                alt={"Card Gradient"}
-                            />
+                        <View flex={.4} backgroundColor={"#000"}>
+                            
                         </View>
                     </View>
 
