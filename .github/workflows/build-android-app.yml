@@ -16,4 +16,4 @@ jobs:
  
       - name: Run tests
         working-directory: ./app
-        run: bundle exec fastlane env
+        run: cat ./fastlane/FastFile
