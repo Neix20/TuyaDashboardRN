@@ -15,8 +15,13 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
+      - uses: actions/setup-java@v1
+        with:
+          java-version: '11'
       - uses: actions/checkout@v1
       - name: Install dependencies
-        run: yarn install
+        run: |
+          yarn install
       - name: Build and ship
-        run: yarn fastlaneAndroid:YatuApk
+        run: |
+          yarn fastlaneAndroid:YatuApk
