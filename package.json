@@ -14,7 +14,8 @@
     "fastlaneAndroid:YatuViewerAab": "cd app && fastlane android genYatuViewerAab",
     "fastlaneIos:YatuIpa": "cd app && fastlane ios pushYatuToTestFlight",
     "fastlaneIos:YatuLiteIpa": "cd app && fastlane ios pushYatuLiteToTestFlight",
-    "fastlaneIos:YatuViewerIpa": "cd app && fastlane ios pushYatuViewerToTestFlight"
+    "fastlaneIos:YatuViewerIpa": "cd app && fastlane ios pushYatuViewerToTestFlight",
+    "fastlaneAndroid:YatuApk": "cd app && fastlane android genYatuApk"
   },
   "dependencies": {
     "@react-native-async-storage/async-storage": "^1.19.1",
